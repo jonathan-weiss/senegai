@@ -21,6 +21,7 @@ import {
 import {FieldWrapperComponent} from "@app/shared/form-controls/field-wrapper/field-wrapper.component";
 import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
+import {MatCheckbox} from "@angular/material/checkbox";
 
 @Component({
     selector: 'app-author-form-part',
@@ -47,6 +48,7 @@ import {MatNativeDateModule} from "@angular/material/core";
         MatDatepickerToggle,
         MatDatepicker,
         MatNativeDateModule,
+        MatCheckbox,
     ],
 })
 export class AuthorFormPartComponent {
@@ -86,6 +88,9 @@ export class AuthorFormPartComponent {
         return FormUtil.requiredFormControl(this.authorForm, "birthday");
     }
 
+    get vegetarianControl(): FormControl {
+        return FormUtil.requiredFormControl(this.authorForm, "vegetarian");
+    }
 
     onAuthorLibraryAwardFormGroupSelect(formGroup: FormGroup): void {
         this.authorLibraryAwardUnderEdit = formGroup;

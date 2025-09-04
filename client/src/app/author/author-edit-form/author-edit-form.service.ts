@@ -43,6 +43,7 @@ export class AuthorEditFormService {
             libraryAwardList: new FormArray([]),
             birthdayIsNotNull: new FormControl<boolean>(true),
             birthday: new FormControl<Date | null>(null),
+            vegetarian: new FormControl<boolean>(false),
         });
     }
 
@@ -72,6 +73,7 @@ export class AuthorEditFormService {
             FormUtil.requiredFormControl(form, "birthdayIsNotNull").patchValue(true);
             FormUtil.requiredFormControl(form, "birthday").patchValue(author.birthday);
         }
+        FormUtil.requiredFormControl(form, "vegetarian").patchValue(author.vegetarian);
 
     }
 
@@ -84,6 +86,7 @@ export class AuthorEditFormService {
             libraryAwardList: FormUtil.requiredFormArray(form, "libraryAwardList")
                 .controls.map(control => this.authorLibraryAwardEditFormService.createAuthorFromFormData(control)),
             birthday: FormUtil.requiredFormControl(form, "birthdayIsNotNull").value ? FormUtil.requiredFormControl(form, "birthday").value as Date : null,
+            vegetarian: FormUtil.requiredFormControl(form, "vegetarian").value as boolean,
         };
     }
 } 

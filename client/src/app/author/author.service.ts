@@ -25,10 +25,10 @@ import {Author} from "@app/author/author.model";
 @Injectable({providedIn: 'root'})
 export class AuthorService {
     private authors: Author[] = [
-        {id: 1, firstname: 'John', nickname: 'Johnny', lastname: 'Doe', libraryAwardList: [{description: "The award", year: 1956}, {description: "Publizer prize", year: 1989}], birthday: new Date(1979, 3, 23)},
-        {id: 2, firstname: 'Jane', nickname: 'Janey', lastname: 'Smith', libraryAwardList: [{description: "The award", year: 1956}, {description: "Publizer prize 2", year: 2023}], birthday: null},
-        {id: 3, firstname: 'Robert', nickname: null, lastname: 'Johnson', libraryAwardList: [{description: "The award", year: 1956}, {description: "Publizer prize", year: 1989}], birthday: new Date(1963, 11, 31)},
-        {id: 4, firstname: 'Mary', nickname: 'Molly', lastname: 'Williams', libraryAwardList: [{description: "The award", year: 1956}, {description: "Publizer prize", year: 2003}], birthday: new Date(1954, 8, 3)},
+        {id: 1, firstname: 'John', nickname: 'Johnny', lastname: 'Doe', libraryAwardList: [{description: "The award", year: 1956}, {description: "Publizer prize", year: 1989}], birthday: new Date(1979, 3, 23), vegetarian: false},
+        {id: 2, firstname: 'Jane', nickname: 'Janey', lastname: 'Smith', libraryAwardList: [{description: "The award", year: 1956}, {description: "Publizer prize 2", year: 2023}], birthday: null, vegetarian: false},
+        {id: 3, firstname: 'Robert', nickname: null, lastname: 'Johnson', libraryAwardList: [{description: "The award", year: 1956}, {description: "Publizer prize", year: 1989}], birthday: new Date(1963, 11, 31), vegetarian: true},
+        {id: 4, firstname: 'Mary', nickname: 'Molly', lastname: 'Williams', libraryAwardList: [{description: "The award", year: 1956}, {description: "Publizer prize", year: 2003}], birthday: new Date(1954, 8, 3), vegetarian: false},
     ];
 
     getAuthors(): Observable<Author[]> {

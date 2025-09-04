@@ -44,5 +44,6 @@ export interface Author {
     lastname: string;
     libraryAwardList: ReadonlyArray<AuthorLibraryAward>;
     birthday: Date | null;
+    vegetarian: boolean;
     /* @tt{{{ @slbc  @end-ignore-text }}}@ */
 }
