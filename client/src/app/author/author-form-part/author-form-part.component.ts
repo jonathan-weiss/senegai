@@ -19,6 +19,8 @@ import {
     AuthorLibraryAwardFormPartComponent
 } from "@app/author/author-items/author-library-award/author-library-award-form-part/author-library-award-form-part.component";
 import {FieldWrapperComponent} from "@app/shared/form-controls/field-wrapper/field-wrapper.component";
+import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
 
 @Component({
     selector: 'app-author-form-part',
@@ -41,6 +43,10 @@ import {FieldWrapperComponent} from "@app/shared/form-controls/field-wrapper/fie
         AuthorLibraryAwardsTableComponent,
         AuthorLibraryAwardFormPartComponent,
         FieldWrapperComponent,
+        MatDatepickerInput,
+        MatDatepickerToggle,
+        MatDatepicker,
+        MatNativeDateModule,
     ],
 })
 export class AuthorFormPartComponent {
@@ -71,6 +77,15 @@ export class AuthorFormPartComponent {
     get lastnameControl(): FormControl {
         return FormUtil.requiredFormControl(this.authorForm, "lastname");
     }
+
+    get birthdayIsNotNullControl(): FormControl {
+        return FormUtil.requiredFormControl(this.authorForm, "birthdayIsNotNull");
+    }
+
+    get birthdayControl(): FormControl {
+        return FormUtil.requiredFormControl(this.authorForm, "birthday");
+    }
+
 
     onAuthorLibraryAwardFormGroupSelect(formGroup: FormGroup): void {
         this.authorLibraryAwardUnderEdit = formGroup;

@@ -43,5 +43,6 @@ export interface Author {
     nickname: string | null;
     lastname: string;
     libraryAwardList: ReadonlyArray<AuthorLibraryAward>;
+    birthday: Date | null;
     /* @tt{{{ @slbc  @end-ignore-text }}}@ */
 }

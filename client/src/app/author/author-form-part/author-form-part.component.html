@@ -27,6 +27,18 @@
     </div>
 
     <div class="form-row">
+        <app-field-wrapper label="Nickname"
+                           [nullabilityCheckboxFormControl]="nicknameIsNotNullControl"
+                           [formGroupToDisableIfNullField]="nicknameControl"
+        >
+
+            <mat-form-field appearance="fill">
+                <input matInput [formControl]="nicknameControl" placeholder="Enter nickname">
+            </mat-form-field>
+        </app-field-wrapper>
+    </div>
+
+    <div class="form-row">
         <app-field-wrapper label="Last name">
             <mat-form-field appearance="fill">
                 <mat-label>Last Name</mat-label>
@@ -63,14 +75,17 @@
     </div>
 
     <div class="form-row">
-        <app-field-wrapper label="Nickname"
-                           [nullabilityCheckboxFormControl]="nicknameIsNotNullControl"
-                           [formGroupToDisableIfNullField]="nicknameControl"
+        <app-field-wrapper label="Birthday"
+                           [nullabilityCheckboxFormControl]="birthdayIsNotNullControl"
+                           [formGroupToDisableIfNullField]="birthdayControl"
         >
 
             <mat-form-field appearance="fill">
-                <input matInput [formControl]="nicknameControl" placeholder="Enter nickname">
+                <input matInput [matDatepicker]="authorBirthdayPicker" placeholder="Enter birthday" [formControl]="birthdayControl">
+                <mat-datepicker-toggle matSuffix [for]="authorBirthdayPicker"></mat-datepicker-toggle>
+                <mat-datepicker #authorBirthdayPicker></mat-datepicker>
             </mat-form-field>
         </app-field-wrapper>
     </div>
+
 </div>

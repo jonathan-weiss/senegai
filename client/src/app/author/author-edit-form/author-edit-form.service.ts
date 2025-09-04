@@ -35,12 +35,14 @@ export class AuthorEditFormService {
 
     public createEmptyForm(): FormGroup {
         return new FormGroup({
-            id: new FormControl({value: '', disabled: true}), // ID is readonly
-            firstname: new FormControl('', [Validators.required, Validators.minLength(2)]),
-            lastname: new FormControl('', [Validators.required, Validators.minLength(2)]),
-            nicknameIsNotNull: new FormControl(true),
-            nickname: new FormControl(''),
+            id: new FormControl<number>({value: 0, disabled: true}), // ID is readonly
+            firstname: new FormControl<string>('', [Validators.required, Validators.minLength(2)]),
+            lastname: new FormControl<string>('', [Validators.required, Validators.minLength(2)]),
+            nicknameIsNotNull: new FormControl<boolean>(true),
+            nickname: new FormControl<string | null>(null),
             libraryAwardList: new FormArray([]),
+            birthdayIsNotNull: new FormControl<boolean>(true),
+            birthday: new FormControl<Date | null>(null),
         });
     }
 
@@ -49,8 +51,9 @@ export class AuthorEditFormService {
         FormUtil.requiredFormControl(form, "firstname").patchValue(author.firstname);
         if(!author.nickname) {
             FormUtil.requiredFormControl(form, "nicknameIsNotNull").patchValue(false);
-            FormUtil.requiredFormControl(form, "nickname").patchValue("");
+            FormUtil.requiredFormControl(form, "nickname").patchValue(null);
         } else {
+            FormUtil.requiredFormControl(form, "nicknameIsNotNull").patchValue(true);
             FormUtil.requiredFormControl(form, "nickname").patchValue(author.nickname);
         }
         FormUtil.requiredFormControl(form, "lastname").patchValue(author.lastname);
@@ -61,6 +64,15 @@ export class AuthorEditFormService {
             this.authorLibraryAwardEditFormService.patchForm(formGroup, libraryAward);
             libraryAwardList.push(formGroup);
         })
+
+        if(!author.birthday) {
+            FormUtil.requiredFormControl(form, "birthdayIsNotNull").patchValue(false);
+            FormUtil.requiredFormControl(form, "birthday").patchValue(null);
+        } else {
+            FormUtil.requiredFormControl(form, "birthdayIsNotNull").patchValue(true);
+            FormUtil.requiredFormControl(form, "birthday").patchValue(author.birthday);
+        }
+
     }
 
     public createAuthorFromFormData(form: AbstractControl): Author {
@@ -71,6 +83,7 @@ export class AuthorEditFormService {
             lastname: FormUtil.requiredFormControl(form, "lastname").value as string,
             libraryAwardList: FormUtil.requiredFormArray(form, "libraryAwardList")
                 .controls.map(control => this.authorLibraryAwardEditFormService.createAuthorFromFormData(control)),
+            birthday: FormUtil.requiredFormControl(form, "birthdayIsNotNull").value ? FormUtil.requiredFormControl(form, "birthday").value as Date : null,
         };
     }
 } 
