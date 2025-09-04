@@ -1,0 +1,60 @@
+<!-- @tt{{{
+    @slbc
+
+    @template-renderer [ templateRendererClassName="ItemResultComponentHtml" templateRendererPackageName="senegai.codegen.renderer.angular" ]
+
+    @template-model [
+        modelClassName="ItemModel"
+        modelPackageName="senegai.codegen.renderer.model"
+        modelName="model"
+    ]
+
+    @replace-value-by-expression
+        [ searchValue="Author" replaceByExpression="model.itemName" ]
+        [ searchValue="author" replaceByExpression="model.itemNameLowercase" ]
+
+    @slac
+
+}}}@ --><div class="author-table-container">
+    <table mat-table [dataSource]="dataSource">
+        <!-- ID Column -->
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>ID</th>
+            <td mat-cell *matCellDef="let author">{{ author.id }}</td>
+        </ng-container>
+
+        <!-- Firstname Column -->
+        <ng-container matColumnDef="firstname">
+            <th mat-header-cell *matHeaderCellDef>Firstname</th>
+            <td mat-cell *matCellDef="let author">{{ author.firstname }}</td>
+        </ng-container>
+
+        <!-- Nickname Column -->
+        <ng-container matColumnDef="nickname">
+            <th mat-header-cell *matHeaderCellDef>Nickname</th>
+            <td mat-cell *matCellDef="let author">{{ author.nickname }}</td>
+        </ng-container>
+
+        <!-- Lastname Column -->
+        <ng-container matColumnDef="lastname">
+            <th mat-header-cell *matHeaderCellDef>Lastname</th>
+            <td mat-cell *matCellDef="let author">{{ author.lastname }}</td>
+        </ng-container>
+
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let author">
+                <button mat-icon-button color="primary" (click)="onEdit(author)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="onDelete(author)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div> 

@@ -1,0 +1,24 @@
+<mat-toolbar color="primary" class="app-toolbar">
+    <button mat-icon-button (click)="toggleSidenav()">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span>{{ title }}</span>
+    <span class="spacer"></span>
+    <a mat-icon-button href="https://github.com" target="_blank" aria-label="GitHub">
+        <mat-icon svgIcon="github"></mat-icon>
+    </a>
+</mat-toolbar>
+
+<mat-sidenav-container class="app-container">
+    <mat-sidenav mode="side" [opened]="sidenavOpened" class="app-sidenav">
+        <mat-nav-list>
+            <side-nav-link-list [sideNavLinks]="sideNavLinks"/>
+            <side-nav-link-list [sideNavLinks]="generatedSideNavLinks"/>
+            <side-nav-link-list [sideNavLinks]="otherSideNavLinks"/>
+        </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content class="app-content">
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container> 

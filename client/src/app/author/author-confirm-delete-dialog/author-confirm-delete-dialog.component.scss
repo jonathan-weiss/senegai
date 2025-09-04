@@ -1,0 +1,18 @@
+/* @tt{{{
+    @slbc
+
+    @template-renderer [ templateRendererClassName="ItemConfirmDeleteDialogComponentScss" templateRendererPackageName="senegai.codegen.renderer.angular" ]
+
+    @template-model [
+        modelClassName="ItemModel"
+        modelPackageName="senegai.codegen.renderer.model"
+        modelName="model"
+    ]
+
+    @replace-value-by-expression
+      [ searchValue="Author" replaceByExpression="model.itemName" ]
+      [ searchValue="author" replaceByExpression="model.itemNameLowercase" ]
+
+    @slac
+
+}}}@ */

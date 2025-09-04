@@ -1,0 +1,3 @@
+@for (sideNavLink of sideNavLinks; track sideNavLink.name) {
+    <side-nav-entry [routerLink]="sideNavLink.routeLink" [linkText]="sideNavLink.name" [iconName]="sideNavLink.icon"/>
+}

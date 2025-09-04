@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns="https://codeblessing.org/sourceamazing/sourceamazing-xml-schema" elementFormDefault="qualified" targetNamespace="https://codeblessing.org/sourceamazing/sourceamazing-xml-schema" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <!-- - - - - - - - -       CONCEPT IDENTIFIER ATTRIBUTE     - - - - - - - -->
+    <xsd:attributeGroup name="conceptIdentifierAttributeGroup">
+        <xsd:attribute name="conceptIdentifier" type="xsd:ID"/>
+    </xsd:attributeGroup>
+    <xsd:element name="conceptRef">
+        <xsd:complexType>
+            <xsd:attribute name="conceptIdentifierReference" type="xsd:IDREF"/>
+        </xsd:complexType>
+    </xsd:element>
+    <!-- - - - - - - - -       DEFINITIONS     - - - - - - - -->
+    <xsd:element name="sourceamazing">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="definitions">
+                    <xsd:complexType>
+                        <!-- - - - - - - - -       CONCEPTS     - - - - - - - -->
+                        <xsd:choice maxOccurs="unbounded" minOccurs="0">
+                            <xsd:element ref="itemConcept"/>
+                            <xsd:element ref="itemAttributeConcept"/>
+                            <xsd:element ref="itemAttributeBuiltinTypeConcept"/>
+                            <xsd:element ref="itemAttributeNestedItemTypeConcept"/>
+                        </xsd:choice>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <!-- - - - - - - - -       ALL CONCEPTS AS TYPES     - - - - - - - -->
+    <!-- - - - - - - - -       Concept: itemConcept     - - - - - - - -->
+    <xsd:element name="itemConcept" type="ItemConceptType"/>
+    <xsd:complexType name="ItemConceptType">
+        <xsd:all>
+            <!-- - - - - - - - -       Facet: ItemAttributesFacet     - - - - - - - -->
+            <xsd:element maxOccurs="1" minOccurs="1" name="itemAttributesFacet">
+                <xsd:complexType>
+                    <xsd:sequence maxOccurs="unbounded" minOccurs="1">
+                        <xsd:choice maxOccurs="1" minOccurs="1">
+                            <xsd:element name="itemAttributeConcept" type="ItemAttributeConceptType"/>
+                            <xsd:element ref="conceptRef"/>
+                        </xsd:choice>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:all>
+        <xsd:attributeGroup ref="conceptIdentifierAttributeGroup"/>
+        <!-- - - - - - - - -       Facet: ItemNameFacet     - - - - - - - -->
+        <xsd:attribute name="itemNameFacet" type="xsd:string" use="required"/>
+    </xsd:complexType>
+    <!-- - - - - - - - -       Concept: itemAttributeConcept     - - - - - - - -->
+    <xsd:element name="itemAttributeConcept" type="ItemAttributeConceptType"/>
+    <xsd:complexType name="ItemAttributeConceptType">
+        <xsd:attributeGroup ref="conceptIdentifierAttributeGroup"/>
+        <!-- - - - - - - - -       Facet: AttributeNameFacet     - - - - - - - -->
+        <xsd:attribute name="attributeNameFacet" type="xsd:string" use="required"/>
+        <!-- - - - - - - - -       Facet: AttributeTypeFacet     - - - - - - - -->
+        <xsd:attribute name="attributeTypeFacet" type="xsd:IDREF" use="required"/>
+    </xsd:complexType>
+    <!-- - - - - - - - -       Concept: itemAttributeBuiltinTypeConcept     - - - - - - - -->
+    <xsd:element name="itemAttributeBuiltinTypeConcept" type="ItemAttributeBuiltinTypeConceptType"/>
+    <xsd:complexType name="ItemAttributeBuiltinTypeConceptType">
+        <xsd:attributeGroup ref="conceptIdentifierAttributeGroup"/>
+        <!-- - - - - - - - -       Facet: BuiltInTypeFacet     - - - - - - - -->
+        <xsd:attribute name="builtInTypeFacet" use="required">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="STRING"/>
+                    <xsd:enumeration value="INTEGER"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
+    </xsd:complexType>
+    <!-- - - - - - - - -       Concept: itemAttributeNestedItemTypeConcept     - - - - - - - -->
+    <xsd:element name="itemAttributeNestedItemTypeConcept" type="ItemAttributeNestedItemTypeConceptType"/>
+    <xsd:complexType name="ItemAttributeNestedItemTypeConceptType">
+        <xsd:attributeGroup ref="conceptIdentifierAttributeGroup"/>
+        <!-- - - - - - - - -       Facet: NestedItemReferenceFacet     - - - - - - - -->
+        <xsd:attribute name="nestedItemReferenceFacet" type="xsd:IDREF" use="required"/>
+    </xsd:complexType>
+</xsd:schema>

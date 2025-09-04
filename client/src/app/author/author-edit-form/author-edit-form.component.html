@@ -1,0 +1,40 @@
+<!-- @tt{{{
+    @slbc
+
+    @template-renderer [ templateRendererClassName="ItemEditFormComponentHtml" templateRendererPackageName="senegai.codegen.renderer.angular" ]
+
+    @template-model [
+        modelClassName="ItemModel"
+        modelPackageName="senegai.codegen.renderer.model"
+        modelName="model"
+    ]
+
+    @replace-value-by-expression
+        [ searchValue="Author" replaceByExpression="model.itemName" ]
+        [ searchValue="author" replaceByExpression="model.itemNameLowercase" ]
+
+    @slac
+
+}}}@ -->
+<div class="edit-form-container">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title i18n>{{ author ? 'Edit Author' : 'New Author' }}</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+            <form [formGroup]="authorForm" (ngSubmit)="onSubmit()">
+                <app-author-form-part [authorForm]="authorForm" />
+
+                <div class="form-actions">
+                    <button mat-button type="button" (click)="onCancel()">
+                        Cancel
+                    </button>
+                    <button mat-raised-button color="primary" type="submit" [disabled]="!authorForm.valid">
+                        Save
+                    </button>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

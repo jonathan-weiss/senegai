@@ -1,0 +1,25 @@
+<!-- @tt{{{
+    @slbc
+
+    @template-renderer [ templateRendererClassName="ItemConfirmDeleteDialogComponentHtml" templateRendererPackageName="senegai.codegen.renderer.angular" ]
+
+    @template-model [
+        modelClassName="ItemModel"
+        modelPackageName="senegai.codegen.renderer.model"
+        modelName="model"
+    ]
+
+    @replace-value-by-expression
+        [ searchValue="Author" replaceByExpression="model.itemName" ]
+        [ searchValue="author" replaceByExpression="model.itemNameLowercase" ]
+
+    @slac
+
+}}}@ -->
+<h2 mat-dialog-title>Delete Author</h2>
+<mat-dialog-content><ng-container i18n>Are you sure you want to delete</ng-container> <b>{{ data.firstname }} {{ data.lastname }}</b>?
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()" i18n>Cancel</button>
+    <button mat-raised-button color="warn" (click)="onConfirm()" i18n>OK</button>
+</mat-dialog-actions>

@@ -1,0 +1,42 @@
+/* @tt{{{
+    @slbc
+
+    @template-renderer [ templateRendererClassName="ItemSearchComponentScss" templateRendererPackageName="senegai.codegen.renderer.angular" ]
+
+    @template-model [
+        modelClassName="ItemModel"
+        modelPackageName="senegai.codegen.renderer.model"
+        modelName="model"
+    ]
+
+    @replace-value-by-expression
+      [ searchValue="Author" replaceByExpression="model.itemName" ]
+      [ searchValue="author" replaceByExpression="model.itemNameLowercase" ]
+
+    @slac
+
+}}}@ */
+.search-card {
+  margin-bottom: 20px;
+}
+
+.search-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.search-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+
+  button {
+    min-width: 100px;
+  }
+}
+
+mat-form-field {
+  width: 100%;
+} 

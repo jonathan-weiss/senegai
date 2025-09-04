@@ -1,0 +1,5 @@
+<mat-form-field appearance="outline" style="width: 100%">
+    <mat-label>{{ label }}</mat-label>
+    <input matInput [formControlName]="controlName" [placeholder]="placeholder" [readonly]="readonly">
+    <ng-content></ng-content>
+</mat-form-field>

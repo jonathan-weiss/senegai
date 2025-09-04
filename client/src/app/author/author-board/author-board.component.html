@@ -1,0 +1,75 @@
+<!-- @tt{{{
+    @slbc
+
+    @template-renderer [ templateRendererClassName="ItemBoardComponentHtml" templateRendererPackageName="senegai.codegen.renderer.angular" ]
+
+    @template-model [
+        modelClassName="ItemModel"
+        modelPackageName="senegai.codegen.renderer.model"
+        modelName="model"
+    ]
+
+    @replace-value-by-expression
+        [ searchValue="Author" replaceByExpression="model.itemName" ]
+        [ searchValue="author" replaceByExpression="model.itemNameLowercase" ]
+
+    @slac
+
+}}}@ -->
+<div class="author-container">
+    <h2 i18n>Authors</h2>
+
+    <mat-accordion class="author-accordion" multi>
+        <!-- Search Panel -->
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <mat-icon>search</mat-icon>
+                    <ng-container i18n>Search Authors</ng-container>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <app-author-search (search)="onSearch($event)"></app-author-search>
+        </mat-expansion-panel>
+
+        <!-- Results Panel -->
+        <mat-expansion-panel expanded>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <mat-icon>list</mat-icon>
+                    <ng-container i18n>Author List</ng-container>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <app-author-result
+                    [searchCriteria]="currentSearchCriteria"
+                    (selectAuthor)="onAuthorSelect($event)"
+                    (deleteAuthor)="onDeleteAuthor($event)"
+                    [refreshKey]="refreshKey">
+            </app-author-result>
+        </mat-expansion-panel>
+
+        <!-- Edit Form Panel -->
+        <mat-expansion-panel
+                [expanded]="!!selectedAuthor"
+                [disabled]="!selectedAuthor">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <mat-icon>edit</mat-icon>
+                    <ng-container i18n>Edit Author</ng-container>
+                </mat-panel-title>
+                @if (selectedAuthor) {
+                    <mat-panel-description>
+                        {{ selectedAuthor.firstname }} {{ selectedAuthor.lastname }}
+                    </mat-panel-description>
+                }
+            </mat-expansion-panel-header>
+
+            @if (selectedAuthor) {
+                <app-author-edit-form
+                        [author]="selectedAuthor"
+                        (save)="onSave($event)"
+                        (cancel)="onCancel()">
+                </app-author-edit-form>
+            }
+        </mat-expansion-panel>
+    </mat-accordion>
+</div> 

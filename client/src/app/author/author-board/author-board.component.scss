@@ -1,0 +1,59 @@
+/* @tt{{{
+    @slbc
+
+    @template-renderer [ templateRendererClassName="ItemBoardComponentScss" templateRendererPackageName="senegai.codegen.renderer.angular" ]
+
+    @template-model [
+        modelClassName="ItemModel"
+        modelPackageName="senegai.codegen.renderer.model"
+        modelName="model"
+    ]
+
+    @replace-value-by-expression
+      [ searchValue="Author" replaceByExpression="model.itemName" ]
+      [ searchValue="author" replaceByExpression="model.itemNameLowercase" ]
+
+    @slac
+
+}}}@ */
+.author-container {
+  padding: 20px;
+
+  h2 {
+    margin-bottom: 20px;
+    color: rgba(0, 0, 0, 0.87);
+  }
+}
+
+.author-accordion {
+  .mat-expansion-panel {
+    margin-bottom: 16px;
+  }
+
+  .mat-expansion-panel-header {
+    mat-panel-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+
+  mat-icon {
+    margin-right: 8px;
+  }
+}
+
+::ng-deep .mat-expansion-panel-body {
+  padding: 16px 24px 24px !important;
+}
+
+.edit-form-section {
+  margin-top: 32px;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  padding-top: 24px;
+
+  h3 {
+    margin-bottom: 20px;
+    color: rgba(0, 0, 0, 0.87);
+  }
+} 

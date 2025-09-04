@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="5505637243815082364" datatype="html">
+        <source>Authors</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/author/author-board/author-board.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      <target>Autor</target></trans-unit>
+      <trans-unit id="5136746613444130980" datatype="html">
+        <source>Search Authors</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/author/author-board/author-board.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      <target>Suche Autor</target></trans-unit>
+      <trans-unit id="26769224108279931" datatype="html">
+        <source>Author List</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/author/author-board/author-board.component.html</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      <target>Autorenliste</target></trans-unit>
+      <trans-unit id="4173822897916447075" datatype="html">
+        <source>Edit Author</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/author/author-board/author-board.component.html</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+      <target>Autor bearbeiten</target></trans-unit>
+      <trans-unit id="6959007946276150686" datatype="html">
+        <source>Are you sure you want to delete</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/author/author-confirm-delete-dialog/author-confirm-delete-dialog.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      <target>Sind sie sicher das sie löschen wollen</target></trans-unit>
+      <trans-unit id="2159130950882492111" datatype="html">
+        <source>Cancel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/author/author-confirm-delete-dialog/author-confirm-delete-dialog.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      <target>Abbrechen</target></trans-unit>
+      <trans-unit id="8998179362936748717" datatype="html">
+        <source>OK</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/author/author-confirm-delete-dialog/author-confirm-delete-dialog.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      <target>OK</target></trans-unit>
+      <trans-unit id="187187500641108332" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ author ? 'Edit Author' : 'New Author' }}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/author/author-edit-form/author-edit-form.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      <target>-</target></trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -1,0 +1,76 @@
+<div [formGroup]="authorForm">
+    <div class="form-row">
+        <app-field-wrapper label="ID">
+            <mat-form-field appearance="fill">
+                <input matInput [formControl]="idControl" readonly>
+                <mat-hint>ID cannot be modified</mat-hint>
+            </mat-form-field>
+        </app-field-wrapper>
+    </div>
+
+    <div class="form-row">
+        <app-field-wrapper label="First name">
+            <mat-form-field appearance="fill">
+                <input matInput [formControl]="firstnameControl" placeholder="Enter first name">
+                @if (hasError('firstname', 'required')) {
+                    <mat-error>
+                        First name is required
+                    </mat-error>
+                }
+                @if (hasError('firstname', 'minlength')) {
+                    <mat-error>
+                        First name must be at least 2 characters
+                    </mat-error>
+                }
+            </mat-form-field>
+        </app-field-wrapper>
+    </div>
+
+    <div class="form-row">
+        <app-field-wrapper label="Last name">
+            <mat-form-field appearance="fill">
+                <mat-label>Last Name</mat-label>
+                <input matInput [formControl]="lastnameControl" placeholder="Enter last name">
+                @if (hasError('lastname', 'required')) {
+                    <mat-error>
+                        Last name is required
+                    </mat-error>
+                }
+                @if (hasError('lastname', 'minlength')) {
+                    <mat-error>
+                        Last name must be at least 2 characters
+                    </mat-error>
+                }
+
+            </mat-form-field>
+        </app-field-wrapper>
+    </div>
+
+    <div class="form-row">
+        <app-field-wrapper label="Library Awards">
+            <app-author-library-awards-table
+                    [authorLibraryAwardFormArray]="authorLibraryAwardFormArray"
+                    (selectAuthorLibraryAwardFormGroup)="onAuthorLibraryAwardFormGroupSelect($event)"
+                    (deleteAuthorLibraryAwardFormGroup)="onAuthorLibraryAwardFormGroupDelete($event)"
+            />
+            @if (authorLibraryAwardUnderEdit) {
+                <button mat-icon-button color="primary" (click)="closeAuthorLibraryAwardUnderEdit()">
+                    <mat-icon>close</mat-icon>
+                </button>
+                <app-author-library-award-form-part [authorLibraryAwardForm]="authorLibraryAwardUnderEdit!"  />
+            }
+        </app-field-wrapper>
+    </div>
+
+    <div class="form-row">
+        <app-field-wrapper label="Nickname"
+                           [nullabilityCheckboxFormControl]="nicknameIsNotNullControl"
+                           [formGroupToDisableIfNullField]="nicknameControl"
+        >
+
+            <mat-form-field appearance="fill">
+                <input matInput [formControl]="nicknameControl" placeholder="Enter nickname">
+            </mat-form-field>
+        </app-field-wrapper>
+    </div>
+</div>
