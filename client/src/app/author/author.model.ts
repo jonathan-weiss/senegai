@@ -19,6 +19,7 @@
 
 /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
 import {AuthorLibraryAward} from "@app/author/author-items/author-library-award/author-library-award.model";
+import {GenderEnum} from "@app/author/gender.enum";
 /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 
 /**
@@ -42,6 +43,7 @@ export interface Author {
     }}}@ */
     nickname: string | null;
     lastname: string;
+    gender: GenderEnum;
     libraryAwardList: ReadonlyArray<AuthorLibraryAward>;
     birthday: Date | null;
     vegetarian: boolean;

@@ -9,6 +9,20 @@
     </div>
 
     <div class="form-row">
+        <app-field-wrapper label="Gender">
+            <mat-form-field appearance="fill">
+                <mat-select [formControl]="genderControl">
+                    @for (gender of genderList; track gender) {
+                        <mat-option [value]="gender">
+                            <app-gender-i18n [enumValue]="gender" />
+                        </mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+        </app-field-wrapper>
+    </div>
+
+    <div class="form-row">
         <app-field-wrapper label="First name">
             <mat-form-field appearance="fill">
                 <input matInput [formControl]="firstnameControl" placeholder="Enter first name">

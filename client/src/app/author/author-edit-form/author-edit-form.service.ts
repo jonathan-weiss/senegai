@@ -27,6 +27,7 @@ import {FormUtil} from "@app/shared/form-controls/form.util";
 import {
     AuthorLibraryAwardEditFormService
 } from "@app/author/author-items/author-library-award/author-library-award-form-part/author-library-award-edit-form.service";
+import {GenderEnum} from "@app/author/gender.enum";
 
 @Injectable({providedIn: 'root'})
 export class AuthorEditFormService {
@@ -44,6 +45,7 @@ export class AuthorEditFormService {
             birthdayIsNotNull: new FormControl<boolean>(true),
             birthday: new FormControl<Date | null>(null),
             vegetarian: new FormControl<boolean>(false),
+            gender: new FormControl<GenderEnum>(GenderEnum.FEMALE),
         });
     }
 
@@ -74,6 +76,7 @@ export class AuthorEditFormService {
             FormUtil.requiredFormControl(form, "birthday").patchValue(author.birthday);
         }
         FormUtil.requiredFormControl(form, "vegetarian").patchValue(author.vegetarian);
+        FormUtil.requiredFormControl(form, "gender").patchValue(author.gender);
 
     }
 
@@ -87,6 +90,7 @@ export class AuthorEditFormService {
                 .controls.map(control => this.authorLibraryAwardEditFormService.createAuthorFromFormData(control)),
             birthday: FormUtil.requiredFormControl(form, "birthdayIsNotNull").value ? FormUtil.requiredFormControl(form, "birthday").value as Date : null,
             vegetarian: FormUtil.requiredFormControl(form, "vegetarian").value as boolean,
+            gender: FormUtil.requiredFormControl(form, "gender").value as GenderEnum,
         };
     }
 } 

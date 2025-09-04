@@ -21,14 +21,51 @@ import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {delay} from 'rxjs/operators';
 import {Author} from "@app/author/author.model";
+import {GenderEnum} from "@app/author/gender.enum";
 
 @Injectable({providedIn: 'root'})
 export class AuthorService {
     private authors: Author[] = [
-        {id: 1, firstname: 'John', nickname: 'Johnny', lastname: 'Doe', libraryAwardList: [{description: "The award", year: 1956}, {description: "Publizer prize", year: 1989}], birthday: new Date(1979, 3, 23), vegetarian: false},
-        {id: 2, firstname: 'Jane', nickname: 'Janey', lastname: 'Smith', libraryAwardList: [{description: "The award", year: 1956}, {description: "Publizer prize 2", year: 2023}], birthday: null, vegetarian: false},
-        {id: 3, firstname: 'Robert', nickname: null, lastname: 'Johnson', libraryAwardList: [{description: "The award", year: 1956}, {description: "Publizer prize", year: 1989}], birthday: new Date(1963, 11, 31), vegetarian: true},
-        {id: 4, firstname: 'Mary', nickname: 'Molly', lastname: 'Williams', libraryAwardList: [{description: "The award", year: 1956}, {description: "Publizer prize", year: 2003}], birthday: new Date(1954, 8, 3), vegetarian: false},
+        {
+            id: 1,
+            firstname: 'John',
+            nickname: 'Johnny',
+            lastname: 'Doe',
+            libraryAwardList: [{description: "The award", year: 1956}, {description: "Publizer prize", year: 1989}],
+            birthday: new Date(1979, 3, 23),
+            vegetarian: false,
+            gender: GenderEnum.MALE,
+        },
+        {
+            id: 2,
+            firstname: 'Jane',
+            nickname: 'Janey',
+            lastname: 'Smith',
+            libraryAwardList: [{description: "The award", year: 1956}, {description: "Publizer prize 2", year: 2023}],
+            birthday: null,
+            vegetarian: false,
+            gender: GenderEnum.FEMALE,
+        },
+        {
+            id: 3,
+            firstname: 'Robert',
+            nickname: null,
+            lastname: 'Johnson',
+            libraryAwardList: [{description: "The award", year: 1956}, {description: "Publizer prize", year: 1989}],
+            birthday: new Date(1963, 11, 31),
+            vegetarian: true,
+            gender: GenderEnum.MALE,
+        },
+        {
+            id: 4,
+            firstname: 'Mary',
+            nickname: 'Molly',
+            lastname: 'Williams',
+            libraryAwardList: [{description: "The award", year: 1956}, {description: "Publizer prize", year: 2003}],
+            birthday: new Date(1954, 8, 3),
+            vegetarian: false,
+            gender: GenderEnum.FEMALE,
+        },
     ];
 
     getAuthors(): Observable<Author[]> {

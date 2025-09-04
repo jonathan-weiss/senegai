@@ -20,8 +20,11 @@ import {
 } from "@app/author/author-items/author-library-award/author-library-award-form-part/author-library-award-form-part.component";
 import {FieldWrapperComponent} from "@app/shared/form-controls/field-wrapper/field-wrapper.component";
 import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/material/datepicker";
-import {MatNativeDateModule} from "@angular/material/core";
+import {MatNativeDateModule, MatOption} from "@angular/material/core";
 import {MatCheckbox} from "@angular/material/checkbox";
+import {MatSelect} from "@angular/material/select";
+import {GenderEnum, GenderEnumValues} from "@app/author/gender.enum";
+import {GenderI18nComponent} from "@app/author/gender-i18n/gender-i18n.component";
 
 @Component({
     selector: 'app-author-form-part',
@@ -49,6 +52,9 @@ import {MatCheckbox} from "@angular/material/checkbox";
         MatDatepicker,
         MatNativeDateModule,
         MatCheckbox,
+        MatSelect,
+        MatOption,
+        GenderI18nComponent,
     ],
 })
 export class AuthorFormPartComponent {
@@ -91,6 +97,12 @@ export class AuthorFormPartComponent {
     get vegetarianControl(): FormControl {
         return FormUtil.requiredFormControl(this.authorForm, "vegetarian");
     }
+
+    get genderControl(): FormControl {
+        return FormUtil.requiredFormControl(this.authorForm, "gender");
+    }
+
+    protected genderList = GenderEnumValues
 
     onAuthorLibraryAwardFormGroupSelect(formGroup: FormGroup): void {
         this.authorLibraryAwardUnderEdit = formGroup;
