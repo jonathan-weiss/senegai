@@ -1,7 +1,15 @@
+@use '@angular/material' as mat;
+
 .form-row {
   margin-bottom: 20px;
 
   mat-form-field {
     width: 100%;
   }
+}
+
+.edit-area {
+  border-left-color: darkgrey;
+  border-left-width: 1px;
+  border-left-style: solid;
 }

@@ -104,7 +104,7 @@ export class AuthorFormPartComponent {
 
     protected genderList = GenderEnumValues
 
-    onAuthorLibraryAwardFormGroupSelect(formGroup: FormGroup): void {
+    onAuthorLibraryAwardFormGroupEdit(formGroup: FormGroup): void {
         this.authorLibraryAwardUnderEdit = formGroup;
     }
 

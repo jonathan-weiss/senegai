@@ -61,13 +61,15 @@ import {
 })
 export class AuthorLibraryAwardTableComponent implements OnInit {
     @Input({ required: true }) authorLibraryAwardFormArray!: FormArray;
-    @Output() selectAuthorLibraryAwardFormGroup = new EventEmitter<FormGroup>();
+    @Output() editAuthorLibraryAwardFormGroup = new EventEmitter<FormGroup>();
     @Output() deleteAuthorLibraryAwardFormGroup = new EventEmitter<FormGroup>();
 
     displayedColumns: string[] = ['description', 'year', 'actions'];
     dataSource: MatTableDataSource<AbstractControl> = new MatTableDataSource<AbstractControl>();
 
     isInlineEditingMode: boolean = false;
+
+    selectedFormGroup: FormGroup | undefined = undefined;
 
     constructor(private readonly authorLibraryAwardEditFormService: AuthorLibraryAwardEditFormService) {
     }
@@ -87,12 +89,25 @@ export class AuthorLibraryAwardTableComponent implements OnInit {
 
     onAdd(): void {
         const newEntry = this.authorLibraryAwardEditFormService.createEmptyForm()
-        this.authorLibraryAwardFormArray.push(newEntry)
+        const indexOfSelected = this.selectedFormGroup ? this.authorLibraryAwardFormArray.controls.indexOf(this.selectedFormGroup) : -1
+        if(indexOfSelected !== -1) {
+            this.authorLibraryAwardFormArray.insert(indexOfSelected + 1, newEntry)
+        } else {
+            this.authorLibraryAwardFormArray.push(newEntry)
+        }
+        this.editAuthorLibraryAwardFormGroup.emit(newEntry);
     }
 
+    onSelect(authorLibraryAwardFormGroup: FormGroup): void {
+        this.selectedFormGroup = authorLibraryAwardFormGroup
+    }
+
+    isSelected(authorLibraryAwardFormGroup: FormGroup): boolean {
+        return this.selectedFormGroup == authorLibraryAwardFormGroup
+    }
 
     onEdit(authorLibraryAwardFormGroup: FormGroup): void {
-        this.selectAuthorLibraryAwardFormGroup.emit(authorLibraryAwardFormGroup);
+        this.editAuthorLibraryAwardFormGroup.emit(authorLibraryAwardFormGroup);
     }
 
     onDelete(authorLibraryAwardFormGroup: FormGroup): void {
