@@ -1,0 +1,32 @@
+<div class="table-container">
+    <div class="action-bar">
+        <button mat-button color="primary" (click)="onAdd()">
+            <mat-icon>add</mat-icon> Add item...
+        </button>
+
+    </div>
+    <table mat-table [dataSource]="dataSource">
+        <!-- Description Column -->
+        <ng-container matColumnDef="jury">
+            <th mat-header-cell *matHeaderCellDef>Jury</th>
+            <td mat-cell *matCellDef="let juryControl" (click)="onSelect(juryControl)">
+                <mat-form-field appearance="outline">
+                    <input matInput [formControl]="juryControl" placeholder="Description">
+                </mat-form-field>
+            </td>
+        </ng-container>
+
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let juryControl">
+                <button mat-icon-button color="warn" (click)="onDelete(juryControl)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" [class.selectedRow] = "isSelected(row)"></tr>
+    </table>
+</div> 

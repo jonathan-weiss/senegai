@@ -18,7 +18,7 @@
 
 }}}@ */
 import {Component, Input} from '@angular/core';
-import {AbstractControl, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {AbstractControl, FormArray, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from "@angular/material/button";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatTableModule} from "@angular/material/table";
@@ -32,6 +32,12 @@ import {MatListModule} from "@angular/material/list";
 import {MatDialogModule} from "@angular/material/dialog";
 import {FieldWrapperComponent} from "@app/shared/form-controls/field-wrapper/field-wrapper.component";
 import {FormUtil} from "@app/shared/form-controls/form.util";
+import {
+    AuthorLibraryAwardTableComponent
+} from "@app/author/author-form/author-library-award-table/author-library-award-table.component";
+import {
+    AuthorLibraryAwardJuryTableComponent
+} from "@app/author/author-form/author-library-award-jury-table/author-library-award-jury-table.component";
 
 @Component({
     selector: 'app-author-library-award-form-part',
@@ -52,6 +58,8 @@ import {FormUtil} from "@app/shared/form-controls/form.util";
         MatListModule,
         MatDialogModule,
         FieldWrapperComponent,
+        AuthorLibraryAwardTableComponent,
+        AuthorLibraryAwardJuryTableComponent,
 
     ],
 })
@@ -64,6 +72,10 @@ export class AuthorLibraryAwardFormPartComponent {
 
     get yearFormControl(): FormControl {
         return FormUtil.requiredFormControl(this.authorLibraryAwardForm, "year");
+    }
+
+    get juryListFormArray(): FormArray {
+        return FormUtil.requiredFormArray(this.authorLibraryAwardForm, "juryList");
     }
 
     hasError(controlName: string, errorName: string): boolean {
