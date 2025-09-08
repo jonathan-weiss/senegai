@@ -31,7 +31,18 @@ export class AuthorService {
             firstname: 'John',
             nickname: 'Johnny',
             lastname: 'Doe',
-            libraryAwardList: [{description: "The award", year: 1956}, {description: "Publizer prize", year: 1989}],
+            libraryAwardList: [
+                {
+                    description: "ALA Medal of Excellence.",
+                    year: 1956,
+                    juryList: ["Elisabeth Smith", "Aaron Glasgow", "James Duroldi"]
+                },
+                {
+                    description: "Joseph W. Lippincott Award",
+                    year: 1989,
+                    juryList: ["Peter Booker"]
+                }
+            ],
             birthday: new Date(1979, 3, 23),
             vegetarian: false,
             gender: GenderEnum.MALE,
@@ -41,7 +52,18 @@ export class AuthorService {
             firstname: 'Jane',
             nickname: 'Janey',
             lastname: 'Smith',
-            libraryAwardList: [{description: "The award", year: 1956}, {description: "Publizer prize 2", year: 2023}],
+            libraryAwardList: [
+                {
+                    description: "James Madison Award ",
+                    year: 1956,
+                    juryList: ["Elisabeth Smith", "Aaron Glasgow", "James Duroldi"]
+                },
+                {
+                    description: "John Sessions Memorial Award",
+                    year: 1998,
+                    juryList: ["Elisabeth Smith", "Aaron Glasgow", "James Duroldi"]
+                }
+            ],
             birthday: null,
             vegetarian: false,
             gender: GenderEnum.FEMALE,
@@ -51,7 +73,7 @@ export class AuthorService {
             firstname: 'Robert',
             nickname: null,
             lastname: 'Johnson',
-            libraryAwardList: [{description: "The award", year: 1956}, {description: "Publizer prize", year: 1989}],
+            libraryAwardList: [],
             birthday: new Date(1963, 11, 31),
             vegetarian: true,
             gender: GenderEnum.MALE,
@@ -61,7 +83,18 @@ export class AuthorService {
             firstname: 'Mary',
             nickname: 'Molly',
             lastname: 'Williams',
-            libraryAwardList: [{description: "The award", year: 1956}, {description: "Publizer prize", year: 2003}],
+            libraryAwardList: [
+                {
+                    description: "Jean E. Coleman Library Outreach Lecture",
+                    year: 1956,
+                    juryList: ["W.Y. Boyd", "Beta Phi", "Joseph Lippincott"]
+                },
+                {
+                    description: "John Sessions Memorial Award",
+                    year: 1998,
+                    juryList: ["Justin Windsor", "Edward Swandson", "May Hill"]
+                }
+            ],
             birthday: new Date(1954, 8, 3),
             vegetarian: false,
             gender: GenderEnum.FEMALE,
