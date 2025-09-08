@@ -34,7 +34,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
-import {AuthorEditFormComponent} from "@app/author/author-edit-form/author-edit-form.component";
+import {AuthorFormComponent} from "@app/author/author-form/author-form/author-form.component";
 import {Author} from "@app/author/author.model";
 
 @Component({
@@ -57,7 +57,7 @@ import {Author} from "@app/author/author.model";
         MatDialogModule,
         AuthorSearchComponent,
         AuthorResultComponent,
-        AuthorEditFormComponent,
+        AuthorFormComponent,
     ],
 })
 export class AuthorBoardComponent {

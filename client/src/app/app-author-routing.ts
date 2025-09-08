@@ -21,7 +21,7 @@ import {Routes} from '@angular/router';
 }}}@  */
 
 import {AuthorBoardComponent} from './author/author-board/author-board.component';
-import {AuthorEditFormComponent} from './author/author-edit-form/author-edit-form.component';
+import {AuthorFormComponent} from '@app/author/author-form/author-form/author-form.component';
 /* @tt{{{
     @slbc
     @end-foreach
@@ -45,7 +45,7 @@ export const AUTHOR_ROUTES: Routes = [
     @foreach [ iteratorExpression="model.allItems" loopVariable="item" ]
 }}}@  */
     {path: 'author-board', component: AuthorBoardComponent},
-    {path: 'author-board/edit/:id', component: AuthorEditFormComponent},
+    {path: 'author-board/edit/:id', component: AuthorFormComponent},
 /* @tt{{{
     @slbc
     @end-foreach

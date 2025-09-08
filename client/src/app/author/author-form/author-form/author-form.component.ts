@@ -31,13 +31,13 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {MatDialogModule} from "@angular/material/dialog";
 import {Author} from "@app/author/author.model";
-import {AuthorEditFormService} from "@app/author/author-edit-form/author-edit-form.service";
-import {AuthorFormPartComponent} from "@app/author/author-form-part/author-form-part.component";
+import {AuthorEditFormService} from "@app/author/author-form/author-edit-form.service";
+import {AuthorFormPartComponent} from "@app/author/author-form/author-form-part/author-form-part.component";
 
 @Component({
-    selector: 'app-author-edit-form',
-    templateUrl: './author-edit-form.component.html',
-    styleUrls: ['./author-edit-form.component.scss'],
+    selector: 'app-author-form',
+    templateUrl: './author-form.component.html',
+    styleUrls: ['./author-form.component.scss'],
     standalone: true,
     imports: [
         ReactiveFormsModule,
@@ -55,7 +55,7 @@ import {AuthorFormPartComponent} from "@app/author/author-form-part/author-form-
         AuthorFormPartComponent,
     ],
 })
-export class AuthorEditFormComponent implements OnInit {
+export class AuthorFormComponent implements OnInit {
     @Input() author: Author | null = null;
     @Output() save = new EventEmitter<Author>();
     @Output() cancel = new EventEmitter<void>();

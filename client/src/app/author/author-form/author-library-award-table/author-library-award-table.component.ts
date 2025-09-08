@@ -32,15 +32,15 @@ import {MatListModule} from "@angular/material/list";
 import {MatDialogModule} from "@angular/material/dialog";
 import {FormUtil} from "@app/shared/form-controls/form.util";
 import {MatSlideToggle, MatSlideToggleChange} from "@angular/material/slide-toggle";
-import {AuthorEditFormService} from "@app/author/author-edit-form/author-edit-form.service";
+import {AuthorEditFormService} from "@app/author/author-form/author-edit-form.service";
 import {
     AuthorLibraryAwardEditFormService
-} from "@app/author/author-items/author-library-award/author-library-award-form-part/author-library-award-edit-form.service";
+} from "@app/author/author-form/author-library-award-form-part/author-library-award-edit-form.service";
 
 @Component({
-    selector: 'app-author-library-awards-table',
-    templateUrl: './author-library-awards-table.component.html',
-    styleUrls: ['./author-library-awards-table.component.scss'],
+    selector: 'app-author-library-award-table',
+    templateUrl: './author-library-award-table.component.html',
+    styleUrls: ['./author-library-award-table.component.scss'],
     standalone: true,
     imports: [
         ReactiveFormsModule,
@@ -59,7 +59,7 @@ import {
     ],
 
 })
-export class AuthorLibraryAwardsTableComponent implements OnInit {
+export class AuthorLibraryAwardTableComponent implements OnInit {
     @Input({ required: true }) authorLibraryAwardFormArray!: FormArray;
     @Output() selectAuthorLibraryAwardFormGroup = new EventEmitter<FormGroup>();
     @Output() deleteAuthorLibraryAwardFormGroup = new EventEmitter<FormGroup>();

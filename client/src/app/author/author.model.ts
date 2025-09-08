@@ -18,7 +18,7 @@
 }}}@ */
 
 /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-import {AuthorLibraryAward} from "@app/author/author-items/author-library-award/author-library-award.model";
+import {AuthorLibraryAward} from "@app/author/author-library-award.model";
 import {GenderEnum} from "@app/author/gender.enum";
 /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 

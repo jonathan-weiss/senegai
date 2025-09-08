@@ -13,11 +13,11 @@ import {MatListModule} from "@angular/material/list";
 import {MatDialogModule} from "@angular/material/dialog";
 import {FormUtil} from "@app/shared/form-controls/form.util";
 import {
-    AuthorLibraryAwardsTableComponent
-} from "@app/author/author-fields/author-library-awards-table/author-library-awards-table.component";
+    AuthorLibraryAwardTableComponent
+} from "@app/author/author-form/author-library-award-table/author-library-award-table.component";
 import {
     AuthorLibraryAwardFormPartComponent
-} from "@app/author/author-items/author-library-award/author-library-award-form-part/author-library-award-form-part.component";
+} from "@app/author/author-form/author-library-award-form-part/author-library-award-form-part.component";
 import {FieldWrapperComponent} from "@app/shared/form-controls/field-wrapper/field-wrapper.component";
 import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/material/datepicker";
 import {MatNativeDateModule, MatOption} from "@angular/material/core";
@@ -44,7 +44,7 @@ import {GenderI18nComponent} from "@app/author/gender-i18n/gender-i18n.component
         MatSidenavModule,
         MatListModule,
         MatDialogModule,
-        AuthorLibraryAwardsTableComponent,
+        AuthorLibraryAwardTableComponent,
         AuthorLibraryAwardFormPartComponent,
         FieldWrapperComponent,
         MatDatepickerInput,

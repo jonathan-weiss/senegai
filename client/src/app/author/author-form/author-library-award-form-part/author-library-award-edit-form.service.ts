@@ -19,7 +19,7 @@
 
 import {Injectable} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
-import {AuthorLibraryAward} from "@app/author/author-items/author-library-award/author-library-award.model";
+import {AuthorLibraryAward} from "@app/author/author-library-award.model";
 import {FormUtil} from "@app/shared/form-controls/form.util";
 
 @Injectable({providedIn: 'root'})

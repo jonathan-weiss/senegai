@@ -22,11 +22,11 @@ import {Observable, of} from 'rxjs';
 import {delay} from 'rxjs/operators';
 import {Author} from "@app/author/author.model";
 import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
-import {AuthorLibraryAward} from "@app/author/author-items/author-library-award/author-library-award.model";
+import {AuthorLibraryAward} from "@app/author/author-library-award.model";
 import {FormUtil} from "@app/shared/form-controls/form.util";
 import {
     AuthorLibraryAwardEditFormService
-} from "@app/author/author-items/author-library-award/author-library-award-form-part/author-library-award-edit-form.service";
+} from "@app/author/author-form/author-library-award-form-part/author-library-award-edit-form.service";
 import {GenderEnum} from "@app/author/gender.enum";
 
 @Injectable({providedIn: 'root'})

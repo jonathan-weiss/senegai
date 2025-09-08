@@ -20,7 +20,7 @@
 import {Component} from '@angular/core';
 import {Author} from "@app/author/author.model";
 import {AuthorService} from "@app/author/author.service";
-import {AuthorEditFormComponent} from "@app/author/author-edit-form/author-edit-form.component";
+import {AuthorFormComponent} from "@app/author/author-form/author-form/author-form.component";
 import {ActivatedRoute} from "@angular/router";
 
 
@@ -30,7 +30,7 @@ import {ActivatedRoute} from "@angular/router";
     styleUrls: ['./author-routable-edit.component.scss'],
     standalone: true,
     imports: [
-        AuthorEditFormComponent,
+        AuthorFormComponent,
     ],
 })
 export class AuthorRoutableEditComponent {

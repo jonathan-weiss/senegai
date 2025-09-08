@@ -64,11 +64,11 @@
             </mat-expansion-panel-header>
 
             @if (selectedAuthor) {
-                <app-author-edit-form
+                <app-author-form
                         [author]="selectedAuthor"
                         (save)="onSave($event)"
                         (cancel)="onCancel()">
-                </app-author-edit-form>
+                </app-author-form>
             }
         </mat-expansion-panel>
     </mat-accordion>
