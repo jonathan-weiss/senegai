@@ -3,7 +3,6 @@
         <button mat-button color="primary" (click)="onAdd()">
             <mat-icon>add</mat-icon> Add item...
         </button>
-        <!-- mat-slide-toggle [checked]="isInlineEditingMode" (change)="onInlineEditModelChanged($event)">Inline Edit</mat-slide-toggle -->
 
     </div>
     <table mat-table [dataSource]="dataSource">
@@ -11,13 +10,7 @@
         <ng-container matColumnDef="description">
             <th mat-header-cell *matHeaderCellDef>Description</th>
             <td mat-cell *matCellDef="let authorLibraryAwardFormControl" (click)="onSelect(authorLibraryAwardFormControl)">
-                @if (isInlineEditingMode) {
-                    <mat-form-field appearance="outline">
-                        <input matInput [formControl]="descriptionControl(authorLibraryAwardFormControl)" placeholder="Description">
-                    </mat-form-field>
-                } @else {
-                    {{ descriptionFromControl(authorLibraryAwardFormControl) }}
-                }
+                {{ descriptionFromControl(authorLibraryAwardFormControl) }}
             </td>
         </ng-container>
 
@@ -25,13 +18,7 @@
         <ng-container matColumnDef="year">
             <th mat-header-cell *matHeaderCellDef>Year</th>
             <td mat-cell *matCellDef="let authorLibraryAwardFormControl" (click)="onSelect(authorLibraryAwardFormControl)">
-                @if (isInlineEditingMode) {
-                    <mat-form-field appearance="outline">
-                        <input matInput [formControl]="yearControl(authorLibraryAwardFormControl)" placeholder="Enter year">
-                    </mat-form-field>
-                } @else {
-                    {{ yearFromControl(authorLibraryAwardFormControl) }}
-                }
+                {{ yearFromControl(authorLibraryAwardFormControl) }}
             </td>
         </ng-container>
 

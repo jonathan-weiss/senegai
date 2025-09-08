@@ -55,7 +55,6 @@ import {
         MatSidenavModule,
         MatListModule,
         MatDialogModule,
-        MatSlideToggle,
     ],
 
 })
@@ -66,8 +65,6 @@ export class AuthorLibraryAwardTableComponent implements OnInit {
 
     displayedColumns: string[] = ['description', 'year', 'actions'];
     dataSource: MatTableDataSource<AbstractControl> = new MatTableDataSource<AbstractControl>();
-
-    isInlineEditingMode: boolean = false;
 
     selectedFormGroup: FormGroup | undefined = undefined;
 
@@ -81,10 +78,6 @@ export class AuthorLibraryAwardTableComponent implements OnInit {
 
     private updateFormData(): void {
         this.dataSource.data = this.authorLibraryAwardFormArray.controls
-    }
-
-    onInlineEditModelChanged(change: MatSlideToggleChange): void {
-        this.isInlineEditingMode = change.checked
     }
 
     onAdd(): void {
@@ -114,11 +107,11 @@ export class AuthorLibraryAwardTableComponent implements OnInit {
         this.deleteAuthorLibraryAwardFormGroup.emit(authorLibraryAwardFormGroup);
     }
 
-    descriptionControl(formControl: AbstractControl): FormControl {
+    private descriptionControl(formControl: AbstractControl): FormControl {
         return FormUtil.requiredFormControl(formControl, "description");
     }
 
-    yearControl(formControl: AbstractControl): FormControl {
+    private yearControl(formControl: AbstractControl): FormControl {
         return FormUtil.requiredFormControl(formControl, "year");
     }
 
@@ -128,9 +121,5 @@ export class AuthorLibraryAwardTableComponent implements OnInit {
 
     yearFromControl(formControl: AbstractControl): number | undefined {
         return this.yearControl(formControl).value as number | undefined;
-    }
-
-    hasError(formControl: AbstractControl | undefined, errorName: string): boolean {
-        return formControl ? formControl.hasError(errorName) && formControl.touched : false;
     }
 }
