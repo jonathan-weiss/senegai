@@ -1,7 +1,7 @@
 import {Component, Input, OnInit, OnDestroy} from '@angular/core';
 import {AbstractControl, FormControl, ReactiveFormsModule} from '@angular/forms';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import {CommonModule} from '@angular/common';
+
 import {Subscription} from 'rxjs';
 import {MatLabel} from "@angular/material/form-field";
 import {MatSlideToggle} from "@angular/material/slide-toggle";
@@ -10,7 +10,7 @@ import {MatSlideToggle} from "@angular/material/slide-toggle";
     selector: 'app-field-wrapper',
     templateUrl: './field-wrapper.component.html',
     styleUrls: ['./field-wrapper.component.scss'],
-    imports: [CommonModule, ReactiveFormsModule, MatCheckboxModule, MatLabel, MatSlideToggle]
+    imports: [ReactiveFormsModule, MatCheckboxModule, MatLabel, MatSlideToggle]
 })
 export class FieldWrapperComponent implements OnInit, OnDestroy {
     @Input({ required: true}) label!: String;
