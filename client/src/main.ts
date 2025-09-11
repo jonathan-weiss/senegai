@@ -4,7 +4,7 @@ import {bootstrapApplication} from "@angular/platform-browser";
 import {AppComponent} from "./app/app.component";
 import {ROUTES} from "./app/app-routing";
 import {PreloadAllModules, provideRouter, withPreloading, withRouterConfig} from "@angular/router";
-import {provideHttpClient} from "@angular/common/http";
+import { provideHttpClient } from "@angular/common/http";
 import {provideAnimations} from "@angular/platform-browser/animations";
 
 bootstrapApplication(AppComponent, {
