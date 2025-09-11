@@ -41,7 +41,6 @@ import {Author} from "@app/author/author.model";
     selector: 'app-author-board',
     templateUrl: './author-board.component.html',
     styleUrls: ['./author-board.component.scss'],
-    standalone: true,
     imports: [
         ReactiveFormsModule,
         MatButtonModule,
@@ -58,7 +57,7 @@ import {Author} from "@app/author/author.model";
         AuthorSearchComponent,
         AuthorResultComponent,
         AuthorFormComponent,
-    ],
+    ]
 })
 export class AuthorBoardComponent {
     currentSearchCriteria: AuthorSearchCriteria = {};

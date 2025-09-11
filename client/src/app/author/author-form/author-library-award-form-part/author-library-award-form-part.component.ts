@@ -43,7 +43,6 @@ import {
     selector: 'app-author-library-award-form-part',
     templateUrl: './author-library-award-form-part.component.html',
     styleUrls: ['./author-library-award-form-part.component.scss'],
-    standalone: true,
     imports: [
         ReactiveFormsModule,
         MatButtonModule,
@@ -60,8 +59,7 @@ import {
         FieldWrapperComponent,
         AuthorLibraryAwardTableComponent,
         AuthorLibraryAwardJuryTableComponent,
-
-    ],
+    ]
 })
 export class AuthorLibraryAwardFormPartComponent {
     @Input({ required: true}) authorLibraryAwardForm!: FormGroup;

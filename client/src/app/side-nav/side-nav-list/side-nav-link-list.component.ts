@@ -9,13 +9,12 @@ import {SideNavLink} from "./side-nav-link.model";
     selector: 'side-nav-link-list',
     templateUrl: './side-nav-link-list.component.html',
     styleUrls: ['./side-nav-link-list.component.scss'],
-    standalone: true,
     imports: [
         MatIconModule,
         MatListModule,
         RouterLink,
         SideNavEntryComponent,
-    ],
+    ]
 })
 export class SideNavLinkListComponent {
     @Input() sideNavLinks: ReadonlyArray<SideNavLink> = []

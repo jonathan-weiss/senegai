@@ -41,7 +41,6 @@ import {
     selector: 'app-author-library-award-table',
     templateUrl: './author-library-award-table.component.html',
     styleUrls: ['./author-library-award-table.component.scss'],
-    standalone: true,
     imports: [
         ReactiveFormsModule,
         MatButtonModule,
@@ -55,8 +54,7 @@ import {
         MatSidenavModule,
         MatListModule,
         MatDialogModule,
-    ],
-
+    ]
 })
 export class AuthorLibraryAwardTableComponent implements OnInit {
     @Input({ required: true }) authorLibraryAwardFormArray!: FormArray;

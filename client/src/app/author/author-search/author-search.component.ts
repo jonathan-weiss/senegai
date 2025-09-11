@@ -42,7 +42,6 @@ export interface AuthorSearchCriteria {
     selector: 'app-author-search',
     templateUrl: './author-search.component.html',
     styleUrls: ['./author-search.component.scss'],
-    standalone: true,
     imports: [
         ReactiveFormsModule,
         MatButtonModule,
@@ -56,7 +55,7 @@ export interface AuthorSearchCriteria {
         MatSidenavModule,
         MatListModule,
         MatDialogModule,
-    ],
+    ]
 })
 export class AuthorSearchComponent {
     @Output() search = new EventEmitter<AuthorSearchCriteria>();

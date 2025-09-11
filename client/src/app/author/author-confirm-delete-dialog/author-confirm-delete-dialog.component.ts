@@ -36,14 +36,12 @@ import {MatListModule} from "@angular/material/list";
     selector: 'app-confirm-delete-dialog',
     templateUrl: './author-confirm-delete-dialog.component.html',
     styleUrls: ['./author-confirm-delete-dialog.component.scss'],
-    standalone: true,
     imports: [
         ReactiveFormsModule,
-        
-// TODO: `HttpClientModule` should not be imported into a component directly.
-// Please refactor the code to add `provideHttpClient()` call to the provider list in the
-// application bootstrap logic and remove the `HttpClientModule` import from this component.
-HttpClientModule,
+        // TODO: `HttpClientModule` should not be imported into a component directly.
+        // Please refactor the code to add `provideHttpClient()` call to the provider list in the
+        // application bootstrap logic and remove the `HttpClientModule` import from this component.
+        HttpClientModule,
         MatButtonModule,
         MatToolbarModule,
         MatTableModule,
@@ -55,7 +53,7 @@ HttpClientModule,
         MatSidenavModule,
         MatListModule,
         MatDialogModule,
-    ],
+    ]
 })
 export class AuthorConfirmDeleteDialogComponent {
     constructor(

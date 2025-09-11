@@ -38,7 +38,6 @@ import {AuthorFormPartComponent} from "@app/author/author-form/author-form-part/
     selector: 'app-author-form',
     templateUrl: './author-form.component.html',
     styleUrls: ['./author-form.component.scss'],
-    standalone: true,
     imports: [
         ReactiveFormsModule,
         MatButtonModule,
@@ -53,7 +52,7 @@ import {AuthorFormPartComponent} from "@app/author/author-form/author-form-part/
         MatListModule,
         MatDialogModule,
         AuthorFormPartComponent,
-    ],
+    ]
 })
 export class AuthorFormComponent implements OnInit {
     @Input() author: Author | null = null;

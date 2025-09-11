@@ -38,7 +38,6 @@ import {Author} from "@app/author/author.model";
     selector: 'app-author-result',
     templateUrl: './author-result.component.html',
     styleUrls: ['./author-result.component.scss'],
-    standalone: true,
     imports: [
         ReactiveFormsModule,
         MatButtonModule,
@@ -52,8 +51,7 @@ import {Author} from "@app/author/author.model";
         MatSidenavModule,
         MatListModule,
         MatDialogModule,
-    ],
-
+    ]
 })
 export class AuthorResultComponent implements OnChanges {
     @Input() searchCriteria: AuthorSearchCriteria = {};

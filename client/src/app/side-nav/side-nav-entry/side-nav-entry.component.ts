@@ -6,7 +6,6 @@ import {RouterLink, RouterLinkActive} from "@angular/router";
 @Component({
     selector: 'side-nav-entry',
     templateUrl: './side-nav-entry.component.html',
-    standalone: true,
     styleUrls: ['./side-nav-entry.component.scss'],
     imports: [
         MatIconModule,
@@ -14,7 +13,7 @@ import {RouterLink, RouterLinkActive} from "@angular/router";
         RouterLink,
         RouterLinkActive,
     ],
-    providers: [],
+    providers: []
 })
 export class SideNavEntryComponent {
 

@@ -28,10 +28,9 @@ import {ActivatedRoute} from "@angular/router";
     selector: 'app-author-routable-edit',
     templateUrl: './author-routable-edit.component.html',
     styleUrls: ['./author-routable-edit.component.scss'],
-    standalone: true,
     imports: [
         AuthorFormComponent,
-    ],
+    ]
 })
 export class AuthorRoutableEditComponent {
     selectedAuthor: Author | null = null;

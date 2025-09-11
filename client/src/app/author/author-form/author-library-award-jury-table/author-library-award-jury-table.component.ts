@@ -35,7 +35,6 @@ import {MatDialogModule} from "@angular/material/dialog";
     selector: 'app-author-library-award-jury-table',
     templateUrl: './author-library-award-jury-table.component.html',
     styleUrls: ['./author-library-award-jury-table.component.scss'],
-    standalone: true,
     imports: [
         ReactiveFormsModule,
         MatButtonModule,
@@ -49,8 +48,7 @@ import {MatDialogModule} from "@angular/material/dialog";
         MatSidenavModule,
         MatListModule,
         MatDialogModule,
-    ],
-
+    ]
 })
 export class AuthorLibraryAwardJuryTableComponent implements OnInit {
     @Input({ required: true }) authorLibraryAwardJuryFormArray!: FormArray;

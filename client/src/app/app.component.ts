@@ -36,9 +36,8 @@ import {GENERATED_SIDE_NAVIGATION_LINKS} from "../app-generated/generated-side-n
         SideNavLinkListComponent,
     ],
     selector: 'app-root',
-    standalone: true,
     styleUrls: ['./app.component.scss'],
-    templateUrl: './app.component.html',
+    templateUrl: './app.component.html'
 })
 export class AppComponent {
     title = 'senegal';

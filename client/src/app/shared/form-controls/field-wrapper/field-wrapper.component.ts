@@ -10,7 +10,6 @@ import {MatSlideToggle} from "@angular/material/slide-toggle";
     selector: 'app-field-wrapper',
     templateUrl: './field-wrapper.component.html',
     styleUrls: ['./field-wrapper.component.scss'],
-    standalone: true,
     imports: [CommonModule, ReactiveFormsModule, MatCheckboxModule, MatLabel, MatSlideToggle]
 })
 export class FieldWrapperComponent implements OnInit, OnDestroy {

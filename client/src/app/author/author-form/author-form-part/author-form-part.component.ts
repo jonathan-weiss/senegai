@@ -30,7 +30,6 @@ import {GenderI18nComponent} from "@app/author/gender-i18n/gender-i18n.component
     selector: 'app-author-form-part',
     templateUrl: './author-form-part.component.html',
     styleUrls: ['./author-form-part.component.scss'],
-    standalone: true,
     imports: [
         ReactiveFormsModule,
         MatButtonModule,
@@ -55,7 +54,7 @@ import {GenderI18nComponent} from "@app/author/gender-i18n/gender-i18n.component
         MatSelect,
         MatOption,
         GenderI18nComponent,
-    ],
+    ]
 })
 export class AuthorFormPartComponent {
     @Input({ required: true }) authorForm!: FormGroup;
