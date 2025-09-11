@@ -57,7 +57,6 @@ import {
         MatListModule,
         MatDialogModule,
         FieldWrapperComponent,
-        AuthorLibraryAwardTableComponent,
         AuthorLibraryAwardJuryTableComponent,
     ]
 })

@@ -1,30 +1,29 @@
-import {Component, Input, OnInit, OnDestroy} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, ReactiveFormsModule} from '@angular/forms';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 
 import {Subscription} from 'rxjs';
-import {MatLabel} from "@angular/material/form-field";
 import {MatSlideToggle} from "@angular/material/slide-toggle";
 
 @Component({
     selector: 'app-field-wrapper',
     templateUrl: './field-wrapper.component.html',
     styleUrls: ['./field-wrapper.component.scss'],
-    imports: [ReactiveFormsModule, MatCheckboxModule, MatLabel, MatSlideToggle]
+    imports: [ReactiveFormsModule, MatCheckboxModule, MatSlideToggle]
 })
 export class FieldWrapperComponent implements OnInit, OnDestroy {
-    @Input({ required: true}) label!: String;
+    @Input({required: true}) label!: String;
     @Input() nullabilityCheckboxFormControl: FormControl | undefined;
     @Input() formGroupToDisableIfNullField: AbstractControl | undefined;
 
     private subscription: Subscription = new Subscription();
 
     ngOnInit(): void {
-        if(this.nullabilityCheckboxFormControl) {
-            if(this.formGroupToDisableIfNullField) {
+        if (this.nullabilityCheckboxFormControl) {
+            if (this.formGroupToDisableIfNullField) {
                 this.subscription.add(
                     this.nullabilityCheckboxFormControl.valueChanges.subscribe(isEnabled => {
-                        if(this.formGroupToDisableIfNullField) {
+                        if (this.formGroupToDisableIfNullField) {
                             if (isEnabled) {
                                 this.formGroupToDisableIfNullField.enable();
                             } else {
