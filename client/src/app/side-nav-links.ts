@@ -13,6 +13,9 @@
 /* @tt{{{
     @replace-value-by-value
         [ searchValue="SIDE_NAVIGATION_LINKS" replaceByValue="GENERATED_SIDE_NAVIGATION_LINKS" ]
+        [ searchValue="side-nav-links.ts" replaceByValue="generated-side-nav-links.ts" ]
+
+    @modify-provided-filename-by-replacements
 
 }}}@  */
 

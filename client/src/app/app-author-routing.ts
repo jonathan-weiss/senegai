@@ -17,6 +17,8 @@ import {Routes} from '@angular/router';
         [ searchValue="author" replaceByExpression="item.itemNameLowercase" ]
         [ searchValue="Author" replaceByExpression="item.itemName" ]
 
+    @modify-provided-filename-by-replacements
+
     @foreach [ iteratorExpression="model.allItems" loopVariable="item" ]
 }}}@  */
 

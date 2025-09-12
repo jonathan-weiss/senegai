@@ -14,6 +14,8 @@
         [ searchValue="Author" replaceByExpression="model.itemName" ]
         [ searchValue="author" replaceByExpression="model.itemNameLowercase" ]
 
+    @modify-provided-filename-by-replacements
+
     @slac
 
 }}}@ */
