@@ -6,12 +6,12 @@ package senegai.codegen.renderer.angular
 import senegai.codegen.renderer.model.ItemsModel
 
 /**
- * Generate the content for the template TypescriptSideNavLinkList filled up
+ * Generate the content for the template TypescriptSideNavLinkListRenderer filled up
  * with the content of the passed models.
  */
-object TypescriptSideNavLinkList {
+object TypescriptSideNavLinkListRenderer : ItemsRenderer {
 
-    fun renderTemplate(model: ItemsModel): String {
+    override fun renderTemplate(model: ItemsModel): String {
         return """
           |
           |
@@ -25,5 +25,9 @@ object TypescriptSideNavLinkList {
           |
           |
         """.trimMargin(marginPrefix = "|")
+    }
+
+    override fun filePath(model: ItemsModel): String {
+      return "generated-side-nav-links.ts"
     }
 }

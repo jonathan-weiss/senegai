@@ -6,12 +6,12 @@ package senegai.codegen.renderer.angular
 import senegai.codegen.renderer.model.ItemModel
 
 /**
- * Generate the content for the template ItemSearchComponentTypescript filled up
+ * Generate the content for the template ItemSearchComponentTypescriptRenderer filled up
  * with the content of the passed models.
  */
-object ItemSearchComponentTypescript {
+object ItemSearchComponentTypescriptRenderer : ItemRenderer {
 
-    fun renderTemplate(model: ItemModel): String {
+    override fun renderTemplate(model: ItemModel): String {
         return """
           |import {Component, EventEmitter, Output} from '@angular/core';
           |import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
@@ -38,7 +38,6 @@ object ItemSearchComponentTypescript {
           |    selector: 'app-${model.itemNameLowercase}-search',
           |    templateUrl: './${model.itemNameLowercase}-search.component.html',
           |    styleUrls: ['./${model.itemNameLowercase}-search.component.scss'],
-          |    standalone: true,
           |    imports: [
           |        ReactiveFormsModule,
           |        MatButtonModule,
@@ -52,7 +51,7 @@ object ItemSearchComponentTypescript {
           |        MatSidenavModule,
           |        MatListModule,
           |        MatDialogModule,
-          |    ],
+          |    ]
           |})
           |export class ${model.itemName}SearchComponent {
           |    @Output() search = new EventEmitter<${model.itemName}SearchCriteria>();
@@ -88,5 +87,9 @@ object ItemSearchComponentTypescript {
           |} 
           |
         """.trimMargin(marginPrefix = "|")
+    }
+
+    override fun filePath(model: ItemModel): String {
+      return "${model.itemNameLowercase}/${model.itemNameLowercase}-search/${model.itemNameLowercase}-search.component.ts"
     }
 }

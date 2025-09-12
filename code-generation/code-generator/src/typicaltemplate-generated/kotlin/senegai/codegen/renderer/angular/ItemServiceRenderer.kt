@@ -6,31 +6,51 @@ package senegai.codegen.renderer.angular
 import senegai.codegen.renderer.model.ItemModel
 
 /**
- * Generate the content for the template ItemService filled up
+ * Generate the content for the template ItemServiceRenderer filled up
  * with the content of the passed models.
  */
-object ItemService {
+object ItemServiceRenderer : ItemRenderer {
 
-    fun renderTemplate(model: ItemModel): String {
+    override fun renderTemplate(model: ItemModel): String {
         return """
           |
           |import {Injectable} from '@angular/core';
           |import {Observable, of} from 'rxjs';
           |import {delay} from 'rxjs/operators';
           |import {${model.itemName}} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}.model";
-          |
           |@Injectable({providedIn: 'root'})
           |export class ${model.itemName}Service {
           |    private ${model.itemNameLowercase}s: ${model.itemName}[] = [
-          |        {id: 1, firstname: 'John', nickname: 'Johnny', lastname: 'Doe'},
-          |        {id: 2, firstname: 'Jane', nickname: 'Janey', lastname: 'Smith'},
-          |        {id: 3, firstname: 'Robert', nickname: 'Bob', lastname: 'Johnson'},
-          |        {id: 4, firstname: 'Mary', nickname: 'Molly', lastname: 'Williams'}
+          |        {
+          |            id: 1,
+          |            firstname: 'John',
+          |            nickname: 'Johnny',
+          |            lastname: 'Doe',        },
+          |        {
+          |            id: 2,
+          |            firstname: 'Jane',
+          |            nickname: 'Janey',
+          |            lastname: 'Smith',        },
+          |        {
+          |            id: 3,
+          |            firstname: 'Robert',
+          |            nickname: null,
+          |            lastname: 'Johnson',        },
+          |        {
+          |            id: 4,
+          |            firstname: 'Mary',
+          |            nickname: 'Molly',
+          |            lastname: 'Williams',        },
           |    ];
           |
           |    get${model.itemName}s(): Observable<${model.itemName}[]> {
           |        // Simulate HTTP delay
           |        return of(this.${model.itemNameLowercase}s).pipe(delay(200));
+          |    }
+          |
+          |    get${model.itemName}ById(id: number): Observable<${model.itemName} | null> {
+          |        const found = this.${model.itemNameLowercase}s.find(a => a.id === id) || null;
+          |        return of(found).pipe(delay(200));
           |    }
           |
           |    delete${model.itemName}(id: number): Observable<void> {
@@ -48,5 +68,9 @@ object ItemService {
           |} 
           |
         """.trimMargin(marginPrefix = "|")
+    }
+
+    override fun filePath(model: ItemModel): String {
+      return "${model.itemNameLowercase}/${model.itemNameLowercase}.service.ts"
     }
 }

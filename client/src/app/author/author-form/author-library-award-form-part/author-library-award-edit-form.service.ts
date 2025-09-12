@@ -1,24 +1,3 @@
-/* @tt{{{
-    @slbc
-
-    @template-renderer [ templateRendererClassName="ItemService" templateRendererPackageName="senegai.codegen.renderer.angular" ]
-
-    @template-model [
-    modelClassName="ItemModel"
-    modelPackageName="senegai.codegen.renderer.model"
-    modelName="model"
-    ]
-
-    @replace-value-by-expression
-        [ searchValue="Author" replaceByExpression="model.itemName" ]
-        [ searchValue="author" replaceByExpression="model.itemNameLowercase" ]
-
-    @modify-provided-filename-by-replacements
-
-    @slac
-
-}}}@ */
-
 import {Injectable} from '@angular/core';
 import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthorLibraryAward} from "@app/author/author-library-award.model";

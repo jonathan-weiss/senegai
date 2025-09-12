@@ -1,3 +1,24 @@
+/* @tt{{{
+
+    @slbc
+
+    @template-renderer [ templateRendererClassName="ItemFormPartComponentTypescriptRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="ItemRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
+
+    @template-model [
+        modelClassName="ItemModel"
+        modelPackageName="senegai.codegen.renderer.model"
+        modelName="model"
+    ]
+
+    @replace-value-by-expression
+        [ searchValue="Author" replaceByExpression="model.itemName" ]
+        [ searchValue="author" replaceByExpression="model.itemNameLowercase" ]
+
+    @modify-provided-filename-by-replacements
+
+    @slac
+
+}}}@ */
 import {Component, Input} from '@angular/core';
 import {FormArray, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from "@angular/material/button";
@@ -12,19 +33,22 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {MatDialogModule} from "@angular/material/dialog";
 import {FormUtil} from "@app/shared/form-controls/form.util";
+import {FieldWrapperComponent} from "@app/shared/form-controls/field-wrapper/field-wrapper.component";
+import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/material/datepicker";
+import {MatNativeDateModule, MatOption} from "@angular/material/core";
+import {MatCheckbox} from "@angular/material/checkbox";
+import {MatSelect} from "@angular/material/select";
+/* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+
 import {
     AuthorLibraryAwardTableComponent
 } from "@app/author/author-form/author-library-award-table/author-library-award-table.component";
 import {
     AuthorLibraryAwardFormPartComponent
 } from "@app/author/author-form/author-library-award-form-part/author-library-award-form-part.component";
-import {FieldWrapperComponent} from "@app/shared/form-controls/field-wrapper/field-wrapper.component";
-import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/material/datepicker";
-import {MatNativeDateModule, MatOption} from "@angular/material/core";
-import {MatCheckbox} from "@angular/material/checkbox";
-import {MatSelect} from "@angular/material/select";
-import {GenderEnum, GenderEnumValues} from "@app/author/gender.enum";
+import {GenderEnumValues} from "@app/author/gender.enum";
 import {GenderI18nComponent} from "@app/author/gender-i18n/gender-i18n.component";
+/* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 
 @Component({
     selector: 'app-author-form-part',
@@ -43,8 +67,6 @@ import {GenderI18nComponent} from "@app/author/gender-i18n/gender-i18n.component
         MatSidenavModule,
         MatListModule,
         MatDialogModule,
-        AuthorLibraryAwardTableComponent,
-        AuthorLibraryAwardFormPartComponent,
         FieldWrapperComponent,
         MatDatepickerInput,
         MatDatepickerToggle,
@@ -53,13 +75,19 @@ import {GenderI18nComponent} from "@app/author/gender-i18n/gender-i18n.component
         MatCheckbox,
         MatSelect,
         MatOption,
+        /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+        AuthorLibraryAwardTableComponent,
+        AuthorLibraryAwardFormPartComponent,
         GenderI18nComponent,
+        /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
     ]
 })
 export class AuthorFormPartComponent {
     @Input({ required: true }) authorForm!: FormGroup;
 
+    /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
     authorLibraryAwardUnderEdit: FormGroup | undefined = undefined;
+    /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 
     get idControl(): FormControl {
         return FormUtil.requiredFormControl(this.authorForm, "id");
@@ -73,16 +101,17 @@ export class AuthorFormPartComponent {
         return FormUtil.requiredFormControl(this.authorForm, "nickname");
     }
 
-    get authorLibraryAwardFormArray(): FormArray {
-        return FormUtil.requiredFormArray(this.authorForm, "libraryAwardList");
-    }
-
     get firstnameControl(): FormControl {
         return FormUtil.requiredFormControl(this.authorForm, "firstname");
     }
 
     get lastnameControl(): FormControl {
         return FormUtil.requiredFormControl(this.authorForm, "lastname");
+    }
+
+    /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+    get authorLibraryAwardFormArray(): FormArray {
+        return FormUtil.requiredFormArray(this.authorForm, "libraryAwardList");
     }
 
     get birthdayIsNotNullControl(): FormControl {
@@ -117,6 +146,7 @@ export class AuthorFormPartComponent {
     closeAuthorLibraryAwardUnderEdit(): void {
         this.authorLibraryAwardUnderEdit = undefined;
     }
+    /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 
     hasError(controlName: string, errorName: string): boolean {
         return FormUtil.hasError(this.authorForm, controlName, errorName)

@@ -2,7 +2,7 @@
 
     @slbc
 
-    @template-renderer [ templateRendererClassName="ItemResultComponentTypescript" templateRendererPackageName="senegai.codegen.renderer.angular" ]
+    @template-renderer [ templateRendererClassName="ItemResultComponentTypescriptRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="ItemRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
 
     @template-model [
         modelClassName="ItemModel"

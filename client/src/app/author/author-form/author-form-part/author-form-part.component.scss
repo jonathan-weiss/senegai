@@ -1,3 +1,24 @@
+/* @tt{{{
+    @slbc
+
+    @template-renderer [ templateRendererClassName="ItemFormPartComponentScssRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="ItemRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
+
+    @template-model [
+        modelClassName="ItemModel"
+        modelPackageName="senegai.codegen.renderer.model"
+        modelName="model"
+    ]
+
+    @replace-value-by-expression
+      [ searchValue="Author" replaceByExpression="model.itemName" ]
+      [ searchValue="author" replaceByExpression="model.itemNameLowercase" ]
+
+    @modify-provided-filename-by-replacements
+
+    @slac
+
+}}}@ */
+
 @use '@angular/material' as mat;
 
 .form-row {

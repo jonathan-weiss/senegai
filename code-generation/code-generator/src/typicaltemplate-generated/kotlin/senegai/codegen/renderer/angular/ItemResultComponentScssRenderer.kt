@@ -6,12 +6,12 @@ package senegai.codegen.renderer.angular
 import senegai.codegen.renderer.model.ItemModel
 
 /**
- * Generate the content for the template ItemResultComponentScss filled up
+ * Generate the content for the template ItemResultComponentScssRenderer filled up
  * with the content of the passed models.
  */
-object ItemResultComponentScss {
+object ItemResultComponentScssRenderer : ItemRenderer {
 
-    fun renderTemplate(model: ItemModel): String {
+    override fun renderTemplate(model: ItemModel): String {
         return """
           |.${model.itemNameLowercase}-table-container {
           |  padding: 20px;
@@ -33,5 +33,9 @@ object ItemResultComponentScss {
           |} 
           |
         """.trimMargin(marginPrefix = "|")
+    }
+
+    override fun filePath(model: ItemModel): String {
+      return "${model.itemNameLowercase}/${model.itemNameLowercase}-result/${model.itemNameLowercase}-result.component.scss"
     }
 }

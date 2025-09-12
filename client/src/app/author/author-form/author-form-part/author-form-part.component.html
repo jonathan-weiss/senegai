@@ -1,3 +1,23 @@
+<!-- @tt{{{
+    @slbc
+
+    @template-renderer [ templateRendererClassName="ItemFormPartComponentHtmlRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="ItemRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
+
+    @template-model [
+        modelClassName="ItemModel"
+        modelPackageName="senegai.codegen.renderer.model"
+        modelName="model"
+    ]
+
+    @replace-value-by-expression
+        [ searchValue="Author" replaceByExpression="model.itemName" ]
+        [ searchValue="author" replaceByExpression="model.itemNameLowercase" ]
+
+    @modify-provided-filename-by-replacements
+
+    @slac
+
+}}}@ -->
 <div [formGroup]="authorForm">
     <div class="form-row">
         <app-field-wrapper label="ID">
@@ -7,7 +27,7 @@
             </mat-form-field>
         </app-field-wrapper>
     </div>
-
+    <!-- @tt{{{ @slbc  @ignore-text @slac }}}@ -->
     <div class="form-row">
         <app-field-wrapper label="Gender">
             <mat-form-field appearance="fill">
@@ -21,6 +41,7 @@
             </mat-form-field>
         </app-field-wrapper>
     </div>
+    <!-- @tt{{{ @slbc  @end-ignore-text @slac }}}@ -->
 
     <div class="form-row">
         <app-field-wrapper label="First name">
@@ -71,7 +92,7 @@
             </mat-form-field>
         </app-field-wrapper>
     </div>
-
+    <!-- @tt{{{ @slbc  @ignore-text @slac }}}@ -->
     <div class="form-row">
         <app-field-wrapper label="Library Awards">
             <app-author-library-award-table
@@ -109,6 +130,7 @@
             <mat-checkbox [formControl]="vegetarianControl">Vegetarian</mat-checkbox>
         </app-field-wrapper>
     </div>
+    <!-- @tt{{{ @slbc  @end-ignore-text @slac }}}@ -->
 
 
 </div>

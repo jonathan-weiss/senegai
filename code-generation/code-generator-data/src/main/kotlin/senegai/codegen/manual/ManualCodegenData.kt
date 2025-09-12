@@ -12,7 +12,7 @@ object ManualCodegenData {
 
     fun collectCodegenData(): ItemsData {
         val contact = ItemData(
-            itemName = "contact",
+            itemName = "Contact",
             attributes = listOf(
                 ItemAttributeData(
                     attributeName = "firstname",

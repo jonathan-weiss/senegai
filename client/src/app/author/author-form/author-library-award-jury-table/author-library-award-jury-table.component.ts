@@ -1,24 +1,3 @@
-/* @tt{{{
-
-    @slbc
-
-    @template-renderer [ templateRendererClassName="ItemResultComponentTypescript" templateRendererPackageName="senegai.codegen.renderer.angular" ]
-
-    @template-model [
-        modelClassName="ItemModel"
-        modelPackageName="senegai.codegen.renderer.model"
-        modelName="model"
-    ]
-
-    @replace-value-by-expression
-        [ searchValue="Author" replaceByExpression="model.itemName" ]
-        [ searchValue="author" replaceByExpression="model.itemNameLowercase" ]
-
-    @modify-provided-filename-by-replacements
-
-    @slac
-
-}}}@ */
 import {Component, Input, OnInit} from '@angular/core';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {AbstractControl, FormArray, FormControl, ReactiveFormsModule} from "@angular/forms";

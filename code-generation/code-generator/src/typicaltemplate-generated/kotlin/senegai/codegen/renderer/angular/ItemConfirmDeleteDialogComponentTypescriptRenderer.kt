@@ -6,17 +6,16 @@ package senegai.codegen.renderer.angular
 import senegai.codegen.renderer.model.ItemModel
 
 /**
- * Generate the content for the template ItemConfirmDeleteDialogComponentTypescript filled up
+ * Generate the content for the template ItemConfirmDeleteDialogComponentTypescriptRenderer filled up
  * with the content of the passed models.
  */
-object ItemConfirmDeleteDialogComponentTypescript {
+object ItemConfirmDeleteDialogComponentTypescriptRenderer : ItemRenderer {
 
-    fun renderTemplate(model: ItemModel): String {
+    override fun renderTemplate(model: ItemModel): String {
         return """
           |import {Component, Inject} from '@angular/core';
           |import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
           |import {ReactiveFormsModule} from "@angular/forms";
-          |import {HttpClientModule} from "@angular/common/http";
           |import {MatButtonModule} from "@angular/material/button";
           |import {MatToolbarModule} from "@angular/material/toolbar";
           |import {MatTableModule} from "@angular/material/table";
@@ -32,10 +31,8 @@ object ItemConfirmDeleteDialogComponentTypescript {
           |    selector: 'app-confirm-delete-dialog',
           |    templateUrl: './${model.itemNameLowercase}-confirm-delete-dialog.component.html',
           |    styleUrls: ['./${model.itemNameLowercase}-confirm-delete-dialog.component.scss'],
-          |    standalone: true,
           |    imports: [
           |        ReactiveFormsModule,
-          |        HttpClientModule,
           |        MatButtonModule,
           |        MatToolbarModule,
           |        MatTableModule,
@@ -47,7 +44,7 @@ object ItemConfirmDeleteDialogComponentTypescript {
           |        MatSidenavModule,
           |        MatListModule,
           |        MatDialogModule,
-          |    ],
+          |    ]
           |})
           |export class ${model.itemName}ConfirmDeleteDialogComponent {
           |    constructor(
@@ -66,5 +63,9 @@ object ItemConfirmDeleteDialogComponentTypescript {
           |} 
           |
         """.trimMargin(marginPrefix = "|")
+    }
+
+    override fun filePath(model: ItemModel): String {
+      return "${model.itemNameLowercase}/${model.itemNameLowercase}-confirm-delete-dialog/${model.itemNameLowercase}-confirm-delete-dialog.component.ts"
     }
 }

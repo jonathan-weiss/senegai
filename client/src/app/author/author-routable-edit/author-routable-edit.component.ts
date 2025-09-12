@@ -1,22 +1,3 @@
-/* @tt{{{
-
-    @slbc
-
-    @template-renderer [ templateRendererClassName="ItemEditFormComponentTypescript" templateRendererPackageName="senegai.codegen.renderer.angular" ]
-
-    @template-model [
-        modelClassName="ItemModel"
-        modelPackageName="senegai.codegen.renderer.model"
-        modelName="model"
-    ]
-
-    @replace-value-by-expression
-        [ searchValue="Author" replaceByExpression="model.itemName" ]
-        [ searchValue="author" replaceByExpression="model.itemNameLowercase" ]
-
-    @slac
-
-}}}@ */
 import {Component} from '@angular/core';
 import {Author} from "@app/author/author.model";
 import {AuthorService} from "@app/author/author.service";

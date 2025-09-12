@@ -1,7 +1,7 @@
 /* @tt{{{
     @slbc
 
-    @template-renderer [ templateRendererClassName="ItemResultComponentScss" templateRendererPackageName="senegai.codegen.renderer.angular" ]
+    @template-renderer [ templateRendererClassName="ItemResultComponentScssRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="ItemRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
 
     @template-model [
         modelClassName="ItemModel"

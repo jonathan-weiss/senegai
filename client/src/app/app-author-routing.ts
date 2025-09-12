@@ -1,6 +1,6 @@
 /* @tt{{{
 
-  @template-renderer [ templateRendererClassName="TypescriptItemsRoutingList" templateRendererPackageName="senegai.codegen.renderer.angular" ]
+  @template-renderer [ templateRendererClassName="TypescriptItemsRoutingListRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="ItemsRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
 
   @template-model [
       modelClassName="ItemsModel"
@@ -9,6 +9,12 @@
   ]
 
 }}}@ */
+/* @tt{{{
+    @replace-value-by-value
+        [ searchValue="app-author-routing.ts" replaceByValue="generated-routes.ts" ]
+    @modify-provided-filename-by-replacements
+    @end-replace-value-by-value
+}}}@  */
 
 import {Routes} from '@angular/router';
 /* @tt{{{
@@ -16,8 +22,6 @@ import {Routes} from '@angular/router';
     @replace-value-by-expression
         [ searchValue="author" replaceByExpression="item.itemNameLowercase" ]
         [ searchValue="Author" replaceByExpression="item.itemName" ]
-
-    @modify-provided-filename-by-replacements
 
     @foreach [ iteratorExpression="model.allItems" loopVariable="item" ]
 }}}@  */

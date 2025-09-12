@@ -6,12 +6,12 @@ package senegai.codegen.renderer.angular
 import senegai.codegen.renderer.model.ItemModel
 
 /**
- * Generate the content for the template ItemBoardComponentTypescript filled up
+ * Generate the content for the template ItemBoardComponentTypescriptRenderer filled up
  * with the content of the passed models.
  */
-object ItemBoardComponentTypescript {
+object ItemBoardComponentTypescriptRenderer : ItemRenderer {
 
-    fun renderTemplate(model: ItemModel): String {
+    override fun renderTemplate(model: ItemModel): String {
         return """
           |import {Component} from '@angular/core';
           |import {${model.itemName}SearchComponent, ${model.itemName}SearchCriteria} from '@app/${model.itemNameLowercase}/${model.itemNameLowercase}-search/${model.itemNameLowercase}-search.component';
@@ -30,14 +30,13 @@ object ItemBoardComponentTypescript {
           |import {MatExpansionModule} from "@angular/material/expansion";
           |import {MatSidenavModule} from "@angular/material/sidenav";
           |import {MatListModule} from "@angular/material/list";
-          |import {${model.itemName}EditFormComponent} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}-edit-form/${model.itemNameLowercase}-edit-form.component";
+          |import {${model.itemName}FormComponent} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form.component";
           |import {${model.itemName}} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}.model";
           |
           |@Component({
           |    selector: 'app-${model.itemNameLowercase}-board',
           |    templateUrl: './${model.itemNameLowercase}-board.component.html',
           |    styleUrls: ['./${model.itemNameLowercase}-board.component.scss'],
-          |    standalone: true,
           |    imports: [
           |        ReactiveFormsModule,
           |        MatButtonModule,
@@ -53,8 +52,8 @@ object ItemBoardComponentTypescript {
           |        MatDialogModule,
           |        ${model.itemName}SearchComponent,
           |        ${model.itemName}ResultComponent,
-          |        ${model.itemName}EditFormComponent,
-          |    ],
+          |        ${model.itemName}FormComponent,
+          |    ]
           |})
           |export class ${model.itemName}BoardComponent {
           |    currentSearchCriteria: ${model.itemName}SearchCriteria = {};
@@ -98,5 +97,9 @@ object ItemBoardComponentTypescript {
           |} 
           |
         """.trimMargin(marginPrefix = "|")
+    }
+
+    override fun filePath(model: ItemModel): String {
+      return "${model.itemNameLowercase}/${model.itemNameLowercase}-board/${model.itemNameLowercase}-board.component.ts"
     }
 }

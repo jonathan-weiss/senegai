@@ -6,15 +6,14 @@ package senegai.codegen.renderer.angular
 import senegai.codegen.renderer.model.ItemModel
 
 /**
- * Generate the content for the template ItemEditFormComponentScss filled up
+ * Generate the content for the template ItemFormComponentScssRenderer filled up
  * with the content of the passed models.
  */
-object ItemEditFormComponentScss {
+object ItemFormComponentScssRenderer : ItemRenderer {
 
-    fun renderTemplate(model: ItemModel): String {
+    override fun renderTemplate(model: ItemModel): String {
         return """
           |.edit-form-container {
-          |  max-width: 600px;
           |  margin: 0 auto;
           |  padding: 20px;
           |
@@ -22,14 +21,6 @@ object ItemEditFormComponentScss {
           |    .mat-mdc-card-header {
           |      margin-bottom: 20px;
           |    }
-          |  }
-          |}
-          |
-          |.form-row {
-          |  margin-bottom: 20px;
-          |
-          |  mat-form-field {
-          |    width: 100%;
           |  }
           |}
           |
@@ -45,5 +36,9 @@ object ItemEditFormComponentScss {
           |} 
           |
         """.trimMargin(marginPrefix = "|")
+    }
+
+    override fun filePath(model: ItemModel): String {
+      return "${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form.component.scss"
     }
 }

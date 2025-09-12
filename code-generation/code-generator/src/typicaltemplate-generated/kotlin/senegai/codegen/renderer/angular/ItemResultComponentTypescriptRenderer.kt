@@ -6,12 +6,12 @@ package senegai.codegen.renderer.angular
 import senegai.codegen.renderer.model.ItemModel
 
 /**
- * Generate the content for the template ItemResultComponentTypescript filled up
+ * Generate the content for the template ItemResultComponentTypescriptRenderer filled up
  * with the content of the passed models.
  */
-object ItemResultComponentTypescript {
+object ItemResultComponentTypescriptRenderer : ItemRenderer {
 
-    fun renderTemplate(model: ItemModel): String {
+    override fun renderTemplate(model: ItemModel): String {
         return """
           |import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
           |import {MatTableDataSource, MatTableModule} from '@angular/material/table';
@@ -34,7 +34,6 @@ object ItemResultComponentTypescript {
           |    selector: 'app-${model.itemNameLowercase}-result',
           |    templateUrl: './${model.itemNameLowercase}-result.component.html',
           |    styleUrls: ['./${model.itemNameLowercase}-result.component.scss'],
-          |    standalone: true,
           |    imports: [
           |        ReactiveFormsModule,
           |        MatButtonModule,
@@ -48,8 +47,7 @@ object ItemResultComponentTypescript {
           |        MatSidenavModule,
           |        MatListModule,
           |        MatDialogModule,
-          |    ],
-          |
+          |    ]
           |})
           |export class ${model.itemName}ResultComponent implements OnChanges {
           |    @Input() searchCriteria: ${model.itemName}SearchCriteria = {};
@@ -94,7 +92,7 @@ object ItemResultComponentTypescript {
           |            return (
           |                (!criteria.id || ${model.itemNameLowercase}.id === criteria.id) &&
           |                (!criteria.firstname || ${model.itemNameLowercase}.firstname.toLowerCase().includes(criteria.firstname.toLowerCase())) &&
-          |                (!criteria.nickname || ${model.itemNameLowercase}.nickname.toLowerCase().includes(criteria.nickname.toLowerCase())) &&
+          |                (!criteria.nickname || (${model.itemNameLowercase}.nickname ?? "").toLowerCase().includes(criteria.nickname.toLowerCase())) &&
           |                (!criteria.lastname || ${model.itemNameLowercase}.lastname.toLowerCase().includes(criteria.lastname.toLowerCase()))
           |            );
           |        });
@@ -102,5 +100,9 @@ object ItemResultComponentTypescript {
           |} 
           |
         """.trimMargin(marginPrefix = "|")
+    }
+
+    override fun filePath(model: ItemModel): String {
+      return "${model.itemNameLowercase}/${model.itemNameLowercase}-result/${model.itemNameLowercase}-result.component.ts"
     }
 }

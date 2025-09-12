@@ -6,23 +6,23 @@ package senegai.codegen.renderer.angular
 import senegai.codegen.renderer.model.ItemModel
 
 /**
- * Generate the content for the template ItemBoardComponentHtml filled up
+ * Generate the content for the template ItemBoardComponentHtmlRenderer filled up
  * with the content of the passed models.
  */
-object ItemBoardComponentHtml {
+object ItemBoardComponentHtmlRenderer : ItemRenderer {
 
-    fun renderTemplate(model: ItemModel): String {
+    override fun renderTemplate(model: ItemModel): String {
         return """
           |<div class="${model.itemNameLowercase}-container">
-          |    <h2>${model.itemName}s</h2>
+          |    <h2 i18n>${model.itemName}s</h2>
           |
           |    <mat-accordion class="${model.itemNameLowercase}-accordion" multi>
           |        <!-- Search Panel -->
-          |        <mat-expansion-panel expanded>
+          |        <mat-expansion-panel>
           |            <mat-expansion-panel-header>
           |                <mat-panel-title>
           |                    <mat-icon>search</mat-icon>
-          |                    Search ${model.itemName}s
+          |                    <ng-container i18n>Search ${model.itemName}s</ng-container>
           |                </mat-panel-title>
           |            </mat-expansion-panel-header>
           |            <app-${model.itemNameLowercase}-search (search)="onSearch(${"$"}event)"></app-${model.itemNameLowercase}-search>
@@ -33,7 +33,7 @@ object ItemBoardComponentHtml {
           |            <mat-expansion-panel-header>
           |                <mat-panel-title>
           |                    <mat-icon>list</mat-icon>
-          |                    ${model.itemName} List
+          |                    <ng-container i18n>${model.itemName} List</ng-container>
           |                </mat-panel-title>
           |            </mat-expansion-panel-header>
           |            <app-${model.itemNameLowercase}-result
@@ -51,7 +51,7 @@ object ItemBoardComponentHtml {
           |            <mat-expansion-panel-header>
           |                <mat-panel-title>
           |                    <mat-icon>edit</mat-icon>
-          |                    Edit ${model.itemName}
+          |                    <ng-container i18n>Edit ${model.itemName}</ng-container>
           |                </mat-panel-title>
           |                @if (selected${model.itemName}) {
           |                    <mat-panel-description>
@@ -61,16 +61,20 @@ object ItemBoardComponentHtml {
           |            </mat-expansion-panel-header>
           |
           |            @if (selected${model.itemName}) {
-          |                <app-${model.itemNameLowercase}-edit-form
+          |                <app-${model.itemNameLowercase}-form
           |                        [${model.itemNameLowercase}]="selected${model.itemName}"
           |                        (save)="onSave(${"$"}event)"
           |                        (cancel)="onCancel()">
-          |                </app-${model.itemNameLowercase}-edit-form>
+          |                </app-${model.itemNameLowercase}-form>
           |            }
           |        </mat-expansion-panel>
           |    </mat-accordion>
           |</div> 
           |
         """.trimMargin(marginPrefix = "|")
+    }
+
+    override fun filePath(model: ItemModel): String {
+      return "${model.itemNameLowercase}/${model.itemNameLowercase}-board/${model.itemNameLowercase}-board.component.html"
     }
 }

@@ -1,6 +1,6 @@
 /* @tt{{{
 
-  @template-renderer [ templateRendererClassName="TypescriptSideNavLinkList" templateRendererPackageName="senegai.codegen.renderer.angular" ]
+  @template-renderer [ templateRendererClassName="TypescriptSideNavLinkListRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="ItemsRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
 
   @template-model [
       modelClassName="ItemsModel"

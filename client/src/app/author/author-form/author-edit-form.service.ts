@@ -1,7 +1,7 @@
 /* @tt{{{
     @slbc
 
-    @template-renderer [ templateRendererClassName="ItemService" templateRendererPackageName="senegai.codegen.renderer.angular" ]
+    @template-renderer [ templateRendererClassName="ItemEditFormServiceRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="ItemRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
 
     @template-model [
     modelClassName="ItemModel"
@@ -20,21 +20,26 @@
 }}}@ */
 
 import {Injectable} from '@angular/core';
-import {Observable, of} from 'rxjs';
-import {delay} from 'rxjs/operators';
 import {Author} from "@app/author/author.model";
 import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
-import {AuthorLibraryAward} from "@app/author/author-library-award.model";
 import {FormUtil} from "@app/shared/form-controls/form.util";
+/* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+import {AuthorLibraryAward} from "@app/author/author-library-award.model";
 import {
     AuthorLibraryAwardEditFormService
 } from "@app/author/author-form/author-library-award-form-part/author-library-award-edit-form.service";
 import {GenderEnum} from "@app/author/gender.enum";
+/* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+
 
 @Injectable({providedIn: 'root'})
 export class AuthorEditFormService {
 
-    constructor(private authorLibraryAwardEditFormService: AuthorLibraryAwardEditFormService) {}
+    constructor(
+        /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+        private authorLibraryAwardEditFormService: AuthorLibraryAwardEditFormService,
+        /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+    ) {}
 
     public createEmptyForm(): FormGroup {
         return new FormGroup({
@@ -43,11 +48,13 @@ export class AuthorEditFormService {
             lastname: new FormControl<string>('', [Validators.required, Validators.minLength(2)]),
             nicknameIsNotNull: new FormControl<boolean>(true),
             nickname: new FormControl<string | null>(null),
+            /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
             libraryAwardList: new FormArray([]),
             birthdayIsNotNull: new FormControl<boolean>(true),
             birthday: new FormControl<Date | null>(null),
             vegetarian: new FormControl<boolean>(false),
             gender: new FormControl<GenderEnum>(GenderEnum.FEMALE),
+            /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
         });
     }
 
@@ -62,7 +69,7 @@ export class AuthorEditFormService {
             FormUtil.requiredFormControl(form, "nickname").patchValue(author.nickname);
         }
         FormUtil.requiredFormControl(form, "lastname").patchValue(author.lastname);
-
+        /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
         const libraryAwardList = FormUtil.requiredFormArray(form, "libraryAwardList");
         author.libraryAwardList.forEach((libraryAward: AuthorLibraryAward) => {
             const formGroup = this.authorLibraryAwardEditFormService.createEmptyForm()
@@ -79,7 +86,7 @@ export class AuthorEditFormService {
         }
         FormUtil.requiredFormControl(form, "vegetarian").patchValue(author.vegetarian);
         FormUtil.requiredFormControl(form, "gender").patchValue(author.gender);
-
+        /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
     }
 
     public createAuthorFromFormData(form: AbstractControl): Author {
@@ -88,11 +95,13 @@ export class AuthorEditFormService {
             firstname: FormUtil.requiredFormControl(form, "firstname").value as string,
             nickname: FormUtil.requiredFormControl(form, "nicknameIsNotNull").value ? FormUtil.requiredFormControl(form, "nickname").value as string : null,
             lastname: FormUtil.requiredFormControl(form, "lastname").value as string,
+            /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
             libraryAwardList: FormUtil.requiredFormArray(form, "libraryAwardList")
                 .controls.map(control => this.authorLibraryAwardEditFormService.createAuthorFromFormData(control)),
             birthday: FormUtil.requiredFormControl(form, "birthdayIsNotNull").value ? FormUtil.requiredFormControl(form, "birthday").value as Date : null,
             vegetarian: FormUtil.requiredFormControl(form, "vegetarian").value as boolean,
             gender: FormUtil.requiredFormControl(form, "gender").value as GenderEnum,
+            /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
         };
     }
 } 

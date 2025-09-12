@@ -6,12 +6,12 @@ package senegai.codegen.renderer.angular
 import senegai.codegen.renderer.model.ItemModel
 
 /**
- * Generate the content for the template ItemSearchComponentHtml filled up
+ * Generate the content for the template ItemSearchComponentHtmlRenderer filled up
  * with the content of the passed models.
  */
-object ItemSearchComponentHtml {
+object ItemSearchComponentHtmlRenderer : ItemRenderer {
 
-    fun renderTemplate(model: ItemModel): String {
+    override fun renderTemplate(model: ItemModel): String {
         return """
           |<mat-card class="search-card">
           |    <mat-card-header>
@@ -56,5 +56,9 @@ object ItemSearchComponentHtml {
           |</mat-card> 
           |
         """.trimMargin(marginPrefix = "|")
+    }
+
+    override fun filePath(model: ItemModel): String {
+      return "${model.itemNameLowercase}/${model.itemNameLowercase}-search/${model.itemNameLowercase}-search.component.html"
     }
 }

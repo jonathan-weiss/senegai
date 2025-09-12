@@ -6,15 +6,15 @@ package senegai.codegen.renderer.angular
 import senegai.codegen.renderer.model.ItemModel
 
 /**
- * Generate the content for the template ItemEditFormComponentTypescript filled up
+ * Generate the content for the template ItemFormComponentTypescriptRenderer filled up
  * with the content of the passed models.
  */
-object ItemEditFormComponentTypescript {
+object ItemFormComponentTypescriptRenderer : ItemRenderer {
 
-    fun renderTemplate(model: ItemModel): String {
+    override fun renderTemplate(model: ItemModel): String {
         return """
           |import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-          |import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+          |import {FormGroup, ReactiveFormsModule} from '@angular/forms';
           |import {MatButtonModule} from "@angular/material/button";
           |import {MatToolbarModule} from "@angular/material/toolbar";
           |import {MatTableModule} from "@angular/material/table";
@@ -27,12 +27,13 @@ object ItemEditFormComponentTypescript {
           |import {MatListModule} from "@angular/material/list";
           |import {MatDialogModule} from "@angular/material/dialog";
           |import {${model.itemName}} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}.model";
+          |import {${model.itemName}EditFormService} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-edit-form.service";
+          |import {${model.itemName}FormPartComponent} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part.component";
           |
           |@Component({
-          |    selector: 'app-${model.itemNameLowercase}-edit-form',
-          |    templateUrl: './${model.itemNameLowercase}-edit-form.component.html',
-          |    styleUrls: ['./${model.itemNameLowercase}-edit-form.component.scss'],
-          |    standalone: true,
+          |    selector: 'app-${model.itemNameLowercase}-form',
+          |    templateUrl: './${model.itemNameLowercase}-form.component.html',
+          |    styleUrls: ['./${model.itemNameLowercase}-form.component.scss'],
           |    imports: [
           |        ReactiveFormsModule,
           |        MatButtonModule,
@@ -46,36 +47,29 @@ object ItemEditFormComponentTypescript {
           |        MatSidenavModule,
           |        MatListModule,
           |        MatDialogModule,
-          |    ],
+          |        ${model.itemName}FormPartComponent,
+          |    ]
           |})
-          |export class ${model.itemName}EditFormComponent implements OnInit {
+          |export class ${model.itemName}FormComponent implements OnInit {
           |    @Input() ${model.itemNameLowercase}: ${model.itemName} | null = null;
           |    @Output() save = new EventEmitter<${model.itemName}>();
           |    @Output() cancel = new EventEmitter<void>();
           |
           |    ${model.itemNameLowercase}Form: FormGroup;
           |
-          |    constructor(private fb: FormBuilder) {
-          |        this.${model.itemNameLowercase}Form = this.fb.group({
-          |            id: [{value: '', disabled: true}], // ID is readonly
-          |            firstname: ['', [Validators.required, Validators.minLength(2)]],
-          |            nickname: [''],
-          |            lastname: ['', [Validators.required, Validators.minLength(2)]]
-          |        });
+          |    constructor(private ${model.itemNameLowercase}EditFormService: ${model.itemName}EditFormService) {
+          |        this.${model.itemNameLowercase}Form = ${model.itemNameLowercase}EditFormService.createEmptyForm();
           |    }
           |
           |    ngOnInit(): void {
           |        if (this.${model.itemNameLowercase}) {
-          |            this.${model.itemNameLowercase}Form.patchValue(this.${model.itemNameLowercase});
+          |            this.${model.itemNameLowercase}EditFormService.patchForm(this.${model.itemNameLowercase}Form, this.${model.itemNameLowercase})
           |        }
           |    }
           |
           |    onSubmit(): void {
           |        if (this.${model.itemNameLowercase}Form.valid) {
-          |            const updated${model.itemName}: ${model.itemName} = {
-          |                id: this.${model.itemNameLowercase}?.id || 0,
-          |                ...this.${model.itemNameLowercase}Form.getRawValue()
-          |            };
+          |            const updated${model.itemName}: ${model.itemName} = this.${model.itemNameLowercase}EditFormService.create${model.itemName}FromFormData(this.${model.itemNameLowercase}Form)
           |            this.save.emit(updated${model.itemName});
           |        }
           |    }
@@ -83,13 +77,12 @@ object ItemEditFormComponentTypescript {
           |    onCancel(): void {
           |        this.cancel.emit();
           |    }
-          |
-          |    hasError(controlName: string, errorName: string): boolean {
-          |        const control = this.${model.itemNameLowercase}Form.get(controlName);
-          |        return control ? control.hasError(errorName) && control.touched : false;
-          |    }
           |}
           |
         """.trimMargin(marginPrefix = "|")
+    }
+
+    override fun filePath(model: ItemModel): String {
+      return "${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form.component.ts"
     }
 }

@@ -6,12 +6,12 @@ package senegai.codegen.renderer.angular
 import senegai.codegen.renderer.model.ItemModel
 
 /**
- * Generate the content for the template ItemModelInterface filled up
+ * Generate the content for the template ItemModelInterfaceRenderer filled up
  * with the content of the passed models.
  */
-object ItemModelInterface {
+object ItemModelInterfaceRenderer : ItemRenderer {
 
-    fun renderTemplate(model: ItemModel): String {
+    override fun renderTemplate(model: ItemModel): String {
         return """
           |
           |/**
@@ -20,10 +20,14 @@ object ItemModelInterface {
           |export interface ${model.itemName} {
           |    id: number;
           |    ${ model.attributes.joinToString("") { attribute ->  """
-              |    ${attribute.attributeName}: string;
+              |    ${attribute.attributeName}: ${attribute.typescriptAttributeType};
           """ } }
           |}
           |
         """.trimMargin(marginPrefix = "|")
+    }
+
+    override fun filePath(model: ItemModel): String {
+      return "${model.itemNameLowercase}/${model.itemNameLowercase}.model.ts"
     }
 }

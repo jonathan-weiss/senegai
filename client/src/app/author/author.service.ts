@@ -1,7 +1,7 @@
 /* @tt{{{
     @slbc
 
-    @template-renderer [ templateRendererClassName="ItemService" templateRendererPackageName="senegai.codegen.renderer.angular" ]
+    @template-renderer [ templateRendererClassName="ItemServiceRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="ItemRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
 
     @template-model [
     modelClassName="ItemModel"
@@ -23,7 +23,9 @@ import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {delay} from 'rxjs/operators';
 import {Author} from "@app/author/author.model";
+/* @tt{{{ @slbc  @ignore-text @slac }}}@ */
 import {GenderEnum} from "@app/author/gender.enum";
+/* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 
 @Injectable({providedIn: 'root'})
 export class AuthorService {
@@ -33,6 +35,7 @@ export class AuthorService {
             firstname: 'John',
             nickname: 'Johnny',
             lastname: 'Doe',
+            /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
             libraryAwardList: [
                 {
                     description: "ALA Medal of Excellence.",
@@ -48,12 +51,14 @@ export class AuthorService {
             birthday: new Date(1979, 3, 23),
             vegetarian: false,
             gender: GenderEnum.MALE,
+            /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
         },
         {
             id: 2,
             firstname: 'Jane',
             nickname: 'Janey',
             lastname: 'Smith',
+            /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
             libraryAwardList: [
                 {
                     description: "James Madison Award ",
@@ -69,22 +74,26 @@ export class AuthorService {
             birthday: null,
             vegetarian: false,
             gender: GenderEnum.FEMALE,
+            /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
         },
         {
             id: 3,
             firstname: 'Robert',
             nickname: null,
             lastname: 'Johnson',
+            /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
             libraryAwardList: [],
             birthday: new Date(1963, 11, 31),
             vegetarian: true,
             gender: GenderEnum.MALE,
+            /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
         },
         {
             id: 4,
             firstname: 'Mary',
             nickname: 'Molly',
             lastname: 'Williams',
+            /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
             libraryAwardList: [
                 {
                     description: "Jean E. Coleman Library Outreach Lecture",
@@ -100,6 +109,7 @@ export class AuthorService {
             birthday: new Date(1954, 8, 3),
             vegetarian: false,
             gender: GenderEnum.FEMALE,
+            /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
         },
     ];
 
