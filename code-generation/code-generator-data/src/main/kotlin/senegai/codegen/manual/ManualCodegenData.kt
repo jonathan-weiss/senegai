@@ -20,6 +20,11 @@ object ManualCodegenData {
                     type = ItemAttributeBuiltInType.STRING,
                 ),
                 ItemAttributeData(
+                    attributeName = "nickname",
+                    cardinality = EXACTLY_ONE,
+                    type = ItemAttributeBuiltInType.STRING,
+                ),
+                ItemAttributeData(
                     attributeName = "lastname",
                     cardinality = EXACTLY_ONE,
                     type = ItemAttributeBuiltInType.STRING,
