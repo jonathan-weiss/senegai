@@ -55,7 +55,12 @@ object ItemResultComponentTypescriptRenderer : ItemRenderer {
           |    @Output() select${model.itemName} = new EventEmitter<${model.itemName}>();
           |    @Output() delete${model.itemName} = new EventEmitter<${model.itemName}>();
           |
-          |    displayedColumns: string[] = ['id', 'firstname', 'nickname', 'lastname', 'actions'];
+          |    displayedColumns: string[] = [
+          |        'id',
+          |        ${ model.attributes.joinToString("") { attribute ->  """
+              |        '${attribute.attributeName}',
+          """ } }        'actions'
+          |    ];
           |    dataSource: MatTableDataSource<${model.itemName}> = new MatTableDataSource<${model.itemName}>();
           |    private all${model.itemName}s: ${model.itemName}[] = [];
           |
@@ -90,10 +95,8 @@ object ItemResultComponentTypescriptRenderer : ItemRenderer {
           |        const criteria = this.searchCriteria;
           |        this.dataSource.data = this.all${model.itemName}s.filter(${model.itemNameLowercase} => {
           |            return (
-          |                (!criteria.id || ${model.itemNameLowercase}.id === criteria.id) &&
-          |                (!criteria.firstname || ${model.itemNameLowercase}.firstname.toLowerCase().includes(criteria.firstname.toLowerCase())) &&
-          |                (!criteria.nickname || (${model.itemNameLowercase}.nickname ?? "").toLowerCase().includes(criteria.nickname.toLowerCase())) &&
-          |                (!criteria.lastname || ${model.itemNameLowercase}.lastname.toLowerCase().includes(criteria.lastname.toLowerCase()))
+          |                (!criteria.id || ${model.itemNameLowercase}.id === criteria.id) &&${ model.attributes.joinToString("") { attribute ->  """                (!criteria.${attribute.attributeName} || ${model.itemNameLowercase}.${attribute.attributeName}.toLowerCase().includes(criteria.${attribute.attributeName}.toLowerCase())) &&
+          """ } }                    true
           |            );
           |        });
           |    }

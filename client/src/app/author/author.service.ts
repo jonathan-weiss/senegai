@@ -32,10 +32,23 @@ export class AuthorService {
     private authors: Author[] = [
         {
             id: 1,
+            /* @tt{{{
+                @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
+
+                @replace-value-by-expression
+                    [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
+                    [ searchValue="'John'" replaceByExpression="attribute.typescriptAttributeTypeExample" ]
+
+            }}}@  */
             firstname: 'John',
+            /* @tt{{{
+                @slbc
+                @end-foreach
+                @slac
+            }}}@ */
+            /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
             nickname: 'Johnny',
             lastname: 'Doe',
-            /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
             libraryAwardList: [
                 {
                     description: "ALA Medal of Excellence.",
@@ -53,12 +66,12 @@ export class AuthorService {
             gender: GenderEnum.MALE,
             /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
         },
+        /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
         {
             id: 2,
             firstname: 'Jane',
             nickname: 'Janey',
             lastname: 'Smith',
-            /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
             libraryAwardList: [
                 {
                     description: "James Madison Award ",
@@ -74,26 +87,22 @@ export class AuthorService {
             birthday: null,
             vegetarian: false,
             gender: GenderEnum.FEMALE,
-            /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
         },
         {
             id: 3,
             firstname: 'Robert',
             nickname: null,
             lastname: 'Johnson',
-            /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
             libraryAwardList: [],
             birthday: new Date(1963, 11, 31),
             vegetarian: true,
             gender: GenderEnum.MALE,
-            /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
         },
         {
             id: 4,
             firstname: 'Mary',
             nickname: 'Molly',
             lastname: 'Williams',
-            /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
             libraryAwardList: [
                 {
                     description: "Jean E. Coleman Library Outreach Lecture",
@@ -109,8 +118,8 @@ export class AuthorService {
             birthday: new Date(1954, 8, 3),
             vegetarian: false,
             gender: GenderEnum.FEMALE,
-            /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
         },
+        /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
     ];
 
     getAuthors(): Observable<Author[]> {

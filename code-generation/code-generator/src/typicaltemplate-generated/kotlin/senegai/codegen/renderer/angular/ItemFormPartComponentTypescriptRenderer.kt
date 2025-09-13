@@ -49,14 +49,7 @@ object ItemFormPartComponentTypescriptRenderer : ItemRenderer {
           |        MatSidenavModule,
           |        MatListModule,
           |        MatDialogModule,
-          |        FieldWrapperComponent,
-          |        MatDatepickerInput,
-          |        MatDatepickerToggle,
-          |        MatDatepicker,
-          |        MatNativeDateModule,
-          |        MatCheckbox,
-          |        MatSelect,
-          |        MatOption,    ]
+          |        FieldWrapperComponent,    ]
           |})
           |export class ${model.itemName}FormPartComponent {
           |    @Input({ required: true }) ${model.itemNameLowercase}Form!: FormGroup;
@@ -64,23 +57,10 @@ object ItemFormPartComponentTypescriptRenderer : ItemRenderer {
           |    get idControl(): FormControl {
           |        return FormUtil.requiredFormControl(this.${model.itemNameLowercase}Form, "id");
           |    }
-          |
-          |    get nicknameIsNotNullControl(): FormControl {
-          |        return FormUtil.requiredFormControl(this.${model.itemNameLowercase}Form, "nicknameIsNotNull");
-          |    }
-          |
-          |    get nicknameControl(): FormControl {
-          |        return FormUtil.requiredFormControl(this.${model.itemNameLowercase}Form, "nickname");
-          |    }
-          |
-          |    get firstnameControl(): FormControl {
-          |        return FormUtil.requiredFormControl(this.${model.itemNameLowercase}Form, "firstname");
-          |    }
-          |
-          |    get lastnameControl(): FormControl {
-          |        return FormUtil.requiredFormControl(this.${model.itemNameLowercase}Form, "lastname");
-          |    }
-          |
+          |${ model.attributes.joinToString("") { attribute ->  """    get ${attribute.attributeName}Control(): FormControl {
+              |        return FormUtil.requiredFormControl(this.${model.itemNameLowercase}Form, "${attribute.attributeName}");
+              |    }
+          """ } }
           |    hasError(controlName: string, errorName: string): boolean {
           |        return FormUtil.hasError(this.${model.itemNameLowercase}Form, controlName, errorName)
           |    }

@@ -29,12 +29,23 @@
                     <mat-label>ID</mat-label>
                     <input matInput type="number" formControlName="id" placeholder="Enter ID">
                 </mat-form-field>
+                <!-- @tt{{{
+                    @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
 
+                        @replace-value-by-expression
+                        [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
+                        [ searchValue="First Name" replaceByExpression="attribute.attributeName" ]
+                        [ searchValue="first name" replaceByExpression="attribute.attributeName" ]
+                        [ searchValue="string" replaceByExpression="attribute.typescriptAttributeType" ]
+
+                }}}@  -->
                 <mat-form-field appearance="outline">
                     <mat-label>First Name</mat-label>
                     <input matInput formControlName="firstname" placeholder="Enter first name">
                 </mat-form-field>
+                <!-- @tt{{{ @slbc @end-foreach @slac }}}@ -->
 
+                <!-- @tt{{{ @slbc  @ignore-text @slac }}}@ -->
                 <mat-form-field appearance="outline">
                     <mat-label>Nickname</mat-label>
                     <input matInput formControlName="nickname" placeholder="Enter nickname">
@@ -44,6 +55,7 @@
                     <mat-label>Last Name</mat-label>
                     <input matInput formControlName="lastname" placeholder="Enter last name">
                 </mat-form-field>
+                <!-- @tt{{{ @slbc  @end-ignore-text @slac }}}@ -->
             </div>
 
             <div class="search-actions">

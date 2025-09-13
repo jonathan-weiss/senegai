@@ -22,55 +22,25 @@ object ItemFormPartComponentHtmlRenderer : ItemRenderer {
           |            </mat-form-field>
           |        </app-field-wrapper>
           |    </div>
-          |    <div class="form-row">
-          |        <app-field-wrapper label="First name">
-          |            <mat-form-field appearance="fill">
-          |                <input matInput [formControl]="firstnameControl" placeholder="Enter first name">
-          |                @if (hasError('firstname', 'required')) {
-          |                    <mat-error>
-          |                        First name is required
-          |                    </mat-error>
-          |                }
-          |                @if (hasError('firstname', 'minlength')) {
-          |                    <mat-error>
-          |                        First name must be at least 2 characters
-          |                    </mat-error>
-          |                }
-          |            </mat-form-field>
-          |        </app-field-wrapper>
-          |    </div>
-          |
-          |    <div class="form-row">
-          |        <app-field-wrapper label="Nickname"
-          |                           [nullabilityCheckboxFormControl]="nicknameIsNotNullControl"
-          |                           [formGroupToDisableIfNullField]="nicknameControl"
-          |        >
-          |
-          |            <mat-form-field appearance="fill">
-          |                <input matInput [formControl]="nicknameControl" placeholder="Enter nickname">
-          |            </mat-form-field>
-          |        </app-field-wrapper>
-          |    </div>
-          |
-          |    <div class="form-row">
-          |        <app-field-wrapper label="Last name">
-          |            <mat-form-field appearance="fill">
-          |                <mat-label>Last Name</mat-label>
-          |                <input matInput [formControl]="lastnameControl" placeholder="Enter last name">
-          |                @if (hasError('lastname', 'required')) {
-          |                    <mat-error>
-          |                        Last name is required
-          |                    </mat-error>
-          |                }
-          |                @if (hasError('lastname', 'minlength')) {
-          |                    <mat-error>
-          |                        Last name must be at least 2 characters
-          |                    </mat-error>
-          |                }
-          |
-          |            </mat-form-field>
-          |        </app-field-wrapper>
-          |    </div>
+          |    ${ model.attributes.joinToString("") { attribute ->  """
+              |    <div class="form-row">
+              |        <app-field-wrapper label="${attribute.attributeName}">
+              |            <mat-form-field appearance="fill">
+              |                <input matInput [formControl]="${attribute.attributeName}Control" placeholder="Enter ${attribute.attributeName}">
+              |                @if (hasError('${attribute.attributeName}', 'required')) {
+              |                    <mat-error>
+              |                        ${attribute.attributeName} is required
+              |                    </mat-error>
+              |                }
+              |                @if (hasError('${attribute.attributeName}', 'minlength')) {
+              |                    <mat-error>
+              |                        ${attribute.attributeName} must be at least 2 characters
+              |                    </mat-error>
+              |                }
+              |            </mat-form-field>
+              |        </app-field-wrapper>
+              |    </div>
+          """ } }
           |
           |</div>
           |

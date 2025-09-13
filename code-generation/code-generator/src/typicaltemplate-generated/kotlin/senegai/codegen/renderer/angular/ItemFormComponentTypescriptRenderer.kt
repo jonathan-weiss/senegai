@@ -27,7 +27,7 @@ object ItemFormComponentTypescriptRenderer : ItemRenderer {
           |import {MatListModule} from "@angular/material/list";
           |import {MatDialogModule} from "@angular/material/dialog";
           |import {${model.itemName}} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}.model";
-          |import {${model.itemName}EditFormService} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-edit-form.service";
+          |import {${model.itemName}FormService} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form.service";
           |import {${model.itemName}FormPartComponent} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part.component";
           |
           |@Component({
@@ -57,7 +57,7 @@ object ItemFormComponentTypescriptRenderer : ItemRenderer {
           |
           |    ${model.itemNameLowercase}Form: FormGroup;
           |
-          |    constructor(private ${model.itemNameLowercase}EditFormService: ${model.itemName}EditFormService) {
+          |    constructor(private ${model.itemNameLowercase}EditFormService: ${model.itemName}FormService) {
           |        this.${model.itemNameLowercase}Form = ${model.itemNameLowercase}EditFormService.createEmptyForm();
           |    }
           |

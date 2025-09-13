@@ -33,7 +33,7 @@ import {GenderEnum} from "@app/author/gender.enum";
 
 
 @Injectable({providedIn: 'root'})
-export class AuthorEditFormService {
+export class AuthorFormService {
 
     constructor(
         /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
@@ -44,11 +44,19 @@ export class AuthorEditFormService {
     public createEmptyForm(): FormGroup {
         return new FormGroup({
             id: new FormControl<number>({value: 0, disabled: true}), // ID is readonly
+                /* @tt{{{ @slbc
+                    @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
+
+                    @replace-value-by-expression
+                        [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
+
+                }}}@  */
             firstname: new FormControl<string>('', [Validators.required, Validators.minLength(2)]),
+            /* @tt{{{ @slbc @end-foreach @slac }}}@ */
+            /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
             lastname: new FormControl<string>('', [Validators.required, Validators.minLength(2)]),
             nicknameIsNotNull: new FormControl<boolean>(true),
             nickname: new FormControl<string | null>(null),
-            /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
             libraryAwardList: new FormArray([]),
             birthdayIsNotNull: new FormControl<boolean>(true),
             birthday: new FormControl<Date | null>(null),
@@ -60,7 +68,17 @@ export class AuthorEditFormService {
 
     public patchForm(form: AbstractControl, author: Author): void {
         FormUtil.requiredFormControl(form, "id").patchValue(author.id);
+        /* @tt{{{ @slbc
+            @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
+
+            @replace-value-by-expression
+                [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
+
+            @slac
+        }}}@  */
         FormUtil.requiredFormControl(form, "firstname").patchValue(author.firstname);
+        /* @tt{{{ @slbc @end-foreach @slac }}}@ */
+        /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
         if(!author.nickname) {
             FormUtil.requiredFormControl(form, "nicknameIsNotNull").patchValue(false);
             FormUtil.requiredFormControl(form, "nickname").patchValue(null);
@@ -69,7 +87,6 @@ export class AuthorEditFormService {
             FormUtil.requiredFormControl(form, "nickname").patchValue(author.nickname);
         }
         FormUtil.requiredFormControl(form, "lastname").patchValue(author.lastname);
-        /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
         const libraryAwardList = FormUtil.requiredFormArray(form, "libraryAwardList");
         author.libraryAwardList.forEach((libraryAward: AuthorLibraryAward) => {
             const formGroup = this.authorLibraryAwardEditFormService.createEmptyForm()
@@ -92,10 +109,19 @@ export class AuthorEditFormService {
     public createAuthorFromFormData(form: AbstractControl): Author {
         return {
             id: FormUtil.requiredFormControl(form, "id").value as number,
+            /* @tt{{{ @slbc
+                @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
+
+                @replace-value-by-expression
+                    [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
+
+                @slac
+            }}}@  */
             firstname: FormUtil.requiredFormControl(form, "firstname").value as string,
+            /* @tt{{{ @slbc @end-foreach @slac }}}@ */
+            /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
             nickname: FormUtil.requiredFormControl(form, "nicknameIsNotNull").value ? FormUtil.requiredFormControl(form, "nickname").value as string : null,
             lastname: FormUtil.requiredFormControl(form, "lastname").value as string,
-            /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
             libraryAwardList: FormUtil.requiredFormArray(form, "libraryAwardList")
                 .controls.map(control => this.authorLibraryAwardEditFormService.createAuthorFromFormData(control)),
             birthday: FormUtil.requiredFormControl(form, "birthdayIsNotNull").value ? FormUtil.requiredFormControl(form, "birthday").value as Date : null,

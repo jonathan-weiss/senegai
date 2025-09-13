@@ -21,24 +21,13 @@ object ItemResultComponentHtmlRenderer : ItemRenderer {
           |            <td mat-cell *matCellDef="let ${model.itemNameLowercase}">{{ ${model.itemNameLowercase}.id }}</td>
           |        </ng-container>
           |
-          |        <!-- Firstname Column -->
-          |        <ng-container matColumnDef="firstname">
-          |            <th mat-header-cell *matHeaderCellDef>Firstname</th>
-          |            <td mat-cell *matCellDef="let ${model.itemNameLowercase}">{{ ${model.itemNameLowercase}.firstname }}</td>
-          |        </ng-container>
-          |
-          |        <!-- Nickname Column -->
-          |        <ng-container matColumnDef="nickname">
-          |            <th mat-header-cell *matHeaderCellDef>Nickname</th>
-          |            <td mat-cell *matCellDef="let ${model.itemNameLowercase}">{{ ${model.itemNameLowercase}.nickname }}</td>
-          |        </ng-container>
-          |
-          |        <!-- Lastname Column -->
-          |        <ng-container matColumnDef="lastname">
-          |            <th mat-header-cell *matHeaderCellDef>Lastname</th>
-          |            <td mat-cell *matCellDef="let ${model.itemNameLowercase}">{{ ${model.itemNameLowercase}.lastname }}</td>
-          |        </ng-container>
-          |
+          |        ${ model.attributes.joinToString("") { attribute ->  """
+              |        <!-- ${attribute.attributeName} Column -->
+              |        <ng-container matColumnDef="${attribute.attributeName}">
+              |            <th mat-header-cell *matHeaderCellDef>${attribute.attributeName}</th>
+              |            <td mat-cell *matCellDef="let ${model.itemNameLowercase}">{{ ${model.itemNameLowercase}.${attribute.attributeName} }}</td>
+              |        </ng-container>
+          """ } }
           |        <!-- Actions Column -->
           |        <ng-container matColumnDef="actions">
           |            <th mat-header-cell *matHeaderCellDef>Actions</th>

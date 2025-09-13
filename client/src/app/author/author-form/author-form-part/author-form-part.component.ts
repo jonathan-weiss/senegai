@@ -68,6 +68,7 @@ import {GenderI18nComponent} from "@app/author/gender-i18n/gender-i18n.component
         MatListModule,
         MatDialogModule,
         FieldWrapperComponent,
+        /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
         MatDatepickerInput,
         MatDatepickerToggle,
         MatDatepicker,
@@ -75,6 +76,7 @@ import {GenderI18nComponent} from "@app/author/gender-i18n/gender-i18n.component
         MatCheckbox,
         MatSelect,
         MatOption,
+        /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
         /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
         AuthorLibraryAwardTableComponent,
         AuthorLibraryAwardFormPartComponent,
@@ -93,6 +95,20 @@ export class AuthorFormPartComponent {
         return FormUtil.requiredFormControl(this.authorForm, "id");
     }
 
+    /* @tt{{{ @slbc
+        @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
+
+        @replace-value-by-expression
+            [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
+
+        @slac
+    }}}@  */
+    get firstnameControl(): FormControl {
+        return FormUtil.requiredFormControl(this.authorForm, "firstname");
+    }
+    /* @tt{{{ @slbc @end-foreach @slac }}}@ */
+    /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+
     get nicknameIsNotNullControl(): FormControl {
         return FormUtil.requiredFormControl(this.authorForm, "nicknameIsNotNull");
     }
@@ -101,15 +117,10 @@ export class AuthorFormPartComponent {
         return FormUtil.requiredFormControl(this.authorForm, "nickname");
     }
 
-    get firstnameControl(): FormControl {
-        return FormUtil.requiredFormControl(this.authorForm, "firstname");
-    }
-
     get lastnameControl(): FormControl {
         return FormUtil.requiredFormControl(this.authorForm, "lastname");
     }
 
-    /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
     get authorLibraryAwardFormArray(): FormArray {
         return FormUtil.requiredFormArray(this.authorForm, "libraryAwardList");
     }

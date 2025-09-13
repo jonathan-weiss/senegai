@@ -43,6 +43,15 @@
     </div>
     <!-- @tt{{{ @slbc  @end-ignore-text @slac }}}@ -->
 
+    <!-- @tt{{{
+    @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
+
+        @replace-value-by-expression
+        [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
+        [ searchValue="First name" replaceByExpression="attribute.attributeName" ]
+        [ searchValue="first name" replaceByExpression="attribute.attributeName" ]
+
+}}}@  -->
     <div class="form-row">
         <app-field-wrapper label="First name">
             <mat-form-field appearance="fill">
@@ -60,6 +69,9 @@
             </mat-form-field>
         </app-field-wrapper>
     </div>
+    <!-- @tt{{{ @slbc @end-foreach @slac }}}@ -->
+
+    <!-- @tt{{{ @slbc  @ignore-text @slac }}}@ -->
 
     <div class="form-row">
         <app-field-wrapper label="Nickname"
@@ -92,7 +104,6 @@
             </mat-form-field>
         </app-field-wrapper>
     </div>
-    <!-- @tt{{{ @slbc  @ignore-text @slac }}}@ -->
     <div class="form-row">
         <app-field-wrapper label="Library Awards">
             <app-author-library-award-table

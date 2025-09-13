@@ -23,25 +23,9 @@ object ItemServiceRenderer : ItemRenderer {
           |    private ${model.itemNameLowercase}s: ${model.itemName}[] = [
           |        {
           |            id: 1,
-          |            firstname: 'John',
-          |            nickname: 'Johnny',
-          |            lastname: 'Doe',        },
-          |        {
-          |            id: 2,
-          |            firstname: 'Jane',
-          |            nickname: 'Janey',
-          |            lastname: 'Smith',        },
-          |        {
-          |            id: 3,
-          |            firstname: 'Robert',
-          |            nickname: null,
-          |            lastname: 'Johnson',        },
-          |        {
-          |            id: 4,
-          |            firstname: 'Mary',
-          |            nickname: 'Molly',
-          |            lastname: 'Williams',        },
-          |    ];
+          |            ${ model.attributes.joinToString("") { attribute ->  """
+              |            ${attribute.attributeName}: ${attribute.typescriptAttributeTypeExample},
+          """ } }        },    ];
           |
           |    get${model.itemName}s(): Observable<${model.itemName}[]> {
           |        // Simulate HTTP delay

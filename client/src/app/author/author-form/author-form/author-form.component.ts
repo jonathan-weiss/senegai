@@ -33,7 +33,7 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {MatDialogModule} from "@angular/material/dialog";
 import {Author} from "@app/author/author.model";
-import {AuthorEditFormService} from "@app/author/author-form/author-edit-form.service";
+import {AuthorFormService} from "@app/author/author-form/author-form.service";
 import {AuthorFormPartComponent} from "@app/author/author-form/author-form-part/author-form-part.component";
 
 @Component({
@@ -63,7 +63,7 @@ export class AuthorFormComponent implements OnInit {
 
     authorForm: FormGroup;
 
-    constructor(private authorEditFormService: AuthorEditFormService) {
+    constructor(private authorEditFormService: AuthorFormService) {
         this.authorForm = authorEditFormService.createEmptyForm();
     }
 

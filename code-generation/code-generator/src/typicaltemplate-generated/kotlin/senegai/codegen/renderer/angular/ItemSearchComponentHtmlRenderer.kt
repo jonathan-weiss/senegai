@@ -24,22 +24,12 @@ object ItemSearchComponentHtmlRenderer : ItemRenderer {
           |                    <mat-label>ID</mat-label>
           |                    <input matInput type="number" formControlName="id" placeholder="Enter ID">
           |                </mat-form-field>
-          |
-          |                <mat-form-field appearance="outline">
-          |                    <mat-label>First Name</mat-label>
-          |                    <input matInput formControlName="firstname" placeholder="Enter first name">
-          |                </mat-form-field>
-          |
-          |                <mat-form-field appearance="outline">
-          |                    <mat-label>Nickname</mat-label>
-          |                    <input matInput formControlName="nickname" placeholder="Enter nickname">
-          |                </mat-form-field>
-          |
-          |                <mat-form-field appearance="outline">
-          |                    <mat-label>Last Name</mat-label>
-          |                    <input matInput formControlName="lastname" placeholder="Enter last name">
-          |                </mat-form-field>
-          |            </div>
+          |                ${ model.attributes.joinToString("") { attribute ->  """
+              |                <mat-form-field appearance="outline">
+              |                    <mat-label>${attribute.attributeName}</mat-label>
+              |                    <input matInput formControlName="${attribute.attributeName}" placeholder="Enter ${attribute.attributeName}">
+              |                </mat-form-field>
+          """ } }            </div>
           |
           |            <div class="search-actions">
           |                <button mat-raised-button color="primary" type="submit">

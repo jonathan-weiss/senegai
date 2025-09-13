@@ -61,7 +61,23 @@ export class AuthorResultComponent implements OnChanges {
     @Output() selectAuthor = new EventEmitter<Author>();
     @Output() deleteAuthor = new EventEmitter<Author>();
 
-    displayedColumns: string[] = ['id', 'firstname', 'nickname', 'lastname', 'actions'];
+    displayedColumns: string[] = [
+        'id',
+        /* @tt{{{
+            @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
+
+            @replace-value-by-expression
+                [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
+
+        }}}@  */
+        'firstname',
+    /* @tt{{{ @slbc @end-foreach @slac }}}@ */
+    /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+        'nickname',
+        'lastname',
+    /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+        'actions'
+    ];
     dataSource: MatTableDataSource<Author> = new MatTableDataSource<Author>();
     private allAuthors: Author[] = [];
 
@@ -97,9 +113,20 @@ export class AuthorResultComponent implements OnChanges {
         this.dataSource.data = this.allAuthors.filter(author => {
             return (
                 (!criteria.id || author.id === criteria.id) &&
+                /* @tt{{{ @slbc
+                    @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
+
+                    @replace-value-by-expression
+                        [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
+                    @slac
+                }}}@  */
                 (!criteria.firstname || author.firstname.toLowerCase().includes(criteria.firstname.toLowerCase())) &&
+                    /* @tt{{{ @slbc @end-foreach @slac }}}@ */
+                    /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
                 (!criteria.nickname || (author.nickname ?? "").toLowerCase().includes(criteria.nickname.toLowerCase())) &&
-                (!criteria.lastname || author.lastname.toLowerCase().includes(criteria.lastname.toLowerCase()))
+                (!criteria.lastname || author.lastname.toLowerCase().includes(criteria.lastname.toLowerCase())) &&
+                    /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+                    true
             );
         });
     }

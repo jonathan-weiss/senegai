@@ -13,7 +13,7 @@ import {MatListModule} from "@angular/material/list";
 import {MatDialogModule} from "@angular/material/dialog";
 import {FormUtil} from "@app/shared/form-controls/form.util";
 import {MatSlideToggle, MatSlideToggleChange} from "@angular/material/slide-toggle";
-import {AuthorEditFormService} from "@app/author/author-form/author-edit-form.service";
+import {AuthorFormService} from "@app/author/author-form/author-form.service";
 import {
     AuthorLibraryAwardEditFormService
 } from "@app/author/author-form/author-library-award-form-part/author-library-award-edit-form.service";

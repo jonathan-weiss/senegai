@@ -41,9 +41,9 @@ export interface Author {
     /* @tt{{{
         @slbc
         @end-foreach
-        @ignore-text
         @slac
     }}}@ */
+    /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
     nickname: string | null;
     lastname: string;
     gender: GenderEnum;

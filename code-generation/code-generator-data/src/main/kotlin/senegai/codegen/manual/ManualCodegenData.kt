@@ -29,6 +29,26 @@ object ManualCodegenData {
                     cardinality = EXACTLY_ONE,
                     type = ItemAttributeBuiltInType.STRING,
                 ),
+                ItemAttributeData(
+                    attributeName = "exname",
+                    cardinality = EXACTLY_ONE,
+                    type = ItemAttributeBuiltInType.STRING,
+                ),
+                ItemAttributeData(
+                    attributeName = "address",
+                    cardinality = EXACTLY_ONE,
+                    type = ItemAttributeBuiltInType.STRING,
+                ),
+                ItemAttributeData(
+                    attributeName = "zipCode",
+                    cardinality = EXACTLY_ONE,
+                    type = ItemAttributeBuiltInType.STRING,
+                ),
+                ItemAttributeData(
+                    attributeName = "city",
+                    cardinality = EXACTLY_ONE,
+                    type = ItemAttributeBuiltInType.STRING,
+                ),
             )
         )
         return ItemsData(listOf(contact))

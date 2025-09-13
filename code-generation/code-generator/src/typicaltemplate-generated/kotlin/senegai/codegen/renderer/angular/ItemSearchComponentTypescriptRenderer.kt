@@ -28,11 +28,8 @@ object ItemSearchComponentTypescriptRenderer : ItemRenderer {
           |import {MatDialogModule} from "@angular/material/dialog";
           |
           |export interface ${model.itemName}SearchCriteria {
-          |    id?: number;
-          |    firstname?: string;
-          |    nickname?: string;
-          |    lastname?: string;
-          |}
+          |    id?: number;${ model.attributes.joinToString("") { attribute ->  """    ${attribute.attributeName}?: string;
+          """ } }}
           |
           |@Component({
           |    selector: 'app-${model.itemNameLowercase}-search',
@@ -60,11 +57,8 @@ object ItemSearchComponentTypescriptRenderer : ItemRenderer {
           |
           |    constructor(private fb: FormBuilder) {
           |        this.searchForm = this.fb.group({
-          |            id: [''],
-          |            firstname: [''],
-          |            nickname: [''],
-          |            lastname: ['']
-          |        });
+          |            id: [''],${ model.attributes.joinToString("") { attribute ->  """            ${attribute.attributeName}: [${attribute.typescriptAttributeInitialValue}],
+          """ } }        });
           |    }
           |
           |    onSubmit(): void {
