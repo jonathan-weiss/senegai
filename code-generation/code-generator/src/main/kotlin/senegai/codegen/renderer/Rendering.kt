@@ -30,6 +30,7 @@ object Rendering {
             ItemConfirmDeleteDialogComponentHtmlRenderer,
             ItemConfirmDeleteDialogComponentScssRenderer,
             ItemConfirmDeleteDialogComponentTypescriptRenderer,
+            ItemFormFieldNameRenderer,
             ItemEditFormServiceRenderer,
             ItemFormComponentHtmlRenderer,
             ItemFormComponentScssRenderer,

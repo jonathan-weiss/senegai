@@ -21,8 +21,10 @@
 
 import {Injectable} from '@angular/core';
 import {Author} from "@app/author/author.model";
-import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormArray, FormControl, FormGroup, ValidatorFn, Validators} from "@angular/forms";
 import {FormUtil} from "@app/shared/form-controls/form.util";
+import {AuthorFormFieldName} from "@app/author/author-form/author-form-field-name";
+import {NamedValidator} from "@app/shared/form-controls/named-validator";
 /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
 import {AuthorLibraryAward} from "@app/author/author-library-award.model";
 import {
@@ -44,19 +46,19 @@ export class AuthorFormService {
     public createEmptyForm(): FormGroup {
         return new FormGroup({
             id: new FormControl<number>({value: 0, disabled: true}), // ID is readonly
-                /* @tt{{{ @slbc
-                    @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
+            /* @tt{{{ @slbc
+                @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
 
-                    @replace-value-by-expression
-                        [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
+                @replace-value-by-expression
+                    [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
 
-                }}}@  */
-            firstname: new FormControl<string>('', [Validators.required, Validators.minLength(2)]),
+            }}}@  */
+            [AuthorFormFieldName.firstname]: new FormControl<string>('', this.validatorFunctions(AuthorFormFieldName.firstname)),
             /* @tt{{{ @slbc @end-foreach @slac }}}@ */
             /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-            lastname: new FormControl<string>('', [Validators.required, Validators.minLength(2)]),
+            [AuthorFormFieldName.lastname]: new FormControl<string>('', this.validatorFunctions(AuthorFormFieldName.lastname)),
             nicknameIsNotNull: new FormControl<boolean>(true),
-            nickname: new FormControl<string | null>(null),
+            [AuthorFormFieldName.nickname]: new FormControl<string | null>(null),
             libraryAwardList: new FormArray([]),
             birthdayIsNotNull: new FormControl<boolean>(true),
             birthday: new FormControl<Date | null>(null),
@@ -130,4 +132,53 @@ export class AuthorFormService {
             /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
         };
     }
+
+    private validatorFunctions(field: AuthorFormFieldName): Array<ValidatorFn> {
+        return this.namedValidators(field).map(namedValidator => namedValidator.validatorFunction)
+    }
+
+    private namedValidators(field: AuthorFormFieldName): ReadonlyArray<NamedValidator> {
+        switch(field) {
+            /* @tt{{{ @slbc
+                @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
+
+                @replace-value-by-expression
+                    [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
+
+            }}}@  */
+            case AuthorFormFieldName.firstname: return [
+                {
+                    validatorName: "required",
+                    validatorFunction: Validators.required,
+                },
+                {
+                    validatorName: "minlength",
+                    validatorFunction: Validators.minLength(2),
+                },
+            ]
+            /* @tt{{{ @slbc @end-foreach @slac }}}@ */
+            /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+            case AuthorFormFieldName.nickname: return [
+                {
+                    validatorName: "required",
+                    validatorFunction: Validators.required,
+                },
+                {
+                    validatorName: "minlength",
+                    validatorFunction: Validators.minLength(2),
+                },
+            ]
+            case AuthorFormFieldName.lastname: return [
+                {
+                    validatorName: "required",
+                    validatorFunction: Validators.required,
+                },
+                {
+                    validatorName: "minlength",
+                    validatorFunction: Validators.minLength(2),
+                },
+            ]
+            /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+        }
+    };
 } 

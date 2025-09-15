@@ -16,8 +16,10 @@ object ItemEditFormServiceRenderer : ItemRenderer {
           |
           |import {Injectable} from '@angular/core';
           |import {${model.itemName}} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}.model";
-          |import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
+          |import {AbstractControl, FormArray, FormControl, FormGroup, ValidatorFn, Validators} from "@angular/forms";
           |import {FormUtil} from "@app/shared/form-controls/form.util";
+          |import {${model.itemName}FormFieldName} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form-field-name";
+          |import {NamedValidator} from "@app/shared/form-controls/named-validator";
           |
           |@Injectable({providedIn: 'root'})
           |export class ${model.itemName}FormService {
@@ -27,7 +29,7 @@ object ItemEditFormServiceRenderer : ItemRenderer {
           |    public createEmptyForm(): FormGroup {
           |        return new FormGroup({
           |            id: new FormControl<number>({value: 0, disabled: true}), // ID is readonly${ model.attributes.joinToString("") { attribute ->  """
-              |            ${attribute.attributeName}: new FormControl<string>('', [Validators.required, Validators.minLength(2)]),
+              |            ${attribute.attributeName}: new FormControl<string>('', this.validatorFunctions(${model.itemName}FormFieldName.${attribute.attributeName})),
           """ } }        });
           |    }
           |
@@ -40,6 +42,25 @@ object ItemEditFormServiceRenderer : ItemRenderer {
           |            id: FormUtil.requiredFormControl(form, "id").value as number,${ model.attributes.joinToString("") { attribute ->  """            ${attribute.attributeName}: FormUtil.requiredFormControl(form, "${attribute.attributeName}").value as string,
           """ } }        };
           |    }
+          |
+          |    private validatorFunctions(field: ${model.itemName}FormFieldName): Array<ValidatorFn> {
+          |        return this.namedValidators(field).map(namedValidator => namedValidator.validatorFunction)
+          |    }
+          |
+          |    private namedValidators(field: ${model.itemName}FormFieldName): ReadonlyArray<NamedValidator> {
+          |        switch(field) {${ model.attributes.joinToString("") { attribute ->  """
+              |            case ${model.itemName}FormFieldName.${attribute.attributeName}: return [
+              |                {
+              |                    validatorName: "required",
+              |                    validatorFunction: Validators.required,
+              |                },
+              |                {
+              |                    validatorName: "minlength",
+              |                    validatorFunction: Validators.minLength(2),
+              |                },
+              |            ]
+          """ } }        }
+          |    };
           |} 
           |
         """.trimMargin(marginPrefix = "|")
