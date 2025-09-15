@@ -24,7 +24,8 @@ import {Author} from "@app/author/author.model";
 import {AbstractControl, FormArray, FormControl, FormGroup, ValidatorFn, Validators} from "@angular/forms";
 import {FormUtil} from "@app/shared/form-controls/form.util";
 import {AuthorFormFieldName} from "@app/author/author-form/author-form-field-name";
-import {NamedValidator} from "@app/shared/form-controls/named-validator";
+import {AuthorFormValidationService} from "@app/author/author-form/author-form-validation.service";
+import {AuthorFormInitialValueService} from "@app/author/author-form/author-form-initial-value.service";
 /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
 import {AuthorLibraryAward} from "@app/author/author-library-award.model";
 import {
@@ -38,12 +39,30 @@ import {GenderEnum} from "@app/author/gender.enum";
 export class AuthorFormService {
 
     constructor(
+        private authorFormValidationService: AuthorFormValidationService,
+        private authorFormInitialValueService: AuthorFormInitialValueService,
         /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
         private authorLibraryAwardEditFormService: AuthorLibraryAwardEditFormService,
-        /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+        /* @tt{{{ @slbc  @end-ignore-text }}}@ */
     ) {}
 
     public createEmptyForm(): FormGroup {
+        /* @tt{{{ @slbc
+            @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
+
+            @replace-value-by-expression
+                [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
+
+        }}}@  */
+        const firstnameInitialValue = this.authorFormInitialValueService.firstnameInitialValue()
+        const firstnameValidatorFunctions = this.authorFormValidationService.validatorFunctions(AuthorFormFieldName.firstname)
+        /* @tt{{{ @slbc @end-foreach }}}@ */
+        /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+        const nicknameInitialValue = this.authorFormInitialValueService.nicknameInitialValue()
+        const nicknameValidatorFunctions = this.authorFormValidationService.validatorFunctions(AuthorFormFieldName.nickname)
+        const lastnameInitialValue = this.authorFormInitialValueService.lastnameInitialValue()
+        const lastnameValidatorFunctions = this.authorFormValidationService.validatorFunctions(AuthorFormFieldName.lastname)
+        /* @tt{{{ @slbc  @end-ignore-text }}}@ */
         return new FormGroup({
             id: new FormControl<number>({value: 0, disabled: true}), // ID is readonly
             /* @tt{{{ @slbc
@@ -53,12 +72,13 @@ export class AuthorFormService {
                     [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
 
             }}}@  */
-            [AuthorFormFieldName.firstname]: new FormControl<string>('', this.validatorFunctions(AuthorFormFieldName.firstname)),
+            [AuthorFormFieldName.firstname]: new FormControl<string>(firstnameInitialValue, firstnameValidatorFunctions),
             /* @tt{{{ @slbc @end-foreach @slac }}}@ */
             /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-            [AuthorFormFieldName.lastname]: new FormControl<string>('', this.validatorFunctions(AuthorFormFieldName.lastname)),
-            nicknameIsNotNull: new FormControl<boolean>(true),
-            [AuthorFormFieldName.nickname]: new FormControl<string | null>(null),
+            [AuthorFormFieldName.lastname]: new FormControl<string>(lastnameInitialValue, lastnameValidatorFunctions),
+            [AuthorFormFieldName.nicknameIsNotNull]: new FormControl<boolean>(nicknameInitialValue != null),
+            [AuthorFormFieldName.nickname]: new FormControl<string | null>(nicknameInitialValue, nicknameValidatorFunctions),
+            // TODO continue here using initial values and validator functions
             libraryAwardList: new FormArray([]),
             birthdayIsNotNull: new FormControl<boolean>(true),
             birthday: new FormControl<Date | null>(null),
@@ -132,53 +152,4 @@ export class AuthorFormService {
             /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
         };
     }
-
-    private validatorFunctions(field: AuthorFormFieldName): Array<ValidatorFn> {
-        return this.namedValidators(field).map(namedValidator => namedValidator.validatorFunction)
-    }
-
-    private namedValidators(field: AuthorFormFieldName): ReadonlyArray<NamedValidator> {
-        switch(field) {
-            /* @tt{{{ @slbc
-                @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
-
-                @replace-value-by-expression
-                    [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
-
-            }}}@  */
-            case AuthorFormFieldName.firstname: return [
-                {
-                    validatorName: "required",
-                    validatorFunction: Validators.required,
-                },
-                {
-                    validatorName: "minlength",
-                    validatorFunction: Validators.minLength(2),
-                },
-            ]
-            /* @tt{{{ @slbc @end-foreach @slac }}}@ */
-            /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-            case AuthorFormFieldName.nickname: return [
-                {
-                    validatorName: "required",
-                    validatorFunction: Validators.required,
-                },
-                {
-                    validatorName: "minlength",
-                    validatorFunction: Validators.minLength(2),
-                },
-            ]
-            case AuthorFormFieldName.lastname: return [
-                {
-                    validatorName: "required",
-                    validatorFunction: Validators.required,
-                },
-                {
-                    validatorName: "minlength",
-                    validatorFunction: Validators.minLength(2),
-                },
-            ]
-            /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
-        }
-    };
 } 

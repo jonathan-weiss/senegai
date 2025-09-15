@@ -30,6 +30,7 @@ export enum AuthorFormFieldName {
     firstname = "firstname",
 /* @tt{{{ @slbc @end-foreach @slac }}}@ */
 /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+    nicknameIsNotNull = "nicknameIsNotNull",
     nickname = "nickname",
     lastname = "lastname",
 /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */

@@ -31,6 +31,8 @@ object Rendering {
             ItemConfirmDeleteDialogComponentScssRenderer,
             ItemConfirmDeleteDialogComponentTypescriptRenderer,
             ItemFormFieldNameRenderer,
+            ItemFormValidationServiceRenderer,
+            ItemFormInitialServiceRenderer,
             ItemEditFormServiceRenderer,
             ItemFormComponentHtmlRenderer,
             ItemFormComponentScssRenderer,
