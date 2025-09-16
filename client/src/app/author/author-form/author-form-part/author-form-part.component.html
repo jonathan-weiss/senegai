@@ -54,7 +54,7 @@
 }}}@  -->
     <div class="form-row">
         <app-field-wrapper label="First name">
-            <app-text-input [textFormControl]="firstnameControl" label="firstname" placeholder="Enter first name" [validatorNames]="firstnameValidatorNames" />
+            <app-text-input [textFormControl]="firstnameControl" label="firstname" placeholder="Enter first name" [validatorTranslations]="firstnameValidatorNames" />
         </app-field-wrapper>
     </div>
     <!-- @tt{{{ @slbc @end-foreach @slac }}}@ -->
@@ -67,13 +67,13 @@
                            [formGroupToDisableIfNullField]="nicknameControl"
         >
 
-            <app-text-input [textFormControl]="nicknameControl" label="nickname" placeholder="Enter nickname" [validatorNames]="nicknameValidatorNames" />
+            <app-text-input [textFormControl]="nicknameControl" label="nickname" placeholder="Enter nickname" [validatorTranslations]="nicknameValidatorNames" />
         </app-field-wrapper>
     </div>
 
     <div class="form-row">
         <app-field-wrapper label="Last name">
-            <app-text-input [textFormControl]="lastnameControl" label="lastname" placeholder="Enter lastname" [validatorNames]="lastnameValidatorNames" />
+            <app-text-input [textFormControl]="lastnameControl" label="lastname" placeholder="Enter lastname" [validatorTranslations]="lastnameValidatorNames" />
         </app-field-wrapper>
     </div>
     <div class="form-row">
@@ -99,12 +99,7 @@
                            [nullabilityCheckboxFormControl]="birthdayIsNotNullControl"
                            [formGroupToDisableIfNullField]="birthdayControl"
         >
-
-            <mat-form-field appearance="fill">
-                <input matInput [matDatepicker]="authorBirthdayPicker" placeholder="Enter birthday" [formControl]="birthdayControl">
-                <mat-datepicker-toggle matSuffix [for]="authorBirthdayPicker"></mat-datepicker-toggle>
-                <mat-datepicker #authorBirthdayPicker></mat-datepicker>
-            </mat-form-field>
+            <app-datepicker-input [datepickerFormControl]="birthdayControl" label="birthday" placeholder="Enter birthday" [validatorTranslations]="birthdayValidatorNames" />
         </app-field-wrapper>
     </div>
 

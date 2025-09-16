@@ -15,11 +15,10 @@ object ItemFormValidationServiceRenderer : ItemRenderer {
         return """
           |
           |import {Injectable} from '@angular/core';
-          |import {${model.itemName}} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}.model";
-          |import {AbstractControl, FormArray, FormControl, FormGroup, ValidatorFn, Validators} from "@angular/forms";
-          |import {FormUtil} from "@app/shared/form-controls/form.util";
+          |import {ValidatorFn, Validators} from "@angular/forms";
           |import {${model.itemName}FormFieldName} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form-field-name";
           |import {NamedValidator} from "@app/shared/form-controls/named-validator";
+          |import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
           |
           |@Injectable({providedIn: 'root'})
           |export class ${model.itemName}FormValidationService {
@@ -28,8 +27,16 @@ object ItemFormValidationServiceRenderer : ItemRenderer {
           |        return this.namedValidators(field).map(namedValidator => namedValidator.validatorFunction)
           |    }
           |
-          |    validatorNames(field: ${model.itemName}FormFieldName): Array<string> {
-          |        return this.namedValidators(field).map(namedValidator => namedValidator.validatorName)
+          |    validatorNames(field: ${model.itemName}FormFieldName): Array<ValidatorTranslation> {
+          |        return this.namedValidators(field)
+          |            .map(namedValidator => this.toValidatorTranslation(namedValidator))
+          |    }
+          |
+          |    private toValidatorTranslation(namedValidator: ValidatorTranslation): ValidatorTranslation {
+          |        return {
+          |            validatorName: namedValidator.validatorName,
+          |            validatorTranslationKey: namedValidator.validatorTranslationKey,
+          |        }
           |    }
           |
           |    namedValidators(field: ${model.itemName}FormFieldName): ReadonlyArray<NamedValidator> {
@@ -39,10 +46,12 @@ object ItemFormValidationServiceRenderer : ItemRenderer {
               |                {
               |                    validatorName: "required",
               |                    validatorFunction: Validators.required,
+              |                    validatorTranslationKey: "validator.required",
               |                },
               |                {
               |                    validatorName: "minlength",
               |                    validatorFunction: Validators.minLength(2),
+              |                    validatorTranslationKey: "validator.minlength",
               |                },
               |            ]
           """ } }            default: return []

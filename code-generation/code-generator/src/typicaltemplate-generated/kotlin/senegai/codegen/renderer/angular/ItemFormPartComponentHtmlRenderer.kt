@@ -25,7 +25,7 @@ object ItemFormPartComponentHtmlRenderer : ItemRenderer {
           |    ${ model.attributes.joinToString("") { attribute ->  """
               |    <div class="form-row">
               |        <app-field-wrapper label="${attribute.attributeName}">
-              |            <app-text-input [textFormControl]="${attribute.attributeName}Control" label="${attribute.attributeName}" placeholder="Enter ${attribute.attributeName}" [validatorNames]="${attribute.attributeName}ValidatorNames" />
+              |            <app-text-input [textFormControl]="${attribute.attributeName}Control" label="${attribute.attributeName}" placeholder="Enter ${attribute.attributeName}" [validatorTranslations]="${attribute.attributeName}ValidatorNames" />
               |        </app-field-wrapper>
               |    </div>
           """ } }

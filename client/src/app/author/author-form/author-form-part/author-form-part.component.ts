@@ -34,15 +34,15 @@ import {MatListModule} from "@angular/material/list";
 import {MatDialogModule} from "@angular/material/dialog";
 import {FormUtil} from "@app/shared/form-controls/form.util";
 import {FieldWrapperComponent} from "@app/shared/form-controls/field-wrapper/field-wrapper.component";
-import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/material/datepicker";
-import {MatNativeDateModule, MatOption} from "@angular/material/core";
+import {MatOption} from "@angular/material/core";
 import {MatCheckbox} from "@angular/material/checkbox";
 import {MatSelect} from "@angular/material/select";
 import {AuthorFormValidationService} from "@app/author/author-form/author-form-validation.service";
 import {AuthorFormFieldName} from "@app/author/author-form/author-form-field-name";
 import {TextInputComponent} from "@app/shared/form-controls/text-input/text-input.component";
+import {DatepickerInputComponent} from "@app/shared/form-controls/datepicker-input/datepicker-input.component";
+import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
 /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-
 import {
     AuthorLibraryAwardTableComponent
 } from "@app/author/author-form/author-library-award-table/author-library-award-table.component";
@@ -51,6 +51,7 @@ import {
 } from "@app/author/author-form/author-library-award-form-part/author-library-award-form-part.component";
 import {GenderEnumValues} from "@app/author/gender.enum";
 import {GenderI18nComponent} from "@app/author/gender-i18n/gender-i18n.component";
+
 /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 
 @Component({
@@ -72,20 +73,15 @@ import {GenderI18nComponent} from "@app/author/gender-i18n/gender-i18n.component
         MatDialogModule,
         FieldWrapperComponent,
         TextInputComponent,
+        DatepickerInputComponent,
         /* @tt{{{ @slbc  @ignore-text }}}@ */
-        MatDatepickerInput,
-        MatDatepickerToggle,
-        MatDatepicker,
-        MatNativeDateModule,
         MatCheckbox,
         MatSelect,
         MatOption,
-        /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
-        /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
         AuthorLibraryAwardTableComponent,
         AuthorLibraryAwardFormPartComponent,
         GenderI18nComponent,
-        /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+        /* @tt{{{ @slbc  @end-ignore-text }}}@ */
     ]
 })
 export class AuthorFormPartComponent implements OnInit {
@@ -105,27 +101,27 @@ export class AuthorFormPartComponent implements OnInit {
     @slac
     }}}@  */
     protected firstnameControl!: FormControl
-    protected firstnameValidatorNames!: ReadonlyArray<string>
+    protected firstnameValidatorNames!: ReadonlyArray<ValidatorTranslation>
 
     /* @tt{{{ @slbc @end-foreach @slac }}}@ */
     /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
 
     protected nicknameIsNotNullControl!: FormControl
-    protected nicknameIsNotNullValidatorNames!: ReadonlyArray<string>
+    protected nicknameIsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected nicknameControl!: FormControl
-    protected nicknameValidatorNames!: ReadonlyArray<string>
+    protected nicknameValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected lastnameControl!: FormControl
-    protected lastnameValidatorNames!: ReadonlyArray<string>
+    protected lastnameValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected libraryAwardListFormArray!: FormArray
-    protected libraryAwardListValidatorNames!: ReadonlyArray<string>
+    protected libraryAwardListValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected birthdayIsNotNullControl!: FormControl
-    protected birthdayIsNotNullValidatorNames!: ReadonlyArray<string>
+    protected birthdayIsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected birthdayControl!: FormControl
-    protected birthdayValidatorNames!: ReadonlyArray<string>
+    protected birthdayValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected vegetarianControl!: FormControl
-    protected vegetarianValidatorNames!: ReadonlyArray<string>
+    protected vegetarianValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected genderControl!: FormControl
-    protected genderValidatorNames!: ReadonlyArray<string>
+    protected genderValidatorNames!: ReadonlyArray<ValidatorTranslation>
     /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 
     constructor(private readonly authorFormValidationService: AuthorFormValidationService,) {

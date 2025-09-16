@@ -3,31 +3,37 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {CommonModule} from '@angular/common';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
+import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/material/datepicker";
 import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
 import {TranslocoPipe} from "@jsverse/transloco";
+import {MatNativeDateModule} from "@angular/material/core";
 
 @Component({
-    selector: 'app-text-input',
-    templateUrl: './text-input.component.html',
-    styleUrls: ['./text-input.component.scss'],
+    selector: 'app-datepicker-input',
+    templateUrl: './datepicker-input.component.html',
+    styleUrls: ['./datepicker-input.component.scss'],
     standalone: true,
     imports: [
         CommonModule,
         ReactiveFormsModule,
+        MatNativeDateModule,
         MatFormFieldModule,
         MatInputModule,
+        MatDatepickerInput,
+        MatDatepickerToggle,
+        MatDatepicker,
         TranslocoPipe,
     ]
 })
-export class TextInputComponent {
+export class DatepickerInputComponent {
     @Input() label: string = '';
     @Input() placeholder: string = '';
-    @Input({required: true}) textFormControl!: FormControl;
+    @Input({required: true}) datepickerFormControl!: FormControl;
     @Input() validatorTranslations: ReadonlyArray<ValidatorTranslation> = [];
     @Input() readonly: boolean = false;
 
     hasError(errorName: string): boolean {
-        return this.textFormControl.hasError(errorName) && this.textFormControl.touched;
+        return this.datepickerFormControl.hasError(errorName) && this.datepickerFormControl.touched;
     }
 
 

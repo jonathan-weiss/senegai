@@ -1,6 +1,8 @@
 <mat-form-field appearance="fill" style="width: 100%">
     <mat-label>{{ label }}</mat-label>
-    <input matInput [formControl]="textFormControl" [placeholder]="placeholder" [readonly]="readonly">
+    <input matInput [matDatepicker]="theDatePicker" [placeholder]="placeholder" [formControl]="datepickerFormControl" [readonly]="readonly">
+    <mat-datepicker-toggle matSuffix [for]="theDatePicker"></mat-datepicker-toggle>
+    <mat-datepicker #theDatePicker></mat-datepicker>
     @for (validatorTranslation of validatorTranslations; track validatorTranslation) {
         @if (hasError(validatorTranslation.validatorName)) {
             <mat-error>{{ validatorTranslation.validatorTranslationKey | transloco }}</mat-error>

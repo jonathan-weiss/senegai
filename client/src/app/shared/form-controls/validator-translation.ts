@@ -1,7 +1,6 @@
 import {ValidatorFn} from "@angular/forms";
 
-export interface NamedValidator {
+export interface ValidatorTranslation {
     validatorName: string;
-    validatorFunction: ValidatorFn;
     validatorTranslationKey: string;
 }

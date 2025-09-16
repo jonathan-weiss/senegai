@@ -28,13 +28,14 @@ object ItemFormPartComponentTypescriptRenderer : ItemRenderer {
           |import {MatDialogModule} from "@angular/material/dialog";
           |import {FormUtil} from "@app/shared/form-controls/form.util";
           |import {FieldWrapperComponent} from "@app/shared/form-controls/field-wrapper/field-wrapper.component";
-          |import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/material/datepicker";
-          |import {MatNativeDateModule, MatOption} from "@angular/material/core";
+          |import {MatOption} from "@angular/material/core";
           |import {MatCheckbox} from "@angular/material/checkbox";
           |import {MatSelect} from "@angular/material/select";
           |import {${model.itemName}FormValidationService} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form-validation.service";
           |import {${model.itemName}FormFieldName} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form-field-name";
           |import {TextInputComponent} from "@app/shared/form-controls/text-input/text-input.component";
+          |import {DatepickerInputComponent} from "@app/shared/form-controls/datepicker-input/datepicker-input.component";
+          |import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
           |@Component({
           |    selector: 'app-${model.itemNameLowercase}-form-part',
           |    templateUrl: './${model.itemNameLowercase}-form-part.component.html',
@@ -53,14 +54,16 @@ object ItemFormPartComponentTypescriptRenderer : ItemRenderer {
           |        MatListModule,
           |        MatDialogModule,
           |        FieldWrapperComponent,
-          |        TextInputComponent,    ]
+          |        TextInputComponent,
+          |        DatepickerInputComponent,
+          |    ]
           |})
           |export class ${model.itemName}FormPartComponent implements OnInit {
           |    @Input({ required: true }) ${model.itemNameLowercase}Form!: FormGroup;
           |
           |    protected idControl!: FormControl
           |    ${ model.attributes.joinToString("") { attribute ->  """    protected ${attribute.attributeName}Control!: FormControl
-              |    protected ${attribute.attributeName}ValidatorNames!: ReadonlyArray<string>
+              |    protected ${attribute.attributeName}ValidatorNames!: ReadonlyArray<ValidatorTranslation>
               |
           """ } }
           |    constructor(private readonly ${model.itemNameLowercase}FormValidationService: ${model.itemName}FormValidationService,) {

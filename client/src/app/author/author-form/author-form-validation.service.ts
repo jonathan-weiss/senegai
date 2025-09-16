@@ -20,17 +20,12 @@
 }}}@ */
 
 import {Injectable} from '@angular/core';
-import {Author} from "@app/author/author.model";
-import {AbstractControl, FormArray, FormControl, FormGroup, ValidatorFn, Validators} from "@angular/forms";
-import {FormUtil} from "@app/shared/form-controls/form.util";
+import {ValidatorFn, Validators} from "@angular/forms";
 import {AuthorFormFieldName} from "@app/author/author-form/author-form-field-name";
 import {NamedValidator} from "@app/shared/form-controls/named-validator";
+import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
 /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-import {AuthorLibraryAward} from "@app/author/author-library-award.model";
-import {
-    AuthorLibraryAwardEditFormService
-} from "@app/author/author-form/author-library-award-form-part/author-library-award-edit-form.service";
-import {GenderEnum} from "@app/author/gender.enum";
+
 /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 
 
@@ -41,8 +36,16 @@ export class AuthorFormValidationService {
         return this.namedValidators(field).map(namedValidator => namedValidator.validatorFunction)
     }
 
-    validatorNames(field: AuthorFormFieldName): Array<string> {
-        return this.namedValidators(field).map(namedValidator => namedValidator.validatorName)
+    validatorNames(field: AuthorFormFieldName): Array<ValidatorTranslation> {
+        return this.namedValidators(field)
+            .map(namedValidator => this.toValidatorTranslation(namedValidator))
+    }
+
+    private toValidatorTranslation(namedValidator: ValidatorTranslation): ValidatorTranslation {
+        return {
+            validatorName: namedValidator.validatorName,
+            validatorTranslationKey: namedValidator.validatorTranslationKey,
+        }
     }
 
     namedValidators(field: AuthorFormFieldName): ReadonlyArray<NamedValidator> {
@@ -59,10 +62,12 @@ export class AuthorFormValidationService {
                 {
                     validatorName: "required",
                     validatorFunction: Validators.required,
+                    validatorTranslationKey: "validator.required",
                 },
                 {
                     validatorName: "minlength",
                     validatorFunction: Validators.minLength(2),
+                    validatorTranslationKey: "validator.minlength",
                 },
             ]
             /* @tt{{{ @slbc @end-foreach @slac }}}@ */
@@ -71,20 +76,25 @@ export class AuthorFormValidationService {
                 {
                     validatorName: "required",
                     validatorFunction: Validators.required,
+                    validatorTranslationKey: "validator.required",
                 },
                 {
                     validatorName: "minlength",
-                    validatorFunction: Validators.minLength(2),
+                    validatorFunction: Validators.minLength(3),
+                    validatorTranslationKey: "validator.minlength",
                 },
             ]
             case AuthorFormFieldName.lastname: return [
                 {
                     validatorName: "required",
                     validatorFunction: Validators.required,
+                    validatorTranslationKey: "validator.required",
                 },
                 {
-                    validatorName: "minlength",
-                    validatorFunction: Validators.minLength(2),
+                    validatorName: "maxlength",
+                    validatorFunction: Validators.maxLength(45),
+                    validatorTranslationKey: "validator.maxlength",
+
                 },
             ]
             /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
