@@ -18,7 +18,7 @@
 
 }}}@ -->
 <div class="author-container">
-    <h2 i18n>Authors</h2>
+    <h2>Authors</h2>
 
     <mat-accordion class="author-accordion" multi>
         <!-- Search Panel -->
@@ -26,7 +26,7 @@
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <mat-icon>search</mat-icon>
-                    <ng-container i18n>Search Authors</ng-container>
+                    <ng-container>Search Authors</ng-container>
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <app-author-search (search)="onSearch($event)"></app-author-search>
@@ -37,7 +37,7 @@
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <mat-icon>list</mat-icon>
-                    <ng-container i18n>Author List</ng-container>
+                    <ng-container>Author List</ng-container>
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <app-author-result
@@ -55,7 +55,7 @@
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <mat-icon>edit</mat-icon>
-                    <ng-container i18n>Edit Author</ng-container>
+                    <ng-container>Edit Author</ng-container>
                 </mat-panel-title>
                 @if (selectedAuthor) {
                     <mat-panel-description>

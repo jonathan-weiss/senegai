@@ -16,7 +16,7 @@ describe('GenderI18n', () => {
 
         fixture.detectChanges();
 
-        expect(fixture.nativeElement.textContent).toBe('Male');
+        expect(fixture.nativeElement.textContent).toBe('MALE');
     });
 
     it('should display correct text for FEMALE', () => {
@@ -24,7 +24,7 @@ describe('GenderI18n', () => {
 
         fixture.detectChanges();
 
-        expect(fixture.nativeElement.textContent).toBe('Female');
+        expect(fixture.nativeElement.textContent).toBe('FEMALE');
     });
 
     // checking if everything is translated
