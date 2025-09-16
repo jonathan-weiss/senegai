@@ -7,7 +7,7 @@
     "build": "node node_modules/@angular/cli/bin/ng.js build",
     "watch": "node node_modules/@angular/cli/bin/ng.js build --watch --configuration development",
     "test": "node node_modules/@angular/cli/bin/ng.js test",
-    "extract-i18n": "transloco-keys-manager extract",
+    "extract-i18n": "transloco-keys-manager extract -i src",
     "find-i18n": "transloco-keys-manager find"
   },
   "private": true,
