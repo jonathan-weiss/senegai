@@ -14,11 +14,11 @@ object ItemConfirmDeleteDialogComponentHtmlRenderer : ItemRenderer {
     override fun renderTemplate(model: ItemModel): String {
         return """
           |<h2 mat-dialog-title>Delete ${model.itemName}</h2>
-          |<mat-dialog-content><ng-container i18n>Are you sure you want to delete</ng-container> <b>{{ data.firstname }} {{ data.lastname }}</b>?
+          |<mat-dialog-content><ng-container>Are you sure you want to delete</ng-container> <b>{{ data.firstname }} {{ data.lastname }}</b>?
           |</mat-dialog-content>
           |<mat-dialog-actions align="end">
-          |    <button mat-button (click)="onCancel()" i18n>Cancel</button>
-          |    <button mat-raised-button color="warn" (click)="onConfirm()" i18n>OK</button>
+          |    <button mat-button (click)="onCancel()">Cancel</button>
+          |    <button mat-raised-button color="warn" (click)="onConfirm()">OK</button>
           |</mat-dialog-actions>
           |
         """.trimMargin(marginPrefix = "|")

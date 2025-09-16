@@ -32,6 +32,7 @@ object ItemBoardComponentTypescriptRenderer : ItemRenderer {
           |import {MatListModule} from "@angular/material/list";
           |import {${model.itemName}FormComponent} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form.component";
           |import {${model.itemName}} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}.model";
+          |import {TranslocoPipe} from "@jsverse/transloco";
           |
           |@Component({
           |    selector: 'app-${model.itemNameLowercase}-board',
@@ -53,6 +54,7 @@ object ItemBoardComponentTypescriptRenderer : ItemRenderer {
           |        ${model.itemName}SearchComponent,
           |        ${model.itemName}ResultComponent,
           |        ${model.itemName}FormComponent,
+          |        TranslocoPipe,
           |    ]
           |})
           |export class ${model.itemName}BoardComponent {

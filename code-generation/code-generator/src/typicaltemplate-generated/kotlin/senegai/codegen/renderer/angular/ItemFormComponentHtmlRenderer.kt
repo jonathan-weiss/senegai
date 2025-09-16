@@ -16,7 +16,7 @@ object ItemFormComponentHtmlRenderer : ItemRenderer {
           |<div class="edit-form-container">
           |    <mat-card>
           |        <mat-card-header>
-          |            <mat-card-title i18n>{{ ${model.itemNameLowercase} ? 'Edit ${model.itemName}' : 'New ${model.itemName}' }}</mat-card-title>
+          |            <mat-card-title>{{ ${model.itemNameLowercase} ? 'Edit ${model.itemName}' : 'New ${model.itemName}' }}</mat-card-title>
           |        </mat-card-header>
           |
           |        <mat-card-content>
