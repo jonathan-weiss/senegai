@@ -1,0 +1,6 @@
+<mat-checkbox [formControl]="booleanFormControl">{{ label }}</mat-checkbox>
+@for (validatorTranslation of validatorTranslations; track validatorTranslation) {
+    @if (hasError(validatorTranslation.validatorName)) {
+        <mat-error>{{ validatorTranslation.validatorTranslationKey | transloco }}</mat-error>
+    }
+}

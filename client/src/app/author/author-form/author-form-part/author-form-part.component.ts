@@ -51,6 +51,7 @@ import {
 } from "@app/author/author-form/author-library-award-form-part/author-library-award-form-part.component";
 import {GenderEnumValues} from "@app/author/gender.enum";
 import {GenderI18nComponent} from "@app/author/gender-i18n/gender-i18n.component";
+import {BooleanInputComponent} from "@app/shared/form-controls/boolean-input/boolean-input.component";
 
 /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 
@@ -81,6 +82,7 @@ import {GenderI18nComponent} from "@app/author/gender-i18n/gender-i18n.component
         AuthorLibraryAwardTableComponent,
         AuthorLibraryAwardFormPartComponent,
         GenderI18nComponent,
+        BooleanInputComponent,
         /* @tt{{{ @slbc  @end-ignore-text }}}@ */
     ]
 })
