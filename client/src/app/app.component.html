@@ -4,6 +4,20 @@
     </button>
     <span>{{ title }}</span>
     <span class="spacer"></span>
+    <button mat-button [matMenuTriggerFor]="langMenu" aria-label="Language">
+        <mat-icon>language</mat-icon>
+        {{ activeLang.toUpperCase() }}
+    </button>
+    <mat-menu #langMenu="matMenu">
+        <button mat-menu-item (click)="setLang('en')">
+            <mat-icon svgIcon="flag-en"></mat-icon>
+            EN
+        </button>
+        <button mat-menu-item (click)="setLang('de')">
+            <mat-icon svgIcon="flag-de"></mat-icon>
+            DE
+        </button>
+    </mat-menu>
     <a mat-icon-button href="https://github.com" target="_blank" aria-label="GitHub">
         <mat-icon svgIcon="github"></mat-icon>
     </a>
