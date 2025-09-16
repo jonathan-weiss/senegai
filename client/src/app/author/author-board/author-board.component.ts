@@ -38,6 +38,7 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {AuthorFormComponent} from "@app/author/author-form/author-form/author-form.component";
 import {Author} from "@app/author/author.model";
+import {TranslocoPipe} from "@jsverse/transloco";
 
 @Component({
     selector: 'app-author-board',
@@ -59,6 +60,7 @@ import {Author} from "@app/author/author.model";
         AuthorSearchComponent,
         AuthorResultComponent,
         AuthorFormComponent,
+        TranslocoPipe,
     ]
 })
 export class AuthorBoardComponent {

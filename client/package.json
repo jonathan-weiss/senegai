@@ -6,7 +6,9 @@
     "start": "node node_modules/@angular/cli/bin/ng.js serve",
     "build": "node node_modules/@angular/cli/bin/ng.js build",
     "watch": "node node_modules/@angular/cli/bin/ng.js build --watch --configuration development",
-    "test": "node node_modules/@angular/cli/bin/ng.js test"
+    "test": "node node_modules/@angular/cli/bin/ng.js test",
+    "extract-i18n": "transloco-keys-manager extract",
+    "find-i18n": "transloco-keys-manager find"
   },
   "private": true,
   "dependencies": {
@@ -30,6 +32,7 @@
     "@angular/build": "^20.3.1",
     "@angular/cli": "^20.3.1",
     "@angular/compiler-cli": "^20.3.0",
+    "@jsverse/transloco-keys-manager": "^7.0.2",
     "@types/jasmine": "~5.1.0",
     "jasmine-core": "~5.9.0",
     "karma": "~6.4.0",
