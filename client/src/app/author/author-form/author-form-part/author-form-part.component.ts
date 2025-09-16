@@ -35,7 +35,6 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {FormUtil} from "@app/shared/form-controls/form.util";
 import {FieldWrapperComponent} from "@app/shared/form-controls/field-wrapper/field-wrapper.component";
 import {MatOption} from "@angular/material/core";
-import {MatCheckbox} from "@angular/material/checkbox";
 import {MatSelect} from "@angular/material/select";
 import {AuthorFormValidationService} from "@app/author/author-form/author-form-validation.service";
 import {AuthorFormFieldName} from "@app/author/author-form/author-form-field-name";
@@ -74,9 +73,8 @@ import {BooleanInputComponent} from "@app/shared/form-controls/boolean-input/boo
         MatDialogModule,
         FieldWrapperComponent,
         TextInputComponent,
-        DatepickerInputComponent,
         /* @tt{{{ @slbc  @ignore-text }}}@ */
-        MatCheckbox,
+        DatepickerInputComponent,
         MatSelect,
         MatOption,
         AuthorLibraryAwardTableComponent,

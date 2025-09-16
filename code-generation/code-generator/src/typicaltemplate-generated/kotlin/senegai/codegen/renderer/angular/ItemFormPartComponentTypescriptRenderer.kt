@@ -29,7 +29,6 @@ object ItemFormPartComponentTypescriptRenderer : ItemRenderer {
           |import {FormUtil} from "@app/shared/form-controls/form.util";
           |import {FieldWrapperComponent} from "@app/shared/form-controls/field-wrapper/field-wrapper.component";
           |import {MatOption} from "@angular/material/core";
-          |import {MatCheckbox} from "@angular/material/checkbox";
           |import {MatSelect} from "@angular/material/select";
           |import {${model.itemName}FormValidationService} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form-validation.service";
           |import {${model.itemName}FormFieldName} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form-field-name";
@@ -55,7 +54,6 @@ object ItemFormPartComponentTypescriptRenderer : ItemRenderer {
           |        MatDialogModule,
           |        FieldWrapperComponent,
           |        TextInputComponent,
-          |        DatepickerInputComponent,
           |    ]
           |})
           |export class ${model.itemName}FormPartComponent implements OnInit {
