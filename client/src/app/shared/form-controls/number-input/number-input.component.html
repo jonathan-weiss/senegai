@@ -1,6 +1,8 @@
 <mat-form-field appearance="fill" style="width: 100%">
-    <mat-label>{{ label }}</mat-label>
-    <input matInput [formControl]="numberFormControl" [placeholder]="placeholder" [readonly]="readonly">
+    @if (label != '') {
+        <mat-label>{{ label }}</mat-label>
+    }
+    <input matInput [formControl]="numberFormControl" [placeholder]="placeholder">
     @for (validatorTranslation of validatorTranslations; track validatorTranslation) {
         @if (hasError(validatorTranslation.validatorName)) {
             <mat-error>{{ validatorTranslation.validatorTranslationKey | transloco }}</mat-error>

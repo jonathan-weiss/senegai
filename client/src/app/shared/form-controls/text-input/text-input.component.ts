@@ -24,7 +24,6 @@ export class TextInputComponent {
     @Input() placeholder: string = '';
     @Input({required: true}) textFormControl!: FormControl;
     @Input() validatorTranslations: ReadonlyArray<ValidatorTranslation> = [];
-    @Input() readonly: boolean = false;
 
     hasError(errorName: string): boolean {
         return this.textFormControl.hasError(errorName) && this.textFormControl.touched;

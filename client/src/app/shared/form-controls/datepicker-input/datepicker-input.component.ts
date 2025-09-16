@@ -30,7 +30,6 @@ export class DatepickerInputComponent {
     @Input() placeholder: string = '';
     @Input({required: true}) datepickerFormControl!: FormControl;
     @Input() validatorTranslations: ReadonlyArray<ValidatorTranslation> = [];
-    @Input() readonly: boolean = false;
 
     hasError(errorName: string): boolean {
         return this.datepickerFormControl.hasError(errorName) && this.datepickerFormControl.touched;

@@ -24,7 +24,6 @@ export class NumberInputComponent {
     @Input() placeholder: string = '';
     @Input({required: true}) numberFormControl!: FormControl;
     @Input() validatorTranslations: ReadonlyArray<ValidatorTranslation> = [];
-    @Input() readonly: boolean = false;
 
     hasError(errorName: string): boolean {
         return this.numberFormControl.hasError(errorName) && this.numberFormControl.touched;
