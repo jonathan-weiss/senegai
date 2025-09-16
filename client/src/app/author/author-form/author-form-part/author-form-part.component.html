@@ -54,19 +54,7 @@
 }}}@  -->
     <div class="form-row">
         <app-field-wrapper label="First name">
-            <mat-form-field appearance="fill">
-                <input matInput [formControl]="firstnameControl" placeholder="Enter first name">
-                @if (hasError('firstname', 'required')) {
-                    <mat-error>
-                        First name is required
-                    </mat-error>
-                }
-                @if (hasError('firstname', 'minlength')) {
-                    <mat-error>
-                        First name must be at least 2 characters
-                    </mat-error>
-                }
-            </mat-form-field>
+            <app-text-input [textFormControl]="firstnameControl" label="firstname" placeholder="Enter first name" [validatorNames]="firstnameValidatorNames" />
         </app-field-wrapper>
     </div>
     <!-- @tt{{{ @slbc @end-foreach @slac }}}@ -->
@@ -79,35 +67,19 @@
                            [formGroupToDisableIfNullField]="nicknameControl"
         >
 
-            <mat-form-field appearance="fill">
-                <input matInput [formControl]="nicknameControl" placeholder="Enter nickname">
-            </mat-form-field>
+            <app-text-input [textFormControl]="nicknameControl" label="nickname" placeholder="Enter nickname" [validatorNames]="nicknameValidatorNames" />
         </app-field-wrapper>
     </div>
 
     <div class="form-row">
         <app-field-wrapper label="Last name">
-            <mat-form-field appearance="fill">
-                <mat-label>Last Name</mat-label>
-                <input matInput [formControl]="lastnameControl" placeholder="Enter last name">
-                @if (hasError('lastname', 'required')) {
-                    <mat-error>
-                        Last name is required
-                    </mat-error>
-                }
-                @if (hasError('lastname', 'minlength')) {
-                    <mat-error>
-                        Last name must be at least 2 characters
-                    </mat-error>
-                }
-
-            </mat-form-field>
+            <app-text-input [textFormControl]="lastnameControl" label="lastname" placeholder="Enter lastname" [validatorNames]="lastnameValidatorNames" />
         </app-field-wrapper>
     </div>
     <div class="form-row">
         <app-field-wrapper label="Library Awards">
             <app-author-library-award-table
-                    [authorLibraryAwardFormArray]="authorLibraryAwardFormArray"
+                    [authorLibraryAwardFormArray]="libraryAwardListFormArray"
                     (editAuthorLibraryAwardFormGroup)="onAuthorLibraryAwardFormGroupEdit($event)"
                     (deleteAuthorLibraryAwardFormGroup)="onAuthorLibraryAwardFormGroupDelete($event)"
             />

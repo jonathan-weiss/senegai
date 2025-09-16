@@ -13,7 +13,7 @@ object ItemFormPartComponentTypescriptRenderer : ItemRenderer {
 
     override fun renderTemplate(model: ItemModel): String {
         return """
-          |import {Component, Input} from '@angular/core';
+          |import {Component, Input, OnInit} from '@angular/core';
           |import {FormArray, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
           |import {MatButtonModule} from "@angular/material/button";
           |import {MatToolbarModule} from "@angular/material/toolbar";
@@ -32,6 +32,9 @@ object ItemFormPartComponentTypescriptRenderer : ItemRenderer {
           |import {MatNativeDateModule, MatOption} from "@angular/material/core";
           |import {MatCheckbox} from "@angular/material/checkbox";
           |import {MatSelect} from "@angular/material/select";
+          |import {${model.itemName}FormValidationService} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form-validation.service";
+          |import {${model.itemName}FormFieldName} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form-field-name";
+          |import {TextInputComponent} from "@app/shared/form-controls/text-input/text-input.component";
           |@Component({
           |    selector: 'app-${model.itemNameLowercase}-form-part',
           |    templateUrl: './${model.itemNameLowercase}-form-part.component.html',
@@ -49,18 +52,27 @@ object ItemFormPartComponentTypescriptRenderer : ItemRenderer {
           |        MatSidenavModule,
           |        MatListModule,
           |        MatDialogModule,
-          |        FieldWrapperComponent,    ]
+          |        FieldWrapperComponent,
+          |        TextInputComponent,    ]
           |})
-          |export class ${model.itemName}FormPartComponent {
+          |export class ${model.itemName}FormPartComponent implements OnInit {
           |    @Input({ required: true }) ${model.itemNameLowercase}Form!: FormGroup;
           |
-          |    get idControl(): FormControl {
-          |        return FormUtil.requiredFormControl(this.${model.itemNameLowercase}Form, "id");
-          |    }
-          |${ model.attributes.joinToString("") { attribute ->  """    get ${attribute.attributeName}Control(): FormControl {
-              |        return FormUtil.requiredFormControl(this.${model.itemNameLowercase}Form, "${attribute.attributeName}");
-              |    }
+          |    protected idControl!: FormControl
+          |    ${ model.attributes.joinToString("") { attribute ->  """    protected ${attribute.attributeName}Control!: FormControl
+              |    protected ${attribute.attributeName}ValidatorNames!: ReadonlyArray<string>
+              |
           """ } }
+          |    constructor(private readonly ${model.itemNameLowercase}FormValidationService: ${model.itemName}FormValidationService,) {
+          |    }
+          |
+          |    ngOnInit() {
+          |        this.idControl = FormUtil.requiredFormControl(this.${model.itemNameLowercase}Form, "id");${ model.attributes.joinToString("") { attribute ->  """
+              |        this.${attribute.attributeName}Control = FormUtil.requiredFormControl(this.${model.itemNameLowercase}Form, ${model.itemName}FormFieldName.${attribute.attributeName})
+              |        this.${attribute.attributeName}ValidatorNames = this.${model.itemNameLowercase}FormValidationService.validatorNames(${model.itemName}FormFieldName.${attribute.attributeName})
+              |
+          """ } }    }
+          |
           |    hasError(controlName: string, errorName: string): boolean {
           |        return FormUtil.hasError(this.${model.itemNameLowercase}Form, controlName, errorName)
           |    }

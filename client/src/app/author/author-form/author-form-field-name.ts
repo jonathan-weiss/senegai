@@ -33,5 +33,10 @@ export enum AuthorFormFieldName {
     nicknameIsNotNull = "nicknameIsNotNull",
     nickname = "nickname",
     lastname = "lastname",
+    libraryAwardList = "libraryAwardList",
+    birthdayIsNotNull = "birthdayIsNotNull",
+    birthday = "birthday",
+    vegetarian = "vegetarian",
+    gender = "gender",
 /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 }

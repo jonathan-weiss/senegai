@@ -41,6 +41,10 @@ export class AuthorFormValidationService {
         return this.namedValidators(field).map(namedValidator => namedValidator.validatorFunction)
     }
 
+    validatorNames(field: AuthorFormFieldName): Array<string> {
+        return this.namedValidators(field).map(namedValidator => namedValidator.validatorName)
+    }
+
     namedValidators(field: AuthorFormFieldName): ReadonlyArray<NamedValidator> {
         // TODO use mapped types https://www.typescriptlang.org/docs/handbook/2/mapped-types.html
         switch(field) {

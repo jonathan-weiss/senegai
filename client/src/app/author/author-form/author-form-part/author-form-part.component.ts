@@ -19,7 +19,7 @@
     @slac
 
 }}}@ */
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from "@angular/material/button";
 import {MatToolbarModule} from "@angular/material/toolbar";
@@ -38,6 +38,9 @@ import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/m
 import {MatNativeDateModule, MatOption} from "@angular/material/core";
 import {MatCheckbox} from "@angular/material/checkbox";
 import {MatSelect} from "@angular/material/select";
+import {AuthorFormValidationService} from "@app/author/author-form/author-form-validation.service";
+import {AuthorFormFieldName} from "@app/author/author-form/author-form-field-name";
+import {TextInputComponent} from "@app/shared/form-controls/text-input/text-input.component";
 /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
 
 import {
@@ -68,7 +71,8 @@ import {GenderI18nComponent} from "@app/author/gender-i18n/gender-i18n.component
         MatListModule,
         MatDialogModule,
         FieldWrapperComponent,
-        /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+        TextInputComponent,
+        /* @tt{{{ @slbc  @ignore-text }}}@ */
         MatDatepickerInput,
         MatDatepickerToggle,
         MatDatepicker,
@@ -84,62 +88,83 @@ import {GenderI18nComponent} from "@app/author/gender-i18n/gender-i18n.component
         /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
     ]
 })
-export class AuthorFormPartComponent {
+export class AuthorFormPartComponent implements OnInit {
     @Input({ required: true }) authorForm!: FormGroup;
 
     /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
     authorLibraryAwardUnderEdit: FormGroup | undefined = undefined;
     /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 
-    get idControl(): FormControl {
-        return FormUtil.requiredFormControl(this.authorForm, "id");
+    protected idControl!: FormControl
+    /* @tt{{{
+    @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
+
+    @replace-value-by-expression
+        [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
+
+    @slac
+    }}}@  */
+    protected firstnameControl!: FormControl
+    protected firstnameValidatorNames!: ReadonlyArray<string>
+
+    /* @tt{{{ @slbc @end-foreach @slac }}}@ */
+    /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+
+    protected nicknameIsNotNullControl!: FormControl
+    protected nicknameIsNotNullValidatorNames!: ReadonlyArray<string>
+    protected nicknameControl!: FormControl
+    protected nicknameValidatorNames!: ReadonlyArray<string>
+    protected lastnameControl!: FormControl
+    protected lastnameValidatorNames!: ReadonlyArray<string>
+    protected libraryAwardListFormArray!: FormArray
+    protected libraryAwardListValidatorNames!: ReadonlyArray<string>
+    protected birthdayIsNotNullControl!: FormControl
+    protected birthdayIsNotNullValidatorNames!: ReadonlyArray<string>
+    protected birthdayControl!: FormControl
+    protected birthdayValidatorNames!: ReadonlyArray<string>
+    protected vegetarianControl!: FormControl
+    protected vegetarianValidatorNames!: ReadonlyArray<string>
+    protected genderControl!: FormControl
+    protected genderValidatorNames!: ReadonlyArray<string>
+    /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+
+    constructor(private readonly authorFormValidationService: AuthorFormValidationService,) {
     }
 
-    /* @tt{{{ @slbc
+    ngOnInit() {
+        this.idControl = FormUtil.requiredFormControl(this.authorForm, "id");
+        /* @tt{{{ @slbc
         @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
 
         @replace-value-by-expression
             [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
 
-        @slac
-    }}}@  */
-    get firstnameControl(): FormControl {
-        return FormUtil.requiredFormControl(this.authorForm, "firstname");
+        }}}@  */
+        this.firstnameControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormFieldName.firstname)
+        this.firstnameValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormFieldName.firstname)
+
+        /* @tt{{{ @slbc @end-foreach @slac }}}@ */
+        /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+        this.nicknameIsNotNullControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormFieldName.nicknameIsNotNull)
+        this.nicknameIsNotNullValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormFieldName.nicknameIsNotNull)
+        this.nicknameControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormFieldName.nickname)
+        this.nicknameValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormFieldName.nickname)
+        this.lastnameControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormFieldName.lastname)
+        this.lastnameValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormFieldName.lastname)
+        this.libraryAwardListFormArray = FormUtil.requiredFormArray(this.authorForm, AuthorFormFieldName.libraryAwardList)
+        this.libraryAwardListValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormFieldName.libraryAwardList)
+        this.birthdayIsNotNullControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormFieldName.birthdayIsNotNull)
+        this.birthdayIsNotNullValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormFieldName.birthdayIsNotNull)
+        this.birthdayControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormFieldName.birthday)
+        this.birthdayValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormFieldName.birthday)
+        this.vegetarianControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormFieldName.vegetarian)
+        this.vegetarianValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormFieldName.vegetarian)
+        this.genderControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormFieldName.gender)
+        this.genderValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormFieldName.gender)
+        /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
     }
-    /* @tt{{{ @slbc @end-foreach @slac }}}@ */
+
     /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-
-    get nicknameIsNotNullControl(): FormControl {
-        return FormUtil.requiredFormControl(this.authorForm, "nicknameIsNotNull");
-    }
-
-    get nicknameControl(): FormControl {
-        return FormUtil.requiredFormControl(this.authorForm, "nickname");
-    }
-
-    get lastnameControl(): FormControl {
-        return FormUtil.requiredFormControl(this.authorForm, "lastname");
-    }
-
-    get authorLibraryAwardFormArray(): FormArray {
-        return FormUtil.requiredFormArray(this.authorForm, "libraryAwardList");
-    }
-
-    get birthdayIsNotNullControl(): FormControl {
-        return FormUtil.requiredFormControl(this.authorForm, "birthdayIsNotNull");
-    }
-
-    get birthdayControl(): FormControl {
-        return FormUtil.requiredFormControl(this.authorForm, "birthday");
-    }
-
-    get vegetarianControl(): FormControl {
-        return FormUtil.requiredFormControl(this.authorForm, "vegetarian");
-    }
-
-    get genderControl(): FormControl {
-        return FormUtil.requiredFormControl(this.authorForm, "gender");
-    }
 
     protected genderList = GenderEnumValues
 
@@ -151,7 +176,7 @@ export class AuthorFormPartComponent {
         if(this.authorLibraryAwardUnderEdit == formGroup) {
             this.authorLibraryAwardUnderEdit = undefined
         }
-        FormUtil.removeControl(this.authorLibraryAwardFormArray, formGroup)
+        FormUtil.removeControl(this.libraryAwardListFormArray, formGroup)
     }
 
     closeAuthorLibraryAwardUnderEdit(): void {

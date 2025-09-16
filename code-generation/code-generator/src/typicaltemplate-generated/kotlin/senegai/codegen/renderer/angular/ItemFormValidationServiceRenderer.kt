@@ -28,6 +28,10 @@ object ItemFormValidationServiceRenderer : ItemRenderer {
           |        return this.namedValidators(field).map(namedValidator => namedValidator.validatorFunction)
           |    }
           |
+          |    validatorNames(field: ${model.itemName}FormFieldName): Array<string> {
+          |        return this.namedValidators(field).map(namedValidator => namedValidator.validatorName)
+          |    }
+          |
           |    namedValidators(field: ${model.itemName}FormFieldName): ReadonlyArray<NamedValidator> {
           |        // TODO use mapped types https://www.typescriptlang.org/docs/handbook/2/mapped-types.html
           |        switch(field) {${ model.attributes.joinToString("") { attribute ->  """

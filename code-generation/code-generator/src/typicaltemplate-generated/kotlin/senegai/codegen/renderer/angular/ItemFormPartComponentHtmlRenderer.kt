@@ -25,19 +25,7 @@ object ItemFormPartComponentHtmlRenderer : ItemRenderer {
           |    ${ model.attributes.joinToString("") { attribute ->  """
               |    <div class="form-row">
               |        <app-field-wrapper label="${attribute.attributeName}">
-              |            <mat-form-field appearance="fill">
-              |                <input matInput [formControl]="${attribute.attributeName}Control" placeholder="Enter ${attribute.attributeName}">
-              |                @if (hasError('${attribute.attributeName}', 'required')) {
-              |                    <mat-error>
-              |                        ${attribute.attributeName} is required
-              |                    </mat-error>
-              |                }
-              |                @if (hasError('${attribute.attributeName}', 'minlength')) {
-              |                    <mat-error>
-              |                        ${attribute.attributeName} must be at least 2 characters
-              |                    </mat-error>
-              |                }
-              |            </mat-form-field>
+              |            <app-text-input [textFormControl]="${attribute.attributeName}Control" label="${attribute.attributeName}" placeholder="Enter ${attribute.attributeName}" [validatorNames]="${attribute.attributeName}ValidatorNames" />
               |        </app-field-wrapper>
               |    </div>
           """ } }
