@@ -30,9 +30,9 @@ object ManualCodegenData {
                     type = ItemAttributeBuiltInType.STRING,
                 ),
                 ItemAttributeData(
-                    attributeName = "exname",
+                    attributeName = "age",
                     cardinality = EXACTLY_ONE,
-                    type = ItemAttributeBuiltInType.STRING,
+                    type = ItemAttributeBuiltInType.NUMBER,
                 ),
                 ItemAttributeData(
                     attributeName = "address",
