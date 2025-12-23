@@ -1,27 +1,33 @@
 package senegai.codegen.definitions
 
-import senegai.codegen.schema.CodegenSchema.BuiltinType.STRING
-import senegai.codegen.schema.ItemId
-import senegai.codegen.schema.ItemsBuilder
+import senegai.codegen.schema.BuiltInType.NUMBER
+import senegai.codegen.schema.BuiltInType.STRING
+import senegai.codegen.builders.ItemId
+import senegai.codegen.builders.ItemsBuilder
 
 object CodegenData {
 
     fun collectItemData(itemsBuilder: ItemsBuilder) {
         println("Generating form data with $itemsBuilder")
 
-        val personItem = ItemId("Person")
+        val contact = ItemId("Contact")
         itemsBuilder
-            .createNewItem(personItem) {
-                attribute(attributeName = "firstname", type = STRING)
-                attribute(attributeName = "nickname", type = STRING)
-                attribute(attributeName = "lastname", type = STRING)
+            .createNewItem(contact) {
+                attribute(name = "firstname", type = STRING)
+                attribute(name = "nickname", type = STRING)
+                attribute(name = "lastname", type = STRING)
+                attribute(name = "age", type = NUMBER)
+                attribute(name = "address", type = STRING)
+                attribute(name = "zipCode", type = STRING)
+                attribute(name = "city", type = STRING)
             }
 
+        val employeeItem = ItemId("Employee")
         itemsBuilder
-            .createNewItem("Employee") {
-                attribute(attributeName = "firstname", type = STRING)
-                attribute(attributeName = "nickname", type = STRING)
-                attribute(attributeName = "lastname", type = STRING)
+            .createNewItem(employeeItem) {
+                attribute(name = "firstname", type = STRING)
+                attribute(name = "nickname", type = STRING)
+                attribute(name = "lastname", type = STRING)
             }
     }
 }

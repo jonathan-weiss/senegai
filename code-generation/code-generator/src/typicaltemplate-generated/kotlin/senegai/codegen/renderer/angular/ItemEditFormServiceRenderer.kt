@@ -46,7 +46,7 @@ object ItemEditFormServiceRenderer : ItemRenderer {
           |
           |    public create${model.itemName}FromFormData(form: AbstractControl): ${model.itemName} {
           |        return {
-          |            id: FormUtil.requiredFormControl(form, "id").value as number,${ model.attributes.joinToString("") { attribute ->  """            ${attribute.attributeName}: FormUtil.requiredFormControl(form, "${attribute.attributeName}").value as string,
+          |            id: FormUtil.requiredFormControl(form, "id").value as number,${ model.attributes.joinToString("") { attribute ->  """            ${attribute.attributeName}: FormUtil.requiredFormControl(form, "${attribute.attributeName}").value as ${attribute.typescriptAttributeType},
           """ } }        };
           |    }
           |} 

@@ -1,4 +1,4 @@
-package senegai.codegen.manual.schema
+package senegai.codegen.schema
 
 data class ItemAttributeNestedItemType(
     val nestedItem: ItemData

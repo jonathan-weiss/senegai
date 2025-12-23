@@ -1,4 +1,4 @@
-package senegai.codegen.manual.schema
+package senegai.codegen.schema
 
 enum class ItemAttributeCardinality {
     ZERO_TO_ONE, // = nullable

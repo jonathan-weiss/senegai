@@ -5,5 +5,4 @@ plugins {
 
 dependencies {
     implementation(libs.sourceamazing.schema.api)
-    implementation(libs.sourceamazing.builder.api)
 }
