@@ -101,13 +101,8 @@ export class AuthorFormService {
         FormUtil.requiredFormControl(form, "firstname").patchValue(author.firstname);
         /* @tt{{{ @slbc @end-foreach @slac }}}@ */
         /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-        if(!author.nickname) {
-            FormUtil.requiredFormControl(form, "nicknameIsNotNull").patchValue(false);
-            FormUtil.requiredFormControl(form, "nickname").patchValue(null);
-        } else {
-            FormUtil.requiredFormControl(form, "nicknameIsNotNull").patchValue(true);
-            FormUtil.requiredFormControl(form, "nickname").patchValue(author.nickname);
-        }
+        FormUtil.requiredFormControl(form, "nicknameIsNotNull").patchValue(!author.nickname);
+        FormUtil.requiredFormControl(form, "nickname").patchValue(author.nickname ?? null);
         FormUtil.requiredFormControl(form, "lastname").patchValue(author.lastname);
         const libraryAwardList = FormUtil.requiredFormArray(form, "libraryAwardList");
         author.libraryAwardList.forEach((libraryAward: AuthorLibraryAward) => {
@@ -115,14 +110,8 @@ export class AuthorFormService {
             this.authorLibraryAwardEditFormService.patchForm(formGroup, libraryAward);
             libraryAwardList.push(formGroup);
         })
-
-        if(!author.birthday) {
-            FormUtil.requiredFormControl(form, "birthdayIsNotNull").patchValue(false);
-            FormUtil.requiredFormControl(form, "birthday").patchValue(null);
-        } else {
-            FormUtil.requiredFormControl(form, "birthdayIsNotNull").patchValue(true);
-            FormUtil.requiredFormControl(form, "birthday").patchValue(author.birthday);
-        }
+        FormUtil.requiredFormControl(form, "birthdayIsNotNull").patchValue(!author.birthday);
+        FormUtil.requiredFormControl(form, "birthday").patchValue(author.birthday ?? null);
         FormUtil.requiredFormControl(form, "vegetarian").patchValue(author.vegetarian);
         FormUtil.requiredFormControl(form, "gender").patchValue(author.gender);
         /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
@@ -136,11 +125,12 @@ export class AuthorFormService {
 
                 @replace-value-by-expression
                     [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
+                    [ searchValue="string" replaceByExpression="attribute.typescriptAttributeType" ]
 
                 @slac
             }}}@  */
             firstname: FormUtil.requiredFormControl(form, "firstname").value as string,
-            /* @tt{{{ @slbc @end-foreach @slac }}}@ */
+            /* @tt{{{ @slbc @end-foreach  @end-replace-value-by-expression @slac }}}@ */
             /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
             nickname: FormUtil.requiredFormControl(form, "nicknameIsNotNull").value ? FormUtil.requiredFormControl(form, "nickname").value as string : null,
             lastname: FormUtil.requiredFormControl(form, "lastname").value as string,
