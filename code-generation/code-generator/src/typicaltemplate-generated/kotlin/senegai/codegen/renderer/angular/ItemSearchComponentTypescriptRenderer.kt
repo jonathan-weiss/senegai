@@ -28,7 +28,7 @@ object ItemSearchComponentTypescriptRenderer : ItemRenderer {
           |import {MatDialogModule} from "@angular/material/dialog";
           |
           |export interface ${model.itemName}SearchCriteria {
-          |    id?: number;${ model.attributes.joinToString("") { attribute ->  """    ${attribute.attributeName}?: string;
+          |    id?: number;${ model.attributes.joinToString("") { attribute ->  """    ${attribute.attributeName}?: ${attribute.typescriptAttributeTypeWithoutNullability};
           """ } }}
           |
           |@Component({

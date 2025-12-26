@@ -112,22 +112,44 @@ export class AuthorResultComponent implements OnChanges {
         const criteria = this.searchCriteria;
         this.dataSource.data = this.allAuthors.filter(author => {
             return (
-                (!criteria.id || author.id === criteria.id) &&
+                this.isMatchingNumberCriteria(criteria.id, author.id) &&
                 /* @tt{{{ @slbc
                     @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
 
                     @replace-value-by-expression
                         [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
+                        [ searchValue="String" replaceByExpression="attribute.typescriptAttributeTypeCapitalizedWithoutNullability" ]
                     @slac
                 }}}@  */
-                (!criteria.firstname || author.firstname.toLowerCase().includes(criteria.firstname.toLowerCase())) &&
+                this.isMatchingStringCriteria(criteria.firstname, author.firstname) &&
                     /* @tt{{{ @slbc @end-foreach @slac }}}@ */
                     /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-                (!criteria.nickname || (author.nickname ?? "").toLowerCase().includes(criteria.nickname.toLowerCase())) &&
-                (!criteria.lastname || author.lastname.toLowerCase().includes(criteria.lastname.toLowerCase())) &&
+                this.isMatchingStringCriteria(criteria.nickname, author.nickname) &&
+                this.isMatchingStringCriteria(criteria.lastname, author.lastname) &&
                     /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
                     true
             );
         });
     }
+
+    private isMatchingStringCriteria(searchCriteriaText: string | undefined | null, dataText: string | undefined | null): boolean {
+        if(searchCriteriaText == undefined) {
+            return true;
+        }
+        if(dataText == undefined) {
+            return false;
+        }
+        return dataText.toLowerCase().trim().includes(searchCriteriaText.toLowerCase().trim())
+    }
+
+    private isMatchingNumberCriteria(searchCriteriaNumber: number | undefined | null, dataNumber: number | undefined | null): boolean {
+        if(searchCriteriaNumber == undefined) {
+            return true;
+        }
+        if(dataNumber == undefined) {
+            return false;
+        }
+        return searchCriteriaNumber === dataNumber;
+    }
+
 } 

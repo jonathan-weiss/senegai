@@ -40,6 +40,7 @@ export interface AuthorSearchCriteria {
 
         @replace-value-by-expression
             [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
+            [ searchValue="string" replaceByExpression="attribute.typescriptAttributeTypeWithoutNullability" ]
         @slac
     }}}@  */
     firstname?: string;

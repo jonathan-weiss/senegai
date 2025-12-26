@@ -95,11 +95,32 @@ object ItemResultComponentTypescriptRenderer : ItemRenderer {
           |        const criteria = this.searchCriteria;
           |        this.dataSource.data = this.all${model.itemName}s.filter(${model.itemNameLowercase} => {
           |            return (
-          |                (!criteria.id || ${model.itemNameLowercase}.id === criteria.id) &&${ model.attributes.joinToString("") { attribute ->  """                (!criteria.${attribute.attributeName} || ${model.itemNameLowercase}.${attribute.attributeName}.toLowerCase().includes(criteria.${attribute.attributeName}.toLowerCase())) &&
+          |                this.isMatchingNumberCriteria(criteria.id, ${model.itemNameLowercase}.id) &&${ model.attributes.joinToString("") { attribute ->  """                this.isMatching${attribute.typescriptAttributeTypeCapitalizedWithoutNullability}Criteria(criteria.${attribute.attributeName}, ${model.itemNameLowercase}.${attribute.attributeName}) &&
           """ } }                    true
           |            );
           |        });
           |    }
+          |
+          |    private isMatchingStringCriteria(searchCriteriaText: string | undefined | null, dataText: string | undefined | null): boolean {
+          |        if(searchCriteriaText == undefined) {
+          |            return true;
+          |        }
+          |        if(dataText == undefined) {
+          |            return false;
+          |        }
+          |        return dataText.toLowerCase().trim().includes(searchCriteriaText.toLowerCase().trim())
+          |    }
+          |
+          |    private isMatchingNumberCriteria(searchCriteriaNumber: number | undefined | null, dataNumber: number | undefined | null): boolean {
+          |        if(searchCriteriaNumber == undefined) {
+          |            return true;
+          |        }
+          |        if(dataNumber == undefined) {
+          |            return false;
+          |        }
+          |        return searchCriteriaNumber === dataNumber;
+          |    }
+          |
           |} 
           |
         """.trimMargin(marginPrefix = "|")

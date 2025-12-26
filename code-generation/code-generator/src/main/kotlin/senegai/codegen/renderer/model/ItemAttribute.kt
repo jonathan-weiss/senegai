@@ -15,6 +15,8 @@ data class ItemAttribute(
     val typescriptAttributeTypeExample: String = calculateExampleValue()
     val typescriptAttributeInitialValue: String = calculateInitialValue()
     val typescriptAttributeType: String = calculateAttributeTypeWithNullability()
+    val typescriptAttributeTypeWithoutNullability: String = calculateAttributeType()
+    val typescriptAttributeTypeCapitalizedWithoutNullability: String = calculateAttributeType().capitalize()
     //val typescriptAttributeType: String = if(attributeName == "nickname") "string | null" else "string"
 
     private fun calculateAttributeType(): String {
@@ -28,7 +30,7 @@ data class ItemAttribute(
     private fun BuiltInType.builtInTypeAsString(): String {
         return when(this) {
             BuiltInType.STRING -> "string"
-            BuiltInType.NUMBER -> "integer"
+            BuiltInType.NUMBER -> "number"
             BuiltInType.BOOLEAN -> "boolean"
         }
     }
