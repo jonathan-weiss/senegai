@@ -19,7 +19,7 @@ object DefinitionDataCollection {
         return mapItems(collectItemsData())
     }
 
-    fun collectItemsData(): ItemsData {
+    private fun collectItemsData(): ItemsData {
         return SchemaApi.withSchema(ItemsData::class) { schemaContext ->
             val rootInstanceId = ConceptIdentifier.ofRandom(ItemsModel::class.toConceptName())
             BuilderApi.withBuilder(

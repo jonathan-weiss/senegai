@@ -8,6 +8,7 @@ import senegai.codegen.schema.ItemAttributeData
 import senegai.codegen.schema.ItemData
 import senegai.codegen.schema.ItemsData
 import senegai.codegen.builders.ItemId
+import senegai.codegen.schema.ItemAttributeNestedItemType
 
 @Builder
 interface RootBuilder {
@@ -74,4 +75,45 @@ interface ItemBuilder: senegai.codegen.builders.ItemBuilder {
         @SetFacetValue("itemAttributeBuiltInType", "builtInType") type: BuiltInType,
     )
 
+    override fun attribute(
+        name: String,
+        itemId: ItemId,
+        builder: senegai.codegen.builders.ItemBuilder.() -> Unit
+    ) {
+        return attribute(name, itemId.id, builder)
+    }
+
+    @BuilderMethod
+    @NewConcept(concept = ItemAttributeData::class, declareConceptAlias = "itemAttribute")
+    @NewConcept(concept = ItemAttributeNestedItemType::class, declareConceptAlias = "itemAttributeNestedItemType")
+    @NewConcept(concept = ItemData::class, declareConceptAlias = "nestedItem")
+    @SetRandomConceptIdentifierValue(conceptToModifyAlias = "itemAttribute")
+    @SetRandomConceptIdentifierValue(conceptToModifyAlias = "itemAttributeNestedItemType")
+    @SetRandomConceptIdentifierValue(conceptToModifyAlias = "nestedItem")
+    @SetAliasConceptIdentifierReferenceFacetValue(
+        conceptToModifyAlias = "item",
+        facetToModify = "attributes",
+        referencedConceptAlias = "itemAttribute"
+    )
+    @SetFixedEnumFacetValue(
+        conceptToModifyAlias = "itemAttribute",
+        facetToModify = "cardinality",
+        value = "EXACTLY_ONE"
+    )
+    @SetAliasConceptIdentifierReferenceFacetValue(
+        conceptToModifyAlias = "itemAttribute",
+        facetToModify = "type",
+        referencedConceptAlias = "itemAttributeNestedItemType"
+    )
+    @SetAliasConceptIdentifierReferenceFacetValue(
+        conceptToModifyAlias = "itemAttributeNestedItemType",
+        facetToModify = "nestedItem",
+        referencedConceptAlias = "nestedItem"
+    )
+    @RedeclareAliasForNestedBuilder(conceptAlias = "nestedItem", newConceptAlias = "item")
+    fun attribute(
+        @SetFacetValue("itemAttribute", "attributeName") name: String,
+        @SetFacetValue(conceptToModifyAlias = "nestedItem", facetToModify = "itemName") itemName: String,
+        @InjectBuilder builder: ItemBuilder.() -> Unit
+    )
 }

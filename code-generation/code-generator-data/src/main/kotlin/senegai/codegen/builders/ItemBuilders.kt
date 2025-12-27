@@ -17,5 +17,10 @@ interface ItemBuilder {
         type: BuiltInType
     )
 
+    fun attribute(
+        name: String,
+        itemId: ItemId,
+        builder: ItemBuilder.() -> Unit,
+    )
 }
 

@@ -23,11 +23,17 @@ object CodegenData {
             }
 
         val employeeItem = ItemId("Employee")
+        val addressItem = ItemId("Address")
         itemsBuilder
             .createNewItem(employeeItem) {
                 attribute(name = "firstname", type = STRING)
                 attribute(name = "nickname", type = STRING)
                 attribute(name = "lastname", type = STRING)
+                attribute(name = "address", itemId = addressItem) {
+                    attribute(name = "street", type = STRING)
+                    attribute(name = "postalCode", type = STRING)
+                    attribute(name = "town", type = STRING)
+                }
             }
     }
 }
