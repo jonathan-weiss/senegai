@@ -1,8 +1,9 @@
 package senegai.codegen.builders
 
 import senegai.codegen.schema.BuiltInType
+import senegai.codegen.schema.ItemId
 
-interface ItemsBuilder {
+interface SchemaBuilder {
 
     fun createNewItem(
         itemId: ItemId,

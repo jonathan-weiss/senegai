@@ -14,6 +14,7 @@ fun main(args: Array<String>) {
 
     val pathToGeneratedAngularFiles = Paths.get(args[0])
 
-    val itemsModel = DefinitionDataCollection.collectDefinitionData()
-    Rendering.renderClientFiles(pathToGeneratedAngularFiles, itemsModel)
+    val schemaModel = DefinitionDataCollection.collectDefinitionData()
+    println("SchemaModel: $schemaModel")
+    Rendering.renderClientFiles(pathToGeneratedAngularFiles, schemaModel.itemsModel)
 }

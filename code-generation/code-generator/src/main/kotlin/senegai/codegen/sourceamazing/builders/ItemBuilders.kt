@@ -1,48 +1,43 @@
 package senegai.codegen.sourceamazing.builders
 
 import org.codeblessing.sourceamazing.builder.api.annotations.*
-import org.codeblessing.sourceamazing.schema.api.ConceptIdentifier
 import senegai.codegen.schema.BuiltInType
 import senegai.codegen.schema.ItemAttributeBuiltInType
 import senegai.codegen.schema.ItemAttributeData
 import senegai.codegen.schema.ItemData
-import senegai.codegen.schema.ItemsData
-import senegai.codegen.builders.ItemId
+import senegai.codegen.schema.SchemaData
 import senegai.codegen.schema.ItemAttributeNestedItemType
+import senegai.codegen.schema.ItemId
 
 @Builder
+@ExpectedAliasFromSuperiorBuilder(concept = SchemaData::class, conceptAlias = "root")
 interface RootBuilder {
 
     @BuilderMethod
-    @NewConcept(concept = ItemsData::class, declareConceptAlias = "items")
-    fun createRootInstance(
-        @SetConceptIdentifierValue(conceptToModifyAlias = "items") rootInstanceId: ConceptIdentifier,
-    ): ItemsBuilder
+    @RedeclareAliasForNestedBuilder(conceptAlias = "root", newConceptAlias = "schema")
+    fun createRootInstance(): SchemaBuilder
 }
 
 @Builder
-@ExpectedAliasFromSuperiorBuilder(concept = ItemsData::class, conceptAlias = "items")
-interface ItemsBuilder: senegai.codegen.builders.ItemsBuilder {
+@ExpectedAliasFromSuperiorBuilder(concept = SchemaData::class, conceptAlias = "schema")
+interface SchemaBuilder: senegai.codegen.builders.SchemaBuilder {
 
     @BuilderMethod
-    @SetRandomConceptIdentifierValue(conceptToModifyAlias = "item")
-    @NewConcept(concept = ItemData::class, declareConceptAlias = "item")
-    @SetAliasConceptIdentifierReferenceFacetValue(
-        conceptToModifyAlias = "items",
+    @NewConceptModel(concept = ItemData::class, declareConceptAlias = "item")
+    @SetAliasConceptModelIdReferenceFacetValue(
+        conceptToModifyAlias = "schema",
         facetToModify = "items",
         referencedConceptAlias = "item"
     )
-
-    fun createNewItem(
-        @SetFacetValue(conceptToModifyAlias = "item", facetToModify = "itemName") itemName: String,
+    fun createNewItemInternal(
+        @SetConceptModelIdValue(conceptToModifyAlias = "item")
+        @SetFacetValue(conceptToModifyAlias = "item", facetToModify = "itemId") itemId: ItemId,
         @InjectBuilder builder: ItemBuilder.() -> Unit,
     )
 
-    override fun createNewItem(
-        itemId: ItemId,
-        builder: senegai.codegen.builders.ItemBuilder.() -> Unit,
-    ) {
-        createNewItem(itemId.id, builder)
+    override fun createNewItem(itemId: ItemId, builder: senegai.codegen.builders.ItemBuilder.() -> Unit) {
+        // cast from senegai.codegen.builders.ItemBuilder to our ItemBuilder
+        createNewItemInternal(itemId, builder as ItemBuilder.() -> Unit)
     }
 }
 
@@ -51,16 +46,14 @@ interface ItemsBuilder: senegai.codegen.builders.ItemsBuilder {
 interface ItemBuilder: senegai.codegen.builders.ItemBuilder {
 
     @BuilderMethod
-    @NewConcept(concept = ItemAttributeData::class, declareConceptAlias = "itemAttribute")
-    @NewConcept(concept = ItemAttributeBuiltInType::class, declareConceptAlias = "itemAttributeBuiltInType")
-    @SetRandomConceptIdentifierValue(conceptToModifyAlias = "itemAttribute")
-    @SetRandomConceptIdentifierValue(conceptToModifyAlias = "itemAttributeBuiltInType")
-    @SetAliasConceptIdentifierReferenceFacetValue(
+    @NewConceptModel(concept = ItemAttributeData::class, declareConceptAlias = "itemAttribute")
+    @NewConceptModel(concept = ItemAttributeBuiltInType::class, declareConceptAlias = "itemAttributeBuiltInType")
+    @SetAliasConceptModelIdReferenceFacetValue(
         conceptToModifyAlias = "item",
         facetToModify = "attributes",
         referencedConceptAlias = "itemAttribute"
     )
-    @SetAliasConceptIdentifierReferenceFacetValue(
+    @SetAliasConceptModelIdReferenceFacetValue(
         conceptToModifyAlias = "itemAttribute",
         facetToModify = "type",
         referencedConceptAlias = "itemAttributeBuiltInType"
@@ -75,22 +68,12 @@ interface ItemBuilder: senegai.codegen.builders.ItemBuilder {
         @SetFacetValue("itemAttributeBuiltInType", "builtInType") type: BuiltInType,
     )
 
-    override fun attribute(
-        name: String,
-        itemId: ItemId,
-        builder: senegai.codegen.builders.ItemBuilder.() -> Unit
-    ) {
-        return attribute(name, itemId.id, builder)
-    }
 
     @BuilderMethod
-    @NewConcept(concept = ItemAttributeData::class, declareConceptAlias = "itemAttribute")
-    @NewConcept(concept = ItemAttributeNestedItemType::class, declareConceptAlias = "itemAttributeNestedItemType")
-    @NewConcept(concept = ItemData::class, declareConceptAlias = "nestedItem")
-    @SetRandomConceptIdentifierValue(conceptToModifyAlias = "itemAttribute")
-    @SetRandomConceptIdentifierValue(conceptToModifyAlias = "itemAttributeNestedItemType")
-    @SetRandomConceptIdentifierValue(conceptToModifyAlias = "nestedItem")
-    @SetAliasConceptIdentifierReferenceFacetValue(
+    @NewConceptModel(concept = ItemAttributeData::class, declareConceptAlias = "itemAttribute")
+    @NewConceptModel(concept = ItemAttributeNestedItemType::class, declareConceptAlias = "itemAttributeNestedItemType")
+    @NewConceptModel(concept = ItemData::class, declareConceptAlias = "nestedItem")
+    @SetAliasConceptModelIdReferenceFacetValue(
         conceptToModifyAlias = "item",
         facetToModify = "attributes",
         referencedConceptAlias = "itemAttribute"
@@ -100,20 +83,28 @@ interface ItemBuilder: senegai.codegen.builders.ItemBuilder {
         facetToModify = "cardinality",
         value = "EXACTLY_ONE"
     )
-    @SetAliasConceptIdentifierReferenceFacetValue(
+    @SetAliasConceptModelIdReferenceFacetValue(
         conceptToModifyAlias = "itemAttribute",
         facetToModify = "type",
         referencedConceptAlias = "itemAttributeNestedItemType"
     )
-    @SetAliasConceptIdentifierReferenceFacetValue(
+    @SetAliasConceptModelIdReferenceFacetValue(
         conceptToModifyAlias = "itemAttributeNestedItemType",
         facetToModify = "nestedItem",
         referencedConceptAlias = "nestedItem"
     )
     @RedeclareAliasForNestedBuilder(conceptAlias = "nestedItem", newConceptAlias = "item")
-    fun attribute(
+    fun attributeInternal(
         @SetFacetValue("itemAttribute", "attributeName") name: String,
-        @SetFacetValue(conceptToModifyAlias = "nestedItem", facetToModify = "itemName") itemName: String,
-        @InjectBuilder builder: ItemBuilder.() -> Unit
+        @SetFacetValue(conceptToModifyAlias = "nestedItem", facetToModify = "itemId") itemId: ItemId,
+        @InjectBuilder builder: ItemBuilder.() -> Unit,
     )
+
+    override fun attribute(
+        name: String,
+        itemId: ItemId,
+        builder: senegai.codegen.builders.ItemBuilder.() -> Unit,
+    ) {
+        this.attributeInternal(name, itemId, builder)
+    }
 }

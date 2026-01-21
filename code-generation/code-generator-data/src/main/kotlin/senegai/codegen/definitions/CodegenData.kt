@@ -1,17 +1,17 @@
 package senegai.codegen.definitions
 
+import senegai.codegen.builders.SchemaBuilder
 import senegai.codegen.schema.BuiltInType.NUMBER
 import senegai.codegen.schema.BuiltInType.STRING
-import senegai.codegen.builders.ItemId
-import senegai.codegen.builders.ItemsBuilder
+import senegai.codegen.schema.ItemId
 
 object CodegenData {
 
-    fun collectItemData(itemsBuilder: ItemsBuilder) {
-        println("Generating form data with $itemsBuilder")
+    fun collectItemData(schemaBuilder: SchemaBuilder) {
+        println("Generating form data with $schemaBuilder")
 
         val contact = ItemId("Contact")
-        itemsBuilder
+        schemaBuilder
             .createNewItem(contact) {
                 attribute(name = "firstname", type = STRING)
                 attribute(name = "nickname", type = STRING)
@@ -24,7 +24,7 @@ object CodegenData {
 
         val employeeItem = ItemId("Employee")
         val addressItem = ItemId("Address")
-        itemsBuilder
+        schemaBuilder
             .createNewItem(employeeItem) {
                 attribute(name = "firstname", type = STRING)
                 attribute(name = "nickname", type = STRING)
