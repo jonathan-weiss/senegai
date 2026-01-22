@@ -3,10 +3,10 @@ package senegai.codegen.sourceamazing
 import org.codeblessing.sourceamazing.builder.api.BuilderApi
 import org.codeblessing.sourceamazing.schema.api.SchemaApi
 import senegai.codegen.definitions.CodegenData
-import senegai.codegen.schema.ItemAttributeData
-import senegai.codegen.schema.ItemData
+import senegai.codegen.renderer.model.ItemAttributeModel
+import senegai.codegen.schema.ItemAttribute
+import senegai.codegen.schema.Item
 import senegai.codegen.schema.SchemaData
-import senegai.codegen.renderer.model.ItemAttribute
 import senegai.codegen.renderer.model.ItemModel
 import senegai.codegen.renderer.model.ItemsModel
 import senegai.codegen.renderer.model.SchemaModel
@@ -33,21 +33,21 @@ object DefinitionDataCollection {
         }
     }
 
-    private fun mapItems(items: List<ItemData>): ItemsModel {
+    private fun mapItems(items: List<Item>): ItemsModel {
         return ItemsModel(
             allItems = items.map { mapItem(it) },
         )
     }
 
-    private fun mapItem(item: ItemData): ItemModel {
+    private fun mapItem(item: Item): ItemModel {
         return ItemModel(
-            itemName = item.itemId.itemName,
+            itemName = item.itemName,
             attributes = item.attributes.map { mapItemAttribute(it) },
         )
     }
 
-    private fun mapItemAttribute(itemAttribute: ItemAttributeData): ItemAttribute {
-        return ItemAttribute(
+    private fun mapItemAttribute(itemAttribute: ItemAttribute): ItemAttributeModel {
+        return ItemAttributeModel(
             attributeName = itemAttribute.attributeName,
             cardinality = itemAttribute.cardinality,
             type = itemAttribute.type,

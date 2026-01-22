@@ -11,6 +11,9 @@ object CodegenData {
         println("Generating form data with $schemaBuilder")
 
         val contact = ItemId("Contact")
+        val employeeItem = ItemId("Employee")
+        val addressItem = ItemId("Address")
+
         schemaBuilder
             .createNewItem(contact) {
                 attribute(name = "firstname", type = STRING)
@@ -22,18 +25,19 @@ object CodegenData {
                 attribute(name = "city", type = STRING)
             }
 
-        val employeeItem = ItemId("Employee")
-        val addressItem = ItemId("Address")
         schemaBuilder
             .createNewItem(employeeItem) {
                 attribute(name = "firstname", type = STRING)
                 attribute(name = "nickname", type = STRING)
                 attribute(name = "lastname", type = STRING)
-                attribute(name = "address", itemId = addressItem) {
-                    attribute(name = "street", type = STRING)
-                    attribute(name = "postalCode", type = STRING)
-                    attribute(name = "town", type = STRING)
-                }
             }
+
+        schemaBuilder
+            .createNewItem(itemId = addressItem) {
+            attribute(name = "street", type = STRING)
+            attribute(name = "postalCode", type = STRING)
+            attribute(name = "town", type = STRING)
+        }
+
     }
 }

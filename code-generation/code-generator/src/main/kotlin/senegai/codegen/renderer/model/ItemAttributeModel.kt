@@ -1,13 +1,9 @@
 package senegai.codegen.renderer.model
 
-import senegai.codegen.schema.BuiltInType
-import senegai.codegen.schema.ItemAttributeBuiltInType
-import senegai.codegen.schema.ItemAttributeCardinality
-import senegai.codegen.schema.ItemAttributeEnumType
-import senegai.codegen.schema.ItemAttributeNestedItemType
-import senegai.codegen.schema.ItemAttributeType
+import senegai.codegen.renderer.NotSupportedInTemplateException
+import senegai.codegen.schema.*
 
-data class ItemAttribute(
+data class ItemAttributeModel(
     val attributeName: String,
     val cardinality: ItemAttributeCardinality,
     val type: ItemAttributeType,
@@ -21,9 +17,10 @@ data class ItemAttribute(
 
     private fun calculateAttributeType(): String {
         return when(type) {
-            is ItemAttributeEnumType -> "enum not supported"
-            is ItemAttributeNestedItemType -> "nested item not supported"
-            is ItemAttributeBuiltInType -> type.builtInType.builtInTypeAsString()
+            is BuiltInType -> type.builtInTypeAsString()
+            is EntityId -> throw NotSupportedInTemplateException(type.toString())
+            is EnumId -> throw NotSupportedInTemplateException(type.toString())
+            is ItemId -> throw NotSupportedInTemplateException(type.toString())
         }
     }
 
@@ -46,9 +43,10 @@ data class ItemAttribute(
 
     private fun calculateInitialValue(): String {
         return when(type) {
-            is ItemAttributeEnumType -> "enum not supported"
-            is ItemAttributeNestedItemType -> "nested item not supported"
-            is ItemAttributeBuiltInType -> type.builtInType.builtInTypeInitialValue()
+            is BuiltInType -> type.builtInTypeInitialValue()
+            is EntityId -> throw NotSupportedInTemplateException(type.toString())
+            is EnumId -> throw NotSupportedInTemplateException(type.toString())
+            is ItemId -> throw NotSupportedInTemplateException(type.toString())
         }
     }
 
@@ -62,9 +60,10 @@ data class ItemAttribute(
 
     private fun calculateExampleValue(): String {
         return when(type) {
-            is ItemAttributeEnumType -> "enum not supported"
-            is ItemAttributeNestedItemType -> "nested item not supported"
-            is ItemAttributeBuiltInType -> type.builtInType.builtInTypeExampleValue()
+            is BuiltInType -> type.builtInTypeExampleValue()
+            is EntityId -> throw NotSupportedInTemplateException(type.toString())
+            is EnumId -> throw NotSupportedInTemplateException(type.toString())
+            is ItemId -> throw NotSupportedInTemplateException(type.toString())
         }
     }
 
