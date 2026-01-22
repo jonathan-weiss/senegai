@@ -5,32 +5,47 @@ import senegai.codegen.schema.EntityId
 import senegai.codegen.schema.EnumId
 import senegai.codegen.schema.ItemId
 
-interface SchemaBuilder {
+@DslMarker
+annotation class BuilderDslMarker
 
-    fun createNewEntity(
+@Target(AnnotationTarget.TYPE)
+@DslMarker
+annotation class SchemaTypeMarker
+
+interface RootDsl {
+
+    fun schema(builder: SchemaDsl.() -> Unit,)
+}
+
+@BuilderDslMarker
+interface SchemaDsl {
+
+    fun entity(
         entityId: EntityId,
         itemId: ItemId,
     )
 
-    fun createNewEnumType(
+    fun enumType(
         enumId: EnumId,
-        builder: EnumBuilder.() -> Unit,
+        builder: EnumDsl.() -> Unit,
     )
 
-    fun createNewItem(
+    fun item(
         itemId: ItemId,
-        builder: ItemBuilder.() -> Unit,
+        builder: ItemDsl.() -> Unit,
     )
 }
 
-interface EnumBuilder {
+@BuilderDslMarker
+interface EnumDsl {
 
     fun enumValue(
         name: String,
     )
 }
 
-interface ItemBuilder {
+@BuilderDslMarker
+interface ItemDsl {
 
     fun attribute(
         name: String,

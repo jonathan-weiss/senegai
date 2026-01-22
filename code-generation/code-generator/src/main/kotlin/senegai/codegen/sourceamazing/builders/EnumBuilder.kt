@@ -8,7 +8,7 @@ import senegai.codegen.schema.EnumType
 
 @Builder
 @ExpectedAliasFromSuperiorBuilder(concept = EnumType::class, conceptAlias = "enum")
-interface EnumBuilder: senegai.codegen.builders.EnumBuilder {
+interface EnumBuilder: senegai.codegen.builders.EnumDsl {
 
     @BuilderMethod
     override fun enumValue(

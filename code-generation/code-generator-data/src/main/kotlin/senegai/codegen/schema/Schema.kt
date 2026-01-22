@@ -35,7 +35,9 @@ data class Entity(
 /**
  * An [EntityId] is globally unique.
  */
-data class EnumId(val enumName: String) : ItemAttributeType
+interface EnumId : ItemAttributeType {
+    val enumName: String
+}
 
 /**
  * An [EnumType] defines an enumeration
@@ -59,7 +61,9 @@ enum class BuiltInType: ItemAttributeType {
  * An [ItemId] is only used to wire the
  * different items and entities together.
  */
-data class ItemId(val itemName: String): ItemAttributeType
+interface ItemId: ItemAttributeType {
+    val itemName: String
+}
 
 
 /**

@@ -5,7 +5,7 @@ import senegai.codegen.schema.*
 
 @Builder
 @ExpectedAliasFromSuperiorBuilder(concept = SchemaData::class, conceptAlias = "schema")
-interface SchemaBuilder: senegai.codegen.builders.SchemaBuilder {
+interface SchemaBuilder: senegai.codegen.builders.SchemaDsl {
 
     // **************
     // Entity
@@ -18,7 +18,7 @@ interface SchemaBuilder: senegai.codegen.builders.SchemaBuilder {
         facetToModify = "entities",
         referencedConceptAlias = "entity"
     )
-    override fun createNewEntity(
+    override fun entity(
         @SetConceptModelIdValue(conceptToModifyAlias = "entity")
         @SetFacetValue(conceptToModifyAlias = "entity", facetToModify = "entityId")
         entityId: EntityId,
@@ -43,7 +43,7 @@ interface SchemaBuilder: senegai.codegen.builders.SchemaBuilder {
         @InjectBuilder builder: ItemBuilder.() -> Unit,
     )
 
-    override fun createNewItem(itemId: ItemId, builder: senegai.codegen.builders.ItemBuilder.() -> Unit) {
+    override fun item(itemId: ItemId, builder: senegai.codegen.builders.ItemDsl.() -> Unit) {
         // cast from senegai.codegen.builders.XyzBuilder to our XyzBuilder
         createNewItemInternal(itemId, builder)
     }
@@ -66,7 +66,7 @@ interface SchemaBuilder: senegai.codegen.builders.SchemaBuilder {
         @InjectBuilder builder: EnumBuilder.() -> Unit
     )
 
-    override fun createNewEnumType(enumId: EnumId, builder: senegai.codegen.builders.EnumBuilder.() -> Unit) {
+    override fun enumType(enumId: EnumId, builder: senegai.codegen.builders.EnumDsl.() -> Unit) {
         // cast from senegai.codegen.builders.XyzBuilder to our XyzBuilder
         createNewEnumTypeInternal(enumId, builder)
     }

@@ -5,7 +5,7 @@ import senegai.codegen.schema.*
 
 @Builder
 @ExpectedAliasFromSuperiorBuilder(concept = Item::class, conceptAlias = "item")
-interface ItemBuilder: senegai.codegen.builders.ItemBuilder {
+interface ItemBuilder: senegai.codegen.builders.ItemDsl {
 
     @BuilderMethod
     @NewConceptModel(concept = ItemAttribute::class, declareConceptAlias = "itemAttribute")
