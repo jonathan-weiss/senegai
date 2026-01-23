@@ -10,6 +10,12 @@ dependencies {
     implementation(libs.sourceamazing.builder.api)
     runtimeOnly(libs.sourceamazing.builder)
     runtimeOnly(libs.kotlin.reflect)
+
+    testImplementation(kotlin("test"))
+}
+
+tasks.test {
+    useJUnitPlatform()
 }
 
 val directoryForGeneratedTemplateRenderer = "src/typicaltemplate-generated/kotlin"

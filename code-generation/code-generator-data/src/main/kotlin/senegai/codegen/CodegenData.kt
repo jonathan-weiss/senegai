@@ -1,8 +1,7 @@
-package senegai.codegen.definitions
+package senegai.codegen
 
 import senegai.codegen.builders.RootDsl
-import senegai.codegen.schema.BuiltInType.NUMBER
-import senegai.codegen.schema.BuiltInType.STRING
+import senegai.codegen.schema.BuiltInType
 import senegai.codegen.schema.EntityId
 import senegai.codegen.schema.EnumId
 import senegai.codegen.schema.ItemId
@@ -41,18 +40,18 @@ object CodegenData {
             }
 
             item(itemId = Items.CONTACT) {
-                attribute(name = "firstname", type = STRING)
-                attribute(name = "nickname", type = STRING)
-                attribute(name = "lastname", type = STRING)
-                attribute(name = "age", type = NUMBER)
-                attribute(name = "address", type = STRING)
-                attribute(name = "zipCode", type = STRING)
-                attribute(name = "city", type = STRING)
+                attribute(name = "firstname", type = BuiltInType.STRING)
+                attribute(name = "nickname", type = BuiltInType.STRING)
+                attribute(name = "lastname", type = BuiltInType.STRING)
+                attribute(name = "age", type = BuiltInType.NUMBER)
+                attribute(name = "address", type = BuiltInType.STRING)
+                attribute(name = "zipCode", type = BuiltInType.STRING)
+                attribute(name = "city", type = BuiltInType.STRING)
             }
 
             item(itemId = Items.ADDRESS) {
-                attribute(name = "firstname", type = STRING)
-                attribute(name = "lastname", type = STRING)
+                attribute(name = "firstname", type = BuiltInType.STRING)
+                attribute(name = "lastname", type = BuiltInType.STRING)
 //                attribute(name = "street", type = STRING)
 //                attribute(name = "postalCode", type = STRING)
 //                attribute(name = "town", type = STRING)
@@ -74,8 +73,6 @@ object CodegenData {
                                 }
                                 section(sectionName = "Misc") {
                                     entityAttribute(attributeName = "age")
-                                    entityAttribute(attributeName = "nickname")
-                                    entityAttribute(attributeName = "lastname")
                                 }
                             }
                         }
