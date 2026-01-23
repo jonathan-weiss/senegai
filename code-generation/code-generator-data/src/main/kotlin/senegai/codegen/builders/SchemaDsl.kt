@@ -1,6 +1,5 @@
 package senegai.codegen.builders
 
-import senegai.codegen.schema.BuiltInType
 import senegai.codegen.schema.EntityId
 import senegai.codegen.schema.EnumId
 import senegai.codegen.schema.ItemId
@@ -16,7 +15,7 @@ interface SchemaDsl {
 
     fun entity(
         entityId: EntityId,
-        itemId: ItemId,
+        entityRootItemId: ItemId,
     )
 
     fun enumType(
@@ -27,6 +26,11 @@ interface SchemaDsl {
     fun item(
         itemId: ItemId,
         builder: ItemDsl.() -> Unit,
+    )
+
+    fun uiEntity(
+        entityId: EntityId,
+        builder: UiEntityDsl.() -> Unit,
     )
 }
 

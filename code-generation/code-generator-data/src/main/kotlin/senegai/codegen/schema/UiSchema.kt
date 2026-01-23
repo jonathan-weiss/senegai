@@ -5,7 +5,6 @@ data class UiEntity(
     val editorView: UiEntityEditorView
 )
 
-
 data class UiEntityEditorView(
     val tabs: List<UiEntityEditorTab>,
 )
@@ -21,11 +20,11 @@ data class UiEntityEditorColumn(
 
 data class UiEntityEditorSection(
     val sectionName: String,
-    val components: List<UiEntityComponent>
+    val blocks: List<UiEntityBlock>
 )
 
-sealed interface UiEntityComponent
+sealed interface UiEntityBlock
 
-data class UiEntityAttributeComponent(
+data class UiEntityAttributeBlock(
     val entityAttributeName: String,
-): UiEntityComponent
+): UiEntityBlock

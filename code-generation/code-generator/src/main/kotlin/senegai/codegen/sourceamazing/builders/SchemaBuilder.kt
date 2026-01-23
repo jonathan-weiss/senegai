@@ -1,6 +1,7 @@
 package senegai.codegen.sourceamazing.builders
 
 import org.codeblessing.sourceamazing.builder.api.annotations.*
+import senegai.codegen.builders.UiEntityDsl
 import senegai.codegen.schema.*
 
 @Builder
@@ -23,7 +24,7 @@ interface SchemaBuilder: senegai.codegen.builders.SchemaDsl {
         @SetFacetValue(conceptToModifyAlias = "entity", facetToModify = "entityId")
         entityId: EntityId,
         @SetFacetReference(conceptToModifyAlias = "entity", facetToModify = "item")
-        itemId: ItemId,
+        entityRootItemId: ItemId,
     )
 
     // **************
@@ -70,4 +71,27 @@ interface SchemaBuilder: senegai.codegen.builders.SchemaDsl {
         // cast from senegai.codegen.builders.XyzBuilder to our XyzBuilder
         createNewEnumTypeInternal(enumId, builder)
     }
+
+
+    // **************
+    // UI Entity
+    // **************
+
+    @BuilderMethod
+    @NewConceptModel(concept = UiEntity::class, declareConceptAlias = "uiEntity")
+    @SetAliasConceptModelIdReferenceFacetValue(
+        conceptToModifyAlias = "schema",
+        facetToModify = "uiEntities",
+        referencedConceptAlias = "uiEntity"
+    )
+    fun uiEntityInternal(
+        @SetFacetReference(conceptToModifyAlias = "uiEntity", facetToModify = "entity")
+        entityId: EntityId,
+        @InjectBuilder builder: UiEntityBuilder.() -> Unit
+    )
+
+    override fun uiEntity(entityId: EntityId, builder: UiEntityDsl.() -> Unit) {
+        uiEntityInternal(entityId, builder)
+    }
+
 }

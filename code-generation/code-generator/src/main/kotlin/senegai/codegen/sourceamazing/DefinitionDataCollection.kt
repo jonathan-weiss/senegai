@@ -2,8 +2,7 @@ package senegai.codegen.sourceamazing
 
 import org.codeblessing.sourceamazing.builder.api.BuilderApi
 import org.codeblessing.sourceamazing.schema.api.SchemaApi
-import senegai.codegen.definitions.CodegenData
-import senegai.codegen.definitions.CodegenData.collectItemData
+import senegai.codegen.definitions.CodegenData.collectData
 import senegai.codegen.renderer.model.ItemAttributeModel
 import senegai.codegen.schema.ItemAttribute
 import senegai.codegen.schema.Item
@@ -28,7 +27,7 @@ object DefinitionDataCollection {
                 schemaContext = schemaContext,
                 builderClass = RootBuilder::class,
             ) { builder ->
-                builder.collectItemData()
+                builder.collectData()
             }
         }
     }

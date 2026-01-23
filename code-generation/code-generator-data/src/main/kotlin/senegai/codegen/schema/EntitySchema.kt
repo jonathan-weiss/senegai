@@ -9,7 +9,9 @@ sealed interface ItemAttributeType
 /**
  * An [EntityId] is globally unique.
  */
-data class EntityId(val entityName: String): ItemAttributeType
+interface EntityId: ItemAttributeType {
+    val entityName: String
+}
 
 /**
  * An [Entity] is an [Item] that
