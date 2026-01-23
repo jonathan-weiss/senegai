@@ -14,8 +14,6 @@ object ItemFormPartComponentScssRenderer : ItemRenderer {
     override fun renderTemplate(model: ItemModel): String {
         return """
           |
-          |@use '@angular/material' as mat;
-          |
           |.form-row {
           |  margin-bottom: 20px;
           |
