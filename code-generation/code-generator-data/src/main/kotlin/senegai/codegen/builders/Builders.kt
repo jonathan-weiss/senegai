@@ -6,18 +6,25 @@ import senegai.codegen.schema.EnumId
 import senegai.codegen.schema.ItemId
 
 @DslMarker
-annotation class BuilderDslMarker
+annotation class MainDslMarker
 
-@Target(AnnotationTarget.TYPE)
-@DslMarker
-annotation class SchemaTypeMarker
-
+/**
+ * DslMarker only says:
+ * “If multiple implicit receivers share this marker, only the nearest one is visible.” Nothing more. Nothing less.
+ *
+ * Use different @DslMarkers when you have multiple independent DSL “worlds” that can be nested or used side-by-side,
+ * and you don’t want them to hide each other’s receivers.
+ *
+ * Because Kotlin’s rule is:
+ * Only receivers annotated with the same marker participate in hiding outer receivers.
+ */
+@MainDslMarker
 interface RootDsl {
 
     fun schema(builder: SchemaDsl.() -> Unit,)
 }
 
-@BuilderDslMarker
+@MainDslMarker
 interface SchemaDsl {
 
     fun entity(
@@ -36,7 +43,7 @@ interface SchemaDsl {
     )
 }
 
-@BuilderDslMarker
+@MainDslMarker
 interface EnumDsl {
 
     fun enumValue(
@@ -44,7 +51,7 @@ interface EnumDsl {
     )
 }
 
-@BuilderDslMarker
+@MainDslMarker
 interface ItemDsl {
 
     fun attribute(
