@@ -1,5 +1,6 @@
 package senegai.codegen.renderer.model
 
+import org.codeblessing.templatetools.CaseUtil
 import senegai.codegen.renderer.NotSupportedInTemplateException
 import senegai.codegen.schema.*
 
@@ -12,7 +13,7 @@ data class ItemAttributeModel(
     val typescriptAttributeInitialValue: String = calculateInitialValue()
     val typescriptAttributeType: String = calculateAttributeTypeWithNullability()
     val typescriptAttributeTypeWithoutNullability: String = calculateAttributeType()
-    val typescriptAttributeTypeCapitalizedWithoutNullability: String = calculateAttributeType().capitalize()
+    val typescriptAttributeTypeCapitalizedWithoutNullability: String = CaseUtil.capitalize(calculateAttributeType())
     //val typescriptAttributeType: String = if(attributeName == "nickname") "string | null" else "string"
 
     private fun calculateAttributeType(): String {
