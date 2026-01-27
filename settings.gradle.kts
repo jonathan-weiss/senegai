@@ -16,7 +16,7 @@ dependencyResolutionManagement {
             val templateToolsVersion = version("templateTools", "1.0.0-rc1")
             library("templatetools", "org.codeblessing.templatetools", "template-tools").versionRef(templateToolsVersion)
 
-            val sourceAmazingVersion = version("sourceAmazing", "4.0.0-rc6")
+            val sourceAmazingVersion = version("sourceAmazing", "4.0.0-rc7")
             library("sourceamazing-schema-api", "org.codeblessing.sourceamazing", "sourceamazing-schema-api").versionRef(sourceAmazingVersion)
             library("sourceamazing-schema", "org.codeblessing.sourceamazing", "sourceamazing-schema").versionRef(sourceAmazingVersion)
             library("sourceamazing-builder-api", "org.codeblessing.sourceamazing", "sourceamazing-builder-api").versionRef(sourceAmazingVersion)
