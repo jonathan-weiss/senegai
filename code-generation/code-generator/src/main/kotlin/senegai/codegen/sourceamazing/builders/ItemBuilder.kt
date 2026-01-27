@@ -4,58 +4,40 @@ import org.codeblessing.sourceamazing.builder.api.annotations.*
 import senegai.codegen.schema.*
 
 @Builder
-@ExpectedAliasFromSuperiorBuilder(concept = Item::class, conceptAlias = "item")
+@ExpectedFromSuperiorBuilder(clazz = Item::class, alias = "item")
 interface ItemBuilder: senegai.codegen.builders.ItemDsl {
 
     @BuilderMethod
-    @NewConceptModel(concept = ItemAttribute::class, declareConceptAlias = "itemAttribute")
-    @SetAliasConceptModelIdReferenceFacetValue(
-        conceptToModifyAlias = "item",
-        facetToModify = "attributes",
-        referencedConceptAlias = "itemAttribute"
-    )
-    @SetFixedEnumFacetValue(
-        conceptToModifyAlias = "itemAttribute",
-        facetToModify = "cardinality",
-        value = "EXACTLY_ONE"
-    )
+    @NewClazzModel(clazz = ItemAttribute::class, alias = "itemAttribute")
+    @LinkClazzModel(alias = "item", clazzProperty = "attributes", referencedAlias = "itemAttribute")
+    @SetFixedEnumValue(alias = "itemAttribute", clazzProperty = "cardinality", value = "EXACTLY_ONE")
     override fun attribute(
-        @SetFacetValue("itemAttribute", "attributeName") name: String,
-        @SetFacetValue("itemAttribute", "type") type: BuiltInType,
+        @SetValue(alias = "itemAttribute", clazzProperty = "attributeName")
+        name: String,
+        @SetValue(alias = "itemAttribute", clazzProperty = "type")
+        type: BuiltInType,
     )
 
     @BuilderMethod
-    @NewConceptModel(concept = ItemAttribute::class, declareConceptAlias = "itemAttribute")
-    @SetAliasConceptModelIdReferenceFacetValue(
-        conceptToModifyAlias = "item",
-        facetToModify = "attributes",
-        referencedConceptAlias = "itemAttribute"
-    )
-    @SetFixedEnumFacetValue(
-        conceptToModifyAlias = "itemAttribute",
-        facetToModify = "cardinality",
-        value = "EXACTLY_ONE"
-    )
+    @NewClazzModel(clazz = ItemAttribute::class, alias = "itemAttribute")
+    @LinkClazzModel(alias = "item", clazzProperty = "attributes", referencedAlias = "itemAttribute")
+    @SetFixedEnumValue(alias = "itemAttribute", clazzProperty = "cardinality", value = "EXACTLY_ONE")
     override fun attribute(
-        @SetFacetValue("itemAttribute", "attributeName") name: String,
-        @SetFacetValue("itemAttribute", "type") itemId: ItemId,
+        @SetValue(alias = "itemAttribute", clazzProperty = "attributeName")
+        name: String,
+        @SetValue(alias = "itemAttribute", clazzProperty = "type")
+        itemId: ItemId,
     )
 
     @BuilderMethod
-    @NewConceptModel(concept = ItemAttribute::class, declareConceptAlias = "itemAttribute")
-    @SetAliasConceptModelIdReferenceFacetValue(
-        conceptToModifyAlias = "item",
-        facetToModify = "attributes",
-        referencedConceptAlias = "itemAttribute"
-    )
-    @SetFixedEnumFacetValue(
-        conceptToModifyAlias = "itemAttribute",
-        facetToModify = "cardinality",
-        value = "EXACTLY_ONE"
-    )
+    @NewClazzModel(clazz = ItemAttribute::class, alias = "itemAttribute")
+    @LinkClazzModel(alias = "item", clazzProperty = "attributes", referencedAlias = "itemAttribute")
+    @SetFixedEnumValue(alias = "itemAttribute", clazzProperty = "cardinality", value = "EXACTLY_ONE")
     override fun attribute(
-        @SetFacetValue("itemAttribute", "attributeName") name: String,
-        @SetFacetValue("itemAttribute", "type") enumId: EnumId,
+        @SetValue(alias = "itemAttribute", clazzProperty = "attributeName")
+        name: String,
+        @SetValue(alias = "itemAttribute", clazzProperty = "type")
+        enumId: EnumId,
     )
 }
 

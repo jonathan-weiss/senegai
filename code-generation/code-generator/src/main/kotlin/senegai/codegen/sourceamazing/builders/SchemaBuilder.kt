@@ -5,7 +5,7 @@ import senegai.codegen.builders.UiEntityDsl
 import senegai.codegen.schema.*
 
 @Builder
-@ExpectedAliasFromSuperiorBuilder(concept = SchemaData::class, conceptAlias = "schema")
+@ExpectedFromSuperiorBuilder(clazz = SchemaData::class, alias = "schema")
 interface SchemaBuilder: senegai.codegen.builders.SchemaDsl {
 
     // **************
@@ -13,17 +13,13 @@ interface SchemaBuilder: senegai.codegen.builders.SchemaDsl {
     // **************
 
     @BuilderMethod
-    @NewConceptModel(concept = Entity::class, declareConceptAlias = "entity")
-    @SetAliasConceptModelIdReferenceFacetValue(
-        conceptToModifyAlias = "schema",
-        facetToModify = "entities",
-        referencedConceptAlias = "entity"
-    )
+    @NewClazzModel(clazz = Entity::class, alias = "entity")
+    @LinkClazzModel(alias = "schema", clazzProperty = "entities", referencedAlias = "entity")
     override fun entity(
-        @SetConceptModelIdValue(conceptToModifyAlias = "entity")
-        @SetFacetValue(conceptToModifyAlias = "entity", facetToModify = "entityId")
+        @SetClazzModelId(alias = "entity")
+        @SetValue(alias = "entity", clazzProperty = "entityId")
         entityId: EntityId,
-        @SetFacetReference(conceptToModifyAlias = "entity", facetToModify = "item")
+        @SetReference(alias = "entity", clazzProperty = "item")
         entityRootItemId: ItemId,
     )
 
@@ -32,15 +28,12 @@ interface SchemaBuilder: senegai.codegen.builders.SchemaDsl {
     // **************
 
     @BuilderMethod
-    @NewConceptModel(concept = Item::class, declareConceptAlias = "item")
-    @SetAliasConceptModelIdReferenceFacetValue(
-        conceptToModifyAlias = "schema",
-        facetToModify = "items",
-        referencedConceptAlias = "item"
-    )
+    @NewClazzModel(clazz = Item::class, alias = "item")
+    @LinkClazzModel(alias = "schema", clazzProperty = "items", referencedAlias = "item")
     fun createNewItemInternal(
-        @SetConceptModelIdValue(conceptToModifyAlias = "item")
-        @SetFacetValue(conceptToModifyAlias = "item", facetToModify = "itemId") itemId: ItemId,
+        @SetClazzModelId(alias = "item")
+        @SetValue(alias = "item", clazzProperty = "itemId")
+        itemId: ItemId,
         @InjectBuilder builder: ItemBuilder.() -> Unit,
     )
 
@@ -54,15 +47,11 @@ interface SchemaBuilder: senegai.codegen.builders.SchemaDsl {
     // **************
 
     @BuilderMethod
-    @NewConceptModel(concept = EnumType::class, declareConceptAlias = "enum")
-    @SetAliasConceptModelIdReferenceFacetValue(
-        conceptToModifyAlias = "schema",
-        facetToModify = "enums",
-        referencedConceptAlias = "enum"
-    )
+    @NewClazzModel(clazz = EnumType::class, alias = "enum")
+    @LinkClazzModel(alias = "schema", clazzProperty = "enums", referencedAlias = "enum")
     fun createNewEnumTypeInternal(
-        @SetConceptModelIdValue(conceptToModifyAlias = "enum")
-        @SetFacetValue(conceptToModifyAlias = "enum", facetToModify = "enumId")
+        @SetClazzModelId(alias = "enum")
+        @SetValue(alias = "enum", clazzProperty = "enumId")
         enumId: EnumId,
         @InjectBuilder builder: EnumBuilder.() -> Unit
     )
@@ -78,14 +67,10 @@ interface SchemaBuilder: senegai.codegen.builders.SchemaDsl {
     // **************
 
     @BuilderMethod
-    @NewConceptModel(concept = UiEntity::class, declareConceptAlias = "uiEntity")
-    @SetAliasConceptModelIdReferenceFacetValue(
-        conceptToModifyAlias = "schema",
-        facetToModify = "uiEntities",
-        referencedConceptAlias = "uiEntity"
-    )
+    @NewClazzModel(clazz = UiEntity::class, alias = "uiEntity")
+    @LinkClazzModel(alias = "schema", clazzProperty = "uiEntities", referencedAlias = "uiEntity")
     fun uiEntityInternal(
-        @SetFacetReference(conceptToModifyAlias = "uiEntity", facetToModify = "entity")
+        @SetReference(alias = "uiEntity", clazzProperty = "entity")
         entityId: EntityId,
         @InjectBuilder builder: UiEntityBuilder.() -> Unit
     )

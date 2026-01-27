@@ -2,11 +2,11 @@ package senegai.codegen.sourceamazing.builders
 
 import org.codeblessing.sourceamazing.builder.api.annotations.Builder
 import org.codeblessing.sourceamazing.builder.api.annotations.BuilderMethod
-import org.codeblessing.sourceamazing.builder.api.annotations.ExpectedAliasFromSuperiorBuilder
+import org.codeblessing.sourceamazing.builder.api.annotations.ExpectedFromSuperiorBuilder
 import org.codeblessing.sourceamazing.builder.api.annotations.InjectBuilder
-import org.codeblessing.sourceamazing.builder.api.annotations.NewConceptModel
-import org.codeblessing.sourceamazing.builder.api.annotations.SetAliasConceptModelIdReferenceFacetValue
-import org.codeblessing.sourceamazing.builder.api.annotations.SetFacetValue
+import org.codeblessing.sourceamazing.builder.api.annotations.NewClazzModel
+import org.codeblessing.sourceamazing.builder.api.annotations.LinkClazzModel
+import org.codeblessing.sourceamazing.builder.api.annotations.SetValue
 import senegai.codegen.builders.UiColumnDsl
 import senegai.codegen.builders.UiTabDsl
 import senegai.codegen.schema.UiEntityEditorColumn
@@ -14,16 +14,12 @@ import senegai.codegen.schema.UiEntityEditorSection
 import senegai.codegen.schema.UiEntityEditorTab
 
 @Builder
-@ExpectedAliasFromSuperiorBuilder(concept = UiEntityEditorTab::class, conceptAlias = "uiTab")
+@ExpectedFromSuperiorBuilder(clazz = UiEntityEditorTab::class, alias = "uiTab")
 interface UiTabBuilder: UiTabDsl {
 
     @BuilderMethod
-    @NewConceptModel(concept = UiEntityEditorColumn::class, declareConceptAlias = "uiColumn")
-    @SetAliasConceptModelIdReferenceFacetValue(
-        conceptToModifyAlias = "uiTab",
-        facetToModify = "columns",
-        referencedConceptAlias = "uiColumn"
-    )
+    @NewClazzModel(clazz = UiEntityEditorColumn::class, alias = "uiColumn")
+    @LinkClazzModel(alias = "uiTab", clazzProperty = "columns", referencedAlias = "uiColumn")
     fun columnInternal(
         @InjectBuilder builder: UiColumnBuilder.() -> Unit
     )

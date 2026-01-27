@@ -2,11 +2,11 @@ package senegai.codegen.sourceamazing.builders
 
 import org.codeblessing.sourceamazing.builder.api.annotations.Builder
 import org.codeblessing.sourceamazing.builder.api.annotations.BuilderMethod
-import org.codeblessing.sourceamazing.builder.api.annotations.ExpectedAliasFromSuperiorBuilder
+import org.codeblessing.sourceamazing.builder.api.annotations.ExpectedFromSuperiorBuilder
 import org.codeblessing.sourceamazing.builder.api.annotations.InjectBuilder
-import org.codeblessing.sourceamazing.builder.api.annotations.NewConceptModel
-import org.codeblessing.sourceamazing.builder.api.annotations.SetAliasConceptModelIdReferenceFacetValue
-import org.codeblessing.sourceamazing.builder.api.annotations.SetFacetValue
+import org.codeblessing.sourceamazing.builder.api.annotations.NewClazzModel
+import org.codeblessing.sourceamazing.builder.api.annotations.LinkClazzModel
+import org.codeblessing.sourceamazing.builder.api.annotations.SetValue
 import senegai.codegen.builders.UiEntityDsl
 import senegai.codegen.builders.UiViewsDsl
 import senegai.codegen.schema.EntityId
@@ -14,7 +14,7 @@ import senegai.codegen.schema.UiEntity
 import senegai.codegen.schema.UiEntityEditorView
 
 @Builder
-@ExpectedAliasFromSuperiorBuilder(concept = UiEntity::class, conceptAlias = "uiEntity")
+@ExpectedFromSuperiorBuilder(clazz = UiEntity::class, alias = "uiEntity")
 interface UiEntityBuilder: UiEntityDsl {
 
     @BuilderMethod
