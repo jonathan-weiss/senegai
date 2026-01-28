@@ -10,7 +10,6 @@ dependencies {
     implementation(libs.sourceamazing.builder.api)
     runtimeOnly(libs.sourceamazing.builder)
     runtimeOnly(libs.kotlin.reflect)
-    implementation(libs.templatetools)
 
     testImplementation(kotlin("test"))
 }
