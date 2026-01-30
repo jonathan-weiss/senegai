@@ -1,0 +1,3 @@
+package senegai.codegen.renderer.model.ui.entityform.attributevariant
+
+sealed interface UiEntityFormAttributeVariantModel

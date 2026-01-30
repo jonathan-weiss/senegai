@@ -1,6 +1,7 @@
 package senegai.codegen.renderer.model.ui
 
-import senegai.codegen.schema.UiEntity
-
-class UiEntityModel() {
+data class UiEntityModel(
+    val rootItemModel: UiItemModel
+) {
+    val entityItemModels: List<UiItemModel> = listOf(rootItemModel) // TODO implement recursive
 }
