@@ -1,10 +1,11 @@
-<div class="field-wrapper-outline">
-    <div class="field-wrapper-title field-wrapper-heading">
-        {{ label }}
-        @if (this.nullabilityCheckboxFormControl) {
-            <mat-slide-toggle [formControl]="nullabilityCheckboxFormControl" />
-        }
-    </div>
+<div class="field-wrapper-content">
+    <div class="field-wrapper-border-line">
+        <div class="field-wrapper-title field-wrapper-heading">
+            {{ label }}
+            @if (this.nullabilityCheckboxFormControl) {
+                <mat-slide-toggle [formControl]="nullabilityCheckboxFormControl" />
+            }
+        </div>
 <!--    @if (this.nullabilityCheckboxFormControl) {-->
 <!--        <div class="field-wrapper-nullable-switch field-wrapper-heading">-->
 <!--            <mat-slide-toggle [formControl]="nullabilityCheckboxFormControl">-->
@@ -12,7 +13,8 @@
 <!--            </mat-slide-toggle>-->
 <!--        </div>-->
 <!--    }-->
-    <div class="field-wrapper-content">
-        <ng-content />
+        <div class="field-wrapper-content">
+            <ng-content />
+        </div>
     </div>
 </div>
