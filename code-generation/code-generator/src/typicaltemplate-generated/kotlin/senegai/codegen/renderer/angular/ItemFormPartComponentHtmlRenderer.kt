@@ -14,6 +14,8 @@ object ItemFormPartComponentHtmlRenderer : ItemRenderer {
     override fun renderTemplate(model: ItemModel): String {
         return """
           |<div [formGroup]="${model.itemNameLowercase}Form">
+          |
+          |<div>
           |    <div class="form-row">
           |        <app-field-wrapper label="ID">
           |            <mat-form-field appearance="fill">
@@ -22,14 +24,22 @@ object ItemFormPartComponentHtmlRenderer : ItemRenderer {
           |            </mat-form-field>
           |        </app-field-wrapper>
           |    </div>
-          |    ${ model.attributes.joinToString("") { attribute ->  """
-              |    <div class="form-row">
-              |        <app-field-wrapper label="${attribute.attributeName}">
-              |            <app-text-input [textFormControl]="${attribute.attributeName}Control" label="${attribute.attributeName}" placeholder="Enter ${attribute.attributeName}" [validatorTranslations]="${attribute.attributeName}ValidatorNames" />
-              |        </app-field-wrapper>
-              |    </div>
-          """ } }
+          |</div>
           |
+          |<mat-tab-group dynamicHeight>
+          |    <mat-tab label="Names">
+          |        <div class="column-layout">
+          |            <div class="column">
+          |                ${ model.attributes.joinToString("") { attribute ->  """
+              |                <div class="form-row">
+              |                    <app-field-wrapper label="${attribute.attributeName}">
+              |                        <app-text-input [textFormControl]="${attribute.attributeName}Control" label="${attribute.attributeName}" placeholder="Enter ${attribute.attributeName}" [validatorTranslations]="${attribute.attributeName}ValidatorNames" />
+              |                    </app-field-wrapper>
+              |                </div>
+          """ } }            </div>
+          |            <div class="column">            </div>
+          |        </div>
+          |    </mat-tab></mat-tab-group>
           |</div>
           |
         """.trimMargin(marginPrefix = "|")

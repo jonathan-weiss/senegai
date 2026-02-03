@@ -28,6 +28,22 @@ object ItemFormPartComponentScssRenderer : ItemRenderer {
           |  border-left-style: solid;
           |}
           |
+          |.column-layout {
+          |  display: flex;
+          |  gap: 16px;
+          |  padding: 16px;
+          |}
+          |
+          |.column {
+          |  flex: 1;
+          |}
+          |
+          |@media (max-width: 768px) {
+          |  .column-layout {
+          |    flex-direction: column;
+          |  }
+          |}
+          |
         """.trimMargin(marginPrefix = "|")
     }
 

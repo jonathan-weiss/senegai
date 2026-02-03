@@ -35,6 +35,7 @@ object ItemFormPartComponentTypescriptRenderer : ItemRenderer {
           |import {TextInputComponent} from "@app/shared/form-controls/text-input/text-input.component";
           |import {DatepickerInputComponent} from "@app/shared/form-controls/datepicker-input/datepicker-input.component";
           |import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
+          |import {MatTab, MatTabGroup} from "@angular/material/tabs";
           |@Component({
           |    selector: 'app-${model.itemNameLowercase}-form-part',
           |    templateUrl: './${model.itemNameLowercase}-form-part.component.html',
@@ -54,6 +55,8 @@ object ItemFormPartComponentTypescriptRenderer : ItemRenderer {
           |        MatDialogModule,
           |        FieldWrapperComponent,
           |        TextInputComponent,
+          |        MatTabGroup,
+          |        MatTab,
           |    ]
           |})
           |export class ${model.itemName}FormPartComponent implements OnInit {
