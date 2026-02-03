@@ -4,16 +4,17 @@ import senegai.codegen.renderer.model.ItemAttributeModel
 import senegai.codegen.renderer.model.ItemModel
 import senegai.codegen.renderer.model.ItemsModel
 import senegai.codegen.renderer.model.SchemaModel
-import senegai.codegen.renderer.model.ui.UiEntityAttributeModel
+import senegai.codegen.renderer.model.ui.UiItemAttributeModel
 import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewModel
 import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewColumnModel
-import senegai.codegen.renderer.model.ui.entityform.UiEntityFormItemAwareBlockModel
+import senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormItemAwareBlockModel
 import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewTabModel
 import senegai.codegen.renderer.model.ui.UiEntityModel
 import senegai.codegen.renderer.model.ui.UiEntityViewsModel
 import senegai.codegen.renderer.model.ui.UiItemModel
 import senegai.codegen.renderer.model.ui.UiModel
-import senegai.codegen.renderer.model.ui.entityform.UiEntityFormItemAttributeBlockModel
+import senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormItemAttributeBlockModel
+import senegai.codegen.renderer.model.ui.entityform.blocks.UiFormAttributeType
 import senegai.codegen.schema.Item
 import senegai.codegen.schema.ItemAttribute
 import senegai.codegen.schema.SchemaData
@@ -37,10 +38,12 @@ object RendererModelConverter {
     private fun mapUiItemModel(entity: UiEntity, item: Item): UiItemModel {
         return UiItemModel(
             itemName = item.itemName,
-            attributes = emptyList()
+            attributes = item.attributes.map { mapUiItemAttribute(it) }
         )
-        // TODO here we have a circular dependency when creating UiEntityAttributeModel
-        // item.attributes.map { UiEntityAttributeModel(entity, item, it.attributeName) },
+    }
+
+    private fun mapUiItemAttribute(itemAttribute: ItemAttribute): UiItemAttributeModel {
+        return UiItemAttributeModel(itemAttribute.attributeName)
     }
 
     private fun mapUiEntityViewsModel(uiEntity: UiEntity): UiEntityViewsModel {
@@ -80,6 +83,7 @@ object RendererModelConverter {
                 entity = uiEntityModel,
                 attributeName = block.entityAttributeName,
                 item = uiEntityModel.rootItemModel, // TODO only the root item is good enough for the moment
+                type = UiFormAttributeType.NON_NULLABLE_SINGLE_VALUE, // TODO good for the moment
             )
         }
     }

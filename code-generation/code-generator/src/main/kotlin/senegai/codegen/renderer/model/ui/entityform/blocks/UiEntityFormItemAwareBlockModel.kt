@@ -1,4 +1,4 @@
-package senegai.codegen.renderer.model.ui.entityform
+package senegai.codegen.renderer.model.ui.entityform.blocks
 
 import senegai.codegen.renderer.model.ui.UiEntityModel
 import senegai.codegen.renderer.model.ui.UiItemModel
