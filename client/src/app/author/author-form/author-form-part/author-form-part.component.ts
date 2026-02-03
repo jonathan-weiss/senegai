@@ -51,6 +51,7 @@ import {
 import {GenderEnumValues} from "@app/author/gender.enum";
 import {GenderI18nComponent} from "@app/author/gender-i18n/gender-i18n.component";
 import {BooleanInputComponent} from "@app/shared/form-controls/boolean-input/boolean-input.component";
+import {MatTab, MatTabGroup} from "@angular/material/tabs";
 
 /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 
@@ -81,6 +82,8 @@ import {BooleanInputComponent} from "@app/shared/form-controls/boolean-input/boo
         AuthorLibraryAwardFormPartComponent,
         GenderI18nComponent,
         BooleanInputComponent,
+        MatTabGroup,
+        MatTab,
         /* @tt{{{ @slbc  @end-ignore-text }}}@ */
     ]
 })
