@@ -41,6 +41,7 @@ import {AuthorFormFieldName} from "@app/author/author-form/author-form-field-nam
 import {TextInputComponent} from "@app/shared/form-controls/text-input/text-input.component";
 import {DatepickerInputComponent} from "@app/shared/form-controls/datepicker-input/datepicker-input.component";
 import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
+import {MatTab, MatTabGroup} from "@angular/material/tabs";
 /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
 import {
     AuthorLibraryAwardTableComponent
@@ -51,7 +52,6 @@ import {
 import {GenderEnumValues} from "@app/author/gender.enum";
 import {GenderI18nComponent} from "@app/author/gender-i18n/gender-i18n.component";
 import {BooleanInputComponent} from "@app/shared/form-controls/boolean-input/boolean-input.component";
-import {MatTab, MatTabGroup} from "@angular/material/tabs";
 
 /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 
@@ -74,6 +74,8 @@ import {MatTab, MatTabGroup} from "@angular/material/tabs";
         MatDialogModule,
         FieldWrapperComponent,
         TextInputComponent,
+        MatTabGroup,
+        MatTab,
         /* @tt{{{ @slbc  @ignore-text }}}@ */
         DatepickerInputComponent,
         MatSelect,
@@ -82,8 +84,6 @@ import {MatTab, MatTabGroup} from "@angular/material/tabs";
         AuthorLibraryAwardFormPartComponent,
         GenderI18nComponent,
         BooleanInputComponent,
-        MatTabGroup,
-        MatTab,
         /* @tt{{{ @slbc  @end-ignore-text }}}@ */
     ]
 })
