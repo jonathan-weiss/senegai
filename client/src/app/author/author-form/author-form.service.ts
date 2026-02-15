@@ -21,17 +21,19 @@
 
 import {Injectable} from '@angular/core';
 import {Author} from "@app/author/author.model";
-import {AbstractControl, FormArray, FormControl, FormGroup, ValidatorFn, Validators} from "@angular/forms";
+import {AbstractControl, FormArray, FormControl, FormGroup} from "@angular/forms";
 import {FormUtil} from "@app/shared/form-controls/form.util";
-import {AuthorFormFieldName} from "@app/author/author-form/author-form-field-name";
+import {
+    AuthorFormFieldName,
+    AuthorFormGroup,
+    AuthorFormLibraryAwardListFormGroup
+} from "@app/author/author-form/author-form-field-name";
 import {AuthorFormValidationService} from "@app/author/author-form/author-form-validation.service";
 import {AuthorFormInitialValueService} from "@app/author/author-form/author-form-initial-value.service";
 /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
 import {AuthorLibraryAward} from "@app/author/author-library-award.model";
-import {
-    AuthorLibraryAwardEditFormService
-} from "@app/author/author-form/author-library-award-form-part/author-library-award-edit-form.service";
 import {GenderEnum} from "@app/author/gender.enum";
+
 /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 
 
@@ -41,30 +43,18 @@ export class AuthorFormService {
     constructor(
         private authorFormValidationService: AuthorFormValidationService,
         private authorFormInitialValueService: AuthorFormInitialValueService,
-        /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-        private authorLibraryAwardEditFormService: AuthorLibraryAwardEditFormService,
-        /* @tt{{{ @slbc  @end-ignore-text }}}@ */
     ) {}
 
-    public createEmptyForm(): FormGroup {
-        /* @tt{{{ @slbc
-            @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
-
-            @replace-value-by-expression
-                [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
-
-        }}}@  */
-        const firstnameInitialValue = this.authorFormInitialValueService.firstnameInitialValue()
-        const firstnameValidatorFunctions = this.authorFormValidationService.validatorFunctions(AuthorFormFieldName.firstname)
-        /* @tt{{{ @slbc @end-foreach }}}@ */
-        /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-        const nicknameInitialValue = this.authorFormInitialValueService.nicknameInitialValue()
-        const nicknameValidatorFunctions = this.authorFormValidationService.validatorFunctions(AuthorFormFieldName.nickname)
-        const lastnameInitialValue = this.authorFormInitialValueService.lastnameInitialValue()
-        const lastnameValidatorFunctions = this.authorFormValidationService.validatorFunctions(AuthorFormFieldName.lastname)
-        /* @tt{{{ @slbc  @end-ignore-text }}}@ */
+    public createInitialAuthorForm(): FormGroup<AuthorFormGroup> {
         return new FormGroup({
-            id: new FormControl<number>({value: 0, disabled: true}), // ID is readonly
+            [AuthorFormFieldName.id]: new FormControl<number>(
+                {
+                    value: this.authorFormInitialValueService.idInitialValue(),
+                    disabled: true, // ID is readonly
+                }, {
+                    nonNullable: true,
+                },
+            ),
             /* @tt{{{ @slbc
                 @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
 
@@ -72,24 +62,111 @@ export class AuthorFormService {
                     [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
 
             }}}@  */
-            [AuthorFormFieldName.firstname]: new FormControl<string>(firstnameInitialValue, firstnameValidatorFunctions),
+            [AuthorFormFieldName.firstname]: new FormControl<string>(
+                this.authorFormInitialValueService.firstnameInitialValue(),
+                {
+                    nonNullable: true,
+                    validators: this.authorFormValidationService.validatorFunctions(AuthorFormFieldName.firstname)
+                },
+            ),
             /* @tt{{{ @slbc @end-foreach @slac }}}@ */
             /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-            [AuthorFormFieldName.lastname]: new FormControl<string>(lastnameInitialValue, lastnameValidatorFunctions),
-            [AuthorFormFieldName.nicknameIsNotNull]: new FormControl<boolean>(nicknameInitialValue != null),
-            [AuthorFormFieldName.nickname]: new FormControl<string | null>(nicknameInitialValue, nicknameValidatorFunctions),
-            // TODO continue here using initial values and validator functions
-            libraryAwardList: new FormArray([]),
-            birthdayIsNotNull: new FormControl<boolean>(true),
-            birthday: new FormControl<Date | null>(null),
-            vegetarian: new FormControl<boolean>(false),
-            gender: new FormControl<GenderEnum>(GenderEnum.FEMALE),
+            [AuthorFormFieldName.lastname]: new FormControl<string>(
+                this.authorFormInitialValueService.lastnameInitialValue(),
+                {
+                    nonNullable: true,
+                    validators: this.authorFormValidationService.validatorFunctions(AuthorFormFieldName.lastname)
+                },
+            ),
+            [AuthorFormFieldName.nicknameIsNotNull]: new FormControl<boolean>(
+                this.authorFormInitialValueService.nicknameInitialValue() != null,
+                {
+                    nonNullable: true,
+                    validators: this.authorFormValidationService.validatorFunctions(AuthorFormFieldName.nicknameIsNotNull)
+                },
+            ),
+            [AuthorFormFieldName.nickname]: new FormControl<string | null>(
+                this.authorFormInitialValueService.nicknameInitialValue(),
+                {
+                    nonNullable: false,
+                    validators: this.authorFormValidationService.validatorFunctions(AuthorFormFieldName.nickname)
+                },
+            ),
+            [AuthorFormFieldName.libraryAwardList]: new FormArray(
+                [] as Array<FormGroup<AuthorFormLibraryAwardListFormGroup>>,
+                {
+                    validators: this.authorFormValidationService.validatorFunctions(AuthorFormFieldName.libraryAwardList)
+                },
+            ),
+            [AuthorFormFieldName.birthdayIsNotNull]: new FormControl<boolean>(
+                this.authorFormInitialValueService.birthdayInitialValue() != null,
+                {
+                    nonNullable: true,
+                    validators: this.authorFormValidationService.validatorFunctions(AuthorFormFieldName.birthdayIsNotNull)
+                },
+            ),
+            [AuthorFormFieldName.birthday]: new FormControl<Date>(
+                this.authorFormInitialValueService.birthdayInitialValue(),
+                {
+                    nonNullable: false,
+                    validators: this.authorFormValidationService.validatorFunctions(AuthorFormFieldName.birthday)
+                },
+            ),
+            [AuthorFormFieldName.vegetarian]: new FormControl<boolean>(
+                this.authorFormInitialValueService.vegetarianInitialValue(),
+                {
+                    nonNullable: true,
+                    validators: this.authorFormValidationService.validatorFunctions(AuthorFormFieldName.vegetarian)
+                },
+            ),
+            [AuthorFormFieldName.gender]: new FormControl<GenderEnum>(
+                this.authorFormInitialValueService.genderInitialValue(),
+                {
+                    nonNullable: true,
+                    validators: this.authorFormValidationService.validatorFunctions(AuthorFormFieldName.gender)
+                },
+            ),
             /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
         });
     }
 
-    public patchForm(form: AbstractControl, author: Author): void {
-        FormUtil.requiredFormControl(form, "id").patchValue(author.id);
+    public createInitialLibraryAwardListForm(): FormGroup<AuthorFormLibraryAwardListFormGroup> {
+        return new FormGroup({
+            [AuthorFormFieldName.libraryAwardListDescription]: new FormControl<string>(
+                this.authorFormInitialValueService.libraryAwardListDescriptionInitialValue(),
+                {
+                    nonNullable: true,
+                    validators: this.authorFormValidationService.validatorFunctions(AuthorFormFieldName.libraryAwardListDescription)
+                },
+            ),
+            [AuthorFormFieldName.libraryAwardListYear]: new FormControl<number>(
+                this.authorFormInitialValueService.libraryAwardListYearInitialValue(),
+                {
+                    nonNullable: true,
+                    validators: this.authorFormValidationService.validatorFunctions(AuthorFormFieldName.libraryAwardListYear)
+                },
+            ),
+            [AuthorFormFieldName.libraryAwardListJuryList]: new FormArray<FormControl<string>>(
+                [] as Array<FormControl<string>>,
+                {
+                    validators: this.authorFormValidationService.validatorFunctions(AuthorFormFieldName.libraryAwardListYear)
+                },
+            ),
+        });
+    }
+
+    public createInitialLibraryAwardListJuryListForm(): FormControl<string> {
+        return new FormControl<string>(
+            this.authorFormInitialValueService.libraryAwardListJuryListInitialValue(),
+            {
+                nonNullable: true,
+                validators: this.authorFormValidationService.validatorFunctions(AuthorFormFieldName.libraryAwardListJuryList)
+            },
+        )
+    }
+
+    public patchAuthorForm(form: AbstractControl, author: Author): void {
+        FormUtil.requiredFormControl(form, AuthorFormFieldName.id).patchValue(author.id);
         /* @tt{{{ @slbc
             @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
 
@@ -98,48 +175,60 @@ export class AuthorFormService {
 
             @slac
         }}}@  */
-        FormUtil.requiredFormControl(form, "firstname").patchValue(author.firstname);
+        FormUtil.requiredFormControl(form, AuthorFormFieldName.firstname).patchValue(author.firstname);
         /* @tt{{{ @slbc @end-foreach @slac }}}@ */
         /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-        FormUtil.requiredFormControl(form, "nicknameIsNotNull").patchValue(!author.nickname);
-        FormUtil.requiredFormControl(form, "nickname").patchValue(author.nickname ?? null);
-        FormUtil.requiredFormControl(form, "lastname").patchValue(author.lastname);
-        const libraryAwardList = FormUtil.requiredFormArray(form, "libraryAwardList");
+        FormUtil.requiredFormControl(form, AuthorFormFieldName.nicknameIsNotNull).patchValue(!author.nickname);
+        FormUtil.requiredFormControl(form, AuthorFormFieldName.nickname).patchValue(author.nickname ?? null);
+        FormUtil.requiredFormControl(form, AuthorFormFieldName.lastname).patchValue(author.lastname);
+        const libraryAwardList = FormUtil.requiredFormArray(form, AuthorFormFieldName.libraryAwardList);
         author.libraryAwardList.forEach((libraryAward: AuthorLibraryAward) => {
-            const formGroup = this.authorLibraryAwardEditFormService.createEmptyForm()
-            this.authorLibraryAwardEditFormService.patchForm(formGroup, libraryAward);
+            const formGroup = this.createInitialLibraryAwardListForm()
+            this.patchLibraryAwardListForm(formGroup, libraryAward);
             libraryAwardList.push(formGroup);
         })
-        FormUtil.requiredFormControl(form, "birthdayIsNotNull").patchValue(!author.birthday);
-        FormUtil.requiredFormControl(form, "birthday").patchValue(author.birthday ?? null);
-        FormUtil.requiredFormControl(form, "vegetarian").patchValue(author.vegetarian);
-        FormUtil.requiredFormControl(form, "gender").patchValue(author.gender);
+        FormUtil.requiredFormControl(form, AuthorFormFieldName.birthdayIsNotNull).patchValue(!author.birthday);
+        FormUtil.requiredFormControl(form, AuthorFormFieldName.birthday).patchValue(author.birthday ?? null);
+        FormUtil.requiredFormControl(form, AuthorFormFieldName.vegetarian).patchValue(author.vegetarian);
+        FormUtil.requiredFormControl(form, AuthorFormFieldName.gender).patchValue(author.gender);
         /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
     }
 
+    public patchLibraryAwardListForm(form: AbstractControl, authorLibraryAward: AuthorLibraryAward): void {
+        FormUtil.requiredFormControl(form, AuthorFormFieldName.libraryAwardListDescription).patchValue(authorLibraryAward.description);
+        FormUtil.requiredFormControl(form, AuthorFormFieldName.libraryAwardListYear).patchValue(authorLibraryAward.year);
+        authorLibraryAward.juryList.forEach((jury: string) => {
+            const formGroup = this.createInitialLibraryAwardListJuryListForm()
+            formGroup.patchValue(jury)
+            FormUtil.requiredFormArray(form, AuthorFormFieldName.libraryAwardListJuryList).push(formGroup);
+        })
+    }
+
+
     public createAuthorFromFormData(form: AbstractControl): Author {
         return {
-            id: FormUtil.requiredFormControl(form, "id").value as number,
-            /* @tt{{{ @slbc
-                @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
-
-                @replace-value-by-expression
-                    [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
-                    [ searchValue="string" replaceByExpression="attribute.typescriptAttributeType" ]
-
-                @slac
-            }}}@  */
-            firstname: FormUtil.requiredFormControl(form, "firstname").value as string,
-            /* @tt{{{ @slbc @end-foreach  @end-replace-value-by-expression @slac }}}@ */
-            /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-            nickname: FormUtil.requiredFormControl(form, "nicknameIsNotNull").value ? FormUtil.requiredFormControl(form, "nickname").value as string : null,
-            lastname: FormUtil.requiredFormControl(form, "lastname").value as string,
-            libraryAwardList: FormUtil.requiredFormArray(form, "libraryAwardList")
-                .controls.map(control => this.authorLibraryAwardEditFormService.createAuthorFromFormData(control)),
-            birthday: FormUtil.requiredFormControl(form, "birthdayIsNotNull").value ? FormUtil.requiredFormControl(form, "birthday").value as Date : null,
-            vegetarian: FormUtil.requiredFormControl(form, "vegetarian").value as boolean,
-            gender: FormUtil.requiredFormControl(form, "gender").value as GenderEnum,
+            id: FormUtil.requiredFormControl(form, AuthorFormFieldName.id).value as number,
+            firstname: FormUtil.requiredFormControl(form, AuthorFormFieldName.firstname).value as string,
+            nickname: FormUtil.requiredFormControl(form, AuthorFormFieldName.nicknameIsNotNull).value
+                ? FormUtil.requiredFormControl(form, AuthorFormFieldName.nickname).value as string
+                : null,
+            lastname: FormUtil.requiredFormControl(form, AuthorFormFieldName.lastname).value as string,
+            libraryAwardList: FormUtil.requiredFormArray(form, AuthorFormFieldName.libraryAwardList)
+                .controls.map(control => this.createAuthorLibraryAwardListFromFormData(control)),
+            birthday: FormUtil.requiredFormControl(form, AuthorFormFieldName.birthdayIsNotNull).value ? FormUtil.requiredFormControl(form, AuthorFormFieldName.birthday).value as Date : null,
+            vegetarian: FormUtil.requiredFormControl(form, AuthorFormFieldName.vegetarian).value as boolean,
+            gender: FormUtil.requiredFormControl(form, AuthorFormFieldName.gender).value as GenderEnum,
             /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
         };
     }
+
+    public createAuthorLibraryAwardListFromFormData(form: AbstractControl): AuthorLibraryAward {
+        return {
+            description: FormUtil.requiredFormControl(form, AuthorFormFieldName.libraryAwardListDescription).value as string,
+            year: FormUtil.requiredFormControl(form, AuthorFormFieldName.libraryAwardListYear).value as number,
+            juryList: FormUtil.requiredFormArray(form, AuthorFormFieldName.libraryAwardListJuryList)
+                .controls.map(control => control.value as string),
+        };
+    }
+
 } 

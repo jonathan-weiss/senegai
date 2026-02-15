@@ -64,12 +64,12 @@ export class AuthorFormComponent implements OnInit {
     authorForm: FormGroup;
 
     constructor(private authorEditFormService: AuthorFormService) {
-        this.authorForm = authorEditFormService.createEmptyForm();
+        this.authorForm = authorEditFormService.createInitialAuthorForm();
     }
 
     ngOnInit(): void {
         if (this.author) {
-            this.authorEditFormService.patchForm(this.authorForm, this.author)
+            this.authorEditFormService.patchAuthorForm(this.authorForm, this.author)
         }
     }
 

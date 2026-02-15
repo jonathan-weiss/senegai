@@ -1,38 +1,25 @@
-<div class="edit-form-container" [formGroup]="authorLibraryAwardForm">
+<div class="edit-form-container" [formGroup]="authorLibraryAwardListForm">
     <div class="form-row">
         <app-field-wrapper label="Description">
             <mat-form-field appearance="fill">
-                <input matInput [formControl]="descriptionFormControl" placeholder="Enter Description">
-                @if (hasError('description', 'required')) {
-                    <mat-error>
-                        Description is required
-                    </mat-error>
-                }
+                <app-text-input [textFormControl]="authorLibraryAwardListDescriptionControl" label="firstname" placeholder="Enter description" [validatorTranslations]="authorLibraryAwardListDescriptionValidatorNames" />
             </mat-form-field>
         </app-field-wrapper>
     </div>
 
     <div class="form-row">
         <app-field-wrapper label="Year">
-            <mat-form-field appearance="fill">
-                <input matInput [formControl]="yearFormControl" placeholder="Enter year">
-                @if (hasError('year', 'required')) {
-                    <mat-error>
-                        Year is required
-                    </mat-error>
-                }
-                @if (hasError('year', 'min')) {
-                    <mat-error>
-                        Year must be a least 1900
-                    </mat-error>
-                }
-            </mat-form-field>
+            <app-field-wrapper label="Description">
+                <mat-form-field appearance="fill">
+                    <app-number-input [numberFormControl]="authorLibraryAwardListYearControl" label="year" placeholder="Enter year" [validatorTranslations]="authorLibraryAwardListYearValidatorNames" />
+                </mat-form-field>
+            </app-field-wrapper>
         </app-field-wrapper>
     </div>
 
     <div class="form-row">
         <app-field-wrapper label="Jury">
-            <app-author-library-award-jury-table [authorLibraryAwardJuryFormArray]="juryListFormArray" />
+            <app-author-library-award-jury-table [authorLibraryAwardJuryFormArray]="authorLibraryAwardListJuryListFormArray" />
         </app-field-wrapper>
     </div>
 

@@ -37,7 +37,11 @@ import {FieldWrapperComponent} from "@app/shared/form-controls/field-wrapper/fie
 import {MatOption} from "@angular/material/core";
 import {MatSelect} from "@angular/material/select";
 import {AuthorFormValidationService} from "@app/author/author-form/author-form-validation.service";
-import {AuthorFormFieldName} from "@app/author/author-form/author-form-field-name";
+import {
+    AuthorFormFieldName,
+    AuthorFormGroup,
+    AuthorFormLibraryAwardListFormGroup
+} from "@app/author/author-form/author-form-field-name";
 import {TextInputComponent} from "@app/shared/form-controls/text-input/text-input.component";
 import {DatepickerInputComponent} from "@app/shared/form-controls/datepicker-input/datepicker-input.component";
 import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
@@ -49,7 +53,7 @@ import {
 import {
     AuthorLibraryAwardFormPartComponent
 } from "@app/author/author-form/author-library-award-form-part/author-library-award-form-part.component";
-import {GenderEnumValues} from "@app/author/gender.enum";
+import {GenderEnum, GenderEnumValues} from "@app/author/gender.enum";
 import {GenderI18nComponent} from "@app/author/gender-i18n/gender-i18n.component";
 import {BooleanInputComponent} from "@app/shared/form-controls/boolean-input/boolean-input.component";
 
@@ -88,13 +92,13 @@ import {BooleanInputComponent} from "@app/shared/form-controls/boolean-input/boo
     ]
 })
 export class AuthorFormPartComponent implements OnInit {
-    @Input({ required: true }) authorForm!: FormGroup;
+    @Input({ required: true }) authorForm!: FormGroup<AuthorFormGroup>;
 
     /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-    authorLibraryAwardUnderEdit: FormGroup | undefined = undefined;
+    authorLibraryAwardUnderEdit: FormGroup<AuthorFormLibraryAwardListFormGroup> | undefined = undefined;
     /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 
-    protected idControl!: FormControl
+    protected idControl!: FormControl<number>
     /* @tt{{{
     @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
 
@@ -103,27 +107,27 @@ export class AuthorFormPartComponent implements OnInit {
 
     @slac
     }}}@  */
-    protected firstnameControl!: FormControl
+    protected firstnameControl!: FormControl<string>
     protected firstnameValidatorNames!: ReadonlyArray<ValidatorTranslation>
 
     /* @tt{{{ @slbc @end-foreach @slac }}}@ */
     /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
 
-    protected nicknameIsNotNullControl!: FormControl
+    protected nicknameIsNotNullControl!: FormControl<boolean>
     protected nicknameIsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
-    protected nicknameControl!: FormControl
+    protected nicknameControl!: FormControl<string | null>
     protected nicknameValidatorNames!: ReadonlyArray<ValidatorTranslation>
-    protected lastnameControl!: FormControl
+    protected lastnameControl!: FormControl<string>
     protected lastnameValidatorNames!: ReadonlyArray<ValidatorTranslation>
-    protected libraryAwardListFormArray!: FormArray
+    protected libraryAwardListFormArray!: FormArray<FormGroup<AuthorFormLibraryAwardListFormGroup>>
     protected libraryAwardListValidatorNames!: ReadonlyArray<ValidatorTranslation>
-    protected birthdayIsNotNullControl!: FormControl
+    protected birthdayIsNotNullControl!: FormControl<boolean>
     protected birthdayIsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
-    protected birthdayControl!: FormControl
+    protected birthdayControl!: FormControl<Date | null>
     protected birthdayValidatorNames!: ReadonlyArray<ValidatorTranslation>
-    protected vegetarianControl!: FormControl
+    protected vegetarianControl!: FormControl<boolean>
     protected vegetarianValidatorNames!: ReadonlyArray<ValidatorTranslation>
-    protected genderControl!: FormControl
+    protected genderControl!: FormControl<GenderEnum>
     protected genderValidatorNames!: ReadonlyArray<ValidatorTranslation>
     /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 
@@ -131,7 +135,7 @@ export class AuthorFormPartComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.idControl = FormUtil.requiredFormControl(this.authorForm, "id");
+        this.idControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormFieldName.id);
         /* @tt{{{ @slbc
         @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
 

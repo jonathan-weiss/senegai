@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {AbstractControl, FormArray, FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
@@ -12,11 +12,8 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {MatDialogModule} from "@angular/material/dialog";
 import {FormUtil} from "@app/shared/form-controls/form.util";
-import {MatSlideToggle, MatSlideToggleChange} from "@angular/material/slide-toggle";
 import {AuthorFormService} from "@app/author/author-form/author-form.service";
-import {
-    AuthorLibraryAwardEditFormService
-} from "@app/author/author-form/author-library-award-form-part/author-library-award-edit-form.service";
+import {AuthorFormFieldName, AuthorFormLibraryAwardListFormGroup} from "@app/author/author-form/author-form-field-name";
 
 @Component({
     selector: 'app-author-library-award-table',
@@ -38,16 +35,16 @@ import {
     ]
 })
 export class AuthorLibraryAwardTableComponent implements OnInit {
-    @Input({ required: true }) authorLibraryAwardFormArray!: FormArray;
-    @Output() editAuthorLibraryAwardFormGroup = new EventEmitter<FormGroup>();
-    @Output() deleteAuthorLibraryAwardFormGroup = new EventEmitter<FormGroup>();
+    @Input({ required: true }) authorLibraryAwardFormArray!: FormArray<FormGroup<AuthorFormLibraryAwardListFormGroup>>;
+    @Output() editAuthorLibraryAwardFormGroup = new EventEmitter<FormGroup<AuthorFormLibraryAwardListFormGroup>>();
+    @Output() deleteAuthorLibraryAwardFormGroup = new EventEmitter<FormGroup<AuthorFormLibraryAwardListFormGroup>>();
 
     displayedColumns: string[] = ['description', 'year', 'actions'];
-    dataSource: MatTableDataSource<AbstractControl> = new MatTableDataSource<AbstractControl>();
+    dataSource: MatTableDataSource<FormGroup<AuthorFormLibraryAwardListFormGroup>> = new MatTableDataSource<FormGroup<AuthorFormLibraryAwardListFormGroup>>();
 
     selectedFormGroup: FormGroup | undefined = undefined;
 
-    constructor(private readonly authorLibraryAwardEditFormService: AuthorLibraryAwardEditFormService) {
+    constructor(private readonly authorFormService: AuthorFormService) {
     }
 
     ngOnInit(): void {
@@ -60,7 +57,7 @@ export class AuthorLibraryAwardTableComponent implements OnInit {
     }
 
     onAdd(): void {
-        const newEntry = this.authorLibraryAwardEditFormService.createEmptyForm()
+        const newEntry = this.authorFormService.createInitialLibraryAwardListForm()
         const indexOfSelected = this.selectedFormGroup ? this.authorLibraryAwardFormArray.controls.indexOf(this.selectedFormGroup) : -1
         if(indexOfSelected !== -1) {
             this.authorLibraryAwardFormArray.insert(indexOfSelected + 1, newEntry)
@@ -86,12 +83,12 @@ export class AuthorLibraryAwardTableComponent implements OnInit {
         this.deleteAuthorLibraryAwardFormGroup.emit(authorLibraryAwardFormGroup);
     }
 
-    private descriptionControl(formControl: AbstractControl): FormControl {
-        return FormUtil.requiredFormControl(formControl, "description");
+    private descriptionControl(formControl: AbstractControl): FormControl<string> {
+        return FormUtil.requiredFormControl(formControl, AuthorFormFieldName.libraryAwardListDescription);
     }
 
-    private yearControl(formControl: AbstractControl): FormControl {
-        return FormUtil.requiredFormControl(formControl, "year");
+    private yearControl(formControl: AbstractControl): FormControl<number> {
+        return FormUtil.requiredFormControl(formControl, AuthorFormFieldName.libraryAwardListYear);
     }
 
     descriptionFromControl(formControl: AbstractControl): string | undefined {

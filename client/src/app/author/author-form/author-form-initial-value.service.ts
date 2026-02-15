@@ -20,6 +20,7 @@
 }}}@ */
 
 import {Injectable} from '@angular/core';
+import {GenderEnum} from "@app/author/gender.enum";
 /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
 // imports here that are ignored
 /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
@@ -27,6 +28,11 @@ import {Injectable} from '@angular/core';
 
 @Injectable({providedIn: 'root'})
 export class AuthorFormInitialValueService {
+
+    idInitialValue(): number {
+        return 0
+    }
+
 
     /* @tt{{{ @slbc
         @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
@@ -47,6 +53,24 @@ export class AuthorFormInitialValueService {
 
     lastnameInitialValue(): string {
         return ''
+    }
+    libraryAwardListDescriptionInitialValue(): string {
+        return ''
+    }
+    libraryAwardListYearInitialValue(): number {
+        return 2025
+    }
+    libraryAwardListJuryListInitialValue(): string {
+        return ''
+    }
+    birthdayInitialValue(): Date {
+        return new Date();
+    }
+    vegetarianInitialValue(): boolean {
+        return false;
+    }
+    genderInitialValue(): GenderEnum {
+        return GenderEnum.FEMALE;
     }
     /* @tt{{{ @slbc  @end-ignore-text }}}@ */
 }
