@@ -14,6 +14,9 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {FormUtil} from "@app/shared/form-controls/form.util";
 import {AuthorFormService} from "@app/author/author-form/author-form.service";
 import {AuthorFormFieldName, AuthorFormLibraryAwardListFormGroup} from "@app/author/author-form/author-form-field-name";
+import {
+    AuthorLibraryAwardListTableRow
+} from "@app/author/author-form/author-library-award-table/author-library-award-list-table-row.model";
 
 @Component({
     selector: 'app-author-library-award-table',
@@ -40,7 +43,7 @@ export class AuthorLibraryAwardTableComponent implements OnInit {
     @Output() deleteAuthorLibraryAwardFormGroup = new EventEmitter<FormGroup<AuthorFormLibraryAwardListFormGroup>>();
 
     displayedColumns: string[] = ['description', 'year', 'actions'];
-    dataSource: MatTableDataSource<FormGroup<AuthorFormLibraryAwardListFormGroup>> = new MatTableDataSource<FormGroup<AuthorFormLibraryAwardListFormGroup>>();
+    dataSource: MatTableDataSource<AuthorLibraryAwardListTableRow> = new MatTableDataSource<AuthorLibraryAwardListTableRow>();
 
     selectedFormGroup: FormGroup | undefined = undefined;
 
@@ -48,12 +51,20 @@ export class AuthorLibraryAwardTableComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.dataSource.data = this.authorLibraryAwardFormArray.controls
+        this.updateFormData()
         this.authorLibraryAwardFormArray.valueChanges.subscribe(() => this.updateFormData())
     }
 
+    private toTableRow(formGroup: FormGroup<AuthorFormLibraryAwardListFormGroup>): AuthorLibraryAwardListTableRow {
+        return {
+            description: this.descriptionFromControl(formGroup),
+            year: this.yearFromControl(formGroup),
+            formGroup: formGroup,
+        }
+    }
+
     private updateFormData(): void {
-        this.dataSource.data = this.authorLibraryAwardFormArray.controls
+        this.dataSource.data = this.authorLibraryAwardFormArray.controls.map((control) => this.toTableRow(control))
     }
 
     onAdd(): void {
@@ -91,11 +102,11 @@ export class AuthorLibraryAwardTableComponent implements OnInit {
         return FormUtil.requiredFormControl(formControl, AuthorFormFieldName.libraryAwardListYear);
     }
 
-    descriptionFromControl(formControl: AbstractControl): string | undefined {
-        return this.descriptionControl(formControl).value as string | undefined;
+    private descriptionFromControl(formControl: AbstractControl): string {
+        return this.descriptionControl(formControl).value as string;
     }
 
-    yearFromControl(formControl: AbstractControl): number | undefined {
-        return this.yearControl(formControl).value as number | undefined;
+    private yearFromControl(formControl: AbstractControl): number {
+        return this.yearControl(formControl).value as number;
     }
 }

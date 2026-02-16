@@ -171,11 +171,11 @@ export class AuthorFormPartComponent implements OnInit {
 
     protected genderList = GenderEnumValues
 
-    onAuthorLibraryAwardFormGroupEdit(formGroup: FormGroup): void {
+    onAuthorLibraryAwardFormGroupEdit(formGroup: FormGroup<AuthorFormLibraryAwardListFormGroup>): void {
         this.authorLibraryAwardUnderEdit = formGroup;
     }
 
-    onAuthorLibraryAwardFormGroupDelete(formGroup: FormGroup): void {
+    onAuthorLibraryAwardFormGroupDelete(formGroup: FormGroup<AuthorFormLibraryAwardListFormGroup>): void {
         if(this.authorLibraryAwardUnderEdit == formGroup) {
             this.authorLibraryAwardUnderEdit = undefined
         }
@@ -186,8 +186,4 @@ export class AuthorFormPartComponent implements OnInit {
         this.authorLibraryAwardUnderEdit = undefined;
     }
     /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
-
-    hasError(controlName: string, errorName: string): boolean {
-        return FormUtil.hasError(this.authorForm, controlName, errorName)
-    }
 }

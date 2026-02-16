@@ -44,9 +44,9 @@ import {NumberInputComponent} from "@app/shared/form-controls/number-input/numbe
         MatListModule,
         MatDialogModule,
         FieldWrapperComponent,
-        AuthorLibraryAwardJuryTableComponent,
         TextInputComponent,
         NumberInputComponent,
+        AuthorLibraryAwardJuryTableComponent,
     ]
 })
 export class AuthorLibraryAwardFormPartComponent implements OnInit {
