@@ -32,7 +32,7 @@
 </div>
 
 <mat-tab-group dynamicHeight>
-    <mat-tab label="Names">
+    <mat-tab label="Main">
         <div class="column-layout">
             <div class="column">
                 <!-- @tt{{{
@@ -44,6 +44,27 @@
                     [ searchValue="first name" replaceByExpression="attribute.attributeName" ]
 
             }}}@  -->
+                <app-section-splitter label="All won library awards"></app-section-splitter>
+                <app-text-block label="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." />
+                <div class="form-row">
+                    <app-field-wrapper label="Library Awards">
+                        <app-author-library-award-table
+                                [authorLibraryAwardFormArray]="libraryAwardListFormArray"
+                                (editAuthorLibraryAwardFormGroup)="onAuthorLibraryAwardFormGroupEdit($event)"
+                                (deleteAuthorLibraryAwardFormGroup)="onAuthorLibraryAwardFormGroupDelete($event)"
+                        />
+                        @if (authorLibraryAwardUnderEdit) {
+                            <div class="edit-area">
+                                <button mat-icon-button color="primary" (click)="closeAuthorLibraryAwardUnderEdit()">
+                                    <mat-icon>edit_off</mat-icon>
+                                </button>
+                                <app-author-library-award-form-part [authorLibraryAwardListForm]="authorLibraryAwardUnderEdit!"  />
+                            </div>
+                        }
+                    </app-field-wrapper>
+                </div>
+                <app-section-splitter label="Names"></app-section-splitter>
+
                 <div class="form-row">
                     <app-field-wrapper label="First name">
                         <app-text-input [textFormControl]="firstnameControl" label="firstname" placeholder="Enter first name" [validatorTranslations]="firstnameValidatorNames" />
@@ -90,29 +111,6 @@
         </div>
     </mat-tab>
     <!-- @tt{{{ @slbc  @ignore-text @slac }}}@ -->
-    <mat-tab label="Awards">
-        <div class="column-layout">
-            <div class="column">
-                <div class="form-row">
-                    <app-field-wrapper label="Library Awards">
-                        <app-author-library-award-table
-                                [authorLibraryAwardFormArray]="libraryAwardListFormArray"
-                                (editAuthorLibraryAwardFormGroup)="onAuthorLibraryAwardFormGroupEdit($event)"
-                                (deleteAuthorLibraryAwardFormGroup)="onAuthorLibraryAwardFormGroupDelete($event)"
-                        />
-                        @if (authorLibraryAwardUnderEdit) {
-                            <div class="edit-area">
-                                <button mat-icon-button color="primary" (click)="closeAuthorLibraryAwardUnderEdit()">
-                                    <mat-icon>edit_off</mat-icon>
-                                </button>
-                                <app-author-library-award-form-part [authorLibraryAwardListForm]="authorLibraryAwardUnderEdit!"  />
-                            </div>
-                        }
-                    </app-field-wrapper>
-                </div>
-            </div>
-        </div>
-    </mat-tab>
     <mat-tab label="Miscellaneous">
         <div class="column-layout">
             <div class="column">
