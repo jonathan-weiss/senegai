@@ -31,7 +31,10 @@ object ItemFormPartComponentTypescriptRenderer : ItemRenderer {
           |import {MatOption} from "@angular/material/core";
           |import {MatSelect} from "@angular/material/select";
           |import {${model.itemName}FormValidationService} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form-validation.service";
-          |import {${model.itemName}FormFieldName} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form-field-name";
+          |import {
+          |    ${model.itemName}FormFieldName,
+          |    ${model.itemName}FormGroup,
+          |} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form-field-name";
           |import {TextInputComponent} from "@app/shared/form-controls/text-input/text-input.component";
           |import {DatepickerInputComponent} from "@app/shared/form-controls/datepicker-input/datepicker-input.component";
           |import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
@@ -60,10 +63,8 @@ object ItemFormPartComponentTypescriptRenderer : ItemRenderer {
           |    ]
           |})
           |export class ${model.itemName}FormPartComponent implements OnInit {
-          |    @Input({ required: true }) ${model.itemNameLowercase}Form!: FormGroup;
-          |
-          |    protected idControl!: FormControl
-          |    ${ model.attributes.joinToString("") { attribute ->  """    protected ${attribute.attributeName}Control!: FormControl
+          |    @Input({ required: true }) ${model.itemNameLowercase}Form!: FormGroup<${model.itemName}FormGroup>;
+          |    ${ model.attributes.joinToString("") { attribute ->  """    protected ${attribute.attributeName}Control!: FormControl<string>
               |    protected ${attribute.attributeName}ValidatorNames!: ReadonlyArray<ValidatorTranslation>
               |
           """ } }
@@ -71,15 +72,11 @@ object ItemFormPartComponentTypescriptRenderer : ItemRenderer {
           |    }
           |
           |    ngOnInit() {
-          |        this.idControl = FormUtil.requiredFormControl(this.${model.itemNameLowercase}Form, "id");${ model.attributes.joinToString("") { attribute ->  """
+          |        ${ model.attributes.joinToString("") { attribute ->  """
               |        this.${attribute.attributeName}Control = FormUtil.requiredFormControl(this.${model.itemNameLowercase}Form, ${model.itemName}FormFieldName.${attribute.attributeName})
               |        this.${attribute.attributeName}ValidatorNames = this.${model.itemNameLowercase}FormValidationService.validatorNames(${model.itemName}FormFieldName.${attribute.attributeName})
               |
           """ } }    }
-          |
-          |    hasError(controlName: string, errorName: string): boolean {
-          |        return FormUtil.hasError(this.${model.itemNameLowercase}Form, controlName, errorName)
-          |    }
           |}
           |
         """.trimMargin(marginPrefix = "|")

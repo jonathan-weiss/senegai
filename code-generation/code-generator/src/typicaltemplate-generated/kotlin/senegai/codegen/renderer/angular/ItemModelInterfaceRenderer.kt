@@ -18,7 +18,6 @@ object ItemModelInterfaceRenderer : ItemRenderer {
           | * The ${model.itemName} DTO (Data Transfer Object) class.
           | */
           |export interface ${model.itemName} {
-          |    id: number;
           |    ${ model.attributes.joinToString("") { attribute ->  """
               |    ${attribute.attributeName}: ${attribute.typescriptAttributeType};
           """ } }

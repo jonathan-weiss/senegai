@@ -15,12 +15,6 @@ object ItemResultComponentHtmlRenderer : ItemRenderer {
         return """
           |<div class="${model.itemNameLowercase}-table-container">
           |    <table mat-table [dataSource]="dataSource">
-          |        <!-- ID Column -->
-          |        <ng-container matColumnDef="id">
-          |            <th mat-header-cell *matHeaderCellDef>ID</th>
-          |            <td mat-cell *matCellDef="let ${model.itemNameLowercase}">{{ ${model.itemNameLowercase}.id }}</td>
-          |        </ng-container>
-          |
           |        ${ model.attributes.joinToString("") { attribute ->  """
               |        <!-- ${attribute.attributeName} Column -->
               |        <ng-container matColumnDef="${attribute.attributeName}">

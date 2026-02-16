@@ -58,12 +58,12 @@ object ItemFormComponentTypescriptRenderer : ItemRenderer {
           |    ${model.itemNameLowercase}Form: FormGroup;
           |
           |    constructor(private ${model.itemNameLowercase}EditFormService: ${model.itemName}FormService) {
-          |        this.${model.itemNameLowercase}Form = ${model.itemNameLowercase}EditFormService.createEmptyForm();
+          |        this.${model.itemNameLowercase}Form = ${model.itemNameLowercase}EditFormService.createInitial${model.itemName}Form();
           |    }
           |
           |    ngOnInit(): void {
           |        if (this.${model.itemNameLowercase}) {
-          |            this.${model.itemNameLowercase}EditFormService.patchForm(this.${model.itemNameLowercase}Form, this.${model.itemNameLowercase})
+          |            this.${model.itemNameLowercase}EditFormService.patch${model.itemName}Form(this.${model.itemNameLowercase}Form, this.${model.itemNameLowercase})
           |        }
           |    }
           |

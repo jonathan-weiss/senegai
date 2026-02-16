@@ -40,16 +40,18 @@ object CodegenData {
             }
 
             item(itemId = Items.CONTACT) {
+                attribute(name = "id", type = BuiltInType.STRING)
                 attribute(name = "firstname", type = BuiltInType.STRING)
                 attribute(name = "nickname", type = BuiltInType.STRING)
                 attribute(name = "lastname", type = BuiltInType.STRING)
-                attribute(name = "age", type = BuiltInType.NUMBER)
+                // attribute(name = "age", type = BuiltInType.NUMBER)
                 attribute(name = "address", type = BuiltInType.STRING)
                 attribute(name = "zipCode", type = BuiltInType.STRING)
                 attribute(name = "city", type = BuiltInType.STRING)
             }
 
             item(itemId = Items.ADDRESS) {
+                attribute(name = "id", type = BuiltInType.STRING)
                 attribute(name = "firstname", type = BuiltInType.STRING)
                 attribute(name = "lastname", type = BuiltInType.STRING)
 //                attribute(name = "street", type = STRING)

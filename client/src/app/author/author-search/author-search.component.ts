@@ -34,7 +34,6 @@ import {MatListModule} from "@angular/material/list";
 import {MatDialogModule} from "@angular/material/dialog";
 
 export interface AuthorSearchCriteria {
-    id?: number;
     /* @tt{{{ @slbc
         @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
 
@@ -48,6 +47,7 @@ export interface AuthorSearchCriteria {
     /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
     nickname?: string;
     lastname?: string;
+    id?: string;
     /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 }
 
@@ -77,7 +77,6 @@ export class AuthorSearchComponent {
 
     constructor(private fb: FormBuilder) {
         this.searchForm = this.fb.group({
-            id: [''],
             /* @tt{{{ @slbc
                 @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
 
@@ -90,7 +89,8 @@ export class AuthorSearchComponent {
             /* @tt{{{ @slbc @end-foreach @slac }}}@ */
             /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
             nickname: [''],
-            lastname: ['']
+            lastname: [''],
+            id: [''],
             /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
         });
     }

@@ -20,18 +20,20 @@
 }}}@ */
 
 import {Injectable} from '@angular/core';
-import {GenderEnum} from "@app/author/gender.enum";
 /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
 // imports here that are ignored
+import {GenderEnum} from "@app/author/gender.enum";
 /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 
 
 @Injectable({providedIn: 'root'})
 export class AuthorFormInitialValueService {
+    /* @tt{{{ @ignore-text }}}@ */
 
-    idInitialValue(): number {
-        return 0
+    idInitialValue(): string {
+        return ''
     }
+    /* @tt{{{ @slbc  @end-ignore-text }}}@ */
 
 
     /* @tt{{{ @slbc

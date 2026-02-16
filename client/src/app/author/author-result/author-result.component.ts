@@ -62,7 +62,6 @@ export class AuthorResultComponent implements OnChanges {
     @Output() deleteAuthor = new EventEmitter<Author>();
 
     displayedColumns: string[] = [
-        'id',
         /* @tt{{{
             @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
 
@@ -112,7 +111,6 @@ export class AuthorResultComponent implements OnChanges {
         const criteria = this.searchCriteria;
         this.dataSource.data = this.allAuthors.filter(author => {
             return (
-                this.isMatchingNumberCriteria(criteria.id, author.id) &&
                 /* @tt{{{ @slbc
                     @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
 
@@ -126,6 +124,7 @@ export class AuthorResultComponent implements OnChanges {
                     /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
                 this.isMatchingStringCriteria(criteria.nickname, author.nickname) &&
                 this.isMatchingStringCriteria(criteria.lastname, author.lastname) &&
+                this.isMatchingStringCriteria(criteria.id, author.id) &&
                     /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
                     true
             );

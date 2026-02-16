@@ -31,7 +31,6 @@ import {GenderEnum} from "@app/author/gender.enum";
 export class AuthorService {
     private authors: Author[] = [
         {
-            id: 1,
             /* @tt{{{
                 @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
 
@@ -64,11 +63,12 @@ export class AuthorService {
             birthday: new Date(1979, 3, 23),
             vegetarian: false,
             gender: GenderEnum.MALE,
+            id: '828cf29b-a7fb-4b07-bf13-9a313a9967f6',
             /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
         },
         /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
         {
-            id: 2,
+            id: '6b9a179c-641b-4204-a6ae-46be2fbbaa3a',
             firstname: 'Jane',
             nickname: 'Janey',
             lastname: 'Smith',
@@ -89,7 +89,7 @@ export class AuthorService {
             gender: GenderEnum.FEMALE,
         },
         {
-            id: 3,
+            id: 'd4076f05-50ac-4ceb-b54d-06f5c77874e4',
             firstname: 'Robert',
             nickname: null,
             lastname: 'Johnson',
@@ -99,7 +99,7 @@ export class AuthorService {
             gender: GenderEnum.MALE,
         },
         {
-            id: 4,
+            id: 'af18a7cc-7e7a-4388-bb32-95652fc1e379',
             firstname: 'Mary',
             nickname: 'Molly',
             lastname: 'Williams',
@@ -127,12 +127,12 @@ export class AuthorService {
         return of(this.authors).pipe(delay(200));
     }
 
-    getAuthorById(id: number): Observable<Author | null> {
+    getAuthorById(id: string): Observable<Author | null> {
         const found = this.authors.find(a => a.id === id) || null;
         return of(found).pipe(delay(200));
     }
 
-    deleteAuthor(id: number): Observable<void> {
+    deleteAuthor(id: string): Observable<void> {
         this.authors = this.authors.filter(a => a.id !== id);
         return of(void 0).pipe(delay(200));
     }

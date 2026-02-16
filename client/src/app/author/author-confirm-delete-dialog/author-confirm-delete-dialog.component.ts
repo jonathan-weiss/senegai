@@ -34,7 +34,7 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 
 @Component({
-    selector: 'app-confirm-delete-dialog',
+    selector: 'app-author-confirm-delete-dialog',
     templateUrl: './author-confirm-delete-dialog.component.html',
     styleUrls: ['./author-confirm-delete-dialog.component.scss'],
     imports: [

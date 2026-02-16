@@ -35,15 +35,7 @@
     <mat-tab label="Main">
         <div class="column-layout">
             <div class="column">
-                <!-- @tt{{{
-                @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
-
-                    @replace-value-by-expression
-                    [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
-                    [ searchValue="First name" replaceByExpression="attribute.attributeName" ]
-                    [ searchValue="first name" replaceByExpression="attribute.attributeName" ]
-
-            }}}@  -->
+                <!-- @tt{{{ @ignore-text @slac }}}@ -->
                 <app-section-splitter label="All won library awards"></app-section-splitter>
                 <app-text-block label="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." />
                 <div class="form-row">
@@ -64,7 +56,16 @@
                     </app-field-wrapper>
                 </div>
                 <app-section-splitter label="Names"></app-section-splitter>
+                <!-- @tt{{{ @slbc  @end-ignore-text @slac }}}@ -->
+                <!-- @tt{{{
+                @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
 
+                    @replace-value-by-expression
+                    [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
+                    [ searchValue="First name" replaceByExpression="attribute.attributeName" ]
+                    [ searchValue="first name" replaceByExpression="attribute.attributeName" ]
+
+            }}}@  -->
                 <div class="form-row">
                     <app-field-wrapper label="First name">
                         <app-text-input [textFormControl]="firstnameControl" label="firstname" placeholder="Enter first name" [validatorTranslations]="firstnameValidatorNames" />

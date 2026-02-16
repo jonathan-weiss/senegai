@@ -22,7 +22,6 @@ object ItemServiceRenderer : ItemRenderer {
           |export class ${model.itemName}Service {
           |    private ${model.itemNameLowercase}s: ${model.itemName}[] = [
           |        {
-          |            id: 1,
           |            ${ model.attributes.joinToString("") { attribute ->  """
               |            ${attribute.attributeName}: ${attribute.typescriptAttributeTypeExample},
           """ } }        },    ];
@@ -32,12 +31,12 @@ object ItemServiceRenderer : ItemRenderer {
           |        return of(this.${model.itemNameLowercase}s).pipe(delay(200));
           |    }
           |
-          |    get${model.itemName}ById(id: number): Observable<${model.itemName} | null> {
+          |    get${model.itemName}ById(id: string): Observable<${model.itemName} | null> {
           |        const found = this.${model.itemNameLowercase}s.find(a => a.id === id) || null;
           |        return of(found).pipe(delay(200));
           |    }
           |
-          |    delete${model.itemName}(id: number): Observable<void> {
+          |    delete${model.itemName}(id: string): Observable<void> {
           |        this.${model.itemNameLowercase}s = this.${model.itemNameLowercase}s.filter(a => a.id !== id);
           |        return of(void 0).pipe(delay(200));
           |    }

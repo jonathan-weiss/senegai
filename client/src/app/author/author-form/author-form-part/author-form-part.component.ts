@@ -40,7 +40,9 @@ import {AuthorFormValidationService} from "@app/author/author-form/author-form-v
 import {
     AuthorFormFieldName,
     AuthorFormGroup,
-    AuthorFormLibraryAwardListFormGroup
+    /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+    AuthorFormLibraryAwardListFormGroup,
+    /* @tt{{{ @slbc  @end-ignore-text }}}@ */
 } from "@app/author/author-form/author-form-field-name";
 import {TextInputComponent} from "@app/shared/form-controls/text-input/text-input.component";
 import {DatepickerInputComponent} from "@app/shared/form-controls/datepicker-input/datepicker-input.component";
@@ -100,9 +102,9 @@ export class AuthorFormPartComponent implements OnInit {
 
     /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
     authorLibraryAwardUnderEdit: FormGroup<AuthorFormLibraryAwardListFormGroup> | undefined = undefined;
-    /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 
     protected idControl!: FormControl<number>
+    /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
     /* @tt{{{
     @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
 
@@ -139,7 +141,9 @@ export class AuthorFormPartComponent implements OnInit {
     }
 
     ngOnInit() {
+        /* @tt{{{ @ignore-text @slac }}}@ */
         this.idControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormFieldName.id);
+        /* @tt{{{ @slbc  @end-ignore-text }}}@ */
         /* @tt{{{ @slbc
         @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
 

@@ -23,7 +23,7 @@ export class AuthorRoutableEditComponent {
         this.route.params.subscribe(params => {
             const idParam = params['id'];
             if (idParam) {
-                const id = Number(idParam);
+                const id = idParam as string;
                 this.authorService.getAuthorById(id).subscribe(author => {
                     this.selectedAuthor = author;
                 });

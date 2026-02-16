@@ -28,7 +28,6 @@ import {GenderEnum} from "@app/author/gender.enum";
  * The Author DTO (Data Transfer Object) class.
  */
 export interface Author {
-    id: number;
     /* @tt{{{
         @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
 
@@ -50,5 +49,6 @@ export interface Author {
     libraryAwardList: ReadonlyArray<AuthorLibraryAward>;
     birthday: Date | null;
     vegetarian: boolean;
+    id: string;
     /* @tt{{{ @slbc  @end-ignore-text }}}@ */
 }

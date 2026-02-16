@@ -56,7 +56,6 @@ object ItemResultComponentTypescriptRenderer : ItemRenderer {
           |    @Output() delete${model.itemName} = new EventEmitter<${model.itemName}>();
           |
           |    displayedColumns: string[] = [
-          |        'id',
           |        ${ model.attributes.joinToString("") { attribute ->  """
               |        '${attribute.attributeName}',
           """ } }        'actions'
@@ -94,8 +93,7 @@ object ItemResultComponentTypescriptRenderer : ItemRenderer {
           |    private filter${model.itemName}s(): void {
           |        const criteria = this.searchCriteria;
           |        this.dataSource.data = this.all${model.itemName}s.filter(${model.itemNameLowercase} => {
-          |            return (
-          |                this.isMatchingNumberCriteria(criteria.id, ${model.itemNameLowercase}.id) &&${ model.attributes.joinToString("") { attribute ->  """                this.isMatching${attribute.typescriptAttributeTypeCapitalizedWithoutNullability}Criteria(criteria.${attribute.attributeName}, ${model.itemNameLowercase}.${attribute.attributeName}) &&
+          |            return (${ model.attributes.joinToString("") { attribute ->  """                this.isMatching${attribute.typescriptAttributeTypeCapitalizedWithoutNullability}Criteria(criteria.${attribute.attributeName}, ${model.itemNameLowercase}.${attribute.attributeName}) &&
           """ } }                    true
           |            );
           |        });

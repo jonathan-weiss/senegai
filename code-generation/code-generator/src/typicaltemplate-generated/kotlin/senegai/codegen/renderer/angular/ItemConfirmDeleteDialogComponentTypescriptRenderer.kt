@@ -28,7 +28,7 @@ object ItemConfirmDeleteDialogComponentTypescriptRenderer : ItemRenderer {
           |import {MatListModule} from "@angular/material/list";
           |
           |@Component({
-          |    selector: 'app-confirm-delete-dialog',
+          |    selector: 'app-${model.itemNameLowercase}-confirm-delete-dialog',
           |    templateUrl: './${model.itemNameLowercase}-confirm-delete-dialog.component.html',
           |    styleUrls: ['./${model.itemNameLowercase}-confirm-delete-dialog.component.scss'],
           |    imports: [

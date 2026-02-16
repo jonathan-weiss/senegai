@@ -14,8 +14,14 @@ object ItemFormFieldNameRenderer : ItemRenderer {
     override fun renderTemplate(model: ItemModel): String {
         return """
           |
+          |import {FormArray, FormControl, FormGroup} from "@angular/forms";
           |export enum ${model.itemName}FormFieldName {${ model.attributes.joinToString("") { attribute ->  """
               |    ${attribute.attributeName} = "${attribute.attributeName}",
+          """ } }}
+          |
+          |
+          |export interface ${model.itemName}FormGroup {${ model.attributes.joinToString("") { attribute ->  """
+              |    [${model.itemName}FormFieldName.${attribute.attributeName}]: FormControl<string>,
           """ } }}
           |
         """.trimMargin(marginPrefix = "|")

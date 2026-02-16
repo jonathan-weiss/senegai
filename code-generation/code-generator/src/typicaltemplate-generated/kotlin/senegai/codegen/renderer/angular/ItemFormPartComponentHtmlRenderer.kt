@@ -27,10 +27,10 @@ object ItemFormPartComponentHtmlRenderer : ItemRenderer {
           |</div>
           |
           |<mat-tab-group dynamicHeight>
-          |    <mat-tab label="Names">
+          |    <mat-tab label="Main">
           |        <div class="column-layout">
           |            <div class="column">
-          |                ${ model.attributes.joinToString("") { attribute ->  """
+          |                                ${ model.attributes.joinToString("") { attribute ->  """
               |                <div class="form-row">
               |                    <app-field-wrapper label="${attribute.attributeName}">
               |                        <app-text-input [textFormControl]="${attribute.attributeName}Control" label="${attribute.attributeName}" placeholder="Enter ${attribute.attributeName}" [validatorTranslations]="${attribute.attributeName}ValidatorNames" />

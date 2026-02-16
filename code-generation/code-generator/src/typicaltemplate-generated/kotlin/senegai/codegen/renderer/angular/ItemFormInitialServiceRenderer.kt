@@ -18,6 +18,8 @@ object ItemFormInitialServiceRenderer : ItemRenderer {
           |
           |@Injectable({providedIn: 'root'})
           |export class ${model.itemName}FormInitialValueService {
+          |    
+          |
           |${ model.attributes.joinToString("") { attribute ->  """
               |    ${attribute.attributeName}InitialValue(): string {
               |        return ''

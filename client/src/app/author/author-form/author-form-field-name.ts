@@ -20,7 +20,9 @@
 }}}@ */
 
 import {FormArray, FormControl, FormGroup} from "@angular/forms";
+/* @tt{{{ @slbc  @ignore-text @slac }}}@ */
 import {GenderEnum} from "@app/author/gender.enum";
+/* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 
 export enum AuthorFormFieldName {
     /* @tt{{{ @slbc
@@ -48,10 +50,18 @@ export enum AuthorFormFieldName {
 /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 }
 
-/* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+
 export interface AuthorFormGroup {
-    [AuthorFormFieldName.id]: FormControl<number>,
+    /* @tt{{{ @slbc
+        @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
+
+        @replace-value-by-expression
+            [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
+
+    }}}@  */
     [AuthorFormFieldName.firstname]: FormControl<string>,
+    /* @tt{{{ @slbc @end-foreach @slac }}}@ */
+    /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
     [AuthorFormFieldName.nicknameIsNotNull]: FormControl<boolean>,
     [AuthorFormFieldName.nickname]: FormControl<string | null>,
     [AuthorFormFieldName.lastname]: FormControl<string>,
@@ -60,8 +70,11 @@ export interface AuthorFormGroup {
     [AuthorFormFieldName.birthday]: FormControl<Date | null>,
     [AuthorFormFieldName.vegetarian]: FormControl<boolean>,
     [AuthorFormFieldName.gender]: FormControl<GenderEnum>,
+    [AuthorFormFieldName.id]: FormControl<string>,
+    /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 }
 
+/* @tt{{{ @slbc  @ignore-text @slac }}}@ */
 export interface AuthorFormLibraryAwardListFormGroup {
     [AuthorFormFieldName.libraryAwardListDescription]: FormControl<string>,
     [AuthorFormFieldName.libraryAwardListYear]: FormControl<number>,

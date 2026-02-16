@@ -27,8 +27,7 @@ object ItemSearchComponentTypescriptRenderer : ItemRenderer {
           |import {MatListModule} from "@angular/material/list";
           |import {MatDialogModule} from "@angular/material/dialog";
           |
-          |export interface ${model.itemName}SearchCriteria {
-          |    id?: number;${ model.attributes.joinToString("") { attribute ->  """    ${attribute.attributeName}?: ${attribute.typescriptAttributeTypeWithoutNullability};
+          |export interface ${model.itemName}SearchCriteria {${ model.attributes.joinToString("") { attribute ->  """    ${attribute.attributeName}?: ${attribute.typescriptAttributeTypeWithoutNullability};
           """ } }}
           |
           |@Component({
@@ -56,8 +55,7 @@ object ItemSearchComponentTypescriptRenderer : ItemRenderer {
           |    searchForm: FormGroup;
           |
           |    constructor(private fb: FormBuilder) {
-          |        this.searchForm = this.fb.group({
-          |            id: [''],${ model.attributes.joinToString("") { attribute ->  """            ${attribute.attributeName}: [${attribute.typescriptAttributeInitialValue}],
+          |        this.searchForm = this.fb.group({${ model.attributes.joinToString("") { attribute ->  """            ${attribute.attributeName}: [${attribute.typescriptAttributeInitialValue}],
           """ } }        });
           |    }
           |

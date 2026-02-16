@@ -26,7 +26,9 @@ import {FormUtil} from "@app/shared/form-controls/form.util";
 import {
     AuthorFormFieldName,
     AuthorFormGroup,
-    AuthorFormLibraryAwardListFormGroup
+    /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+    AuthorFormLibraryAwardListFormGroup,
+    /* @tt{{{ @slbc  @end-ignore-text  }}}@ */
 } from "@app/author/author-form/author-form-field-name";
 import {AuthorFormValidationService} from "@app/author/author-form/author-form-validation.service";
 import {AuthorFormInitialValueService} from "@app/author/author-form/author-form-initial-value.service";
@@ -47,7 +49,8 @@ export class AuthorFormService {
 
     public createInitialAuthorForm(): FormGroup<AuthorFormGroup> {
         return new FormGroup({
-            [AuthorFormFieldName.id]: new FormControl<number>(
+            /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+            [AuthorFormFieldName.id]: new FormControl<string>(
                 {
                     value: this.authorFormInitialValueService.idInitialValue(),
                     disabled: true, // ID is readonly
@@ -55,6 +58,7 @@ export class AuthorFormService {
                     nonNullable: true,
                 },
             ),
+            /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
             /* @tt{{{ @slbc
                 @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
 
@@ -130,6 +134,7 @@ export class AuthorFormService {
         });
     }
 
+    /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
     public createInitialLibraryAwardListForm(): FormGroup<AuthorFormLibraryAwardListFormGroup> {
         return new FormGroup({
             [AuthorFormFieldName.libraryAwardListDescription]: new FormControl<string>(
@@ -164,10 +169,13 @@ export class AuthorFormService {
             },
         )
     }
+    /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 
     public patchAuthorForm(form: AbstractControl, author: Author): void {
+        /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
         FormUtil.requiredFormControl(form, AuthorFormFieldName.id).patchValue(author.id);
-        /* @tt{{{ @slbc
+        /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+        /* @tt{{{
             @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
 
             @replace-value-by-expression
@@ -194,6 +202,7 @@ export class AuthorFormService {
         /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
     }
 
+    /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
     public patchLibraryAwardListForm(form: AbstractControl, authorLibraryAward: AuthorLibraryAward): void {
         FormUtil.requiredFormControl(form, AuthorFormFieldName.libraryAwardListDescription).patchValue(authorLibraryAward.description);
         FormUtil.requiredFormControl(form, AuthorFormFieldName.libraryAwardListYear).patchValue(authorLibraryAward.year);
@@ -203,12 +212,24 @@ export class AuthorFormService {
             FormUtil.requiredFormArray(form, AuthorFormFieldName.libraryAwardListJuryList).push(formGroup);
         })
     }
-
+    /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 
     public createAuthorFromFormData(form: AbstractControl): Author {
         return {
-            id: FormUtil.requiredFormControl(form, AuthorFormFieldName.id).value as number,
+            /* @tt{{{ @ignore-text @slac }}}@ */
+            id: FormUtil.requiredFormControl(form, AuthorFormFieldName.id).value as string,
+            /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+            /* @tt{{{
+                @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
+
+                @replace-value-by-expression
+                    [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
+
+                @slac
+            }}}@  */
             firstname: FormUtil.requiredFormControl(form, AuthorFormFieldName.firstname).value as string,
+            /* @tt{{{ @slbc @end-foreach @slac }}}@ */
+            /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
             nickname: FormUtil.requiredFormControl(form, AuthorFormFieldName.nicknameIsNotNull).value
                 ? FormUtil.requiredFormControl(form, AuthorFormFieldName.nickname).value as string
                 : null,
@@ -218,9 +239,11 @@ export class AuthorFormService {
             birthday: FormUtil.requiredFormControl(form, AuthorFormFieldName.birthdayIsNotNull).value ? FormUtil.requiredFormControl(form, AuthorFormFieldName.birthday).value as Date : null,
             vegetarian: FormUtil.requiredFormControl(form, AuthorFormFieldName.vegetarian).value as boolean,
             gender: FormUtil.requiredFormControl(form, AuthorFormFieldName.gender).value as GenderEnum,
+            /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
         };
     }
 
+    /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
     public createAuthorLibraryAwardListFromFormData(form: AbstractControl): AuthorLibraryAward {
         return {
             description: FormUtil.requiredFormControl(form, AuthorFormFieldName.libraryAwardListDescription).value as string,
@@ -229,5 +252,6 @@ export class AuthorFormService {
                 .controls.map(control => control.value as string),
         };
     }
+    /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 
 } 

@@ -20,10 +20,6 @@ object ItemSearchComponentHtmlRenderer : ItemRenderer {
           |    <mat-card-content>
           |        <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
           |            <div class="search-fields">
-          |                <mat-form-field appearance="outline">
-          |                    <mat-label>ID</mat-label>
-          |                    <input matInput type="number" formControlName="id" placeholder="Enter ID">
-          |                </mat-form-field>
           |                ${ model.attributes.joinToString("") { attribute ->  """
               |                <mat-form-field appearance="outline">
               |                    <mat-label>${attribute.attributeName}</mat-label>
