@@ -218,7 +218,6 @@ export class AuthorFormService {
             birthday: FormUtil.requiredFormControl(form, AuthorFormFieldName.birthdayIsNotNull).value ? FormUtil.requiredFormControl(form, AuthorFormFieldName.birthday).value as Date : null,
             vegetarian: FormUtil.requiredFormControl(form, AuthorFormFieldName.vegetarian).value as boolean,
             gender: FormUtil.requiredFormControl(form, AuthorFormFieldName.gender).value as GenderEnum,
-            /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
         };
     }
 
