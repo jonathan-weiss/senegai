@@ -6,6 +6,5 @@ import senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormBlockMode
 data class UiEntityFormViewTabModel(
  val entity: UiEntityModel,
  val tabName: String,
- val noColumnBlocks: List<UiEntityFormBlockModel>,
  val columns: List<UiEntityFormViewColumnModel>,
 )

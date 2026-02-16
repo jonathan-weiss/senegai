@@ -64,7 +64,6 @@ object RendererModelConverter {
         return UiEntityFormViewTabModel(
             entity = uiEntityModel,
             tabName = tab.tabName,
-            noColumnBlocks = emptyList(),
             columns = tab.columns.map { mapUiEntityColumn(uiEntityModel = uiEntityModel, column = it) })
     }
 
