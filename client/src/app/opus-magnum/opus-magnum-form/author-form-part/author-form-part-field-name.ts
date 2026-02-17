@@ -52,9 +52,6 @@ export enum AuthorFormPartFieldName {
     vegetarian = "vegetarian",
     gender = "gender",
     id = "id",
-    libraryAwardListDescription = "libraryAwardListDescription",
-    libraryAwardListYear = "libraryAwardListYear",
-    libraryAwardListJuryList = "libraryAwardListJuryList",
 /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 }
 
