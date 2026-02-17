@@ -33,4 +33,11 @@ tasks.register<JavaExec>("codegen") {
     args(
         directoryForAngularGeneratedSource,
     )
+
+    dependsOn("cleanCodegen")
 }
+
+tasks.register<Delete>("cleanCodegen") {
+    delete(directoryForAngularGeneratedSource)
+}
+

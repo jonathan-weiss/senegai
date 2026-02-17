@@ -11,8 +11,12 @@ data class UiEntityModel(
 
     val searchResultAttributes: List<UiItemAttributeModel> = entityRootItem.attributes
     val searchCriteriaAttributes: List<UiItemAttributeModel> = entityRootItem.attributes
-    val chainedFormAttributes: List<UiEntityChainedAttributeModel> = entityRootItem.attributes
-        .map { UiEntityChainedAttributeModel(listOf(
-            UiEntityItemAndAttributeModel(this, entityRootItem, it) // TODO make that recursive
-        )) }
+    val chainedFormAttributes: List<UiEntityChainedAttributeModel> = createAttributeChain()
+
+    private fun createAttributeChain(): List<UiEntityChainedAttributeModel> {
+        return entityRootItem.attributes
+            .map { UiEntityChainedAttributeModel(listOf(
+                UiEntityItemAndAttributeModel(this, entityRootItem, it) // TODO make that recursive
+            )) }
+    }
 }
