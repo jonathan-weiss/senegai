@@ -13,10 +13,10 @@ object EntityBoardComponentHtmlRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
-          |<div class="${model.entityNameLowercase}-container">
+          |<div class="opus-magnum-container">
           |    <h2>{{'${model.entityNameLowercase}.board.title' | transloco }}</h2>
           |
-          |    <mat-accordion class="${model.entityNameLowercase}-accordion" multi>
+          |    <mat-accordion class="opus-magnum-accordion" multi>
           |        <!-- Search Panel -->
           |        <mat-expansion-panel>
           |            <mat-expansion-panel-header>
@@ -25,7 +25,7 @@ object EntityBoardComponentHtmlRenderer : UiEntityRenderer {
           |                    <ng-container>Search ${model.entityName}s</ng-container>
           |                </mat-panel-title>
           |            </mat-expansion-panel-header>
-          |            <app-${model.entityNameLowercase}-search (search)="onSearch(${"$"}event)"></app-${model.entityNameLowercase}-search>
+          |            <app-opus-magnum-search (search)="onSearch(${"$"}event)"></app-opus-magnum-search>
           |        </mat-expansion-panel>
           |
           |        <!-- Results Panel -->
@@ -36,12 +36,12 @@ object EntityBoardComponentHtmlRenderer : UiEntityRenderer {
           |                    <ng-container>${model.entityName} List</ng-container>
           |                </mat-panel-title>
           |            </mat-expansion-panel-header>
-          |            <app-${model.entityNameLowercase}-result
+          |            <app-opus-magnum-result
           |                    [searchCriteria]="currentSearchCriteria"
           |                    (select${model.entityName})="on${model.entityName}Select(${"$"}event)"
           |                    (delete${model.entityName})="onDelete${model.entityName}(${"$"}event)"
           |                    [refreshKey]="refreshKey">
-          |            </app-${model.entityNameLowercase}-result>
+          |            </app-opus-magnum-result>
           |        </mat-expansion-panel>
           |
           |        <!-- Edit Form Panel -->
@@ -61,11 +61,11 @@ object EntityBoardComponentHtmlRenderer : UiEntityRenderer {
           |            </mat-expansion-panel-header>
           |
           |            @if (selected${model.entityName}) {
-          |                <app-${model.entityNameLowercase}-form
+          |                <app-opus-magnum-form
           |                        [${model.entityNameLowercase}]="selected${model.entityName}"
           |                        (save)="onSave(${"$"}event)"
           |                        (cancel)="onCancel()">
-          |                </app-${model.entityNameLowercase}-form>
+          |                </app-opus-magnum-form>
           |            }
           |        </mat-expansion-panel>
           |    </mat-accordion>
@@ -75,6 +75,6 @@ object EntityBoardComponentHtmlRenderer : UiEntityRenderer {
     }
 
     override fun filePath(model: UiEntityModel): String {
-      return "${model.entityNameLowercase}/${model.entityNameLowercase}-board/${model.entityNameLowercase}-board.component.html"
+      return "opus-magnum/opus-magnum-board/opus-magnum-board.component.html"
     }
 }

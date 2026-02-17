@@ -11,8 +11,8 @@
     ]
 
     @replace-value-by-expression
-        [ searchValue="Author" replaceByExpression="model.entityName" ]
-        [ searchValue="author" replaceByExpression="model.entityNameLowercase" ]
+        [ searchValue="OpusMagnum" replaceByExpression="model.entityName" ]
+        [ searchValue="opusMagnum" replaceByExpression="model.entityNameLowercase" ]
 
     @modify-provided-filename-by-replacements
 
@@ -21,7 +21,7 @@
 }}}@ */
 import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
-import {AuthorSearchCriteria} from '@app/opus-magnum/opus-magnum-search/opus-magnum-search.component';
+import {OpusMagnumSearchCriteria} from '@app/opus-magnum/opus-magnum-search/opus-magnum-search.component';
 import {OpusMagnumService} from '@app/opus-magnum/opus-magnum.service';
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
@@ -34,10 +34,10 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {MatDialogModule} from "@angular/material/dialog";
-import {AuthorWTO} from "@app/wto/author.wto";
+import {OpusMagnumWTO} from "@app/wto/opus-magnum.wto";
 
 @Component({
-    selector: 'app-author-result',
+    selector: 'app-opus-magnum-result',
     templateUrl: './opus-magnum-result.component.html',
     styleUrls: ['./opus-magnum-result.component.scss'],
     imports: [
@@ -56,10 +56,10 @@ import {AuthorWTO} from "@app/wto/author.wto";
     ]
 })
 export class OpusMagnumResultComponent implements OnChanges {
-    @Input() searchCriteria: AuthorSearchCriteria = {};
+    @Input() searchCriteria: OpusMagnumSearchCriteria = {};
     @Input() refreshKey: number = 0;
-    @Output() selectAuthor = new EventEmitter<AuthorWTO>();
-    @Output() deleteAuthor = new EventEmitter<AuthorWTO>();
+    @Output() selectOpusMagnum = new EventEmitter<OpusMagnumWTO>();
+    @Output() deleteOpusMagnum = new EventEmitter<OpusMagnumWTO>();
 
     displayedColumns: string[] = [
         /* @tt{{{
@@ -77,39 +77,39 @@ export class OpusMagnumResultComponent implements OnChanges {
     /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
         'actions'
     ];
-    dataSource: MatTableDataSource<AuthorWTO> = new MatTableDataSource<AuthorWTO>();
-    private allAuthors: AuthorWTO[] = [];
+    dataSource: MatTableDataSource<OpusMagnumWTO> = new MatTableDataSource<OpusMagnumWTO>();
+    private allOpusMagnums: OpusMagnumWTO[] = [];
 
-    constructor(private authorService: OpusMagnumService) {
-        this.loadAuthors();
+    constructor(private opusMagnumService: OpusMagnumService) {
+        this.loadOpusMagnums();
     }
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes['refreshKey'] && !changes['refreshKey'].firstChange) {
-            this.loadAuthors();
-        } else if (changes['searchCriteria'] && this.allAuthors.length) {
-            this.filterAuthors();
+            this.loadOpusMagnums();
+        } else if (changes['searchCriteria'] && this.allOpusMagnums.length) {
+            this.filterOpusMagnums();
         }
     }
 
-    private loadAuthors(): void {
-        this.authorService.getAuthors().subscribe(authors => {
-            this.allAuthors = authors;
-            this.filterAuthors();
+    private loadOpusMagnums(): void {
+        this.opusMagnumService.getOpusMagnums().subscribe(opusMagnumList => {
+            this.allOpusMagnums = opusMagnumList;
+            this.filterOpusMagnums();
         });
     }
 
-    onEdit(author: AuthorWTO): void {
-        this.selectAuthor.emit(author);
+    onEdit(opusMagnum: OpusMagnumWTO): void {
+        this.selectOpusMagnum.emit(opusMagnum);
     }
 
-    onDelete(author: AuthorWTO): void {
-        this.deleteAuthor.emit(author);
+    onDelete(opusMagnum: OpusMagnumWTO): void {
+        this.deleteOpusMagnum.emit(opusMagnum);
     }
 
-    private filterAuthors(): void {
+    private filterOpusMagnums(): void {
         const criteria = this.searchCriteria;
-        this.dataSource.data = this.allAuthors.filter(author => {
+        this.dataSource.data = this.allOpusMagnums.filter(opusMagnum => {
             return (
                 /* @tt{{{ @slbc
                     @foreach [ iteratorExpression="model.searchResultAttributes" loopVariable="attribute" ]
@@ -119,12 +119,12 @@ export class OpusMagnumResultComponent implements OnChanges {
                         [ searchValue="String" replaceByExpression="attribute.typescriptAttributeTypeCapitalizedWithoutNullability" ]
                     @slac
                 }}}@  */
-                this.isMatchingStringCriteria(criteria.firstname, author.firstname) &&
+                this.isMatchingStringCriteria(criteria.firstname, opusMagnum.firstname) &&
                     /* @tt{{{ @slbc @end-foreach @slac }}}@ */
                     /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-                this.isMatchingStringCriteria(criteria.nickname, author.nickname) &&
-                this.isMatchingStringCriteria(criteria.lastname, author.lastname) &&
-                this.isMatchingStringCriteria(criteria.id, author.id) &&
+                this.isMatchingStringCriteria(criteria.nickname, opusMagnum.nickname) &&
+                this.isMatchingStringCriteria(criteria.lastname, opusMagnum.lastname) &&
+                this.isMatchingStringCriteria(criteria.id, opusMagnum.id) &&
                     /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
                     true
             );

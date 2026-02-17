@@ -15,7 +15,7 @@ object ItemFormPartGroupRenderer : UiItemRenderer {
         return """
           |
           |import {FormArray, FormControl, FormGroup} from "@angular/forms";
-          |import {${model.itemName}FormPartFieldName} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-field-name";
+          |import {${model.itemName}FormPartFieldName} from "@app/opus-magnum/opus-magnum-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-field-name";
           |
           |export interface ${model.itemName}FormPartGroup {${ model.attributes.joinToString("") { attribute ->  """
               |    [${model.itemName}FormPartFieldName.${attribute.attributeName}]: FormControl<string>,
@@ -25,6 +25,6 @@ object ItemFormPartGroupRenderer : UiItemRenderer {
     }
 
     override fun filePath(model: UiItemModel): String {
-      return "${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-group.ts"
+      return "opus-magnum/opus-magnum-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-group.ts"
     }
 }

@@ -11,8 +11,8 @@
     ]
 
     @replace-value-by-expression
-        [ searchValue="Author" replaceByExpression="model.entityName" ]
-        [ searchValue="author" replaceByExpression="model.entityNameLowercase" ]
+        [ searchValue="OpusMagnum" replaceByExpression="model.entityName" ]
+        [ searchValue="opusMagnum" replaceByExpression="model.entityNameLowercase" ]
 
     @modify-provided-filename-by-replacements
 
@@ -20,7 +20,7 @@
 
 }}}@ */
 import {Component} from '@angular/core';
-import {OpusMagnumSearchComponent, AuthorSearchCriteria} from '@app/opus-magnum/opus-magnum-search/opus-magnum-search.component';
+import {OpusMagnumSearchComponent, OpusMagnumSearchCriteria} from '@app/opus-magnum/opus-magnum-search/opus-magnum-search.component';
 import {OpusMagnumResultComponent} from '@app/opus-magnum/opus-magnum-result/opus-magnum-result.component';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {OpusMagnumConfirmDeleteDialogComponent} from '@app/opus-magnum/opus-magnum-confirm-delete-dialog/opus-magnum-confirm-delete-dialog.component';
@@ -37,11 +37,11 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {OpusMagnumFormComponent} from "@app/opus-magnum/opus-magnum-form/opus-magnum-form/opus-magnum-form.component";
-import {AuthorWTO} from "@app/wto/author.wto";
+import {OpusMagnumWTO} from "@app/wto/opus-magnum.wto";
 import {TranslocoPipe} from "@jsverse/transloco";
 
 @Component({
-    selector: 'app-author-board',
+    selector: 'app-opus-magnum-board',
     templateUrl: './opus-magnum-board.component.html',
     styleUrls: ['./opus-magnum-board.component.scss'],
     imports: [
@@ -64,42 +64,42 @@ import {TranslocoPipe} from "@jsverse/transloco";
     ]
 })
 export class OpusMagnumBoardComponent {
-    currentSearchCriteria: AuthorSearchCriteria = {};
-    selectedAuthor: AuthorWTO | null = null;
+    currentSearchCriteria: OpusMagnumSearchCriteria = {};
+    selectedOpusMagnum: OpusMagnumWTO | null = null;
     refreshKey = 0;
 
-    constructor(private dialog: MatDialog, private authorService: OpusMagnumService) {
+    constructor(private dialog: MatDialog, private opusMagnumService: OpusMagnumService) {
     }
 
-    onSearch(criteria: AuthorSearchCriteria): void {
+    onSearch(criteria: OpusMagnumSearchCriteria): void {
         this.currentSearchCriteria = criteria;
     }
 
-    onAuthorSelect(author: AuthorWTO): void {
-        this.selectedAuthor = author;
+    onOpusMagnumSelect(opusMagnum: OpusMagnumWTO): void {
+        this.selectedOpusMagnum = opusMagnum;
     }
 
-    onDeleteAuthor(author: AuthorWTO): void {
+    onDeleteOpusMagnum(opusMagnum: OpusMagnumWTO): void {
         const dialogRef = this.dialog.open(OpusMagnumConfirmDeleteDialogComponent, {
-            data: {firstname: author.firstname, lastname: author.lastname}
+            data: {firstname: opusMagnum.firstname, lastname: opusMagnum.lastname}
         });
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.authorService.deleteAuthor(author.id).subscribe(() => {
+                this.opusMagnumService.deleteOpusMagnum(opusMagnum.id).subscribe(() => {
                     this.refreshKey++;
                 });
             }
         });
     }
 
-    onSave(updatedAuthor: AuthorWTO): void {
-        this.authorService.updateAuthor(updatedAuthor).subscribe(() => {
-            this.selectedAuthor = null;
+    onSave(updatedOpusMagnum: OpusMagnumWTO): void {
+        this.opusMagnumService.updateOpusMagnum(updatedOpusMagnum).subscribe(() => {
+            this.selectedOpusMagnum = null;
             this.refreshKey++;
         });
     }
 
     onCancel(): void {
-        this.selectedAuthor = null;
+        this.selectedOpusMagnum = null;
     }
 } 

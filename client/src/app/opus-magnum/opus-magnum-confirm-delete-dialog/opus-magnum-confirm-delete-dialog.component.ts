@@ -11,8 +11,8 @@
     ]
 
     @replace-value-by-expression
-        [ searchValue="Author" replaceByExpression="model.entityName" ]
-        [ searchValue="author" replaceByExpression="model.entityNameLowercase" ]
+        [ searchValue="OpusMagnum" replaceByExpression="model.entityName" ]
+        [ searchValue="opusMagnum" replaceByExpression="model.entityNameLowercase" ]
 
     @modify-provided-filename-by-replacements
 
@@ -34,7 +34,7 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 
 @Component({
-    selector: 'app-author-confirm-delete-dialog',
+    selector: 'app-opus-magnum-confirm-delete-dialog',
     templateUrl: './opus-magnum-confirm-delete-dialog.component.html',
     styleUrls: ['./opus-magnum-confirm-delete-dialog.component.scss'],
     imports: [

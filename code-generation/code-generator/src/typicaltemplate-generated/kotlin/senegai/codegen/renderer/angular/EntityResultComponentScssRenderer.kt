@@ -13,7 +13,7 @@ object EntityResultComponentScssRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
-          |.${model.entityNameLowercase}-table-container {
+          |.opus-magnum-table-container {
           |  padding: 20px;
           |
           |  table {
@@ -36,6 +36,6 @@ object EntityResultComponentScssRenderer : UiEntityRenderer {
     }
 
     override fun filePath(model: UiEntityModel): String {
-      return "${model.entityNameLowercase}/${model.entityNameLowercase}-result/${model.entityNameLowercase}-result.component.scss"
+      return "opus-magnum/opus-magnum-result/opus-magnum-result.component.scss"
     }
 }

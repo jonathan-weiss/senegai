@@ -26,7 +26,7 @@ import {
 } from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part-group";
 
 @Component({
-    selector: 'app-author-library-award-table',
+    selector: 'app-opus-magnum-library-award-table',
     templateUrl: './library-award-table.component.html',
     styleUrls: ['./library-award-table.component.scss'],
     imports: [
@@ -46,8 +46,8 @@ import {
 })
 export class LibraryAwardTableComponent implements OnInit {
     @Input({ required: true }) libraryAwardFormArray!: FormArray<FormGroup<LibraryAwardFormPartGroup>>;
-    @Output() editAuthorLibraryAwardFormGroup = new EventEmitter<FormGroup<LibraryAwardFormPartGroup>>();
-    @Output() deleteAuthorLibraryAwardFormGroup = new EventEmitter<FormGroup<LibraryAwardFormPartGroup>>();
+    @Output() editOpusMagnumLibraryAwardFormGroup = new EventEmitter<FormGroup<LibraryAwardFormPartGroup>>();
+    @Output() deleteOpusMagnumLibraryAwardFormGroup = new EventEmitter<FormGroup<LibraryAwardFormPartGroup>>();
 
     displayedColumns: string[] = [
         'description',
@@ -86,23 +86,23 @@ export class LibraryAwardTableComponent implements OnInit {
         } else {
             this.libraryAwardFormArray.push(newEntry)
         }
-        this.editAuthorLibraryAwardFormGroup.emit(newEntry);
+        this.editOpusMagnumLibraryAwardFormGroup.emit(newEntry);
     }
 
-    onSelect(authorLibraryAwardFormGroup: FormGroup): void {
-        this.selectedFormGroup = authorLibraryAwardFormGroup
+    onSelect(opusMagnumLibraryAwardFormGroup: FormGroup): void {
+        this.selectedFormGroup = opusMagnumLibraryAwardFormGroup
     }
 
-    isSelected(authorLibraryAwardFormGroup: FormGroup): boolean {
-        return this.selectedFormGroup == authorLibraryAwardFormGroup
+    isSelected(opusMagnumLibraryAwardFormGroup: FormGroup): boolean {
+        return this.selectedFormGroup == opusMagnumLibraryAwardFormGroup
     }
 
-    onEdit(authorLibraryAwardFormGroup: FormGroup): void {
-        this.editAuthorLibraryAwardFormGroup.emit(authorLibraryAwardFormGroup);
+    onEdit(opusMagnumLibraryAwardFormGroup: FormGroup): void {
+        this.editOpusMagnumLibraryAwardFormGroup.emit(opusMagnumLibraryAwardFormGroup);
     }
 
-    onDelete(authorLibraryAwardFormGroup: FormGroup): void {
-        this.deleteAuthorLibraryAwardFormGroup.emit(authorLibraryAwardFormGroup);
+    onDelete(opusMagnumLibraryAwardFormGroup: FormGroup): void {
+        this.deleteOpusMagnumLibraryAwardFormGroup.emit(opusMagnumLibraryAwardFormGroup);
     }
 
     private descriptionControl(formControl: AbstractControl): FormControl<string> {

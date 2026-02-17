@@ -11,8 +11,8 @@
     ]
 
     @replace-value-by-expression
-        [ searchValue="Author" replaceByExpression="model.entityName" ]
-        [ searchValue="author" replaceByExpression="model.entityNameLowercase" ]
+        [ searchValue="OpusMagnum" replaceByExpression="model.entityName" ]
+        [ searchValue="opusMagnum" replaceByExpression="model.entityNameLowercase" ]
 
     @modify-provided-filename-by-replacements
 
@@ -32,12 +32,12 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {MatDialogModule} from "@angular/material/dialog";
-import {AuthorWTO} from "@app/wto/author.wto";
-import {AuthorFormPartService} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part.service";
-import {AuthorFormPartComponent} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part.component";
+import {OpusMagnumWTO} from "@app/wto/opus-magnum.wto";
+import {OpusMagnumFormPartService} from "@app/opus-magnum/opus-magnum-form/opus-magnum-form-part/opus-magnum-form-part.service";
+import {OpusMagnumFormPartComponent} from "@app/opus-magnum/opus-magnum-form/opus-magnum-form-part/opus-magnum-form-part.component";
 
 @Component({
-    selector: 'app-author-form',
+    selector: 'app-opus-magnum-form',
     templateUrl: './opus-magnum-form.component.html',
     styleUrls: ['./opus-magnum-form.component.scss'],
     imports: [
@@ -53,30 +53,30 @@ import {AuthorFormPartComponent} from "@app/opus-magnum/opus-magnum-form/author-
         MatSidenavModule,
         MatListModule,
         MatDialogModule,
-        AuthorFormPartComponent,
+        OpusMagnumFormPartComponent,
     ]
 })
 export class OpusMagnumFormComponent implements OnInit {
-    @Input() author: AuthorWTO | null = null;
-    @Output() save = new EventEmitter<AuthorWTO>();
+    @Input() opusMagnum: OpusMagnumWTO | null = null;
+    @Output() save = new EventEmitter<OpusMagnumWTO>();
     @Output() cancel = new EventEmitter<void>();
 
-    authorForm: FormGroup;
+    opusMagnumForm: FormGroup;
 
-    constructor(private authorFormPartService: AuthorFormPartService) {
-        this.authorForm = authorFormPartService.createInitialAuthorForm();
+    constructor(private opusMagnumFormPartService: OpusMagnumFormPartService) {
+        this.opusMagnumForm = opusMagnumFormPartService.createInitialOpusMagnumForm();
     }
 
     ngOnInit(): void {
-        if (this.author) {
-            this.authorFormPartService.patchAuthorForm(this.authorForm, this.author)
+        if (this.opusMagnum) {
+            this.opusMagnumFormPartService.patchOpusMagnumForm(this.opusMagnumForm, this.opusMagnum)
         }
     }
 
     onSubmit(): void {
-        if (this.authorForm.valid) {
-            const updatedAuthor: AuthorWTO = this.authorFormPartService.createAuthorFromFormData(this.authorForm)
-            this.save.emit(updatedAuthor);
+        if (this.opusMagnumForm.valid) {
+            const updatedOpusMagnum: OpusMagnumWTO = this.opusMagnumFormPartService.createOpusMagnumFromFormData(this.opusMagnumForm)
+            this.save.emit(updatedOpusMagnum);
         }
     }
 

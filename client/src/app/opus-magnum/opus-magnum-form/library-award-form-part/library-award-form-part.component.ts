@@ -30,7 +30,7 @@ import {
 } from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part-validation.service";
 
 @Component({
-    selector: 'app-author-library-award-form-part',
+    selector: 'app-opus-magnum-library-award-form-part',
     templateUrl: './library-award-form-part.component.html',
     styleUrls: ['./library-award-form-part.component.scss'],
     imports: [
@@ -53,7 +53,7 @@ import {
     ]
 })
 export class LibraryAwardFormPartComponent implements OnInit {
-    @Input({required: true}) authorLibraryAwardListForm!: FormGroup<LibraryAwardFormPartGroup>;
+    @Input({required: true}) opusMagnumLibraryAwardListForm!: FormGroup<LibraryAwardFormPartGroup>;
 
     constructor(private readonly libraryAwardFormPartValidationService: LibraryAwardFormPartValidationService,) {
     }
@@ -66,11 +66,11 @@ export class LibraryAwardFormPartComponent implements OnInit {
     protected libraryAwardJuryListValidatorNames!: ReadonlyArray<ValidatorTranslation>
 
     ngOnInit() {
-        this.libraryAwardDescriptionControl = FormUtil.requiredFormControl(this.authorLibraryAwardListForm, LibraryAwardFormPartFieldName.libraryAwardListDescription)
+        this.libraryAwardDescriptionControl = FormUtil.requiredFormControl(this.opusMagnumLibraryAwardListForm, LibraryAwardFormPartFieldName.libraryAwardListDescription)
         this.libraryAwardDescriptionValidatorNames = this.libraryAwardFormPartValidationService.validatorNames(LibraryAwardFormPartFieldName.libraryAwardListDescription)
-        this.libraryAwardYearControl = FormUtil.requiredFormControl(this.authorLibraryAwardListForm, LibraryAwardFormPartFieldName.libraryAwardListYear)
+        this.libraryAwardYearControl = FormUtil.requiredFormControl(this.opusMagnumLibraryAwardListForm, LibraryAwardFormPartFieldName.libraryAwardListYear)
         this.libraryAwardYearValidatorNames = this.libraryAwardFormPartValidationService.validatorNames(LibraryAwardFormPartFieldName.libraryAwardListYear)
-        this.libraryAwardJuryListFormArray = FormUtil.requiredFormArray(this.authorLibraryAwardListForm, LibraryAwardFormPartFieldName.libraryAwardListJuryList)
+        this.libraryAwardJuryListFormArray = FormUtil.requiredFormArray(this.opusMagnumLibraryAwardListForm, LibraryAwardFormPartFieldName.libraryAwardListJuryList)
         this.libraryAwardJuryListValidatorNames = this.libraryAwardFormPartValidationService.validatorNames(LibraryAwardFormPartFieldName.libraryAwardListJuryList)
     }
 }

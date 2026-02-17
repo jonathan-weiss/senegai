@@ -30,17 +30,17 @@ object ItemFormPartComponentTypescriptRenderer : UiItemRenderer {
           |import {FieldWrapperComponent} from "@app/shared/form-controls/field-wrapper/field-wrapper.component";
           |import {MatOption} from "@angular/material/core";
           |import {MatSelect} from "@angular/material/select";
-          |import {${model.itemName}FormPartValidationService} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-validation.service";
+          |import {${model.itemName}FormPartValidationService} from "@app/opus-magnum/opus-magnum-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-validation.service";
           |import {
           |    ${model.itemName}FormPartFieldName,
-          |} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-field-name";
+          |} from "@app/opus-magnum/opus-magnum-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-field-name";
           |import {TextInputComponent} from "@app/shared/form-controls/text-input/text-input.component";
           |import {DatepickerInputComponent} from "@app/shared/form-controls/datepicker-input/datepicker-input.component";
           |import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
           |import {MatTab, MatTabGroup} from "@angular/material/tabs";
           |import {
           |    ${model.itemName}FormPartGroup
-          |} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-group";
+          |} from "@app/opus-magnum/opus-magnum-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-group";
           |
           |@Component({
           |    selector: 'app-${model.itemNameLowercase}-form-part',
@@ -86,6 +86,6 @@ object ItemFormPartComponentTypescriptRenderer : UiItemRenderer {
     }
 
     override fun filePath(model: UiItemModel): String {
-      return "${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part.component.ts"
+      return "opus-magnum/opus-magnum-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part.component.ts"
     }
 }

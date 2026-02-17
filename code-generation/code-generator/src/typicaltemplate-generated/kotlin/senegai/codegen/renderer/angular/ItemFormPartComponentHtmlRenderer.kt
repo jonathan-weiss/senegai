@@ -46,6 +46,6 @@ object ItemFormPartComponentHtmlRenderer : UiItemRenderer {
     }
 
     override fun filePath(model: UiItemModel): String {
-      return "${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part.component.html"
+      return "opus-magnum/opus-magnum-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part.component.html"
     }
 }

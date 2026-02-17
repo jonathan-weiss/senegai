@@ -31,9 +31,9 @@ object EntitySearchComponentTypescriptRenderer : UiEntityRenderer {
           """ } }}
           |
           |@Component({
-          |    selector: 'app-${model.entityNameLowercase}-search',
-          |    templateUrl: './${model.entityNameLowercase}-search.component.html',
-          |    styleUrls: ['./${model.entityNameLowercase}-search.component.scss'],
+          |    selector: 'app-opus-magnum-search',
+          |    templateUrl: './opus-magnum-search.component.html',
+          |    styleUrls: ['./opus-magnum-search.component.scss'],
           |    imports: [
           |        ReactiveFormsModule,
           |        MatButtonModule,
@@ -82,6 +82,6 @@ object EntitySearchComponentTypescriptRenderer : UiEntityRenderer {
     }
 
     override fun filePath(model: UiEntityModel): String {
-      return "${model.entityNameLowercase}/${model.entityNameLowercase}-search/${model.entityNameLowercase}-search.component.ts"
+      return "opus-magnum/opus-magnum-search/opus-magnum-search.component.ts"
     }
 }

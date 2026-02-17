@@ -10,14 +10,14 @@
     ]
 
     @replace-value-by-expression
-        [ searchValue="Author" replaceByExpression="model.entityName" ]
-        [ searchValue="author" replaceByExpression="model.entityNameLowercase" ]
+        [ searchValue="OpusMagnum" replaceByExpression="model.entityName" ]
+        [ searchValue="opusMagnum" replaceByExpression="model.entityNameLowercase" ]
 
     @modify-provided-filename-by-replacements
 
     @slac
 
-}}}@ --><div class="author-table-container">
+}}}@ --><div class="opus-magnum-table-container">
     <table mat-table [dataSource]="dataSource">
         <!-- @tt{{{
             @foreach [ iteratorExpression="model.searchResultAttributes" loopVariable="attribute" ]
@@ -31,7 +31,7 @@
         <!-- Firstname Column -->
         <ng-container matColumnDef="firstname">
             <th mat-header-cell *matHeaderCellDef>Firstname</th>
-            <td mat-cell *matCellDef="let author">{{ author.firstname }}</td>
+            <td mat-cell *matCellDef="let opusMagnum">{{ opusMagnum.firstname }}</td>
         </ng-container>
         <!-- @tt{{{ @slbc @end-foreach @slac }}}@ -->
 
@@ -39,24 +39,24 @@
         <!-- Nickname Column -->
         <ng-container matColumnDef="nickname">
             <th mat-header-cell *matHeaderCellDef>Nickname</th>
-            <td mat-cell *matCellDef="let author">{{ author.nickname }}</td>
+            <td mat-cell *matCellDef="let opusMagnum">{{ opusMagnum.nickname }}</td>
         </ng-container>
 
         <!-- Lastname Column -->
         <ng-container matColumnDef="lastname">
             <th mat-header-cell *matHeaderCellDef>Lastname</th>
-            <td mat-cell *matCellDef="let author">{{ author.lastname }}</td>
+            <td mat-cell *matCellDef="let opusMagnum">{{ opusMagnum.lastname }}</td>
         </ng-container>
         <!-- @tt{{{ @slbc  @end-ignore-text @slac }}}@ -->
 
         <!-- Actions Column -->
         <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef>Actions</th>
-            <td mat-cell *matCellDef="let author">
-                <button mat-icon-button color="primary" (click)="onEdit(author)">
+            <td mat-cell *matCellDef="let opusMagnum">
+                <button mat-icon-button color="primary" (click)="onEdit(opusMagnum)">
                     <mat-icon>edit</mat-icon>
                 </button>
-                <button mat-icon-button color="warn" (click)="onDelete(author)">
+                <button mat-icon-button color="warn" (click)="onDelete(opusMagnum)">
                     <mat-icon>delete</mat-icon>
                 </button>
             </td>

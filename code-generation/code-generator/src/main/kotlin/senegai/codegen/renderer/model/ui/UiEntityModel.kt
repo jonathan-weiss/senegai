@@ -1,5 +1,7 @@
 package senegai.codegen.renderer.model.ui
 
+import org.codeblessing.templatetools.CaseUtil
+
 data class UiEntityModel(
     val entityRootItem: UiItemModel
 ) {
@@ -7,16 +9,8 @@ data class UiEntityModel(
 
     val entityName: String = entityRootItem.itemName
     val entityNameLowercase: String = entityRootItem.itemName.lowercase()
-    val entityNameForAngularFile: String = entityRootItem.itemName.lowercase()  // TODO uses dashes case
+    val entityNameDashCase: String = CaseUtil.camelToDashCase(entityRootItem.itemName.lowercase())
 
     val searchResultAttributes: List<UiItemAttributeModel> = entityRootItem.attributes
     val searchCriteriaAttributes: List<UiItemAttributeModel> = entityRootItem.attributes
-    val chainedFormAttributes: List<UiEntityChainedAttributeModel> = createAttributeChain()
-
-    private fun createAttributeChain(): List<UiEntityChainedAttributeModel> {
-        return entityRootItem.attributes
-            .map { UiEntityChainedAttributeModel(listOf(
-                UiEntityItemAndAttributeModel(this, entityRootItem, it) // TODO make that recursive
-            )) }
-    }
 }

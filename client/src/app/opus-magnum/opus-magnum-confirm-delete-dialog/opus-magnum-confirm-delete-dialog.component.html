@@ -10,15 +10,15 @@
     ]
 
     @replace-value-by-expression
-        [ searchValue="Author" replaceByExpression="model.entityName" ]
-        [ searchValue="author" replaceByExpression="model.entityNameLowercase" ]
+        [ searchValue="OpusMagnum" replaceByExpression="model.entityName" ]
+        [ searchValue="opusMagnum" replaceByExpression="model.entityNameLowercase" ]
 
     @modify-provided-filename-by-replacements
 
     @slac
 
 }}}@ -->
-<h2 mat-dialog-title>Delete Author</h2>
+<h2 mat-dialog-title>Delete OpusMagnum</h2>
 <mat-dialog-content><ng-container>Are you sure you want to delete</ng-container> <b>{{ data.firstname }} {{ data.lastname }}</b>?
 </mat-dialog-content>
 <mat-dialog-actions align="end">

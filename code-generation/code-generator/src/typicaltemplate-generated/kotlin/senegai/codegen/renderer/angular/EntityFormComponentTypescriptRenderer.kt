@@ -26,14 +26,14 @@ object EntityFormComponentTypescriptRenderer : UiEntityRenderer {
           |import {MatSidenavModule} from "@angular/material/sidenav";
           |import {MatListModule} from "@angular/material/list";
           |import {MatDialogModule} from "@angular/material/dialog";
-          |import {${model.entityName}WTO} from "@app/wto/${model.entityNameLowercase}.wto";
-          |import {${model.entityName}FormPartService} from "@app/${model.entityNameLowercase}/${model.entityNameLowercase}-form/${model.entityNameLowercase}-form-part/${model.entityNameLowercase}-form-part.service";
-          |import {${model.entityName}FormPartComponent} from "@app/${model.entityNameLowercase}/${model.entityNameLowercase}-form/${model.entityNameLowercase}-form-part/${model.entityNameLowercase}-form-part.component";
+          |import {${model.entityName}WTO} from "@app/wto/opus-magnum.wto";
+          |import {${model.entityName}FormPartService} from "@app/opus-magnum/opus-magnum-form/opus-magnum-form-part/opus-magnum-form-part.service";
+          |import {${model.entityName}FormPartComponent} from "@app/opus-magnum/opus-magnum-form/opus-magnum-form-part/opus-magnum-form-part.component";
           |
           |@Component({
-          |    selector: 'app-${model.entityNameLowercase}-form',
-          |    templateUrl: './${model.entityNameLowercase}-form.component.html',
-          |    styleUrls: ['./${model.entityNameLowercase}-form.component.scss'],
+          |    selector: 'app-opus-magnum-form',
+          |    templateUrl: './opus-magnum-form.component.html',
+          |    styleUrls: ['./opus-magnum-form.component.scss'],
           |    imports: [
           |        ReactiveFormsModule,
           |        MatButtonModule,
@@ -83,6 +83,6 @@ object EntityFormComponentTypescriptRenderer : UiEntityRenderer {
     }
 
     override fun filePath(model: UiEntityModel): String {
-      return "${model.entityNameLowercase}/${model.entityNameLowercase}-form/${model.entityNameLowercase}-form/${model.entityNameLowercase}-form.component.ts"
+      return "opus-magnum/opus-magnum-form/opus-magnum-form/opus-magnum-form.component.ts"
     }
 }

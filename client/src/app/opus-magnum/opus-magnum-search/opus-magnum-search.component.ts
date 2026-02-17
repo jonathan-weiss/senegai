@@ -11,8 +11,8 @@
     ]
 
     @replace-value-by-expression
-        [ searchValue="Author" replaceByExpression="model.entityName" ]
-        [ searchValue="author" replaceByExpression="model.entityNameLowercase" ]
+        [ searchValue="OpusMagnum" replaceByExpression="model.entityName" ]
+        [ searchValue="opusMagnum" replaceByExpression="model.entityNameLowercase" ]
 
     @modify-provided-filename-by-replacements
 
@@ -33,7 +33,7 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {MatDialogModule} from "@angular/material/dialog";
 
-export interface AuthorSearchCriteria {
+export interface OpusMagnumSearchCriteria {
     /* @tt{{{ @slbc
         @foreach [ iteratorExpression="model.searchCriteriaAttributes" loopVariable="attribute" ]
 
@@ -52,7 +52,7 @@ export interface AuthorSearchCriteria {
 }
 
 @Component({
-    selector: 'app-author-search',
+    selector: 'app-opus-magnum-search',
     templateUrl: './opus-magnum-search.component.html',
     styleUrls: ['./opus-magnum-search.component.scss'],
     imports: [
@@ -71,7 +71,7 @@ export interface AuthorSearchCriteria {
     ]
 })
 export class OpusMagnumSearchComponent {
-    @Output() search = new EventEmitter<AuthorSearchCriteria>();
+    @Output() search = new EventEmitter<OpusMagnumSearchCriteria>();
 
     searchForm: FormGroup;
 
@@ -97,11 +97,11 @@ export class OpusMagnumSearchComponent {
 
     onSubmit(): void {
         if (this.searchForm.valid) {
-            const criteria: AuthorSearchCriteria = {};
+            const criteria: OpusMagnumSearchCriteria = {};
             Object.keys(this.searchForm.controls).forEach(key => {
                 const value = this.searchForm.get(key)?.value;
                 if (value !== null && value !== '') {
-                    criteria[key as keyof AuthorSearchCriteria] = value;
+                    criteria[key as keyof OpusMagnumSearchCriteria] = value;
                 }
             });
             this.search.emit(criteria);

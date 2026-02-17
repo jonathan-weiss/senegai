@@ -1,31 +1,31 @@
 import {Component} from '@angular/core';
-import {AuthorWTO} from "@app/wto/author.wto";
+import {OpusMagnumWTO} from "@app/wto/opus-magnum.wto";
 import {OpusMagnumService} from "@app/opus-magnum/opus-magnum.service";
 import {OpusMagnumFormComponent} from "@app/opus-magnum/opus-magnum-form/opus-magnum-form/opus-magnum-form.component";
 import {ActivatedRoute} from "@angular/router";
 
 
 @Component({
-    selector: 'app-author-routable-edit',
-    templateUrl: './author-routable-edit.component.html',
-    styleUrls: ['./author-routable-edit.component.scss'],
+    selector: 'app-opus-magnum-routable-edit',
+    templateUrl: './opus-magnum-routable-edit.component.html',
+    styleUrls: ['./opus-magnum-routable-edit.component.scss'],
     imports: [
         OpusMagnumFormComponent,
     ]
 })
-export class AuthorRoutableEditComponent {
-    selectedAuthor: AuthorWTO | null = null;
+export class OpusMagnumRoutableEditComponent {
+    selectedOpusMagnum: OpusMagnumWTO | null = null;
 
     constructor(
-        private authorService: OpusMagnumService,
+        private opusMagnumService: OpusMagnumService,
         private route: ActivatedRoute,
     ) {
         this.route.params.subscribe(params => {
             const idParam = params['id'];
             if (idParam) {
                 const id = idParam as string;
-                this.authorService.getAuthorById(id).subscribe(author => {
-                    this.selectedAuthor = author;
+                this.opusMagnumService.getOpusMagnumById(id).subscribe(opusMagnum => {
+                    this.selectedOpusMagnum = opusMagnum;
                 });
             }
         });

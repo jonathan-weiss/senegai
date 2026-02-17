@@ -39,6 +39,6 @@ object EntityFormComponentScssRenderer : UiEntityRenderer {
     }
 
     override fun filePath(model: UiEntityModel): String {
-      return "${model.entityNameLowercase}/${model.entityNameLowercase}-form/${model.entityNameLowercase}-form/${model.entityNameLowercase}-form.component.scss"
+      return "opus-magnum/opus-magnum-form/opus-magnum-form/opus-magnum-form.component.scss"
     }
 }

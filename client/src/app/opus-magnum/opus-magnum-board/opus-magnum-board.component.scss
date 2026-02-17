@@ -10,14 +10,14 @@
     ]
 
     @replace-value-by-expression
-      [ searchValue="Author" replaceByExpression="model.entityName" ]
-      [ searchValue="author" replaceByExpression="model.entityNameLowercase" ]
+      [ searchValue="OpusMagnum" replaceByExpression="model.entityName" ]
+      [ searchValue="opusMagnum" replaceByExpression="model.entityNameLowercase" ]
 
     @modify-provided-filename-by-replacements
     @slac
 
 }}}@ */
-.author-container {
+.opus-magnum-container {
   padding: 20px;
 
   h2 {
@@ -26,7 +26,7 @@
   }
 }
 
-.author-accordion {
+.opus-magnum-accordion {
   .mat-expansion-panel {
     margin-bottom: 16px;
   }

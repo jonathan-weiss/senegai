@@ -15,8 +15,8 @@ object EntityResultComponentTypescriptRenderer : UiEntityRenderer {
         return """
           |import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
           |import {MatTableDataSource, MatTableModule} from '@angular/material/table';
-          |import {${model.entityName}SearchCriteria} from '@app/${model.entityNameLowercase}/${model.entityNameLowercase}-search/${model.entityNameLowercase}-search.component';
-          |import {${model.entityName}Service} from '@app/${model.entityNameLowercase}/${model.entityNameLowercase}.service';
+          |import {${model.entityName}SearchCriteria} from '@app/opus-magnum/opus-magnum-search/opus-magnum-search.component';
+          |import {${model.entityName}Service} from '@app/opus-magnum/opus-magnum.service';
           |import {ReactiveFormsModule} from "@angular/forms";
           |import {MatButtonModule} from "@angular/material/button";
           |import {MatToolbarModule} from "@angular/material/toolbar";
@@ -28,12 +28,12 @@ object EntityResultComponentTypescriptRenderer : UiEntityRenderer {
           |import {MatSidenavModule} from "@angular/material/sidenav";
           |import {MatListModule} from "@angular/material/list";
           |import {MatDialogModule} from "@angular/material/dialog";
-          |import {${model.entityName}WTO} from "@app/wto/${model.entityNameLowercase}.wto";
+          |import {${model.entityName}WTO} from "@app/wto/opus-magnum.wto";
           |
           |@Component({
-          |    selector: 'app-${model.entityNameLowercase}-result',
-          |    templateUrl: './${model.entityNameLowercase}-result.component.html',
-          |    styleUrls: ['./${model.entityNameLowercase}-result.component.scss'],
+          |    selector: 'app-opus-magnum-result',
+          |    templateUrl: './opus-magnum-result.component.html',
+          |    styleUrls: ['./opus-magnum-result.component.scss'],
           |    imports: [
           |        ReactiveFormsModule,
           |        MatButtonModule,
@@ -76,8 +76,8 @@ object EntityResultComponentTypescriptRenderer : UiEntityRenderer {
           |    }
           |
           |    private load${model.entityName}s(): void {
-          |        this.${model.entityNameLowercase}Service.get${model.entityName}s().subscribe(${model.entityNameLowercase}s => {
-          |            this.all${model.entityName}s = ${model.entityNameLowercase}s;
+          |        this.${model.entityNameLowercase}Service.get${model.entityName}s().subscribe(${model.entityNameLowercase}List => {
+          |            this.all${model.entityName}s = ${model.entityNameLowercase}List;
           |            this.filter${model.entityName}s();
           |        });
           |    }
@@ -125,6 +125,6 @@ object EntityResultComponentTypescriptRenderer : UiEntityRenderer {
     }
 
     override fun filePath(model: UiEntityModel): String {
-      return "${model.entityNameLowercase}/${model.entityNameLowercase}-result/${model.entityNameLowercase}-result.component.ts"
+      return "opus-magnum/opus-magnum-result/opus-magnum-result.component.ts"
     }
 }

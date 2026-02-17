@@ -21,7 +21,7 @@ object EntityFormComponentHtmlRenderer : UiEntityRenderer {
           |
           |        <mat-card-content>
           |            <form [formGroup]="${model.entityNameLowercase}Form" (ngSubmit)="onSubmit()">
-          |                <app-${model.entityNameLowercase}-form-part [${model.entityNameLowercase}Form]="${model.entityNameLowercase}Form" />
+          |                <app-opus-magnum-form-part [${model.entityNameLowercase}Form]="${model.entityNameLowercase}Form" />
           |
           |                <div class="form-actions">
           |                    <button mat-button type="button" (click)="onCancel()">
@@ -40,6 +40,6 @@ object EntityFormComponentHtmlRenderer : UiEntityRenderer {
     }
 
     override fun filePath(model: UiEntityModel): String {
-      return "${model.entityNameLowercase}/${model.entityNameLowercase}-form/${model.entityNameLowercase}-form/${model.entityNameLowercase}-form.component.html"
+      return "opus-magnum/opus-magnum-form/opus-magnum-form/opus-magnum-form.component.html"
     }
 }

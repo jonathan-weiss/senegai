@@ -58,16 +58,16 @@ export class LibraryAwardJuryTableComponent implements OnInit {
         }
     }
 
-    onSelect(authorLibraryAwardFormControl: FormControl): void {
-        this.selectedControl = authorLibraryAwardFormControl
+    onSelect(opusMagnumLibraryAwardFormControl: FormControl): void {
+        this.selectedControl = opusMagnumLibraryAwardFormControl
     }
 
-    isSelected(authorLibraryAwardFormControl: FormControl): boolean {
-        return this.selectedControl == authorLibraryAwardFormControl
+    isSelected(opusMagnumLibraryAwardFormControl: FormControl): boolean {
+        return this.selectedControl == opusMagnumLibraryAwardFormControl
     }
 
-    onDelete(authorLibraryAwardFormControl: FormControl): void {
-        const indexOfSelected = this.libraryAwardJuryFormArray.controls.indexOf(authorLibraryAwardFormControl)
+    onDelete(opusMagnumLibraryAwardFormControl: FormControl): void {
+        const indexOfSelected = this.libraryAwardJuryFormArray.controls.indexOf(opusMagnumLibraryAwardFormControl)
         if(indexOfSelected !== -1) {
             this.libraryAwardJuryFormArray.removeAt(indexOfSelected)
         }

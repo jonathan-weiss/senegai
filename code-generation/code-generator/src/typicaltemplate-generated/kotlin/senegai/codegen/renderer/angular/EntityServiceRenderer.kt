@@ -17,10 +17,10 @@ object EntityServiceRenderer : UiEntityRenderer {
           |import {Injectable} from '@angular/core';
           |import {Observable, of} from 'rxjs';
           |import {delay} from 'rxjs/operators';
-          |import {${model.entityName}WTO} from "@app/wto/${model.entityNameLowercase}.wto";
+          |import {${model.entityName}WTO} from "@app/wto/opus-magnum.wto";
           |@Injectable({providedIn: 'root'})
           |export class ${model.entityName}Service {
-          |    private ${model.entityNameLowercase}s: ${model.entityName}WTO[] = [
+          |    private ${model.entityNameLowercase}List: ${model.entityName}WTO[] = [
           |        {
           |            ${ model.entityRootItem.attributes.joinToString("") { attribute ->  """
               |            ${attribute.attributeName}: ${attribute.typescriptAttributeTypeExample},
@@ -28,23 +28,23 @@ object EntityServiceRenderer : UiEntityRenderer {
           |
           |    get${model.entityName}s(): Observable<${model.entityName}WTO[]> {
           |        // Simulate HTTP delay
-          |        return of(this.${model.entityNameLowercase}s).pipe(delay(200));
+          |        return of(this.${model.entityNameLowercase}List).pipe(delay(200));
           |    }
           |
           |    get${model.entityName}ById(id: string): Observable<${model.entityName}WTO | null> {
-          |        const found = this.${model.entityNameLowercase}s.find(a => a.id === id) || null;
+          |        const found = this.${model.entityNameLowercase}List.find(a => a.id === id) || null;
           |        return of(found).pipe(delay(200));
           |    }
           |
           |    delete${model.entityName}(id: string): Observable<void> {
-          |        this.${model.entityNameLowercase}s = this.${model.entityNameLowercase}s.filter(a => a.id !== id);
+          |        this.${model.entityNameLowercase}List = this.${model.entityNameLowercase}List.filter(a => a.id !== id);
           |        return of(void 0).pipe(delay(200));
           |    }
           |
           |    update${model.entityName}(${model.entityNameLowercase}: ${model.entityName}WTO): Observable<${model.entityName}WTO> {
-          |        const idx = this.${model.entityNameLowercase}s.findIndex(a => a.id === ${model.entityNameLowercase}.id);
+          |        const idx = this.${model.entityNameLowercase}List.findIndex(a => a.id === ${model.entityNameLowercase}.id);
           |        if (idx !== -1) {
-          |            this.${model.entityNameLowercase}s[idx] = {...${model.entityNameLowercase}};
+          |            this.${model.entityNameLowercase}List[idx] = {...${model.entityNameLowercase}};
           |        }
           |        return of(${model.entityNameLowercase}).pipe(delay(200));
           |    }
@@ -54,6 +54,6 @@ object EntityServiceRenderer : UiEntityRenderer {
     }
 
     override fun filePath(model: UiEntityModel): String {
-      return "${model.entityNameLowercase}/${model.entityNameLowercase}.service.ts"
+      return "opus-magnum/opus-magnum.service.ts"
     }
 }

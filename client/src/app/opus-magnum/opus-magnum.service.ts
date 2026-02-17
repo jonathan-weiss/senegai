@@ -10,8 +10,8 @@
     ]
 
     @replace-value-by-expression
-        [ searchValue="Author" replaceByExpression="model.entityName" ]
-        [ searchValue="author" replaceByExpression="model.entityNameLowercase" ]
+        [ searchValue="OpusMagnum" replaceByExpression="model.entityName" ]
+        [ searchValue="opusMagnum" replaceByExpression="model.entityNameLowercase" ]
 
     @modify-provided-filename-by-replacements
 
@@ -22,14 +22,14 @@
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {delay} from 'rxjs/operators';
-import {AuthorWTO} from "@app/wto/author.wto";
+import {OpusMagnumWTO} from "@app/wto/opus-magnum.wto";
 /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
 import {GenderEnum} from "@app/wto/gender.enum";
 /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 
 @Injectable({providedIn: 'root'})
 export class OpusMagnumService {
-    private authors: AuthorWTO[] = [
+    private opusMagnumList: OpusMagnumWTO[] = [
         {
             /* @tt{{{
                 @foreach [ iteratorExpression="model.entityRootItem.attributes" loopVariable="attribute" ]
@@ -122,26 +122,26 @@ export class OpusMagnumService {
         /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
     ];
 
-    getAuthors(): Observable<AuthorWTO[]> {
+    getOpusMagnums(): Observable<OpusMagnumWTO[]> {
         // Simulate HTTP delay
-        return of(this.authors).pipe(delay(200));
+        return of(this.opusMagnumList).pipe(delay(200));
     }
 
-    getAuthorById(id: string): Observable<AuthorWTO | null> {
-        const found = this.authors.find(a => a.id === id) || null;
+    getOpusMagnumById(id: string): Observable<OpusMagnumWTO | null> {
+        const found = this.opusMagnumList.find(a => a.id === id) || null;
         return of(found).pipe(delay(200));
     }
 
-    deleteAuthor(id: string): Observable<void> {
-        this.authors = this.authors.filter(a => a.id !== id);
+    deleteOpusMagnum(id: string): Observable<void> {
+        this.opusMagnumList = this.opusMagnumList.filter(a => a.id !== id);
         return of(void 0).pipe(delay(200));
     }
 
-    updateAuthor(author: AuthorWTO): Observable<AuthorWTO> {
-        const idx = this.authors.findIndex(a => a.id === author.id);
+    updateOpusMagnum(opusMagnum: OpusMagnumWTO): Observable<OpusMagnumWTO> {
+        const idx = this.opusMagnumList.findIndex(a => a.id === opusMagnum.id);
         if (idx !== -1) {
-            this.authors[idx] = {...author};
+            this.opusMagnumList[idx] = {...opusMagnum};
         }
-        return of(author).pipe(delay(200));
+        return of(opusMagnum).pipe(delay(200));
     }
 } 

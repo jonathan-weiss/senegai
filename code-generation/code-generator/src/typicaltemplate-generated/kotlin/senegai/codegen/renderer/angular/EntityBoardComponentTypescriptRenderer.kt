@@ -14,11 +14,11 @@ object EntityBoardComponentTypescriptRenderer : UiEntityRenderer {
     override fun renderTemplate(model: UiEntityModel): String {
         return """
           |import {Component} from '@angular/core';
-          |import {${model.entityName}SearchComponent, ${model.entityName}SearchCriteria} from '@app/${model.entityNameLowercase}/${model.entityNameLowercase}-search/${model.entityNameLowercase}-search.component';
-          |import {${model.entityName}ResultComponent} from '@app/${model.entityNameLowercase}/${model.entityNameLowercase}-result/${model.entityNameLowercase}-result.component';
+          |import {${model.entityName}SearchComponent, ${model.entityName}SearchCriteria} from '@app/opus-magnum/opus-magnum-search/opus-magnum-search.component';
+          |import {${model.entityName}ResultComponent} from '@app/opus-magnum/opus-magnum-result/opus-magnum-result.component';
           |import {MatDialog, MatDialogModule} from '@angular/material/dialog';
-          |import {${model.entityName}ConfirmDeleteDialogComponent} from '@app/${model.entityNameLowercase}/${model.entityNameLowercase}-confirm-delete-dialog/${model.entityNameLowercase}-confirm-delete-dialog.component';
-          |import {${model.entityName}Service} from '@app/${model.entityNameLowercase}/${model.entityNameLowercase}.service';
+          |import {${model.entityName}ConfirmDeleteDialogComponent} from '@app/opus-magnum/opus-magnum-confirm-delete-dialog/opus-magnum-confirm-delete-dialog.component';
+          |import {${model.entityName}Service} from '@app/opus-magnum/opus-magnum.service';
           |import {ReactiveFormsModule} from "@angular/forms";
           |import {MatButtonModule} from "@angular/material/button";
           |import {MatToolbarModule} from "@angular/material/toolbar";
@@ -30,14 +30,14 @@ object EntityBoardComponentTypescriptRenderer : UiEntityRenderer {
           |import {MatExpansionModule} from "@angular/material/expansion";
           |import {MatSidenavModule} from "@angular/material/sidenav";
           |import {MatListModule} from "@angular/material/list";
-          |import {${model.entityName}FormComponent} from "@app/${model.entityNameLowercase}/${model.entityNameLowercase}-form/${model.entityNameLowercase}-form/${model.entityNameLowercase}-form.component";
-          |import {${model.entityName}WTO} from "@app/wto/${model.entityNameLowercase}.wto";
+          |import {${model.entityName}FormComponent} from "@app/opus-magnum/opus-magnum-form/opus-magnum-form/opus-magnum-form.component";
+          |import {${model.entityName}WTO} from "@app/wto/opus-magnum.wto";
           |import {TranslocoPipe} from "@jsverse/transloco";
           |
           |@Component({
-          |    selector: 'app-${model.entityNameLowercase}-board',
-          |    templateUrl: './${model.entityNameLowercase}-board.component.html',
-          |    styleUrls: ['./${model.entityNameLowercase}-board.component.scss'],
+          |    selector: 'app-opus-magnum-board',
+          |    templateUrl: './opus-magnum-board.component.html',
+          |    styleUrls: ['./opus-magnum-board.component.scss'],
           |    imports: [
           |        ReactiveFormsModule,
           |        MatButtonModule,
@@ -102,6 +102,6 @@ object EntityBoardComponentTypescriptRenderer : UiEntityRenderer {
     }
 
     override fun filePath(model: UiEntityModel): String {
-      return "${model.entityNameLowercase}/${model.entityNameLowercase}-board/${model.entityNameLowercase}-board.component.ts"
+      return "opus-magnum/opus-magnum-board/opus-magnum-board.component.ts"
     }
 }

@@ -10,26 +10,26 @@
     ]
 
     @replace-value-by-expression
-        [ searchValue="Author" replaceByExpression="model.entityName" ]
-        [ searchValue="author" replaceByExpression="model.entityNameLowercase" ]
+        [ searchValue="OpusMagnum" replaceByExpression="model.entityName" ]
+        [ searchValue="opusMagnum" replaceByExpression="model.entityNameLowercase" ]
 
     @modify-provided-filename-by-replacements
     @slac
 
 }}}@ -->
-<div class="author-container">
-    <h2>{{'author.board.title' | transloco }}</h2>
+<div class="opus-magnum-container">
+    <h2>{{'opusMagnum.board.title' | transloco }}</h2>
 
-    <mat-accordion class="author-accordion" multi>
+    <mat-accordion class="opus-magnum-accordion" multi>
         <!-- Search Panel -->
         <mat-expansion-panel>
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <mat-icon>search</mat-icon>
-                    <ng-container>Search Authors</ng-container>
+                    <ng-container>Search OpusMagnums</ng-container>
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <app-author-search (search)="onSearch($event)"></app-author-search>
+            <app-opus-magnum-search (search)="onSearch($event)"></app-opus-magnum-search>
         </mat-expansion-panel>
 
         <!-- Results Panel -->
@@ -37,39 +37,39 @@
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <mat-icon>list</mat-icon>
-                    <ng-container>Author List</ng-container>
+                    <ng-container>OpusMagnum List</ng-container>
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <app-author-result
+            <app-opus-magnum-result
                     [searchCriteria]="currentSearchCriteria"
-                    (selectAuthor)="onAuthorSelect($event)"
-                    (deleteAuthor)="onDeleteAuthor($event)"
+                    (selectOpusMagnum)="onOpusMagnumSelect($event)"
+                    (deleteOpusMagnum)="onDeleteOpusMagnum($event)"
                     [refreshKey]="refreshKey">
-            </app-author-result>
+            </app-opus-magnum-result>
         </mat-expansion-panel>
 
         <!-- Edit Form Panel -->
         <mat-expansion-panel
-                [expanded]="!!selectedAuthor"
-                [disabled]="!selectedAuthor">
+                [expanded]="!!selectedOpusMagnum"
+                [disabled]="!selectedOpusMagnum">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <mat-icon>edit</mat-icon>
-                    <ng-container>Edit Author</ng-container>
+                    <ng-container>Edit OpusMagnum</ng-container>
                 </mat-panel-title>
-                @if (selectedAuthor) {
+                @if (selectedOpusMagnum) {
                     <mat-panel-description>
-                        {{ selectedAuthor.firstname }} {{ selectedAuthor.lastname }}
+                        {{ selectedOpusMagnum.firstname }} {{ selectedOpusMagnum.lastname }}
                     </mat-panel-description>
                 }
             </mat-expansion-panel-header>
 
-            @if (selectedAuthor) {
-                <app-author-form
-                        [author]="selectedAuthor"
+            @if (selectedOpusMagnum) {
+                <app-opus-magnum-form
+                        [opusMagnum]="selectedOpusMagnum"
                         (save)="onSave($event)"
                         (cancel)="onCancel()">
-                </app-author-form>
+                </app-opus-magnum-form>
             }
         </mat-expansion-panel>
     </mat-accordion>

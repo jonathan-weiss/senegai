@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {FormArray, FormControl, FormGroup} from "@angular/forms";
 import {FormUtil} from "@app/shared/form-controls/form.util";
 import {LibraryAwardWTO} from "@app/wto/library-award.wto";
-import {AuthorFormPartFieldName} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-field-name";
 import {
     LibraryAwardFormPartValidationService
 } from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part-validation.service";
@@ -27,21 +26,21 @@ export class LibraryAwardFormPartService {
 
     public createInitialLibraryAwardForm(): FormGroup<LibraryAwardFormPartGroup> {
         return new FormGroup({
-            [AuthorFormPartFieldName.libraryAwardListDescription]: new FormControl<string>(
+            [LibraryAwardFormPartFieldName.libraryAwardListDescription]: new FormControl<string>(
                 this.libraryAwardFormInitialValueService.libraryAwardListDescriptionInitialValue(),
                 {
                     nonNullable: true,
                     validators: this.libraryAwardFormValidationService.validatorFunctions(LibraryAwardFormPartFieldName.libraryAwardListDescription)
                 },
             ),
-            [AuthorFormPartFieldName.libraryAwardListYear]: new FormControl<number>(
+            [LibraryAwardFormPartFieldName.libraryAwardListYear]: new FormControl<number>(
                 this.libraryAwardFormInitialValueService.libraryAwardListYearInitialValue(),
                 {
                     nonNullable: true,
                     validators: this.libraryAwardFormValidationService.validatorFunctions(LibraryAwardFormPartFieldName.libraryAwardListYear)
                 },
             ),
-            [AuthorFormPartFieldName.libraryAwardListJuryList]: new FormArray<FormControl<string>>(
+            [LibraryAwardFormPartFieldName.libraryAwardListJuryList]: new FormArray<FormControl<string>>(
                 [] as Array<FormControl<string>>,
                 {
                     validators: this.libraryAwardFormValidationService.validatorFunctions(LibraryAwardFormPartFieldName.libraryAwardListYear)

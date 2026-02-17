@@ -18,14 +18,14 @@ object TypescriptItemsRoutingListRenderer : UiEntitiesRenderer {
           |
           |import {Routes} from '@angular/router';${ models.joinToString("") { entity ->  """
               |
-              |import {${entity.entityName}BoardComponent} from './${entity.entityNameLowercase}/${entity.entityNameLowercase}-board/${entity.entityNameLowercase}-board.component';
-              |import {${entity.entityName}FormComponent} from '@app/${entity.entityNameLowercase}/${entity.entityNameLowercase}-form/${entity.entityNameLowercase}-form/${entity.entityNameLowercase}-form.component';
+              |import {${entity.entityName}BoardComponent} from '@app/${entity.entityNameDashCase}/${entity.entityNameDashCase}-board/${entity.entityNameDashCase}-board.component';
+              |import {${entity.entityName}FormComponent} from '@app/${entity.entityNameDashCase}/${entity.entityNameDashCase}-form/${entity.entityNameDashCase}-form/${entity.entityNameDashCase}-form.component';
           """ } }
           |
           |
           |export const GENERATED_ITEMS_ROUTES: Routes = [${ models.joinToString("") { entity ->  """
-              |    {path: '${entity.entityNameLowercase}-board', component: ${entity.entityName}BoardComponent},
-              |    {path: '${entity.entityNameLowercase}-board/edit/:id', component: ${entity.entityName}FormComponent},
+              |    {path: '${entity.entityNameDashCase}-board', component: ${entity.entityName}BoardComponent},
+              |    {path: '${entity.entityNameDashCase}-board/edit/:id', component: ${entity.entityName}FormComponent},
           """ } }];
           |
           |

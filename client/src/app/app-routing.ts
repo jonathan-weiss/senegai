@@ -1,12 +1,14 @@
 import {Routes} from '@angular/router';
-import {AUTHOR_ROUTES} from "@app/app-author-routing";
+import {OPUS_MAGNUM_ROUTES} from "@app/app-opus-magnum-routing";
 import {GENERATED_ITEMS_ROUTES} from "@app/generated-routes";
-import {AuthorRoutableEditComponent} from "@app/helper/author-routable-edit/author-routable-edit.component";
+import {
+    OpusMagnumRoutableEditComponent
+} from "@app/helper/opus-magnum-routable-edit/opus-magnum-routable-edit.component";
 
 export const ROUTES: Routes = [
-    ...AUTHOR_ROUTES,
+    ...OPUS_MAGNUM_ROUTES,
     ...GENERATED_ITEMS_ROUTES,
-    {path: 'author-routable-edit/:id', component: AuthorRoutableEditComponent},
-    {path: '', redirectTo: '/author-board', pathMatch: 'full'}
+    {path: 'opus-magnum-routable-edit/:id', component: OpusMagnumRoutableEditComponent},
+    {path: '', redirectTo: '/opus-magnum-board', pathMatch: 'full'}
 ];
 

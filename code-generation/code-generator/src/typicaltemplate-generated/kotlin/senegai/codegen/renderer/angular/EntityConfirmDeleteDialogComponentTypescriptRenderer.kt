@@ -28,9 +28,9 @@ object EntityConfirmDeleteDialogComponentTypescriptRenderer : UiEntityRenderer {
           |import {MatListModule} from "@angular/material/list";
           |
           |@Component({
-          |    selector: 'app-${model.entityNameLowercase}-confirm-delete-dialog',
-          |    templateUrl: './${model.entityNameLowercase}-confirm-delete-dialog.component.html',
-          |    styleUrls: ['./${model.entityNameLowercase}-confirm-delete-dialog.component.scss'],
+          |    selector: 'app-opus-magnum-confirm-delete-dialog',
+          |    templateUrl: './opus-magnum-confirm-delete-dialog.component.html',
+          |    styleUrls: ['./opus-magnum-confirm-delete-dialog.component.scss'],
           |    imports: [
           |        ReactiveFormsModule,
           |        MatButtonModule,
@@ -66,6 +66,6 @@ object EntityConfirmDeleteDialogComponentTypescriptRenderer : UiEntityRenderer {
     }
 
     override fun filePath(model: UiEntityModel): String {
-      return "${model.entityNameLowercase}/${model.entityNameLowercase}-confirm-delete-dialog/${model.entityNameLowercase}-confirm-delete-dialog.component.ts"
+      return "opus-magnum/opus-magnum-confirm-delete-dialog/opus-magnum-confirm-delete-dialog.component.ts"
     }
 }
