@@ -1,7 +1,7 @@
 /* @tt{{{
     @slbc
 
-    @template-renderer [ templateRendererClassName="ItemModelInterfaceRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="UiItemRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
+    @template-renderer [ templateRendererClassName="ItemWTOInterfaceRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="UiItemRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
 
     @template-model [
     modelClassName="UiItemModel"
@@ -20,14 +20,14 @@
 }}}@ */
 
 /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-import {AuthorLibraryAward} from "@app/author/author-library-award.model";
-import {GenderEnum} from "@app/author/gender.enum";
+import {LibraryAwardWTO} from "@app/wto/library-award.wto";
+import {GenderEnum} from "@app/wto/gender.enum";
 /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 
 /**
- * The Author DTO (Data Transfer Object) class.
+ * The Author WTO (Web Transfer Object) class.
  */
-export interface Author {
+export interface AuthorWTO {
     /* @tt{{{
         @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
 
@@ -46,7 +46,7 @@ export interface Author {
     nickname: string | null;
     lastname: string;
     gender: GenderEnum;
-    libraryAwardList: ReadonlyArray<AuthorLibraryAward>;
+    libraryAwardList: ReadonlyArray<LibraryAwardWTO>;
     birthday: Date | null;
     vegetarian: boolean;
     id: string;

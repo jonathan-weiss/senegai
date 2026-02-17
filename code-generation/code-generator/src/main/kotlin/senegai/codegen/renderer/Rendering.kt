@@ -25,26 +25,26 @@ object Rendering {
         }
 
         val entityRenderer: List<UiEntityRenderer> = listOf(
-            ItemBoardComponentHtmlRenderer,
-            ItemBoardComponentScssRenderer,
-            ItemBoardComponentTypescriptRenderer,
-            ItemConfirmDeleteDialogComponentHtmlRenderer,
-            ItemConfirmDeleteDialogComponentScssRenderer,
-            ItemConfirmDeleteDialogComponentTypescriptRenderer,
-            ItemFormFieldNameRenderer,
-            ItemFormValidationServiceRenderer,
-            ItemFormInitialServiceRenderer,
-            ItemEditFormServiceRenderer,
-            ItemFormComponentHtmlRenderer,
-            ItemFormComponentScssRenderer,
-            ItemFormComponentTypescriptRenderer,
-            ItemResultComponentHtmlRenderer,
-            ItemResultComponentScssRenderer,
-            ItemResultComponentTypescriptRenderer,
-            ItemSearchComponentHtmlRenderer,
-            ItemSearchComponentScssRenderer,
-            ItemSearchComponentTypescriptRenderer,
-            ItemServiceRenderer,
+            EntityBoardComponentHtmlRenderer,
+            EntityBoardComponentScssRenderer,
+            EntityBoardComponentTypescriptRenderer,
+            EntityConfirmDeleteDialogComponentHtmlRenderer,
+            EntityConfirmDeleteDialogComponentScssRenderer,
+            EntityConfirmDeleteDialogComponentTypescriptRenderer,
+            EntityFormComponentHtmlRenderer,
+            EntityFormComponentScssRenderer,
+            EntityFormComponentTypescriptRenderer,
+            EntityResultComponentHtmlRenderer,
+            EntityResultComponentScssRenderer,
+            EntityResultComponentTypescriptRenderer,
+            EntitySearchComponentHtmlRenderer,
+            EntitySearchComponentScssRenderer,
+            EntitySearchComponentTypescriptRenderer,
+            EntityServiceRenderer,
+            EntityFormFieldNameRenderer,
+            EntityFormValidationServiceRenderer,
+            EntityFormInitialServiceRenderer,
+            EntityEditFormServiceRenderer,
         )
 
         uiEntities.forEach { uiEntityModel ->
@@ -61,9 +61,10 @@ object Rendering {
             ItemFormPartComponentHtmlRenderer,
             ItemFormPartComponentScssRenderer,
             ItemFormPartComponentTypescriptRenderer,
-            ItemModelInterfaceRenderer,
+            ItemWTOInterfaceRenderer,
         )
 
+        // TODO form-part needs a special treatment a.) as the form data is nested b.) redundant over the entities
         uiItems.forEach { uiItemModel ->
             itemRenderer.forEach { renderer ->
                 writeFile(

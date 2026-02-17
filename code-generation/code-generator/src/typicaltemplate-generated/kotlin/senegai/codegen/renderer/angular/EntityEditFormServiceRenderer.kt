@@ -6,16 +6,16 @@ package senegai.codegen.renderer.angular
 import senegai.codegen.renderer.model.ui.UiEntityModel
 
 /**
- * Generate the content for the template ItemEditFormServiceRenderer filled up
+ * Generate the content for the template EntityEditFormServiceRenderer filled up
  * with the content of the passed models.
  */
-object ItemEditFormServiceRenderer : UiEntityRenderer {
+object EntityEditFormServiceRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
           |
           |import {Injectable} from '@angular/core';
-          |import {${model.entityName}} from "@app/${model.entityNameLowercase}/${model.entityNameLowercase}.model";
+          |import {${model.entityName}WTO} from "@app/wto/${model.entityNameLowercase}.wto";
           |import {AbstractControl, FormArray, FormControl, FormGroup} from "@angular/forms";
           |import {FormUtil} from "@app/shared/form-controls/form.util";
           |import {
@@ -45,10 +45,10 @@ object ItemEditFormServiceRenderer : UiEntityRenderer {
           """ } }        });
           |    }
           |
-          |    public patch${model.entityName}Form(form: AbstractControl, ${model.entityNameLowercase}: ${model.entityName}): void {        ${ model.attributes.joinToString("") { attribute ->  """        FormUtil.requiredFormControl(form, ${model.entityName}FormFieldName.${attribute.attributeName}).patchValue(${model.entityNameLowercase}.${attribute.attributeName});
+          |    public patch${model.entityName}Form(form: AbstractControl, ${model.entityNameLowercase}: ${model.entityName}WTO): void {        ${ model.attributes.joinToString("") { attribute ->  """        FormUtil.requiredFormControl(form, ${model.entityName}FormFieldName.${attribute.attributeName}).patchValue(${model.entityNameLowercase}.${attribute.attributeName});
           """ } }    }
           |
-          |    public create${model.entityName}FromFormData(form: AbstractControl): ${model.entityName} {
+          |    public create${model.entityName}FromFormData(form: AbstractControl): ${model.entityName}WTO {
           |        return {
           |                        ${ model.attributes.joinToString("") { attribute ->  """            ${attribute.attributeName}: FormUtil.requiredFormControl(form, ${model.entityName}FormFieldName.${attribute.attributeName}).value as string,
           """ } }        };

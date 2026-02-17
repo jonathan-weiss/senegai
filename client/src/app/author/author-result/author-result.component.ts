@@ -2,7 +2,7 @@
 
     @slbc
 
-    @template-renderer [ templateRendererClassName="ItemResultComponentTypescriptRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="UiEntityRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
+    @template-renderer [ templateRendererClassName="EntityResultComponentTypescriptRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="UiEntityRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
 
     @template-model [
         modelClassName="UiEntityModel"
@@ -34,7 +34,7 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {MatDialogModule} from "@angular/material/dialog";
-import {Author} from "@app/author/author.model";
+import {AuthorWTO} from "@app/wto/author.wto";
 
 @Component({
     selector: 'app-author-result',
@@ -58,8 +58,8 @@ import {Author} from "@app/author/author.model";
 export class AuthorResultComponent implements OnChanges {
     @Input() searchCriteria: AuthorSearchCriteria = {};
     @Input() refreshKey: number = 0;
-    @Output() selectAuthor = new EventEmitter<Author>();
-    @Output() deleteAuthor = new EventEmitter<Author>();
+    @Output() selectAuthor = new EventEmitter<AuthorWTO>();
+    @Output() deleteAuthor = new EventEmitter<AuthorWTO>();
 
     displayedColumns: string[] = [
         /* @tt{{{
@@ -77,8 +77,8 @@ export class AuthorResultComponent implements OnChanges {
     /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
         'actions'
     ];
-    dataSource: MatTableDataSource<Author> = new MatTableDataSource<Author>();
-    private allAuthors: Author[] = [];
+    dataSource: MatTableDataSource<AuthorWTO> = new MatTableDataSource<AuthorWTO>();
+    private allAuthors: AuthorWTO[] = [];
 
     constructor(private authorService: AuthorService) {
         this.loadAuthors();
@@ -99,11 +99,11 @@ export class AuthorResultComponent implements OnChanges {
         });
     }
 
-    onEdit(author: Author): void {
+    onEdit(author: AuthorWTO): void {
         this.selectAuthor.emit(author);
     }
 
-    onDelete(author: Author): void {
+    onDelete(author: AuthorWTO): void {
         this.deleteAuthor.emit(author);
     }
 

@@ -1,7 +1,7 @@
 /* @tt{{{
     @slbc
 
-    @template-renderer [ templateRendererClassName="ItemFormInitialServiceRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="UiEntityRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
+    @template-renderer [ templateRendererClassName="EntityFormInitialServiceRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="UiEntityRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
 
     @template-model [
     modelClassName="UiEntityModel"
@@ -22,7 +22,7 @@
 import {Injectable} from '@angular/core';
 /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
 // imports here that are ignored
-import {GenderEnum} from "@app/author/gender.enum";
+import {GenderEnum} from "@app/wto/gender.enum";
 /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 
 

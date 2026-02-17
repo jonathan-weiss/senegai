@@ -1,7 +1,7 @@
 /* @tt{{{
     @slbc
 
-    @template-renderer [ templateRendererClassName="ItemFormValidationServiceRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="UiEntityRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
+    @template-renderer [ templateRendererClassName="EntityFormValidationServiceRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="UiEntityRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
 
     @template-model [
     modelClassName="UiEntityModel"

@@ -6,10 +6,10 @@ package senegai.codegen.renderer.angular
 import senegai.codegen.renderer.model.ui.UiEntityModel
 
 /**
- * Generate the content for the template ItemFormComponentHtmlRenderer filled up
+ * Generate the content for the template EntityFormComponentHtmlRenderer filled up
  * with the content of the passed models.
  */
-object ItemFormComponentHtmlRenderer : UiEntityRenderer {
+object EntityFormComponentHtmlRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """

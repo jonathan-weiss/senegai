@@ -6,10 +6,10 @@ package senegai.codegen.renderer.angular
 import senegai.codegen.renderer.model.ui.UiEntityModel
 
 /**
- * Generate the content for the template ItemBoardComponentTypescriptRenderer filled up
+ * Generate the content for the template EntityBoardComponentTypescriptRenderer filled up
  * with the content of the passed models.
  */
-object ItemBoardComponentTypescriptRenderer : UiEntityRenderer {
+object EntityBoardComponentTypescriptRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
@@ -31,7 +31,7 @@ object ItemBoardComponentTypescriptRenderer : UiEntityRenderer {
           |import {MatSidenavModule} from "@angular/material/sidenav";
           |import {MatListModule} from "@angular/material/list";
           |import {${model.entityName}FormComponent} from "@app/${model.entityNameLowercase}/${model.entityNameLowercase}-form/${model.entityNameLowercase}-form/${model.entityNameLowercase}-form.component";
-          |import {${model.entityName}} from "@app/${model.entityNameLowercase}/${model.entityNameLowercase}.model";
+          |import {${model.entityName}WTO} from "@app/wto/${model.entityNameLowercase}.wto";
           |import {TranslocoPipe} from "@jsverse/transloco";
           |
           |@Component({
@@ -59,7 +59,7 @@ object ItemBoardComponentTypescriptRenderer : UiEntityRenderer {
           |})
           |export class ${model.entityName}BoardComponent {
           |    currentSearchCriteria: ${model.entityName}SearchCriteria = {};
-          |    selected${model.entityName}: ${model.entityName} | null = null;
+          |    selected${model.entityName}: ${model.entityName}WTO | null = null;
           |    refreshKey = 0;
           |
           |    constructor(private dialog: MatDialog, private ${model.entityNameLowercase}Service: ${model.entityName}Service) {
@@ -69,11 +69,11 @@ object ItemBoardComponentTypescriptRenderer : UiEntityRenderer {
           |        this.currentSearchCriteria = criteria;
           |    }
           |
-          |    on${model.entityName}Select(${model.entityNameLowercase}: ${model.entityName}): void {
+          |    on${model.entityName}Select(${model.entityNameLowercase}: ${model.entityName}WTO): void {
           |        this.selected${model.entityName} = ${model.entityNameLowercase};
           |    }
           |
-          |    onDelete${model.entityName}(${model.entityNameLowercase}: ${model.entityName}): void {
+          |    onDelete${model.entityName}(${model.entityNameLowercase}: ${model.entityName}WTO): void {
           |        const dialogRef = this.dialog.open(${model.entityName}ConfirmDeleteDialogComponent, {
           |            data: {firstname: ${model.entityNameLowercase}.firstname, lastname: ${model.entityNameLowercase}.lastname}
           |        });
@@ -86,7 +86,7 @@ object ItemBoardComponentTypescriptRenderer : UiEntityRenderer {
           |        });
           |    }
           |
-          |    onSave(updated${model.entityName}: ${model.entityName}): void {
+          |    onSave(updated${model.entityName}: ${model.entityName}WTO): void {
           |        this.${model.entityNameLowercase}Service.update${model.entityName}(updated${model.entityName}).subscribe(() => {
           |            this.selected${model.entityName} = null;
           |            this.refreshKey++;

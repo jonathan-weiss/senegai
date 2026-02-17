@@ -2,7 +2,7 @@
 
     @slbc
 
-    @template-renderer [ templateRendererClassName="ItemFormComponentTypescriptRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="UiEntityRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
+    @template-renderer [ templateRendererClassName="EntityFormComponentTypescriptRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="UiEntityRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
 
     @template-model [
         modelClassName="UiEntityModel"
@@ -32,7 +32,7 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {MatDialogModule} from "@angular/material/dialog";
-import {Author} from "@app/author/author.model";
+import {AuthorWTO} from "@app/wto/author.wto";
 import {AuthorFormService} from "@app/author/author-form/author-form.service";
 import {AuthorFormPartComponent} from "@app/author/author-form/author-form-part/author-form-part.component";
 
@@ -57,8 +57,8 @@ import {AuthorFormPartComponent} from "@app/author/author-form/author-form-part/
     ]
 })
 export class AuthorFormComponent implements OnInit {
-    @Input() author: Author | null = null;
-    @Output() save = new EventEmitter<Author>();
+    @Input() author: AuthorWTO | null = null;
+    @Output() save = new EventEmitter<AuthorWTO>();
     @Output() cancel = new EventEmitter<void>();
 
     authorForm: FormGroup;
@@ -75,7 +75,7 @@ export class AuthorFormComponent implements OnInit {
 
     onSubmit(): void {
         if (this.authorForm.valid) {
-            const updatedAuthor: Author = this.authorEditFormService.createAuthorFromFormData(this.authorForm)
+            const updatedAuthor: AuthorWTO = this.authorEditFormService.createAuthorFromFormData(this.authorForm)
             this.save.emit(updatedAuthor);
         }
     }

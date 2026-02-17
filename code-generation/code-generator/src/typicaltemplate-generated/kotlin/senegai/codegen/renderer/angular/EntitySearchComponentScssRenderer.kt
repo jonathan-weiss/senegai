@@ -6,10 +6,10 @@ package senegai.codegen.renderer.angular
 import senegai.codegen.renderer.model.ui.UiEntityModel
 
 /**
- * Generate the content for the template ItemSearchComponentScssRenderer filled up
+ * Generate the content for the template EntitySearchComponentScssRenderer filled up
  * with the content of the passed models.
  */
-object ItemSearchComponentScssRenderer : UiEntityRenderer {
+object EntitySearchComponentScssRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """

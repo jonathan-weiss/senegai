@@ -1,5 +1,5 @@
 import {GenderI18nComponent} from "@app/author/gender-i18n/gender-i18n.component";
-import {GenderEnum} from "@app/author/gender.enum";
+import {GenderEnum} from "@app/wto/gender.enum";
 import {ComponentFixture, TestBed} from "@angular/core/testing";
 
 describe('GenderI18n', () => {

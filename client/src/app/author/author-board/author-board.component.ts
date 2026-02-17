@@ -2,7 +2,7 @@
 
     @slbc
 
-    @template-renderer [ templateRendererClassName="ItemBoardComponentTypescriptRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="UiEntityRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
+    @template-renderer [ templateRendererClassName="EntityBoardComponentTypescriptRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="UiEntityRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
 
     @template-model [
         modelClassName="UiEntityModel"
@@ -37,7 +37,7 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {AuthorFormComponent} from "@app/author/author-form/author-form/author-form.component";
-import {Author} from "@app/author/author.model";
+import {AuthorWTO} from "@app/wto/author.wto";
 import {TranslocoPipe} from "@jsverse/transloco";
 
 @Component({
@@ -65,7 +65,7 @@ import {TranslocoPipe} from "@jsverse/transloco";
 })
 export class AuthorBoardComponent {
     currentSearchCriteria: AuthorSearchCriteria = {};
-    selectedAuthor: Author | null = null;
+    selectedAuthor: AuthorWTO | null = null;
     refreshKey = 0;
 
     constructor(private dialog: MatDialog, private authorService: AuthorService) {
@@ -75,11 +75,11 @@ export class AuthorBoardComponent {
         this.currentSearchCriteria = criteria;
     }
 
-    onAuthorSelect(author: Author): void {
+    onAuthorSelect(author: AuthorWTO): void {
         this.selectedAuthor = author;
     }
 
-    onDeleteAuthor(author: Author): void {
+    onDeleteAuthor(author: AuthorWTO): void {
         const dialogRef = this.dialog.open(AuthorConfirmDeleteDialogComponent, {
             data: {firstname: author.firstname, lastname: author.lastname}
         });
@@ -92,7 +92,7 @@ export class AuthorBoardComponent {
         });
     }
 
-    onSave(updatedAuthor: Author): void {
+    onSave(updatedAuthor: AuthorWTO): void {
         this.authorService.updateAuthor(updatedAuthor).subscribe(() => {
             this.selectedAuthor = null;
             this.refreshKey++;

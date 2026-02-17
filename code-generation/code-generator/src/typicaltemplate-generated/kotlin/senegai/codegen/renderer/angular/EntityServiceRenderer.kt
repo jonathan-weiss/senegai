@@ -6,10 +6,10 @@ package senegai.codegen.renderer.angular
 import senegai.codegen.renderer.model.ui.UiEntityModel
 
 /**
- * Generate the content for the template ItemServiceRenderer filled up
+ * Generate the content for the template EntityServiceRenderer filled up
  * with the content of the passed models.
  */
-object ItemServiceRenderer : UiEntityRenderer {
+object EntityServiceRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
@@ -17,21 +17,21 @@ object ItemServiceRenderer : UiEntityRenderer {
           |import {Injectable} from '@angular/core';
           |import {Observable, of} from 'rxjs';
           |import {delay} from 'rxjs/operators';
-          |import {${model.entityName}} from "@app/${model.entityNameLowercase}/${model.entityNameLowercase}.model";
+          |import {${model.entityName}WTO} from "@app/wto/${model.entityNameLowercase}.wto";
           |@Injectable({providedIn: 'root'})
           |export class ${model.entityName}Service {
-          |    private ${model.entityNameLowercase}s: ${model.entityName}[] = [
+          |    private ${model.entityNameLowercase}s: ${model.entityName}WTO[] = [
           |        {
           |            ${ model.attributes.joinToString("") { attribute ->  """
               |            ${attribute.attributeName}: ${attribute.typescriptAttributeTypeExample},
           """ } }        },    ];
           |
-          |    get${model.entityName}s(): Observable<${model.entityName}[]> {
+          |    get${model.entityName}s(): Observable<${model.entityName}WTO[]> {
           |        // Simulate HTTP delay
           |        return of(this.${model.entityNameLowercase}s).pipe(delay(200));
           |    }
           |
-          |    get${model.entityName}ById(id: string): Observable<${model.entityName} | null> {
+          |    get${model.entityName}ById(id: string): Observable<${model.entityName}WTO | null> {
           |        const found = this.${model.entityNameLowercase}s.find(a => a.id === id) || null;
           |        return of(found).pipe(delay(200));
           |    }
@@ -41,7 +41,7 @@ object ItemServiceRenderer : UiEntityRenderer {
           |        return of(void 0).pipe(delay(200));
           |    }
           |
-          |    update${model.entityName}(${model.entityNameLowercase}: ${model.entityName}): Observable<${model.entityName}> {
+          |    update${model.entityName}(${model.entityNameLowercase}: ${model.entityName}WTO): Observable<${model.entityName}WTO> {
           |        const idx = this.${model.entityNameLowercase}s.findIndex(a => a.id === ${model.entityNameLowercase}.id);
           |        if (idx !== -1) {
           |            this.${model.entityNameLowercase}s[idx] = {...${model.entityNameLowercase}};

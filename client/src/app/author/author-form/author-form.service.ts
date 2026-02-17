@@ -1,7 +1,7 @@
 /* @tt{{{
     @slbc
 
-    @template-renderer [ templateRendererClassName="ItemEditFormServiceRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="UiEntityRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
+    @template-renderer [ templateRendererClassName="EntityEditFormServiceRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="UiEntityRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
 
     @template-model [
     modelClassName="UiEntityModel"
@@ -20,7 +20,7 @@
 }}}@ */
 
 import {Injectable} from '@angular/core';
-import {Author} from "@app/author/author.model";
+import {AuthorWTO} from "@app/wto/author.wto";
 import {AbstractControl, FormArray, FormControl, FormGroup} from "@angular/forms";
 import {FormUtil} from "@app/shared/form-controls/form.util";
 import {
@@ -33,8 +33,8 @@ import {
 import {AuthorFormValidationService} from "@app/author/author-form/author-form-validation.service";
 import {AuthorFormInitialValueService} from "@app/author/author-form/author-form-initial-value.service";
 /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-import {AuthorLibraryAward} from "@app/author/author-library-award.model";
-import {GenderEnum} from "@app/author/gender.enum";
+import {LibraryAwardWTO} from "@app/wto/library-award.wto";
+import {GenderEnum} from "@app/wto/gender.enum";
 
 /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 
@@ -171,7 +171,7 @@ export class AuthorFormService {
     }
     /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 
-    public patchAuthorForm(form: AbstractControl, author: Author): void {
+    public patchAuthorForm(form: AbstractControl, author: AuthorWTO): void {
         /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
         FormUtil.requiredFormControl(form, AuthorFormFieldName.id).patchValue(author.id);
         /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
@@ -190,7 +190,7 @@ export class AuthorFormService {
         FormUtil.requiredFormControl(form, AuthorFormFieldName.nickname).patchValue(author.nickname ?? null);
         FormUtil.requiredFormControl(form, AuthorFormFieldName.lastname).patchValue(author.lastname);
         const libraryAwardList = FormUtil.requiredFormArray(form, AuthorFormFieldName.libraryAwardList);
-        author.libraryAwardList.forEach((libraryAward: AuthorLibraryAward) => {
+        author.libraryAwardList.forEach((libraryAward: LibraryAwardWTO) => {
             const formGroup = this.createInitialLibraryAwardListForm()
             this.patchLibraryAwardListForm(formGroup, libraryAward);
             libraryAwardList.push(formGroup);
@@ -203,7 +203,7 @@ export class AuthorFormService {
     }
 
     /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-    public patchLibraryAwardListForm(form: AbstractControl, authorLibraryAward: AuthorLibraryAward): void {
+    public patchLibraryAwardListForm(form: AbstractControl, authorLibraryAward: LibraryAwardWTO): void {
         FormUtil.requiredFormControl(form, AuthorFormFieldName.libraryAwardListDescription).patchValue(authorLibraryAward.description);
         FormUtil.requiredFormControl(form, AuthorFormFieldName.libraryAwardListYear).patchValue(authorLibraryAward.year);
         authorLibraryAward.juryList.forEach((jury: string) => {
@@ -214,7 +214,7 @@ export class AuthorFormService {
     }
     /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 
-    public createAuthorFromFormData(form: AbstractControl): Author {
+    public createAuthorFromFormData(form: AbstractControl): AuthorWTO {
         return {
             /* @tt{{{ @ignore-text @slac }}}@ */
             id: FormUtil.requiredFormControl(form, AuthorFormFieldName.id).value as string,
@@ -244,7 +244,7 @@ export class AuthorFormService {
     }
 
     /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-    public createAuthorLibraryAwardListFromFormData(form: AbstractControl): AuthorLibraryAward {
+    public createAuthorLibraryAwardListFromFormData(form: AbstractControl): LibraryAwardWTO {
         return {
             description: FormUtil.requiredFormControl(form, AuthorFormFieldName.libraryAwardListDescription).value as string,
             year: FormUtil.requiredFormControl(form, AuthorFormFieldName.libraryAwardListYear).value as number,

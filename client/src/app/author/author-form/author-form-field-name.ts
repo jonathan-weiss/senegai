@@ -1,7 +1,7 @@
 /* @tt{{{
     @slbc
 
-    @template-renderer [ templateRendererClassName="ItemFormFieldNameRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="UiEntityRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
+    @template-renderer [ templateRendererClassName="EntityFormFieldNameRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="UiEntityRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
 
     @template-model [
     modelClassName="UiEntityModel"
@@ -21,7 +21,7 @@
 
 import {FormArray, FormControl, FormGroup} from "@angular/forms";
 /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-import {GenderEnum} from "@app/author/gender.enum";
+import {GenderEnum} from "@app/wto/gender.enum";
 /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 
 export enum AuthorFormFieldName {

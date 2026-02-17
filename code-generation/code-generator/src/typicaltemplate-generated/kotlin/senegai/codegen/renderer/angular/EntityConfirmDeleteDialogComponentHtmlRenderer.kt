@@ -6,10 +6,10 @@ package senegai.codegen.renderer.angular
 import senegai.codegen.renderer.model.ui.UiEntityModel
 
 /**
- * Generate the content for the template ItemConfirmDeleteDialogComponentHtmlRenderer filled up
+ * Generate the content for the template EntityConfirmDeleteDialogComponentHtmlRenderer filled up
  * with the content of the passed models.
  */
-object ItemConfirmDeleteDialogComponentHtmlRenderer : UiEntityRenderer {
+object EntityConfirmDeleteDialogComponentHtmlRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """

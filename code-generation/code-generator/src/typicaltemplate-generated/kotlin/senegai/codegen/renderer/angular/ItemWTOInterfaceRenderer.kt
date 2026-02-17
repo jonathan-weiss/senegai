@@ -6,18 +6,18 @@ package senegai.codegen.renderer.angular
 import senegai.codegen.renderer.model.ui.UiItemModel
 
 /**
- * Generate the content for the template ItemModelInterfaceRenderer filled up
+ * Generate the content for the template ItemWTOInterfaceRenderer filled up
  * with the content of the passed models.
  */
-object ItemModelInterfaceRenderer : UiItemRenderer {
+object ItemWTOInterfaceRenderer : UiItemRenderer {
 
     override fun renderTemplate(model: UiItemModel): String {
         return """
           |
           |/**
-          | * The ${model.itemName} DTO (Data Transfer Object) class.
+          | * The ${model.itemName} WTO (Web Transfer Object) class.
           | */
-          |export interface ${model.itemName} {
+          |export interface ${model.itemName}WTO {
           |    ${ model.attributes.joinToString("") { attribute ->  """
               |    ${attribute.attributeName}: ${attribute.typescriptAttributeType};
           """ } }
@@ -27,6 +27,6 @@ object ItemModelInterfaceRenderer : UiItemRenderer {
     }
 
     override fun filePath(model: UiItemModel): String {
-      return "${model.itemNameLowercase}/${model.itemNameLowercase}.model.ts"
+      return "wto/${model.itemNameLowercase}.wto.ts"
     }
 }

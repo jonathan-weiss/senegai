@@ -1,7 +1,7 @@
 /* @tt{{{
     @slbc
 
-    @template-renderer [ templateRendererClassName="ItemServiceRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="UiEntityRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
+    @template-renderer [ templateRendererClassName="EntityServiceRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="UiEntityRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
 
     @template-model [
     modelClassName="UiEntityModel"
@@ -22,14 +22,14 @@
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {delay} from 'rxjs/operators';
-import {Author} from "@app/author/author.model";
+import {AuthorWTO} from "@app/wto/author.wto";
 /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-import {GenderEnum} from "@app/author/gender.enum";
+import {GenderEnum} from "@app/wto/gender.enum";
 /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 
 @Injectable({providedIn: 'root'})
 export class AuthorService {
-    private authors: Author[] = [
+    private authors: AuthorWTO[] = [
         {
             /* @tt{{{
                 @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
@@ -122,12 +122,12 @@ export class AuthorService {
         /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
     ];
 
-    getAuthors(): Observable<Author[]> {
+    getAuthors(): Observable<AuthorWTO[]> {
         // Simulate HTTP delay
         return of(this.authors).pipe(delay(200));
     }
 
-    getAuthorById(id: string): Observable<Author | null> {
+    getAuthorById(id: string): Observable<AuthorWTO | null> {
         const found = this.authors.find(a => a.id === id) || null;
         return of(found).pipe(delay(200));
     }
@@ -137,7 +137,7 @@ export class AuthorService {
         return of(void 0).pipe(delay(200));
     }
 
-    updateAuthor(author: Author): Observable<Author> {
+    updateAuthor(author: AuthorWTO): Observable<AuthorWTO> {
         const idx = this.authors.findIndex(a => a.id === author.id);
         if (idx !== -1) {
             this.authors[idx] = {...author};

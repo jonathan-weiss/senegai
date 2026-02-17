@@ -6,10 +6,10 @@ package senegai.codegen.renderer.angular
 import senegai.codegen.renderer.model.ui.UiEntityModel
 
 /**
- * Generate the content for the template ItemResultComponentTypescriptRenderer filled up
+ * Generate the content for the template EntityResultComponentTypescriptRenderer filled up
  * with the content of the passed models.
  */
-object ItemResultComponentTypescriptRenderer : UiEntityRenderer {
+object EntityResultComponentTypescriptRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
@@ -28,7 +28,7 @@ object ItemResultComponentTypescriptRenderer : UiEntityRenderer {
           |import {MatSidenavModule} from "@angular/material/sidenav";
           |import {MatListModule} from "@angular/material/list";
           |import {MatDialogModule} from "@angular/material/dialog";
-          |import {${model.entityName}} from "@app/${model.entityNameLowercase}/${model.entityNameLowercase}.model";
+          |import {${model.entityName}WTO} from "@app/wto/${model.entityNameLowercase}.wto";
           |
           |@Component({
           |    selector: 'app-${model.entityNameLowercase}-result',
@@ -52,16 +52,16 @@ object ItemResultComponentTypescriptRenderer : UiEntityRenderer {
           |export class ${model.entityName}ResultComponent implements OnChanges {
           |    @Input() searchCriteria: ${model.entityName}SearchCriteria = {};
           |    @Input() refreshKey: number = 0;
-          |    @Output() select${model.entityName} = new EventEmitter<${model.entityName}>();
-          |    @Output() delete${model.entityName} = new EventEmitter<${model.entityName}>();
+          |    @Output() select${model.entityName} = new EventEmitter<${model.entityName}WTO>();
+          |    @Output() delete${model.entityName} = new EventEmitter<${model.entityName}WTO>();
           |
           |    displayedColumns: string[] = [
           |        ${ model.attributes.joinToString("") { attribute ->  """
               |        '${attribute.attributeName}',
           """ } }        'actions'
           |    ];
-          |    dataSource: MatTableDataSource<${model.entityName}> = new MatTableDataSource<${model.entityName}>();
-          |    private all${model.entityName}s: ${model.entityName}[] = [];
+          |    dataSource: MatTableDataSource<${model.entityName}WTO> = new MatTableDataSource<${model.entityName}WTO>();
+          |    private all${model.entityName}s: ${model.entityName}WTO[] = [];
           |
           |    constructor(private ${model.entityNameLowercase}Service: ${model.entityName}Service) {
           |        this.load${model.entityName}s();
@@ -82,11 +82,11 @@ object ItemResultComponentTypescriptRenderer : UiEntityRenderer {
           |        });
           |    }
           |
-          |    onEdit(${model.entityNameLowercase}: ${model.entityName}): void {
+          |    onEdit(${model.entityNameLowercase}: ${model.entityName}WTO): void {
           |        this.select${model.entityName}.emit(${model.entityNameLowercase});
           |    }
           |
-          |    onDelete(${model.entityNameLowercase}: ${model.entityName}): void {
+          |    onDelete(${model.entityNameLowercase}: ${model.entityName}WTO): void {
           |        this.delete${model.entityName}.emit(${model.entityNameLowercase});
           |    }
           |

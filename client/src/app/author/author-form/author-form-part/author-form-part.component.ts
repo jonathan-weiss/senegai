@@ -55,7 +55,7 @@ import {
 import {
     AuthorLibraryAwardFormPartComponent
 } from "@app/author/author-form/author-library-award-form-part/author-library-award-form-part.component";
-import {GenderEnum, GenderEnumValues} from "@app/author/gender.enum";
+import {GenderEnum, GenderEnumValues} from "@app/wto/gender.enum";
 import {GenderI18nComponent} from "@app/author/gender-i18n/gender-i18n.component";
 import {BooleanInputComponent} from "@app/shared/form-controls/boolean-input/boolean-input.component";
 import {SectionSplitterComponent} from "@app/shared/blocks/section-splitter/section-splitter.component";

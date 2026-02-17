@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {Author} from "@app/author/author.model";
+import {AuthorWTO} from "@app/wto/author.wto";
 import {AuthorService} from "@app/author/author.service";
 import {AuthorFormComponent} from "@app/author/author-form/author-form/author-form.component";
 import {ActivatedRoute} from "@angular/router";
@@ -14,7 +14,7 @@ import {ActivatedRoute} from "@angular/router";
     ]
 })
 export class AuthorRoutableEditComponent {
-    selectedAuthor: Author | null = null;
+    selectedAuthor: AuthorWTO | null = null;
 
     constructor(
         private authorService: AuthorService,

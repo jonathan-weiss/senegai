@@ -6,10 +6,10 @@ package senegai.codegen.renderer.angular
 import senegai.codegen.renderer.model.ui.UiEntityModel
 
 /**
- * Generate the content for the template ItemFormComponentTypescriptRenderer filled up
+ * Generate the content for the template EntityFormComponentTypescriptRenderer filled up
  * with the content of the passed models.
  */
-object ItemFormComponentTypescriptRenderer : UiEntityRenderer {
+object EntityFormComponentTypescriptRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
@@ -26,7 +26,7 @@ object ItemFormComponentTypescriptRenderer : UiEntityRenderer {
           |import {MatSidenavModule} from "@angular/material/sidenav";
           |import {MatListModule} from "@angular/material/list";
           |import {MatDialogModule} from "@angular/material/dialog";
-          |import {${model.entityName}} from "@app/${model.entityNameLowercase}/${model.entityNameLowercase}.model";
+          |import {${model.entityName}WTO} from "@app/wto/${model.entityNameLowercase}.wto";
           |import {${model.entityName}FormService} from "@app/${model.entityNameLowercase}/${model.entityNameLowercase}-form/${model.entityNameLowercase}-form.service";
           |import {${model.entityName}FormPartComponent} from "@app/${model.entityNameLowercase}/${model.entityNameLowercase}-form/${model.entityNameLowercase}-form-part/${model.entityNameLowercase}-form-part.component";
           |
@@ -51,8 +51,8 @@ object ItemFormComponentTypescriptRenderer : UiEntityRenderer {
           |    ]
           |})
           |export class ${model.entityName}FormComponent implements OnInit {
-          |    @Input() ${model.entityNameLowercase}: ${model.entityName} | null = null;
-          |    @Output() save = new EventEmitter<${model.entityName}>();
+          |    @Input() ${model.entityNameLowercase}: ${model.entityName}WTO | null = null;
+          |    @Output() save = new EventEmitter<${model.entityName}WTO>();
           |    @Output() cancel = new EventEmitter<void>();
           |
           |    ${model.entityNameLowercase}Form: FormGroup;
@@ -69,7 +69,7 @@ object ItemFormComponentTypescriptRenderer : UiEntityRenderer {
           |
           |    onSubmit(): void {
           |        if (this.${model.entityNameLowercase}Form.valid) {
-          |            const updated${model.entityName}: ${model.entityName} = this.${model.entityNameLowercase}EditFormService.create${model.entityName}FromFormData(this.${model.entityNameLowercase}Form)
+          |            const updated${model.entityName}: ${model.entityName}WTO = this.${model.entityNameLowercase}EditFormService.create${model.entityName}FromFormData(this.${model.entityNameLowercase}Form)
           |            this.save.emit(updated${model.entityName});
           |        }
           |    }
