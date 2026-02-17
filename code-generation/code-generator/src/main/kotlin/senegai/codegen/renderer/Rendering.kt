@@ -1,7 +1,7 @@
 package senegai.codegen.renderer
 
 import senegai.codegen.renderer.angular.*
-import senegai.codegen.renderer.model.ItemsModel
+import senegai.codegen.renderer.model.ui.UiModel
 import java.nio.file.Path
 import kotlin.io.path.createDirectories
 import kotlin.io.path.isDirectory
@@ -9,21 +9,22 @@ import kotlin.io.path.writeText
 
 object Rendering {
 
-    fun renderClientFiles(pathToGeneratedAngularFiles: Path, itemsModel: ItemsModel) {
-        val itemsRenderer = listOf(
+    fun renderClientFiles(pathToGeneratedAngularFiles: Path, uiModel: UiModel) {
+        val entityListRenderer = listOf(
             TypescriptItemsRoutingListRenderer,
             TypescriptSideNavLinkListRenderer,
         )
+        val uiItems = uiModel.uiItems
+        val uiEntities = uiModel.uiEntities
 
-        itemsRenderer.forEach { renderer ->
+        entityListRenderer.forEach { renderer ->
             writeFile(
-                filePath = pathToGeneratedAngularFiles.resolve(renderer.filePath(itemsModel)),
-                content = renderer.renderTemplate(itemsModel),
+                filePath = pathToGeneratedAngularFiles.resolve(renderer.filePath(uiEntities)),
+                content = renderer.renderTemplate(uiEntities),
             )
         }
 
-
-        val itemRenderer = listOf(
+        val entityRenderer: List<UiEntityRenderer> = listOf(
             ItemBoardComponentHtmlRenderer,
             ItemBoardComponentScssRenderer,
             ItemBoardComponentTypescriptRenderer,
@@ -37,10 +38,6 @@ object Rendering {
             ItemFormComponentHtmlRenderer,
             ItemFormComponentScssRenderer,
             ItemFormComponentTypescriptRenderer,
-            ItemFormPartComponentHtmlRenderer,
-            ItemFormPartComponentScssRenderer,
-            ItemFormPartComponentTypescriptRenderer,
-            ItemModelInterfaceRenderer,
             ItemResultComponentHtmlRenderer,
             ItemResultComponentScssRenderer,
             ItemResultComponentTypescriptRenderer,
@@ -50,11 +47,28 @@ object Rendering {
             ItemServiceRenderer,
         )
 
-        itemsModel.allItems.forEach { itemModel ->
+        uiEntities.forEach { uiEntityModel ->
+            entityRenderer.forEach { renderer ->
+                writeFile(
+                    filePath = pathToGeneratedAngularFiles.resolve(renderer.filePath(uiEntityModel)),
+                    content = renderer.renderTemplate(uiEntityModel),
+                )
+            }
+        }
+
+
+        val itemRenderer: List<UiItemRenderer> = listOf(
+            ItemFormPartComponentHtmlRenderer,
+            ItemFormPartComponentScssRenderer,
+            ItemFormPartComponentTypescriptRenderer,
+            ItemModelInterfaceRenderer,
+        )
+
+        uiItems.forEach { uiItemModel ->
             itemRenderer.forEach { renderer ->
                 writeFile(
-                    filePath = pathToGeneratedAngularFiles.resolve(renderer.filePath(itemModel)),
-                    content = renderer.renderTemplate(itemModel),
+                    filePath = pathToGeneratedAngularFiles.resolve(renderer.filePath(uiItemModel)),
+                    content = renderer.renderTemplate(uiItemModel),
                 )
             }
         }

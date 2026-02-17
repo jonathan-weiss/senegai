@@ -3,21 +3,21 @@
  */
 package senegai.codegen.renderer.angular
 
-import senegai.codegen.renderer.model.ItemModel
+import senegai.codegen.renderer.model.ui.UiEntityModel
 
 /**
  * Generate the content for the template ItemFormInitialServiceRenderer filled up
  * with the content of the passed models.
  */
-object ItemFormInitialServiceRenderer : ItemRenderer {
+object ItemFormInitialServiceRenderer : UiEntityRenderer {
 
-    override fun renderTemplate(model: ItemModel): String {
+    override fun renderTemplate(model: UiEntityModel): String {
         return """
           |
           |import {Injectable} from '@angular/core';
           |
           |@Injectable({providedIn: 'root'})
-          |export class ${model.itemName}FormInitialValueService {
+          |export class ${model.entityName}FormInitialValueService {
           |    
           |
           |${ model.attributes.joinToString("") { attribute ->  """
@@ -30,7 +30,7 @@ object ItemFormInitialServiceRenderer : ItemRenderer {
         """.trimMargin(marginPrefix = "|")
     }
 
-    override fun filePath(model: ItemModel): String {
-      return "${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form-initial-value.service.ts"
+    override fun filePath(model: UiEntityModel): String {
+      return "${model.entityNameLowercase}/${model.entityNameLowercase}-form/${model.entityNameLowercase}-form-initial-value.service.ts"
     }
 }

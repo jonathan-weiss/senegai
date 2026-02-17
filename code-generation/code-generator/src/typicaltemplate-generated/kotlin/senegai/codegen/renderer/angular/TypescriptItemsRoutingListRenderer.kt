@@ -3,36 +3,36 @@
  */
 package senegai.codegen.renderer.angular
 
-import senegai.codegen.renderer.model.ItemsModel
+import senegai.codegen.renderer.model.ui.UiEntityModel
 
 /**
  * Generate the content for the template TypescriptItemsRoutingListRenderer filled up
  * with the content of the passed models.
  */
-object TypescriptItemsRoutingListRenderer : ItemsRenderer {
+object TypescriptItemsRoutingListRenderer : UiEntitiesRenderer {
 
-    override fun renderTemplate(model: ItemsModel): String {
+    override fun renderTemplate(models: List<UiEntityModel>): String {
         return """
           |
           |
           |
-          |import {Routes} from '@angular/router';${ model.allItems.joinToString("") { item ->  """
+          |import {Routes} from '@angular/router';${ models.joinToString("") { entity ->  """
               |
-              |import {${item.itemName}BoardComponent} from './${item.itemNameLowercase}/${item.itemNameLowercase}-board/${item.itemNameLowercase}-board.component';
-              |import {${item.itemName}FormComponent} from '@app/${item.itemNameLowercase}/${item.itemNameLowercase}-form/${item.itemNameLowercase}-form/${item.itemNameLowercase}-form.component';
+              |import {${entity.entityName}BoardComponent} from './${entity.entityNameLowercase}/${entity.entityNameLowercase}-board/${entity.entityNameLowercase}-board.component';
+              |import {${entity.entityName}FormComponent} from '@app/${entity.entityNameLowercase}/${entity.entityNameLowercase}-form/${entity.entityNameLowercase}-form/${entity.entityNameLowercase}-form.component';
           """ } }
           |
           |
-          |export const GENERATED_ITEMS_ROUTES: Routes = [${ model.allItems.joinToString("") { item ->  """
-              |    {path: '${item.itemNameLowercase}-board', component: ${item.itemName}BoardComponent},
-              |    {path: '${item.itemNameLowercase}-board/edit/:id', component: ${item.itemName}FormComponent},
+          |export const GENERATED_ITEMS_ROUTES: Routes = [${ models.joinToString("") { entity ->  """
+              |    {path: '${entity.entityNameLowercase}-board', component: ${entity.entityName}BoardComponent},
+              |    {path: '${entity.entityNameLowercase}-board/edit/:id', component: ${entity.entityName}FormComponent},
           """ } }];
           |
           |
         """.trimMargin(marginPrefix = "|")
     }
 
-    override fun filePath(model: ItemsModel): String {
+    override fun filePath(models: List<UiEntityModel>): String {
       return "generated-routes.ts"
     }
 }

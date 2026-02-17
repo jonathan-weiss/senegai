@@ -9,7 +9,7 @@ dependencyResolutionManagement {
             library("kotlin-reflect", "org.jetbrains.kotlin", "kotlin-reflect").versionRef(kotlinVersion)
             plugin("kotlin-jvm", "org.jetbrains.kotlin.jvm").versionRef(kotlinVersion)
 
-            val typicalTemplateVersion = version("typicalTemplate", "0.0.1")
+            val typicalTemplateVersion = version("typicalTemplate", "0.0.3")
             library("typicaltemplate-api", "org.codeblessing.typicaltemplate", "typical-template-api").versionRef(typicalTemplateVersion)
             library("typicaltemplate", "org.codeblessing.typicaltemplate", "typical-template").versionRef(typicalTemplateVersion)
 

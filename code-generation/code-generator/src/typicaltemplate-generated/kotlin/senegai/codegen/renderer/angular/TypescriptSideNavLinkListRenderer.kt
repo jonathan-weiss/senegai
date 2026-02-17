@@ -3,15 +3,15 @@
  */
 package senegai.codegen.renderer.angular
 
-import senegai.codegen.renderer.model.ItemsModel
+import senegai.codegen.renderer.model.ui.UiEntityModel
 
 /**
  * Generate the content for the template TypescriptSideNavLinkListRenderer filled up
  * with the content of the passed models.
  */
-object TypescriptSideNavLinkListRenderer : ItemsRenderer {
+object TypescriptSideNavLinkListRenderer : UiEntitiesRenderer {
 
-    override fun renderTemplate(model: ItemsModel): String {
+    override fun renderTemplate(models: List<UiEntityModel>): String {
         return """
           |
           |
@@ -20,14 +20,14 @@ object TypescriptSideNavLinkListRenderer : ItemsRenderer {
           |import {SideNavLink} from "@app/side-nav/side-nav-list/side-nav-link.model";
           |
           |export const GENERATED_SIDE_NAVIGATION_LINKS: ReadonlyArray<SideNavLink> = [
-          |    ${ model.allItems.joinToString("") { item ->  """    {routeLink: '/${item.itemNameLowercase}-board', name: "${item.itemName}", icon: "people"},
+          |    ${ models.joinToString("") { entity ->  """    {routeLink: '/${entity.entityNameLowercase}-board', name: "${entity.entityName}", icon: "people"},
           """ } }]
           |
           |
         """.trimMargin(marginPrefix = "|")
     }
 
-    override fun filePath(model: ItemsModel): String {
+    override fun filePath(models: List<UiEntityModel>): String {
       return "generated-side-nav-links.ts"
     }
 }

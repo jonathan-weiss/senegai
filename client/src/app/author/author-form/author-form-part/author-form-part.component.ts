@@ -2,11 +2,11 @@
 
     @slbc
 
-    @template-renderer [ templateRendererClassName="ItemFormPartComponentTypescriptRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="ItemRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
+    @template-renderer [ templateRendererClassName="ItemFormPartComponentTypescriptRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="UiItemRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
 
     @template-model [
-        modelClassName="ItemModel"
-        modelPackageName="senegai.codegen.renderer.model"
+        modelClassName="UiItemModel"
+        modelPackageName="senegai.codegen.renderer.model.ui"
         modelName="model"
     ]
 

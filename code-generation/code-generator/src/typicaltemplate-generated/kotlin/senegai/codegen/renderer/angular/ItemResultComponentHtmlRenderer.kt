@@ -3,33 +3,33 @@
  */
 package senegai.codegen.renderer.angular
 
-import senegai.codegen.renderer.model.ItemModel
+import senegai.codegen.renderer.model.ui.UiEntityModel
 
 /**
  * Generate the content for the template ItemResultComponentHtmlRenderer filled up
  * with the content of the passed models.
  */
-object ItemResultComponentHtmlRenderer : ItemRenderer {
+object ItemResultComponentHtmlRenderer : UiEntityRenderer {
 
-    override fun renderTemplate(model: ItemModel): String {
+    override fun renderTemplate(model: UiEntityModel): String {
         return """
-          |<div class="${model.itemNameLowercase}-table-container">
+          |<div class="${model.entityNameLowercase}-table-container">
           |    <table mat-table [dataSource]="dataSource">
           |        ${ model.attributes.joinToString("") { attribute ->  """
               |        <!-- ${attribute.attributeName} Column -->
               |        <ng-container matColumnDef="${attribute.attributeName}">
               |            <th mat-header-cell *matHeaderCellDef>${attribute.attributeName}</th>
-              |            <td mat-cell *matCellDef="let ${model.itemNameLowercase}">{{ ${model.itemNameLowercase}.${attribute.attributeName} }}</td>
+              |            <td mat-cell *matCellDef="let ${model.entityNameLowercase}">{{ ${model.entityNameLowercase}.${attribute.attributeName} }}</td>
               |        </ng-container>
           """ } }
           |        <!-- Actions Column -->
           |        <ng-container matColumnDef="actions">
           |            <th mat-header-cell *matHeaderCellDef>Actions</th>
-          |            <td mat-cell *matCellDef="let ${model.itemNameLowercase}">
-          |                <button mat-icon-button color="primary" (click)="onEdit(${model.itemNameLowercase})">
+          |            <td mat-cell *matCellDef="let ${model.entityNameLowercase}">
+          |                <button mat-icon-button color="primary" (click)="onEdit(${model.entityNameLowercase})">
           |                    <mat-icon>edit</mat-icon>
           |                </button>
-          |                <button mat-icon-button color="warn" (click)="onDelete(${model.itemNameLowercase})">
+          |                <button mat-icon-button color="warn" (click)="onDelete(${model.entityNameLowercase})">
           |                    <mat-icon>delete</mat-icon>
           |                </button>
           |            </td>
@@ -43,7 +43,7 @@ object ItemResultComponentHtmlRenderer : ItemRenderer {
         """.trimMargin(marginPrefix = "|")
     }
 
-    override fun filePath(model: ItemModel): String {
-      return "${model.itemNameLowercase}/${model.itemNameLowercase}-result/${model.itemNameLowercase}-result.component.html"
+    override fun filePath(model: UiEntityModel): String {
+      return "${model.entityNameLowercase}/${model.entityNameLowercase}-result/${model.entityNameLowercase}-result.component.html"
     }
 }

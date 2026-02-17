@@ -3,31 +3,31 @@
  */
 package senegai.codegen.renderer.angular
 
-import senegai.codegen.renderer.model.ItemModel
+import senegai.codegen.renderer.model.ui.UiEntityModel
 
 /**
  * Generate the content for the template ItemFormComponentHtmlRenderer filled up
  * with the content of the passed models.
  */
-object ItemFormComponentHtmlRenderer : ItemRenderer {
+object ItemFormComponentHtmlRenderer : UiEntityRenderer {
 
-    override fun renderTemplate(model: ItemModel): String {
+    override fun renderTemplate(model: UiEntityModel): String {
         return """
           |<div class="edit-form-container">
           |    <mat-card>
           |        <mat-card-header>
-          |            <mat-card-title>{{ ${model.itemNameLowercase} ? 'Edit ${model.itemName}' : 'New ${model.itemName}' }}</mat-card-title>
+          |            <mat-card-title>{{ ${model.entityNameLowercase} ? 'Edit ${model.entityName}' : 'New ${model.entityName}' }}</mat-card-title>
           |        </mat-card-header>
           |
           |        <mat-card-content>
-          |            <form [formGroup]="${model.itemNameLowercase}Form" (ngSubmit)="onSubmit()">
-          |                <app-${model.itemNameLowercase}-form-part [${model.itemNameLowercase}Form]="${model.itemNameLowercase}Form" />
+          |            <form [formGroup]="${model.entityNameLowercase}Form" (ngSubmit)="onSubmit()">
+          |                <app-${model.entityNameLowercase}-form-part [${model.entityNameLowercase}Form]="${model.entityNameLowercase}Form" />
           |
           |                <div class="form-actions">
           |                    <button mat-button type="button" (click)="onCancel()">
           |                        Cancel
           |                    </button>
-          |                    <button mat-raised-button color="primary" type="submit" [disabled]="!${model.itemNameLowercase}Form.valid">
+          |                    <button mat-raised-button color="primary" type="submit" [disabled]="!${model.entityNameLowercase}Form.valid">
           |                        Save
           |                    </button>
           |                </div>
@@ -39,7 +39,7 @@ object ItemFormComponentHtmlRenderer : ItemRenderer {
         """.trimMargin(marginPrefix = "|")
     }
 
-    override fun filePath(model: ItemModel): String {
-      return "${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form.component.html"
+    override fun filePath(model: UiEntityModel): String {
+      return "${model.entityNameLowercase}/${model.entityNameLowercase}-form/${model.entityNameLowercase}-form/${model.entityNameLowercase}-form.component.html"
     }
 }

@@ -3,15 +3,15 @@
  */
 package senegai.codegen.renderer.angular
 
-import senegai.codegen.renderer.model.ItemModel
+import senegai.codegen.renderer.model.ui.UiEntityModel
 
 /**
  * Generate the content for the template ItemFormComponentTypescriptRenderer filled up
  * with the content of the passed models.
  */
-object ItemFormComponentTypescriptRenderer : ItemRenderer {
+object ItemFormComponentTypescriptRenderer : UiEntityRenderer {
 
-    override fun renderTemplate(model: ItemModel): String {
+    override fun renderTemplate(model: UiEntityModel): String {
         return """
           |import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
           |import {FormGroup, ReactiveFormsModule} from '@angular/forms';
@@ -26,14 +26,14 @@ object ItemFormComponentTypescriptRenderer : ItemRenderer {
           |import {MatSidenavModule} from "@angular/material/sidenav";
           |import {MatListModule} from "@angular/material/list";
           |import {MatDialogModule} from "@angular/material/dialog";
-          |import {${model.itemName}} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}.model";
-          |import {${model.itemName}FormService} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form.service";
-          |import {${model.itemName}FormPartComponent} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part.component";
+          |import {${model.entityName}} from "@app/${model.entityNameLowercase}/${model.entityNameLowercase}.model";
+          |import {${model.entityName}FormService} from "@app/${model.entityNameLowercase}/${model.entityNameLowercase}-form/${model.entityNameLowercase}-form.service";
+          |import {${model.entityName}FormPartComponent} from "@app/${model.entityNameLowercase}/${model.entityNameLowercase}-form/${model.entityNameLowercase}-form-part/${model.entityNameLowercase}-form-part.component";
           |
           |@Component({
-          |    selector: 'app-${model.itemNameLowercase}-form',
-          |    templateUrl: './${model.itemNameLowercase}-form.component.html',
-          |    styleUrls: ['./${model.itemNameLowercase}-form.component.scss'],
+          |    selector: 'app-${model.entityNameLowercase}-form',
+          |    templateUrl: './${model.entityNameLowercase}-form.component.html',
+          |    styleUrls: ['./${model.entityNameLowercase}-form.component.scss'],
           |    imports: [
           |        ReactiveFormsModule,
           |        MatButtonModule,
@@ -47,30 +47,30 @@ object ItemFormComponentTypescriptRenderer : ItemRenderer {
           |        MatSidenavModule,
           |        MatListModule,
           |        MatDialogModule,
-          |        ${model.itemName}FormPartComponent,
+          |        ${model.entityName}FormPartComponent,
           |    ]
           |})
-          |export class ${model.itemName}FormComponent implements OnInit {
-          |    @Input() ${model.itemNameLowercase}: ${model.itemName} | null = null;
-          |    @Output() save = new EventEmitter<${model.itemName}>();
+          |export class ${model.entityName}FormComponent implements OnInit {
+          |    @Input() ${model.entityNameLowercase}: ${model.entityName} | null = null;
+          |    @Output() save = new EventEmitter<${model.entityName}>();
           |    @Output() cancel = new EventEmitter<void>();
           |
-          |    ${model.itemNameLowercase}Form: FormGroup;
+          |    ${model.entityNameLowercase}Form: FormGroup;
           |
-          |    constructor(private ${model.itemNameLowercase}EditFormService: ${model.itemName}FormService) {
-          |        this.${model.itemNameLowercase}Form = ${model.itemNameLowercase}EditFormService.createInitial${model.itemName}Form();
+          |    constructor(private ${model.entityNameLowercase}EditFormService: ${model.entityName}FormService) {
+          |        this.${model.entityNameLowercase}Form = ${model.entityNameLowercase}EditFormService.createInitial${model.entityName}Form();
           |    }
           |
           |    ngOnInit(): void {
-          |        if (this.${model.itemNameLowercase}) {
-          |            this.${model.itemNameLowercase}EditFormService.patch${model.itemName}Form(this.${model.itemNameLowercase}Form, this.${model.itemNameLowercase})
+          |        if (this.${model.entityNameLowercase}) {
+          |            this.${model.entityNameLowercase}EditFormService.patch${model.entityName}Form(this.${model.entityNameLowercase}Form, this.${model.entityNameLowercase})
           |        }
           |    }
           |
           |    onSubmit(): void {
-          |        if (this.${model.itemNameLowercase}Form.valid) {
-          |            const updated${model.itemName}: ${model.itemName} = this.${model.itemNameLowercase}EditFormService.create${model.itemName}FromFormData(this.${model.itemNameLowercase}Form)
-          |            this.save.emit(updated${model.itemName});
+          |        if (this.${model.entityNameLowercase}Form.valid) {
+          |            const updated${model.entityName}: ${model.entityName} = this.${model.entityNameLowercase}EditFormService.create${model.entityName}FromFormData(this.${model.entityNameLowercase}Form)
+          |            this.save.emit(updated${model.entityName});
           |        }
           |    }
           |
@@ -82,7 +82,7 @@ object ItemFormComponentTypescriptRenderer : ItemRenderer {
         """.trimMargin(marginPrefix = "|")
     }
 
-    override fun filePath(model: ItemModel): String {
-      return "${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form.component.ts"
+    override fun filePath(model: UiEntityModel): String {
+      return "${model.entityNameLowercase}/${model.entityNameLowercase}-form/${model.entityNameLowercase}-form/${model.entityNameLowercase}-form.component.ts"
     }
 }

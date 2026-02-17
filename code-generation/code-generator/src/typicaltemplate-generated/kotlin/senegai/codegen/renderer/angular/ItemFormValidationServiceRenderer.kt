@@ -3,31 +3,31 @@
  */
 package senegai.codegen.renderer.angular
 
-import senegai.codegen.renderer.model.ItemModel
+import senegai.codegen.renderer.model.ui.UiEntityModel
 
 /**
  * Generate the content for the template ItemFormValidationServiceRenderer filled up
  * with the content of the passed models.
  */
-object ItemFormValidationServiceRenderer : ItemRenderer {
+object ItemFormValidationServiceRenderer : UiEntityRenderer {
 
-    override fun renderTemplate(model: ItemModel): String {
+    override fun renderTemplate(model: UiEntityModel): String {
         return """
           |
           |import {Injectable} from '@angular/core';
           |import {ValidatorFn, Validators} from "@angular/forms";
-          |import {${model.itemName}FormFieldName} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form-field-name";
+          |import {${model.entityName}FormFieldName} from "@app/${model.entityNameLowercase}/${model.entityNameLowercase}-form/${model.entityNameLowercase}-form-field-name";
           |import {NamedValidator} from "@app/shared/form-controls/named-validator";
           |import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
           |
           |@Injectable({providedIn: 'root'})
-          |export class ${model.itemName}FormValidationService {
+          |export class ${model.entityName}FormValidationService {
           |
-          |    validatorFunctions(field: ${model.itemName}FormFieldName): Array<ValidatorFn> {
+          |    validatorFunctions(field: ${model.entityName}FormFieldName): Array<ValidatorFn> {
           |        return this.namedValidators(field).map(namedValidator => namedValidator.validatorFunction)
           |    }
           |
-          |    validatorNames(field: ${model.itemName}FormFieldName): Array<ValidatorTranslation> {
+          |    validatorNames(field: ${model.entityName}FormFieldName): Array<ValidatorTranslation> {
           |        return this.namedValidators(field)
           |            .map(namedValidator => this.toValidatorTranslation(namedValidator))
           |    }
@@ -39,10 +39,10 @@ object ItemFormValidationServiceRenderer : ItemRenderer {
           |        }
           |    }
           |
-          |    namedValidators(field: ${model.itemName}FormFieldName): ReadonlyArray<NamedValidator> {
+          |    namedValidators(field: ${model.entityName}FormFieldName): ReadonlyArray<NamedValidator> {
           |        // TODO use mapped types https://www.typescriptlang.org/docs/handbook/2/mapped-types.html
           |        switch(field) {${ model.attributes.joinToString("") { attribute ->  """
-              |            case ${model.itemName}FormFieldName.${attribute.attributeName}: return [
+              |            case ${model.entityName}FormFieldName.${attribute.attributeName}: return [
               |                {
               |                    validatorName: "required",
               |                    validatorFunction: Validators.required,
@@ -62,7 +62,7 @@ object ItemFormValidationServiceRenderer : ItemRenderer {
         """.trimMargin(marginPrefix = "|")
     }
 
-    override fun filePath(model: ItemModel): String {
-      return "${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form-validation.service.ts"
+    override fun filePath(model: UiEntityModel): String {
+      return "${model.entityNameLowercase}/${model.entityNameLowercase}-form/${model.entityNameLowercase}-form-validation.service.ts"
     }
 }

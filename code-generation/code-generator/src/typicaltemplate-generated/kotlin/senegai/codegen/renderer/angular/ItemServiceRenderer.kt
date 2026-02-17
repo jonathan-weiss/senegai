@@ -3,57 +3,57 @@
  */
 package senegai.codegen.renderer.angular
 
-import senegai.codegen.renderer.model.ItemModel
+import senegai.codegen.renderer.model.ui.UiEntityModel
 
 /**
  * Generate the content for the template ItemServiceRenderer filled up
  * with the content of the passed models.
  */
-object ItemServiceRenderer : ItemRenderer {
+object ItemServiceRenderer : UiEntityRenderer {
 
-    override fun renderTemplate(model: ItemModel): String {
+    override fun renderTemplate(model: UiEntityModel): String {
         return """
           |
           |import {Injectable} from '@angular/core';
           |import {Observable, of} from 'rxjs';
           |import {delay} from 'rxjs/operators';
-          |import {${model.itemName}} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}.model";
+          |import {${model.entityName}} from "@app/${model.entityNameLowercase}/${model.entityNameLowercase}.model";
           |@Injectable({providedIn: 'root'})
-          |export class ${model.itemName}Service {
-          |    private ${model.itemNameLowercase}s: ${model.itemName}[] = [
+          |export class ${model.entityName}Service {
+          |    private ${model.entityNameLowercase}s: ${model.entityName}[] = [
           |        {
           |            ${ model.attributes.joinToString("") { attribute ->  """
               |            ${attribute.attributeName}: ${attribute.typescriptAttributeTypeExample},
           """ } }        },    ];
           |
-          |    get${model.itemName}s(): Observable<${model.itemName}[]> {
+          |    get${model.entityName}s(): Observable<${model.entityName}[]> {
           |        // Simulate HTTP delay
-          |        return of(this.${model.itemNameLowercase}s).pipe(delay(200));
+          |        return of(this.${model.entityNameLowercase}s).pipe(delay(200));
           |    }
           |
-          |    get${model.itemName}ById(id: string): Observable<${model.itemName} | null> {
-          |        const found = this.${model.itemNameLowercase}s.find(a => a.id === id) || null;
+          |    get${model.entityName}ById(id: string): Observable<${model.entityName} | null> {
+          |        const found = this.${model.entityNameLowercase}s.find(a => a.id === id) || null;
           |        return of(found).pipe(delay(200));
           |    }
           |
-          |    delete${model.itemName}(id: string): Observable<void> {
-          |        this.${model.itemNameLowercase}s = this.${model.itemNameLowercase}s.filter(a => a.id !== id);
+          |    delete${model.entityName}(id: string): Observable<void> {
+          |        this.${model.entityNameLowercase}s = this.${model.entityNameLowercase}s.filter(a => a.id !== id);
           |        return of(void 0).pipe(delay(200));
           |    }
           |
-          |    update${model.itemName}(${model.itemNameLowercase}: ${model.itemName}): Observable<${model.itemName}> {
-          |        const idx = this.${model.itemNameLowercase}s.findIndex(a => a.id === ${model.itemNameLowercase}.id);
+          |    update${model.entityName}(${model.entityNameLowercase}: ${model.entityName}): Observable<${model.entityName}> {
+          |        const idx = this.${model.entityNameLowercase}s.findIndex(a => a.id === ${model.entityNameLowercase}.id);
           |        if (idx !== -1) {
-          |            this.${model.itemNameLowercase}s[idx] = {...${model.itemNameLowercase}};
+          |            this.${model.entityNameLowercase}s[idx] = {...${model.entityNameLowercase}};
           |        }
-          |        return of(${model.itemNameLowercase}).pipe(delay(200));
+          |        return of(${model.entityNameLowercase}).pipe(delay(200));
           |    }
           |} 
           |
         """.trimMargin(marginPrefix = "|")
     }
 
-    override fun filePath(model: ItemModel): String {
-      return "${model.itemNameLowercase}/${model.itemNameLowercase}.service.ts"
+    override fun filePath(model: UiEntityModel): String {
+      return "${model.entityNameLowercase}/${model.entityNameLowercase}.service.ts"
     }
 }

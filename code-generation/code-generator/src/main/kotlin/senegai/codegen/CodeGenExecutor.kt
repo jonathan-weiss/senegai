@@ -18,7 +18,7 @@ fun main(args: Array<String>) {
     val pathToGeneratedAngularFiles = Paths.get(args[0])
 
     val schemaModel = convertToSchemaModel(fetchSchemaData())
-    Rendering.renderClientFiles(pathToGeneratedAngularFiles, schemaModel.itemsModel)
+    Rendering.renderClientFiles(pathToGeneratedAngularFiles, schemaModel.uiModel)
 }
 
 internal fun fetchSchemaData(): SchemaData {

@@ -3,22 +3,22 @@
  */
 package senegai.codegen.renderer.angular
 
-import senegai.codegen.renderer.model.ItemModel
+import senegai.codegen.renderer.model.ui.UiEntityModel
 
 /**
  * Generate the content for the template ItemBoardComponentTypescriptRenderer filled up
  * with the content of the passed models.
  */
-object ItemBoardComponentTypescriptRenderer : ItemRenderer {
+object ItemBoardComponentTypescriptRenderer : UiEntityRenderer {
 
-    override fun renderTemplate(model: ItemModel): String {
+    override fun renderTemplate(model: UiEntityModel): String {
         return """
           |import {Component} from '@angular/core';
-          |import {${model.itemName}SearchComponent, ${model.itemName}SearchCriteria} from '@app/${model.itemNameLowercase}/${model.itemNameLowercase}-search/${model.itemNameLowercase}-search.component';
-          |import {${model.itemName}ResultComponent} from '@app/${model.itemNameLowercase}/${model.itemNameLowercase}-result/${model.itemNameLowercase}-result.component';
+          |import {${model.entityName}SearchComponent, ${model.entityName}SearchCriteria} from '@app/${model.entityNameLowercase}/${model.entityNameLowercase}-search/${model.entityNameLowercase}-search.component';
+          |import {${model.entityName}ResultComponent} from '@app/${model.entityNameLowercase}/${model.entityNameLowercase}-result/${model.entityNameLowercase}-result.component';
           |import {MatDialog, MatDialogModule} from '@angular/material/dialog';
-          |import {${model.itemName}ConfirmDeleteDialogComponent} from '@app/${model.itemNameLowercase}/${model.itemNameLowercase}-confirm-delete-dialog/${model.itemNameLowercase}-confirm-delete-dialog.component';
-          |import {${model.itemName}Service} from '@app/${model.itemNameLowercase}/${model.itemNameLowercase}.service';
+          |import {${model.entityName}ConfirmDeleteDialogComponent} from '@app/${model.entityNameLowercase}/${model.entityNameLowercase}-confirm-delete-dialog/${model.entityNameLowercase}-confirm-delete-dialog.component';
+          |import {${model.entityName}Service} from '@app/${model.entityNameLowercase}/${model.entityNameLowercase}.service';
           |import {ReactiveFormsModule} from "@angular/forms";
           |import {MatButtonModule} from "@angular/material/button";
           |import {MatToolbarModule} from "@angular/material/toolbar";
@@ -30,14 +30,14 @@ object ItemBoardComponentTypescriptRenderer : ItemRenderer {
           |import {MatExpansionModule} from "@angular/material/expansion";
           |import {MatSidenavModule} from "@angular/material/sidenav";
           |import {MatListModule} from "@angular/material/list";
-          |import {${model.itemName}FormComponent} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form.component";
-          |import {${model.itemName}} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}.model";
+          |import {${model.entityName}FormComponent} from "@app/${model.entityNameLowercase}/${model.entityNameLowercase}-form/${model.entityNameLowercase}-form/${model.entityNameLowercase}-form.component";
+          |import {${model.entityName}} from "@app/${model.entityNameLowercase}/${model.entityNameLowercase}.model";
           |import {TranslocoPipe} from "@jsverse/transloco";
           |
           |@Component({
-          |    selector: 'app-${model.itemNameLowercase}-board',
-          |    templateUrl: './${model.itemNameLowercase}-board.component.html',
-          |    styleUrls: ['./${model.itemNameLowercase}-board.component.scss'],
+          |    selector: 'app-${model.entityNameLowercase}-board',
+          |    templateUrl: './${model.entityNameLowercase}-board.component.html',
+          |    styleUrls: ['./${model.entityNameLowercase}-board.component.scss'],
           |    imports: [
           |        ReactiveFormsModule,
           |        MatButtonModule,
@@ -51,57 +51,57 @@ object ItemBoardComponentTypescriptRenderer : ItemRenderer {
           |        MatSidenavModule,
           |        MatListModule,
           |        MatDialogModule,
-          |        ${model.itemName}SearchComponent,
-          |        ${model.itemName}ResultComponent,
-          |        ${model.itemName}FormComponent,
+          |        ${model.entityName}SearchComponent,
+          |        ${model.entityName}ResultComponent,
+          |        ${model.entityName}FormComponent,
           |        TranslocoPipe,
           |    ]
           |})
-          |export class ${model.itemName}BoardComponent {
-          |    currentSearchCriteria: ${model.itemName}SearchCriteria = {};
-          |    selected${model.itemName}: ${model.itemName} | null = null;
+          |export class ${model.entityName}BoardComponent {
+          |    currentSearchCriteria: ${model.entityName}SearchCriteria = {};
+          |    selected${model.entityName}: ${model.entityName} | null = null;
           |    refreshKey = 0;
           |
-          |    constructor(private dialog: MatDialog, private ${model.itemNameLowercase}Service: ${model.itemName}Service) {
+          |    constructor(private dialog: MatDialog, private ${model.entityNameLowercase}Service: ${model.entityName}Service) {
           |    }
           |
-          |    onSearch(criteria: ${model.itemName}SearchCriteria): void {
+          |    onSearch(criteria: ${model.entityName}SearchCriteria): void {
           |        this.currentSearchCriteria = criteria;
           |    }
           |
-          |    on${model.itemName}Select(${model.itemNameLowercase}: ${model.itemName}): void {
-          |        this.selected${model.itemName} = ${model.itemNameLowercase};
+          |    on${model.entityName}Select(${model.entityNameLowercase}: ${model.entityName}): void {
+          |        this.selected${model.entityName} = ${model.entityNameLowercase};
           |    }
           |
-          |    onDelete${model.itemName}(${model.itemNameLowercase}: ${model.itemName}): void {
-          |        const dialogRef = this.dialog.open(${model.itemName}ConfirmDeleteDialogComponent, {
-          |            data: {firstname: ${model.itemNameLowercase}.firstname, lastname: ${model.itemNameLowercase}.lastname}
+          |    onDelete${model.entityName}(${model.entityNameLowercase}: ${model.entityName}): void {
+          |        const dialogRef = this.dialog.open(${model.entityName}ConfirmDeleteDialogComponent, {
+          |            data: {firstname: ${model.entityNameLowercase}.firstname, lastname: ${model.entityNameLowercase}.lastname}
           |        });
           |        dialogRef.afterClosed().subscribe(result => {
           |            if (result) {
-          |                this.${model.itemNameLowercase}Service.delete${model.itemName}(${model.itemNameLowercase}.id).subscribe(() => {
+          |                this.${model.entityNameLowercase}Service.delete${model.entityName}(${model.entityNameLowercase}.id).subscribe(() => {
           |                    this.refreshKey++;
           |                });
           |            }
           |        });
           |    }
           |
-          |    onSave(updated${model.itemName}: ${model.itemName}): void {
-          |        this.${model.itemNameLowercase}Service.update${model.itemName}(updated${model.itemName}).subscribe(() => {
-          |            this.selected${model.itemName} = null;
+          |    onSave(updated${model.entityName}: ${model.entityName}): void {
+          |        this.${model.entityNameLowercase}Service.update${model.entityName}(updated${model.entityName}).subscribe(() => {
+          |            this.selected${model.entityName} = null;
           |            this.refreshKey++;
           |        });
           |    }
           |
           |    onCancel(): void {
-          |        this.selected${model.itemName} = null;
+          |        this.selected${model.entityName} = null;
           |    }
           |} 
           |
         """.trimMargin(marginPrefix = "|")
     }
 
-    override fun filePath(model: ItemModel): String {
-      return "${model.itemNameLowercase}/${model.itemNameLowercase}-board/${model.itemNameLowercase}-board.component.ts"
+    override fun filePath(model: UiEntityModel): String {
+      return "${model.entityNameLowercase}/${model.entityNameLowercase}-board/${model.entityNameLowercase}-board.component.ts"
     }
 }

@@ -43,7 +43,11 @@ object RendererModelConverter {
     }
 
     private fun mapUiItemAttribute(itemAttribute: ItemAttribute): UiItemAttributeModel {
-        return UiItemAttributeModel(itemAttribute.attributeName)
+        return UiItemAttributeModel(
+            itemAttribute.attributeName,
+            itemAttribute.cardinality,
+            itemAttribute.type,
+        )
     }
 
     private fun mapUiEntityViewsModel(uiEntity: UiEntity): UiEntityViewsModel {

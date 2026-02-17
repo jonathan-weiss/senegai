@@ -3,19 +3,19 @@
  */
 package senegai.codegen.renderer.angular
 
-import senegai.codegen.renderer.model.ItemModel
+import senegai.codegen.renderer.model.ui.UiEntityModel
 
 /**
  * Generate the content for the template ItemSearchComponentHtmlRenderer filled up
  * with the content of the passed models.
  */
-object ItemSearchComponentHtmlRenderer : ItemRenderer {
+object ItemSearchComponentHtmlRenderer : UiEntityRenderer {
 
-    override fun renderTemplate(model: ItemModel): String {
+    override fun renderTemplate(model: UiEntityModel): String {
         return """
           |<mat-card class="search-card">
           |    <mat-card-header>
-          |        <mat-card-title>Search ${model.itemName}s</mat-card-title>
+          |        <mat-card-title>Search ${model.entityName}s</mat-card-title>
           |    </mat-card-header>
           |    <mat-card-content>
           |        <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
@@ -44,7 +44,7 @@ object ItemSearchComponentHtmlRenderer : ItemRenderer {
         """.trimMargin(marginPrefix = "|")
     }
 
-    override fun filePath(model: ItemModel): String {
-      return "${model.itemNameLowercase}/${model.itemNameLowercase}-search/${model.itemNameLowercase}-search.component.html"
+    override fun filePath(model: UiEntityModel): String {
+      return "${model.entityNameLowercase}/${model.entityNameLowercase}-search/${model.entityNameLowercase}-search.component.html"
     }
 }

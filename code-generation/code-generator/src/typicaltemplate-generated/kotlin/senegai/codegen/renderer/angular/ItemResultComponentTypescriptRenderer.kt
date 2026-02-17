@@ -3,20 +3,20 @@
  */
 package senegai.codegen.renderer.angular
 
-import senegai.codegen.renderer.model.ItemModel
+import senegai.codegen.renderer.model.ui.UiEntityModel
 
 /**
  * Generate the content for the template ItemResultComponentTypescriptRenderer filled up
  * with the content of the passed models.
  */
-object ItemResultComponentTypescriptRenderer : ItemRenderer {
+object ItemResultComponentTypescriptRenderer : UiEntityRenderer {
 
-    override fun renderTemplate(model: ItemModel): String {
+    override fun renderTemplate(model: UiEntityModel): String {
         return """
           |import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
           |import {MatTableDataSource, MatTableModule} from '@angular/material/table';
-          |import {${model.itemName}SearchCriteria} from '@app/${model.itemNameLowercase}/${model.itemNameLowercase}-search/${model.itemNameLowercase}-search.component';
-          |import {${model.itemName}Service} from '@app/${model.itemNameLowercase}/${model.itemNameLowercase}.service';
+          |import {${model.entityName}SearchCriteria} from '@app/${model.entityNameLowercase}/${model.entityNameLowercase}-search/${model.entityNameLowercase}-search.component';
+          |import {${model.entityName}Service} from '@app/${model.entityNameLowercase}/${model.entityNameLowercase}.service';
           |import {ReactiveFormsModule} from "@angular/forms";
           |import {MatButtonModule} from "@angular/material/button";
           |import {MatToolbarModule} from "@angular/material/toolbar";
@@ -28,12 +28,12 @@ object ItemResultComponentTypescriptRenderer : ItemRenderer {
           |import {MatSidenavModule} from "@angular/material/sidenav";
           |import {MatListModule} from "@angular/material/list";
           |import {MatDialogModule} from "@angular/material/dialog";
-          |import {${model.itemName}} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}.model";
+          |import {${model.entityName}} from "@app/${model.entityNameLowercase}/${model.entityNameLowercase}.model";
           |
           |@Component({
-          |    selector: 'app-${model.itemNameLowercase}-result',
-          |    templateUrl: './${model.itemNameLowercase}-result.component.html',
-          |    styleUrls: ['./${model.itemNameLowercase}-result.component.scss'],
+          |    selector: 'app-${model.entityNameLowercase}-result',
+          |    templateUrl: './${model.entityNameLowercase}-result.component.html',
+          |    styleUrls: ['./${model.entityNameLowercase}-result.component.scss'],
           |    imports: [
           |        ReactiveFormsModule,
           |        MatButtonModule,
@@ -49,51 +49,51 @@ object ItemResultComponentTypescriptRenderer : ItemRenderer {
           |        MatDialogModule,
           |    ]
           |})
-          |export class ${model.itemName}ResultComponent implements OnChanges {
-          |    @Input() searchCriteria: ${model.itemName}SearchCriteria = {};
+          |export class ${model.entityName}ResultComponent implements OnChanges {
+          |    @Input() searchCriteria: ${model.entityName}SearchCriteria = {};
           |    @Input() refreshKey: number = 0;
-          |    @Output() select${model.itemName} = new EventEmitter<${model.itemName}>();
-          |    @Output() delete${model.itemName} = new EventEmitter<${model.itemName}>();
+          |    @Output() select${model.entityName} = new EventEmitter<${model.entityName}>();
+          |    @Output() delete${model.entityName} = new EventEmitter<${model.entityName}>();
           |
           |    displayedColumns: string[] = [
           |        ${ model.attributes.joinToString("") { attribute ->  """
               |        '${attribute.attributeName}',
           """ } }        'actions'
           |    ];
-          |    dataSource: MatTableDataSource<${model.itemName}> = new MatTableDataSource<${model.itemName}>();
-          |    private all${model.itemName}s: ${model.itemName}[] = [];
+          |    dataSource: MatTableDataSource<${model.entityName}> = new MatTableDataSource<${model.entityName}>();
+          |    private all${model.entityName}s: ${model.entityName}[] = [];
           |
-          |    constructor(private ${model.itemNameLowercase}Service: ${model.itemName}Service) {
-          |        this.load${model.itemName}s();
+          |    constructor(private ${model.entityNameLowercase}Service: ${model.entityName}Service) {
+          |        this.load${model.entityName}s();
           |    }
           |
           |    ngOnChanges(changes: SimpleChanges): void {
           |        if (changes['refreshKey'] && !changes['refreshKey'].firstChange) {
-          |            this.load${model.itemName}s();
-          |        } else if (changes['searchCriteria'] && this.all${model.itemName}s.length) {
-          |            this.filter${model.itemName}s();
+          |            this.load${model.entityName}s();
+          |        } else if (changes['searchCriteria'] && this.all${model.entityName}s.length) {
+          |            this.filter${model.entityName}s();
           |        }
           |    }
           |
-          |    private load${model.itemName}s(): void {
-          |        this.${model.itemNameLowercase}Service.get${model.itemName}s().subscribe(${model.itemNameLowercase}s => {
-          |            this.all${model.itemName}s = ${model.itemNameLowercase}s;
-          |            this.filter${model.itemName}s();
+          |    private load${model.entityName}s(): void {
+          |        this.${model.entityNameLowercase}Service.get${model.entityName}s().subscribe(${model.entityNameLowercase}s => {
+          |            this.all${model.entityName}s = ${model.entityNameLowercase}s;
+          |            this.filter${model.entityName}s();
           |        });
           |    }
           |
-          |    onEdit(${model.itemNameLowercase}: ${model.itemName}): void {
-          |        this.select${model.itemName}.emit(${model.itemNameLowercase});
+          |    onEdit(${model.entityNameLowercase}: ${model.entityName}): void {
+          |        this.select${model.entityName}.emit(${model.entityNameLowercase});
           |    }
           |
-          |    onDelete(${model.itemNameLowercase}: ${model.itemName}): void {
-          |        this.delete${model.itemName}.emit(${model.itemNameLowercase});
+          |    onDelete(${model.entityNameLowercase}: ${model.entityName}): void {
+          |        this.delete${model.entityName}.emit(${model.entityNameLowercase});
           |    }
           |
-          |    private filter${model.itemName}s(): void {
+          |    private filter${model.entityName}s(): void {
           |        const criteria = this.searchCriteria;
-          |        this.dataSource.data = this.all${model.itemName}s.filter(${model.itemNameLowercase} => {
-          |            return (${ model.attributes.joinToString("") { attribute ->  """                this.isMatching${attribute.typescriptAttributeTypeCapitalizedWithoutNullability}Criteria(criteria.${attribute.attributeName}, ${model.itemNameLowercase}.${attribute.attributeName}) &&
+          |        this.dataSource.data = this.all${model.entityName}s.filter(${model.entityNameLowercase} => {
+          |            return (${ model.attributes.joinToString("") { attribute ->  """                this.isMatching${attribute.typescriptAttributeTypeCapitalizedWithoutNullability}Criteria(criteria.${attribute.attributeName}, ${model.entityNameLowercase}.${attribute.attributeName}) &&
           """ } }                    true
           |            );
           |        });
@@ -124,7 +124,7 @@ object ItemResultComponentTypescriptRenderer : ItemRenderer {
         """.trimMargin(marginPrefix = "|")
     }
 
-    override fun filePath(model: ItemModel): String {
-      return "${model.itemNameLowercase}/${model.itemNameLowercase}-result/${model.itemNameLowercase}-result.component.ts"
+    override fun filePath(model: UiEntityModel): String {
+      return "${model.entityNameLowercase}/${model.entityNameLowercase}-result/${model.entityNameLowercase}-result.component.ts"
     }
 }

@@ -3,15 +3,15 @@
  */
 package senegai.codegen.renderer.angular
 
-import senegai.codegen.renderer.model.ItemModel
+import senegai.codegen.renderer.model.ui.UiItemModel
 
 /**
  * Generate the content for the template ItemFormPartComponentHtmlRenderer filled up
  * with the content of the passed models.
  */
-object ItemFormPartComponentHtmlRenderer : ItemRenderer {
+object ItemFormPartComponentHtmlRenderer : UiItemRenderer {
 
-    override fun renderTemplate(model: ItemModel): String {
+    override fun renderTemplate(model: UiItemModel): String {
         return """
           |<div [formGroup]="${model.itemNameLowercase}Form">
           |
@@ -45,7 +45,7 @@ object ItemFormPartComponentHtmlRenderer : ItemRenderer {
         """.trimMargin(marginPrefix = "|")
     }
 
-    override fun filePath(model: ItemModel): String {
+    override fun filePath(model: UiItemModel): String {
       return "${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part.component.html"
     }
 }

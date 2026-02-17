@@ -3,29 +3,29 @@
  */
 package senegai.codegen.renderer.angular
 
-import senegai.codegen.renderer.model.ItemModel
+import senegai.codegen.renderer.model.ui.UiEntityModel
 
 /**
  * Generate the content for the template ItemBoardComponentHtmlRenderer filled up
  * with the content of the passed models.
  */
-object ItemBoardComponentHtmlRenderer : ItemRenderer {
+object ItemBoardComponentHtmlRenderer : UiEntityRenderer {
 
-    override fun renderTemplate(model: ItemModel): String {
+    override fun renderTemplate(model: UiEntityModel): String {
         return """
-          |<div class="${model.itemNameLowercase}-container">
-          |    <h2>{{'${model.itemNameLowercase}.board.title' | transloco }}</h2>
+          |<div class="${model.entityNameLowercase}-container">
+          |    <h2>{{'${model.entityNameLowercase}.board.title' | transloco }}</h2>
           |
-          |    <mat-accordion class="${model.itemNameLowercase}-accordion" multi>
+          |    <mat-accordion class="${model.entityNameLowercase}-accordion" multi>
           |        <!-- Search Panel -->
           |        <mat-expansion-panel>
           |            <mat-expansion-panel-header>
           |                <mat-panel-title>
           |                    <mat-icon>search</mat-icon>
-          |                    <ng-container>Search ${model.itemName}s</ng-container>
+          |                    <ng-container>Search ${model.entityName}s</ng-container>
           |                </mat-panel-title>
           |            </mat-expansion-panel-header>
-          |            <app-${model.itemNameLowercase}-search (search)="onSearch(${"$"}event)"></app-${model.itemNameLowercase}-search>
+          |            <app-${model.entityNameLowercase}-search (search)="onSearch(${"$"}event)"></app-${model.entityNameLowercase}-search>
           |        </mat-expansion-panel>
           |
           |        <!-- Results Panel -->
@@ -33,39 +33,39 @@ object ItemBoardComponentHtmlRenderer : ItemRenderer {
           |            <mat-expansion-panel-header>
           |                <mat-panel-title>
           |                    <mat-icon>list</mat-icon>
-          |                    <ng-container>${model.itemName} List</ng-container>
+          |                    <ng-container>${model.entityName} List</ng-container>
           |                </mat-panel-title>
           |            </mat-expansion-panel-header>
-          |            <app-${model.itemNameLowercase}-result
+          |            <app-${model.entityNameLowercase}-result
           |                    [searchCriteria]="currentSearchCriteria"
-          |                    (select${model.itemName})="on${model.itemName}Select(${"$"}event)"
-          |                    (delete${model.itemName})="onDelete${model.itemName}(${"$"}event)"
+          |                    (select${model.entityName})="on${model.entityName}Select(${"$"}event)"
+          |                    (delete${model.entityName})="onDelete${model.entityName}(${"$"}event)"
           |                    [refreshKey]="refreshKey">
-          |            </app-${model.itemNameLowercase}-result>
+          |            </app-${model.entityNameLowercase}-result>
           |        </mat-expansion-panel>
           |
           |        <!-- Edit Form Panel -->
           |        <mat-expansion-panel
-          |                [expanded]="!!selected${model.itemName}"
-          |                [disabled]="!selected${model.itemName}">
+          |                [expanded]="!!selected${model.entityName}"
+          |                [disabled]="!selected${model.entityName}">
           |            <mat-expansion-panel-header>
           |                <mat-panel-title>
           |                    <mat-icon>edit</mat-icon>
-          |                    <ng-container>Edit ${model.itemName}</ng-container>
+          |                    <ng-container>Edit ${model.entityName}</ng-container>
           |                </mat-panel-title>
-          |                @if (selected${model.itemName}) {
+          |                @if (selected${model.entityName}) {
           |                    <mat-panel-description>
-          |                        {{ selected${model.itemName}.firstname }} {{ selected${model.itemName}.lastname }}
+          |                        {{ selected${model.entityName}.firstname }} {{ selected${model.entityName}.lastname }}
           |                    </mat-panel-description>
           |                }
           |            </mat-expansion-panel-header>
           |
-          |            @if (selected${model.itemName}) {
-          |                <app-${model.itemNameLowercase}-form
-          |                        [${model.itemNameLowercase}]="selected${model.itemName}"
+          |            @if (selected${model.entityName}) {
+          |                <app-${model.entityNameLowercase}-form
+          |                        [${model.entityNameLowercase}]="selected${model.entityName}"
           |                        (save)="onSave(${"$"}event)"
           |                        (cancel)="onCancel()">
-          |                </app-${model.itemNameLowercase}-form>
+          |                </app-${model.entityNameLowercase}-form>
           |            }
           |        </mat-expansion-panel>
           |    </mat-accordion>
@@ -74,7 +74,7 @@ object ItemBoardComponentHtmlRenderer : ItemRenderer {
         """.trimMargin(marginPrefix = "|")
     }
 
-    override fun filePath(model: ItemModel): String {
-      return "${model.itemNameLowercase}/${model.itemNameLowercase}-board/${model.itemNameLowercase}-board.component.html"
+    override fun filePath(model: UiEntityModel): String {
+      return "${model.entityNameLowercase}/${model.entityNameLowercase}-board/${model.entityNameLowercase}-board.component.html"
     }
 }

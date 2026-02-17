@@ -3,17 +3,17 @@
  */
 package senegai.codegen.renderer.angular
 
-import senegai.codegen.renderer.model.ItemModel
+import senegai.codegen.renderer.model.ui.UiEntityModel
 
 /**
  * Generate the content for the template ItemResultComponentScssRenderer filled up
  * with the content of the passed models.
  */
-object ItemResultComponentScssRenderer : ItemRenderer {
+object ItemResultComponentScssRenderer : UiEntityRenderer {
 
-    override fun renderTemplate(model: ItemModel): String {
+    override fun renderTemplate(model: UiEntityModel): String {
         return """
-          |.${model.itemNameLowercase}-table-container {
+          |.${model.entityNameLowercase}-table-container {
           |  padding: 20px;
           |
           |  table {
@@ -35,7 +35,7 @@ object ItemResultComponentScssRenderer : ItemRenderer {
         """.trimMargin(marginPrefix = "|")
     }
 
-    override fun filePath(model: ItemModel): String {
-      return "${model.itemNameLowercase}/${model.itemNameLowercase}-result/${model.itemNameLowercase}-result.component.scss"
+    override fun filePath(model: UiEntityModel): String {
+      return "${model.entityNameLowercase}/${model.entityNameLowercase}-result/${model.entityNameLowercase}-result.component.scss"
     }
 }

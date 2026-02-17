@@ -3,15 +3,15 @@
  */
 package senegai.codegen.renderer.angular
 
-import senegai.codegen.renderer.model.ItemModel
+import senegai.codegen.renderer.model.ui.UiEntityModel
 
 /**
  * Generate the content for the template ItemSearchComponentTypescriptRenderer filled up
  * with the content of the passed models.
  */
-object ItemSearchComponentTypescriptRenderer : ItemRenderer {
+object ItemSearchComponentTypescriptRenderer : UiEntityRenderer {
 
-    override fun renderTemplate(model: ItemModel): String {
+    override fun renderTemplate(model: UiEntityModel): String {
         return """
           |import {Component, EventEmitter, Output} from '@angular/core';
           |import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
@@ -27,13 +27,13 @@ object ItemSearchComponentTypescriptRenderer : ItemRenderer {
           |import {MatListModule} from "@angular/material/list";
           |import {MatDialogModule} from "@angular/material/dialog";
           |
-          |export interface ${model.itemName}SearchCriteria {${ model.attributes.joinToString("") { attribute ->  """    ${attribute.attributeName}?: ${attribute.typescriptAttributeTypeWithoutNullability};
+          |export interface ${model.entityName}SearchCriteria {${ model.attributes.joinToString("") { attribute ->  """    ${attribute.attributeName}?: ${attribute.typescriptAttributeTypeWithoutNullability};
           """ } }}
           |
           |@Component({
-          |    selector: 'app-${model.itemNameLowercase}-search',
-          |    templateUrl: './${model.itemNameLowercase}-search.component.html',
-          |    styleUrls: ['./${model.itemNameLowercase}-search.component.scss'],
+          |    selector: 'app-${model.entityNameLowercase}-search',
+          |    templateUrl: './${model.entityNameLowercase}-search.component.html',
+          |    styleUrls: ['./${model.entityNameLowercase}-search.component.scss'],
           |    imports: [
           |        ReactiveFormsModule,
           |        MatButtonModule,
@@ -49,8 +49,8 @@ object ItemSearchComponentTypescriptRenderer : ItemRenderer {
           |        MatDialogModule,
           |    ]
           |})
-          |export class ${model.itemName}SearchComponent {
-          |    @Output() search = new EventEmitter<${model.itemName}SearchCriteria>();
+          |export class ${model.entityName}SearchComponent {
+          |    @Output() search = new EventEmitter<${model.entityName}SearchCriteria>();
           |
           |    searchForm: FormGroup;
           |
@@ -61,11 +61,11 @@ object ItemSearchComponentTypescriptRenderer : ItemRenderer {
           |
           |    onSubmit(): void {
           |        if (this.searchForm.valid) {
-          |            const criteria: ${model.itemName}SearchCriteria = {};
+          |            const criteria: ${model.entityName}SearchCriteria = {};
           |            Object.keys(this.searchForm.controls).forEach(key => {
           |                const value = this.searchForm.get(key)?.value;
           |                if (value !== null && value !== '') {
-          |                    criteria[key as keyof ${model.itemName}SearchCriteria] = value;
+          |                    criteria[key as keyof ${model.entityName}SearchCriteria] = value;
           |                }
           |            });
           |            this.search.emit(criteria);
@@ -81,7 +81,7 @@ object ItemSearchComponentTypescriptRenderer : ItemRenderer {
         """.trimMargin(marginPrefix = "|")
     }
 
-    override fun filePath(model: ItemModel): String {
-      return "${model.itemNameLowercase}/${model.itemNameLowercase}-search/${model.itemNameLowercase}-search.component.ts"
+    override fun filePath(model: UiEntityModel): String {
+      return "${model.entityNameLowercase}/${model.entityNameLowercase}-search/${model.entityNameLowercase}-search.component.ts"
     }
 }

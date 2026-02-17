@@ -1,11 +1,12 @@
 /* @tt{{{
 
-  @template-renderer [ templateRendererClassName="TypescriptItemsRoutingListRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="ItemsRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
+  @template-renderer [ templateRendererClassName="TypescriptItemsRoutingListRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="UiEntitiesRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
 
   @template-model [
-      modelClassName="ItemsModel"
-      modelPackageName="senegai.codegen.renderer.model"
-      modelName="model"
+      isList="true"
+      modelClassName="UiEntityModel"
+      modelPackageName="senegai.codegen.renderer.model.ui"
+      modelName="models"
   ]
 
 }}}@ */
@@ -20,10 +21,10 @@ import {Routes} from '@angular/router';
 /* @tt{{{
     @slbc
     @replace-value-by-expression
-        [ searchValue="author" replaceByExpression="item.itemNameLowercase" ]
-        [ searchValue="Author" replaceByExpression="item.itemName" ]
+        [ searchValue="author" replaceByExpression="entity.entityNameLowercase" ]
+        [ searchValue="Author" replaceByExpression="entity.entityName" ]
 
-    @foreach [ iteratorExpression="model.allItems" loopVariable="item" ]
+    @foreach [ iteratorExpression="models" loopVariable="entity" ]
 }}}@  */
 
 import {AuthorBoardComponent} from './author/author-board/author-board.component';
@@ -44,11 +45,11 @@ export const AUTHOR_ROUTES: Routes = [
 /* @tt{{{
     @slbc
     @replace-value-by-expression
-        [ searchValue="authors" replaceByExpression="item.itemNameLowercase" ]
-        [ searchValue="author" replaceByExpression="item.itemNameLowercase" ]
-        [ searchValue="Author" replaceByExpression="item.itemName" ]
+        [ searchValue="authors" replaceByExpression="entity.entityNameLowercase" ]
+        [ searchValue="author" replaceByExpression="entity.entityNameLowercase" ]
+        [ searchValue="Author" replaceByExpression="entity.entityName" ]
 
-    @foreach [ iteratorExpression="model.allItems" loopVariable="item" ]
+    @foreach [ iteratorExpression="models" loopVariable="entity" ]
 }}}@  */
     {path: 'author-board', component: AuthorBoardComponent},
     {path: 'author-board/edit/:id', component: AuthorFormComponent},

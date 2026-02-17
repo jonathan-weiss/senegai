@@ -3,17 +3,17 @@
  */
 package senegai.codegen.renderer.angular
 
-import senegai.codegen.renderer.model.ItemModel
+import senegai.codegen.renderer.model.ui.UiEntityModel
 
 /**
  * Generate the content for the template ItemBoardComponentScssRenderer filled up
  * with the content of the passed models.
  */
-object ItemBoardComponentScssRenderer : ItemRenderer {
+object ItemBoardComponentScssRenderer : UiEntityRenderer {
 
-    override fun renderTemplate(model: ItemModel): String {
+    override fun renderTemplate(model: UiEntityModel): String {
         return """
-          |.${model.itemNameLowercase}-container {
+          |.${model.entityNameLowercase}-container {
           |  padding: 20px;
           |
           |  h2 {
@@ -22,7 +22,7 @@ object ItemBoardComponentScssRenderer : ItemRenderer {
           |  }
           |}
           |
-          |.${model.itemNameLowercase}-accordion {
+          |.${model.entityNameLowercase}-accordion {
           |  .mat-expansion-panel {
           |    margin-bottom: 16px;
           |  }
@@ -58,7 +58,7 @@ object ItemBoardComponentScssRenderer : ItemRenderer {
         """.trimMargin(marginPrefix = "|")
     }
 
-    override fun filePath(model: ItemModel): String {
-      return "${model.itemNameLowercase}/${model.itemNameLowercase}-board/${model.itemNameLowercase}-board.component.scss"
+    override fun filePath(model: UiEntityModel): String {
+      return "${model.entityNameLowercase}/${model.entityNameLowercase}-board/${model.entityNameLowercase}-board.component.scss"
     }
 }

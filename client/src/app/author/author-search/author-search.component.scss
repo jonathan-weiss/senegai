@@ -1,17 +1,17 @@
 /* @tt{{{
     @slbc
 
-    @template-renderer [ templateRendererClassName="ItemSearchComponentScssRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="ItemRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
+    @template-renderer [ templateRendererClassName="ItemSearchComponentScssRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="UiEntityRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
 
     @template-model [
-        modelClassName="ItemModel"
-        modelPackageName="senegai.codegen.renderer.model"
+        modelClassName="UiEntityModel"
+        modelPackageName="senegai.codegen.renderer.model.ui"
         modelName="model"
     ]
 
     @replace-value-by-expression
-      [ searchValue="Author" replaceByExpression="model.itemName" ]
-      [ searchValue="author" replaceByExpression="model.itemNameLowercase" ]
+      [ searchValue="Author" replaceByExpression="model.entityName" ]
+      [ searchValue="author" replaceByExpression="model.entityNameLowercase" ]
 
     @modify-provided-filename-by-replacements
 

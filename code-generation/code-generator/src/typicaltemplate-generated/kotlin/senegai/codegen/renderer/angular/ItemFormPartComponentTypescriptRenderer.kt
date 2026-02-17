@@ -3,15 +3,15 @@
  */
 package senegai.codegen.renderer.angular
 
-import senegai.codegen.renderer.model.ItemModel
+import senegai.codegen.renderer.model.ui.UiItemModel
 
 /**
  * Generate the content for the template ItemFormPartComponentTypescriptRenderer filled up
  * with the content of the passed models.
  */
-object ItemFormPartComponentTypescriptRenderer : ItemRenderer {
+object ItemFormPartComponentTypescriptRenderer : UiItemRenderer {
 
-    override fun renderTemplate(model: ItemModel): String {
+    override fun renderTemplate(model: UiItemModel): String {
         return """
           |import {Component, Input, OnInit} from '@angular/core';
           |import {FormArray, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
@@ -82,7 +82,7 @@ object ItemFormPartComponentTypescriptRenderer : ItemRenderer {
         """.trimMargin(marginPrefix = "|")
     }
 
-    override fun filePath(model: ItemModel): String {
+    override fun filePath(model: UiItemModel): String {
       return "${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part.component.ts"
     }
 }

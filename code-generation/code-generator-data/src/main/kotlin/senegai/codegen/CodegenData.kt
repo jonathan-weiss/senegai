@@ -32,7 +32,7 @@ object CodegenData {
     private fun RootDsl.collectEntityData() {
         schema {
             entity(entityId = Entities.EMPLOYEE, entityRootItemId = Items.CONTACT)
-            entity(entityId = Entities.EXTERNAL_PERSON, entityRootItemId = Items.CONTACT)
+            entity(entityId = Entities.EXTERNAL_PERSON, entityRootItemId = Items.ADDRESS)
 
             enumType(enumId = EnumTypes.GENDER) {
                 enumValue(name = "Male")
@@ -78,6 +78,21 @@ object CodegenData {
                                 }
                             }
                         }
+                        tab(tabName = "Address") {
+                            column {
+                                section(sectionName = "Address") {
+                                    entityAttribute(attributeName = "address")
+                                    entityAttribute(attributeName = "zipCode")
+                                    entityAttribute(attributeName = "city")
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            uiEntity(entityId = Entities.EXTERNAL_PERSON) {
+                views {
+                    editor {
                         tab(tabName = "Address") {
                             column {
                                 section(sectionName = "Address") {

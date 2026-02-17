@@ -3,15 +3,15 @@
  */
 package senegai.codegen.renderer.angular
 
-import senegai.codegen.renderer.model.ItemModel
+import senegai.codegen.renderer.model.ui.UiItemModel
 
 /**
  * Generate the content for the template ItemModelInterfaceRenderer filled up
  * with the content of the passed models.
  */
-object ItemModelInterfaceRenderer : ItemRenderer {
+object ItemModelInterfaceRenderer : UiItemRenderer {
 
-    override fun renderTemplate(model: ItemModel): String {
+    override fun renderTemplate(model: UiItemModel): String {
         return """
           |
           |/**
@@ -26,7 +26,7 @@ object ItemModelInterfaceRenderer : ItemRenderer {
         """.trimMargin(marginPrefix = "|")
     }
 
-    override fun filePath(model: ItemModel): String {
+    override fun filePath(model: UiItemModel): String {
       return "${model.itemNameLowercase}/${model.itemNameLowercase}.model.ts"
     }
 }

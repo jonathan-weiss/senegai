@@ -1,11 +1,12 @@
 /* @tt{{{
 
-  @template-renderer [ templateRendererClassName="TypescriptSideNavLinkListRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="ItemsRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
+  @template-renderer [ templateRendererClassName="TypescriptSideNavLinkListRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="UiEntitiesRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
 
   @template-model [
-      modelClassName="ItemsModel"
-      modelPackageName="senegai.codegen.renderer.model"
-      modelName="model"
+      isList="true"
+      modelClassName="UiEntityModel"
+      modelPackageName="senegai.codegen.renderer.model.ui"
+      modelName="models"
   ]
 
 }}}@ */
@@ -23,11 +24,11 @@ import {SideNavLink} from "@app/side-nav/side-nav-list/side-nav-link.model";
 
 export const SIDE_NAVIGATION_LINKS: ReadonlyArray<SideNavLink> = [
     /* @tt{{{
-        @foreach [ iteratorExpression="model.allItems" loopVariable="item" ]
+        @foreach [ iteratorExpression="models" loopVariable="entity" ]
 
         @replace-value-by-expression
-            [ searchValue="author" replaceByExpression="item.itemNameLowercase" ]
-            [ searchValue="Authors" replaceByExpression="item.itemName" ]
+            [ searchValue="author" replaceByExpression="entity.entityNameLowercase" ]
+            [ searchValue="Authors" replaceByExpression="entity.entityName" ]
 
         @slac
       }}}@  */

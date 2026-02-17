@@ -3,15 +3,15 @@
  */
 package senegai.codegen.renderer.angular
 
-import senegai.codegen.renderer.model.ItemModel
+import senegai.codegen.renderer.model.ui.UiEntityModel
 
 /**
  * Generate the content for the template ItemSearchComponentScssRenderer filled up
  * with the content of the passed models.
  */
-object ItemSearchComponentScssRenderer : ItemRenderer {
+object ItemSearchComponentScssRenderer : UiEntityRenderer {
 
-    override fun renderTemplate(model: ItemModel): String {
+    override fun renderTemplate(model: UiEntityModel): String {
         return """
           |.search-card {
           |  margin-bottom: 20px;
@@ -41,7 +41,7 @@ object ItemSearchComponentScssRenderer : ItemRenderer {
         """.trimMargin(marginPrefix = "|")
     }
 
-    override fun filePath(model: ItemModel): String {
-      return "${model.itemNameLowercase}/${model.itemNameLowercase}-search/${model.itemNameLowercase}-search.component.scss"
+    override fun filePath(model: UiEntityModel): String {
+      return "${model.entityNameLowercase}/${model.entityNameLowercase}-search/${model.entityNameLowercase}-search.component.scss"
     }
 }

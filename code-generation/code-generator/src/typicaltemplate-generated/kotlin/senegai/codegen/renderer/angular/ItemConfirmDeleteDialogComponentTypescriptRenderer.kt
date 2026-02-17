@@ -3,15 +3,15 @@
  */
 package senegai.codegen.renderer.angular
 
-import senegai.codegen.renderer.model.ItemModel
+import senegai.codegen.renderer.model.ui.UiEntityModel
 
 /**
  * Generate the content for the template ItemConfirmDeleteDialogComponentTypescriptRenderer filled up
  * with the content of the passed models.
  */
-object ItemConfirmDeleteDialogComponentTypescriptRenderer : ItemRenderer {
+object ItemConfirmDeleteDialogComponentTypescriptRenderer : UiEntityRenderer {
 
-    override fun renderTemplate(model: ItemModel): String {
+    override fun renderTemplate(model: UiEntityModel): String {
         return """
           |import {Component, Inject} from '@angular/core';
           |import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
@@ -28,9 +28,9 @@ object ItemConfirmDeleteDialogComponentTypescriptRenderer : ItemRenderer {
           |import {MatListModule} from "@angular/material/list";
           |
           |@Component({
-          |    selector: 'app-${model.itemNameLowercase}-confirm-delete-dialog',
-          |    templateUrl: './${model.itemNameLowercase}-confirm-delete-dialog.component.html',
-          |    styleUrls: ['./${model.itemNameLowercase}-confirm-delete-dialog.component.scss'],
+          |    selector: 'app-${model.entityNameLowercase}-confirm-delete-dialog',
+          |    templateUrl: './${model.entityNameLowercase}-confirm-delete-dialog.component.html',
+          |    styleUrls: ['./${model.entityNameLowercase}-confirm-delete-dialog.component.scss'],
           |    imports: [
           |        ReactiveFormsModule,
           |        MatButtonModule,
@@ -46,9 +46,9 @@ object ItemConfirmDeleteDialogComponentTypescriptRenderer : ItemRenderer {
           |        MatDialogModule,
           |    ]
           |})
-          |export class ${model.itemName}ConfirmDeleteDialogComponent {
+          |export class ${model.entityName}ConfirmDeleteDialogComponent {
           |    constructor(
-          |        public dialogRef: MatDialogRef<${model.itemName}ConfirmDeleteDialogComponent>,
+          |        public dialogRef: MatDialogRef<${model.entityName}ConfirmDeleteDialogComponent>,
           |        @Inject(MAT_DIALOG_DATA) public data: { firstname: string; lastname: string }
           |    ) {
           |    }
@@ -65,7 +65,7 @@ object ItemConfirmDeleteDialogComponentTypescriptRenderer : ItemRenderer {
         """.trimMargin(marginPrefix = "|")
     }
 
-    override fun filePath(model: ItemModel): String {
-      return "${model.itemNameLowercase}/${model.itemNameLowercase}-confirm-delete-dialog/${model.itemNameLowercase}-confirm-delete-dialog.component.ts"
+    override fun filePath(model: UiEntityModel): String {
+      return "${model.entityNameLowercase}/${model.entityNameLowercase}-confirm-delete-dialog/${model.entityNameLowercase}-confirm-delete-dialog.component.ts"
     }
 }
