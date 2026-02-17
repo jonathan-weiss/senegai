@@ -2,19 +2,19 @@ import {Injectable} from '@angular/core';
 import {FormArray, FormControl, FormGroup} from "@angular/forms";
 import {FormUtil} from "@app/shared/form-controls/form.util";
 import {LibraryAwardWTO} from "@app/wto/library-award.wto";
-import {AuthorFormPartFieldName} from "@app/author/author-form/author-form-part/author-form-part-field-name";
+import {AuthorFormPartFieldName} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-field-name";
 import {
     LibraryAwardFormPartValidationService
-} from "@app/author/author-form/author-library-award-form-part/library-award-form-part-validation.service";
+} from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part-validation.service";
 import {
     LibraryAwardFormPartInitialValueService
-} from "@app/author/author-form/author-library-award-form-part/library-award-form-part-initial-value.service";
+} from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part-initial-value.service";
 import {
     LibraryAwardFormPartGroup
-} from "@app/author/author-form/author-library-award-form-part/library-award-form-part-group";
+} from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part-group";
 import {
     LibraryAwardFormPartFieldName
-} from "@app/author/author-form/author-library-award-form-part/library-award-form-part-field-name";
+} from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part-field-name";
 
 
 @Injectable({providedIn: 'root'})

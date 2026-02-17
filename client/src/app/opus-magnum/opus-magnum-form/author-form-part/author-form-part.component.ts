@@ -36,33 +36,33 @@ import {FormUtil} from "@app/shared/form-controls/form.util";
 import {FieldWrapperComponent} from "@app/shared/form-controls/field-wrapper/field-wrapper.component";
 import {MatOption} from "@angular/material/core";
 import {MatSelect} from "@angular/material/select";
-import {AuthorFormPartValidationService} from "@app/author/author-form/author-form-part/author-form-part-validation.service";
+import {AuthorFormPartValidationService} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-validation.service";
 import {
     AuthorFormPartFieldName,
-} from "@app/author/author-form/author-form-part/author-form-part-field-name";
+} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-field-name";
 import {TextInputComponent} from "@app/shared/form-controls/text-input/text-input.component";
 import {DatepickerInputComponent} from "@app/shared/form-controls/datepicker-input/datepicker-input.component";
 import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
 import {
     AuthorFormPartGroup
-} from "@app/author/author-form/author-form-part/author-form-part-group";
+} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-group";
 
 /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
 import {
     LibraryAwardTableComponent
-} from "@app/author/author-form/library-award-table/library-award-table.component";
+} from "@app/opus-magnum/opus-magnum-form/library-award-table/library-award-table.component";
 import {
-    AuthorLibraryAwardFormPartComponent
-} from "@app/author/author-form/author-library-award-form-part/author-library-award-form-part.component";
+    LibraryAwardFormPartComponent
+} from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part.component";
 import {GenderEnum, GenderEnumValues} from "@app/wto/gender.enum";
-import {GenderI18nComponent} from "@app/author/gender-i18n/gender-i18n.component";
+import {GenderI18nComponent} from "@app/opus-magnum/gender-i18n/gender-i18n.component";
 import {BooleanInputComponent} from "@app/shared/form-controls/boolean-input/boolean-input.component";
 import {SectionSplitterComponent} from "@app/shared/blocks/section-splitter/section-splitter.component";
 import {TextBlockComponent} from "@app/shared/blocks/text-block/text-block.component";
 import {
     LibraryAwardFormPartGroup
-} from "@app/author/author-form/author-library-award-form-part/library-award-form-part-group";
+} from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part-group";
 
 /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 
@@ -92,7 +92,7 @@ import {
         MatSelect,
         MatOption,
         LibraryAwardTableComponent,
-        AuthorLibraryAwardFormPartComponent,
+        LibraryAwardFormPartComponent,
         GenderI18nComponent,
         BooleanInputComponent,
         SectionSplitterComponent,

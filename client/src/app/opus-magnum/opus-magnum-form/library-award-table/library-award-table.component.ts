@@ -14,16 +14,16 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {FormUtil} from "@app/shared/form-controls/form.util";
 import {
     LibraryAwardTableRow
-} from "@app/author/author-form/library-award-table/library-award-table-row.model";
+} from "@app/opus-magnum/opus-magnum-form/library-award-table/library-award-table-row.model";
 import {
     LibraryAwardFormPartFieldName
-} from "@app/author/author-form/author-library-award-form-part/library-award-form-part-field-name";
+} from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part-field-name";
 import {
     LibraryAwardFormPartService
-} from "@app/author/author-form/author-library-award-form-part/library-award-form-part.service";
+} from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part.service";
 import {
     LibraryAwardFormPartGroup
-} from "@app/author/author-form/author-library-award-form-part/library-award-form-part-group";
+} from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part-group";
 
 @Component({
     selector: 'app-author-library-award-table',

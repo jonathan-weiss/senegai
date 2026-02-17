@@ -35,8 +35,8 @@ import {MatListModule} from "@angular/material/list";
 
 @Component({
     selector: 'app-author-confirm-delete-dialog',
-    templateUrl: './author-confirm-delete-dialog.component.html',
-    styleUrls: ['./author-confirm-delete-dialog.component.scss'],
+    templateUrl: './opus-magnum-confirm-delete-dialog.component.html',
+    styleUrls: ['./opus-magnum-confirm-delete-dialog.component.scss'],
     imports: [
         ReactiveFormsModule,
         MatButtonModule,
@@ -52,9 +52,9 @@ import {MatListModule} from "@angular/material/list";
         MatDialogModule,
     ]
 })
-export class AuthorConfirmDeleteDialogComponent {
+export class OpusMagnumConfirmDeleteDialogComponent {
     constructor(
-        public dialogRef: MatDialogRef<AuthorConfirmDeleteDialogComponent>,
+        public dialogRef: MatDialogRef<OpusMagnumConfirmDeleteDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: { firstname: string; lastname: string }
     ) {
     }

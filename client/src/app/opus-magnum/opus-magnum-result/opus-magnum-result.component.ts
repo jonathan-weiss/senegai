@@ -21,8 +21,8 @@
 }}}@ */
 import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
-import {AuthorSearchCriteria} from '@app/author/author-search/author-search.component';
-import {AuthorService} from '@app/author/author.service';
+import {AuthorSearchCriteria} from '@app/opus-magnum/opus-magnum-search/opus-magnum-search.component';
+import {OpusMagnumService} from '@app/opus-magnum/opus-magnum.service';
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
 import {MatToolbarModule} from "@angular/material/toolbar";
@@ -38,8 +38,8 @@ import {AuthorWTO} from "@app/wto/author.wto";
 
 @Component({
     selector: 'app-author-result',
-    templateUrl: './author-result.component.html',
-    styleUrls: ['./author-result.component.scss'],
+    templateUrl: './opus-magnum-result.component.html',
+    styleUrls: ['./opus-magnum-result.component.scss'],
     imports: [
         ReactiveFormsModule,
         MatButtonModule,
@@ -55,7 +55,7 @@ import {AuthorWTO} from "@app/wto/author.wto";
         MatDialogModule,
     ]
 })
-export class AuthorResultComponent implements OnChanges {
+export class OpusMagnumResultComponent implements OnChanges {
     @Input() searchCriteria: AuthorSearchCriteria = {};
     @Input() refreshKey: number = 0;
     @Output() selectAuthor = new EventEmitter<AuthorWTO>();
@@ -80,7 +80,7 @@ export class AuthorResultComponent implements OnChanges {
     dataSource: MatTableDataSource<AuthorWTO> = new MatTableDataSource<AuthorWTO>();
     private allAuthors: AuthorWTO[] = [];
 
-    constructor(private authorService: AuthorService) {
+    constructor(private authorService: OpusMagnumService) {
         this.loadAuthors();
     }
 

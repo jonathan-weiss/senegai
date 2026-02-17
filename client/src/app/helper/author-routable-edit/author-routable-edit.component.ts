@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {AuthorWTO} from "@app/wto/author.wto";
-import {AuthorService} from "@app/author/author.service";
-import {AuthorFormComponent} from "@app/author/author-form/author-form/author-form.component";
+import {OpusMagnumService} from "@app/opus-magnum/opus-magnum.service";
+import {OpusMagnumFormComponent} from "@app/opus-magnum/opus-magnum-form/opus-magnum-form/opus-magnum-form.component";
 import {ActivatedRoute} from "@angular/router";
 
 
@@ -10,14 +10,14 @@ import {ActivatedRoute} from "@angular/router";
     templateUrl: './author-routable-edit.component.html',
     styleUrls: ['./author-routable-edit.component.scss'],
     imports: [
-        AuthorFormComponent,
+        OpusMagnumFormComponent,
     ]
 })
 export class AuthorRoutableEditComponent {
     selectedAuthor: AuthorWTO | null = null;
 
     constructor(
-        private authorService: AuthorService,
+        private authorService: OpusMagnumService,
         private route: ActivatedRoute,
     ) {
         this.route.params.subscribe(params => {

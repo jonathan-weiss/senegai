@@ -15,24 +15,24 @@ import {FieldWrapperComponent} from "@app/shared/form-controls/field-wrapper/fie
 import {FormUtil} from "@app/shared/form-controls/form.util";
 import {
     LibraryAwardJuryTableComponent
-} from "@app/author/author-form/author-library-award-jury-table/library-award-jury-table.component";
+} from "@app/opus-magnum/opus-magnum-form/library-award-jury-table/library-award-jury-table.component";
 import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
 import {TextInputComponent} from "@app/shared/form-controls/text-input/text-input.component";
 import {NumberInputComponent} from "@app/shared/form-controls/number-input/number-input.component";
 import {
     LibraryAwardFormPartFieldName
-} from "@app/author/author-form/author-library-award-form-part/library-award-form-part-field-name";
+} from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part-field-name";
 import {
     LibraryAwardFormPartGroup
-} from "@app/author/author-form/author-library-award-form-part/library-award-form-part-group";
+} from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part-group";
 import {
     LibraryAwardFormPartValidationService
-} from "@app/author/author-form/author-library-award-form-part/library-award-form-part-validation.service";
+} from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part-validation.service";
 
 @Component({
     selector: 'app-author-library-award-form-part',
-    templateUrl: './author-library-award-form-part.component.html',
-    styleUrls: ['./author-library-award-form-part.component.scss'],
+    templateUrl: './library-award-form-part.component.html',
+    styleUrls: ['./library-award-form-part.component.scss'],
     imports: [
         ReactiveFormsModule,
         MatButtonModule,
@@ -52,7 +52,7 @@ import {
         LibraryAwardJuryTableComponent,
     ]
 })
-export class AuthorLibraryAwardFormPartComponent implements OnInit {
+export class LibraryAwardFormPartComponent implements OnInit {
     @Input({required: true}) authorLibraryAwardListForm!: FormGroup<LibraryAwardFormPartGroup>;
 
     constructor(private readonly libraryAwardFormPartValidationService: LibraryAwardFormPartValidationService,) {

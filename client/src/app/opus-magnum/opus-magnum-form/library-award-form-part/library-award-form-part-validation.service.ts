@@ -4,7 +4,7 @@ import {NamedValidator} from "@app/shared/form-controls/named-validator";
 import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
 import {
     LibraryAwardFormPartFieldName
-} from "@app/author/author-form/author-library-award-form-part/library-award-form-part-field-name";
+} from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part-field-name";
 
 @Injectable({providedIn: 'root'})
 export class LibraryAwardFormPartValidationService {

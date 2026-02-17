@@ -20,11 +20,11 @@
 
 }}}@ */
 import {Component} from '@angular/core';
-import {AuthorSearchComponent, AuthorSearchCriteria} from '@app/author/author-search/author-search.component';
-import {AuthorResultComponent} from '@app/author/author-result/author-result.component';
+import {OpusMagnumSearchComponent, AuthorSearchCriteria} from '@app/opus-magnum/opus-magnum-search/opus-magnum-search.component';
+import {OpusMagnumResultComponent} from '@app/opus-magnum/opus-magnum-result/opus-magnum-result.component';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
-import {AuthorConfirmDeleteDialogComponent} from '@app/author/author-confirm-delete-dialog/author-confirm-delete-dialog.component';
-import {AuthorService} from '@app/author/author.service';
+import {OpusMagnumConfirmDeleteDialogComponent} from '@app/opus-magnum/opus-magnum-confirm-delete-dialog/opus-magnum-confirm-delete-dialog.component';
+import {OpusMagnumService} from '@app/opus-magnum/opus-magnum.service';
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
 import {MatToolbarModule} from "@angular/material/toolbar";
@@ -36,14 +36,14 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
-import {AuthorFormComponent} from "@app/author/author-form/author-form/author-form.component";
+import {OpusMagnumFormComponent} from "@app/opus-magnum/opus-magnum-form/opus-magnum-form/opus-magnum-form.component";
 import {AuthorWTO} from "@app/wto/author.wto";
 import {TranslocoPipe} from "@jsverse/transloco";
 
 @Component({
     selector: 'app-author-board',
-    templateUrl: './author-board.component.html',
-    styleUrls: ['./author-board.component.scss'],
+    templateUrl: './opus-magnum-board.component.html',
+    styleUrls: ['./opus-magnum-board.component.scss'],
     imports: [
         ReactiveFormsModule,
         MatButtonModule,
@@ -57,18 +57,18 @@ import {TranslocoPipe} from "@jsverse/transloco";
         MatSidenavModule,
         MatListModule,
         MatDialogModule,
-        AuthorSearchComponent,
-        AuthorResultComponent,
-        AuthorFormComponent,
+        OpusMagnumSearchComponent,
+        OpusMagnumResultComponent,
+        OpusMagnumFormComponent,
         TranslocoPipe,
     ]
 })
-export class AuthorBoardComponent {
+export class OpusMagnumBoardComponent {
     currentSearchCriteria: AuthorSearchCriteria = {};
     selectedAuthor: AuthorWTO | null = null;
     refreshKey = 0;
 
-    constructor(private dialog: MatDialog, private authorService: AuthorService) {
+    constructor(private dialog: MatDialog, private authorService: OpusMagnumService) {
     }
 
     onSearch(criteria: AuthorSearchCriteria): void {
@@ -80,7 +80,7 @@ export class AuthorBoardComponent {
     }
 
     onDeleteAuthor(author: AuthorWTO): void {
-        const dialogRef = this.dialog.open(AuthorConfirmDeleteDialogComponent, {
+        const dialogRef = this.dialog.open(OpusMagnumConfirmDeleteDialogComponent, {
             data: {firstname: author.firstname, lastname: author.lastname}
         });
         dialogRef.afterClosed().subscribe(result => {

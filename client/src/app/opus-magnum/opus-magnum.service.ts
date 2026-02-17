@@ -28,7 +28,7 @@ import {GenderEnum} from "@app/wto/gender.enum";
 /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 
 @Injectable({providedIn: 'root'})
-export class AuthorService {
+export class OpusMagnumService {
     private authors: AuthorWTO[] = [
         {
             /* @tt{{{

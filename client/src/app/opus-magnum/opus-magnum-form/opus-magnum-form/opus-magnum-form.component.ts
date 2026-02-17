@@ -33,13 +33,13 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {MatDialogModule} from "@angular/material/dialog";
 import {AuthorWTO} from "@app/wto/author.wto";
-import {AuthorFormPartService} from "@app/author/author-form/author-form-part/author-form-part.service";
-import {AuthorFormPartComponent} from "@app/author/author-form/author-form-part/author-form-part.component";
+import {AuthorFormPartService} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part.service";
+import {AuthorFormPartComponent} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part.component";
 
 @Component({
     selector: 'app-author-form',
-    templateUrl: './author-form.component.html',
-    styleUrls: ['./author-form.component.scss'],
+    templateUrl: './opus-magnum-form.component.html',
+    styleUrls: ['./opus-magnum-form.component.scss'],
     imports: [
         ReactiveFormsModule,
         MatButtonModule,
@@ -56,7 +56,7 @@ import {AuthorFormPartComponent} from "@app/author/author-form/author-form-part/
         AuthorFormPartComponent,
     ]
 })
-export class AuthorFormComponent implements OnInit {
+export class OpusMagnumFormComponent implements OnInit {
     @Input() author: AuthorWTO | null = null;
     @Output() save = new EventEmitter<AuthorWTO>();
     @Output() cancel = new EventEmitter<void>();

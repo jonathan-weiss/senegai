@@ -20,12 +20,12 @@
 }}}@ */
 
 import {FormArray, FormControl, FormGroup} from "@angular/forms";
-import {AuthorFormPartFieldName} from "@app/author/author-form/author-form-part/author-form-part-field-name";
+import {AuthorFormPartFieldName} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-field-name";
 /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
 import {GenderEnum} from "@app/wto/gender.enum";
 import {
     LibraryAwardFormPartGroup
-} from "@app/author/author-form/author-library-award-form-part/library-award-form-part-group";
+} from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part-group";
 
 /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 

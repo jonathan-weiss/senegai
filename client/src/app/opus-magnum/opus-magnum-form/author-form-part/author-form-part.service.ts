@@ -25,21 +25,21 @@ import {AbstractControl, FormArray, FormControl, FormGroup} from "@angular/forms
 import {FormUtil} from "@app/shared/form-controls/form.util";
 import {
     AuthorFormPartValidationService
-} from "@app/author/author-form/author-form-part/author-form-part-validation.service";
+} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-validation.service";
 import {
     AuthorFormPartInitialValueService
-} from "@app/author/author-form/author-form-part/author-form-part-initial-value.service";
-import {AuthorFormPartFieldName} from "@app/author/author-form/author-form-part/author-form-part-field-name";
-import {AuthorFormPartGroup} from "@app/author/author-form/author-form-part/author-form-part-group";
+} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-initial-value.service";
+import {AuthorFormPartFieldName} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-field-name";
+import {AuthorFormPartGroup} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-group";
 /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
 import {LibraryAwardWTO} from "@app/wto/library-award.wto";
 import {GenderEnum} from "@app/wto/gender.enum";
 import {
     LibraryAwardFormPartService
-} from "@app/author/author-form/author-library-award-form-part/library-award-form-part.service";
+} from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part.service";
 import {
     LibraryAwardFormPartGroup
-} from "@app/author/author-form/author-library-award-form-part/library-award-form-part-group";
+} from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part-group";
 
 /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 

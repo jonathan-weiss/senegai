@@ -27,8 +27,8 @@ import {Routes} from '@angular/router';
     @foreach [ iteratorExpression="models" loopVariable="entity" ]
 }}}@  */
 
-import {AuthorBoardComponent} from './author/author-board/author-board.component';
-import {AuthorFormComponent} from '@app/author/author-form/author-form/author-form.component';
+import {OpusMagnumBoardComponent} from '@app/opus-magnum/opus-magnum-board/opus-magnum-board.component';
+import {OpusMagnumFormComponent} from '@app/opus-magnum/opus-magnum-form/opus-magnum-form/opus-magnum-form.component';
 /* @tt{{{
     @slbc
     @end-foreach
@@ -51,8 +51,8 @@ export const AUTHOR_ROUTES: Routes = [
 
     @foreach [ iteratorExpression="models" loopVariable="entity" ]
 }}}@  */
-    {path: 'author-board', component: AuthorBoardComponent},
-    {path: 'author-board/edit/:id', component: AuthorFormComponent},
+    {path: 'author-board', component: OpusMagnumBoardComponent},
+    {path: 'author-board/edit/:id', component: OpusMagnumFormComponent},
 /* @tt{{{
     @slbc
     @end-foreach

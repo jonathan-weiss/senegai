@@ -53,8 +53,8 @@ export interface AuthorSearchCriteria {
 
 @Component({
     selector: 'app-author-search',
-    templateUrl: './author-search.component.html',
-    styleUrls: ['./author-search.component.scss'],
+    templateUrl: './opus-magnum-search.component.html',
+    styleUrls: ['./opus-magnum-search.component.scss'],
     imports: [
         ReactiveFormsModule,
         MatButtonModule,
@@ -70,7 +70,7 @@ export interface AuthorSearchCriteria {
         MatDialogModule,
     ]
 })
-export class AuthorSearchComponent {
+export class OpusMagnumSearchComponent {
     @Output() search = new EventEmitter<AuthorSearchCriteria>();
 
     searchForm: FormGroup;

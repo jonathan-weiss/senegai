@@ -21,7 +21,7 @@
 
 import {Injectable} from '@angular/core';
 import {ValidatorFn, Validators} from "@angular/forms";
-import {AuthorFormPartFieldName} from "@app/author/author-form/author-form-part/author-form-part-field-name";
+import {AuthorFormPartFieldName} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-field-name";
 import {NamedValidator} from "@app/shared/form-controls/named-validator";
 import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
 /* @tt{{{ @slbc  @ignore-text @slac }}}@ */

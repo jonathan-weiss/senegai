@@ -1,7 +1,7 @@
 import {FormArray, FormControl} from "@angular/forms";
 import {
     LibraryAwardFormPartFieldName
-} from "@app/author/author-form/author-library-award-form-part/library-award-form-part-field-name";
+} from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part-field-name";
 
 
 export interface LibraryAwardFormPartGroup {
