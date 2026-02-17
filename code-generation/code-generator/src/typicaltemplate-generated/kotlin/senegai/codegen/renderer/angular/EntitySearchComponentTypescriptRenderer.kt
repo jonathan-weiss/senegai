@@ -27,7 +27,7 @@ object EntitySearchComponentTypescriptRenderer : UiEntityRenderer {
           |import {MatListModule} from "@angular/material/list";
           |import {MatDialogModule} from "@angular/material/dialog";
           |
-          |export interface ${model.entityName}SearchCriteria {${ model.attributes.joinToString("") { attribute ->  """    ${attribute.attributeName}?: ${attribute.typescriptAttributeTypeWithoutNullability};
+          |export interface ${model.entityName}SearchCriteria {${ model.searchCriteriaAttributes.joinToString("") { attribute ->  """    ${attribute.attributeName}?: ${attribute.typescriptAttributeTypeWithoutNullability};
           """ } }}
           |
           |@Component({
@@ -55,7 +55,7 @@ object EntitySearchComponentTypescriptRenderer : UiEntityRenderer {
           |    searchForm: FormGroup;
           |
           |    constructor(private fb: FormBuilder) {
-          |        this.searchForm = this.fb.group({${ model.attributes.joinToString("") { attribute ->  """            ${attribute.attributeName}: [${attribute.typescriptAttributeInitialValue}],
+          |        this.searchForm = this.fb.group({${ model.searchCriteriaAttributes.joinToString("") { attribute ->  """            ${attribute.attributeName}: [${attribute.typescriptAttributeInitialValue}],
           """ } }        });
           |    }
           |

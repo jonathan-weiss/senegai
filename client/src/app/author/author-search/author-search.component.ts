@@ -35,7 +35,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 
 export interface AuthorSearchCriteria {
     /* @tt{{{ @slbc
-        @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
+        @foreach [ iteratorExpression="model.searchCriteriaAttributes" loopVariable="attribute" ]
 
         @replace-value-by-expression
             [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
@@ -78,7 +78,7 @@ export class AuthorSearchComponent {
     constructor(private fb: FormBuilder) {
         this.searchForm = this.fb.group({
             /* @tt{{{ @slbc
-                @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
+                @foreach [ iteratorExpression="model.searchCriteriaAttributes" loopVariable="attribute" ]
 
                 @replace-value-by-expression
                     [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]

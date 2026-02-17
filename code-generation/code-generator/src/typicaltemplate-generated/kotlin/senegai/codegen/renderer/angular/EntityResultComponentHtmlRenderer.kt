@@ -15,7 +15,7 @@ object EntityResultComponentHtmlRenderer : UiEntityRenderer {
         return """
           |<div class="${model.entityNameLowercase}-table-container">
           |    <table mat-table [dataSource]="dataSource">
-          |        ${ model.attributes.joinToString("") { attribute ->  """
+          |        ${ model.searchResultAttributes.joinToString("") { attribute ->  """
               |        <!-- ${attribute.attributeName} Column -->
               |        <ng-container matColumnDef="${attribute.attributeName}">
               |            <th mat-header-cell *matHeaderCellDef>${attribute.attributeName}</th>

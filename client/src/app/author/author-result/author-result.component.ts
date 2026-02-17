@@ -63,7 +63,7 @@ export class AuthorResultComponent implements OnChanges {
 
     displayedColumns: string[] = [
         /* @tt{{{
-            @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
+            @foreach [ iteratorExpression="model.searchResultAttributes" loopVariable="attribute" ]
 
             @replace-value-by-expression
                 [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
@@ -112,7 +112,7 @@ export class AuthorResultComponent implements OnChanges {
         this.dataSource.data = this.allAuthors.filter(author => {
             return (
                 /* @tt{{{ @slbc
-                    @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
+                    @foreach [ iteratorExpression="model.searchResultAttributes" loopVariable="attribute" ]
 
                     @replace-value-by-expression
                         [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]

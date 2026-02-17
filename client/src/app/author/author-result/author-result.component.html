@@ -20,7 +20,7 @@
 }}}@ --><div class="author-table-container">
     <table mat-table [dataSource]="dataSource">
         <!-- @tt{{{
-            @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
+            @foreach [ iteratorExpression="model.searchResultAttributes" loopVariable="attribute" ]
 
                 @replace-value-by-expression
                 [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]

@@ -20,7 +20,7 @@ object EntitySearchComponentHtmlRenderer : UiEntityRenderer {
           |    <mat-card-content>
           |        <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
           |            <div class="search-fields">
-          |                ${ model.attributes.joinToString("") { attribute ->  """
+          |                ${ model.searchCriteriaAttributes.joinToString("") { attribute ->  """
               |                <mat-form-field appearance="outline">
               |                    <mat-label>${attribute.attributeName}</mat-label>
               |                    <input matInput formControlName="${attribute.attributeName}" placeholder="Enter ${attribute.attributeName}">

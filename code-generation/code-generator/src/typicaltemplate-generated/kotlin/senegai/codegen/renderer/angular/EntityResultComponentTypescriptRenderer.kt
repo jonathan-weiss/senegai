@@ -56,7 +56,7 @@ object EntityResultComponentTypescriptRenderer : UiEntityRenderer {
           |    @Output() delete${model.entityName} = new EventEmitter<${model.entityName}WTO>();
           |
           |    displayedColumns: string[] = [
-          |        ${ model.attributes.joinToString("") { attribute ->  """
+          |        ${ model.searchResultAttributes.joinToString("") { attribute ->  """
               |        '${attribute.attributeName}',
           """ } }        'actions'
           |    ];
@@ -93,7 +93,7 @@ object EntityResultComponentTypescriptRenderer : UiEntityRenderer {
           |    private filter${model.entityName}s(): void {
           |        const criteria = this.searchCriteria;
           |        this.dataSource.data = this.all${model.entityName}s.filter(${model.entityNameLowercase} => {
-          |            return (${ model.attributes.joinToString("") { attribute ->  """                this.isMatching${attribute.typescriptAttributeTypeCapitalizedWithoutNullability}Criteria(criteria.${attribute.attributeName}, ${model.entityNameLowercase}.${attribute.attributeName}) &&
+          |            return (${ model.searchResultAttributes.joinToString("") { attribute ->  """                this.isMatching${attribute.typescriptAttributeTypeCapitalizedWithoutNullability}Criteria(criteria.${attribute.attributeName}, ${model.entityNameLowercase}.${attribute.attributeName}) &&
           """ } }                    true
           |            );
           |        });

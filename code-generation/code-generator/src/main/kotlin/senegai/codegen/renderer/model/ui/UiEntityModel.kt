@@ -10,4 +10,6 @@ data class UiEntityModel(
     val entityNameForAngularFile: String = rootItemModel.itemName.lowercase()  // TODO uses dashes case
 
     val attributes: List<UiItemAttributeModel> = rootItemModel.attributes
+    val searchResultAttributes: List<UiItemAttributeModel> = rootItemModel.attributes
+    val searchCriteriaAttributes: List<UiItemAttributeModel> = rootItemModel.attributes
 }

@@ -26,7 +26,7 @@
         <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
             <div class="search-fields">
                 <!-- @tt{{{
-                    @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
+                    @foreach [ iteratorExpression="model.searchCriteriaAttributes" loopVariable="attribute" ]
 
                         @replace-value-by-expression
                         [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
