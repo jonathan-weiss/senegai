@@ -36,22 +36,22 @@ import {FormUtil} from "@app/shared/form-controls/form.util";
 import {FieldWrapperComponent} from "@app/shared/form-controls/field-wrapper/field-wrapper.component";
 import {MatOption} from "@angular/material/core";
 import {MatSelect} from "@angular/material/select";
-import {AuthorFormValidationService} from "@app/author/author-form/author-form-validation.service";
+import {AuthorFormPartValidationService} from "@app/author/author-form/author-form-part/author-form-part-validation.service";
 import {
-    AuthorFormFieldName,
-    AuthorFormGroup,
-    /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-    AuthorFormLibraryAwardListFormGroup,
-    /* @tt{{{ @slbc  @end-ignore-text }}}@ */
-} from "@app/author/author-form/author-form-field-name";
+    AuthorFormPartFieldName,
+} from "@app/author/author-form/author-form-part/author-form-part-field-name";
 import {TextInputComponent} from "@app/shared/form-controls/text-input/text-input.component";
 import {DatepickerInputComponent} from "@app/shared/form-controls/datepicker-input/datepicker-input.component";
 import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
+import {
+    AuthorFormPartGroup
+} from "@app/author/author-form/author-form-part/author-form-part-group";
+
 /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
 import {
-    AuthorLibraryAwardTableComponent
-} from "@app/author/author-form/author-library-award-table/author-library-award-table.component";
+    LibraryAwardTableComponent
+} from "@app/author/author-form/library-award-table/library-award-table.component";
 import {
     AuthorLibraryAwardFormPartComponent
 } from "@app/author/author-form/author-library-award-form-part/author-library-award-form-part.component";
@@ -60,6 +60,9 @@ import {GenderI18nComponent} from "@app/author/gender-i18n/gender-i18n.component
 import {BooleanInputComponent} from "@app/shared/form-controls/boolean-input/boolean-input.component";
 import {SectionSplitterComponent} from "@app/shared/blocks/section-splitter/section-splitter.component";
 import {TextBlockComponent} from "@app/shared/blocks/text-block/text-block.component";
+import {
+    LibraryAwardFormPartGroup
+} from "@app/author/author-form/author-library-award-form-part/library-award-form-part-group";
 
 /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 
@@ -88,7 +91,7 @@ import {TextBlockComponent} from "@app/shared/blocks/text-block/text-block.compo
         DatepickerInputComponent,
         MatSelect,
         MatOption,
-        AuthorLibraryAwardTableComponent,
+        LibraryAwardTableComponent,
         AuthorLibraryAwardFormPartComponent,
         GenderI18nComponent,
         BooleanInputComponent,
@@ -98,10 +101,10 @@ import {TextBlockComponent} from "@app/shared/blocks/text-block/text-block.compo
     ]
 })
 export class AuthorFormPartComponent implements OnInit {
-    @Input({ required: true }) authorForm!: FormGroup<AuthorFormGroup>;
+    @Input({ required: true }) authorForm!: FormGroup<AuthorFormPartGroup>;
 
     /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-    authorLibraryAwardUnderEdit: FormGroup<AuthorFormLibraryAwardListFormGroup> | undefined = undefined;
+    authorLibraryAwardUnderEdit: FormGroup<LibraryAwardFormPartGroup> | undefined = undefined;
 
     protected idControl!: FormControl<number>
     /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
@@ -125,7 +128,7 @@ export class AuthorFormPartComponent implements OnInit {
     protected nicknameValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected lastnameControl!: FormControl<string>
     protected lastnameValidatorNames!: ReadonlyArray<ValidatorTranslation>
-    protected libraryAwardListFormArray!: FormArray<FormGroup<AuthorFormLibraryAwardListFormGroup>>
+    protected libraryAwardListFormArray!: FormArray<FormGroup<LibraryAwardFormPartGroup>>
     protected libraryAwardListValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected birthdayIsNotNullControl!: FormControl<boolean>
     protected birthdayIsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
@@ -137,12 +140,12 @@ export class AuthorFormPartComponent implements OnInit {
     protected genderValidatorNames!: ReadonlyArray<ValidatorTranslation>
     /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 
-    constructor(private readonly authorFormValidationService: AuthorFormValidationService,) {
+    constructor(private readonly authorFormValidationService: AuthorFormPartValidationService,) {
     }
 
     ngOnInit() {
         /* @tt{{{ @ignore-text @slac }}}@ */
-        this.idControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormFieldName.id);
+        this.idControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormPartFieldName.id);
         /* @tt{{{ @slbc  @end-ignore-text }}}@ */
         /* @tt{{{ @slbc
         @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
@@ -151,27 +154,27 @@ export class AuthorFormPartComponent implements OnInit {
             [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
 
         }}}@  */
-        this.firstnameControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormFieldName.firstname)
-        this.firstnameValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormFieldName.firstname)
+        this.firstnameControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormPartFieldName.firstname)
+        this.firstnameValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.firstname)
 
         /* @tt{{{ @slbc @end-foreach @slac }}}@ */
         /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-        this.nicknameIsNotNullControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormFieldName.nicknameIsNotNull)
-        this.nicknameIsNotNullValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormFieldName.nicknameIsNotNull)
-        this.nicknameControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormFieldName.nickname)
-        this.nicknameValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormFieldName.nickname)
-        this.lastnameControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormFieldName.lastname)
-        this.lastnameValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormFieldName.lastname)
-        this.libraryAwardListFormArray = FormUtil.requiredFormArray(this.authorForm, AuthorFormFieldName.libraryAwardList)
-        this.libraryAwardListValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormFieldName.libraryAwardList)
-        this.birthdayIsNotNullControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormFieldName.birthdayIsNotNull)
-        this.birthdayIsNotNullValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormFieldName.birthdayIsNotNull)
-        this.birthdayControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormFieldName.birthday)
-        this.birthdayValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormFieldName.birthday)
-        this.vegetarianControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormFieldName.vegetarian)
-        this.vegetarianValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormFieldName.vegetarian)
-        this.genderControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormFieldName.gender)
-        this.genderValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormFieldName.gender)
+        this.nicknameIsNotNullControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormPartFieldName.nicknameIsNotNull)
+        this.nicknameIsNotNullValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.nicknameIsNotNull)
+        this.nicknameControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormPartFieldName.nickname)
+        this.nicknameValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.nickname)
+        this.lastnameControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormPartFieldName.lastname)
+        this.lastnameValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.lastname)
+        this.libraryAwardListFormArray = FormUtil.requiredFormArray(this.authorForm, AuthorFormPartFieldName.libraryAwardList)
+        this.libraryAwardListValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.libraryAwardList)
+        this.birthdayIsNotNullControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormPartFieldName.birthdayIsNotNull)
+        this.birthdayIsNotNullValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.birthdayIsNotNull)
+        this.birthdayControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormPartFieldName.birthday)
+        this.birthdayValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.birthday)
+        this.vegetarianControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormPartFieldName.vegetarian)
+        this.vegetarianValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.vegetarian)
+        this.genderControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormPartFieldName.gender)
+        this.genderValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.gender)
         /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
     }
 
@@ -179,11 +182,11 @@ export class AuthorFormPartComponent implements OnInit {
 
     protected genderList = GenderEnumValues
 
-    onAuthorLibraryAwardFormGroupEdit(formGroup: FormGroup<AuthorFormLibraryAwardListFormGroup>): void {
+    onAuthorLibraryAwardFormGroupEdit(formGroup: FormGroup<LibraryAwardFormPartGroup>): void {
         this.authorLibraryAwardUnderEdit = formGroup;
     }
 
-    onAuthorLibraryAwardFormGroupDelete(formGroup: FormGroup<AuthorFormLibraryAwardListFormGroup>): void {
+    onAuthorLibraryAwardFormGroupDelete(formGroup: FormGroup<LibraryAwardFormPartGroup>): void {
         if(this.authorLibraryAwardUnderEdit == formGroup) {
             this.authorLibraryAwardUnderEdit = undefined
         }

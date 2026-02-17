@@ -1,6 +1,5 @@
-
 import {Component, Input, OnInit} from '@angular/core';
-import {AbstractControl, FormArray, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {FormArray, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from "@angular/material/button";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatTableModule} from "@angular/material/table";
@@ -15,16 +14,20 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {FieldWrapperComponent} from "@app/shared/form-controls/field-wrapper/field-wrapper.component";
 import {FormUtil} from "@app/shared/form-controls/form.util";
 import {
-    AuthorLibraryAwardTableComponent
-} from "@app/author/author-form/author-library-award-table/author-library-award-table.component";
-import {
-    AuthorLibraryAwardJuryTableComponent
-} from "@app/author/author-form/author-library-award-jury-table/author-library-award-jury-table.component";
-import {AuthorFormFieldName, AuthorFormLibraryAwardListFormGroup} from "@app/author/author-form/author-form-field-name";
+    LibraryAwardJuryTableComponent
+} from "@app/author/author-form/author-library-award-jury-table/library-award-jury-table.component";
 import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
-import {AuthorFormValidationService} from "@app/author/author-form/author-form-validation.service";
 import {TextInputComponent} from "@app/shared/form-controls/text-input/text-input.component";
 import {NumberInputComponent} from "@app/shared/form-controls/number-input/number-input.component";
+import {
+    LibraryAwardFormPartFieldName
+} from "@app/author/author-form/author-library-award-form-part/library-award-form-part-field-name";
+import {
+    LibraryAwardFormPartGroup
+} from "@app/author/author-form/author-library-award-form-part/library-award-form-part-group";
+import {
+    LibraryAwardFormPartValidationService
+} from "@app/author/author-form/author-library-award-form-part/library-award-form-part-validation.service";
 
 @Component({
     selector: 'app-author-library-award-form-part',
@@ -46,32 +49,28 @@ import {NumberInputComponent} from "@app/shared/form-controls/number-input/numbe
         FieldWrapperComponent,
         TextInputComponent,
         NumberInputComponent,
-        AuthorLibraryAwardJuryTableComponent,
+        LibraryAwardJuryTableComponent,
     ]
 })
 export class AuthorLibraryAwardFormPartComponent implements OnInit {
-    @Input({ required: true}) authorLibraryAwardListForm!: FormGroup<AuthorFormLibraryAwardListFormGroup>;
+    @Input({required: true}) authorLibraryAwardListForm!: FormGroup<LibraryAwardFormPartGroup>;
 
-    constructor(private readonly authorFormValidationService: AuthorFormValidationService,) {
+    constructor(private readonly libraryAwardFormPartValidationService: LibraryAwardFormPartValidationService,) {
     }
 
-    protected authorLibraryAwardListDescriptionControl!: FormControl<string>
-    protected authorLibraryAwardListDescriptionValidatorNames!: ReadonlyArray<ValidatorTranslation>
-    protected authorLibraryAwardListYearControl!: FormControl<number>
-    protected authorLibraryAwardListYearValidatorNames!: ReadonlyArray<ValidatorTranslation>
-    protected authorLibraryAwardListJuryListFormArray!: FormArray<FormControl<string>>
-    protected authorLibraryAwardListJuryListValidatorNames!: ReadonlyArray<ValidatorTranslation>
+    protected libraryAwardDescriptionControl!: FormControl<string>
+    protected libraryAwardDescriptionValidatorNames!: ReadonlyArray<ValidatorTranslation>
+    protected libraryAwardYearControl!: FormControl<number>
+    protected libraryAwardYearValidatorNames!: ReadonlyArray<ValidatorTranslation>
+    protected libraryAwardJuryListFormArray!: FormArray<FormControl<string>>
+    protected libraryAwardJuryListValidatorNames!: ReadonlyArray<ValidatorTranslation>
 
     ngOnInit() {
-        this.authorLibraryAwardListDescriptionControl = FormUtil.requiredFormControl(this.authorLibraryAwardListForm, AuthorFormFieldName.libraryAwardListDescription)
-        this.authorLibraryAwardListDescriptionValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormFieldName.libraryAwardListDescription)
-        this.authorLibraryAwardListYearControl = FormUtil.requiredFormControl(this.authorLibraryAwardListForm, AuthorFormFieldName.libraryAwardListYear)
-        this.authorLibraryAwardListYearValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormFieldName.libraryAwardListYear)
-        this.authorLibraryAwardListJuryListFormArray = FormUtil.requiredFormArray(this.authorLibraryAwardListForm, AuthorFormFieldName.libraryAwardListJuryList)
-        this.authorLibraryAwardListJuryListValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormFieldName.libraryAwardListJuryList)
-    }
-
-    hasError(controlName: string, errorName: string): boolean {
-        return FormUtil.hasError(this.authorLibraryAwardListForm, controlName, errorName)
+        this.libraryAwardDescriptionControl = FormUtil.requiredFormControl(this.authorLibraryAwardListForm, LibraryAwardFormPartFieldName.libraryAwardListDescription)
+        this.libraryAwardDescriptionValidatorNames = this.libraryAwardFormPartValidationService.validatorNames(LibraryAwardFormPartFieldName.libraryAwardListDescription)
+        this.libraryAwardYearControl = FormUtil.requiredFormControl(this.authorLibraryAwardListForm, LibraryAwardFormPartFieldName.libraryAwardListYear)
+        this.libraryAwardYearValidatorNames = this.libraryAwardFormPartValidationService.validatorNames(LibraryAwardFormPartFieldName.libraryAwardListYear)
+        this.libraryAwardJuryListFormArray = FormUtil.requiredFormArray(this.authorLibraryAwardListForm, LibraryAwardFormPartFieldName.libraryAwardListJuryList)
+        this.libraryAwardJuryListValidatorNames = this.libraryAwardFormPartValidationService.validatorNames(LibraryAwardFormPartFieldName.libraryAwardListJuryList)
     }
 }

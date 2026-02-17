@@ -27,7 +27,7 @@ object EntityFormComponentTypescriptRenderer : UiEntityRenderer {
           |import {MatListModule} from "@angular/material/list";
           |import {MatDialogModule} from "@angular/material/dialog";
           |import {${model.entityName}WTO} from "@app/wto/${model.entityNameLowercase}.wto";
-          |import {${model.entityName}FormService} from "@app/${model.entityNameLowercase}/${model.entityNameLowercase}-form/${model.entityNameLowercase}-form.service";
+          |import {${model.entityName}FormPartService} from "@app/${model.entityNameLowercase}/${model.entityNameLowercase}-form/${model.entityNameLowercase}-form-part/${model.entityNameLowercase}-form-part.service";
           |import {${model.entityName}FormPartComponent} from "@app/${model.entityNameLowercase}/${model.entityNameLowercase}-form/${model.entityNameLowercase}-form-part/${model.entityNameLowercase}-form-part.component";
           |
           |@Component({
@@ -57,19 +57,19 @@ object EntityFormComponentTypescriptRenderer : UiEntityRenderer {
           |
           |    ${model.entityNameLowercase}Form: FormGroup;
           |
-          |    constructor(private ${model.entityNameLowercase}EditFormService: ${model.entityName}FormService) {
-          |        this.${model.entityNameLowercase}Form = ${model.entityNameLowercase}EditFormService.createInitial${model.entityName}Form();
+          |    constructor(private ${model.entityNameLowercase}FormPartService: ${model.entityName}FormPartService) {
+          |        this.${model.entityNameLowercase}Form = ${model.entityNameLowercase}FormPartService.createInitial${model.entityName}Form();
           |    }
           |
           |    ngOnInit(): void {
           |        if (this.${model.entityNameLowercase}) {
-          |            this.${model.entityNameLowercase}EditFormService.patch${model.entityName}Form(this.${model.entityNameLowercase}Form, this.${model.entityNameLowercase})
+          |            this.${model.entityNameLowercase}FormPartService.patch${model.entityName}Form(this.${model.entityNameLowercase}Form, this.${model.entityNameLowercase})
           |        }
           |    }
           |
           |    onSubmit(): void {
           |        if (this.${model.entityNameLowercase}Form.valid) {
-          |            const updated${model.entityName}: ${model.entityName}WTO = this.${model.entityNameLowercase}EditFormService.create${model.entityName}FromFormData(this.${model.entityNameLowercase}Form)
+          |            const updated${model.entityName}: ${model.entityName}WTO = this.${model.entityNameLowercase}FormPartService.create${model.entityName}FromFormData(this.${model.entityNameLowercase}Form)
           |            this.save.emit(updated${model.entityName});
           |        }
           |    }

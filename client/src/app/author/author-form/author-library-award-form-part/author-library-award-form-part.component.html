@@ -1,19 +1,19 @@
 <div class="edit-form-container" [formGroup]="authorLibraryAwardListForm">
     <div class="form-row">
         <app-field-wrapper label="Description">
-            <app-text-input [textFormControl]="authorLibraryAwardListDescriptionControl" label="Description" placeholder="Enter description" [validatorTranslations]="authorLibraryAwardListDescriptionValidatorNames" />
+            <app-text-input [textFormControl]="libraryAwardDescriptionControl" label="Description" placeholder="Enter description" [validatorTranslations]="libraryAwardDescriptionValidatorNames" />
         </app-field-wrapper>
     </div>
 
     <div class="form-row">
         <app-field-wrapper label="Year">
-            <app-number-input [numberFormControl]="authorLibraryAwardListYearControl" label="year" placeholder="Enter year" [validatorTranslations]="authorLibraryAwardListYearValidatorNames" />
+            <app-number-input [numberFormControl]="libraryAwardYearControl" label="year" placeholder="Enter year" [validatorTranslations]="libraryAwardYearValidatorNames" />
         </app-field-wrapper>
     </div>
 
     <div class="form-row">
         <app-field-wrapper label="Jury">
-            <app-author-library-award-jury-table [authorLibraryAwardJuryFormArray]="authorLibraryAwardListJuryListFormArray" />
+            <app-library-award-jury-table [libraryAwardJuryFormArray]="libraryAwardJuryListFormArray" />
         </app-field-wrapper>
     </div>
 

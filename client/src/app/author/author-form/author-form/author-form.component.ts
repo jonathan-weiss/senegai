@@ -33,7 +33,7 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {MatDialogModule} from "@angular/material/dialog";
 import {AuthorWTO} from "@app/wto/author.wto";
-import {AuthorFormService} from "@app/author/author-form/author-form.service";
+import {AuthorFormPartService} from "@app/author/author-form/author-form-part/author-form-part.service";
 import {AuthorFormPartComponent} from "@app/author/author-form/author-form-part/author-form-part.component";
 
 @Component({
@@ -63,19 +63,19 @@ export class AuthorFormComponent implements OnInit {
 
     authorForm: FormGroup;
 
-    constructor(private authorEditFormService: AuthorFormService) {
-        this.authorForm = authorEditFormService.createInitialAuthorForm();
+    constructor(private authorFormPartService: AuthorFormPartService) {
+        this.authorForm = authorFormPartService.createInitialAuthorForm();
     }
 
     ngOnInit(): void {
         if (this.author) {
-            this.authorEditFormService.patchAuthorForm(this.authorForm, this.author)
+            this.authorFormPartService.patchAuthorForm(this.authorForm, this.author)
         }
     }
 
     onSubmit(): void {
         if (this.authorForm.valid) {
-            const updatedAuthor: AuthorWTO = this.authorEditFormService.createAuthorFromFormData(this.authorForm)
+            const updatedAuthor: AuthorWTO = this.authorFormPartService.createAuthorFromFormData(this.authorForm)
             this.save.emit(updatedAuthor);
         }
     }

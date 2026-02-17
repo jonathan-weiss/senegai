@@ -1,0 +1,54 @@
+/* @tt{{{
+    @slbc
+
+    @template-renderer [ templateRendererClassName="ItemFormPartGroupRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="UiItemRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
+
+    @template-model [
+    modelClassName="UiItemModel"
+    modelPackageName="senegai.codegen.renderer.model.ui"
+    modelName="model"
+    ]
+
+    @replace-value-by-expression
+        [ searchValue="Author" replaceByExpression="model.itemName" ]
+        [ searchValue="author" replaceByExpression="model.itemNameLowercase" ]
+
+    @modify-provided-filename-by-replacements
+
+    @slac
+
+}}}@ */
+
+import {FormArray, FormControl, FormGroup} from "@angular/forms";
+import {AuthorFormPartFieldName} from "@app/author/author-form/author-form-part/author-form-part-field-name";
+/* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+import {GenderEnum} from "@app/wto/gender.enum";
+import {
+    LibraryAwardFormPartGroup
+} from "@app/author/author-form/author-library-award-form-part/library-award-form-part-group";
+
+/* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+
+
+export interface AuthorFormPartGroup {
+    /* @tt{{{ @slbc
+        @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
+
+        @replace-value-by-expression
+            [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
+
+    }}}@  */
+    [AuthorFormPartFieldName.firstname]: FormControl<string>,
+    /* @tt{{{ @slbc @end-foreach @slac }}}@ */
+    /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+    [AuthorFormPartFieldName.nicknameIsNotNull]: FormControl<boolean>,
+    [AuthorFormPartFieldName.nickname]: FormControl<string | null>,
+    [AuthorFormPartFieldName.lastname]: FormControl<string>,
+    [AuthorFormPartFieldName.libraryAwardList]: FormArray<FormGroup<LibraryAwardFormPartGroup>>,
+    [AuthorFormPartFieldName.birthdayIsNotNull]: FormControl<boolean>,
+    [AuthorFormPartFieldName.birthday]: FormControl<Date | null>,
+    [AuthorFormPartFieldName.vegetarian]: FormControl<boolean>,
+    [AuthorFormPartFieldName.gender]: FormControl<GenderEnum>,
+    [AuthorFormPartFieldName.id]: FormControl<string>,
+    /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+}

@@ -30,15 +30,18 @@ object ItemFormPartComponentTypescriptRenderer : UiItemRenderer {
           |import {FieldWrapperComponent} from "@app/shared/form-controls/field-wrapper/field-wrapper.component";
           |import {MatOption} from "@angular/material/core";
           |import {MatSelect} from "@angular/material/select";
-          |import {${model.itemName}FormValidationService} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form-validation.service";
+          |import {${model.itemName}FormPartValidationService} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-validation.service";
           |import {
-          |    ${model.itemName}FormFieldName,
-          |    ${model.itemName}FormGroup,
-          |} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form-field-name";
+          |    ${model.itemName}FormPartFieldName,
+          |} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-field-name";
           |import {TextInputComponent} from "@app/shared/form-controls/text-input/text-input.component";
           |import {DatepickerInputComponent} from "@app/shared/form-controls/datepicker-input/datepicker-input.component";
           |import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
           |import {MatTab, MatTabGroup} from "@angular/material/tabs";
+          |import {
+          |    ${model.itemName}FormPartGroup
+          |} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-group";
+          |
           |@Component({
           |    selector: 'app-${model.itemNameLowercase}-form-part',
           |    templateUrl: './${model.itemNameLowercase}-form-part.component.html',
@@ -63,18 +66,18 @@ object ItemFormPartComponentTypescriptRenderer : UiItemRenderer {
           |    ]
           |})
           |export class ${model.itemName}FormPartComponent implements OnInit {
-          |    @Input({ required: true }) ${model.itemNameLowercase}Form!: FormGroup<${model.itemName}FormGroup>;
+          |    @Input({ required: true }) ${model.itemNameLowercase}Form!: FormGroup<${model.itemName}FormPartGroup>;
           |    ${ model.attributes.joinToString("") { attribute ->  """    protected ${attribute.attributeName}Control!: FormControl<string>
               |    protected ${attribute.attributeName}ValidatorNames!: ReadonlyArray<ValidatorTranslation>
               |
           """ } }
-          |    constructor(private readonly ${model.itemNameLowercase}FormValidationService: ${model.itemName}FormValidationService,) {
+          |    constructor(private readonly ${model.itemNameLowercase}FormValidationService: ${model.itemName}FormPartValidationService,) {
           |    }
           |
           |    ngOnInit() {
           |        ${ model.attributes.joinToString("") { attribute ->  """
-              |        this.${attribute.attributeName}Control = FormUtil.requiredFormControl(this.${model.itemNameLowercase}Form, ${model.itemName}FormFieldName.${attribute.attributeName})
-              |        this.${attribute.attributeName}ValidatorNames = this.${model.itemNameLowercase}FormValidationService.validatorNames(${model.itemName}FormFieldName.${attribute.attributeName})
+              |        this.${attribute.attributeName}Control = FormUtil.requiredFormControl(this.${model.itemNameLowercase}Form, ${model.itemName}FormPartFieldName.${attribute.attributeName})
+              |        this.${attribute.attributeName}ValidatorNames = this.${model.itemNameLowercase}FormValidationService.validatorNames(${model.itemName}FormPartFieldName.${attribute.attributeName})
               |
           """ } }    }
           |}

@@ -41,10 +41,6 @@ object Rendering {
             EntitySearchComponentScssRenderer,
             EntitySearchComponentTypescriptRenderer,
             EntityServiceRenderer,
-            EntityFormFieldNameRenderer,
-            EntityFormValidationServiceRenderer,
-            EntityFormInitialServiceRenderer,
-            EntityEditFormServiceRenderer,
         )
 
         uiEntities.forEach { uiEntityModel ->
@@ -61,10 +57,14 @@ object Rendering {
             ItemFormPartComponentHtmlRenderer,
             ItemFormPartComponentScssRenderer,
             ItemFormPartComponentTypescriptRenderer,
+            ItemFormPartFieldNameRenderer,
+            ItemFormPartValidationServiceRenderer,
+            ItemFormPartInitialValueServiceRenderer,
+            ItemFormPartServiceRenderer,
+            ItemFormPartGroupRenderer,
             ItemWTOInterfaceRenderer,
         )
 
-        // TODO form-part needs a special treatment a.) as the form data is nested b.) redundant over the entities
         uiItems.forEach { uiItemModel ->
             itemRenderer.forEach { renderer ->
                 writeFile(

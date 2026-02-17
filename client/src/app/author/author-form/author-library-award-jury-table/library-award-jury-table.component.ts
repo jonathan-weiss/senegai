@@ -13,9 +13,9 @@ import {MatListModule} from "@angular/material/list";
 import {MatDialogModule} from "@angular/material/dialog";
 
 @Component({
-    selector: 'app-author-library-award-jury-table',
-    templateUrl: './author-library-award-jury-table.component.html',
-    styleUrls: ['./author-library-award-jury-table.component.scss'],
+    selector: 'app-library-award-jury-table',
+    templateUrl: './library-award-jury-table.component.html',
+    styleUrls: ['./library-award-jury-table.component.scss'],
     imports: [
         ReactiveFormsModule,
         MatButtonModule,
@@ -31,8 +31,8 @@ import {MatDialogModule} from "@angular/material/dialog";
         MatDialogModule,
     ]
 })
-export class AuthorLibraryAwardJuryTableComponent implements OnInit {
-    @Input({ required: true }) authorLibraryAwardJuryFormArray!: FormArray;
+export class LibraryAwardJuryTableComponent implements OnInit {
+    @Input({ required: true }) libraryAwardJuryFormArray!: FormArray;
 
     displayedColumns: string[] = ['jury', 'actions'];
     dataSource: MatTableDataSource<AbstractControl> = new MatTableDataSource<AbstractControl>();
@@ -40,21 +40,21 @@ export class AuthorLibraryAwardJuryTableComponent implements OnInit {
     selectedControl: FormControl | undefined = undefined;
 
     ngOnInit(): void {
-        this.dataSource.data = this.authorLibraryAwardJuryFormArray.controls
-        this.authorLibraryAwardJuryFormArray.valueChanges.subscribe(() => this.updateFormData())
+        this.dataSource.data = this.libraryAwardJuryFormArray.controls
+        this.libraryAwardJuryFormArray.valueChanges.subscribe(() => this.updateFormData())
     }
 
     private updateFormData(): void {
-        this.dataSource.data = this.authorLibraryAwardJuryFormArray.controls
+        this.dataSource.data = this.libraryAwardJuryFormArray.controls
     }
 
     onAdd(): void {
         const newEntry = new FormControl('')
-        const indexOfSelected = this.selectedControl ? this.authorLibraryAwardJuryFormArray.controls.indexOf(this.selectedControl) : -1
+        const indexOfSelected = this.selectedControl ? this.libraryAwardJuryFormArray.controls.indexOf(this.selectedControl) : -1
         if(indexOfSelected !== -1) {
-            this.authorLibraryAwardJuryFormArray.insert(indexOfSelected + 1, newEntry)
+            this.libraryAwardJuryFormArray.insert(indexOfSelected + 1, newEntry)
         } else {
-            this.authorLibraryAwardJuryFormArray.push(newEntry)
+            this.libraryAwardJuryFormArray.push(newEntry)
         }
     }
 
@@ -67,9 +67,9 @@ export class AuthorLibraryAwardJuryTableComponent implements OnInit {
     }
 
     onDelete(authorLibraryAwardFormControl: FormControl): void {
-        const indexOfSelected = this.authorLibraryAwardJuryFormArray.controls.indexOf(authorLibraryAwardFormControl)
+        const indexOfSelected = this.libraryAwardJuryFormArray.controls.indexOf(authorLibraryAwardFormControl)
         if(indexOfSelected !== -1) {
-            this.authorLibraryAwardJuryFormArray.removeAt(indexOfSelected)
+            this.libraryAwardJuryFormArray.removeAt(indexOfSelected)
         }
     }
 }

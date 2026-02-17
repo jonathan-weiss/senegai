@@ -3,46 +3,46 @@
  */
 package senegai.codegen.renderer.angular
 
-import senegai.codegen.renderer.model.ui.UiEntityModel
+import senegai.codegen.renderer.model.ui.UiItemModel
 
 /**
- * Generate the content for the template EntityFormValidationServiceRenderer filled up
+ * Generate the content for the template ItemFormPartValidationServiceRenderer filled up
  * with the content of the passed models.
  */
-object EntityFormValidationServiceRenderer : UiEntityRenderer {
+object ItemFormPartValidationServiceRenderer : UiItemRenderer {
 
-    override fun renderTemplate(model: UiEntityModel): String {
+    override fun renderTemplate(model: UiItemModel): String {
         return """
           |
           |import {Injectable} from '@angular/core';
           |import {ValidatorFn, Validators} from "@angular/forms";
-          |import {${model.entityName}FormFieldName} from "@app/${model.entityNameLowercase}/${model.entityNameLowercase}-form/${model.entityNameLowercase}-form-field-name";
+          |import {${model.itemName}FormPartFieldName} from "@app/${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-field-name";
           |import {NamedValidator} from "@app/shared/form-controls/named-validator";
           |import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
           |
           |@Injectable({providedIn: 'root'})
-          |export class ${model.entityName}FormValidationService {
+          |export class ${model.itemName}FormPartValidationService {
           |
-          |    validatorFunctions(field: ${model.entityName}FormFieldName): Array<ValidatorFn> {
+          |    validatorFunctions(field: ${model.itemName}FormPartFieldName): Array<ValidatorFn> {
           |        return this.namedValidators(field).map(namedValidator => namedValidator.validatorFunction)
           |    }
           |
-          |    validatorNames(field: ${model.entityName}FormFieldName): Array<ValidatorTranslation> {
+          |    validatorNames(field: ${model.itemName}FormPartFieldName): Array<ValidatorTranslation> {
           |        return this.namedValidators(field)
           |            .map(namedValidator => this.toValidatorTranslation(namedValidator))
           |    }
           |
-          |    private toValidatorTranslation(namedValidator: ValidatorTranslation): ValidatorTranslation {
+          |    private toValidatorTranslation(namedValidator: NamedValidator): ValidatorTranslation {
           |        return {
           |            validatorName: namedValidator.validatorName,
           |            validatorTranslationKey: namedValidator.validatorTranslationKey,
           |        }
           |    }
           |
-          |    namedValidators(field: ${model.entityName}FormFieldName): ReadonlyArray<NamedValidator> {
+          |    namedValidators(field: ${model.itemName}FormPartFieldName): ReadonlyArray<NamedValidator> {
           |        // TODO use mapped types https://www.typescriptlang.org/docs/handbook/2/mapped-types.html
-          |        switch(field) {${ model.chainedFormAttributes.joinToString("") { attribute ->  """
-              |            case ${model.entityName}FormFieldName.${attribute.attributeName}: return [
+          |        switch(field) {${ model.attributes.joinToString("") { attribute ->  """
+              |            case ${model.itemName}FormPartFieldName.${attribute.attributeName}: return [
               |                {
               |                    validatorName: "required",
               |                    validatorFunction: Validators.required,
@@ -62,7 +62,7 @@ object EntityFormValidationServiceRenderer : UiEntityRenderer {
         """.trimMargin(marginPrefix = "|")
     }
 
-    override fun filePath(model: UiEntityModel): String {
-      return "${model.entityNameLowercase}/${model.entityNameLowercase}-form/${model.entityNameLowercase}-form-validation.service.ts"
+    override fun filePath(model: UiItemModel): String {
+      return "${model.itemNameLowercase}/${model.itemNameLowercase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-validation.service.ts"
     }
 }

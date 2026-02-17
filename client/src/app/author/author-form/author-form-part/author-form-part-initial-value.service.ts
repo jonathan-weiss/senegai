@@ -1,17 +1,17 @@
 /* @tt{{{
     @slbc
 
-    @template-renderer [ templateRendererClassName="EntityFormInitialServiceRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="UiEntityRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
+    @template-renderer [ templateRendererClassName="ItemFormPartInitialValueServiceRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="UiItemRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
 
     @template-model [
-    modelClassName="UiEntityModel"
+    modelClassName="UiItemModel"
     modelPackageName="senegai.codegen.renderer.model.ui"
     modelName="model"
     ]
 
     @replace-value-by-expression
-        [ searchValue="Author" replaceByExpression="model.entityName" ]
-        [ searchValue="author" replaceByExpression="model.entityNameLowercase" ]
+        [ searchValue="Author" replaceByExpression="model.itemName" ]
+        [ searchValue="author" replaceByExpression="model.itemNameLowercase" ]
 
     @modify-provided-filename-by-replacements
 
@@ -27,7 +27,7 @@ import {GenderEnum} from "@app/wto/gender.enum";
 
 
 @Injectable({providedIn: 'root'})
-export class AuthorFormInitialValueService {
+export class AuthorFormPartInitialValueService {
     /* @tt{{{ @ignore-text }}}@ */
 
     idInitialValue(): string {
@@ -37,7 +37,7 @@ export class AuthorFormInitialValueService {
 
 
     /* @tt{{{ @slbc
-        @foreach [ iteratorExpression="model.chainedFormAttributes" loopVariable="attribute" ]
+        @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
 
         @replace-value-by-expression
             [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
@@ -54,15 +54,6 @@ export class AuthorFormInitialValueService {
     }
 
     lastnameInitialValue(): string {
-        return ''
-    }
-    libraryAwardListDescriptionInitialValue(): string {
-        return ''
-    }
-    libraryAwardListYearInitialValue(): number {
-        return 2025
-    }
-    libraryAwardListJuryListInitialValue(): string {
         return ''
     }
     birthdayInitialValue(): Date {
