@@ -18,7 +18,7 @@ class CodeGenPlaygroundTest {
     fun `test renderer model converter`() {
         val schemaData = fetchSchemaData()
         val schemaModel = convertToSchemaModel(schemaData)
-        assertTrue(schemaModel.itemsModel.allItems.isNotEmpty())
+        assertTrue(schemaModel.uiModel.uiEntities.isNotEmpty())
     }
 
 }

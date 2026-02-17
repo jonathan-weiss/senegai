@@ -22,13 +22,9 @@ fun main(args: Array<String>) {
 }
 
 internal fun fetchSchemaData(): SchemaData {
-    val schemaData = DefinitionDataCollection.collectSchemaData()
-    println("SchemaData: $schemaData")
-    return schemaData
+    return DefinitionDataCollection.collectSchemaData()
 }
 
 internal fun convertToSchemaModel(schemaData: SchemaData): SchemaModel {
-    val schemaModel = RendererModelConverter.convertSchemaDataToSchemaModel(schemaData)
-    println("SchemaModel: $schemaModel")
-    return schemaModel
+    return RendererModelConverter.convertSchemaDataToSchemaModel(schemaData)
 }
