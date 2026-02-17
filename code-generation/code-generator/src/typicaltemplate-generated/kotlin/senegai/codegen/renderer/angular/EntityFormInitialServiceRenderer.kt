@@ -20,7 +20,7 @@ object EntityFormInitialServiceRenderer : UiEntityRenderer {
           |export class ${model.entityName}FormInitialValueService {
           |    
           |
-          |${ model.attributes.joinToString("") { attribute ->  """
+          |${ model.chainedFormAttributes.joinToString("") { attribute ->  """
               |    ${attribute.attributeName}InitialValue(): string {
               |        return ''
               |    }

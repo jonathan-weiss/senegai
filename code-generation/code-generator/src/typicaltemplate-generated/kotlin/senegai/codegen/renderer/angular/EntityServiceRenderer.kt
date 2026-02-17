@@ -22,7 +22,7 @@ object EntityServiceRenderer : UiEntityRenderer {
           |export class ${model.entityName}Service {
           |    private ${model.entityNameLowercase}s: ${model.entityName}WTO[] = [
           |        {
-          |            ${ model.attributes.joinToString("") { attribute ->  """
+          |            ${ model.entityRootItem.attributes.joinToString("") { attribute ->  """
               |            ${attribute.attributeName}: ${attribute.typescriptAttributeTypeExample},
           """ } }        },    ];
           |

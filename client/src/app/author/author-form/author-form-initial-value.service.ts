@@ -37,7 +37,7 @@ export class AuthorFormInitialValueService {
 
 
     /* @tt{{{ @slbc
-        @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
+        @foreach [ iteratorExpression="model.chainedFormAttributes" loopVariable="attribute" ]
 
         @replace-value-by-expression
             [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]

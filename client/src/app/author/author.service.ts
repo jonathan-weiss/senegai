@@ -32,7 +32,7 @@ export class AuthorService {
     private authors: AuthorWTO[] = [
         {
             /* @tt{{{
-                @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
+                @foreach [ iteratorExpression="model.entityRootItem.attributes" loopVariable="attribute" ]
 
                 @replace-value-by-expression
                     [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]

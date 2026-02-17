@@ -34,7 +34,7 @@ object EntityEditFormServiceRenderer : UiEntityRenderer {
           |    ) {}
           |
           |    public createInitial${model.entityName}Form(): FormGroup<${model.entityName}FormGroup> {
-          |        return new FormGroup({${ model.attributes.joinToString("") { attribute ->  """
+          |        return new FormGroup({${ model.chainedFormAttributes.joinToString("") { attribute ->  """
               |            [${model.entityName}FormFieldName.${attribute.attributeName}]: new FormControl<string>(
               |                this.${model.entityNameLowercase}FormInitialValueService.${attribute.attributeName}InitialValue(),
               |                {
@@ -45,12 +45,12 @@ object EntityEditFormServiceRenderer : UiEntityRenderer {
           """ } }        });
           |    }
           |
-          |    public patch${model.entityName}Form(form: AbstractControl, ${model.entityNameLowercase}: ${model.entityName}WTO): void {        ${ model.attributes.joinToString("") { attribute ->  """        FormUtil.requiredFormControl(form, ${model.entityName}FormFieldName.${attribute.attributeName}).patchValue(${model.entityNameLowercase}.${attribute.attributeName});
+          |    public patch${model.entityName}Form(form: AbstractControl, ${model.entityNameLowercase}: ${model.entityName}WTO): void {        ${ model.chainedFormAttributes.joinToString("") { attribute ->  """        FormUtil.requiredFormControl(form, ${model.entityName}FormFieldName.${attribute.attributeName}).patchValue(${model.entityNameLowercase}.${attribute.attributeName});
           """ } }    }
           |
           |    public create${model.entityName}FromFormData(form: AbstractControl): ${model.entityName}WTO {
           |        return {
-          |                        ${ model.attributes.joinToString("") { attribute ->  """            ${attribute.attributeName}: FormUtil.requiredFormControl(form, ${model.entityName}FormFieldName.${attribute.attributeName}).value as string,
+          |                        ${ model.chainedFormAttributes.joinToString("") { attribute ->  """            ${attribute.attributeName}: FormUtil.requiredFormControl(form, ${model.entityName}FormFieldName.${attribute.attributeName}).value as string,
           """ } }        };
           |    }
           |

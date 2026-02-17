@@ -52,7 +52,7 @@ export class AuthorFormValidationService {
         // TODO use mapped types https://www.typescriptlang.org/docs/handbook/2/mapped-types.html
         switch(field) {
             /* @tt{{{ @slbc
-                @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
+                @foreach [ iteratorExpression="model.chainedFormAttributes" loopVariable="attribute" ]
 
                 @replace-value-by-expression
                     [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]

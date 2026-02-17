@@ -1,15 +1,18 @@
 package senegai.codegen.renderer.model.ui
 
 data class UiEntityModel(
-    val rootItemModel: UiItemModel
+    val entityRootItem: UiItemModel
 ) {
-    val entityItemModels: List<UiItemModel> = listOf(rootItemModel) // TODO implement recursive
+    val entityItemModels: List<UiItemModel> = listOf(entityRootItem) // TODO implement recursive
 
-    val entityName: String = rootItemModel.itemName
-    val entityNameLowercase: String = rootItemModel.itemName.lowercase()
-    val entityNameForAngularFile: String = rootItemModel.itemName.lowercase()  // TODO uses dashes case
+    val entityName: String = entityRootItem.itemName
+    val entityNameLowercase: String = entityRootItem.itemName.lowercase()
+    val entityNameForAngularFile: String = entityRootItem.itemName.lowercase()  // TODO uses dashes case
 
-    val attributes: List<UiItemAttributeModel> = rootItemModel.attributes
-    val searchResultAttributes: List<UiItemAttributeModel> = rootItemModel.attributes
-    val searchCriteriaAttributes: List<UiItemAttributeModel> = rootItemModel.attributes
+    val searchResultAttributes: List<UiItemAttributeModel> = entityRootItem.attributes
+    val searchCriteriaAttributes: List<UiItemAttributeModel> = entityRootItem.attributes
+    val chainedFormAttributes: List<UiEntityChainedAttributeModel> = entityRootItem.attributes
+        .map { UiEntityChainedAttributeModel(listOf(
+            UiEntityItemAndAttributeModel(this, entityRootItem, it) // TODO make that recursive
+        )) }
 }

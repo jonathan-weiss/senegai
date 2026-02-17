@@ -41,7 +41,7 @@ object EntityFormValidationServiceRenderer : UiEntityRenderer {
           |
           |    namedValidators(field: ${model.entityName}FormFieldName): ReadonlyArray<NamedValidator> {
           |        // TODO use mapped types https://www.typescriptlang.org/docs/handbook/2/mapped-types.html
-          |        switch(field) {${ model.attributes.joinToString("") { attribute ->  """
+          |        switch(field) {${ model.chainedFormAttributes.joinToString("") { attribute ->  """
               |            case ${model.entityName}FormFieldName.${attribute.attributeName}: return [
               |                {
               |                    validatorName: "required",

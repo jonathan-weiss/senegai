@@ -48,7 +48,7 @@ object RendererModelConverter {
 
     private fun mapUiEntityViewsModel(uiEntity: UiEntity): UiEntityViewsModel {
         val uiEntityModel = UiEntityModel(
-            rootItemModel = mapUiItemModel(uiEntity, uiEntity.entity.item)
+            entityRootItem = mapUiItemModel(uiEntity, uiEntity.entity.item)
         )
         return UiEntityViewsModel(
             uiEntity = uiEntityModel,
@@ -81,7 +81,7 @@ object RendererModelConverter {
             is UiEntityAttributeBlock -> UiEntityFormItemAttributeBlockModel(
                 entity = uiEntityModel,
                 attributeName = block.entityAttributeName,
-                item = uiEntityModel.rootItemModel, // TODO only the root item is good enough for the moment
+                item = uiEntityModel.entityRootItem, // TODO only the root item is good enough for the moment
                 type = UiFormAttributeType.NON_NULLABLE_SINGLE_VALUE, // TODO good for the moment
             )
         }

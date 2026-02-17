@@ -15,12 +15,12 @@ object EntityFormFieldNameRenderer : UiEntityRenderer {
         return """
           |
           |import {FormArray, FormControl, FormGroup} from "@angular/forms";
-          |export enum ${model.entityName}FormFieldName {${ model.attributes.joinToString("") { attribute ->  """
+          |export enum ${model.entityName}FormFieldName {${ model.chainedFormAttributes.joinToString("") { attribute ->  """
               |    ${attribute.attributeName} = "${attribute.attributeName}",
           """ } }}
           |
           |
-          |export interface ${model.entityName}FormGroup {${ model.attributes.joinToString("") { attribute ->  """
+          |export interface ${model.entityName}FormGroup {${ model.chainedFormAttributes.joinToString("") { attribute ->  """
               |    [${model.entityName}FormFieldName.${attribute.attributeName}]: FormControl<string>,
           """ } }}
           |

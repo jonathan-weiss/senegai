@@ -60,7 +60,7 @@ export class AuthorFormService {
             ),
             /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
             /* @tt{{{ @slbc
-                @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
+                @foreach [ iteratorExpression="model.chainedFormAttributes" loopVariable="attribute" ]
 
                 @replace-value-by-expression
                     [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
@@ -176,7 +176,7 @@ export class AuthorFormService {
         FormUtil.requiredFormControl(form, AuthorFormFieldName.id).patchValue(author.id);
         /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
         /* @tt{{{
-            @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
+            @foreach [ iteratorExpression="model.chainedFormAttributes" loopVariable="attribute" ]
 
             @replace-value-by-expression
                 [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
@@ -220,7 +220,7 @@ export class AuthorFormService {
             id: FormUtil.requiredFormControl(form, AuthorFormFieldName.id).value as string,
             /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
             /* @tt{{{
-                @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
+                @foreach [ iteratorExpression="model.chainedFormAttributes" loopVariable="attribute" ]
 
                 @replace-value-by-expression
                     [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]

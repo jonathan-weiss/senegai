@@ -26,7 +26,7 @@ import {GenderEnum} from "@app/wto/gender.enum";
 
 export enum AuthorFormFieldName {
     /* @tt{{{ @slbc
-        @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
+        @foreach [ iteratorExpression="model.chainedFormAttributes" loopVariable="attribute" ]
 
         @replace-value-by-expression
             [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
@@ -53,7 +53,7 @@ export enum AuthorFormFieldName {
 
 export interface AuthorFormGroup {
     /* @tt{{{ @slbc
-        @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
+        @foreach [ iteratorExpression="model.chainedFormAttributes" loopVariable="attribute" ]
 
         @replace-value-by-expression
             [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
