@@ -32,7 +32,7 @@ export const SIDE_NAVIGATION_LINKS: ReadonlyArray<SideNavLink> = [
 
         @slac
       }}}@  */
-    {routeLink: '/author-board', name: "Authors", icon: "people"},
+    {routeLink: '/opus-magnum-board', name: "Opera Magna", icon: "people"},
 /* @tt{{{ @slbc  @end-replace-value-by-expression @end-foreach  @slac }}}@ */
 ]
 /* @tt{{{ @slbc  @end-replace-value-by-value @slac }}}@ */

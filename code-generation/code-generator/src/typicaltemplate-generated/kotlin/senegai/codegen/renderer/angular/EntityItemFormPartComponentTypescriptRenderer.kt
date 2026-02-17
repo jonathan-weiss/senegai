@@ -3,15 +3,16 @@
  */
 package senegai.codegen.renderer.angular
 
+import senegai.codegen.renderer.model.ui.UiEntityModel
 import senegai.codegen.renderer.model.ui.UiItemModel
 
 /**
- * Generate the content for the template ItemFormPartComponentTypescriptRenderer filled up
+ * Generate the content for the template EntityItemFormPartComponentTypescriptRenderer filled up
  * with the content of the passed models.
  */
-object ItemFormPartComponentTypescriptRenderer : UiItemRenderer {
+object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
 
-    override fun renderTemplate(model: UiItemModel): String {
+    override fun renderTemplate(entity: UiEntityModel, model: UiItemModel): String {
         return """
           |import {Component, Input, OnInit} from '@angular/core';
           |import {FormArray, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
@@ -30,17 +31,17 @@ object ItemFormPartComponentTypescriptRenderer : UiItemRenderer {
           |import {FieldWrapperComponent} from "@app/shared/form-controls/field-wrapper/field-wrapper.component";
           |import {MatOption} from "@angular/material/core";
           |import {MatSelect} from "@angular/material/select";
-          |import {${model.itemName}FormPartValidationService} from "@app/opus-magnum/opus-magnum-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-validation.service";
+          |import {${model.itemName}FormPartValidationService} from "@app/${entity.entityNameDashCase}/${entity.entityNameDashCase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-validation.service";
           |import {
           |    ${model.itemName}FormPartFieldName,
-          |} from "@app/opus-magnum/opus-magnum-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-field-name";
+          |} from "@app/${entity.entityNameDashCase}/${entity.entityNameDashCase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-field-name";
           |import {TextInputComponent} from "@app/shared/form-controls/text-input/text-input.component";
           |import {DatepickerInputComponent} from "@app/shared/form-controls/datepicker-input/datepicker-input.component";
           |import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
           |import {MatTab, MatTabGroup} from "@angular/material/tabs";
           |import {
           |    ${model.itemName}FormPartGroup
-          |} from "@app/opus-magnum/opus-magnum-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-group";
+          |} from "@app/${entity.entityNameDashCase}/${entity.entityNameDashCase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-group";
           |
           |@Component({
           |    selector: 'app-${model.itemNameLowercase}-form-part',
@@ -85,7 +86,7 @@ object ItemFormPartComponentTypescriptRenderer : UiItemRenderer {
         """.trimMargin(marginPrefix = "|")
     }
 
-    override fun filePath(model: UiItemModel): String {
-      return "opus-magnum/opus-magnum-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part.component.ts"
+    override fun filePath(entity: UiEntityModel, model: UiItemModel): String {
+      return "${entity.entityNameDashCase}/${entity.entityNameDashCase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part.component.ts"
     }
 }

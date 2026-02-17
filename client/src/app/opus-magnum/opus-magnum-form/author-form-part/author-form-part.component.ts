@@ -2,7 +2,13 @@
 
     @slbc
 
-    @template-renderer [ templateRendererClassName="ItemFormPartComponentTypescriptRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="UiItemRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
+    @template-renderer [ templateRendererClassName="EntityItemFormPartComponentTypescriptRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="UiEntityItemRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
+
+    @template-model [
+        modelClassName="UiEntityModel"
+        modelPackageName="senegai.codegen.renderer.model.ui"
+        modelName="entity"
+    ]
 
     @template-model [
         modelClassName="UiItemModel"
@@ -13,6 +19,9 @@
     @replace-value-by-expression
         [ searchValue="Author" replaceByExpression="model.itemName" ]
         [ searchValue="author" replaceByExpression="model.itemNameLowercase" ]
+        [ searchValue="opus-magnum" replaceByExpression="entity.entityNameDashCase" ]
+        [ searchValue="OpusMagnum" replaceByExpression="entity.entityName" ]
+        [ searchValue="opusMagnum" replaceByExpression="entity.entityNameLowercase" ]
 
     @modify-provided-filename-by-replacements
 

@@ -3,15 +3,16 @@
  */
 package senegai.codegen.renderer.angular
 
+import senegai.codegen.renderer.model.ui.UiEntityModel
 import senegai.codegen.renderer.model.ui.UiItemModel
 
 /**
- * Generate the content for the template ItemFormPartServiceRenderer filled up
+ * Generate the content for the template EntityItemFormPartServiceRenderer filled up
  * with the content of the passed models.
  */
-object ItemFormPartServiceRenderer : UiItemRenderer {
+object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
 
-    override fun renderTemplate(model: UiItemModel): String {
+    override fun renderTemplate(entity: UiEntityModel, model: UiItemModel): String {
         return """
           |
           |import {Injectable} from '@angular/core';
@@ -20,12 +21,12 @@ object ItemFormPartServiceRenderer : UiItemRenderer {
           |import {FormUtil} from "@app/shared/form-controls/form.util";
           |import {
           |    ${model.itemName}FormPartValidationService
-          |} from "@app/opus-magnum/opus-magnum-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-validation.service";
+          |} from "@app/${entity.entityNameDashCase}/${entity.entityNameDashCase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-validation.service";
           |import {
           |    ${model.itemName}FormPartInitialValueService
-          |} from "@app/opus-magnum/opus-magnum-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-initial-value.service";
-          |import {${model.itemName}FormPartFieldName} from "@app/opus-magnum/opus-magnum-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-field-name";
-          |import {${model.itemName}FormPartGroup} from "@app/opus-magnum/opus-magnum-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-group";
+          |} from "@app/${entity.entityNameDashCase}/${entity.entityNameDashCase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-initial-value.service";
+          |import {${model.itemName}FormPartFieldName} from "@app/${entity.entityNameDashCase}/${entity.entityNameDashCase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-field-name";
+          |import {${model.itemName}FormPartGroup} from "@app/${entity.entityNameDashCase}/${entity.entityNameDashCase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-group";
           |
           |@Injectable({providedIn: 'root'})
           |export class ${model.itemName}FormPartService {
@@ -59,7 +60,7 @@ object ItemFormPartServiceRenderer : UiItemRenderer {
         """.trimMargin(marginPrefix = "|")
     }
 
-    override fun filePath(model: UiItemModel): String {
-      return "opus-magnum/opus-magnum-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part.service.ts"
+    override fun filePath(entity: UiEntityModel, model: UiItemModel): String {
+      return "${entity.entityNameDashCase}/${entity.entityNameDashCase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part.service.ts"
     }
 }

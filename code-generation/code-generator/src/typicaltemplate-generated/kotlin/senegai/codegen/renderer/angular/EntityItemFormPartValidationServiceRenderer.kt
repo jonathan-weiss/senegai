@@ -3,20 +3,21 @@
  */
 package senegai.codegen.renderer.angular
 
+import senegai.codegen.renderer.model.ui.UiEntityModel
 import senegai.codegen.renderer.model.ui.UiItemModel
 
 /**
- * Generate the content for the template ItemFormPartValidationServiceRenderer filled up
+ * Generate the content for the template EntityItemFormPartValidationServiceRenderer filled up
  * with the content of the passed models.
  */
-object ItemFormPartValidationServiceRenderer : UiItemRenderer {
+object EntityItemFormPartValidationServiceRenderer : UiEntityItemRenderer {
 
-    override fun renderTemplate(model: UiItemModel): String {
+    override fun renderTemplate(entity: UiEntityModel, model: UiItemModel): String {
         return """
           |
           |import {Injectable} from '@angular/core';
           |import {ValidatorFn, Validators} from "@angular/forms";
-          |import {${model.itemName}FormPartFieldName} from "@app/opus-magnum/opus-magnum-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-field-name";
+          |import {${model.itemName}FormPartFieldName} from "@app/${entity.entityNameDashCase}/${entity.entityNameDashCase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-field-name";
           |import {NamedValidator} from "@app/shared/form-controls/named-validator";
           |import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
           |
@@ -62,7 +63,7 @@ object ItemFormPartValidationServiceRenderer : UiItemRenderer {
         """.trimMargin(marginPrefix = "|")
     }
 
-    override fun filePath(model: UiItemModel): String {
-      return "opus-magnum/opus-magnum-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-validation.service.ts"
+    override fun filePath(entity: UiEntityModel, model: UiItemModel): String {
+      return "${entity.entityNameDashCase}/${entity.entityNameDashCase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-validation.service.ts"
     }
 }

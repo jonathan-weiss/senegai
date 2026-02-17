@@ -1,17 +1,26 @@
 /* @tt{{{
     @slbc
 
-    @template-renderer [ templateRendererClassName="ItemFormPartFieldNameRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="UiItemRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
+    @template-renderer [ templateRendererClassName="EntityItemFormPartFieldNameRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="UiEntityItemRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
 
     @template-model [
-    modelClassName="UiItemModel"
-    modelPackageName="senegai.codegen.renderer.model.ui"
-    modelName="model"
+        modelClassName="UiEntityModel"
+        modelPackageName="senegai.codegen.renderer.model.ui"
+        modelName="entity"
+    ]
+
+    @template-model [
+        modelClassName="UiItemModel"
+        modelPackageName="senegai.codegen.renderer.model.ui"
+        modelName="model"
     ]
 
     @replace-value-by-expression
         [ searchValue="Author" replaceByExpression="model.itemName" ]
         [ searchValue="author" replaceByExpression="model.itemNameLowercase" ]
+        [ searchValue="opus-magnum" replaceByExpression="entity.entityNameDashCase" ]
+        [ searchValue="OpusMagnum" replaceByExpression="entity.entityName" ]
+        [ searchValue="opusMagnum" replaceByExpression="entity.entityNameLowercase" ]
 
     @modify-provided-filename-by-replacements
 

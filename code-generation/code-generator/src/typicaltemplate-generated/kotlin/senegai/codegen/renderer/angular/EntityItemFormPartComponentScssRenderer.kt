@@ -3,15 +3,16 @@
  */
 package senegai.codegen.renderer.angular
 
+import senegai.codegen.renderer.model.ui.UiEntityModel
 import senegai.codegen.renderer.model.ui.UiItemModel
 
 /**
- * Generate the content for the template ItemFormPartComponentScssRenderer filled up
+ * Generate the content for the template EntityItemFormPartComponentScssRenderer filled up
  * with the content of the passed models.
  */
-object ItemFormPartComponentScssRenderer : UiItemRenderer {
+object EntityItemFormPartComponentScssRenderer : UiEntityItemRenderer {
 
-    override fun renderTemplate(model: UiItemModel): String {
+    override fun renderTemplate(entity: UiEntityModel, model: UiItemModel): String {
         return """
           |
           |.form-row {
@@ -47,7 +48,7 @@ object ItemFormPartComponentScssRenderer : UiItemRenderer {
         """.trimMargin(marginPrefix = "|")
     }
 
-    override fun filePath(model: UiItemModel): String {
-      return "opus-magnum/opus-magnum-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part.component.scss"
+    override fun filePath(entity: UiEntityModel, model: UiItemModel): String {
+      return "${entity.entityNameDashCase}/${entity.entityNameDashCase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part.component.scss"
     }
 }

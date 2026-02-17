@@ -5,7 +5,7 @@ import org.codeblessing.templatetools.CaseUtil
 data class UiEntityModel(
     val entityRootItem: UiItemModel
 ) {
-    val entityItemModels: List<UiItemModel> = listOf(entityRootItem) // TODO implement recursive
+    val entityItemModels: List<UiItemModel> = searchRecursiveInNestedUiItemModel(entityRootItem)
 
     val entityName: String = entityRootItem.itemName
     val entityNameLowercase: String = entityRootItem.itemName.lowercase()
@@ -13,4 +13,9 @@ data class UiEntityModel(
 
     val searchResultAttributes: List<UiItemAttributeModel> = entityRootItem.attributes
     val searchCriteriaAttributes: List<UiItemAttributeModel> = entityRootItem.attributes
+
+    private fun searchRecursiveInNestedUiItemModel(itemModel: UiItemModel): List<UiItemModel> {
+        // TODO implement recursive
+        return listOf(itemModel)
+    }
 }

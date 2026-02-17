@@ -52,16 +52,29 @@ object Rendering {
             }
         }
 
+        val uiEntityItemRenderer: List<UiEntityItemRenderer> = listOf(
+            EntityItemFormPartComponentHtmlRenderer,
+            EntityItemFormPartComponentScssRenderer,
+            EntityItemFormPartComponentTypescriptRenderer,
+            EntityItemFormPartFieldNameRenderer,
+            EntityItemFormPartValidationServiceRenderer,
+            EntityItemFormPartInitialValueServiceRenderer,
+            EntityItemFormPartServiceRenderer,
+            EntityItemFormPartGroupRenderer,
+        )
+
+        uiEntities.forEach { uiEntityModel ->
+            uiEntityModel.entityItemModels.forEach { uiItemModel ->
+                uiEntityItemRenderer.forEach { renderer ->
+                    writeFile(
+                        filePath = pathToGeneratedAngularFiles.resolve(renderer.filePath(entity = uiEntityModel, model = uiItemModel)),
+                        content = renderer.renderTemplate(entity = uiEntityModel, model = uiItemModel),
+                    )
+                }
+            }
+        }
 
         val itemRenderer: List<UiItemRenderer> = listOf(
-            ItemFormPartComponentHtmlRenderer,
-            ItemFormPartComponentScssRenderer,
-            ItemFormPartComponentTypescriptRenderer,
-            ItemFormPartFieldNameRenderer,
-            ItemFormPartValidationServiceRenderer,
-            ItemFormPartInitialValueServiceRenderer,
-            ItemFormPartServiceRenderer,
-            ItemFormPartGroupRenderer,
             ItemWTOInterfaceRenderer,
         )
 
