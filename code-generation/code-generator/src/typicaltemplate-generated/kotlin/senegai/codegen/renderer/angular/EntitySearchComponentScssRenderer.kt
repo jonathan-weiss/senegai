@@ -42,6 +42,6 @@ object EntitySearchComponentScssRenderer : UiEntityRenderer {
     }
 
     override fun filePath(model: UiEntityModel): String {
-      return "opus-magnum/opus-magnum-search/opus-magnum-search.component.scss"
+      return "${model.entityNameDashCase}/${model.entityNameDashCase}-search/${model.entityNameDashCase}-search.component.scss"
     }
 }

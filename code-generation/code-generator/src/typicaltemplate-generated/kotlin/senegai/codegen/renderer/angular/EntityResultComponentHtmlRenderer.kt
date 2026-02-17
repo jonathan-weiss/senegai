@@ -13,7 +13,7 @@ object EntityResultComponentHtmlRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
-          |<div class="opus-magnum-table-container">
+          |<div class="${model.entityNameDashCase}-table-container">
           |    <table mat-table [dataSource]="dataSource">
           |        ${ model.searchResultAttributes.joinToString("") { attribute ->  """
               |        <!-- ${attribute.attributeName} Column -->
@@ -44,6 +44,6 @@ object EntityResultComponentHtmlRenderer : UiEntityRenderer {
     }
 
     override fun filePath(model: UiEntityModel): String {
-      return "opus-magnum/opus-magnum-result/opus-magnum-result.component.html"
+      return "${model.entityNameDashCase}/${model.entityNameDashCase}-result/${model.entityNameDashCase}-result.component.html"
     }
 }

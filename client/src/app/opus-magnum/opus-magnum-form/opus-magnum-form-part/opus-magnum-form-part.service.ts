@@ -1,15 +1,15 @@
 import {Injectable} from '@angular/core';
-import {AuthorWTO} from "@app/wto/author.wto";
+import {OpusMagnumWTO} from "@app/wto/opus-magnum.wto";
 import {AbstractControl, FormArray, FormControl, FormGroup} from "@angular/forms";
 import {FormUtil} from "@app/shared/form-controls/form.util";
 import {
-    AuthorFormPartValidationService
-} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-validation.service";
+    OpusMagnumFormPartValidationService
+} from "@app/opus-magnum/opus-magnum-form/opus-magnum-form-part/opus-magnum-form-part-validation.service";
 import {
-    AuthorFormPartInitialValueService
-} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-initial-value.service";
-import {AuthorFormPartFieldName} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-field-name";
-import {AuthorFormPartGroup} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-group";
+    OpusMagnumFormPartInitialValueService
+} from "@app/opus-magnum/opus-magnum-form/opus-magnum-form-part/opus-magnum-form-part-initial-value.service";
+import {OpusMagnumFormPartFieldName} from "@app/opus-magnum/opus-magnum-form/opus-magnum-form-part/opus-magnum-form-part-field-name";
+import {OpusMagnumFormPartGroup} from "@app/opus-magnum/opus-magnum-form/opus-magnum-form-part/opus-magnum-form-part-group";
 import {LibraryAwardWTO} from "@app/wto/library-award.wto";
 import {GenderEnum} from "@app/wto/gender.enum";
 import {
@@ -24,117 +24,117 @@ import {
 export class OpusMagnumFormPartService {
 
     constructor(
-        private authorFormValidationService: AuthorFormPartValidationService,
-        private authorFormInitialValueService: AuthorFormPartInitialValueService,
+        private opusMagnumFormValidationService: OpusMagnumFormPartValidationService,
+        private opusMagnumFormInitialValueService: OpusMagnumFormPartInitialValueService,
         private libraryAwardFormPartService: LibraryAwardFormPartService,
     ) {}
 
-    public createInitialAuthorForm(): FormGroup<AuthorFormPartGroup> {
+    public createInitialOpusMagnumForm(): FormGroup<OpusMagnumFormPartGroup> {
         return new FormGroup({
-            [AuthorFormPartFieldName.id]: new FormControl<string>(
+            [OpusMagnumFormPartFieldName.id]: new FormControl<string>(
                 {
-                    value: this.authorFormInitialValueService.idInitialValue(),
+                    value: this.opusMagnumFormInitialValueService.idInitialValue(),
                     disabled: true, // ID is readonly
                 }, {
                     nonNullable: true,
                 },
             ),
-            [AuthorFormPartFieldName.firstname]: new FormControl<string>(
-                this.authorFormInitialValueService.firstnameInitialValue(),
+            [OpusMagnumFormPartFieldName.firstname]: new FormControl<string>(
+                this.opusMagnumFormInitialValueService.firstnameInitialValue(),
                 {
                     nonNullable: true,
-                    validators: this.authorFormValidationService.validatorFunctions(AuthorFormPartFieldName.firstname)
+                    validators: this.opusMagnumFormValidationService.validatorFunctions(OpusMagnumFormPartFieldName.firstname)
                 },
             ),
-            [AuthorFormPartFieldName.lastname]: new FormControl<string>(
-                this.authorFormInitialValueService.lastnameInitialValue(),
+            [OpusMagnumFormPartFieldName.lastname]: new FormControl<string>(
+                this.opusMagnumFormInitialValueService.lastnameInitialValue(),
                 {
                     nonNullable: true,
-                    validators: this.authorFormValidationService.validatorFunctions(AuthorFormPartFieldName.lastname)
+                    validators: this.opusMagnumFormValidationService.validatorFunctions(OpusMagnumFormPartFieldName.lastname)
                 },
             ),
-            [AuthorFormPartFieldName.nicknameIsNotNull]: new FormControl<boolean>(
-                this.authorFormInitialValueService.nicknameInitialValue() != null,
+            [OpusMagnumFormPartFieldName.nicknameIsNotNull]: new FormControl<boolean>(
+                this.opusMagnumFormInitialValueService.nicknameInitialValue() != null,
                 {
                     nonNullable: true,
-                    validators: this.authorFormValidationService.validatorFunctions(AuthorFormPartFieldName.nicknameIsNotNull)
+                    validators: this.opusMagnumFormValidationService.validatorFunctions(OpusMagnumFormPartFieldName.nicknameIsNotNull)
                 },
             ),
-            [AuthorFormPartFieldName.nickname]: new FormControl<string | null>(
-                this.authorFormInitialValueService.nicknameInitialValue(),
+            [OpusMagnumFormPartFieldName.nickname]: new FormControl<string | null>(
+                this.opusMagnumFormInitialValueService.nicknameInitialValue(),
                 {
                     nonNullable: false,
-                    validators: this.authorFormValidationService.validatorFunctions(AuthorFormPartFieldName.nickname)
+                    validators: this.opusMagnumFormValidationService.validatorFunctions(OpusMagnumFormPartFieldName.nickname)
                 },
             ),
-            [AuthorFormPartFieldName.libraryAwardList]: new FormArray(
+            [OpusMagnumFormPartFieldName.libraryAwardList]: new FormArray(
                 [] as Array<FormGroup<LibraryAwardFormPartGroup>>,
                 {
-                    validators: this.authorFormValidationService.validatorFunctions(AuthorFormPartFieldName.libraryAwardList)
+                    validators: this.opusMagnumFormValidationService.validatorFunctions(OpusMagnumFormPartFieldName.libraryAwardList)
                 },
             ),
-            [AuthorFormPartFieldName.birthdayIsNotNull]: new FormControl<boolean>(
-                this.authorFormInitialValueService.birthdayInitialValue() != null,
+            [OpusMagnumFormPartFieldName.birthdayIsNotNull]: new FormControl<boolean>(
+                this.opusMagnumFormInitialValueService.birthdayInitialValue() != null,
                 {
                     nonNullable: true,
-                    validators: this.authorFormValidationService.validatorFunctions(AuthorFormPartFieldName.birthdayIsNotNull)
+                    validators: this.opusMagnumFormValidationService.validatorFunctions(OpusMagnumFormPartFieldName.birthdayIsNotNull)
                 },
             ),
-            [AuthorFormPartFieldName.birthday]: new FormControl<Date>(
-                this.authorFormInitialValueService.birthdayInitialValue(),
+            [OpusMagnumFormPartFieldName.birthday]: new FormControl<Date>(
+                this.opusMagnumFormInitialValueService.birthdayInitialValue(),
                 {
                     nonNullable: false,
-                    validators: this.authorFormValidationService.validatorFunctions(AuthorFormPartFieldName.birthday)
+                    validators: this.opusMagnumFormValidationService.validatorFunctions(OpusMagnumFormPartFieldName.birthday)
                 },
             ),
-            [AuthorFormPartFieldName.vegetarian]: new FormControl<boolean>(
-                this.authorFormInitialValueService.vegetarianInitialValue(),
+            [OpusMagnumFormPartFieldName.vegetarian]: new FormControl<boolean>(
+                this.opusMagnumFormInitialValueService.vegetarianInitialValue(),
                 {
                     nonNullable: true,
-                    validators: this.authorFormValidationService.validatorFunctions(AuthorFormPartFieldName.vegetarian)
+                    validators: this.opusMagnumFormValidationService.validatorFunctions(OpusMagnumFormPartFieldName.vegetarian)
                 },
             ),
-            [AuthorFormPartFieldName.gender]: new FormControl<GenderEnum>(
-                this.authorFormInitialValueService.genderInitialValue(),
+            [OpusMagnumFormPartFieldName.gender]: new FormControl<GenderEnum>(
+                this.opusMagnumFormInitialValueService.genderInitialValue(),
                 {
                     nonNullable: true,
-                    validators: this.authorFormValidationService.validatorFunctions(AuthorFormPartFieldName.gender)
+                    validators: this.opusMagnumFormValidationService.validatorFunctions(OpusMagnumFormPartFieldName.gender)
                 },
             ),
         });
     }
 
-    public patchAuthorForm(form: AbstractControl, author: AuthorWTO): void {
-        FormUtil.requiredFormControl(form, AuthorFormPartFieldName.id).patchValue(author.id);
-        FormUtil.requiredFormControl(form, AuthorFormPartFieldName.firstname).patchValue(author.firstname);
-        FormUtil.requiredFormControl(form, AuthorFormPartFieldName.nicknameIsNotNull).patchValue(!author.nickname);
-        FormUtil.requiredFormControl(form, AuthorFormPartFieldName.nickname).patchValue(author.nickname ?? null);
-        FormUtil.requiredFormControl(form, AuthorFormPartFieldName.lastname).patchValue(author.lastname);
-        const libraryAwardList = FormUtil.requiredFormArray(form, AuthorFormPartFieldName.libraryAwardList);
-        author.libraryAwardList.forEach((libraryAward: LibraryAwardWTO) => {
+    public patchOpusMagnumForm(form: AbstractControl, opusMagnum: OpusMagnumWTO): void {
+        FormUtil.requiredFormControl(form, OpusMagnumFormPartFieldName.id).patchValue(opusMagnum.id);
+        FormUtil.requiredFormControl(form, OpusMagnumFormPartFieldName.firstname).patchValue(opusMagnum.firstname);
+        FormUtil.requiredFormControl(form, OpusMagnumFormPartFieldName.nicknameIsNotNull).patchValue(!opusMagnum.nickname);
+        FormUtil.requiredFormControl(form, OpusMagnumFormPartFieldName.nickname).patchValue(opusMagnum.nickname ?? null);
+        FormUtil.requiredFormControl(form, OpusMagnumFormPartFieldName.lastname).patchValue(opusMagnum.lastname);
+        const libraryAwardList = FormUtil.requiredFormArray(form, OpusMagnumFormPartFieldName.libraryAwardList);
+        opusMagnum.libraryAwardList.forEach((libraryAward: LibraryAwardWTO) => {
             const formGroup = this.libraryAwardFormPartService.createInitialLibraryAwardForm()
             this.libraryAwardFormPartService.patchLibraryAwardForm(formGroup, libraryAward);
             libraryAwardList.push(formGroup);
         })
-        FormUtil.requiredFormControl(form, AuthorFormPartFieldName.birthdayIsNotNull).patchValue(!author.birthday);
-        FormUtil.requiredFormControl(form, AuthorFormPartFieldName.birthday).patchValue(author.birthday ?? null);
-        FormUtil.requiredFormControl(form, AuthorFormPartFieldName.vegetarian).patchValue(author.vegetarian);
-        FormUtil.requiredFormControl(form, AuthorFormPartFieldName.gender).patchValue(author.gender);
+        FormUtil.requiredFormControl(form, OpusMagnumFormPartFieldName.birthdayIsNotNull).patchValue(!opusMagnum.birthday);
+        FormUtil.requiredFormControl(form, OpusMagnumFormPartFieldName.birthday).patchValue(opusMagnum.birthday ?? null);
+        FormUtil.requiredFormControl(form, OpusMagnumFormPartFieldName.vegetarian).patchValue(opusMagnum.vegetarian);
+        FormUtil.requiredFormControl(form, OpusMagnumFormPartFieldName.gender).patchValue(opusMagnum.gender);
     }
 
-    public createAuthorFromFormData(form: AbstractControl): AuthorWTO {
+    public createOpusMagnumFromFormData(form: AbstractControl): OpusMagnumWTO {
         return {
-            id: FormUtil.requiredFormControl(form, AuthorFormPartFieldName.id).value as string,
-            firstname: FormUtil.requiredFormControl(form, AuthorFormPartFieldName.firstname).value as string,
-            nickname: FormUtil.requiredFormControl(form, AuthorFormPartFieldName.nicknameIsNotNull).value
-                ? FormUtil.requiredFormControl(form, AuthorFormPartFieldName.nickname).value as string
+            id: FormUtil.requiredFormControl(form, OpusMagnumFormPartFieldName.id).value as string,
+            firstname: FormUtil.requiredFormControl(form, OpusMagnumFormPartFieldName.firstname).value as string,
+            nickname: FormUtil.requiredFormControl(form, OpusMagnumFormPartFieldName.nicknameIsNotNull).value
+                ? FormUtil.requiredFormControl(form, OpusMagnumFormPartFieldName.nickname).value as string
                 : null,
-            lastname: FormUtil.requiredFormControl(form, AuthorFormPartFieldName.lastname).value as string,
-            libraryAwardList: FormUtil.requiredFormArray<FormGroup<LibraryAwardFormPartGroup>>(form, AuthorFormPartFieldName.libraryAwardList)
+            lastname: FormUtil.requiredFormControl(form, OpusMagnumFormPartFieldName.lastname).value as string,
+            libraryAwardList: FormUtil.requiredFormArray<FormGroup<LibraryAwardFormPartGroup>>(form, OpusMagnumFormPartFieldName.libraryAwardList)
                 .controls.map(control => this.libraryAwardFormPartService.createLibraryAwardFromFormData(control)),
-            birthday: FormUtil.requiredFormControl(form, AuthorFormPartFieldName.birthdayIsNotNull).value ? FormUtil.requiredFormControl(form, AuthorFormPartFieldName.birthday).value as Date : null,
-            vegetarian: FormUtil.requiredFormControl(form, AuthorFormPartFieldName.vegetarian).value as boolean,
-            gender: FormUtil.requiredFormControl(form, AuthorFormPartFieldName.gender).value as GenderEnum,
+            birthday: FormUtil.requiredFormControl(form, OpusMagnumFormPartFieldName.birthdayIsNotNull).value ? FormUtil.requiredFormControl(form, OpusMagnumFormPartFieldName.birthday).value as Date : null,
+            vegetarian: FormUtil.requiredFormControl(form, OpusMagnumFormPartFieldName.vegetarian).value as boolean,
+            gender: FormUtil.requiredFormControl(form, OpusMagnumFormPartFieldName.gender).value as GenderEnum,
         };
     }
 }

@@ -25,6 +25,6 @@ object EntityConfirmDeleteDialogComponentHtmlRenderer : UiEntityRenderer {
     }
 
     override fun filePath(model: UiEntityModel): String {
-      return "opus-magnum/opus-magnum-confirm-delete-dialog/opus-magnum-confirm-delete-dialog.component.html"
+      return "${model.entityNameDashCase}/${model.entityNameDashCase}-confirm-delete-dialog/${model.entityNameDashCase}-confirm-delete-dialog.component.html"
     }
 }

@@ -17,7 +17,7 @@ object EntityServiceRenderer : UiEntityRenderer {
           |import {Injectable} from '@angular/core';
           |import {Observable, of} from 'rxjs';
           |import {delay} from 'rxjs/operators';
-          |import {${model.entityName}WTO} from "@app/wto/opus-magnum.wto";
+          |import {${model.entityName}WTO} from "@app/wto/${model.entityNameDashCase}.wto";
           |@Injectable({providedIn: 'root'})
           |export class ${model.entityName}Service {
           |    private ${model.entityNameLowercase}List: ${model.entityName}WTO[] = [
@@ -54,6 +54,6 @@ object EntityServiceRenderer : UiEntityRenderer {
     }
 
     override fun filePath(model: UiEntityModel): String {
-      return "opus-magnum/opus-magnum.service.ts"
+      return "${model.entityNameDashCase}/${model.entityNameDashCase}.service.ts"
     }
 }

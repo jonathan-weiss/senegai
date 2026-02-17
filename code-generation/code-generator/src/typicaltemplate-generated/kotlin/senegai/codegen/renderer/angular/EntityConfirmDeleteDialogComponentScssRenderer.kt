@@ -18,6 +18,6 @@ object EntityConfirmDeleteDialogComponentScssRenderer : UiEntityRenderer {
     }
 
     override fun filePath(model: UiEntityModel): String {
-      return "opus-magnum/opus-magnum-confirm-delete-dialog/opus-magnum-confirm-delete-dialog.component.scss"
+      return "${model.entityNameDashCase}/${model.entityNameDashCase}-confirm-delete-dialog/${model.entityNameDashCase}-confirm-delete-dialog.component.scss"
     }
 }

@@ -13,7 +13,7 @@ object EntityBoardComponentScssRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
-          |.opus-magnum-container {
+          |.${model.entityNameDashCase}-container {
           |  padding: 20px;
           |
           |  h2 {
@@ -22,7 +22,7 @@ object EntityBoardComponentScssRenderer : UiEntityRenderer {
           |  }
           |}
           |
-          |.opus-magnum-accordion {
+          |.${model.entityNameDashCase}-accordion {
           |  .mat-expansion-panel {
           |    margin-bottom: 16px;
           |  }
@@ -59,6 +59,6 @@ object EntityBoardComponentScssRenderer : UiEntityRenderer {
     }
 
     override fun filePath(model: UiEntityModel): String {
-      return "opus-magnum/opus-magnum-board/opus-magnum-board.component.scss"
+      return "${model.entityNameDashCase}/${model.entityNameDashCase}-board/${model.entityNameDashCase}-board.component.scss"
     }
 }

@@ -31,9 +31,9 @@ object EntitySearchComponentTypescriptRenderer : UiEntityRenderer {
           """ } }}
           |
           |@Component({
-          |    selector: 'app-opus-magnum-search',
-          |    templateUrl: './opus-magnum-search.component.html',
-          |    styleUrls: ['./opus-magnum-search.component.scss'],
+          |    selector: 'app-${model.entityNameDashCase}-search',
+          |    templateUrl: './${model.entityNameDashCase}-search.component.html',
+          |    styleUrls: ['./${model.entityNameDashCase}-search.component.scss'],
           |    imports: [
           |        ReactiveFormsModule,
           |        MatButtonModule,
@@ -82,6 +82,6 @@ object EntitySearchComponentTypescriptRenderer : UiEntityRenderer {
     }
 
     override fun filePath(model: UiEntityModel): String {
-      return "opus-magnum/opus-magnum-search/opus-magnum-search.component.ts"
+      return "${model.entityNameDashCase}/${model.entityNameDashCase}-search/${model.entityNameDashCase}-search.component.ts"
     }
 }

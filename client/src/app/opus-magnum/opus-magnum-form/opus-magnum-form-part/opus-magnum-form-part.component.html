@@ -1,4 +1,4 @@
-<div [formGroup]="authorForm">
+<div [formGroup]="opusMagnumForm">
 
 <div>
     <div class="form-row">
@@ -19,17 +19,17 @@
                 <app-text-block label="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." />
                 <div class="form-row">
                     <app-field-wrapper label="Library Awards">
-                        <app-author-library-award-table
+                        <app-opus-magnum-library-award-table
                                 [libraryAwardFormArray]="libraryAwardListFormArray"
-                                (editAuthorLibraryAwardFormGroup)="onAuthorLibraryAwardFormGroupEdit($event)"
-                                (deleteAuthorLibraryAwardFormGroup)="onAuthorLibraryAwardFormGroupDelete($event)"
+                                (editOpusMagnumLibraryAwardFormGroup)="onOpusMagnumLibraryAwardFormGroupEdit($event)"
+                                (deleteOpusMagnumLibraryAwardFormGroup)="onOpusMagnumLibraryAwardFormGroupDelete($event)"
                         />
-                        @if (authorLibraryAwardUnderEdit) {
+                        @if (opusMagnumLibraryAwardUnderEdit) {
                             <div class="edit-area">
-                                <button mat-icon-button color="primary" (click)="closeAuthorLibraryAwardUnderEdit()">
+                                <button mat-icon-button color="primary" (click)="closeOpusMagnumLibraryAwardUnderEdit()">
                                     <mat-icon>edit_off</mat-icon>
                                 </button>
-                                <app-author-library-award-form-part [authorLibraryAwardListForm]="authorLibraryAwardUnderEdit!"  />
+                                <app-opus-magnum-library-award-form-part [opusMagnumLibraryAwardListForm]="opusMagnumLibraryAwardUnderEdit!"  />
                             </div>
                         }
                     </app-field-wrapper>

@@ -12,6 +12,7 @@
     @replace-value-by-expression
       [ searchValue="OpusMagnum" replaceByExpression="model.entityName" ]
       [ searchValue="opusMagnum" replaceByExpression="model.entityNameLowercase" ]
+      [ searchValue="opus-magnum" replaceByExpression="model.entityNameDashCase" ]
 
     @modify-provided-filename-by-replacements
     @slac

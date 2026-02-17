@@ -15,8 +15,8 @@ object EntityResultComponentTypescriptRenderer : UiEntityRenderer {
         return """
           |import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
           |import {MatTableDataSource, MatTableModule} from '@angular/material/table';
-          |import {${model.entityName}SearchCriteria} from '@app/opus-magnum/opus-magnum-search/opus-magnum-search.component';
-          |import {${model.entityName}Service} from '@app/opus-magnum/opus-magnum.service';
+          |import {${model.entityName}SearchCriteria} from '@app/${model.entityNameDashCase}/${model.entityNameDashCase}-search/${model.entityNameDashCase}-search.component';
+          |import {${model.entityName}Service} from '@app/${model.entityNameDashCase}/${model.entityNameDashCase}.service';
           |import {ReactiveFormsModule} from "@angular/forms";
           |import {MatButtonModule} from "@angular/material/button";
           |import {MatToolbarModule} from "@angular/material/toolbar";
@@ -28,12 +28,12 @@ object EntityResultComponentTypescriptRenderer : UiEntityRenderer {
           |import {MatSidenavModule} from "@angular/material/sidenav";
           |import {MatListModule} from "@angular/material/list";
           |import {MatDialogModule} from "@angular/material/dialog";
-          |import {${model.entityName}WTO} from "@app/wto/opus-magnum.wto";
+          |import {${model.entityName}WTO} from "@app/wto/${model.entityNameDashCase}.wto";
           |
           |@Component({
-          |    selector: 'app-opus-magnum-result',
-          |    templateUrl: './opus-magnum-result.component.html',
-          |    styleUrls: ['./opus-magnum-result.component.scss'],
+          |    selector: 'app-${model.entityNameDashCase}-result',
+          |    templateUrl: './${model.entityNameDashCase}-result.component.html',
+          |    styleUrls: ['./${model.entityNameDashCase}-result.component.scss'],
           |    imports: [
           |        ReactiveFormsModule,
           |        MatButtonModule,
@@ -125,6 +125,6 @@ object EntityResultComponentTypescriptRenderer : UiEntityRenderer {
     }
 
     override fun filePath(model: UiEntityModel): String {
-      return "opus-magnum/opus-magnum-result/opus-magnum-result.component.ts"
+      return "${model.entityNameDashCase}/${model.entityNameDashCase}-result/${model.entityNameDashCase}-result.component.ts"
     }
 }

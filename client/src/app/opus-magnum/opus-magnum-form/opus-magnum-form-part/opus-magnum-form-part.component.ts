@@ -15,17 +15,17 @@ import {FormUtil} from "@app/shared/form-controls/form.util";
 import {FieldWrapperComponent} from "@app/shared/form-controls/field-wrapper/field-wrapper.component";
 import {MatOption} from "@angular/material/core";
 import {MatSelect} from "@angular/material/select";
-import {AuthorFormPartValidationService} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-validation.service";
+import {OpusMagnumFormPartValidationService} from "@app/opus-magnum/opus-magnum-form/opus-magnum-form-part/opus-magnum-form-part-validation.service";
 import {
-    AuthorFormPartFieldName,
-} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-field-name";
+    OpusMagnumFormPartFieldName,
+} from "@app/opus-magnum/opus-magnum-form/opus-magnum-form-part/opus-magnum-form-part-field-name";
 import {TextInputComponent} from "@app/shared/form-controls/text-input/text-input.component";
 import {DatepickerInputComponent} from "@app/shared/form-controls/datepicker-input/datepicker-input.component";
 import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
 import {
-    AuthorFormPartGroup
-} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-group";
+    OpusMagnumFormPartGroup
+} from "@app/opus-magnum/opus-magnum-form/opus-magnum-form-part/opus-magnum-form-part-group";
 import {
     LibraryAwardTableComponent
 } from "@app/opus-magnum/opus-magnum-form/library-award-table/library-award-table.component";
@@ -42,7 +42,7 @@ import {
 } from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part-group";
 
 @Component({
-    selector: 'app-author-form-part',
+    selector: 'app-opus-magnum-form-part',
     templateUrl: './opus-magnum-form-part.component.html',
     styleUrls: ['./opus-magnum-form-part.component.scss'],
     imports: [
@@ -74,9 +74,9 @@ import {
     ]
 })
 export class OpusMagnumFormPartComponent implements OnInit {
-    @Input({ required: true }) authorForm!: FormGroup<AuthorFormPartGroup>;
+    @Input({ required: true }) opusMagnumForm!: FormGroup<OpusMagnumFormPartGroup>;
 
-    authorLibraryAwardUnderEdit: FormGroup<LibraryAwardFormPartGroup> | undefined = undefined;
+    opusMagnumLibraryAwardUnderEdit: FormGroup<LibraryAwardFormPartGroup> | undefined = undefined;
 
     protected idControl!: FormControl<number>
     protected firstnameControl!: FormControl<string>
@@ -99,45 +99,45 @@ export class OpusMagnumFormPartComponent implements OnInit {
     protected genderControl!: FormControl<GenderEnum>
     protected genderValidatorNames!: ReadonlyArray<ValidatorTranslation>
 
-    constructor(private readonly authorFormValidationService: AuthorFormPartValidationService,) {
+    constructor(private readonly opusMagnumFormValidationService: OpusMagnumFormPartValidationService,) {
     }
 
     ngOnInit() {
-        this.idControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormPartFieldName.id);
-        this.firstnameControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormPartFieldName.firstname)
-        this.firstnameValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.firstname)
-        this.nicknameIsNotNullControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormPartFieldName.nicknameIsNotNull)
-        this.nicknameIsNotNullValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.nicknameIsNotNull)
-        this.nicknameControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormPartFieldName.nickname)
-        this.nicknameValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.nickname)
-        this.lastnameControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormPartFieldName.lastname)
-        this.lastnameValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.lastname)
-        this.libraryAwardListFormArray = FormUtil.requiredFormArray(this.authorForm, AuthorFormPartFieldName.libraryAwardList)
-        this.libraryAwardListValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.libraryAwardList)
-        this.birthdayIsNotNullControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormPartFieldName.birthdayIsNotNull)
-        this.birthdayIsNotNullValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.birthdayIsNotNull)
-        this.birthdayControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormPartFieldName.birthday)
-        this.birthdayValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.birthday)
-        this.vegetarianControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormPartFieldName.vegetarian)
-        this.vegetarianValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.vegetarian)
-        this.genderControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormPartFieldName.gender)
-        this.genderValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.gender)
+        this.idControl = FormUtil.requiredFormControl(this.opusMagnumForm, OpusMagnumFormPartFieldName.id);
+        this.firstnameControl = FormUtil.requiredFormControl(this.opusMagnumForm, OpusMagnumFormPartFieldName.firstname)
+        this.firstnameValidatorNames = this.opusMagnumFormValidationService.validatorNames(OpusMagnumFormPartFieldName.firstname)
+        this.nicknameIsNotNullControl = FormUtil.requiredFormControl(this.opusMagnumForm, OpusMagnumFormPartFieldName.nicknameIsNotNull)
+        this.nicknameIsNotNullValidatorNames = this.opusMagnumFormValidationService.validatorNames(OpusMagnumFormPartFieldName.nicknameIsNotNull)
+        this.nicknameControl = FormUtil.requiredFormControl(this.opusMagnumForm, OpusMagnumFormPartFieldName.nickname)
+        this.nicknameValidatorNames = this.opusMagnumFormValidationService.validatorNames(OpusMagnumFormPartFieldName.nickname)
+        this.lastnameControl = FormUtil.requiredFormControl(this.opusMagnumForm, OpusMagnumFormPartFieldName.lastname)
+        this.lastnameValidatorNames = this.opusMagnumFormValidationService.validatorNames(OpusMagnumFormPartFieldName.lastname)
+        this.libraryAwardListFormArray = FormUtil.requiredFormArray(this.opusMagnumForm, OpusMagnumFormPartFieldName.libraryAwardList)
+        this.libraryAwardListValidatorNames = this.opusMagnumFormValidationService.validatorNames(OpusMagnumFormPartFieldName.libraryAwardList)
+        this.birthdayIsNotNullControl = FormUtil.requiredFormControl(this.opusMagnumForm, OpusMagnumFormPartFieldName.birthdayIsNotNull)
+        this.birthdayIsNotNullValidatorNames = this.opusMagnumFormValidationService.validatorNames(OpusMagnumFormPartFieldName.birthdayIsNotNull)
+        this.birthdayControl = FormUtil.requiredFormControl(this.opusMagnumForm, OpusMagnumFormPartFieldName.birthday)
+        this.birthdayValidatorNames = this.opusMagnumFormValidationService.validatorNames(OpusMagnumFormPartFieldName.birthday)
+        this.vegetarianControl = FormUtil.requiredFormControl(this.opusMagnumForm, OpusMagnumFormPartFieldName.vegetarian)
+        this.vegetarianValidatorNames = this.opusMagnumFormValidationService.validatorNames(OpusMagnumFormPartFieldName.vegetarian)
+        this.genderControl = FormUtil.requiredFormControl(this.opusMagnumForm, OpusMagnumFormPartFieldName.gender)
+        this.genderValidatorNames = this.opusMagnumFormValidationService.validatorNames(OpusMagnumFormPartFieldName.gender)
     }
 
     protected genderList = GenderEnumValues
 
-    onAuthorLibraryAwardFormGroupEdit(formGroup: FormGroup<LibraryAwardFormPartGroup>): void {
-        this.authorLibraryAwardUnderEdit = formGroup;
+    onOpusMagnumLibraryAwardFormGroupEdit(formGroup: FormGroup<LibraryAwardFormPartGroup>): void {
+        this.opusMagnumLibraryAwardUnderEdit = formGroup;
     }
 
-    onAuthorLibraryAwardFormGroupDelete(formGroup: FormGroup<LibraryAwardFormPartGroup>): void {
-        if(this.authorLibraryAwardUnderEdit == formGroup) {
-            this.authorLibraryAwardUnderEdit = undefined
+    onOpusMagnumLibraryAwardFormGroupDelete(formGroup: FormGroup<LibraryAwardFormPartGroup>): void {
+        if(this.opusMagnumLibraryAwardUnderEdit == formGroup) {
+            this.opusMagnumLibraryAwardUnderEdit = undefined
         }
         FormUtil.removeControl(this.libraryAwardListFormArray, formGroup)
     }
 
-    closeAuthorLibraryAwardUnderEdit(): void {
-        this.authorLibraryAwardUnderEdit = undefined;
+    closeOpusMagnumLibraryAwardUnderEdit(): void {
+        this.opusMagnumLibraryAwardUnderEdit = undefined;
     }
 }

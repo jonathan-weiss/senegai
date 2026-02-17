@@ -26,14 +26,14 @@ object EntityFormComponentTypescriptRenderer : UiEntityRenderer {
           |import {MatSidenavModule} from "@angular/material/sidenav";
           |import {MatListModule} from "@angular/material/list";
           |import {MatDialogModule} from "@angular/material/dialog";
-          |import {${model.entityName}WTO} from "@app/wto/opus-magnum.wto";
-          |import {${model.entityName}FormPartService} from "@app/opus-magnum/opus-magnum-form/opus-magnum-form-part/opus-magnum-form-part.service";
-          |import {${model.entityName}FormPartComponent} from "@app/opus-magnum/opus-magnum-form/opus-magnum-form-part/opus-magnum-form-part.component";
+          |import {${model.entityName}WTO} from "@app/wto/${model.entityNameDashCase}.wto";
+          |import {${model.entityName}FormPartService} from "@app/${model.entityNameDashCase}/${model.entityNameDashCase}-form/${model.entityNameDashCase}-form-part/${model.entityNameDashCase}-form-part.service";
+          |import {${model.entityName}FormPartComponent} from "@app/${model.entityNameDashCase}/${model.entityNameDashCase}-form/${model.entityNameDashCase}-form-part/${model.entityNameDashCase}-form-part.component";
           |
           |@Component({
-          |    selector: 'app-opus-magnum-form',
-          |    templateUrl: './opus-magnum-form.component.html',
-          |    styleUrls: ['./opus-magnum-form.component.scss'],
+          |    selector: 'app-${model.entityNameDashCase}-form',
+          |    templateUrl: './${model.entityNameDashCase}-form.component.html',
+          |    styleUrls: ['./${model.entityNameDashCase}-form.component.scss'],
           |    imports: [
           |        ReactiveFormsModule,
           |        MatButtonModule,
@@ -83,6 +83,6 @@ object EntityFormComponentTypescriptRenderer : UiEntityRenderer {
     }
 
     override fun filePath(model: UiEntityModel): String {
-      return "opus-magnum/opus-magnum-form/opus-magnum-form/opus-magnum-form.component.ts"
+      return "${model.entityNameDashCase}/${model.entityNameDashCase}-form/${model.entityNameDashCase}-form/${model.entityNameDashCase}-form.component.ts"
     }
 }

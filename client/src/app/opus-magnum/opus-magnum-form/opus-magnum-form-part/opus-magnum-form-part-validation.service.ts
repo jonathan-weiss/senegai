@@ -1,17 +1,17 @@
 import {Injectable} from '@angular/core';
 import {ValidatorFn, Validators} from "@angular/forms";
-import {AuthorFormPartFieldName} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-field-name";
+import {OpusMagnumFormPartFieldName} from "@app/opus-magnum/opus-magnum-form/opus-magnum-form-part/opus-magnum-form-part-field-name";
 import {NamedValidator} from "@app/shared/form-controls/named-validator";
 import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
 
 @Injectable({providedIn: 'root'})
 export class OpusMagnumFormPartValidationService {
 
-    validatorFunctions(field: AuthorFormPartFieldName): Array<ValidatorFn> {
+    validatorFunctions(field: OpusMagnumFormPartFieldName): Array<ValidatorFn> {
         return this.namedValidators(field).map(namedValidator => namedValidator.validatorFunction)
     }
 
-    validatorNames(field: AuthorFormPartFieldName): Array<ValidatorTranslation> {
+    validatorNames(field: OpusMagnumFormPartFieldName): Array<ValidatorTranslation> {
         return this.namedValidators(field)
             .map(namedValidator => this.toValidatorTranslation(namedValidator))
     }
@@ -23,10 +23,10 @@ export class OpusMagnumFormPartValidationService {
         }
     }
 
-    namedValidators(field: AuthorFormPartFieldName): ReadonlyArray<NamedValidator> {
+    namedValidators(field: OpusMagnumFormPartFieldName): ReadonlyArray<NamedValidator> {
         // TODO use mapped types https://www.typescriptlang.org/docs/handbook/2/mapped-types.html
         switch(field) {
-            case AuthorFormPartFieldName.firstname: return [
+            case OpusMagnumFormPartFieldName.firstname: return [
                 {
                     validatorName: "required",
                     validatorFunction: Validators.required,
@@ -38,7 +38,7 @@ export class OpusMagnumFormPartValidationService {
                     validatorTranslationKey: "validator.minlength",
                 },
             ]
-            case AuthorFormPartFieldName.nickname: return [
+            case OpusMagnumFormPartFieldName.nickname: return [
                 {
                     validatorName: "required",
                     validatorFunction: Validators.required,
@@ -50,7 +50,7 @@ export class OpusMagnumFormPartValidationService {
                     validatorTranslationKey: "validator.minlength",
                 },
             ]
-            case AuthorFormPartFieldName.lastname: return [
+            case OpusMagnumFormPartFieldName.lastname: return [
                 {
                     validatorName: "required",
                     validatorFunction: Validators.required,
