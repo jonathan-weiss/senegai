@@ -3,7 +3,7 @@ import {OPUS_MAGNUM_ROUTES} from "@app/app-opus-magnum-routing";
 import {GENERATED_ITEMS_ROUTES} from "@app/generated-routes";
 import {
     OpusMagnumRoutableEditComponent
-} from "@app/helper/opus-magnum-routable-edit/opus-magnum-routable-edit.component";
+} from "@app/opus-magnum/opus-magnum-routable-edit/opus-magnum-routable-edit.component";
 
 export const ROUTES: Routes = [
     ...OPUS_MAGNUM_ROUTES,

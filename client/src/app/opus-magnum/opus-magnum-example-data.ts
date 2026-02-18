@@ -102,7 +102,7 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
         }
     },
     {
-        id: 'af18a7cc-7e7a-4388-bb32-95652fc1e379',
+        id: 'example',
         title: 'dak szena',
         author: {
             id: 'af18a7cc-7e7a-4388-bb32-95652fc1e379',

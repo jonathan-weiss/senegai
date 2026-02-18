@@ -29,6 +29,9 @@ import {Routes} from '@angular/router';
 
 import {OpusMagnumBoardComponent} from '@app/opus-magnum/opus-magnum-board/opus-magnum-board.component';
 import {OpusMagnumFormComponent} from '@app/opus-magnum/opus-magnum-form/opus-magnum-form/opus-magnum-form.component';
+import {
+    OpusMagnumRoutableEditComponent
+} from "@app/opus-magnum/opus-magnum-routable-edit/opus-magnum-routable-edit.component";
 /* @tt{{{
     @slbc
     @end-foreach
@@ -51,7 +54,7 @@ export const OPUS_MAGNUM_ROUTES: Routes = [
     @foreach [ iteratorExpression="models" loopVariable="entity" ]
 }}}@  */
     {path: 'opus-magnum-board', component: OpusMagnumBoardComponent},
-    {path: 'opus-magnum-board/edit/:id', component: OpusMagnumFormComponent},
+    {path: 'opus-magnum-edit/:id', component: OpusMagnumRoutableEditComponent},
 /* @tt{{{
     @slbc
     @end-foreach

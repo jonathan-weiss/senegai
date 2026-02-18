@@ -1,3 +1,25 @@
+/* @tt{{{
+
+    @slbc
+
+    @template-renderer [ templateRendererClassName="EntityRoutableEditComponentTypescriptRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="UiEntityRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
+
+    @template-model [
+        modelClassName="UiEntityModel"
+        modelPackageName="senegai.codegen.renderer.model.ui"
+        modelName="model"
+    ]
+
+    @replace-value-by-expression
+        [ searchValue="OpusMagnum" replaceByExpression="model.entityName" ]
+        [ searchValue="opusMagnum" replaceByExpression="model.entityNameLowercase" ]
+        [ searchValue="opus-magnum" replaceByExpression="model.entityNameDashCase" ]
+
+    @modify-provided-filename-by-replacements
+
+    @slac
+
+}}}@ */
 import {Component} from '@angular/core';
 import {OpusMagnumWTO} from "@app/wto/opus-magnum.wto";
 import {OpusMagnumService} from "@app/opus-magnum/opus-magnum.service";

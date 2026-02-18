@@ -16,7 +16,7 @@ import {MatMenuModule} from "@angular/material/menu";
 import {RouterOutlet} from "@angular/router";
 import {SideNavLinkListComponent} from "./side-nav/side-nav-list/side-nav-link-list.component";
 import {SIDE_NAVIGATION_LINKS} from "./side-nav-links";
-import {OTHER_SIDE_NAVIGATION_LINKS} from "./more-side-nav-links";
+import {MORE_SIDE_NAVIGATION_LINKS, OTHER_SIDE_NAVIGATION_LINKS} from "./more-side-nav-links";
 import {GENERATED_SIDE_NAVIGATION_LINKS} from "../app-generated/generated-side-nav-links";
 import {TranslocoService} from "@jsverse/transloco";
 

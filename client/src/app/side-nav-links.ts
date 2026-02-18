@@ -34,6 +34,7 @@ export const SIDE_NAVIGATION_LINKS: ReadonlyArray<SideNavLink> = [
         @slac
       }}}@  */
     {routeLink: '/opus-magnum-board', name: "Opera Magna", icon: "people"},
+    {routeLink: '/opus-magnum-edit/example', name: "Edit Opera Magna", icon: "edit"},
 /* @tt{{{ @slbc  @end-replace-value-by-expression @end-foreach  @slac }}}@ */
 ]
 /* @tt{{{ @slbc  @end-replace-value-by-value @slac }}}@ */
