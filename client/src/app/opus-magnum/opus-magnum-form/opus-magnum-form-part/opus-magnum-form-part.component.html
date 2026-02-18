@@ -15,80 +15,17 @@
     <mat-tab label="Main">
         <div class="column-layout">
             <div class="column">
-                <app-section-splitter label="All won library awards"></app-section-splitter>
-                <app-text-block label="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." />
+                <app-section-splitter label="The magnific opus magnum"></app-section-splitter>
                 <div class="form-row">
-                    <app-field-wrapper label="Library Awards">
-                        <app-opus-magnum-library-award-table
-                                [libraryAwardFormArray]="libraryAwardListFormArray"
-                                (editOpusMagnumLibraryAwardFormGroup)="onOpusMagnumLibraryAwardFormGroupEdit($event)"
-                                (deleteOpusMagnumLibraryAwardFormGroup)="onOpusMagnumLibraryAwardFormGroupDelete($event)"
-                        />
-                        @if (opusMagnumLibraryAwardUnderEdit) {
-                            <div class="edit-area">
-                                <button mat-icon-button color="primary" (click)="closeOpusMagnumLibraryAwardUnderEdit()">
-                                    <mat-icon>edit_off</mat-icon>
-                                </button>
-                                <app-opus-magnum-library-award-form-part [opusMagnumLibraryAwardListForm]="opusMagnumLibraryAwardUnderEdit!"  />
-                            </div>
-                        }
-                    </app-field-wrapper>
-                </div>
-                <app-section-splitter label="Names"></app-section-splitter>
-                <div class="form-row">
-                    <app-field-wrapper label="First name">
-                        <app-text-input [textFormControl]="firstnameControl" label="firstname" placeholder="Enter first name" [validatorTranslations]="firstnameValidatorNames" />
-                    </app-field-wrapper>
-                </div>
-                <div class="form-row">
-                    <app-field-wrapper label="Last name">
-                        <app-text-input [textFormControl]="lastnameControl" label="lastname" placeholder="Enter lastname" [validatorTranslations]="lastnameValidatorNames" />
-                    </app-field-wrapper>
-                </div>
-            </div>
-            <div class="column">
-                <div class="form-row">
-                    <app-field-wrapper label="Gender">
-                        <mat-form-field appearance="fill">
-                            <mat-select [formControl]="genderControl">
-                                @for (gender of genderList; track gender) {
-                                    <mat-option [value]="gender">
-                                        <app-gender-i18n [enumValue]="gender" />
-                                    </mat-option>
-                                }
-                            </mat-select>
-                        </mat-form-field>
+                    <app-field-wrapper label="Title">
+                        <app-text-input [textFormControl]="titleControl" label="title" placeholder="Enter the title" [validatorTranslations]="titleValidatorNames" />
                     </app-field-wrapper>
                 </div>
 
+                <app-text-block label="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt." />
                 <div class="form-row">
-                    <app-field-wrapper label="Nickname"
-                                       [nullabilityCheckboxFormControl]="nicknameIsNotNullControl"
-                                       [formGroupToDisableIfNullField]="nicknameControl"
-                    >
-
-                        <app-text-input [textFormControl]="nicknameControl" label="nickname" placeholder="Enter nickname" [validatorTranslations]="nicknameValidatorNames" />
-                    </app-field-wrapper>
-                </div>
-            </div>
-        </div>
-    </mat-tab>
-    <mat-tab label="Miscellaneous">
-        <div class="column-layout">
-            <div class="column">
-
-                <div class="form-row">
-                    <app-field-wrapper label="Birthday"
-                                       [nullabilityCheckboxFormControl]="birthdayIsNotNullControl"
-                                       [formGroupToDisableIfNullField]="birthdayControl"
-                    >
-                        <app-datepicker-input [datepickerFormControl]="birthdayControl" label="birthday" placeholder="Enter birthday" [validatorTranslations]="birthdayValidatorNames" />
-                    </app-field-wrapper>
-                </div>
-
-                <div class="form-row">
-                    <app-field-wrapper label="Vegetarian">
-                        <app-boolean-input [booleanFormControl]="vegetarianControl" label="vegetarian" [validatorTranslations]="vegetarianValidatorNames" />
+                    <app-field-wrapper label="Author">
+                        <app-author-form-part [authorForm]="authorFormGroup"  />
                     </app-field-wrapper>
                 </div>
             </div>

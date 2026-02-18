@@ -18,13 +18,10 @@ object EntityServiceRenderer : UiEntityRenderer {
           |import {Observable, of} from 'rxjs';
           |import {delay} from 'rxjs/operators';
           |import {${model.entityName}WTO} from "@app/wto/${model.entityNameDashCase}.wto";
+          |
           |@Injectable({providedIn: 'root'})
           |export class ${model.entityName}Service {
-          |    private ${model.entityNameLowercase}List: ${model.entityName}WTO[] = [
-          |        {
-          |            ${ model.entityRootItem.attributes.joinToString("") { attribute ->  """
-              |            ${attribute.attributeName}: ${attribute.typescriptAttributeTypeExample},
-          """ } }        },    ];
+          |    private ${model.entityNameLowercase}List: ${model.entityName}WTO[] = []
           |
           |    get${model.entityName}s(): Observable<${model.entityName}WTO[]> {
           |        // Simulate HTTP delay

@@ -56,7 +56,18 @@ import {MatListModule} from "@angular/material/list";
 export class OpusMagnumConfirmDeleteDialogComponent {
     constructor(
         public dialogRef: MatDialogRef<OpusMagnumConfirmDeleteDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: { firstname: string; lastname: string }
+        @Inject(MAT_DIALOG_DATA) public data: {
+            /* @tt{{{ @slbc
+                @foreach [ iteratorExpression="model.summaryAttributes" loopVariable="attribute" ]
+
+                @replace-value-by-expression
+                    [ searchValue="title" replaceByExpression="attribute.attributeName" ]
+                    [ searchValue="string" replaceByExpression="attribute.typescriptAttributeTypeWithoutNullability" ]
+                @slac
+            }}}@  */
+            title: string,
+            /* @tt{{{ @slbc @end-foreach @slac }}}@ */
+        }
     ) {
     }
 

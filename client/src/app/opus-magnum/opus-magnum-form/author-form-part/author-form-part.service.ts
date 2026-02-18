@@ -151,7 +151,7 @@ export class AuthorFormPartService {
         });
     }
 
-    public patchAuthorForm(form: AbstractControl, author: AuthorWTO): void {
+    public patchAuthorForm(form: FormGroup<AuthorFormPartGroup>, author: AuthorWTO): void {
         /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
         FormUtil.requiredFormControl(form, AuthorFormPartFieldName.id).patchValue(author.id);
         /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */

@@ -63,19 +63,18 @@ export class OpusMagnumResultComponent implements OnChanges {
     @Output() deleteOpusMagnum = new EventEmitter<OpusMagnumWTO>();
 
     displayedColumns: string[] = [
+        /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+        'id',
+        /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
         /* @tt{{{
             @foreach [ iteratorExpression="model.searchResultAttributes" loopVariable="attribute" ]
 
             @replace-value-by-expression
-                [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
+                [ searchValue="title" replaceByExpression="attribute.attributeName" ]
 
         }}}@  */
-        'firstname',
+        'title',
     /* @tt{{{ @slbc @end-foreach @slac }}}@ */
-    /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-        'nickname',
-        'lastname',
-    /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
         'actions'
     ];
     dataSource: MatTableDataSource<OpusMagnumWTO> = new MatTableDataSource<OpusMagnumWTO>();
@@ -116,15 +115,13 @@ export class OpusMagnumResultComponent implements OnChanges {
                     @foreach [ iteratorExpression="model.searchResultAttributes" loopVariable="attribute" ]
 
                     @replace-value-by-expression
-                        [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
+                        [ searchValue="title" replaceByExpression="attribute.attributeName" ]
                         [ searchValue="String" replaceByExpression="attribute.typescriptAttributeTypeCapitalizedWithoutNullability" ]
                     @slac
                 }}}@  */
-                this.isMatchingStringCriteria(criteria.firstname, opusMagnum.firstname) &&
+                this.isMatchingStringCriteria(criteria.title, opusMagnum.title) &&
                     /* @tt{{{ @slbc @end-foreach @slac }}}@ */
                     /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-                this.isMatchingStringCriteria(criteria.nickname, opusMagnum.nickname) &&
-                this.isMatchingStringCriteria(criteria.lastname, opusMagnum.lastname) &&
                 this.isMatchingStringCriteria(criteria.id, opusMagnum.id) &&
                     /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
                     true

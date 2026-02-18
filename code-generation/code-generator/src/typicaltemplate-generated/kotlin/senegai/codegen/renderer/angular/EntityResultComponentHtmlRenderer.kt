@@ -16,7 +16,7 @@ object EntityResultComponentHtmlRenderer : UiEntityRenderer {
           |<div class="${model.entityNameDashCase}-table-container">
           |    <table mat-table [dataSource]="dataSource">
           |        ${ model.searchResultAttributes.joinToString("") { attribute ->  """
-              |        <!-- ${attribute.attributeName} Column -->
+              |        <!-- Firstname Column -->
               |        <ng-container matColumnDef="${attribute.attributeName}">
               |            <th mat-header-cell *matHeaderCellDef>${attribute.attributeName}</th>
               |            <td mat-cell *matCellDef="let ${model.entityNameLowercase}">{{ ${model.entityNameLowercase}.${attribute.attributeName} }}</td>

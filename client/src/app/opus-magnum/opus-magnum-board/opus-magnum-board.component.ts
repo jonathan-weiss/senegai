@@ -82,7 +82,17 @@ export class OpusMagnumBoardComponent {
 
     onDeleteOpusMagnum(opusMagnum: OpusMagnumWTO): void {
         const dialogRef = this.dialog.open(OpusMagnumConfirmDeleteDialogComponent, {
-            data: {firstname: opusMagnum.firstname, lastname: opusMagnum.lastname}
+            data: {
+                /* @tt{{{ @slbc
+                    @foreach [ iteratorExpression="model.summaryAttributes" loopVariable="attribute" ]
+
+                    @replace-value-by-expression
+                        [ searchValue="title" replaceByExpression="attribute.attributeName" ]
+                    @slac
+                }}}@  */
+                title: opusMagnum.title,
+                /* @tt{{{ @slbc @end-foreach @slac }}}@ */
+            }
         });
         dialogRef.afterClosed().subscribe(result => {
             if (result) {

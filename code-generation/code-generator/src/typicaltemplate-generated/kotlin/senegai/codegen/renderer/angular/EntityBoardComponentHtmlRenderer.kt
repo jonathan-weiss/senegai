@@ -54,8 +54,8 @@ object EntityBoardComponentHtmlRenderer : UiEntityRenderer {
           |                    <ng-container>Edit ${model.entityName}</ng-container>
           |                </mat-panel-title>
           |                @if (selected${model.entityName}) {
-          |                    <mat-panel-description>
-          |                        {{ selected${model.entityName}.firstname }} {{ selected${model.entityName}.lastname }}
+          |                    <mat-panel-description>${ model.summaryAttributes.joinToString("") { attribute ->  """{{ selected${model.entityName}.${attribute.attributeName} }} 
+          """ } }
           |                    </mat-panel-description>
           |                }
           |            </mat-expansion-panel-header>

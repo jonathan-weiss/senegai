@@ -49,7 +49,8 @@ object EntityConfirmDeleteDialogComponentTypescriptRenderer : UiEntityRenderer {
           |export class ${model.entityName}ConfirmDeleteDialogComponent {
           |    constructor(
           |        public dialogRef: MatDialogRef<${model.entityName}ConfirmDeleteDialogComponent>,
-          |        @Inject(MAT_DIALOG_DATA) public data: { firstname: string; lastname: string }
+          |        @Inject(MAT_DIALOG_DATA) public data: {${ model.summaryAttributes.joinToString("") { attribute ->  """            ${attribute.attributeName}: ${attribute.typescriptAttributeTypeWithoutNullability},
+          """ } }        }
           |    ) {
           |    }
           |

@@ -49,17 +49,17 @@
                 <app-text-block label="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." />
                 <div class="form-row">
                     <app-field-wrapper label="Library Awards">
-                        <app-author-library-award-table
+                        <app-library-award-table
                                 [libraryAwardFormArray]="libraryAwardListFormArray"
-                                (editAuthorLibraryAwardFormGroup)="onAuthorLibraryAwardFormGroupEdit($event)"
-                                (deleteAuthorLibraryAwardFormGroup)="onAuthorLibraryAwardFormGroupDelete($event)"
+                                (editLibraryAwardFormGroup)="onAuthorLibraryAwardFormGroupEdit($event)"
+                                (deleteLibraryAwardFormGroup)="onAuthorLibraryAwardFormGroupDelete($event)"
                         />
                         @if (authorLibraryAwardUnderEdit) {
                             <div class="edit-area">
                                 <button mat-icon-button color="primary" (click)="closeAuthorLibraryAwardUnderEdit()">
                                     <mat-icon>edit_off</mat-icon>
                                 </button>
-                                <app-author-library-award-form-part [authorLibraryAwardListForm]="authorLibraryAwardUnderEdit!"  />
+                                <app-library-award-form-part [libraryAwardForm]="authorLibraryAwardUnderEdit!"  />
                             </div>
                         }
                     </app-field-wrapper>

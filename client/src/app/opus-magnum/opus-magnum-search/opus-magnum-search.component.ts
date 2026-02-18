@@ -39,15 +39,13 @@ export interface OpusMagnumSearchCriteria {
         @foreach [ iteratorExpression="model.searchCriteriaAttributes" loopVariable="attribute" ]
 
         @replace-value-by-expression
-            [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
+            [ searchValue="title" replaceByExpression="attribute.attributeName" ]
             [ searchValue="string" replaceByExpression="attribute.typescriptAttributeTypeWithoutNullability" ]
         @slac
     }}}@  */
-    firstname?: string;
+    title?: string;
     /* @tt{{{ @slbc @end-foreach @slac }}}@ */
     /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-    nickname?: string;
-    lastname?: string;
     id?: string;
     /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 }
@@ -82,15 +80,13 @@ export class OpusMagnumSearchComponent {
                 @foreach [ iteratorExpression="model.searchCriteriaAttributes" loopVariable="attribute" ]
 
                 @replace-value-by-expression
-                    [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
+                    [ searchValue="title" replaceByExpression="attribute.attributeName" ]
                     [ searchValue="''" replaceByExpression="attribute.typescriptAttributeInitialValue" ]
                 @slac
             }}}@  */
-            firstname: [''],
+            title: [''],
             /* @tt{{{ @slbc @end-foreach @slac }}}@ */
             /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-            nickname: [''],
-            lastname: [''],
             id: [''],
             /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
         });

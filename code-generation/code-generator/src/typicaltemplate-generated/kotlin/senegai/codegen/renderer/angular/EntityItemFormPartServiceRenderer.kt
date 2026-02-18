@@ -47,7 +47,7 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
           """ } }        });
           |    }
           |
-          |    public patch${model.itemName}Form(form: AbstractControl, ${model.itemNameLowercase}: ${model.itemName}WTO): void {        ${ model.attributes.joinToString("") { attribute ->  """        FormUtil.requiredFormControl(form, ${model.itemName}FormPartFieldName.${attribute.attributeName}).patchValue(${model.itemNameLowercase}.${attribute.attributeName});
+          |    public patch${model.itemName}Form(form: FormGroup<${model.itemName}FormPartGroup>, ${model.itemNameLowercase}: ${model.itemName}WTO): void {        ${ model.attributes.joinToString("") { attribute ->  """        FormUtil.requiredFormControl(form, ${model.itemName}FormPartFieldName.${attribute.attributeName}).patchValue(${model.itemNameLowercase}.${attribute.attributeName});
           """ } }    }
           |
           |    public create${model.itemName}FromFormData(form: AbstractControl): ${model.itemName}WTO {

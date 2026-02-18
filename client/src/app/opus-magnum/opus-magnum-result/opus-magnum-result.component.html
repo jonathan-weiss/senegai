@@ -20,35 +20,29 @@
 
 }}}@ --><div class="opus-magnum-table-container">
     <table mat-table [dataSource]="dataSource">
+        <!-- @tt{{{ @slbc  @ignore-text @slac }}}@ -->
+        <!-- Id Column -->
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>Id</th>
+            <td mat-cell *matCellDef="let opusMagnum">{{ opusMagnum.id }}</td>
+        </ng-container>
+        <!-- @tt{{{ @slbc  @end-ignore-text @slac }}}@ -->
+
         <!-- @tt{{{
             @foreach [ iteratorExpression="model.searchResultAttributes" loopVariable="attribute" ]
 
                 @replace-value-by-expression
-                [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
-                [ searchValue="Firstname" replaceByExpression="attribute.attributeName" ]
+                [ searchValue="title" replaceByExpression="attribute.attributeName" ]
+                [ searchValue="Title" replaceByExpression="attribute.attributeName" ]
                 [ searchValue="string" replaceByExpression="attribute.typescriptAttributeType" ]
 
         }}}@  -->
         <!-- Firstname Column -->
-        <ng-container matColumnDef="firstname">
-            <th mat-header-cell *matHeaderCellDef>Firstname</th>
-            <td mat-cell *matCellDef="let opusMagnum">{{ opusMagnum.firstname }}</td>
+        <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef>Title</th>
+            <td mat-cell *matCellDef="let opusMagnum">{{ opusMagnum.title }}</td>
         </ng-container>
         <!-- @tt{{{ @slbc @end-foreach @slac }}}@ -->
-
-        <!-- @tt{{{ @slbc  @ignore-text @slac }}}@ -->
-        <!-- Nickname Column -->
-        <ng-container matColumnDef="nickname">
-            <th mat-header-cell *matHeaderCellDef>Nickname</th>
-            <td mat-cell *matCellDef="let opusMagnum">{{ opusMagnum.nickname }}</td>
-        </ng-container>
-
-        <!-- Lastname Column -->
-        <ng-container matColumnDef="lastname">
-            <th mat-header-cell *matHeaderCellDef>Lastname</th>
-            <td mat-cell *matCellDef="let opusMagnum">{{ opusMagnum.lastname }}</td>
-        </ng-container>
-        <!-- @tt{{{ @slbc  @end-ignore-text @slac }}}@ -->
 
         <!-- Actions Column -->
         <ng-container matColumnDef="actions">

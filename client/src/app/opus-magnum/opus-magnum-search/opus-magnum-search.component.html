@@ -21,7 +21,7 @@
 }}}@ -->
 <mat-card class="search-card">
     <mat-card-header>
-        <mat-card-title>Search OpusMagnums</mat-card-title>
+        <mat-card-title>Search OpusMagnum</mat-card-title>
     </mat-card-header>
     <mat-card-content>
         <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
@@ -30,27 +30,21 @@
                     @foreach [ iteratorExpression="model.searchCriteriaAttributes" loopVariable="attribute" ]
 
                         @replace-value-by-expression
-                        [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
-                        [ searchValue="First Name" replaceByExpression="attribute.attributeName" ]
-                        [ searchValue="first name" replaceByExpression="attribute.attributeName" ]
+                        [ searchValue="title" replaceByExpression="attribute.attributeName" ]
+                        [ searchValue="Title" replaceByExpression="attribute.attributeName" ]
                         [ searchValue="string" replaceByExpression="attribute.typescriptAttributeType" ]
 
                 }}}@  -->
                 <mat-form-field appearance="outline">
-                    <mat-label>First Name</mat-label>
-                    <input matInput formControlName="firstname" placeholder="Enter first name">
+                    <mat-label>Title</mat-label>
+                    <input matInput formControlName="title" placeholder="Enter title">
                 </mat-form-field>
                 <!-- @tt{{{ @slbc @end-foreach @slac }}}@ -->
 
                 <!-- @tt{{{ @slbc  @ignore-text @slac }}}@ -->
                 <mat-form-field appearance="outline">
-                    <mat-label>Nickname</mat-label>
-                    <input matInput formControlName="nickname" placeholder="Enter nickname">
-                </mat-form-field>
-
-                <mat-form-field appearance="outline">
-                    <mat-label>Last Name</mat-label>
-                    <input matInput formControlName="lastname" placeholder="Enter last name">
+                    <mat-label>Id</mat-label>
+                    <input matInput formControlName="id" placeholder="Enter id">
                 </mat-form-field>
                 <!-- @tt{{{ @slbc  @end-ignore-text @slac }}}@ -->
             </div>

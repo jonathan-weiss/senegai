@@ -26,7 +26,7 @@ import {
 } from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part-group";
 
 @Component({
-    selector: 'app-opus-magnum-library-award-table',
+    selector: 'app-library-award-table',
     templateUrl: './library-award-table.component.html',
     styleUrls: ['./library-award-table.component.scss'],
     imports: [
@@ -46,8 +46,8 @@ import {
 })
 export class LibraryAwardTableComponent implements OnInit {
     @Input({ required: true }) libraryAwardFormArray!: FormArray<FormGroup<LibraryAwardFormPartGroup>>;
-    @Output() editOpusMagnumLibraryAwardFormGroup = new EventEmitter<FormGroup<LibraryAwardFormPartGroup>>();
-    @Output() deleteOpusMagnumLibraryAwardFormGroup = new EventEmitter<FormGroup<LibraryAwardFormPartGroup>>();
+    @Output() editLibraryAwardFormGroup = new EventEmitter<FormGroup<LibraryAwardFormPartGroup>>();
+    @Output() deleteLibraryAwardFormGroup = new EventEmitter<FormGroup<LibraryAwardFormPartGroup>>();
 
     displayedColumns: string[] = [
         'description',
@@ -86,7 +86,7 @@ export class LibraryAwardTableComponent implements OnInit {
         } else {
             this.libraryAwardFormArray.push(newEntry)
         }
-        this.editOpusMagnumLibraryAwardFormGroup.emit(newEntry);
+        this.editLibraryAwardFormGroup.emit(newEntry);
     }
 
     onSelect(opusMagnumLibraryAwardFormGroup: FormGroup): void {
@@ -98,11 +98,11 @@ export class LibraryAwardTableComponent implements OnInit {
     }
 
     onEdit(opusMagnumLibraryAwardFormGroup: FormGroup): void {
-        this.editOpusMagnumLibraryAwardFormGroup.emit(opusMagnumLibraryAwardFormGroup);
+        this.editLibraryAwardFormGroup.emit(opusMagnumLibraryAwardFormGroup);
     }
 
     onDelete(opusMagnumLibraryAwardFormGroup: FormGroup): void {
-        this.deleteOpusMagnumLibraryAwardFormGroup.emit(opusMagnumLibraryAwardFormGroup);
+        this.deleteLibraryAwardFormGroup.emit(opusMagnumLibraryAwardFormGroup);
     }
 
     private descriptionControl(formControl: AbstractControl): FormControl<string> {

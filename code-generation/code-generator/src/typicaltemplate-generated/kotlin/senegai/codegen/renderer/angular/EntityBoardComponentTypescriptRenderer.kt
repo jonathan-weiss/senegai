@@ -75,7 +75,8 @@ object EntityBoardComponentTypescriptRenderer : UiEntityRenderer {
           |
           |    onDelete${model.entityName}(${model.entityNameLowercase}: ${model.entityName}WTO): void {
           |        const dialogRef = this.dialog.open(${model.entityName}ConfirmDeleteDialogComponent, {
-          |            data: {firstname: ${model.entityNameLowercase}.firstname, lastname: ${model.entityNameLowercase}.lastname}
+          |            data: {${ model.summaryAttributes.joinToString("") { attribute ->  """                ${attribute.attributeName}: ${model.entityNameLowercase}.${attribute.attributeName},
+          """ } }            }
           |        });
           |        dialogRef.afterClosed().subscribe(result => {
           |            if (result) {

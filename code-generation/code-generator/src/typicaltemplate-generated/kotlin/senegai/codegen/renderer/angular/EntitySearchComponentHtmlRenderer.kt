@@ -15,7 +15,7 @@ object EntitySearchComponentHtmlRenderer : UiEntityRenderer {
         return """
           |<mat-card class="search-card">
           |    <mat-card-header>
-          |        <mat-card-title>Search ${model.entityName}s</mat-card-title>
+          |        <mat-card-title>Search ${model.entityName}</mat-card-title>
           |    </mat-card-header>
           |    <mat-card-content>
           |        <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">

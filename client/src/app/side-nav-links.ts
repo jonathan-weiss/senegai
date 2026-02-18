@@ -27,8 +27,9 @@ export const SIDE_NAVIGATION_LINKS: ReadonlyArray<SideNavLink> = [
         @foreach [ iteratorExpression="models" loopVariable="entity" ]
 
         @replace-value-by-expression
-            [ searchValue="author" replaceByExpression="entity.entityNameLowercase" ]
-            [ searchValue="Authors" replaceByExpression="entity.entityName" ]
+            [ searchValue="opus-magnum" replaceByExpression="entity.entityNameDashCase" ]
+            [ searchValue="opusMagnum" replaceByExpression="entity.entityNameLowercase" ]
+            [ searchValue="Opera Magna" replaceByExpression="entity.entityName" ]
 
         @slac
       }}}@  */

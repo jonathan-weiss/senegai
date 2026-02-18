@@ -9,6 +9,14 @@ export class FormUtil {
         throw Error("Form Control " + formControlName + " not found in form group " + form)
     }
 
+    public static requiredFormGroup(form: AbstractControl, formControlName: string): FormGroup {
+        const formControl = form.get(formControlName)
+        if (formControl && formControl instanceof FormGroup) {
+            return formControl
+        }
+        throw Error("Form Group " + formControlName + " not found in form group " + form)
+    }
+
     public static requiredFormArray<T extends AbstractControl>(form: AbstractControl, formControlName: string): FormArray<T> {
         const formArray = form.get(formControlName)
         if (formArray && formArray instanceof FormArray) {

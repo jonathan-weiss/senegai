@@ -55,8 +55,7 @@ object EntityResultComponentTypescriptRenderer : UiEntityRenderer {
           |    @Output() select${model.entityName} = new EventEmitter<${model.entityName}WTO>();
           |    @Output() delete${model.entityName} = new EventEmitter<${model.entityName}WTO>();
           |
-          |    displayedColumns: string[] = [
-          |        ${ model.searchResultAttributes.joinToString("") { attribute ->  """
+          |    displayedColumns: string[] = [        ${ model.searchResultAttributes.joinToString("") { attribute ->  """
               |        '${attribute.attributeName}',
           """ } }        'actions'
           |    ];

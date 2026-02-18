@@ -60,7 +60,13 @@
                 </mat-panel-title>
                 @if (selectedOpusMagnum) {
                     <mat-panel-description>
-                        {{ selectedOpusMagnum.firstname }} {{ selectedOpusMagnum.lastname }}
+                        <!-- @tt{{{ @slbc
+    @foreach [ iteratorExpression="model.summaryAttributes" loopVariable="attribute" ]
+
+    @replace-value-by-expression
+    [ searchValue="title" replaceByExpression="attribute.attributeName" ]
+}}}@  -->{{ selectedOpusMagnum.title }} <!-- @tt{{{ @end-foreach @slac }}}@ -->
+
                     </mat-panel-description>
                 }
             </mat-expansion-panel-header>

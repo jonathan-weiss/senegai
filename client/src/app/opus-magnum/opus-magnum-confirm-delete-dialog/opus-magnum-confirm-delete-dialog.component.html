@@ -20,7 +20,15 @@
 
 }}}@ -->
 <h2 mat-dialog-title>Delete OpusMagnum</h2>
-<mat-dialog-content><ng-container>Are you sure you want to delete</ng-container> <b>{{ data.firstname }} {{ data.lastname }}</b>?
+<mat-dialog-content><ng-container>Are you sure you want to delete</ng-container> <b>
+        <!-- @tt{{{ @slbc
+            @foreach [ iteratorExpression="model.summaryAttributes" loopVariable="attribute" ]
+
+            @replace-value-by-expression
+            [ searchValue="title" replaceByExpression="attribute.attributeName" ]
+            [ searchValue="string" replaceByExpression="attribute.typescriptAttributeTypeWithoutNullability" ]
+    }}}@  -->{{ data.title }} <!-- @tt{{{ @end-foreach @slac }}}@ -->
+    </b>?
 </mat-dialog-content>
 <mat-dialog-actions align="end">
     <button mat-button (click)="onCancel()">Cancel</button>

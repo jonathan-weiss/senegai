@@ -13,6 +13,7 @@ data class UiEntityModel(
 
     val searchResultAttributes: List<UiItemAttributeModel> = entityRootItem.attributes
     val searchCriteriaAttributes: List<UiItemAttributeModel> = entityRootItem.attributes
+    val summaryAttributes: List<UiItemAttributeModel> = entityRootItem.attributes
 
     private fun searchRecursiveInNestedUiItemModel(itemModel: UiItemModel): List<UiItemModel> {
         // TODO implement recursive
