@@ -13,6 +13,7 @@
         [ searchValue="OpusMagnum" replaceByExpression="model.entityName" ]
         [ searchValue="opusMagnum" replaceByExpression="model.entityNameLowercase" ]
         [ searchValue="opus-magnum" replaceByExpression="model.entityNameDashCase" ]
+        [ searchValue="OPUS_MAGNUM" replaceByExpression="model.entityNameUppercase" ]
 
     @modify-provided-filename-by-replacements
 
@@ -24,20 +25,16 @@ import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {delay} from 'rxjs/operators';
 import {OpusMagnumWTO} from "@app/wto/opus-magnum.wto";
-/* @tt{{{ @slbc  @ignore-text @slac }}}@ */
 import {OPUS_MAGNUM_EXAMPLE_DATA} from "@app/opus-magnum/opus-magnum-example-data";
-/* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 
 
 @Injectable({providedIn: 'root'})
 export class OpusMagnumService {
     private opusMagnumList: OpusMagnumWTO[] = []
 
-    /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
     constructor() {
         this.opusMagnumList = OPUS_MAGNUM_EXAMPLE_DATA
     }
-    /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 
     getOpusMagnums(): Observable<OpusMagnumWTO[]> {
         // Simulate HTTP delay

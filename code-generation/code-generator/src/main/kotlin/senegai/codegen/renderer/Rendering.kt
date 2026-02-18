@@ -41,6 +41,7 @@ object Rendering {
             EntitySearchComponentScssRenderer,
             EntitySearchComponentTypescriptRenderer,
             EntityServiceRenderer,
+            EntityExampleDataRenderer,
         )
 
         uiEntities.forEach { uiEntityModel ->

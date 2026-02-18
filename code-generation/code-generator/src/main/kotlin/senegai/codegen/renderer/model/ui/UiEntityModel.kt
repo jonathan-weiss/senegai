@@ -8,12 +8,14 @@ data class UiEntityModel(
     val entityItemModels: List<UiItemModel> = searchRecursiveInNestedUiItemModel(entityRootItem)
 
     val entityName: String = entityRootItem.itemName
+    val entityNameUppercase: String = entityRootItem.itemName.uppercase()
     val entityNameLowercase: String = entityRootItem.itemName.lowercase()
     val entityNameDashCase: String = CaseUtil.camelToDashCase(entityRootItem.itemName.lowercase())
 
     val searchResultAttributes: List<UiItemAttributeModel> = entityRootItem.attributes
     val searchCriteriaAttributes: List<UiItemAttributeModel> = entityRootItem.attributes
     val summaryAttributes: List<UiItemAttributeModel> = entityRootItem.attributes
+    val allAttributes: List<UiItemAttributeModel> = entityRootItem.attributes
 
     private fun searchRecursiveInNestedUiItemModel(itemModel: UiItemModel): List<UiItemModel> {
         // TODO implement recursive

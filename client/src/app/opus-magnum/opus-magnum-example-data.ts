@@ -1,10 +1,45 @@
+/* @tt{{{
+    @slbc
+
+    @template-renderer [ templateRendererClassName="EntityExampleDataRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="UiEntityRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
+
+    @template-model [
+    modelClassName="UiEntityModel"
+    modelPackageName="senegai.codegen.renderer.model.ui"
+    modelName="model"
+    ]
+
+    @replace-value-by-expression
+        [ searchValue="OpusMagnum" replaceByExpression="model.entityName" ]
+        [ searchValue="opusMagnum" replaceByExpression="model.entityNameLowercase" ]
+        [ searchValue="opus-magnum" replaceByExpression="model.entityNameDashCase" ]
+        [ searchValue="OPUS_MAGNUM" replaceByExpression="model.entityNameUppercase" ]
+
+    @modify-provided-filename-by-replacements
+
+    @slac
+
+}}}@ */
 import {OpusMagnumWTO} from "@app/wto/opus-magnum.wto";
+/* @tt{{{ @slbc  @ignore-text @slac }}}@ */
 import {GenderEnum} from "@app/wto/gender.enum";
+/* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 
 export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
     {
-        id: '828cf29b-a7fb-4b07-bf13-9a313a9967f6',
+        /* @tt{{{ @slbc
+            @foreach [ iteratorExpression="model.allAttributes" loopVariable="attribute" ]
+
+            @replace-value-by-expression
+                [ searchValue="title" replaceByExpression="attribute.attributeName" ]
+            @replace-value-by-value
+                [ searchValue="the grande finali" replaceByValue="example" ]
+            @slac
+        }}}@  */
         title: 'the grande finali',
+        /* @tt{{{ @slbc @end-foreach @slac }}}@ */
+        /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+        id: '828cf29b-a7fb-4b07-bf13-9a313a9967f6',
         author: {
             id: '828cf29b-a7fb-4b07-bf13-9a313a9967f6',
             firstname: 'John',
@@ -90,5 +125,6 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
             vegetarian: false,
             gender: GenderEnum.FEMALE,
         }
+    /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
     }
 ];
