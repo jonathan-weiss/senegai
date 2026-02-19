@@ -9,16 +9,18 @@ data class UiEntityEditorView(
     val itemConfiguration: List<UiEntityEditorItemConfiguration>,
 )
 
-sealed interface UiEntityEditorItemConfiguration
+sealed interface UiEntityEditorItemConfiguration {
+    val noTab: List<UiEntityEditorColumn>
+}
 
 data class UiEntityEditorEntityConfiguration(
-    val noTab: List<UiEntityEditorColumn>,
+    override val noTab: List<UiEntityEditorColumn>,
     val tabs: List<UiEntityEditorTab>,
 ): UiEntityEditorItemConfiguration
 
 data class UiEntityEditorEntityNestedItemConfiguration(
     val itemId: ItemId,
-    val noTab: List<UiEntityEditorColumn>,
+    override val noTab: List<UiEntityEditorColumn>,
 ): UiEntityEditorItemConfiguration
 
 data class UiEntityEditorTab(

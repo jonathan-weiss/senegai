@@ -11,8 +11,8 @@ import senegai.codegen.schema.ItemId
 
 data class UiItemAttributeModel(
     val attributeName: String,
-    val cardinality: ItemAttributeCardinality,
-    val type: ItemAttributeType,
+    val cardinality: ItemAttributeCardinality, // TODO that is wrong, it is not a model class
+    val type: ItemAttributeType, // TODO that is wrong, it is not a model class
 ) {
     val typescriptAttributeTypeExample: String = calculateExampleValue()
     val typescriptAttributeInitialValue: String = calculateInitialValue()

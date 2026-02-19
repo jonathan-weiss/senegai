@@ -58,31 +58,33 @@ object RendererModelConverter {
         )
     }
 
-    private fun mapUiEntityViewsModel(uiEntity: UiEntity, allUiItemModels: List<UiItemModel>): UiEntityViewsModel {
+    private fun mapUiEntityViewsModel(uiEntity: UiEntity, entityItemModelIds: Set<ItemId>, allUiItemModels: List<UiItemModel>): UiEntityViewsModel {
         val uiEntityModel = UiEntityModel(
             entityRootItem = mapUiItemModel(uiEntity.entity.item),
-            entityItemModels = allUiItemModels, // TODO filter only items that are nested from root item
+            entityItemModels = allUiItemModels.filter { it.itemId in entityItemModelIds },
         )
 
         val uiEntityItems =uiEntity.editorView.itemConfiguration.map { itemConfiguration ->
-            when (itemConfiguration) {
-                is UiEntityEditorEntityConfiguration -> UiEntityFormViewItemModel(
-                    entity = uiEntityModel,
-                    item = uiEntityModel.entityRootItem,
-                    noTab = itemConfiguration.noTab.map { mapUiEntityColumn(uiEntityModel = uiEntityModel, column = it) },
-                    tabs = itemConfiguration.tabs.map { mapUiEntityTab(uiEntityModel = uiEntityModel, tab = it) },
-                )
-
-                is UiEntityEditorEntityNestedItemConfiguration -> UiEntityFormViewItemModel(
-                    entity = uiEntityModel,
-                    item = requireNotNull(uiEntityModel.entityItemModels.firstOrNull { it.itemName === itemConfiguration.itemId.itemName }) {
-                        "No item found with item id '${itemConfiguration.itemId.itemName}' within items ${uiEntityModel.entityItemModels.map { it.itemName }}"
-                    },
-                    noTab = itemConfiguration.noTab.map { mapUiEntityColumn(uiEntityModel = uiEntityModel, column = it) },
-                    tabs = emptyList(),
-                )
-
+            val itemModel = when (itemConfiguration) {
+                is UiEntityEditorEntityConfiguration -> uiEntityModel.entityRootItem
+                is UiEntityEditorEntityNestedItemConfiguration -> requireNotNull(uiEntityModel.entityItemModels.firstOrNull { it.itemName === itemConfiguration.itemId.itemName }) {
+                    "No item found with item id '${itemConfiguration.itemId.itemName}' within items ${uiEntityModel.entityItemModels.map { it.itemName }}"
+                }
             }
+
+            val noTab = itemConfiguration.noTab.map { mapUiEntityColumn(uiEntityModel = uiEntityModel, uiItemModel = itemModel, column = it) }
+
+            val tabs = when (itemConfiguration) {
+                is UiEntityEditorEntityConfiguration -> itemConfiguration.tabs.map { mapUiEntityTab(uiEntityModel = uiEntityModel, uiItemModel = itemModel, tab = it) }
+                is UiEntityEditorEntityNestedItemConfiguration -> emptyList()
+            }
+
+            UiEntityFormViewItemModel(
+                entity = uiEntityModel,
+                item = itemModel,
+                noTab = noTab,
+                tabs = tabs,
+            )
         }
 
         return UiEntityViewsModel(
@@ -94,26 +96,26 @@ object RendererModelConverter {
         )
     }
 
-    private fun mapUiEntityTab(uiEntityModel: UiEntityModel, tab: UiEntityEditorTab): UiEntityFormViewTabModel {
+    private fun mapUiEntityTab(uiEntityModel: UiEntityModel, uiItemModel: UiItemModel, tab: UiEntityEditorTab): UiEntityFormViewTabModel {
         return UiEntityFormViewTabModel(
             entity = uiEntityModel,
             tabName = tab.tabName,
-            columns = tab.columns.map { mapUiEntityColumn(uiEntityModel = uiEntityModel, column = it) })
+            columns = tab.columns.map { mapUiEntityColumn(uiEntityModel = uiEntityModel, uiItemModel = uiItemModel, column = it) })
     }
 
-    private fun mapUiEntityColumn(uiEntityModel: UiEntityModel, column: UiEntityEditorColumn): UiEntityFormViewColumnModel {
+    private fun mapUiEntityColumn(uiEntityModel: UiEntityModel, uiItemModel: UiItemModel, column: UiEntityEditorColumn): UiEntityFormViewColumnModel {
         return UiEntityFormViewColumnModel(
             entity = uiEntityModel,
-            blocks = column.blocks.map { mapUiEntitySectionBlock(uiEntityModel = uiEntityModel, block = it) },
+            blocks = column.blocks.map { mapUiEntityBlock(uiEntityModel = uiEntityModel, uiItemModel = uiItemModel, block = it) },
         )
     }
 
-    private fun mapUiEntitySectionBlock(uiEntityModel: UiEntityModel, block: UiBlock): UiEntityFormBlockModel {
+    private fun mapUiEntityBlock(uiEntityModel: UiEntityModel, uiItemModel: UiItemModel, block: UiBlock): UiEntityFormBlockModel {
         return when (block) {
             is UiItemAttributeBlock -> UiEntityFormItemAttributeBlockModel(
                 entity = uiEntityModel,
                 attributeName = block.attributeName,
-                item = uiEntityModel.entityRootItem, // TODO only the root item is good enough for the moment
+                item = uiItemModel,
                 type = UiFormAttributeType.NON_NULLABLE_SINGLE_VALUE, // TODO good for the moment
             )
             is UiSectionBlock -> UiEntityFormNamedSectionSplitBlockModel(block.sectionName)
