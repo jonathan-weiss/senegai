@@ -88,13 +88,14 @@ object CodegenData {
                                 }
                             }
                         }
-                        configureNestedEntityItem(itemId = Items.ADDRESS) {
-                            column {
-                                attribute(attributeName = "address")
-                                attribute(attributeName = "zipCode")
-                                attribute(attributeName = "city")
-                            }
-                        }
+// TODO ADDRESS is not a correct nested item
+//                        configureNestedEntityItem(itemId = Items.ADDRESS) {
+//                            column {
+//                                attribute(attributeName = "address")
+//                                attribute(attributeName = "zipCode")
+//                                attribute(attributeName = "city")
+//                            }
+//                        }
                     }
                 }
             }

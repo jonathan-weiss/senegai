@@ -17,6 +17,7 @@ import senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormTextBlock
 import senegai.codegen.renderer.model.ui.entityform.blocks.UiFormAttributeType
 import senegai.codegen.schema.Item
 import senegai.codegen.schema.ItemAttribute
+import senegai.codegen.schema.ItemId
 import senegai.codegen.schema.SchemaData
 import senegai.codegen.schema.UiEntity
 import senegai.codegen.schema.UiItemAttributeBlock
@@ -34,7 +35,11 @@ object RendererModelConverter {
         return SchemaModel(
             uiModel = UiModel(
                 uiEntitiesViews = schemaData.uiEntities
-                    .map { mapUiEntityViewsModel(it, schemaData.allUiItemModels()) }
+                    .map {
+                        val entity = schemaData.entities.single { entity -> it.entity.entityId == entity.entityId }
+                        val allNestedItemIds = HierarchicalItemSearch.findAllItemNames(entity.item, schemaData.items)
+                        mapUiEntityViewsModel(it, allNestedItemIds, schemaData.allUiItemModels())
+                    }
             )
         )
     }
@@ -45,6 +50,7 @@ object RendererModelConverter {
 
     private fun mapUiItemModel(item: Item): UiItemModel {
         return UiItemModel(
+            itemId = item.itemId,
             itemName = item.itemName,
             attributes = item.attributes.map { mapUiItemAttribute(it) }
         )
@@ -60,7 +66,7 @@ object RendererModelConverter {
 
     private fun mapUiEntityViewsModel(uiEntity: UiEntity, entityItemModelIds: Set<ItemId>, allUiItemModels: List<UiItemModel>): UiEntityViewsModel {
         val uiEntityModel = UiEntityModel(
-            entityRootItem = mapUiItemModel(uiEntity.entity.item),
+            entityRootItem = allUiItemModels.single { it.itemId == uiEntity.entity.item.itemId },
             entityItemModels = allUiItemModels.filter { it.itemId in entityItemModelIds },
         )
 
