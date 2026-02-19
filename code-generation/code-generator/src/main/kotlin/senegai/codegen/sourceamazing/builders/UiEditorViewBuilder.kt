@@ -1,18 +1,13 @@
 package senegai.codegen.sourceamazing.builders
 
-import org.codeblessing.sourceamazing.builder.api.annotations.Builder
-import org.codeblessing.sourceamazing.builder.api.annotations.BuilderMethod
-import org.codeblessing.sourceamazing.builder.api.annotations.ExpectedClazzModelFromSuperiorBuilder
-import org.codeblessing.sourceamazing.builder.api.annotations.InjectBuilder
-import org.codeblessing.sourceamazing.builder.api.annotations.NewClazzModel
-import org.codeblessing.sourceamazing.builder.api.annotations.SetClazzModelOfAlias
-import org.codeblessing.sourceamazing.builder.api.annotations.SetAsValue
-import senegai.codegen.builders.UiColumnDsl
+import org.codeblessing.sourceamazing.builder.api.annotations.*
 import senegai.codegen.builders.UiEditorDsl
-import senegai.codegen.builders.UiTabDsl
-import senegai.codegen.schema.UiEntity
-import senegai.codegen.schema.UiEntityEditorSection
-import senegai.codegen.schema.UiEntityEditorTab
+import senegai.codegen.builders.UiEditorForMainItemDsl
+import senegai.codegen.builders.UiEditorForNestedItemDsl
+import senegai.codegen.schema.ItemId
+import senegai.codegen.schema.UiEntityEditorColumn
+import senegai.codegen.schema.UiEntityEditorEntityConfiguration
+import senegai.codegen.schema.UiEntityEditorEntityNestedItemConfiguration
 import senegai.codegen.schema.UiEntityEditorView
 
 @Builder
@@ -20,15 +15,28 @@ import senegai.codegen.schema.UiEntityEditorView
 interface UiEditorViewBuilder: UiEditorDsl {
 
     @BuilderMethod
-    @NewClazzModel(clazz = UiEntityEditorTab::class, alias = "uiTab")
-    @SetClazzModelOfAlias(alias = "uiEditor", clazzProperty = "tabs", referencedAlias = "uiTab")
-    fun tabInternal(
-        @SetAsValue(alias = "uiTab", clazzProperty = "tabName")
-        tabName: String,
-        @InjectBuilder builder: UiTabBuilder.() -> Unit
+    @NewClazzModel(clazz = UiEntityEditorEntityConfiguration::class, alias = "mainItemConfiguration")
+    @SetClazzModelOfAlias(alias = "uiEditor", clazzProperty = "itemConfiguration", referencedAlias = "mainItemConfiguration")
+    fun configureEditorForEntityInternal(
+        @InjectBuilder builder: UiEditorConfigForMainEntityItemBuilder.() -> Unit
     )
 
-    override fun tab(tabName: String, builder: UiTabDsl.() -> Unit) {
-        tabInternal(tabName, builder)
+    override fun configureEditorForEntity(builder: UiEditorForMainItemDsl.() -> Unit) {
+        configureEditorForEntityInternal(builder)
+    }
+
+    @BuilderMethod
+    @NewClazzModel(clazz = UiEntityEditorEntityNestedItemConfiguration::class, alias = "nestedItemConfiguration")
+    @SetClazzModelOfAlias(alias = "uiEditor", clazzProperty = "itemConfiguration", referencedAlias = "nestedItemConfiguration")
+    @NewClazzModel(clazz = UiEntityEditorColumn::class, alias = "singleColumn")
+    @SetClazzModelOfAlias(alias = "nestedItemConfiguration", clazzProperty = "noTab", referencedAlias = "singleColumn")
+    fun configureEditorForNestedEntityItemInternal(
+        @SetAsValue(alias = "nestedItemConfiguration", clazzProperty = "itemId")
+        itemId: ItemId,
+        @InjectBuilder builder: UiEditorConfigForNestedEntityItemBuilder.() -> Unit
+    )
+
+    override fun configureNestedEntityItem(itemId: ItemId, builder: UiEditorForNestedItemDsl.() -> Unit) {
+        configureEditorForNestedEntityItemInternal(itemId, builder)
     }
 }

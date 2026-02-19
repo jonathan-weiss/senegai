@@ -2,17 +2,17 @@ package senegai.codegen.sourceamazing.builders
 
 import org.codeblessing.sourceamazing.builder.api.annotations.*
 import senegai.codegen.builders.UiBlockEditorDsl
-import senegai.codegen.builders.UiTabDsl
+import senegai.codegen.builders.UiEditorForNestedItemDsl
 import senegai.codegen.schema.UiEntityEditorColumn
-import senegai.codegen.schema.UiEntityEditorTab
+import senegai.codegen.schema.UiEntityEditorEntityNestedItemConfiguration
 
 @Builder
-@ExpectedClazzModelFromSuperiorBuilder(clazz = UiEntityEditorTab::class, alias = "uiTab")
-interface UiTabBuilder: UiTabDsl {
+@ExpectedClazzModelFromSuperiorBuilder(clazz = UiEntityEditorEntityNestedItemConfiguration::class, alias = "nestedItemConfiguration")
+interface UiEditorConfigForNestedEntityItemBuilder: UiEditorForNestedItemDsl {
 
     @BuilderMethod
     @NewClazzModel(clazz = UiEntityEditorColumn::class, alias = "uiColumn")
-    @SetClazzModelOfAlias(alias = "uiTab", clazzProperty = "columns", referencedAlias = "uiColumn")
+    @SetClazzModelOfAlias(alias = "nestedItemConfiguration", clazzProperty = "noTab", referencedAlias = "uiColumn")
     fun columnInternal(
         @InjectBuilder builder: UiBlockBuilder.() -> Unit
     )

@@ -1,5 +1,7 @@
 package senegai.codegen.builders
 
+import senegai.codegen.schema.ItemId
+
 @MainDslMarker
 interface UiEntityDsl {
 
@@ -19,30 +21,58 @@ interface UiViewsDsl {
 @MainDslMarker
 interface UiEditorDsl {
 
+    fun configureEditorForEntity(
+        builder: UiEditorForMainItemDsl.() -> Unit
+    )
+
+    fun configureNestedEntityItem(
+        itemId: ItemId,
+        builder: UiEditorForNestedItemDsl.() -> Unit
+    )
+}
+
+
+@MainDslMarker
+interface UiEditorForMainItemDsl {
+
     fun tab(
         tabName: String,
         builder: UiTabDsl.() -> Unit,
     )
+
+    fun column(
+        builder: UiBlockEditorDsl.() -> Unit,
+    )
+
+}
+
+@MainDslMarker
+interface UiEditorForNestedItemDsl {
+    fun column(
+        builder: UiBlockEditorDsl.() -> Unit,
+    )
+
 }
 
 @MainDslMarker
 interface UiTabDsl {
     fun column(
-        builder: UiColumnDsl.() -> Unit,
+        builder: UiBlockEditorDsl.() -> Unit,
     )
 }
 
 @MainDslMarker
-interface UiColumnDsl {
+interface UiBlockEditorDsl {
+
+    fun text(
+        text: String,
+    )
+
     fun section(
         sectionName: String,
-        builder: UiSectionDsl.() -> Unit,
     )
-}
 
-@MainDslMarker
-interface UiSectionDsl {
-    fun entityAttribute(
+    fun attribute(
         attributeName: String,
     )
 }

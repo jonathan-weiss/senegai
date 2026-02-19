@@ -1,6 +1,6 @@
 package senegai.codegen.renderer.model.ui
 
-class UiItemModel(
+data class UiItemModel(
     val itemName: String,
     val attributes: List<UiItemAttributeModel>,
 ) {

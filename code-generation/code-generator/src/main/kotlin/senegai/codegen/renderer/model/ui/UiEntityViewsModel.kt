@@ -5,7 +5,7 @@ import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewModel
 /**
  * Represents one entity ("author" directory)
  */
-class UiEntityViewsModel(
+data class UiEntityViewsModel(
     val uiEntity: UiEntityModel,
     val formView: UiEntityFormViewModel,
     // TODO hier eine Liste aller Formulare,

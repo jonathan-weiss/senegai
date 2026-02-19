@@ -3,10 +3,9 @@ package senegai.codegen.renderer.model.ui
 import org.codeblessing.templatetools.CaseUtil
 
 data class UiEntityModel(
-    val entityRootItem: UiItemModel
+    val entityRootItem: UiItemModel,
+    val entityItemModels: List<UiItemModel>,
 ) {
-    val entityItemModels: List<UiItemModel> = searchRecursiveInNestedUiItemModel(entityRootItem)
-
     val entityName: String = entityRootItem.itemName
     val entityNameUppercase: String = entityRootItem.itemName.uppercase()
     val entityNameLowercase: String = entityRootItem.itemName.lowercase()
@@ -16,9 +15,4 @@ data class UiEntityModel(
     val searchCriteriaAttributes: List<UiItemAttributeModel> = entityRootItem.attributes
     val summaryAttributes: List<UiItemAttributeModel> = entityRootItem.attributes
     val allAttributes: List<UiItemAttributeModel> = entityRootItem.attributes
-
-    private fun searchRecursiveInNestedUiItemModel(itemModel: UiItemModel): List<UiItemModel> {
-        // TODO implement recursive
-        return listOf(itemModel)
-    }
 }

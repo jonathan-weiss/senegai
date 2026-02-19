@@ -66,25 +66,33 @@ object CodegenData {
             uiEntity(entityId = Entities.EMPLOYEE) {
                 views {
                     editor {
-                        tab(tabName = "Common") {
-                            column {
-                                section(sectionName = "Names") {
-                                    entityAttribute(attributeName = "firstname")
-                                    entityAttribute(attributeName = "nickname")
-                                    entityAttribute(attributeName = "lastname")
+                        configureEditorForEntity {
+                            tab(tabName = "Common") {
+                                column {
+                                    section(sectionName = "Names")
+                                    text(text = "Lorem ipsum dolor sit amet")
+                                    attribute(attributeName = "firstname")
+                                    attribute(attributeName = "nickname")
+                                    attribute(attributeName = "lastname")
+
+                                    section(sectionName = "Misc")
+                                    attribute(attributeName = "age")
                                 }
-                                section(sectionName = "Misc") {
-                                    entityAttribute(attributeName = "age")
+                            }
+                            tab(tabName = "Address") {
+                                column {
+                                    section(sectionName = "Address")
+                                    attribute(attributeName = "address")
+                                    attribute(attributeName = "zipCode")
+                                    attribute(attributeName = "city")
                                 }
                             }
                         }
-                        tab(tabName = "Address") {
+                        configureNestedEntityItem(itemId = Items.ADDRESS) {
                             column {
-                                section(sectionName = "Address") {
-                                    entityAttribute(attributeName = "address")
-                                    entityAttribute(attributeName = "zipCode")
-                                    entityAttribute(attributeName = "city")
-                                }
+                                attribute(attributeName = "address")
+                                attribute(attributeName = "zipCode")
+                                attribute(attributeName = "city")
                             }
                         }
                     }
@@ -93,12 +101,13 @@ object CodegenData {
             uiEntity(entityId = Entities.EXTERNAL_PERSON) {
                 views {
                     editor {
-                        tab(tabName = "Address") {
-                            column {
-                                section(sectionName = "Address") {
-                                    entityAttribute(attributeName = "address")
-                                    entityAttribute(attributeName = "zipCode")
-                                    entityAttribute(attributeName = "city")
+                        configureEditorForEntity {
+                            tab(tabName = "Address") {
+                                column {
+                                    section(sectionName = "Address")
+                                    attribute(attributeName = "address")
+                                    attribute(attributeName = "zipCode")
+                                    attribute(attributeName = "city")
                                 }
                             }
                         }

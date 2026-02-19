@@ -3,8 +3,10 @@ package senegai.codegen.renderer.model.ui.entityform
 import senegai.codegen.renderer.model.ui.UiEntityModel
 import senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormBlockModel
 
-class UiEntityFormViewModel(
+data class UiEntityFormViewModel(
     val entity: UiEntityModel,
-    val essentialBlocks: List<UiEntityFormBlockModel>,
-    val tabs: List<UiEntityFormViewTabModel>
-)
+    val entityItems: List<UiEntityFormViewItemModel>,
+) {
+    @Deprecated("use entityItems instead.", ReplaceWith("entityItems"))
+    val entityItemModels = entity.entityItemModels
+}

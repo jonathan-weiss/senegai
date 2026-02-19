@@ -6,8 +6,20 @@ data class UiEntity(
 )
 
 data class UiEntityEditorView(
-    val tabs: List<UiEntityEditorTab>,
+    val itemConfiguration: List<UiEntityEditorItemConfiguration>,
 )
+
+sealed interface UiEntityEditorItemConfiguration
+
+data class UiEntityEditorEntityConfiguration(
+    val noTab: List<UiEntityEditorColumn>,
+    val tabs: List<UiEntityEditorTab>,
+): UiEntityEditorItemConfiguration
+
+data class UiEntityEditorEntityNestedItemConfiguration(
+    val itemId: ItemId,
+    val noTab: List<UiEntityEditorColumn>,
+): UiEntityEditorItemConfiguration
 
 data class UiEntityEditorTab(
     val tabName: String,
@@ -15,16 +27,19 @@ data class UiEntityEditorTab(
 )
 
 data class UiEntityEditorColumn(
-    val sections: List<UiEntityEditorSection>,
+    val blocks: List<UiBlock>
 )
 
-data class UiEntityEditorSection(
+sealed interface UiBlock
+
+data class UiItemAttributeBlock(
+    val attributeName: String,
+): UiBlock
+
+data class UiSectionBlock(
     val sectionName: String,
-    val blocks: List<UiEntityBlock>
-)
+): UiBlock
 
-sealed interface UiEntityBlock
-
-data class UiEntityAttributeBlock(
-    val entityAttributeName: String,
-): UiEntityBlock
+data class UiTextBlock(
+    val textName: String,
+): UiBlock
