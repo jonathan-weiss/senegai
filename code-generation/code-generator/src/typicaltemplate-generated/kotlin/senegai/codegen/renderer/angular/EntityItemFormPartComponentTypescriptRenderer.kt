@@ -44,6 +44,17 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
               |
           """ } else { """
           """ } }
+          |${ model.item.attributeItemsFlat.joinToString("") { nestedItem ->  """
+              |import {
+              |    ${nestedItem.itemName.pascalCase}TableComponent
+              |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${nestedItem.itemName.kebabCase}-table/${nestedItem.itemName.kebabCase}-table.component";
+              |import {
+              |    ${nestedItem.itemName.pascalCase}FormPartComponent
+              |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${nestedItem.itemName.kebabCase}-form-part/${nestedItem.itemName.kebabCase}-form-part.component";
+              |import {
+              |    ${nestedItem.itemName.pascalCase}FormPartGroup
+              |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${nestedItem.itemName.kebabCase}-form-part/${nestedItem.itemName.kebabCase}-form-part-group";
+          """ } }
           |@Component({
           |    selector: 'app-${model.item.itemName.camelCase}-form-part',
           |    templateUrl: './${model.item.itemName.camelCase}-form-part.component.html',
@@ -71,11 +82,18 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
           """ } }        ${ if(model.containsTextBlocks()) { """        TextBlockComponent,
               |        
           """ } else { """
+          """ } }${ model.item.attributeItemsFlat.joinToString("") { nestedItem ->  """
+              |
+              |        ${nestedItem.itemName.pascalCase}TableComponent,
+              |        ${nestedItem.itemName.pascalCase}FormPartComponent,
           """ } }
           |    ]
           |})
           |export class ${model.item.itemName.pascalCase}FormPartComponent implements OnInit {
           |    @Input({ required: true }) ${model.item.itemName.camelCase}Form!: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>;
+          |${ model.item.attributesWithItems.joinToString("") { attribute ->  """
+              |    ${attribute.attributeName.camelCase}FormGroupUnderEdit: ${attribute.typescriptAttributeFormControlType} | undefined = undefined;
+          """ } }
           |    ${ model.item.attributes.joinToString("") { attribute ->  """${ if(attribute.isNullable) { """    protected ${attribute.attributeName.camelCase}IsNotNullControl!: FormControl<boolean>
                   |    protected ${attribute.attributeName.camelCase}IsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
           """ } else { """
@@ -94,7 +112,24 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
               |        this.${attribute.attributeName.camelCase}ValidatorNames = this.${model.item.itemName.camelCase}FormValidationService.validatorNames(${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase})
               |
           """ } }    }
-          |}
+          |
+          |${ model.item.attributesWithItems.joinToString("") { attribute ->  """
+              |    on${attribute.attributeName.pascalCase}FormGroupEdit(formGroup: ${attribute.typescriptAttributeFormControlType}): void {
+              |        this.${attribute.attributeName.camelCase}FormGroupUnderEdit = formGroup;
+              |    }
+              |
+              |    on${attribute.attributeName.pascalCase}FormGroupDelete(formGroup: ${attribute.typescriptAttributeFormControlType}): void {
+              |        if(this.${attribute.attributeName.camelCase}FormGroupUnderEdit == formGroup) {
+              |            this.${attribute.attributeName.camelCase}FormGroupUnderEdit = undefined
+              |        }
+              |        FormUtil.removeControl(this.${attribute.attributeName.camelCase}Control, formGroup)
+              |    }
+              |
+              |    close${attribute.attributeName.pascalCase}FormGroupUnderEdit(): void {
+              |        this.${attribute.attributeName.camelCase}FormGroupUnderEdit = undefined;
+              |    }
+              |
+          """ } }}
           |
         """.trimMargin(marginPrefix = "|")
     }

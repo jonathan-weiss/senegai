@@ -40,7 +40,6 @@ object EntityItemFormPartValidationServiceRenderer : UiEntityItemRenderer {
           |    }
           |
           |    namedValidators(field: ${model.item.itemName.pascalCase}FormPartFieldName): ReadonlyArray<NamedValidator> {
-          |        // TODO use mapped types https://www.typescriptlang.org/docs/handbook/2/mapped-types.html
           |        switch(field) {${ model.item.attributes.joinToString("") { attribute ->  """
               |            case ${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}: return [
               |                {

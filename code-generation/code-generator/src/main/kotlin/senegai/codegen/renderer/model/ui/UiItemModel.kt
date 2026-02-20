@@ -4,7 +4,17 @@ import senegai.codegen.renderer.model.NameCase
 import senegai.codegen.schema.ItemId
 
 data class UiItemModel(
-    val itemId: ItemId,
-    val itemName: NameCase,
+    val itemDescription: UiItemDescriptionModel,
     val attributes: List<UiItemAttributeModel>,
-)
+) {
+    val itemId: ItemId = itemDescription.itemId
+    val itemName: NameCase = itemDescription.itemName
+
+    val attributesWithItems: List<UiItemAttributeModel> = attributes
+        .filter { it.type is ItemUiItemAttributeTypeModel}
+
+    val attributeItemsFlat: List<UiItemDescriptionModel> = attributes
+        .map { it.type }.filterIsInstance<ItemUiItemAttributeTypeModel>()
+        .map { it.item }
+
+}

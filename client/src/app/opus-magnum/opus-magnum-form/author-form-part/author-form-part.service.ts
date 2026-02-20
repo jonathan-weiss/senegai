@@ -25,7 +25,6 @@
 import {Injectable} from '@angular/core';
 import {AuthorWTO} from "@app/wto/author.wto";
 import {FormArray, FormControl, FormGroup} from "@angular/forms";
-import {FormUtil} from "@app/shared/form-controls/form.util";
 import {
     AuthorFormPartValidationService
 } from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-validation.service";
@@ -35,16 +34,24 @@ import {
 import {AuthorFormPartFieldName} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-field-name";
 import {AuthorFormPartGroup} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-group";
 /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-import {LibraryAwardWTO} from "@app/wto/library-award.wto";
 import {GenderEnum} from "@app/wto/gender.enum";
+/* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+
+/* @tt{{{ @slbc
+    @foreach [ iteratorExpression="model.item.attributeItemsFlat" loopVariable="nestedItem" ]
+    @replace-value-by-expression
+        [ searchValue="library-award" replaceByExpression="nestedItem.itemName.kebabCase" ]
+        [ searchValue="libraryAward" replaceByExpression="nestedItem.itemName.camelCase" ]
+        [ searchValue="LibraryAward" replaceByExpression="nestedItem.itemName.pascalCase" ]
+
+}}}@  */
+import {LibraryAwardWTO} from "@app/wto/library-award.wto";
 import {
     LibraryAwardFormPartService
 } from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part.service";
-import {
-    LibraryAwardFormPartGroup
-} from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part-group";
+/* @tt{{{ @slbc  @end-foreach @slac }}}@ */
 
-/* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+
 
 
 @Injectable({providedIn: 'root'})
@@ -53,9 +60,15 @@ export class AuthorFormPartService {
     constructor(
         private authorFormValidationService: AuthorFormPartValidationService,
         private authorFormInitialValueService: AuthorFormPartInitialValueService,
-        /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+        /* @tt{{{ @slbc
+            @foreach [ iteratorExpression="model.item.attributeItemsFlat" loopVariable="nestedItem" ]
+            @replace-value-by-expression
+                [ searchValue="libraryAward" replaceByExpression="nestedItem.itemName.camelCase" ]
+                [ searchValue="LibraryAward" replaceByExpression="nestedItem.itemName.pascalCase" ]
+
+        }}}@  */
         private libraryAwardFormPartService: LibraryAwardFormPartService,
-        /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+        /* @tt{{{ @slbc  @end-foreach @slac }}}@ */
     ) {}
 
     public createInitialAuthorForm(): FormGroup<AuthorFormPartGroup> {

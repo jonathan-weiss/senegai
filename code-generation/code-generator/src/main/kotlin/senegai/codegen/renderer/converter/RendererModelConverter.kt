@@ -1,13 +1,19 @@
 package senegai.codegen.renderer.converter
 
+import senegai.codegen.renderer.NotSupportedInTemplateException
 import senegai.codegen.renderer.model.NameCase
 import senegai.codegen.renderer.model.SchemaModel
+import senegai.codegen.renderer.model.ui.BuiltInTypeUiItemAttributeTypeModel
+import senegai.codegen.renderer.model.ui.EnumUiItemAttributeTypeModel
+import senegai.codegen.renderer.model.ui.ItemUiItemAttributeTypeModel
 import senegai.codegen.renderer.model.ui.UiItemAttributeModel
 import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewModel
 import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewColumnModel
 import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewTabModel
 import senegai.codegen.renderer.model.ui.UiEntityModel
 import senegai.codegen.renderer.model.ui.UiEntityViewsModel
+import senegai.codegen.renderer.model.ui.UiItemAttributeTypeModel
+import senegai.codegen.renderer.model.ui.UiItemDescriptionModel
 import senegai.codegen.renderer.model.ui.UiItemModel
 import senegai.codegen.renderer.model.ui.UiModel
 import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewItemModel
@@ -16,8 +22,12 @@ import senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormItemAttri
 import senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormNamedSectionSplitBlockModel
 import senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormTextBlockModel
 import senegai.codegen.renderer.model.ui.entityform.blocks.UiFormAttributeType
+import senegai.codegen.schema.BuiltInType
+import senegai.codegen.schema.EntityId
+import senegai.codegen.schema.EnumId
 import senegai.codegen.schema.Item
 import senegai.codegen.schema.ItemAttribute
+import senegai.codegen.schema.ItemAttributeType
 import senegai.codegen.schema.ItemId
 import senegai.codegen.schema.SchemaData
 import senegai.codegen.schema.UiEntity
@@ -51,9 +61,15 @@ object RendererModelConverter {
 
     private fun mapUiItemModel(item: Item): UiItemModel {
         return UiItemModel(
-            itemId = item.itemId,
-            itemName = NameCase(item.itemName),
+            itemDescription = toUiItemDescriptionModel(item.itemId),
             attributes = item.attributes.map { mapUiItemAttribute(it) }
+        )
+    }
+
+    private fun toUiItemDescriptionModel(itemId: ItemId): UiItemDescriptionModel {
+        return UiItemDescriptionModel(
+            itemId = itemId,
+            itemName = NameCase(itemId.itemName),
         )
     }
 
@@ -62,8 +78,17 @@ object RendererModelConverter {
             attributeName = NameCase(itemAttribute.attributeName),
             isNullable = itemAttribute.isNullable,
             isList = itemAttribute.isMultiple,
-            type = itemAttribute.type,
+            type = mapUiItemAttributeType(itemAttribute.type),
         )
+    }
+
+    private fun mapUiItemAttributeType(itemAttributeType: ItemAttributeType): UiItemAttributeTypeModel {
+        return when (itemAttributeType) {
+            is BuiltInType -> BuiltInTypeUiItemAttributeTypeModel(itemAttributeType)
+            is EntityId -> throw NotSupportedInTemplateException("EntityId as attribute type is not supported in $itemAttributeType")
+            is EnumId -> EnumUiItemAttributeTypeModel(itemAttributeType)
+            is ItemId -> ItemUiItemAttributeTypeModel(toUiItemDescriptionModel(itemAttributeType))
+        }
     }
 
     private fun mapUiEntityViewsModel(uiEntity: UiEntity, entityItemModelIds: Set<ItemId>, allUiItemModels: List<UiItemModel>): UiEntityViewsModel {

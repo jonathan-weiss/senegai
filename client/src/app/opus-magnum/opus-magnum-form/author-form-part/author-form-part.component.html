@@ -128,16 +128,16 @@
                 <div class="form-row">
                     <app-field-wrapper label="Library Awards">
                         <app-library-award-table
-                                [libraryAwardFormArray]="libraryAwardListFormArray"
-                                (editLibraryAwardFormGroup)="onAuthorLibraryAwardFormGroupEdit($event)"
-                                (deleteLibraryAwardFormGroup)="onAuthorLibraryAwardFormGroupDelete($event)"
+                                [libraryAwardFormArray]="libraryAwardListControl"
+                                (editLibraryAwardFormGroup)="onLibraryAwardListFormGroupEdit($event)"
+                                (deleteLibraryAwardFormGroup)="onLibraryAwardListFormGroupDelete($event)"
                         />
-                        @if (authorLibraryAwardUnderEdit) {
+                        @if (libraryAwardListFormGroupUnderEdit) {
                             <div class="edit-area">
-                                <button mat-icon-button color="primary" (click)="closeAuthorLibraryAwardUnderEdit()">
+                                <button mat-icon-button color="primary" (click)="closeLibraryAwardListFormGroupUnderEdit()">
                                     <mat-icon>edit_off</mat-icon>
                                 </button>
-                                <app-library-award-form-part [libraryAwardForm]="authorLibraryAwardUnderEdit!"  />
+                                <app-library-award-form-part [libraryAwardForm]="libraryAwardListFormGroupUnderEdit!"  />
                             </div>
                         }
                     </app-field-wrapper>

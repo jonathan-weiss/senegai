@@ -12,8 +12,8 @@ import senegai.codegen.schema.ItemId
 data class UiItemAttributeModel(
     val attributeName: NameCase,
     val isNullable: Boolean,
-    private val isList: Boolean,
-    private val type: ItemAttributeType, // TODO that is wrong, it is not a model class
+    val isList: Boolean,
+    val type: UiItemAttributeTypeModel,
 ) {
     val typescriptAttributeTypeExample: String = calculateExampleValue()
     val typescriptAttributeInitialValue: String = calculateInitialValue()
@@ -29,10 +29,9 @@ data class UiItemAttributeModel(
 
     private fun calculateAttributeType(): String {
         return when(type) {
-            is BuiltInType -> type.builtInTypeAsString()
-            is EntityId -> throw NotSupportedInTemplateException(type.toString())
-            is EnumId -> throw NotSupportedInTemplateException(type.toString())
-            is ItemId -> throw NotSupportedInTemplateException(type.toString())
+            is BuiltInTypeUiItemAttributeTypeModel -> type.builtInType.builtInTypeAsString()
+            is EnumUiItemAttributeTypeModel -> throw NotSupportedInTemplateException(type.toString())
+            is ItemUiItemAttributeTypeModel -> throw NotSupportedInTemplateException(type.toString())
         }
     }
 
@@ -84,10 +83,9 @@ data class UiItemAttributeModel(
 
     private fun calculateInitialValue(): String {
         return when(type) {
-            is BuiltInType -> type.builtInTypeInitialValue()
-            is EntityId -> throw NotSupportedInTemplateException(type.toString())
-            is EnumId -> throw NotSupportedInTemplateException(type.toString())
-            is ItemId -> throw NotSupportedInTemplateException(type.toString())
+            is BuiltInTypeUiItemAttributeTypeModel -> type.builtInType.builtInTypeInitialValue()
+            is EnumUiItemAttributeTypeModel -> throw NotSupportedInTemplateException(type.toString())
+            is ItemUiItemAttributeTypeModel -> throw NotSupportedInTemplateException(type.toString())
         }
     }
 
@@ -101,10 +99,9 @@ data class UiItemAttributeModel(
 
     private fun calculateExampleValue(): String {
         return when(type) {
-            is BuiltInType -> type.builtInTypeExampleValue()
-            is EntityId -> throw NotSupportedInTemplateException(type.toString())
-            is EnumId -> throw NotSupportedInTemplateException(type.toString())
-            is ItemId -> throw NotSupportedInTemplateException(type.toString())
+            is BuiltInTypeUiItemAttributeTypeModel -> type.builtInType.builtInTypeExampleValue()
+            is EnumUiItemAttributeTypeModel -> throw NotSupportedInTemplateException(type.toString())
+            is ItemUiItemAttributeTypeModel -> throw NotSupportedInTemplateException(type.toString())
         }
     }
 

@@ -70,16 +70,16 @@ object EntityItemFormPartComponentHtmlRenderer : UiEntityItemRenderer {
                               |                <div class="form-row">
                               |                    <app-field-wrapper label="${block.attribute.attributeName.pascalCase}">
                               |                        <app-${block.attribute.attributeName.kebabCase}-table
-                              |                                [${block.attribute.attributeName.pascalCase}FormArray]="${block.attribute.attributeName.pascalCase}ListFormArray"
-                              |                                (editLibraryAwardFormGroup)="on${model.item.itemName.pascalCase}LibraryAwardFormGroupEdit(${"$"}event)"
-                              |                                (deleteLibraryAwardFormGroup)="on${model.item.itemName.pascalCase}LibraryAwardFormGroupDelete(${"$"}event)"
+                              |                                [${block.attribute.attributeName.pascalCase}FormArray]="${block.attribute.attributeName.pascalCase}ListControl"
+                              |                                (editLibraryAwardFormGroup)="onLibraryAwardListFormGroupEdit(${"$"}event)"
+                              |                                (deleteLibraryAwardFormGroup)="onLibraryAwardListFormGroupDelete(${"$"}event)"
                               |                        />
-                              |                        @if (${model.item.itemName.camelCase}LibraryAwardUnderEdit) {
+                              |                        @if (${block.attribute.attributeName.pascalCase}ListFormGroupUnderEdit) {
                               |                            <div class="edit-area">
-                              |                                <button mat-icon-button color="primary" (click)="close${model.item.itemName.pascalCase}LibraryAwardUnderEdit()">
+                              |                                <button mat-icon-button color="primary" (click)="closeLibraryAwardListFormGroupUnderEdit()">
                               |                                    <mat-icon>edit_off</mat-icon>
                               |                                </button>
-                              |                                <app-${block.attribute.attributeName.kebabCase}-form-part [${block.attribute.attributeName.pascalCase}Form]="${model.item.itemName.camelCase}LibraryAwardUnderEdit!"  />
+                              |                                <app-${block.attribute.attributeName.kebabCase}-form-part [${block.attribute.attributeName.pascalCase}Form]="${block.attribute.attributeName.pascalCase}ListFormGroupUnderEdit!"  />
                               |                            </div>
                               |                        }
                               |                    </app-field-wrapper>

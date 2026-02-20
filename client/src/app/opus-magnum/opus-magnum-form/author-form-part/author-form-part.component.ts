@@ -71,20 +71,31 @@ import {TextBlockComponent} from "@app/shared/blocks/text-block/text-block.compo
 }}}@
  */
 /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+import {GenderEnum} from "@app/wto/gender.enum";
+import {BooleanInputComponent} from "@app/shared/form-controls/boolean-input/boolean-input.component";
+import {GenderSelectorComponent} from "@app/enum/gender-input-selection/gender-selector.component";
+
+/* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+
+
+/* @tt{{{ @slbc
+    @foreach [ iteratorExpression="model.item.attributeItemsFlat" loopVariable="nestedItem" ]
+    @replace-value-by-expression
+        [ searchValue="library-award" replaceByExpression="nestedItem.itemName.kebabCase" ]
+        [ searchValue="libraryAward" replaceByExpression="nestedItem.itemName.camelCase" ]
+        [ searchValue="LibraryAward" replaceByExpression="nestedItem.itemName.pascalCase" ]
+
+}}}@  */
 import {
     LibraryAwardTableComponent
 } from "@app/opus-magnum/opus-magnum-form/library-award-table/library-award-table.component";
 import {
     LibraryAwardFormPartComponent
 } from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part.component";
-import {GenderEnum} from "@app/wto/gender.enum";
-import {BooleanInputComponent} from "@app/shared/form-controls/boolean-input/boolean-input.component";
 import {
     LibraryAwardFormPartGroup
 } from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part-group";
-import {GenderSelectorComponent} from "@app/enum/gender-input-selection/gender-selector.component";
-
-/* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+/* @tt{{{ @slbc  @end-foreach @slac }}}@ */
 
 @Component({
     selector: 'app-author-form-part',
@@ -131,11 +142,20 @@ import {GenderSelectorComponent} from "@app/enum/gender-input-selection/gender-s
             @end-if @slac
         }}}@
          */
+        /* @tt{{{ @slbc
+            @foreach [ iteratorExpression="model.item.attributeItemsFlat" loopVariable="nestedItem" ]
+            @replace-value-by-expression
+                [ searchValue="library-award" replaceByExpression="nestedItem.itemName.kebabCase" ]
+                [ searchValue="libraryAward" replaceByExpression="nestedItem.itemName.camelCase" ]
+                [ searchValue="LibraryAward" replaceByExpression="nestedItem.itemName.pascalCase" ]
 
-        /* @tt{{{ @slbc  @ignore-text }}}@ */
-        DatepickerInputComponent,
+        }}}@  */
+
         LibraryAwardTableComponent,
         LibraryAwardFormPartComponent,
+        /* @tt{{{ @slbc  @end-foreach @slac }}}@ */
+        /* @tt{{{ @slbc  @ignore-text }}}@ */
+        DatepickerInputComponent,
         BooleanInputComponent,
         GenderSelectorComponent,
         /* @tt{{{ @slbc  @end-ignore-text }}}@ */
@@ -144,9 +164,18 @@ import {GenderSelectorComponent} from "@app/enum/gender-input-selection/gender-s
 export class AuthorFormPartComponent implements OnInit {
     @Input({ required: true }) authorForm!: FormGroup<AuthorFormPartGroup>;
 
-    /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-    authorLibraryAwardUnderEdit: FormGroup<LibraryAwardFormPartGroup> | undefined = undefined;
+    /* @tt{{{ @slbc
+        @foreach [ iteratorExpression="model.item.attributesWithItems" loopVariable="attribute" ]
+        @replace-value-by-expression
+            [ searchValue="libraryAwardList" replaceByExpression="attribute.attributeName.camelCase" ]
+            [ searchValue="FormGroup<LibraryAwardFormPartGroup>" replaceByExpression="attribute.typescriptAttributeFormControlType" ]
 
+    }}}@  */
+    libraryAwardListFormGroupUnderEdit: FormGroup<LibraryAwardFormPartGroup> | undefined = undefined;
+    /* @tt{{{ @slbc  @end-foreach @slac }}}@ */
+
+
+    /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
     protected idControl!: FormControl<string>
     protected firstnameControl!: FormControl<string>
     protected firstnameValidatorNames!: ReadonlyArray<ValidatorTranslation>
@@ -172,7 +201,7 @@ export class AuthorFormPartComponent implements OnInit {
 
     protected lastnameControl!: FormControl<string>
     protected lastnameValidatorNames!: ReadonlyArray<ValidatorTranslation>
-    protected libraryAwardListFormArray!: FormArray<FormGroup<LibraryAwardFormPartGroup>>
+    protected libraryAwardListControl!: FormArray<FormGroup<LibraryAwardFormPartGroup>>
     protected libraryAwardListValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected birthdayIsNotNullControl!: FormControl<boolean>
     protected birthdayIsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
@@ -211,7 +240,7 @@ export class AuthorFormPartComponent implements OnInit {
         /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
         this.lastnameControl = this.authorForm.controls[AuthorFormPartFieldName.lastname]
         this.lastnameValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.lastname)
-        this.libraryAwardListFormArray = this.authorForm.controls[AuthorFormPartFieldName.libraryAwardList]
+        this.libraryAwardListControl = this.authorForm.controls[AuthorFormPartFieldName.libraryAwardList]
         this.libraryAwardListValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.libraryAwardList)
         this.birthdayIsNotNullControl = this.authorForm.controls[AuthorFormPartFieldName.birthdayIsNotNull]
         this.birthdayIsNotNullValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.birthdayIsNotNull)
@@ -224,21 +253,29 @@ export class AuthorFormPartComponent implements OnInit {
         /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
     }
 
-    /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
 
-    onAuthorLibraryAwardFormGroupEdit(formGroup: FormGroup<LibraryAwardFormPartGroup>): void {
-        this.authorLibraryAwardUnderEdit = formGroup;
+    /* @tt{{{ @slbc
+    @foreach [ iteratorExpression="model.item.attributesWithItems" loopVariable="attribute" ]
+    @replace-value-by-expression
+        [ searchValue="libraryAwardList" replaceByExpression="attribute.attributeName.camelCase" ]
+        [ searchValue="LibraryAwardList" replaceByExpression="attribute.attributeName.pascalCase" ]
+        [ searchValue="FormGroup<LibraryAwardFormPartGroup>" replaceByExpression="attribute.typescriptAttributeFormControlType" ]
+
+    }}}@  */
+    onLibraryAwardListFormGroupEdit(formGroup: FormGroup<LibraryAwardFormPartGroup>): void {
+        this.libraryAwardListFormGroupUnderEdit = formGroup;
     }
 
-    onAuthorLibraryAwardFormGroupDelete(formGroup: FormGroup<LibraryAwardFormPartGroup>): void {
-        if(this.authorLibraryAwardUnderEdit == formGroup) {
-            this.authorLibraryAwardUnderEdit = undefined
+    onLibraryAwardListFormGroupDelete(formGroup: FormGroup<LibraryAwardFormPartGroup>): void {
+        if(this.libraryAwardListFormGroupUnderEdit == formGroup) {
+            this.libraryAwardListFormGroupUnderEdit = undefined
         }
-        FormUtil.removeControl(this.libraryAwardListFormArray, formGroup)
+        FormUtil.removeControl(this.libraryAwardListControl, formGroup)
     }
 
-    closeAuthorLibraryAwardUnderEdit(): void {
-        this.authorLibraryAwardUnderEdit = undefined;
+    closeLibraryAwardListFormGroupUnderEdit(): void {
+        this.libraryAwardListFormGroupUnderEdit = undefined;
     }
-    /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+
+    /* @tt{{{ @slbc  @end-foreach @slac }}}@ */
 }
