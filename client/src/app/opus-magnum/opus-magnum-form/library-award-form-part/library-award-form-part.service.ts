@@ -62,19 +62,15 @@ export class LibraryAwardFormPartService {
     public patchLibraryAwardForm(form: FormGroup<LibraryAwardFormPartGroup>, libraryAward: LibraryAwardWTO): void {
         form.controls[LibraryAwardFormPartFieldName.description].patchValue(libraryAward.description);
         form.controls[LibraryAwardFormPartFieldName.year].patchValue(libraryAward.year);
-        libraryAward.juryList.forEach((jury: string) => {
-            const formGroup = this.createInitialLibraryAwardListJuryListForm()
-            formGroup.patchValue(jury)
-            form.controls[LibraryAwardFormPartFieldName.juryList].push(formGroup);
-        })
+        form.controls[LibraryAwardFormPartFieldName.juryList].patchValue(libraryAward.juryList)
+
     }
 
     public createLibraryAwardFromFormData(form: FormGroup<LibraryAwardFormPartGroup>): LibraryAwardWTO {
         return {
-            description: form.controls[LibraryAwardFormPartFieldName.description].value,
-            year: form.controls[LibraryAwardFormPartFieldName.year].value,
-            juryList: form.controls[LibraryAwardFormPartFieldName.juryList]
-                .controls.map(control => control.value),
+            description: form.controls[LibraryAwardFormPartFieldName.description].getRawValue(),
+            year: form.controls[LibraryAwardFormPartFieldName.year].getRawValue(),
+            juryList: form.controls[LibraryAwardFormPartFieldName.juryList].getRawValue(),
         };
     }
 }

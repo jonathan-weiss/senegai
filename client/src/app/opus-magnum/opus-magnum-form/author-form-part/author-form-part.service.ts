@@ -182,12 +182,7 @@ export class AuthorFormPartService {
         /* @tt{{{ @slbc @end-foreach @slac }}}@ */
         /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
         form.controls[AuthorFormPartFieldName.lastname].patchValue(author.lastname);
-        const libraryAwardList = form.controls[AuthorFormPartFieldName.libraryAwardList]
-        author.libraryAwardList.forEach((libraryAward: LibraryAwardWTO) => {
-            const formGroup = this.libraryAwardFormPartService.createInitialLibraryAwardForm()
-            this.libraryAwardFormPartService.patchLibraryAwardForm(formGroup, libraryAward);
-            libraryAwardList.push(formGroup);
-        })
+        form.controls[AuthorFormPartFieldName.libraryAwardList].patchValue(author.libraryAwardList)
         form.controls[AuthorFormPartFieldName.birthdayIsNotNull].patchValue(!author.birthday);
         form.controls[AuthorFormPartFieldName.birthday].patchValue(author.birthday ?? null);
         form.controls[AuthorFormPartFieldName.vegetarian].patchValue(author.vegetarian);
@@ -198,7 +193,7 @@ export class AuthorFormPartService {
     public createAuthorFromFormData(form: FormGroup<AuthorFormPartGroup>): AuthorWTO {
         return {
             /* @tt{{{ @ignore-text @slac }}}@ */
-            id: form.controls[AuthorFormPartFieldName.id].value,
+            id: form.controls[AuthorFormPartFieldName.id].getRawValue(),
             /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
             /* @tt{{{
                 @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
@@ -210,20 +205,19 @@ export class AuthorFormPartService {
                 @slac
             }}}@  */
             /* @tt{{{ @slbc  @if [ conditionExpression="!attribute.isNullable"] @slac }}}@ */
-            firstname: form.controls[AuthorFormPartFieldName.firstname].value,
+            firstname: form.controls[AuthorFormPartFieldName.firstname].getRawValue(),
             /* @tt{{{ @slbc  @else @slac }}}@ */
             nickname: form.controls[AuthorFormPartFieldName.nicknameIsNotNull].value
-                ? form.controls[AuthorFormPartFieldName.nickname].value
+                ? form.controls[AuthorFormPartFieldName.nickname].getRawValue()
                 : null,
             /* @tt{{{ @slbc  @end-if @slac }}}@ */
             /* @tt{{{ @slbc @end-foreach @slac }}}@ */
             /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-            lastname: form.controls[AuthorFormPartFieldName.lastname].value,
-            libraryAwardList: form.controls[AuthorFormPartFieldName.libraryAwardList]
-                .controls.map(control => this.libraryAwardFormPartService.createLibraryAwardFromFormData(control)),
-            birthday: form.controls[AuthorFormPartFieldName.birthdayIsNotNull].value ? form.controls[AuthorFormPartFieldName.birthday].value : null,
-            vegetarian: form.controls[AuthorFormPartFieldName.vegetarian].value,
-            gender: form.controls[AuthorFormPartFieldName.gender].value,
+            lastname: form.controls[AuthorFormPartFieldName.lastname].getRawValue(),
+            libraryAwardList: form.controls[AuthorFormPartFieldName.libraryAwardList].getRawValue(),
+            birthday: form.controls[AuthorFormPartFieldName.birthdayIsNotNull].value ? form.controls[AuthorFormPartFieldName.birthday].getRawValue() : null,
+            vegetarian: form.controls[AuthorFormPartFieldName.vegetarian].getRawValue(),
+            gender: form.controls[AuthorFormPartFieldName.gender].getRawValue(),
             /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
         };
     }

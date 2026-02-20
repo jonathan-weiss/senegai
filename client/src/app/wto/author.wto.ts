@@ -46,7 +46,7 @@ export interface AuthorWTO {
     nickname: string | null;
     lastname: string;
     gender: GenderEnum;
-    libraryAwardList: ReadonlyArray<LibraryAwardWTO>;
+    libraryAwardList: Array<LibraryAwardWTO>;
     birthday: Date | null;
     vegetarian: boolean;
     id: string;

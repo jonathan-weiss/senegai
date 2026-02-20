@@ -45,14 +45,14 @@ export class OpusMagnumFormPartService {
     public patchOpusMagnumForm(form: FormGroup<OpusMagnumFormPartGroup>, opusMagnum: OpusMagnumWTO): void {
         form.controls[OpusMagnumFormPartFieldName.id].patchValue(opusMagnum.id);
         form.controls[OpusMagnumFormPartFieldName.title].patchValue(opusMagnum.title);
-        this.authorFormPartService.patchAuthorForm(form.controls[OpusMagnumFormPartFieldName.author], opusMagnum.author)
+        form.controls[OpusMagnumFormPartFieldName.author].patchValue(opusMagnum.author)
     }
 
     public createOpusMagnumFromFormData(form: FormGroup<OpusMagnumFormPartGroup>): OpusMagnumWTO {
         return {
-            id: form.controls[OpusMagnumFormPartFieldName.id].value,
-            title: form.controls[OpusMagnumFormPartFieldName.title].value,
-            author: this.authorFormPartService.createAuthorFromFormData(form.controls[OpusMagnumFormPartFieldName.author]),
+            id: form.controls[OpusMagnumFormPartFieldName.id].getRawValue(),
+            title: form.controls[OpusMagnumFormPartFieldName.title].getRawValue(),
+            author: form.controls[OpusMagnumFormPartFieldName.author].getRawValue(),
         };
     }
 }
