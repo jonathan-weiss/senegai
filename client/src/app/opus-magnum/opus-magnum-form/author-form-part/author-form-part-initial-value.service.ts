@@ -44,6 +44,7 @@ export class AuthorFormPartInitialValueService {
 
         @replace-value-by-expression
             [ searchValue="firstname" replaceByExpression="attribute.attributeName.camelCase" ]
+            [ searchValue="string" replaceByExpression="attribute.typescriptAttributeFormType" ]
 
     }}}@  */
     firstnameInitialValue(): string {

@@ -35,8 +35,15 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
           |        private ${model.item.itemName.camelCase}FormInitialValueService: ${model.item.itemName.pascalCase}FormPartInitialValueService,    ) {}
           |
           |    public createInitial${model.item.itemName.pascalCase}Form(): FormGroup<${model.item.itemName.pascalCase}FormPartGroup> {
-          |        return new FormGroup({${ model.item.attributes.joinToString("") { attribute ->  """
-              |            [${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}]: new FormControl<string>(
+          |        return new FormGroup({${ model.item.attributes.joinToString("") { attribute ->  """${ if(attribute.isNullable) { """            [${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull]: new FormControl<boolean>(
+                  |                this.${model.item.itemName.camelCase}FormInitialValueService.${attribute.attributeName.camelCase}InitialValue() != null,
+                  |                {
+                  |                    nonNullable: true,
+                  |                    validators: this.${model.item.itemName.camelCase}FormValidationService.validatorFunctions(${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull)
+                  |                },
+                  |            ),
+          """ } else { """
+          """ } }            [${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}]: new FormControl<${attribute.typescriptAttributeFormType}>(
               |                this.${model.item.itemName.camelCase}FormInitialValueService.${attribute.attributeName.camelCase}InitialValue(),
               |                {
               |                    nonNullable: true,
@@ -46,12 +53,18 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
           """ } }        });
           |    }
           |
-          |    public patch${model.item.itemName.pascalCase}Form(form: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>, ${model.item.itemName.camelCase}: ${model.item.itemName.pascalCase}WTO): void {        ${ model.item.attributes.joinToString("") { attribute ->  """        FormUtil.requiredFormControl(form, ${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}).patchValue(${model.item.itemName.camelCase}.${attribute.attributeName.camelCase});
+          |    public patch${model.item.itemName.pascalCase}Form(form: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>, ${model.item.itemName.camelCase}: ${model.item.itemName.pascalCase}WTO): void {        ${ model.item.attributes.joinToString("") { attribute ->  """${ if(attribute.isNullable) { """        FormUtil.requiredFormControl(form, ${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull).patchValue(!${model.item.itemName.camelCase}.${attribute.attributeName.camelCase});
+          """ } else { """
+          """ } }        FormUtil.requiredFormControl(form, ${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}).patchValue(${model.item.itemName.camelCase}.${attribute.attributeName.camelCase} ?? null);
           """ } }    }
           |
           |    public create${model.item.itemName.pascalCase}FromFormData(form: AbstractControl): ${model.item.itemName.pascalCase}WTO {
           |        return {
-          |                        ${ model.item.attributes.joinToString("") { attribute ->  """            ${attribute.attributeName.camelCase}: FormUtil.requiredFormControl(form, ${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}).value as string,
+          |                        ${ model.item.attributes.joinToString("") { attribute ->  """${ if(!attribute.isNullable) { """            ${attribute.attributeName.camelCase}: FormUtil.requiredFormControl(form, ${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}).value as string,
+          """ } else { """            ${attribute.attributeName.camelCase}: FormUtil.requiredFormControl(form, ${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull).value
+                  |                ? FormUtil.requiredFormControl(form, ${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}).value as string
+                  |                : null,
+          """ } }
           """ } }        };
           |    }
           |}

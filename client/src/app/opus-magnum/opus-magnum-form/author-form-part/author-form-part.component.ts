@@ -159,8 +159,10 @@ export class AuthorFormPartComponent implements OnInit {
 
     @slac
     }}}@  */
+    /* @tt{{{ @slbc  @if [ conditionExpression="attribute.isNullable"] @slac }}}@ */
     protected nicknameIsNotNullControl!: FormControl<boolean>
     protected nicknameIsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
+    /* @tt{{{ @slbc  @end-if @slac }}}@ */
     protected nicknameControl!: FormControl<string | null>
     protected nicknameValidatorNames!: ReadonlyArray<ValidatorTranslation>
 
@@ -187,23 +189,25 @@ export class AuthorFormPartComponent implements OnInit {
     ngOnInit() {
         /* @tt{{{ @ignore-text @slac }}}@ */
         this.idControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormPartFieldName.id);
+        this.firstnameControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormPartFieldName.firstname)
+        this.firstnameValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.firstname)
         /* @tt{{{ @slbc  @end-ignore-text }}}@ */
         /* @tt{{{ @slbc
         @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
         @replace-value-by-expression
-            [ searchValue="firstname" replaceByExpression="attribute.attributeName.camelCase" ]
+            [ searchValue="nickname" replaceByExpression="attribute.attributeName.camelCase" ]
 
         }}}@  */
-        this.firstnameControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormPartFieldName.firstname)
-        this.firstnameValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.firstname)
+        /* @tt{{{ @slbc  @if [ conditionExpression="attribute.isNullable"] @slac }}}@ */
+        this.nicknameIsNotNullControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormPartFieldName.nicknameIsNotNull)
+        this.nicknameIsNotNullValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.nicknameIsNotNull)
+        /* @tt{{{ @slbc  @end-if @slac }}}@ */
+        this.nicknameControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormPartFieldName.nickname)
+        this.nicknameValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.nickname)
 
         /* @tt{{{ @slbc @end-foreach @slac }}}@ */
         /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-        this.nicknameIsNotNullControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormPartFieldName.nicknameIsNotNull)
-        this.nicknameIsNotNullValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.nicknameIsNotNull)
-        this.nicknameControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormPartFieldName.nickname)
-        this.nicknameValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.nickname)
         this.lastnameControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormPartFieldName.lastname)
         this.lastnameValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.lastname)
         this.libraryAwardListFormArray = FormUtil.requiredFormArray(this.authorForm, AuthorFormPartFieldName.libraryAwardList)

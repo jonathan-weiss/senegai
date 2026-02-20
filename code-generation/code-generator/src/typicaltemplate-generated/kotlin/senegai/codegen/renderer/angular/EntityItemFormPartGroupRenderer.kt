@@ -18,7 +18,9 @@ object EntityItemFormPartGroupRenderer : UiEntityItemRenderer {
           |import {${model.item.itemName.pascalCase}FormPartFieldName} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.camelCase}-form-part/${model.item.itemName.camelCase}-form-part-field-name";
           |
           |export interface ${model.item.itemName.pascalCase}FormPartGroup {${ model.item.attributes.joinToString("") { attribute ->  """
-              |    [${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}]: FormControl<string>,
+              |    [${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}]: FormControl<${attribute.typescriptAttributeFormType}>,${ if(attribute.isNullable) { """    [${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull]: FormControl<boolean>,
+          """ } else { """
+          """ } }
           """ } }}
           |
         """.trimMargin(marginPrefix = "|")

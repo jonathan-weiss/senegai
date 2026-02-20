@@ -12,7 +12,7 @@ import senegai.codegen.schema.ItemId
 
 data class UiItemAttributeModel(
     val attributeName: NameCase,
-    private val isNullable: Boolean,
+    val isNullable: Boolean,
     private val isList: Boolean,
     private val type: ItemAttributeType, // TODO that is wrong, it is not a model class
 ) {
@@ -23,6 +23,7 @@ data class UiItemAttributeModel(
     val typescriptAttributeTypeCapitalizedWithoutNullability: String = CaseUtil.capitalize(calculateAttributeType())
     //val typescriptAttributeType: String = if(attributeName == "nickname") "string | null" else "string"
 
+    val typescriptAttributeFormType: String = calculateSingleItemAttributeTypeWithNullability()
     val attributeCardinality: AttributeCardinalityModel = attributeCardinalityModel()
 
     private fun calculateAttributeType(): String {
@@ -50,6 +51,16 @@ data class UiItemAttributeModel(
             AttributeCardinalityModel.LIST_ITEMS -> "ReadonlyArray<$type>"
         }
     }
+
+    private fun calculateSingleItemAttributeTypeWithNullability(): String {
+        val type = calculateAttributeType()
+        return if(isNullable) {
+            "$type | null"
+        } else {
+            type
+        }
+    }
+
 
     private fun calculateInitialValue(): String {
         return when(type) {

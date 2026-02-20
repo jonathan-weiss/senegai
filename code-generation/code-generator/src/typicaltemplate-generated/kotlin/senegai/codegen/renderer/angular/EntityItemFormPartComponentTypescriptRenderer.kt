@@ -76,9 +76,10 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
           |})
           |export class ${model.item.itemName.pascalCase}FormPartComponent implements OnInit {
           |    @Input({ required: true }) ${model.item.itemName.camelCase}Form!: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>;
-          |    ${ model.item.attributes.joinToString("") { attribute ->  """    protected ${attribute.attributeName.camelCase}IsNotNullControl!: FormControl<boolean>
-              |    protected ${attribute.attributeName.camelCase}IsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
-              |    protected ${attribute.attributeName.camelCase}Control!: FormControl<string | null>
+          |    ${ model.item.attributes.joinToString("") { attribute ->  """${ if(attribute.isNullable) { """    protected ${attribute.attributeName.camelCase}IsNotNullControl!: FormControl<boolean>
+                  |    protected ${attribute.attributeName.camelCase}IsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
+          """ } else { """
+          """ } }    protected ${attribute.attributeName.camelCase}Control!: FormControl<string | null>
               |    protected ${attribute.attributeName.camelCase}ValidatorNames!: ReadonlyArray<ValidatorTranslation>
               |
           """ } }
@@ -86,8 +87,10 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
           |    }
           |
           |    ngOnInit() {
-          |        ${ model.item.attributes.joinToString("") { attribute ->  """
-              |        this.${attribute.attributeName.camelCase}Control = FormUtil.requiredFormControl(this.${model.item.itemName.camelCase}Form, ${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase})
+          |        ${ model.item.attributes.joinToString("") { attribute ->  """${ if(attribute.isNullable) { """        this.${attribute.attributeName.camelCase}IsNotNullControl = FormUtil.requiredFormControl(this.${model.item.itemName.camelCase}Form, ${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull)
+                  |        this.${attribute.attributeName.camelCase}IsNotNullValidatorNames = this.${model.item.itemName.camelCase}FormValidationService.validatorNames(${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull)
+          """ } else { """
+          """ } }        this.${attribute.attributeName.camelCase}Control = FormUtil.requiredFormControl(this.${model.item.itemName.camelCase}Form, ${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase})
               |        this.${attribute.attributeName.camelCase}ValidatorNames = this.${model.item.itemName.camelCase}FormValidationService.validatorNames(${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase})
               |
           """ } }    }

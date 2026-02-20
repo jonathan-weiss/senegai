@@ -32,13 +32,16 @@ export enum AuthorFormPartFieldName {
 
         @replace-value-by-expression
             [ searchValue="firstname" replaceByExpression="attribute.attributeName.camelCase" ]
+            [ searchValue="nickname" replaceByExpression="attribute.attributeName.camelCase" ]
 
     }}}@  */
-    firstname = "firstname",
+    nickname = "nickname",
+    /* @tt{{{ @slbc  @if [ conditionExpression="attribute.isNullable"] @slac }}}@ */
+    nicknameIsNotNull = "nicknameIsNotNull",
+    /* @tt{{{ @slbc  @end-if @slac }}}@ */
 /* @tt{{{ @slbc @end-foreach @slac }}}@ */
 /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-    nicknameIsNotNull = "nicknameIsNotNull",
-    nickname = "nickname",
+    firstname = "firstname",
     lastname = "lastname",
     libraryAwardList = "libraryAwardList",
     birthdayIsNotNull = "birthdayIsNotNull",

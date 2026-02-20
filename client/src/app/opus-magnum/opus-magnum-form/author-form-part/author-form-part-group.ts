@@ -38,14 +38,17 @@ export interface AuthorFormPartGroup {
         @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
         @replace-value-by-expression
-            [ searchValue="firstname" replaceByExpression="attribute.attributeName.camelCase" ]
+            [ searchValue="nickname" replaceByExpression="attribute.attributeName.camelCase" ]
+            [ searchValue="string | null" replaceByExpression="attribute.typescriptAttributeFormType" ]
 
     }}}@  */
-    [AuthorFormPartFieldName.firstname]: FormControl<string>,
+    [AuthorFormPartFieldName.nickname]: FormControl<string | null>,
+    /* @tt{{{ @slbc  @if [ conditionExpression="attribute.isNullable"] @slac }}}@ */
+    [AuthorFormPartFieldName.nicknameIsNotNull]: FormControl<boolean>,
+    /* @tt{{{ @slbc  @end-if @slac }}}@ */
     /* @tt{{{ @slbc @end-foreach @slac }}}@ */
     /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-    [AuthorFormPartFieldName.nicknameIsNotNull]: FormControl<boolean>,
-    [AuthorFormPartFieldName.nickname]: FormControl<string | null>,
+    [AuthorFormPartFieldName.firstname]: FormControl<string>,
     [AuthorFormPartFieldName.lastname]: FormControl<string>,
     [AuthorFormPartFieldName.libraryAwardList]: FormArray<FormGroup<LibraryAwardFormPartGroup>>,
     [AuthorFormPartFieldName.birthdayIsNotNull]: FormControl<boolean>,

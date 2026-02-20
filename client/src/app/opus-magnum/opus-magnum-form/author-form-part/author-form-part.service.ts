@@ -69,19 +69,36 @@ export class AuthorFormPartService {
                     nonNullable: true,
                 },
             ),
-            /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
-            /* @tt{{{ @slbc
-                @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
-
-                @replace-value-by-expression
-                    [ searchValue="firstname" replaceByExpression="attribute.attributeName.camelCase" ]
-
-            }}}@  */
             [AuthorFormPartFieldName.firstname]: new FormControl<string>(
                 this.authorFormInitialValueService.firstnameInitialValue(),
                 {
                     nonNullable: true,
                     validators: this.authorFormValidationService.validatorFunctions(AuthorFormPartFieldName.firstname)
+                },
+            ),
+            /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+            /* @tt{{{ @slbc
+                @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
+
+                @replace-value-by-expression
+                    [ searchValue="nickname" replaceByExpression="attribute.attributeName.camelCase" ]
+                    [ searchValue="string | null" replaceByExpression="attribute.typescriptAttributeFormType" ]
+
+            }}}@  */
+            /* @tt{{{ @slbc  @if [ conditionExpression="attribute.isNullable"] @slac }}}@ */
+            [AuthorFormPartFieldName.nicknameIsNotNull]: new FormControl<boolean>(
+                this.authorFormInitialValueService.nicknameInitialValue() != null,
+                {
+                    nonNullable: true,
+                    validators: this.authorFormValidationService.validatorFunctions(AuthorFormPartFieldName.nicknameIsNotNull)
+                },
+            ),
+            /* @tt{{{ @slbc  @end-if @slac }}}@ */
+            [AuthorFormPartFieldName.nickname]: new FormControl<string | null>(
+                this.authorFormInitialValueService.nicknameInitialValue(),
+                {
+                    nonNullable: true,
+                    validators: this.authorFormValidationService.validatorFunctions(AuthorFormPartFieldName.nickname)
                 },
             ),
             /* @tt{{{ @slbc @end-foreach @slac }}}@ */
@@ -91,20 +108,6 @@ export class AuthorFormPartService {
                 {
                     nonNullable: true,
                     validators: this.authorFormValidationService.validatorFunctions(AuthorFormPartFieldName.lastname)
-                },
-            ),
-            [AuthorFormPartFieldName.nicknameIsNotNull]: new FormControl<boolean>(
-                this.authorFormInitialValueService.nicknameInitialValue() != null,
-                {
-                    nonNullable: true,
-                    validators: this.authorFormValidationService.validatorFunctions(AuthorFormPartFieldName.nicknameIsNotNull)
-                },
-            ),
-            [AuthorFormPartFieldName.nickname]: new FormControl<string | null>(
-                this.authorFormInitialValueService.nicknameInitialValue(),
-                {
-                    nonNullable: false,
-                    validators: this.authorFormValidationService.validatorFunctions(AuthorFormPartFieldName.nickname)
                 },
             ),
             [AuthorFormPartFieldName.libraryAwardList]: new FormArray(
@@ -148,20 +151,22 @@ export class AuthorFormPartService {
     public patchAuthorForm(form: FormGroup<AuthorFormPartGroup>, author: AuthorWTO): void {
         /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
         FormUtil.requiredFormControl(form, AuthorFormPartFieldName.id).patchValue(author.id);
+        FormUtil.requiredFormControl(form, AuthorFormPartFieldName.firstname).patchValue(author.firstname);
         /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
         /* @tt{{{
             @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
             @replace-value-by-expression
-                [ searchValue="firstname" replaceByExpression="attribute.attributeName.camelCase" ]
+                [ searchValue="nickname" replaceByExpression="attribute.attributeName.camelCase" ]
 
             @slac
         }}}@  */
-        FormUtil.requiredFormControl(form, AuthorFormPartFieldName.firstname).patchValue(author.firstname);
+        /* @tt{{{ @slbc  @if [ conditionExpression="attribute.isNullable"] @slac }}}@ */
+        FormUtil.requiredFormControl(form, AuthorFormPartFieldName.nicknameIsNotNull).patchValue(!author.nickname);
+        /* @tt{{{ @slbc  @end-if @slac }}}@ */
+        FormUtil.requiredFormControl(form, AuthorFormPartFieldName.nickname).patchValue(author.nickname ?? null);
         /* @tt{{{ @slbc @end-foreach @slac }}}@ */
         /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-        FormUtil.requiredFormControl(form, AuthorFormPartFieldName.nicknameIsNotNull).patchValue(!author.nickname);
-        FormUtil.requiredFormControl(form, AuthorFormPartFieldName.nickname).patchValue(author.nickname ?? null);
         FormUtil.requiredFormControl(form, AuthorFormPartFieldName.lastname).patchValue(author.lastname);
         const libraryAwardList = FormUtil.requiredFormArray(form, AuthorFormPartFieldName.libraryAwardList);
         author.libraryAwardList.forEach((libraryAward: LibraryAwardWTO) => {
@@ -186,15 +191,19 @@ export class AuthorFormPartService {
 
                 @replace-value-by-expression
                     [ searchValue="firstname" replaceByExpression="attribute.attributeName.camelCase" ]
+                    [ searchValue="nickname" replaceByExpression="attribute.attributeName.camelCase" ]
 
                 @slac
             }}}@  */
+            /* @tt{{{ @slbc  @if [ conditionExpression="!attribute.isNullable"] @slac }}}@ */
             firstname: FormUtil.requiredFormControl(form, AuthorFormPartFieldName.firstname).value as string,
-            /* @tt{{{ @slbc @end-foreach @slac }}}@ */
-            /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+            /* @tt{{{ @slbc  @else @slac }}}@ */
             nickname: FormUtil.requiredFormControl(form, AuthorFormPartFieldName.nicknameIsNotNull).value
                 ? FormUtil.requiredFormControl(form, AuthorFormPartFieldName.nickname).value as string
                 : null,
+            /* @tt{{{ @slbc  @end-if @slac }}}@ */
+            /* @tt{{{ @slbc @end-foreach @slac }}}@ */
+            /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
             lastname: FormUtil.requiredFormControl(form, AuthorFormPartFieldName.lastname).value as string,
             libraryAwardList: FormUtil.requiredFormArray<FormGroup<LibraryAwardFormPartGroup>>(form, AuthorFormPartFieldName.libraryAwardList)
                 .controls.map(control => this.libraryAwardFormPartService.createLibraryAwardFromFormData(control)),
