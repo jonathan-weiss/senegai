@@ -26,6 +26,10 @@ import {Injectable} from '@angular/core';
 /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
 // imports here that are ignored
 import {GenderEnum} from "@app/wto/gender.enum";
+import {FormGroup} from "@angular/forms";
+import {
+    LibraryAwardFormPartGroup
+} from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part-group";
 /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 
 
@@ -56,7 +60,9 @@ export class AuthorFormPartInitialValueService {
     nicknameInitialValue(): string | null {
         return null
     }
-
+    libraryAwardListInitialValue(): Array<FormGroup<LibraryAwardFormPartGroup>> {
+        return []
+    }
     lastnameInitialValue(): string {
         return ''
     }

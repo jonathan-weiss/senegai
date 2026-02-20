@@ -82,7 +82,7 @@ export class AuthorFormPartService {
 
                 @replace-value-by-expression
                     [ searchValue="nickname" replaceByExpression="attribute.attributeName.camelCase" ]
-                    [ searchValue="string | null" replaceByExpression="attribute.typescriptAttributeFormType" ]
+                    [ searchValue="FormControl<string | null>" replaceByExpression="attribute.typescriptAttributeFormControlType" ]
 
             }}}@  */
             /* @tt{{{ @slbc  @if [ conditionExpression="attribute.isNullable"] @slac }}}@ */
@@ -111,7 +111,7 @@ export class AuthorFormPartService {
                 },
             ),
             [AuthorFormPartFieldName.libraryAwardList]: new FormArray(
-                [] as Array<FormGroup<LibraryAwardFormPartGroup>>,
+                this.authorFormInitialValueService.libraryAwardListInitialValue(),
                 {
                     validators: this.authorFormValidationService.validatorFunctions(AuthorFormPartFieldName.libraryAwardList)
                 },

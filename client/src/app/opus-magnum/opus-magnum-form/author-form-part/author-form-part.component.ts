@@ -156,6 +156,7 @@ export class AuthorFormPartComponent implements OnInit {
 
     @replace-value-by-expression
         [ searchValue="nickname" replaceByExpression="attribute.attributeName.camelCase" ]
+        [ searchValue="FormControl<string | null>" replaceByExpression="attribute.typescriptAttributeFormControlType" ]
 
     @slac
     }}}@  */

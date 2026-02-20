@@ -6,7 +6,6 @@ import senegai.codegen.renderer.model.NameCase
 import senegai.codegen.schema.BuiltInType
 import senegai.codegen.schema.EntityId
 import senegai.codegen.schema.EnumId
-import senegai.codegen.schema.ItemAttributeCardinality
 import senegai.codegen.schema.ItemAttributeType
 import senegai.codegen.schema.ItemId
 
@@ -23,7 +22,8 @@ data class UiItemAttributeModel(
     val typescriptAttributeTypeCapitalizedWithoutNullability: String = CaseUtil.capitalize(calculateAttributeType())
     //val typescriptAttributeType: String = if(attributeName == "nickname") "string | null" else "string"
 
-    val typescriptAttributeFormType: String = calculateSingleItemAttributeTypeWithNullability()
+    val typescriptAttributeFormType: String = calculateFormType()
+    val typescriptAttributeFormControlType: String = calculateFormTypeIncludingCollection()
     val attributeCardinality: AttributeCardinalityModel = attributeCardinalityModel()
 
     private fun calculateAttributeType(): String {
@@ -52,12 +52,22 @@ data class UiItemAttributeModel(
         }
     }
 
-    private fun calculateSingleItemAttributeTypeWithNullability(): String {
+    private fun calculateFormType(): String {
         val type = calculateAttributeType()
         return if(isNullable) {
             "$type | null"
         } else {
             type
+        }
+    }
+
+    private fun calculateFormTypeIncludingCollection(): String {
+        // TODO if it is an item, we need FormArray<FormGroup<...>
+        val type = calculateAttributeType()
+        return if(isList) {
+            "FormArray<FormControl<$type>>"
+        } else {
+            "FormControl<$type>"
         }
     }
 

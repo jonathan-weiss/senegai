@@ -27,7 +27,7 @@ export class FormUtil {
 
     public static requiredAbstractForm(form: AbstractControl, formControlName: string): AbstractControl {
         const formControl = form.get(formControlName)
-        if (formControl && formControl instanceof AbstractControl) {
+        if (formControl) {
             return formControl
         }
         throw Error("Form Control " + formControlName + " not found in form group " + form)
