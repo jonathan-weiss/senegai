@@ -52,7 +52,6 @@ export class AuthorFormPartValidationService {
     }
 
     namedValidators(field: AuthorFormPartFieldName): ReadonlyArray<NamedValidator> {
-        // TODO use mapped types https://www.typescriptlang.org/docs/handbook/2/mapped-types.html
         switch(field) {
             /* @tt{{{ @slbc
                 @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
