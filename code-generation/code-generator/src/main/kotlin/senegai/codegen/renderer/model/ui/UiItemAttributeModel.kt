@@ -11,7 +11,7 @@ import senegai.codegen.schema.ItemId
 
 data class UiItemAttributeModel(
     val attributeName: String,
-    private val cardinality: ItemAttributeCardinality, // TODO that is wrong, it is not a model class
+    private val isNullable: Boolean,
     private val type: ItemAttributeType, // TODO that is wrong, it is not a model class
 ) {
     val typescriptAttributeTypeExample: String = calculateExampleValue()
@@ -21,19 +21,12 @@ data class UiItemAttributeModel(
     val typescriptAttributeTypeCapitalizedWithoutNullability: String = CaseUtil.capitalize(calculateAttributeType())
     //val typescriptAttributeType: String = if(attributeName == "nickname") "string | null" else "string"
 
-    val attributeCardinality: AttributeCardinalityModel = AttributeCardinalityModel.SINGLE_ITEM
+    val attributeCardinality: AttributeCardinalityModel = attributeCardinalityModel()
 
     val attributeNameUppercase: String = attributeName.uppercase()
     val attributeNameLowercase: String = attributeName.lowercase()
     val attributeNameDashCase: String = CaseUtil.camelToDashCase(attributeName)
     val attributeNameCamelCase: String = attributeName
-
-
-    val isNullable: Boolean
-        get() = cardinality == ItemAttributeCardinality.ZERO_TO_ONE
-
-    val isList: Boolean
-        get() = cardinality == ItemAttributeCardinality.ZERO_TO_MANY
 
     private fun calculateAttributeType(): String {
         return when(type) {
@@ -54,10 +47,10 @@ data class UiItemAttributeModel(
 
     private fun calculateAttributeTypeWithNullability(): String {
         val type = calculateAttributeType()
-        return when(cardinality) {
-            ItemAttributeCardinality.ZERO_TO_ONE -> "$type | null"
-            ItemAttributeCardinality.EXACTLY_ONE -> type
-            ItemAttributeCardinality.ZERO_TO_MANY -> "ReadonlyArray<$type>"
+        return when(attributeCardinalityModel()) {
+            AttributeCardinalityModel.NULLABLE_SINGLE_ITEM -> "$type | null"
+            AttributeCardinalityModel.SINGLE_ITEM -> type
+            AttributeCardinalityModel.LIST_ITEMS -> "ReadonlyArray<$type>"
         }
     }
 
@@ -92,6 +85,14 @@ data class UiItemAttributeModel(
             BuiltInType.STRING -> "'John'"
             BuiltInType.NUMBER -> "316"
             BuiltInType.BOOLEAN -> "true"
+        }
+    }
+
+    private fun attributeCardinalityModel(): AttributeCardinalityModel {
+        return if(isNullable) {
+            AttributeCardinalityModel.NULLABLE_SINGLE_ITEM
+        } else {
+            AttributeCardinalityModel.SINGLE_ITEM
         }
     }
 }

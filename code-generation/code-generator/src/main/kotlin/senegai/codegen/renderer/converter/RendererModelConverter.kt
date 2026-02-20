@@ -59,7 +59,7 @@ object RendererModelConverter {
     private fun mapUiItemAttribute(itemAttribute: ItemAttribute): UiItemAttributeModel {
         return UiItemAttributeModel(
             itemAttribute.attributeName,
-            itemAttribute.cardinality,
+            itemAttribute.isNullable,
             itemAttribute.type,
         )
     }

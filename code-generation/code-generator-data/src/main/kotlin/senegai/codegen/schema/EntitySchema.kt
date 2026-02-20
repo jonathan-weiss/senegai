@@ -83,7 +83,7 @@ data class Item(
  */
 data class ItemAttribute(
     val attributeName: String,
-    val cardinality: ItemAttributeCardinality,
+    val isNullable: Boolean,
     val type: ItemAttributeType,
 )
 

@@ -17,17 +17,20 @@ interface ItemDsl {
 
     fun attribute(
         name: String,
-        type: BuiltInType
+        type: BuiltInType,
+        nullable: Boolean = false,
     )
 
     fun attribute(
         name: String,
         itemId: ItemId,
+        nullable: Boolean = false,
     )
 
     fun attribute(
         name: String,
         enumId: EnumId,
+        nullable: Boolean = false,
     )
 }
 

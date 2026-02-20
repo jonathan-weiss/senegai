@@ -42,10 +42,10 @@ object CodegenData {
             item(itemId = Items.CONTACT) {
                 attribute(name = "id", type = BuiltInType.STRING)
                 attribute(name = "firstname", type = BuiltInType.STRING)
-                attribute(name = "nickname", type = BuiltInType.STRING)
+                attribute(name = "nickname", type = BuiltInType.STRING, nullable = true)
                 attribute(name = "lastname", type = BuiltInType.STRING)
                 // attribute(name = "age", type = BuiltInType.NUMBER)
-                attribute(name = "address", type = BuiltInType.STRING)
+                attribute(name = "address", type = BuiltInType.STRING, nullable = true)
                 attribute(name = "zipCode", type = BuiltInType.STRING)
                 attribute(name = "city", type = BuiltInType.STRING)
             }
