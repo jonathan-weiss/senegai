@@ -41,9 +41,13 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
           |import {
           |    ${model.item.itemName}FormPartGroup
           |} from "@app/${model.entity.entityNameDashCase}/${model.entity.entityNameDashCase}-form/${model.item.itemNameLowercase}-form-part/${model.item.itemNameLowercase}-form-part-group";
-          |import {SectionSplitterComponent} from "@app/shared/blocks/section-splitter/section-splitter.component";
-          |import {TextBlockComponent} from "@app/shared/blocks/text-block/text-block.component";
-          |
+          |${ if(model.containsNamedSectionSplitBlocks()) { """import {SectionSplitterComponent} from "@app/shared/blocks/section-splitter/section-splitter.component";
+              |
+          """ } else { """
+          """ } }${ if(model.containsTextBlocks()) { """import {TextBlockComponent} from "@app/shared/blocks/text-block/text-block.component";
+              |
+          """ } else { """
+          """ } }
           |@Component({
           |    selector: 'app-${model.item.itemNameLowercase}-form-part',
           |    templateUrl: './${model.item.itemNameLowercase}-form-part.component.html',
@@ -65,8 +69,13 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
           |        TextInputComponent,
           |        MatTabGroup,
           |        MatTab,
-          |        SectionSplitterComponent,
-          |        TextBlockComponent,
+          |    ${ if(model.containsNamedSectionSplitBlocks()) { """        SectionSplitterComponent,
+              |    
+          """ } else { """
+          """ } }    ${ if(model.containsTextBlocks()) { """        TextBlockComponent,
+              |    
+          """ } else { """
+          """ } }
           |    ]
           |})
           |export class ${model.item.itemName}FormPartComponent implements OnInit {

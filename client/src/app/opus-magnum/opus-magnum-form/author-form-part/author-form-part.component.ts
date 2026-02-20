@@ -50,8 +50,30 @@ import {MatTab, MatTabGroup} from "@angular/material/tabs";
 import {
     AuthorFormPartGroup
 } from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-group";
+/*
+@tt{{{
+    @if [ conditionExpression="model.containsNamedSectionSplitBlocks()" ]
+    @slac
+}}}@
+ */
 import {SectionSplitterComponent} from "@app/shared/blocks/section-splitter/section-splitter.component";
+/*
+@tt{{{
+    @end-if @slac
+}}}@
+ */
+/*
+@tt{{{
+    @if [ conditionExpression="model.containsTextBlocks()" ]
+    @slac
+}}}@
+ */
 import {TextBlockComponent} from "@app/shared/blocks/text-block/text-block.component";
+/*
+@tt{{{
+    @end-if @slac
+}}}@
+ */
 
 /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
 import {
@@ -90,8 +112,31 @@ import {
         TextInputComponent,
         MatTabGroup,
         MatTab,
+    /*
+    @tt{{{
+        @if [ conditionExpression="model.containsNamedSectionSplitBlocks()" ]
+        @slac
+    }}}@
+     */
         SectionSplitterComponent,
+    /*
+    @tt{{{
+        @end-if @slac
+    }}}@
+     */
+    /*
+    @tt{{{
+        @if [ conditionExpression="model.containsTextBlocks()" ]
+        @slac
+    }}}@
+     */
         TextBlockComponent,
+    /*
+    @tt{{{
+        @end-if @slac
+    }}}@
+     */
+
         /* @tt{{{ @slbc  @ignore-text }}}@ */
         DatepickerInputComponent,
         MatSelect,
