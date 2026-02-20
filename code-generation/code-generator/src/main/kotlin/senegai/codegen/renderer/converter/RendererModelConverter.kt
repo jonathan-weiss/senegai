@@ -1,5 +1,6 @@
 package senegai.codegen.renderer.converter
 
+import senegai.codegen.renderer.model.NameCase
 import senegai.codegen.renderer.model.SchemaModel
 import senegai.codegen.renderer.model.ui.UiItemAttributeModel
 import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewModel
@@ -51,7 +52,7 @@ object RendererModelConverter {
     private fun mapUiItemModel(item: Item): UiItemModel {
         return UiItemModel(
             itemId = item.itemId,
-            itemName = item.itemName,
+            itemName = NameCase(item.itemName),
             attributes = item.attributes.map { mapUiItemAttribute(it) }
         )
     }
