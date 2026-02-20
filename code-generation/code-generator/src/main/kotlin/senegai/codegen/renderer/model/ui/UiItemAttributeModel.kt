@@ -24,6 +24,7 @@ data class UiItemAttributeModel(
 
     val typescriptAttributeFormType: String = calculateFormType()
     val typescriptAttributeFormControlType: String = calculateFormTypeIncludingCollection()
+    val formInitialValue: String = determineFormInitialValue()
     val attributeCardinality: AttributeCardinalityModel = attributeCardinalityModel()
 
     private fun calculateAttributeType(): String {
@@ -63,7 +64,7 @@ data class UiItemAttributeModel(
 
     private fun calculateFormTypeIncludingCollection(): String {
         // TODO if it is an item, we need FormArray<FormGroup<...>
-        val type = calculateAttributeType()
+        val type = calculateFormType()
         return if(isList) {
             "FormArray<FormControl<$type>>"
         } else {
@@ -71,6 +72,15 @@ data class UiItemAttributeModel(
         }
     }
 
+    private fun determineFormInitialValue(): String {
+        return if(isNullable) {
+            "null"
+        } else if(isList) {
+            "[]"
+        } else {
+            "''"
+        }
+    }
 
     private fun calculateInitialValue(): String {
         return when(type) {

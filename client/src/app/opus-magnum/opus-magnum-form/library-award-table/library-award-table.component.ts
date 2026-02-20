@@ -25,7 +25,7 @@
 }}}@ */
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
-import {AbstractControl, FormArray, FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {FormArray, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatCardModule} from "@angular/material/card";
@@ -36,7 +36,6 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {MatDialogModule} from "@angular/material/dialog";
-import {FormUtil} from "@app/shared/form-controls/form.util";
 import {
     LibraryAwardTableRow
 } from "@app/opus-magnum/opus-magnum-form/library-award-table/library-award-table-row.model";
@@ -117,11 +116,11 @@ export class LibraryAwardTableComponent implements OnInit {
                 @slac
             }}}@
              */
-            description: FormUtil.requiredFormControl(formGroup, LibraryAwardFormPartFieldName.description).value as string,
+            description: formGroup.controls[LibraryAwardFormPartFieldName.description].value,
             /* @tt{{{ @slbc  @end-foreach @slac }}}@ */
             /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
 
-            year: FormUtil.requiredFormControl(formGroup, LibraryAwardFormPartFieldName.year).value as number,
+            year: formGroup.controls[LibraryAwardFormPartFieldName.year].value,
             /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
             formGroup: formGroup,
         }

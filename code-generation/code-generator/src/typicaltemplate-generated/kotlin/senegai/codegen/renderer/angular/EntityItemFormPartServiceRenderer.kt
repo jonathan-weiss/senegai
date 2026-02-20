@@ -16,7 +16,7 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
           |
           |import {Injectable} from '@angular/core';
           |import {${model.item.itemName.pascalCase}WTO} from "@app/wto/${model.item.itemName.camelCase}.wto";
-          |import {AbstractControl, FormArray, FormControl, FormGroup} from "@angular/forms";
+          |import {FormArray, FormControl, FormGroup} from "@angular/forms";
           |import {FormUtil} from "@app/shared/form-controls/form.util";
           |import {
           |    ${model.item.itemName.pascalCase}FormPartValidationService
@@ -43,7 +43,7 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
                   |                },
                   |            ),
           """ } else { """
-          """ } }            [${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}]: new FormControl<${attribute.typescriptAttributeFormType}>(
+          """ } }            [${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}]: new ${attribute.typescriptAttributeFormControlType}(
               |                this.${model.item.itemName.camelCase}FormInitialValueService.${attribute.attributeName.camelCase}InitialValue(),
               |                {
               |                    nonNullable: true,
@@ -53,16 +53,17 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
           """ } }        });
           |    }
           |
-          |    public patch${model.item.itemName.pascalCase}Form(form: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>, ${model.item.itemName.camelCase}: ${model.item.itemName.pascalCase}WTO): void {        ${ model.item.attributes.joinToString("") { attribute ->  """${ if(attribute.isNullable) { """        FormUtil.requiredFormControl(form, ${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull).patchValue(!${model.item.itemName.camelCase}.${attribute.attributeName.camelCase});
+          |    public patch${model.item.itemName.pascalCase}Form(form: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>, ${model.item.itemName.camelCase}: ${model.item.itemName.pascalCase}WTO): void {
+          |        ${ model.item.attributes.joinToString("") { attribute ->  """${ if(attribute.isNullable) { """        form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull].patchValue(!${model.item.itemName.camelCase}.${attribute.attributeName.camelCase});
           """ } else { """
-          """ } }        FormUtil.requiredFormControl(form, ${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}).patchValue(${model.item.itemName.camelCase}.${attribute.attributeName.camelCase} ?? null);
+          """ } }        form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].patchValue(${model.item.itemName.camelCase}.${attribute.attributeName.camelCase} ?? null);
           """ } }    }
           |
-          |    public create${model.item.itemName.pascalCase}FromFormData(form: AbstractControl): ${model.item.itemName.pascalCase}WTO {
+          |    public create${model.item.itemName.pascalCase}FromFormData(form: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>): ${model.item.itemName.pascalCase}WTO {
           |        return {
-          |                        ${ model.item.attributes.joinToString("") { attribute ->  """${ if(!attribute.isNullable) { """            ${attribute.attributeName.camelCase}: FormUtil.requiredFormControl(form, ${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}).value as string,
-          """ } else { """            ${attribute.attributeName.camelCase}: FormUtil.requiredFormControl(form, ${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull).value
-                  |                ? FormUtil.requiredFormControl(form, ${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}).value as string
+          |                        ${ model.item.attributes.joinToString("") { attribute ->  """${ if(!attribute.isNullable) { """            ${attribute.attributeName.camelCase}: form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].value,
+          """ } else { """            ${attribute.attributeName.camelCase}: form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull].value
+                  |                ? form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].value
                   |                : null,
           """ } }
           """ } }        };

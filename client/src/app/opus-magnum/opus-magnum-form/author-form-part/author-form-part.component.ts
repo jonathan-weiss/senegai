@@ -147,7 +147,7 @@ export class AuthorFormPartComponent implements OnInit {
     /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
     authorLibraryAwardUnderEdit: FormGroup<LibraryAwardFormPartGroup> | undefined = undefined;
 
-    protected idControl!: FormControl<number>
+    protected idControl!: FormControl<string>
     protected firstnameControl!: FormControl<string>
     protected firstnameValidatorNames!: ReadonlyArray<ValidatorTranslation>
     /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
@@ -189,8 +189,8 @@ export class AuthorFormPartComponent implements OnInit {
 
     ngOnInit() {
         /* @tt{{{ @ignore-text @slac }}}@ */
-        this.idControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormPartFieldName.id);
-        this.firstnameControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormPartFieldName.firstname)
+        this.idControl = this.authorForm.controls[AuthorFormPartFieldName.id]
+        this.firstnameControl = this.authorForm.controls[AuthorFormPartFieldName.firstname]
         this.firstnameValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.firstname)
         /* @tt{{{ @slbc  @end-ignore-text }}}@ */
         /* @tt{{{ @slbc
@@ -201,25 +201,25 @@ export class AuthorFormPartComponent implements OnInit {
 
         }}}@  */
         /* @tt{{{ @slbc  @if [ conditionExpression="attribute.isNullable"] @slac }}}@ */
-        this.nicknameIsNotNullControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormPartFieldName.nicknameIsNotNull)
+        this.nicknameIsNotNullControl = this.authorForm.controls[AuthorFormPartFieldName.nicknameIsNotNull]
         this.nicknameIsNotNullValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.nicknameIsNotNull)
         /* @tt{{{ @slbc  @end-if @slac }}}@ */
-        this.nicknameControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormPartFieldName.nickname)
+        this.nicknameControl = this.authorForm.controls[AuthorFormPartFieldName.nickname]
         this.nicknameValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.nickname)
 
         /* @tt{{{ @slbc @end-foreach @slac }}}@ */
         /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-        this.lastnameControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormPartFieldName.lastname)
+        this.lastnameControl = this.authorForm.controls[AuthorFormPartFieldName.lastname]
         this.lastnameValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.lastname)
-        this.libraryAwardListFormArray = FormUtil.requiredFormArray(this.authorForm, AuthorFormPartFieldName.libraryAwardList)
+        this.libraryAwardListFormArray = this.authorForm.controls[AuthorFormPartFieldName.libraryAwardList]
         this.libraryAwardListValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.libraryAwardList)
-        this.birthdayIsNotNullControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormPartFieldName.birthdayIsNotNull)
+        this.birthdayIsNotNullControl = this.authorForm.controls[AuthorFormPartFieldName.birthdayIsNotNull]
         this.birthdayIsNotNullValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.birthdayIsNotNull)
-        this.birthdayControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormPartFieldName.birthday)
+        this.birthdayControl = this.authorForm.controls[AuthorFormPartFieldName.birthday]
         this.birthdayValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.birthday)
-        this.vegetarianControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormPartFieldName.vegetarian)
+        this.vegetarianControl = this.authorForm.controls[AuthorFormPartFieldName.vegetarian]
         this.vegetarianValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.vegetarian)
-        this.genderControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormPartFieldName.gender)
+        this.genderControl = this.authorForm.controls[AuthorFormPartFieldName.gender]
         this.genderValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.gender)
         /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
     }

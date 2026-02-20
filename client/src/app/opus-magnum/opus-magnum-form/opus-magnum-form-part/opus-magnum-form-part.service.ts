@@ -42,17 +42,17 @@ export class OpusMagnumFormPartService {
         });
     }
 
-    public patchOpusMagnumForm(form: AbstractControl, opusMagnum: OpusMagnumWTO): void {
-        FormUtil.requiredFormControl(form, OpusMagnumFormPartFieldName.id).patchValue(opusMagnum.id);
-        FormUtil.requiredFormControl(form, OpusMagnumFormPartFieldName.title).patchValue(opusMagnum.title);
-        this.authorFormPartService.patchAuthorForm(FormUtil.requiredFormGroup(form, OpusMagnumFormPartFieldName.author), opusMagnum.author)
+    public patchOpusMagnumForm(form: FormGroup<OpusMagnumFormPartGroup>, opusMagnum: OpusMagnumWTO): void {
+        form.controls[OpusMagnumFormPartFieldName.id].patchValue(opusMagnum.id);
+        form.controls[OpusMagnumFormPartFieldName.title].patchValue(opusMagnum.title);
+        this.authorFormPartService.patchAuthorForm(form.controls[OpusMagnumFormPartFieldName.author], opusMagnum.author)
     }
 
-    public createOpusMagnumFromFormData(form: AbstractControl): OpusMagnumWTO {
+    public createOpusMagnumFromFormData(form: FormGroup<OpusMagnumFormPartGroup>): OpusMagnumWTO {
         return {
-            id: FormUtil.requiredFormControl(form, OpusMagnumFormPartFieldName.id).value as string,
-            title: FormUtil.requiredFormControl(form, OpusMagnumFormPartFieldName.title).value as string,
-            author: this.authorFormPartService.createAuthorFromFormData(FormUtil.requiredFormGroup(form, OpusMagnumFormPartFieldName.author)),
+            id: form.controls[OpusMagnumFormPartFieldName.id].value,
+            title: form.controls[OpusMagnumFormPartFieldName.title].value,
+            author: this.authorFormPartService.createAuthorFromFormData(form.controls[OpusMagnumFormPartFieldName.author]),
         };
     }
 }

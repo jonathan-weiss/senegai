@@ -24,7 +24,7 @@
 
 import {Injectable} from '@angular/core';
 import {AuthorWTO} from "@app/wto/author.wto";
-import {AbstractControl, FormArray, FormControl, FormGroup} from "@angular/forms";
+import {FormArray, FormControl, FormGroup} from "@angular/forms";
 import {FormUtil} from "@app/shared/form-controls/form.util";
 import {
     AuthorFormPartValidationService
@@ -149,9 +149,10 @@ export class AuthorFormPartService {
     }
 
     public patchAuthorForm(form: FormGroup<AuthorFormPartGroup>, author: AuthorWTO): void {
+
         /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-        FormUtil.requiredFormControl(form, AuthorFormPartFieldName.id).patchValue(author.id);
-        FormUtil.requiredFormControl(form, AuthorFormPartFieldName.firstname).patchValue(author.firstname);
+        form.controls[AuthorFormPartFieldName.id].patchValue(author.id);
+        form.controls[AuthorFormPartFieldName.firstname].patchValue(author.firstname);
         /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
         /* @tt{{{
             @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
@@ -162,29 +163,29 @@ export class AuthorFormPartService {
             @slac
         }}}@  */
         /* @tt{{{ @slbc  @if [ conditionExpression="attribute.isNullable"] @slac }}}@ */
-        FormUtil.requiredFormControl(form, AuthorFormPartFieldName.nicknameIsNotNull).patchValue(!author.nickname);
+        form.controls[AuthorFormPartFieldName.nicknameIsNotNull].patchValue(!author.nickname);
         /* @tt{{{ @slbc  @end-if @slac }}}@ */
-        FormUtil.requiredFormControl(form, AuthorFormPartFieldName.nickname).patchValue(author.nickname ?? null);
+        form.controls[AuthorFormPartFieldName.nickname].patchValue(author.nickname ?? null);
         /* @tt{{{ @slbc @end-foreach @slac }}}@ */
         /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-        FormUtil.requiredFormControl(form, AuthorFormPartFieldName.lastname).patchValue(author.lastname);
-        const libraryAwardList = FormUtil.requiredFormArray(form, AuthorFormPartFieldName.libraryAwardList);
+        form.controls[AuthorFormPartFieldName.lastname].patchValue(author.lastname);
+        const libraryAwardList = form.controls[AuthorFormPartFieldName.libraryAwardList]
         author.libraryAwardList.forEach((libraryAward: LibraryAwardWTO) => {
             const formGroup = this.libraryAwardFormPartService.createInitialLibraryAwardForm()
             this.libraryAwardFormPartService.patchLibraryAwardForm(formGroup, libraryAward);
             libraryAwardList.push(formGroup);
         })
-        FormUtil.requiredFormControl(form, AuthorFormPartFieldName.birthdayIsNotNull).patchValue(!author.birthday);
-        FormUtil.requiredFormControl(form, AuthorFormPartFieldName.birthday).patchValue(author.birthday ?? null);
-        FormUtil.requiredFormControl(form, AuthorFormPartFieldName.vegetarian).patchValue(author.vegetarian);
-        FormUtil.requiredFormControl(form, AuthorFormPartFieldName.gender).patchValue(author.gender);
+        form.controls[AuthorFormPartFieldName.birthdayIsNotNull].patchValue(!author.birthday);
+        form.controls[AuthorFormPartFieldName.birthday].patchValue(author.birthday ?? null);
+        form.controls[AuthorFormPartFieldName.vegetarian].patchValue(author.vegetarian);
+        form.controls[AuthorFormPartFieldName.gender].patchValue(author.gender);
         /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
     }
 
-    public createAuthorFromFormData(form: AbstractControl): AuthorWTO {
+    public createAuthorFromFormData(form: FormGroup<AuthorFormPartGroup>): AuthorWTO {
         return {
             /* @tt{{{ @ignore-text @slac }}}@ */
-            id: FormUtil.requiredFormControl(form, AuthorFormPartFieldName.id).value as string,
+            id: form.controls[AuthorFormPartFieldName.id].value,
             /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
             /* @tt{{{
                 @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
@@ -196,20 +197,20 @@ export class AuthorFormPartService {
                 @slac
             }}}@  */
             /* @tt{{{ @slbc  @if [ conditionExpression="!attribute.isNullable"] @slac }}}@ */
-            firstname: FormUtil.requiredFormControl(form, AuthorFormPartFieldName.firstname).value as string,
+            firstname: form.controls[AuthorFormPartFieldName.firstname].value,
             /* @tt{{{ @slbc  @else @slac }}}@ */
-            nickname: FormUtil.requiredFormControl(form, AuthorFormPartFieldName.nicknameIsNotNull).value
-                ? FormUtil.requiredFormControl(form, AuthorFormPartFieldName.nickname).value as string
+            nickname: form.controls[AuthorFormPartFieldName.nicknameIsNotNull].value
+                ? form.controls[AuthorFormPartFieldName.nickname].value
                 : null,
             /* @tt{{{ @slbc  @end-if @slac }}}@ */
             /* @tt{{{ @slbc @end-foreach @slac }}}@ */
             /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-            lastname: FormUtil.requiredFormControl(form, AuthorFormPartFieldName.lastname).value as string,
-            libraryAwardList: FormUtil.requiredFormArray<FormGroup<LibraryAwardFormPartGroup>>(form, AuthorFormPartFieldName.libraryAwardList)
+            lastname: form.controls[AuthorFormPartFieldName.lastname].value,
+            libraryAwardList: form.controls[AuthorFormPartFieldName.libraryAwardList]
                 .controls.map(control => this.libraryAwardFormPartService.createLibraryAwardFromFormData(control)),
-            birthday: FormUtil.requiredFormControl(form, AuthorFormPartFieldName.birthdayIsNotNull).value ? FormUtil.requiredFormControl(form, AuthorFormPartFieldName.birthday).value as Date : null,
-            vegetarian: FormUtil.requiredFormControl(form, AuthorFormPartFieldName.vegetarian).value as boolean,
-            gender: FormUtil.requiredFormControl(form, AuthorFormPartFieldName.gender).value as GenderEnum,
+            birthday: form.controls[AuthorFormPartFieldName.birthdayIsNotNull].value ? form.controls[AuthorFormPartFieldName.birthday].value : null,
+            vegetarian: form.controls[AuthorFormPartFieldName.vegetarian].value,
+            gender: form.controls[AuthorFormPartFieldName.gender].value,
             /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
         };
     }

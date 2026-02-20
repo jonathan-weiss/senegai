@@ -22,7 +22,7 @@ object EntityItemFormPartInitialValueServiceRenderer : UiEntityItemRenderer {
           |
           |${ model.item.attributes.joinToString("") { attribute ->  """
               |    ${attribute.attributeName.camelCase}InitialValue(): ${attribute.typescriptAttributeFormType} {
-              |        return ''
+              |        return ${attribute.formInitialValue}
               |    }
           """ } }
           |}

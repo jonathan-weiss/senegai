@@ -15,7 +15,7 @@ object EntityItemTableComponentTypescriptRenderer : UiEntityItemRenderer {
         return """
           |import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
           |import {MatTableDataSource, MatTableModule} from '@angular/material/table';
-          |import {AbstractControl, FormArray, FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
+          |import {FormArray, FormGroup, ReactiveFormsModule} from "@angular/forms";
           |import {MatButtonModule} from "@angular/material/button";
           |import {MatToolbarModule} from "@angular/material/toolbar";
           |import {MatCardModule} from "@angular/material/card";
@@ -26,7 +26,6 @@ object EntityItemTableComponentTypescriptRenderer : UiEntityItemRenderer {
           |import {MatSidenavModule} from "@angular/material/sidenav";
           |import {MatListModule} from "@angular/material/list";
           |import {MatDialogModule} from "@angular/material/dialog";
-          |import {FormUtil} from "@app/shared/form-controls/form.util";
           |import {
           |    ${model.item.itemName.pascalCase}TableRow
           |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-table/${model.item.itemName.kebabCase}-table-row.model";
@@ -79,7 +78,7 @@ object EntityItemTableComponentTypescriptRenderer : UiEntityItemRenderer {
           |    }
           |
           |    private toTableRow(formGroup: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>): ${model.item.itemName.pascalCase}TableRow {
-          |        return {${ model.item.attributes.joinToString("") { attribute ->  """            ${attribute.attributeName.camelCase}: FormUtil.requiredFormControl(formGroup, ${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}).value as string,
+          |        return {${ model.item.attributes.joinToString("") { attribute ->  """            ${attribute.attributeName.camelCase}: formGroup.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].value,
           """ } }            formGroup: formGroup,
           |        }
           |    }

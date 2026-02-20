@@ -60,21 +60,21 @@ export class LibraryAwardFormPartService {
     }
 
     public patchLibraryAwardForm(form: FormGroup<LibraryAwardFormPartGroup>, libraryAward: LibraryAwardWTO): void {
-        FormUtil.requiredFormControl(form, LibraryAwardFormPartFieldName.description).patchValue(libraryAward.description);
-        FormUtil.requiredFormControl(form, LibraryAwardFormPartFieldName.year).patchValue(libraryAward.year);
+        form.controls[LibraryAwardFormPartFieldName.description].patchValue(libraryAward.description);
+        form.controls[LibraryAwardFormPartFieldName.year].patchValue(libraryAward.year);
         libraryAward.juryList.forEach((jury: string) => {
             const formGroup = this.createInitialLibraryAwardListJuryListForm()
             formGroup.patchValue(jury)
-            FormUtil.requiredFormArray(form, LibraryAwardFormPartFieldName.juryList).push(formGroup);
+            form.controls[LibraryAwardFormPartFieldName.juryList].push(formGroup);
         })
     }
 
     public createLibraryAwardFromFormData(form: FormGroup<LibraryAwardFormPartGroup>): LibraryAwardWTO {
         return {
-            description: FormUtil.requiredFormControl(form, LibraryAwardFormPartFieldName.description).value as string,
-            year: FormUtil.requiredFormControl(form, LibraryAwardFormPartFieldName.year).value as number,
-            juryList: FormUtil.requiredFormArray(form, LibraryAwardFormPartFieldName.juryList)
-                .controls.map(control => control.value as string),
+            description: form.controls[LibraryAwardFormPartFieldName.description].value,
+            year: form.controls[LibraryAwardFormPartFieldName.year].value,
+            juryList: form.controls[LibraryAwardFormPartFieldName.juryList]
+                .controls.map(control => control.value),
         };
     }
 }

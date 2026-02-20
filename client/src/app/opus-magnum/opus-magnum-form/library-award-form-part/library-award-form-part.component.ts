@@ -66,11 +66,11 @@ export class LibraryAwardFormPartComponent implements OnInit {
     protected libraryAwardJuryListValidatorNames!: ReadonlyArray<ValidatorTranslation>
 
     ngOnInit() {
-        this.libraryAwardDescriptionControl = FormUtil.requiredFormControl(this.libraryAwardForm, LibraryAwardFormPartFieldName.description)
+        this.libraryAwardDescriptionControl = this.libraryAwardForm.controls[LibraryAwardFormPartFieldName.description]
         this.libraryAwardDescriptionValidatorNames = this.libraryAwardFormPartValidationService.validatorNames(LibraryAwardFormPartFieldName.description)
-        this.libraryAwardYearControl = FormUtil.requiredFormControl(this.libraryAwardForm, LibraryAwardFormPartFieldName.year)
+        this.libraryAwardYearControl = this.libraryAwardForm.controls[LibraryAwardFormPartFieldName.year]
         this.libraryAwardYearValidatorNames = this.libraryAwardFormPartValidationService.validatorNames(LibraryAwardFormPartFieldName.year)
-        this.libraryAwardJuryListFormArray = FormUtil.requiredFormArray(this.libraryAwardForm, LibraryAwardFormPartFieldName.juryList)
+        this.libraryAwardJuryListFormArray = this.libraryAwardForm.controls[LibraryAwardFormPartFieldName.juryList]
         this.libraryAwardJuryListValidatorNames = this.libraryAwardFormPartValidationService.validatorNames(LibraryAwardFormPartFieldName.juryList)
     }
 }

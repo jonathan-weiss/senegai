@@ -72,10 +72,10 @@ export class OpusMagnumFormPartComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.idControl = FormUtil.requiredFormControl(this.opusMagnumForm, OpusMagnumFormPartFieldName.id);
-        this.titleControl = FormUtil.requiredFormControl(this.opusMagnumForm, OpusMagnumFormPartFieldName.title);
+        this.idControl = this.opusMagnumForm.controls[OpusMagnumFormPartFieldName.id]
+        this.titleControl = this.opusMagnumForm.controls[OpusMagnumFormPartFieldName.title]
         this.titleValidatorNames = this.opusMagnumFormValidationService.validatorNames(OpusMagnumFormPartFieldName.title)
-        this.authorFormGroup = FormUtil.requiredFormGroup(this.opusMagnumForm, OpusMagnumFormPartFieldName.author)
+        this.authorFormGroup = this.opusMagnumForm.controls[OpusMagnumFormPartFieldName.author]
         this.authorValidatorNames = this.opusMagnumFormValidationService.validatorNames(OpusMagnumFormPartFieldName.author)
     }
 }
