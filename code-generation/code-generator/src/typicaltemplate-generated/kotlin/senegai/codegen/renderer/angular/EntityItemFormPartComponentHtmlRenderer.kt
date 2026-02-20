@@ -43,11 +43,49 @@ object EntityItemFormPartComponentHtmlRenderer : UiEntityItemRenderer {
                           |                <app-text-block label="${block.text}" />
                           |                
           """ } else if(block is senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormItemAttributeBlockModel) { """
-                          |                <div class="form-row">
-                          |                    <app-field-wrapper label="${block.attributeName}">
-                          |                        <app-text-input [textFormControl]="${block.attributeName}Control" label="${block.attributeName}" placeholder="Enter ${block.attributeName}" [validatorTranslations]="${block.attributeName}ValidatorNames" />
-                          |                    </app-field-wrapper>
-                          |                </div>
+                          |                    ${ if(block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.SINGLE_ITEM) { """
+                              |
+                              |                    <div class="form-row">
+                              |                        <app-field-wrapper label="${block.attribute.attributeName}">
+                              |
+                              |                            <app-text-input [textFormControl]="${block.attribute.attributeName}Control" label="${block.attribute.attributeName}" placeholder="Enter ${block.attribute.attributeName}" [validatorTranslations]="${block.attribute.attributeName}ValidatorNames" />
+                              |                        </app-field-wrapper>
+                              |                    </div>
+          """ } else { """
+          """ } }                    ${ if(block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.NULLABLE_SINGLE_ITEM) { """
+                              |
+                              |                    <div class="form-row">
+                              |                        <app-field-wrapper label="${block.attribute.attributeName}"
+                              |                                            [nullabilityCheckboxFormControl]="${block.attribute.attributeName}IsNotNullControl"
+                              |                                            [formGroupToDisableIfNullField]="${block.attribute.attributeName}Control"
+                              |                         >
+                              |
+                              |                            <app-text-input [textFormControl]="${block.attribute.attributeName}Control" label="${block.attribute.attributeName}" placeholder="Enter ${block.attribute.attributeName}" [validatorTranslations]="${block.attribute.attributeName}ValidatorNames" />
+                              |                        </app-field-wrapper>
+                              |                    </div>
+          """ } else { """
+          """ } }
+                          |                ${ if(block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.LIST_ITEMS) { """
+                              |
+                              |                <div class="form-row">
+                              |                    <app-field-wrapper label="${block.attribute.attributeName}">
+                              |                        <app-${block.attribute.attributeNameDashCase}-table
+                              |                                [${block.attribute.attributeNameCamelCase}FormArray]="${block.attribute.attributeNameCamelCase}ListFormArray"
+                              |                                (editLibraryAwardFormGroup)="on${model.item.itemName}LibraryAwardFormGroupEdit(${"$"}event)"
+                              |                                (deleteLibraryAwardFormGroup)="on${model.item.itemName}LibraryAwardFormGroupDelete(${"$"}event)"
+                              |                        />
+                              |                        @if (${model.item.itemNameLowercase}LibraryAwardUnderEdit) {
+                              |                            <div class="edit-area">
+                              |                                <button mat-icon-button color="primary" (click)="close${model.item.itemName}LibraryAwardUnderEdit()">
+                              |                                    <mat-icon>edit_off</mat-icon>
+                              |                                </button>
+                              |                                <app-${block.attribute.attributeNameDashCase}-form-part [${block.attribute.attributeNameCamelCase}Form]="${model.item.itemNameLowercase}LibraryAwardUnderEdit!"  />
+                              |                            </div>
+                              |                        }
+                              |                    </app-field-wrapper>
+                              |                </div>
+          """ } else { """
+          """ } }
           """ } else { """
           """ } }
           """ } }                            </div>

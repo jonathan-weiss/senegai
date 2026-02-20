@@ -11,8 +11,8 @@ import senegai.codegen.schema.ItemId
 
 data class UiItemAttributeModel(
     val attributeName: String,
-    val cardinality: ItemAttributeCardinality, // TODO that is wrong, it is not a model class
-    val type: ItemAttributeType, // TODO that is wrong, it is not a model class
+    private val cardinality: ItemAttributeCardinality, // TODO that is wrong, it is not a model class
+    private val type: ItemAttributeType, // TODO that is wrong, it is not a model class
 ) {
     val typescriptAttributeTypeExample: String = calculateExampleValue()
     val typescriptAttributeInitialValue: String = calculateInitialValue()
@@ -20,6 +20,20 @@ data class UiItemAttributeModel(
     val typescriptAttributeTypeWithoutNullability: String = calculateAttributeType()
     val typescriptAttributeTypeCapitalizedWithoutNullability: String = CaseUtil.capitalize(calculateAttributeType())
     //val typescriptAttributeType: String = if(attributeName == "nickname") "string | null" else "string"
+
+    val attributeCardinality: AttributeCardinalityModel = AttributeCardinalityModel.SINGLE_ITEM
+
+    val attributeNameUppercase: String = attributeName.uppercase()
+    val attributeNameLowercase: String = attributeName.lowercase()
+    val attributeNameDashCase: String = CaseUtil.camelToDashCase(attributeName)
+    val attributeNameCamelCase: String = attributeName
+
+
+    val isNullable: Boolean
+        get() = cardinality == ItemAttributeCardinality.ZERO_TO_ONE
+
+    val isList: Boolean
+        get() = cardinality == ItemAttributeCardinality.ZERO_TO_MANY
 
     private fun calculateAttributeType(): String {
         return when(type) {

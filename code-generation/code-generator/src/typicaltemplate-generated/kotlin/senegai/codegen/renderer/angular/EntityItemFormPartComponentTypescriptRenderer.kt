@@ -28,19 +28,15 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
           |import {MatDialogModule} from "@angular/material/dialog";
           |import {FormUtil} from "@app/shared/form-controls/form.util";
           |import {FieldWrapperComponent} from "@app/shared/form-controls/field-wrapper/field-wrapper.component";
-          |import {MatOption} from "@angular/material/core";
-          |import {MatSelect} from "@angular/material/select";
-          |import {${model.item.itemName}FormPartValidationService} from "@app/${model.entity.entityNameDashCase}/${model.entity.entityNameDashCase}-form/${model.item.itemNameLowercase}-form-part/${model.item.itemNameLowercase}-form-part-validation.service";
           |import {
-          |    ${model.item.itemName}FormPartFieldName,
-          |} from "@app/${model.entity.entityNameDashCase}/${model.entity.entityNameDashCase}-form/${model.item.itemNameLowercase}-form-part/${model.item.itemNameLowercase}-form-part-field-name";
+          |    ${model.item.itemName}FormPartValidationService
+          |} from "@app/${model.entity.entityNameDashCase}/${model.entity.entityNameDashCase}-form/${model.item.itemNameLowercase}-form-part/${model.item.itemNameLowercase}-form-part-validation.service";
+          |import {${model.item.itemName}FormPartFieldName,} from "@app/${model.entity.entityNameDashCase}/${model.entity.entityNameDashCase}-form/${model.item.itemNameLowercase}-form-part/${model.item.itemNameLowercase}-form-part-field-name";
           |import {TextInputComponent} from "@app/shared/form-controls/text-input/text-input.component";
           |import {DatepickerInputComponent} from "@app/shared/form-controls/datepicker-input/datepicker-input.component";
           |import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
           |import {MatTab, MatTabGroup} from "@angular/material/tabs";
-          |import {
-          |    ${model.item.itemName}FormPartGroup
-          |} from "@app/${model.entity.entityNameDashCase}/${model.entity.entityNameDashCase}-form/${model.item.itemNameLowercase}-form-part/${model.item.itemNameLowercase}-form-part-group";
+          |import {${model.item.itemName}FormPartGroup} from "@app/${model.entity.entityNameDashCase}/${model.entity.entityNameDashCase}-form/${model.item.itemNameLowercase}-form-part/${model.item.itemNameLowercase}-form-part-group";
           |${ if(model.containsNamedSectionSplitBlocks()) { """import {SectionSplitterComponent} from "@app/shared/blocks/section-splitter/section-splitter.component";
               |
           """ } else { """
@@ -69,18 +65,20 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
           |        TextInputComponent,
           |        MatTabGroup,
           |        MatTab,
-          |    ${ if(model.containsNamedSectionSplitBlocks()) { """        SectionSplitterComponent,
-              |    
+          |        ${ if(model.containsNamedSectionSplitBlocks()) { """        SectionSplitterComponent,
+              |        
           """ } else { """
-          """ } }    ${ if(model.containsTextBlocks()) { """        TextBlockComponent,
-              |    
+          """ } }        ${ if(model.containsTextBlocks()) { """        TextBlockComponent,
+              |        
           """ } else { """
           """ } }
           |    ]
           |})
           |export class ${model.item.itemName}FormPartComponent implements OnInit {
           |    @Input({ required: true }) ${model.item.itemNameLowercase}Form!: FormGroup<${model.item.itemName}FormPartGroup>;
-          |    ${ model.item.attributes.joinToString("") { attribute ->  """    protected ${attribute.attributeName}Control!: FormControl<string>
+          |    ${ model.item.attributes.joinToString("") { attribute ->  """    protected ${attribute.attributeName}IsNotNullControl!: FormControl<boolean>
+              |    protected ${attribute.attributeName}IsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
+              |    protected ${attribute.attributeName}Control!: FormControl<string | null>
               |    protected ${attribute.attributeName}ValidatorNames!: ReadonlyArray<ValidatorTranslation>
               |
           """ } }

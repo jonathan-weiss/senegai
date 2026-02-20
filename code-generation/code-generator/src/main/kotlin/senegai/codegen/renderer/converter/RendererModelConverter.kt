@@ -120,9 +120,8 @@ object RendererModelConverter {
         return when (block) {
             is UiItemAttributeBlock -> UiEntityFormItemAttributeBlockModel(
                 entity = uiEntityModel,
-                attributeName = block.attributeName,
                 item = uiItemModel,
-                type = UiFormAttributeType.NON_NULLABLE_SINGLE_VALUE, // TODO good for the moment
+                attribute = uiItemModel.attributes.single { it.attributeName == block.attributeName },
             )
             is UiSectionBlock -> UiEntityFormNamedSectionSplitBlockModel(block.sectionName)
             is UiTextBlock -> UiEntityFormTextBlockModel(block.textName)

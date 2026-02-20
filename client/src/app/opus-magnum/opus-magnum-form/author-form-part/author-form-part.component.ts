@@ -148,25 +148,25 @@ export class AuthorFormPartComponent implements OnInit {
     authorLibraryAwardUnderEdit: FormGroup<LibraryAwardFormPartGroup> | undefined = undefined;
 
     protected idControl!: FormControl<number>
+    protected firstnameControl!: FormControl<string>
+    protected firstnameValidatorNames!: ReadonlyArray<ValidatorTranslation>
     /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
     /* @tt{{{
     @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
     @replace-value-by-expression
-        [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
+        [ searchValue="nickname" replaceByExpression="attribute.attributeName" ]
 
     @slac
     }}}@  */
-    protected firstnameControl!: FormControl<string>
-    protected firstnameValidatorNames!: ReadonlyArray<ValidatorTranslation>
-
-    /* @tt{{{ @slbc @end-foreach @slac }}}@ */
-    /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-
     protected nicknameIsNotNullControl!: FormControl<boolean>
     protected nicknameIsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected nicknameControl!: FormControl<string | null>
     protected nicknameValidatorNames!: ReadonlyArray<ValidatorTranslation>
+
+    /* @tt{{{ @slbc @end-foreach @slac }}}@ */
+    /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+
     protected lastnameControl!: FormControl<string>
     protected lastnameValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected libraryAwardListFormArray!: FormArray<FormGroup<LibraryAwardFormPartGroup>>
