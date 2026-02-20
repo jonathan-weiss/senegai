@@ -27,37 +27,6 @@ export class LibraryAwardFormPartValidationService {
 
     namedValidators(field: LibraryAwardFormPartFieldName): ReadonlyArray<NamedValidator> {
         switch (field) {
-            case LibraryAwardFormPartFieldName.description:
-                return [
-                    {
-                        validatorName: "required",
-                        validatorFunction: Validators.required,
-                        validatorTranslationKey: "validator.required",
-                    },
-                    {
-                        validatorName: "minlength",
-                        validatorFunction: Validators.minLength(2),
-                        validatorTranslationKey: "validator.minlength",
-                    },
-                ]
-            case LibraryAwardFormPartFieldName.year:
-                return [
-                    {
-                        validatorName: "required",
-                        validatorFunction: Validators.required,
-                        validatorTranslationKey: "validator.required",
-                    },
-                    {
-                        validatorName: "min",
-                        validatorFunction: Validators.min(1900),
-                        validatorTranslationKey: "validator.min",
-                    },
-                    {
-                        validatorName: "max",
-                        validatorFunction: Validators.max(2100),
-                        validatorTranslationKey: "validator.max",
-                    },
-                ]
             default:
                 return []
         }
