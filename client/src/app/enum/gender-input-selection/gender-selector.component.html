@@ -1,0 +1,18 @@
+<mat-form-field appearance="fill" style="width: 100%">
+    @if (label != '') {
+        <mat-label>{{ label }}</mat-label>
+    }
+    <mat-select [formControl]="enumFormControl">
+        @for (gender of genderList; track gender) {
+            <mat-option [value]="gender">
+                <app-gender-i18n [enumValue]="gender" />
+            </mat-option>
+        }
+    </mat-select>
+
+    @for (validatorTranslation of validatorTranslations; track validatorTranslation) {
+        @if (hasError(validatorTranslation.validatorName)) {
+            <mat-error>{{ validatorTranslation.validatorTranslationKey | transloco }}</mat-error>
+        }
+    }
+</mat-form-field>

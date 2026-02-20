@@ -129,15 +129,7 @@
             <div class="column">
                 <div class="form-row">
                     <app-field-wrapper label="Gender">
-                        <mat-form-field appearance="fill">
-                            <mat-select [formControl]="genderControl">
-                                @for (gender of genderList; track gender) {
-                                    <mat-option [value]="gender">
-                                        <app-gender-i18n [enumValue]="gender" />
-                                    </mat-option>
-                                }
-                            </mat-select>
-                        </mat-form-field>
+                        <app-gender-selector [enumFormControl]="genderControl" [validatorTranslations]="genderValidatorNames"></app-gender-selector>
                     </app-field-wrapper>
                 </div>
 

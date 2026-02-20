@@ -37,19 +37,15 @@ import {MatListModule} from "@angular/material/list";
 import {MatDialogModule} from "@angular/material/dialog";
 import {FormUtil} from "@app/shared/form-controls/form.util";
 import {FieldWrapperComponent} from "@app/shared/form-controls/field-wrapper/field-wrapper.component";
-import {MatOption} from "@angular/material/core";
-import {MatSelect} from "@angular/material/select";
-import {AuthorFormPartValidationService} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-validation.service";
 import {
-    AuthorFormPartFieldName,
-} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-field-name";
+    AuthorFormPartValidationService
+} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-validation.service";
+import {AuthorFormPartFieldName,} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-field-name";
 import {TextInputComponent} from "@app/shared/form-controls/text-input/text-input.component";
 import {DatepickerInputComponent} from "@app/shared/form-controls/datepicker-input/datepicker-input.component";
 import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
-import {
-    AuthorFormPartGroup
-} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-group";
+import {AuthorFormPartGroup} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-group";
 /*
 @tt{{{
     @if [ conditionExpression="model.containsNamedSectionSplitBlocks()" ]
@@ -74,7 +70,6 @@ import {TextBlockComponent} from "@app/shared/blocks/text-block/text-block.compo
     @end-if @slac
 }}}@
  */
-
 /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
 import {
     LibraryAwardTableComponent
@@ -82,12 +77,12 @@ import {
 import {
     LibraryAwardFormPartComponent
 } from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part.component";
-import {GenderEnum, GenderEnumValues} from "@app/wto/gender.enum";
-import {GenderI18nComponent} from "@app/opus-magnum/gender-i18n/gender-i18n.component";
+import {GenderEnum} from "@app/wto/gender.enum";
 import {BooleanInputComponent} from "@app/shared/form-controls/boolean-input/boolean-input.component";
 import {
     LibraryAwardFormPartGroup
 } from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part-group";
+import {GenderSelectorComponent} from "@app/enum/gender-input-selection/gender-selector.component";
 
 /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
 
@@ -112,39 +107,37 @@ import {
         TextInputComponent,
         MatTabGroup,
         MatTab,
-    /*
-    @tt{{{
-        @if [ conditionExpression="model.containsNamedSectionSplitBlocks()" ]
-        @slac
-    }}}@
-     */
+        /*
+        @tt{{{
+            @if [ conditionExpression="model.containsNamedSectionSplitBlocks()" ]
+            @slac
+        }}}@
+         */
         SectionSplitterComponent,
-    /*
-    @tt{{{
-        @end-if @slac
-    }}}@
-     */
-    /*
-    @tt{{{
-        @if [ conditionExpression="model.containsTextBlocks()" ]
-        @slac
-    }}}@
-     */
+        /*
+        @tt{{{
+            @end-if @slac
+        }}}@
+         */
+        /*
+        @tt{{{
+            @if [ conditionExpression="model.containsTextBlocks()" ]
+            @slac
+        }}}@
+         */
         TextBlockComponent,
-    /*
-    @tt{{{
-        @end-if @slac
-    }}}@
-     */
+        /*
+        @tt{{{
+            @end-if @slac
+        }}}@
+         */
 
         /* @tt{{{ @slbc  @ignore-text }}}@ */
         DatepickerInputComponent,
-        MatSelect,
-        MatOption,
         LibraryAwardTableComponent,
         LibraryAwardFormPartComponent,
-        GenderI18nComponent,
         BooleanInputComponent,
+        GenderSelectorComponent,
         /* @tt{{{ @slbc  @end-ignore-text }}}@ */
     ]
 })
@@ -227,8 +220,6 @@ export class AuthorFormPartComponent implements OnInit {
     }
 
     /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
-
-    protected genderList = GenderEnumValues
 
     onAuthorLibraryAwardFormGroupEdit(formGroup: FormGroup<LibraryAwardFormPartGroup>): void {
         this.authorLibraryAwardUnderEdit = formGroup;

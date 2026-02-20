@@ -1,4 +1,4 @@
-import {GenderI18nComponent} from "@app/opus-magnum/gender-i18n/gender-i18n.component";
+import {GenderI18nComponent} from "@app/enum/gender-i18n/gender-i18n.component";
 import {GenderEnum} from "@app/wto/gender.enum";
 import {ComponentFixture, TestBed} from "@angular/core/testing";
 
