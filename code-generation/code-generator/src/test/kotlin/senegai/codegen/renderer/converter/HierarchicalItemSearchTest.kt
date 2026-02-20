@@ -21,21 +21,21 @@ internal class HierarchicalItemSearchTest {
         val itemC = Item(
             itemId = itemIdC,
             attributes = listOf(
-                ItemAttribute("field1", ItemAttributeCardinality.EXACTLY_ONE, BuiltInType.STRING)
+                createItemAttribute("field1",  BuiltInType.STRING)
             )
         )
 
         val itemB = Item(
             itemId = itemIdB,
             attributes = listOf(
-                ItemAttribute("nestedC", ItemAttributeCardinality.EXACTLY_ONE, itemIdC)
+                createItemAttribute("nestedC",  itemIdC)
             )
         )
 
         val itemA = Item(
             itemId = itemIdA,
             attributes = listOf(
-                ItemAttribute("nestedB", ItemAttributeCardinality.EXACTLY_ONE, itemIdB)
+                createItemAttribute("nestedB",  itemIdB)
             )
         )
 
@@ -56,9 +56,9 @@ internal class HierarchicalItemSearchTest {
         val itemA = Item(
             itemId = itemIdA,
             attributes = listOf(
-                ItemAttribute("field1", ItemAttributeCardinality.EXACTLY_ONE, BuiltInType.STRING),
-                ItemAttribute("field2", ItemAttributeCardinality.EXACTLY_ONE, BuiltInType.NUMBER),
-                ItemAttribute("field3", ItemAttributeCardinality.ZERO_TO_ONE, BuiltInType.BOOLEAN)
+                createItemAttribute("field1",  BuiltInType.STRING),
+                createItemAttribute("field2",  BuiltInType.NUMBER),
+                createItemAttribute("field3",  BuiltInType.BOOLEAN)
             )
         )
 
@@ -80,14 +80,14 @@ internal class HierarchicalItemSearchTest {
         val itemA = Item(
             itemId = itemIdA,
             attributes = listOf(
-                ItemAttribute("nestedB", ItemAttributeCardinality.EXACTLY_ONE, itemIdB)
+                createItemAttribute("nestedB",  itemIdB)
             )
         )
 
         val itemB = Item(
             itemId = itemIdB,
             attributes = listOf(
-                ItemAttribute("nestedA", ItemAttributeCardinality.EXACTLY_ONE, itemIdA)
+                createItemAttribute("nestedA",  itemIdA)
             )
         )
 
@@ -108,7 +108,7 @@ internal class HierarchicalItemSearchTest {
         val itemA = Item(
             itemId = itemIdA,
             attributes = listOf(
-                ItemAttribute("self", ItemAttributeCardinality.ZERO_TO_ONE, itemIdA)
+                createItemAttribute("self",  itemIdA)
             )
         )
 
@@ -133,29 +133,29 @@ internal class HierarchicalItemSearchTest {
         val itemD = Item(
             itemId = itemIdD,
             attributes = listOf(
-                ItemAttribute("field1", ItemAttributeCardinality.EXACTLY_ONE, BuiltInType.STRING)
+                createItemAttribute("field1",  BuiltInType.STRING)
             )
         )
 
         val itemB = Item(
             itemId = itemIdB,
             attributes = listOf(
-                ItemAttribute("nestedD", ItemAttributeCardinality.EXACTLY_ONE, itemIdD)
+                createItemAttribute("nestedD",  itemIdD)
             )
         )
 
         val itemC = Item(
             itemId = itemIdC,
             attributes = listOf(
-                ItemAttribute("nestedD", ItemAttributeCardinality.EXACTLY_ONE, itemIdD)
+                createItemAttribute("nestedD",  itemIdD)
             )
         )
 
         val itemA = Item(
             itemId = itemIdA,
             attributes = listOf(
-                ItemAttribute("nestedB", ItemAttributeCardinality.EXACTLY_ONE, itemIdB),
-                ItemAttribute("nestedC", ItemAttributeCardinality.EXACTLY_ONE, itemIdC)
+                createItemAttribute("nestedB",  itemIdB),
+                createItemAttribute("nestedC",  itemIdC)
             )
         )
 
@@ -177,15 +177,15 @@ internal class HierarchicalItemSearchTest {
         val itemB = Item(
             itemId = itemIdB,
             attributes = listOf(
-                ItemAttribute("field1", ItemAttributeCardinality.EXACTLY_ONE, BuiltInType.STRING)
+                createItemAttribute("field1",  BuiltInType.STRING)
             )
         )
 
         val itemA = Item(
             itemId = itemIdA,
             attributes = listOf(
-                ItemAttribute("nestedB1", ItemAttributeCardinality.EXACTLY_ONE, itemIdB),
-                ItemAttribute("nestedB2", ItemAttributeCardinality.ZERO_TO_ONE, itemIdB)
+                createItemAttribute("nestedB1",  itemIdB),
+                createItemAttribute("nestedB2",  itemIdB)
             )
         )
 
@@ -210,35 +210,35 @@ internal class HierarchicalItemSearchTest {
         val itemE = Item(
             itemId = itemIdE,
             attributes = listOf(
-                ItemAttribute("field1", ItemAttributeCardinality.EXACTLY_ONE, BuiltInType.STRING)
+                createItemAttribute("field1",  BuiltInType.STRING)
             )
         )
 
         val itemD = Item(
             itemId = itemIdD,
             attributes = listOf(
-                ItemAttribute("nestedE", ItemAttributeCardinality.EXACTLY_ONE, itemIdE)
+                createItemAttribute("nestedE",  itemIdE)
             )
         )
 
         val itemC = Item(
             itemId = itemIdC,
             attributes = listOf(
-                ItemAttribute("nestedD", ItemAttributeCardinality.EXACTLY_ONE, itemIdD)
+                createItemAttribute("nestedD",  itemIdD)
             )
         )
 
         val itemB = Item(
             itemId = itemIdB,
             attributes = listOf(
-                ItemAttribute("nestedC", ItemAttributeCardinality.EXACTLY_ONE, itemIdC)
+                createItemAttribute("nestedC",  itemIdC)
             )
         )
 
         val itemA = Item(
             itemId = itemIdA,
             attributes = listOf(
-                ItemAttribute("nestedB", ItemAttributeCardinality.EXACTLY_ONE, itemIdB)
+                createItemAttribute("nestedB",  itemIdB)
             )
         )
 
@@ -268,19 +268,19 @@ internal class HierarchicalItemSearchTest {
         val itemB = Item(
             itemId = itemIdB,
             attributes = listOf(
-                ItemAttribute("field1", ItemAttributeCardinality.EXACTLY_ONE, BuiltInType.STRING)
+                createItemAttribute("field1",  BuiltInType.STRING)
             )
         )
 
         val itemA = Item(
             itemId = itemIdA,
             attributes = listOf(
-                ItemAttribute("stringField", ItemAttributeCardinality.EXACTLY_ONE, BuiltInType.STRING),
-                ItemAttribute("numberField", ItemAttributeCardinality.EXACTLY_ONE, BuiltInType.NUMBER),
-                ItemAttribute("boolField", ItemAttributeCardinality.EXACTLY_ONE, BuiltInType.BOOLEAN),
-                ItemAttribute("enumField", ItemAttributeCardinality.EXACTLY_ONE, enumId),
-                ItemAttribute("entityField", ItemAttributeCardinality.EXACTLY_ONE, entityId),
-                ItemAttribute("nestedItem", ItemAttributeCardinality.EXACTLY_ONE, itemIdB)
+                createItemAttribute("stringField",  BuiltInType.STRING),
+                createItemAttribute("numberField",  BuiltInType.NUMBER),
+                createItemAttribute("boolField",  BuiltInType.BOOLEAN),
+                createItemAttribute("enumField",  enumId),
+                createItemAttribute("entityField",  entityId),
+                createItemAttribute("nestedItem",  itemIdB)
             )
         )
 
@@ -321,7 +321,7 @@ internal class HierarchicalItemSearchTest {
         val itemA = Item(
             itemId = itemIdA,
             attributes = listOf(
-                ItemAttribute("nestedB", ItemAttributeCardinality.EXACTLY_ONE, itemIdB)
+                createItemAttribute("nestedB",  itemIdB)
             )
         )
 
@@ -332,5 +332,14 @@ internal class HierarchicalItemSearchTest {
 
         // Then - should only include ItemA, skip missing ItemB gracefully
         assertEquals(setOf(itemIdA, itemIdB), result)
+    }
+    
+    private fun createItemAttribute(name: String, type: ItemAttributeType = BuiltInType.STRING): ItemAttribute {
+        return ItemAttribute(
+            attributeName = name,
+            isNullable = false,
+            isMultiple = false,
+            type = type,
+        )
     }
 }
