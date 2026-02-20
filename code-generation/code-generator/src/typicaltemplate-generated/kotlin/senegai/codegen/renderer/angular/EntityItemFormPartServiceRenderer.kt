@@ -29,6 +29,9 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
               |import {
               |    ${nestedItem.itemName.pascalCase}FormPartService
               |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${nestedItem.itemName.kebabCase}-form-part/${nestedItem.itemName.kebabCase}-form-part.service";
+              |import {
+              |    ${nestedItem.itemName.pascalCase}FormPartFieldName
+              |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${nestedItem.itemName.kebabCase}-form-part/${nestedItem.itemName.kebabCase}-form-part-field-name";
           """ } }
           |
           |
@@ -59,6 +62,26 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
               |                },
               |            ),
           """ } }        });
+          |    }
+          |
+          |    /**
+          |     * patchValue does not create missing FormGroups inside the FormArray.
+          |     * So if your FormArray is empty (or shorter than the incoming data), nothing (or only the first N) gets patched.
+          |     * We need to prefill the FormArray with empty values first
+          |     */
+          |    public patchPreparation(form: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>, ${model.item.itemName.camelCase}: ${model.item.itemName.pascalCase}WTO): void {
+          |        // TODO Rename libraryAwardList to awardList to bypass the name clash when replacing
+          |        // TODO If the attribute is an item attribute, call the formPartService
+          |        ${ model.item.attributesWithLists.joinToString("") { attribute ->  """
+              |
+              |        const ${attribute.attributeName.camelCase}Length = form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].controls.length
+              |        if(${attribute.attributeName.camelCase}Length < ${model.item.itemName.camelCase}.${attribute.attributeName.camelCase}.length) {
+              |            for (let i = ${attribute.attributeName.camelCase}Length; i < ${model.item.itemName.camelCase}.${attribute.attributeName.camelCase}.length; i++) {
+              |                form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].push(this.${attribute.attributeName.pascalCase}FormPartService.createInitial${attribute.attributeName.pascalCase}Form())
+              |            }
+              |        }
+              |        
+          """ } }
           |    }
           |
           |    public patch${model.item.itemName.pascalCase}Form(form: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>, ${model.item.itemName.camelCase}: ${model.item.itemName.pascalCase}WTO): void {

@@ -43,6 +43,8 @@ export class OpusMagnumFormPartService {
     }
 
     public patchOpusMagnumForm(form: FormGroup<OpusMagnumFormPartGroup>, opusMagnum: OpusMagnumWTO): void {
+        this.authorFormPartService.patchPreparation(form.controls[OpusMagnumFormPartFieldName.author], opusMagnum.author)
+
         form.controls[OpusMagnumFormPartFieldName.id].patchValue(opusMagnum.id);
         form.controls[OpusMagnumFormPartFieldName.title].patchValue(opusMagnum.title);
         form.controls[OpusMagnumFormPartFieldName.author].patchValue(opusMagnum.author)

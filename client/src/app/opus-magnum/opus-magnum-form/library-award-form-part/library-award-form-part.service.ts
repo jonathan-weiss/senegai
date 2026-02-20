@@ -60,6 +60,12 @@ export class LibraryAwardFormPartService {
     }
 
     public patchLibraryAwardForm(form: FormGroup<LibraryAwardFormPartGroup>, libraryAward: LibraryAwardWTO): void {
+        if(form.controls[LibraryAwardFormPartFieldName.juryList].controls.length < libraryAward.juryList.length) {
+            for (let i = libraryAward.juryList.length; i < form.controls[LibraryAwardFormPartFieldName.juryList].controls.length; i++) {
+                form.controls[LibraryAwardFormPartFieldName.juryList].push(this.createInitialLibraryAwardListJuryListForm())
+            }
+        }
+
         form.controls[LibraryAwardFormPartFieldName.description].patchValue(libraryAward.description);
         form.controls[LibraryAwardFormPartFieldName.year].patchValue(libraryAward.year);
         form.controls[LibraryAwardFormPartFieldName.juryList].patchValue(libraryAward.juryList)

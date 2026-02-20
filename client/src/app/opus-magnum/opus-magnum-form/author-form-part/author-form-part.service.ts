@@ -49,6 +49,9 @@ import {LibraryAwardWTO} from "@app/wto/library-award.wto";
 import {
     LibraryAwardFormPartService
 } from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part.service";
+import {
+    LibraryAwardFormPartFieldName
+} from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part-field-name";
 /* @tt{{{ @slbc  @end-foreach @slac }}}@ */
 
 
@@ -159,6 +162,33 @@ export class AuthorFormPartService {
             ),
             /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
         });
+    }
+
+    /**
+     * patchValue does not create missing FormGroups inside the FormArray.
+     * So if your FormArray is empty (or shorter than the incoming data), nothing (or only the first N) gets patched.
+     * We need to prefill the FormArray with empty values first
+     */
+    public patchPreparation(form: FormGroup<AuthorFormPartGroup>, author: AuthorWTO): void {
+        // TODO Rename libraryAwardList to awardList to bypass the name clash when replacing
+        // TODO If the attribute is an item attribute, call the formPartService
+        /* @tt{{{
+            @foreach [ iteratorExpression="model.item.attributesWithLists" loopVariable="attribute" ]
+            @replace-value-by-expression
+                    [ searchValue="libraryAwardList" replaceByExpression="attribute.attributeName.camelCase" ]
+                    [ searchValue="LibraryAwardList" replaceByExpression="attribute.attributeName.pascalCase" ]
+                    [ searchValue="libraryAward" replaceByExpression="attribute.attributeName.pascalCase" ]
+                    [ searchValue="LibraryAward" replaceByExpression="attribute.attributeName.pascalCase" ]
+
+            }}}@  */
+
+        const libraryAwardListLength = form.controls[AuthorFormPartFieldName.libraryAwardList].controls.length
+        if(libraryAwardListLength < author.libraryAwardList.length) {
+            for (let i = libraryAwardListLength; i < author.libraryAwardList.length; i++) {
+                form.controls[AuthorFormPartFieldName.libraryAwardList].push(this.libraryAwardFormPartService.createInitialLibraryAwardForm())
+            }
+        }
+        /* @tt{{{ @end-foreach }}}@ */
     }
 
     public patchAuthorForm(form: FormGroup<AuthorFormPartGroup>, author: AuthorWTO): void {
