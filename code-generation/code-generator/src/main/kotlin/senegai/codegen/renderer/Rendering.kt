@@ -2,8 +2,10 @@ package senegai.codegen.renderer
 
 import senegai.codegen.renderer.angular.*
 import senegai.codegen.renderer.model.ui.UiEntityModel
+import senegai.codegen.renderer.model.ui.UiEntityViewsModel
 import senegai.codegen.renderer.model.ui.UiItemModel
 import senegai.codegen.renderer.model.ui.UiModel
+import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewItemModel
 import java.nio.file.Path
 import kotlin.io.path.createDirectories
 import kotlin.io.path.isDirectory
@@ -29,13 +31,15 @@ object Rendering {
             }
 
 
-            uiModel.uiEntitiesViews.forEach { uiEntityView ->}
+            uiModel.uiEntitiesViews.forEach { uiEntityView ->
+                uiEntityView.formView.entityItems.forEach { entityItem ->
+                    renderFormPart(entityItem)
+                }
+            }
+
             uiEntities.forEach { uiEntityModel ->
                 renderEntityBoard(uiEntityModel)
                 renderEntityForm(uiEntityModel)
-                uiEntityModel.entityItemModels.forEach { uiItemModel ->
-                    renderFormPart(uiEntityModel, uiItemModel)
-                }
             }
         }
 
@@ -111,8 +115,7 @@ object Rendering {
         }
 
         private fun renderFormPart(
-            uiEntityModel: UiEntityModel,
-            uiItemModel: UiItemModel
+            formViewItemModel: UiEntityFormViewItemModel,
         ) {
             val uiEntityItemRenderer: List<UiEntityItemRenderer> = listOf(
                 EntityItemFormPartComponentHtmlRenderer,
@@ -127,8 +130,8 @@ object Rendering {
 
             uiEntityItemRenderer.forEach { renderer ->
                 writeFile(
-                    filePath = pathToGeneratedAngularFiles.resolve(renderer.filePath(entity = uiEntityModel, model = uiItemModel)),
-                    content = renderer.renderTemplate(entity = uiEntityModel, model = uiItemModel),
+                    filePath = pathToGeneratedAngularFiles.resolve(renderer.filePath(model = formViewItemModel)),
+                    content = renderer.renderTemplate(model = formViewItemModel),
                 )
             }
 

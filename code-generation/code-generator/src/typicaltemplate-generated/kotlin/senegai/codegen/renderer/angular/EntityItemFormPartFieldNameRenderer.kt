@@ -3,8 +3,7 @@
  */
 package senegai.codegen.renderer.angular
 
-import senegai.codegen.renderer.model.ui.UiEntityModel
-import senegai.codegen.renderer.model.ui.UiItemModel
+import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewItemModel
 
 /**
  * Generate the content for the template EntityItemFormPartFieldNameRenderer filled up
@@ -12,10 +11,10 @@ import senegai.codegen.renderer.model.ui.UiItemModel
  */
 object EntityItemFormPartFieldNameRenderer : UiEntityItemRenderer {
 
-    override fun renderTemplate(entity: UiEntityModel, model: UiItemModel): String {
+    override fun renderTemplate(model: UiEntityFormViewItemModel): String {
         return """
           |
-          |export enum ${model.itemName}FormPartFieldName {${ model.attributes.joinToString("") { attribute ->  """
+          |export enum ${model.item.itemName}FormPartFieldName {${ model.item.attributes.joinToString("") { attribute ->  """
               |    ${attribute.attributeName} = "${attribute.attributeName}",
           """ } }}
           |
@@ -23,7 +22,7 @@ object EntityItemFormPartFieldNameRenderer : UiEntityItemRenderer {
         """.trimMargin(marginPrefix = "|")
     }
 
-    override fun filePath(entity: UiEntityModel, model: UiItemModel): String {
-      return "${entity.entityNameDashCase}/${entity.entityNameDashCase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-field-name.ts"
+    override fun filePath(model: UiEntityFormViewItemModel): String {
+      return "${model.entity.entityNameDashCase}/${model.entity.entityNameDashCase}-form/${model.item.itemNameLowercase}-form-part/${model.item.itemNameLowercase}-form-part-field-name.ts"
     }
 }

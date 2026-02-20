@@ -4,23 +4,17 @@
     @template-renderer [ templateRendererClassName="EntityItemFormPartFieldNameRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="UiEntityItemRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
 
     @template-model [
-        modelClassName="UiEntityModel"
-        modelPackageName="senegai.codegen.renderer.model.ui"
-        modelName="entity"
-    ]
-
-    @template-model [
-        modelClassName="UiItemModel"
-        modelPackageName="senegai.codegen.renderer.model.ui"
+        modelClassName="UiEntityFormViewItemModel"
+        modelPackageName="senegai.codegen.renderer.model.ui.entityform"
         modelName="model"
     ]
 
     @replace-value-by-expression
-        [ searchValue="Author" replaceByExpression="model.itemName" ]
-        [ searchValue="author" replaceByExpression="model.itemNameLowercase" ]
-        [ searchValue="opus-magnum" replaceByExpression="entity.entityNameDashCase" ]
-        [ searchValue="OpusMagnum" replaceByExpression="entity.entityName" ]
-        [ searchValue="opusMagnum" replaceByExpression="entity.entityNameLowercase" ]
+        [ searchValue="Author" replaceByExpression="model.item.itemName" ]
+        [ searchValue="author" replaceByExpression="model.item.itemNameLowercase" ]
+        [ searchValue="opus-magnum" replaceByExpression="model.entity.entityNameDashCase" ]
+        [ searchValue="OpusMagnum" replaceByExpression="model.entity.entityName" ]
+        [ searchValue="opusMagnum" replaceByExpression="model.entity.entityNameLowercase" ]
 
     @modify-provided-filename-by-replacements
 
@@ -34,7 +28,7 @@ import {GenderEnum} from "@app/wto/gender.enum";
 
 export enum AuthorFormPartFieldName {
     /* @tt{{{ @slbc
-        @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
+        @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
         @replace-value-by-expression
             [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]

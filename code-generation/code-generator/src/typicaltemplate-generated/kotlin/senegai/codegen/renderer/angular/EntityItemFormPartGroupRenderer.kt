@@ -3,8 +3,7 @@
  */
 package senegai.codegen.renderer.angular
 
-import senegai.codegen.renderer.model.ui.UiEntityModel
-import senegai.codegen.renderer.model.ui.UiItemModel
+import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewItemModel
 
 /**
  * Generate the content for the template EntityItemFormPartGroupRenderer filled up
@@ -12,20 +11,20 @@ import senegai.codegen.renderer.model.ui.UiItemModel
  */
 object EntityItemFormPartGroupRenderer : UiEntityItemRenderer {
 
-    override fun renderTemplate(entity: UiEntityModel, model: UiItemModel): String {
+    override fun renderTemplate(model: UiEntityFormViewItemModel): String {
         return """
           |
           |import {FormArray, FormControl, FormGroup} from "@angular/forms";
-          |import {${model.itemName}FormPartFieldName} from "@app/${entity.entityNameDashCase}/${entity.entityNameDashCase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-field-name";
+          |import {${model.item.itemName}FormPartFieldName} from "@app/${model.entity.entityNameDashCase}/${model.entity.entityNameDashCase}-form/${model.item.itemNameLowercase}-form-part/${model.item.itemNameLowercase}-form-part-field-name";
           |
-          |export interface ${model.itemName}FormPartGroup {${ model.attributes.joinToString("") { attribute ->  """
-              |    [${model.itemName}FormPartFieldName.${attribute.attributeName}]: FormControl<string>,
+          |export interface ${model.item.itemName}FormPartGroup {${ model.item.attributes.joinToString("") { attribute ->  """
+              |    [${model.item.itemName}FormPartFieldName.${attribute.attributeName}]: FormControl<string>,
           """ } }}
           |
         """.trimMargin(marginPrefix = "|")
     }
 
-    override fun filePath(entity: UiEntityModel, model: UiItemModel): String {
-      return "${entity.entityNameDashCase}/${entity.entityNameDashCase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-group.ts"
+    override fun filePath(model: UiEntityFormViewItemModel): String {
+      return "${model.entity.entityNameDashCase}/${model.entity.entityNameDashCase}-form/${model.item.itemNameLowercase}-form-part/${model.item.itemNameLowercase}-form-part-group.ts"
     }
 }

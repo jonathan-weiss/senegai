@@ -3,8 +3,7 @@
  */
 package senegai.codegen.renderer.angular
 
-import senegai.codegen.renderer.model.ui.UiEntityModel
-import senegai.codegen.renderer.model.ui.UiItemModel
+import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewItemModel
 
 /**
  * Generate the content for the template EntityItemFormPartServiceRenderer filled up
@@ -12,47 +11,47 @@ import senegai.codegen.renderer.model.ui.UiItemModel
  */
 object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
 
-    override fun renderTemplate(entity: UiEntityModel, model: UiItemModel): String {
+    override fun renderTemplate(model: UiEntityFormViewItemModel): String {
         return """
           |
           |import {Injectable} from '@angular/core';
-          |import {${model.itemName}WTO} from "@app/wto/${model.itemNameLowercase}.wto";
+          |import {${model.item.itemName}WTO} from "@app/wto/${model.item.itemNameLowercase}.wto";
           |import {AbstractControl, FormArray, FormControl, FormGroup} from "@angular/forms";
           |import {FormUtil} from "@app/shared/form-controls/form.util";
           |import {
-          |    ${model.itemName}FormPartValidationService
-          |} from "@app/${entity.entityNameDashCase}/${entity.entityNameDashCase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-validation.service";
+          |    ${model.item.itemName}FormPartValidationService
+          |} from "@app/${model.entity.entityNameDashCase}/${model.entity.entityNameDashCase}-form/${model.item.itemNameLowercase}-form-part/${model.item.itemNameLowercase}-form-part-validation.service";
           |import {
-          |    ${model.itemName}FormPartInitialValueService
-          |} from "@app/${entity.entityNameDashCase}/${entity.entityNameDashCase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-initial-value.service";
-          |import {${model.itemName}FormPartFieldName} from "@app/${entity.entityNameDashCase}/${entity.entityNameDashCase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-field-name";
-          |import {${model.itemName}FormPartGroup} from "@app/${entity.entityNameDashCase}/${entity.entityNameDashCase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-group";
+          |    ${model.item.itemName}FormPartInitialValueService
+          |} from "@app/${model.entity.entityNameDashCase}/${model.entity.entityNameDashCase}-form/${model.item.itemNameLowercase}-form-part/${model.item.itemNameLowercase}-form-part-initial-value.service";
+          |import {${model.item.itemName}FormPartFieldName} from "@app/${model.entity.entityNameDashCase}/${model.entity.entityNameDashCase}-form/${model.item.itemNameLowercase}-form-part/${model.item.itemNameLowercase}-form-part-field-name";
+          |import {${model.item.itemName}FormPartGroup} from "@app/${model.entity.entityNameDashCase}/${model.entity.entityNameDashCase}-form/${model.item.itemNameLowercase}-form-part/${model.item.itemNameLowercase}-form-part-group";
           |
           |@Injectable({providedIn: 'root'})
-          |export class ${model.itemName}FormPartService {
+          |export class ${model.item.itemName}FormPartService {
           |
           |    constructor(
-          |        private ${model.itemNameLowercase}FormValidationService: ${model.itemName}FormPartValidationService,
-          |        private ${model.itemNameLowercase}FormInitialValueService: ${model.itemName}FormPartInitialValueService,    ) {}
+          |        private ${model.item.itemNameLowercase}FormValidationService: ${model.item.itemName}FormPartValidationService,
+          |        private ${model.item.itemNameLowercase}FormInitialValueService: ${model.item.itemName}FormPartInitialValueService,    ) {}
           |
-          |    public createInitial${model.itemName}Form(): FormGroup<${model.itemName}FormPartGroup> {
-          |        return new FormGroup({${ model.attributes.joinToString("") { attribute ->  """
-              |            [${model.itemName}FormPartFieldName.${attribute.attributeName}]: new FormControl<string>(
-              |                this.${model.itemNameLowercase}FormInitialValueService.${attribute.attributeName}InitialValue(),
+          |    public createInitial${model.item.itemName}Form(): FormGroup<${model.item.itemName}FormPartGroup> {
+          |        return new FormGroup({${ model.item.attributes.joinToString("") { attribute ->  """
+              |            [${model.item.itemName}FormPartFieldName.${attribute.attributeName}]: new FormControl<string>(
+              |                this.${model.item.itemNameLowercase}FormInitialValueService.${attribute.attributeName}InitialValue(),
               |                {
               |                    nonNullable: true,
-              |                    validators: this.${model.itemNameLowercase}FormValidationService.validatorFunctions(${model.itemName}FormPartFieldName.${attribute.attributeName})
+              |                    validators: this.${model.item.itemNameLowercase}FormValidationService.validatorFunctions(${model.item.itemName}FormPartFieldName.${attribute.attributeName})
               |                },
               |            ),
           """ } }        });
           |    }
           |
-          |    public patch${model.itemName}Form(form: FormGroup<${model.itemName}FormPartGroup>, ${model.itemNameLowercase}: ${model.itemName}WTO): void {        ${ model.attributes.joinToString("") { attribute ->  """        FormUtil.requiredFormControl(form, ${model.itemName}FormPartFieldName.${attribute.attributeName}).patchValue(${model.itemNameLowercase}.${attribute.attributeName});
+          |    public patch${model.item.itemName}Form(form: FormGroup<${model.item.itemName}FormPartGroup>, ${model.item.itemNameLowercase}: ${model.item.itemName}WTO): void {        ${ model.item.attributes.joinToString("") { attribute ->  """        FormUtil.requiredFormControl(form, ${model.item.itemName}FormPartFieldName.${attribute.attributeName}).patchValue(${model.item.itemNameLowercase}.${attribute.attributeName});
           """ } }    }
           |
-          |    public create${model.itemName}FromFormData(form: AbstractControl): ${model.itemName}WTO {
+          |    public create${model.item.itemName}FromFormData(form: AbstractControl): ${model.item.itemName}WTO {
           |        return {
-          |                        ${ model.attributes.joinToString("") { attribute ->  """            ${attribute.attributeName}: FormUtil.requiredFormControl(form, ${model.itemName}FormPartFieldName.${attribute.attributeName}).value as string,
+          |                        ${ model.item.attributes.joinToString("") { attribute ->  """            ${attribute.attributeName}: FormUtil.requiredFormControl(form, ${model.item.itemName}FormPartFieldName.${attribute.attributeName}).value as string,
           """ } }        };
           |    }
           |}
@@ -60,7 +59,7 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
         """.trimMargin(marginPrefix = "|")
     }
 
-    override fun filePath(entity: UiEntityModel, model: UiItemModel): String {
-      return "${entity.entityNameDashCase}/${entity.entityNameDashCase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part.service.ts"
+    override fun filePath(model: UiEntityFormViewItemModel): String {
+      return "${model.entity.entityNameDashCase}/${model.entity.entityNameDashCase}-form/${model.item.itemNameLowercase}-form-part/${model.item.itemNameLowercase}-form-part.service.ts"
     }
 }

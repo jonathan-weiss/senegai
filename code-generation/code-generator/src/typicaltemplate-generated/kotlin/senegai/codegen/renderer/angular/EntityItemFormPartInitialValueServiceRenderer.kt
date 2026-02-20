@@ -3,8 +3,7 @@
  */
 package senegai.codegen.renderer.angular
 
-import senegai.codegen.renderer.model.ui.UiEntityModel
-import senegai.codegen.renderer.model.ui.UiItemModel
+import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewItemModel
 
 /**
  * Generate the content for the template EntityItemFormPartInitialValueServiceRenderer filled up
@@ -12,16 +11,16 @@ import senegai.codegen.renderer.model.ui.UiItemModel
  */
 object EntityItemFormPartInitialValueServiceRenderer : UiEntityItemRenderer {
 
-    override fun renderTemplate(entity: UiEntityModel, model: UiItemModel): String {
+    override fun renderTemplate(model: UiEntityFormViewItemModel): String {
         return """
           |
           |import {Injectable} from '@angular/core';
           |
           |@Injectable({providedIn: 'root'})
-          |export class ${model.itemName}FormPartInitialValueService {
+          |export class ${model.item.itemName}FormPartInitialValueService {
           |    
           |
-          |${ model.attributes.joinToString("") { attribute ->  """
+          |${ model.item.attributes.joinToString("") { attribute ->  """
               |    ${attribute.attributeName}InitialValue(): string {
               |        return ''
               |    }
@@ -31,7 +30,7 @@ object EntityItemFormPartInitialValueServiceRenderer : UiEntityItemRenderer {
         """.trimMargin(marginPrefix = "|")
     }
 
-    override fun filePath(entity: UiEntityModel, model: UiItemModel): String {
-      return "${entity.entityNameDashCase}/${entity.entityNameDashCase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-initial-value.service.ts"
+    override fun filePath(model: UiEntityFormViewItemModel): String {
+      return "${model.entity.entityNameDashCase}/${model.entity.entityNameDashCase}-form/${model.item.itemNameLowercase}-form-part/${model.item.itemNameLowercase}-form-part-initial-value.service.ts"
     }
 }

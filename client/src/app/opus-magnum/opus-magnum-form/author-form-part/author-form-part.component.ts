@@ -5,23 +5,17 @@
     @template-renderer [ templateRendererClassName="EntityItemFormPartComponentTypescriptRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="UiEntityItemRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
 
     @template-model [
-        modelClassName="UiEntityModel"
-        modelPackageName="senegai.codegen.renderer.model.ui"
-        modelName="entity"
-    ]
-
-    @template-model [
-        modelClassName="UiItemModel"
-        modelPackageName="senegai.codegen.renderer.model.ui"
+        modelClassName="UiEntityFormViewItemModel"
+        modelPackageName="senegai.codegen.renderer.model.ui.entityform"
         modelName="model"
     ]
 
     @replace-value-by-expression
-        [ searchValue="Author" replaceByExpression="model.itemName" ]
-        [ searchValue="author" replaceByExpression="model.itemNameLowercase" ]
-        [ searchValue="opus-magnum" replaceByExpression="entity.entityNameDashCase" ]
-        [ searchValue="OpusMagnum" replaceByExpression="entity.entityName" ]
-        [ searchValue="opusMagnum" replaceByExpression="entity.entityNameLowercase" ]
+        [ searchValue="Author" replaceByExpression="model.item.itemName" ]
+        [ searchValue="author" replaceByExpression="model.item.itemNameLowercase" ]
+        [ searchValue="opus-magnum" replaceByExpression="model.entity.entityNameDashCase" ]
+        [ searchValue="OpusMagnum" replaceByExpression="model.entity.entityName" ]
+        [ searchValue="opusMagnum" replaceByExpression="model.entity.entityNameLowercase" ]
 
     @modify-provided-filename-by-replacements
 
@@ -56,6 +50,8 @@ import {MatTab, MatTabGroup} from "@angular/material/tabs";
 import {
     AuthorFormPartGroup
 } from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-group";
+import {SectionSplitterComponent} from "@app/shared/blocks/section-splitter/section-splitter.component";
+import {TextBlockComponent} from "@app/shared/blocks/text-block/text-block.component";
 
 /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
 import {
@@ -67,8 +63,6 @@ import {
 import {GenderEnum, GenderEnumValues} from "@app/wto/gender.enum";
 import {GenderI18nComponent} from "@app/opus-magnum/gender-i18n/gender-i18n.component";
 import {BooleanInputComponent} from "@app/shared/form-controls/boolean-input/boolean-input.component";
-import {SectionSplitterComponent} from "@app/shared/blocks/section-splitter/section-splitter.component";
-import {TextBlockComponent} from "@app/shared/blocks/text-block/text-block.component";
 import {
     LibraryAwardFormPartGroup
 } from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part-group";
@@ -96,6 +90,8 @@ import {
         TextInputComponent,
         MatTabGroup,
         MatTab,
+        SectionSplitterComponent,
+        TextBlockComponent,
         /* @tt{{{ @slbc  @ignore-text }}}@ */
         DatepickerInputComponent,
         MatSelect,
@@ -104,8 +100,6 @@ import {
         LibraryAwardFormPartComponent,
         GenderI18nComponent,
         BooleanInputComponent,
-        SectionSplitterComponent,
-        TextBlockComponent,
         /* @tt{{{ @slbc  @end-ignore-text }}}@ */
     ]
 })
@@ -118,7 +112,7 @@ export class AuthorFormPartComponent implements OnInit {
     protected idControl!: FormControl<number>
     /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
     /* @tt{{{
-    @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
+    @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
     @replace-value-by-expression
         [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
@@ -157,7 +151,7 @@ export class AuthorFormPartComponent implements OnInit {
         this.idControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormPartFieldName.id);
         /* @tt{{{ @slbc  @end-ignore-text }}}@ */
         /* @tt{{{ @slbc
-        @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
+        @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
         @replace-value-by-expression
             [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]

@@ -3,8 +3,7 @@
  */
 package senegai.codegen.renderer.angular
 
-import senegai.codegen.renderer.model.ui.UiEntityModel
-import senegai.codegen.renderer.model.ui.UiItemModel
+import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewItemModel
 
 /**
  * Generate the content for the template EntityItemFormPartComponentTypescriptRenderer filled up
@@ -12,7 +11,7 @@ import senegai.codegen.renderer.model.ui.UiItemModel
  */
 object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
 
-    override fun renderTemplate(entity: UiEntityModel, model: UiItemModel): String {
+    override fun renderTemplate(model: UiEntityFormViewItemModel): String {
         return """
           |import {Component, Input, OnInit} from '@angular/core';
           |import {FormArray, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
@@ -31,22 +30,24 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
           |import {FieldWrapperComponent} from "@app/shared/form-controls/field-wrapper/field-wrapper.component";
           |import {MatOption} from "@angular/material/core";
           |import {MatSelect} from "@angular/material/select";
-          |import {${model.itemName}FormPartValidationService} from "@app/${entity.entityNameDashCase}/${entity.entityNameDashCase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-validation.service";
+          |import {${model.item.itemName}FormPartValidationService} from "@app/${model.entity.entityNameDashCase}/${model.entity.entityNameDashCase}-form/${model.item.itemNameLowercase}-form-part/${model.item.itemNameLowercase}-form-part-validation.service";
           |import {
-          |    ${model.itemName}FormPartFieldName,
-          |} from "@app/${entity.entityNameDashCase}/${entity.entityNameDashCase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-field-name";
+          |    ${model.item.itemName}FormPartFieldName,
+          |} from "@app/${model.entity.entityNameDashCase}/${model.entity.entityNameDashCase}-form/${model.item.itemNameLowercase}-form-part/${model.item.itemNameLowercase}-form-part-field-name";
           |import {TextInputComponent} from "@app/shared/form-controls/text-input/text-input.component";
           |import {DatepickerInputComponent} from "@app/shared/form-controls/datepicker-input/datepicker-input.component";
           |import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
           |import {MatTab, MatTabGroup} from "@angular/material/tabs";
           |import {
-          |    ${model.itemName}FormPartGroup
-          |} from "@app/${entity.entityNameDashCase}/${entity.entityNameDashCase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part-group";
+          |    ${model.item.itemName}FormPartGroup
+          |} from "@app/${model.entity.entityNameDashCase}/${model.entity.entityNameDashCase}-form/${model.item.itemNameLowercase}-form-part/${model.item.itemNameLowercase}-form-part-group";
+          |import {SectionSplitterComponent} from "@app/shared/blocks/section-splitter/section-splitter.component";
+          |import {TextBlockComponent} from "@app/shared/blocks/text-block/text-block.component";
           |
           |@Component({
-          |    selector: 'app-${model.itemNameLowercase}-form-part',
-          |    templateUrl: './${model.itemNameLowercase}-form-part.component.html',
-          |    styleUrls: ['./${model.itemNameLowercase}-form-part.component.scss'],
+          |    selector: 'app-${model.item.itemNameLowercase}-form-part',
+          |    templateUrl: './${model.item.itemNameLowercase}-form-part.component.html',
+          |    styleUrls: ['./${model.item.itemNameLowercase}-form-part.component.scss'],
           |    imports: [
           |        ReactiveFormsModule,
           |        MatButtonModule,
@@ -64,21 +65,23 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
           |        TextInputComponent,
           |        MatTabGroup,
           |        MatTab,
+          |        SectionSplitterComponent,
+          |        TextBlockComponent,
           |    ]
           |})
-          |export class ${model.itemName}FormPartComponent implements OnInit {
-          |    @Input({ required: true }) ${model.itemNameLowercase}Form!: FormGroup<${model.itemName}FormPartGroup>;
-          |    ${ model.attributes.joinToString("") { attribute ->  """    protected ${attribute.attributeName}Control!: FormControl<string>
+          |export class ${model.item.itemName}FormPartComponent implements OnInit {
+          |    @Input({ required: true }) ${model.item.itemNameLowercase}Form!: FormGroup<${model.item.itemName}FormPartGroup>;
+          |    ${ model.item.attributes.joinToString("") { attribute ->  """    protected ${attribute.attributeName}Control!: FormControl<string>
               |    protected ${attribute.attributeName}ValidatorNames!: ReadonlyArray<ValidatorTranslation>
               |
           """ } }
-          |    constructor(private readonly ${model.itemNameLowercase}FormValidationService: ${model.itemName}FormPartValidationService,) {
+          |    constructor(private readonly ${model.item.itemNameLowercase}FormValidationService: ${model.item.itemName}FormPartValidationService,) {
           |    }
           |
           |    ngOnInit() {
-          |        ${ model.attributes.joinToString("") { attribute ->  """
-              |        this.${attribute.attributeName}Control = FormUtil.requiredFormControl(this.${model.itemNameLowercase}Form, ${model.itemName}FormPartFieldName.${attribute.attributeName})
-              |        this.${attribute.attributeName}ValidatorNames = this.${model.itemNameLowercase}FormValidationService.validatorNames(${model.itemName}FormPartFieldName.${attribute.attributeName})
+          |        ${ model.item.attributes.joinToString("") { attribute ->  """
+              |        this.${attribute.attributeName}Control = FormUtil.requiredFormControl(this.${model.item.itemNameLowercase}Form, ${model.item.itemName}FormPartFieldName.${attribute.attributeName})
+              |        this.${attribute.attributeName}ValidatorNames = this.${model.item.itemNameLowercase}FormValidationService.validatorNames(${model.item.itemName}FormPartFieldName.${attribute.attributeName})
               |
           """ } }    }
           |}
@@ -86,7 +89,7 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
         """.trimMargin(marginPrefix = "|")
     }
 
-    override fun filePath(entity: UiEntityModel, model: UiItemModel): String {
-      return "${entity.entityNameDashCase}/${entity.entityNameDashCase}-form/${model.itemNameLowercase}-form-part/${model.itemNameLowercase}-form-part.component.ts"
+    override fun filePath(model: UiEntityFormViewItemModel): String {
+      return "${model.entity.entityNameDashCase}/${model.entity.entityNameDashCase}-form/${model.item.itemNameLowercase}-form-part/${model.item.itemNameLowercase}-form-part.component.ts"
     }
 }

@@ -4,23 +4,17 @@
     @template-renderer [ templateRendererClassName="EntityItemFormPartComponentHtmlRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="UiEntityItemRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
 
     @template-model [
-        modelClassName="UiEntityModel"
-        modelPackageName="senegai.codegen.renderer.model.ui"
-        modelName="entity"
-    ]
-
-    @template-model [
-        modelClassName="UiItemModel"
-        modelPackageName="senegai.codegen.renderer.model.ui"
+        modelClassName="UiEntityFormViewItemModel"
+        modelPackageName="senegai.codegen.renderer.model.ui.entityform"
         modelName="model"
     ]
 
     @replace-value-by-expression
-        [ searchValue="Author" replaceByExpression="model.itemName" ]
-        [ searchValue="author" replaceByExpression="model.itemNameLowercase" ]
-        [ searchValue="opus-magnum" replaceByExpression="entity.entityNameDashCase" ]
-        [ searchValue="OpusMagnum" replaceByExpression="entity.entityName" ]
-        [ searchValue="opusMagnum" replaceByExpression="entity.entityNameLowercase" ]
+        [ searchValue="Author" replaceByExpression="model.item.itemName" ]
+        [ searchValue="author" replaceByExpression="model.item.itemNameLowercase" ]
+        [ searchValue="opus-magnum" replaceByExpression="model.entity.entityNameDashCase" ]
+        [ searchValue="OpusMagnum" replaceByExpression="model.entity.entityName" ]
+        [ searchValue="opusMagnum" replaceByExpression="model.entity.entityNameLowercase" ]
 
     @modify-provided-filename-by-replacements
 
@@ -41,12 +35,65 @@
 </div>
 
 <mat-tab-group dynamicHeight>
+<!-- @tt{{{
+    @foreach [ iteratorExpression="model.tabs" loopVariable="tab" ]
+
+        @replace-value-by-expression
+        [ searchValue="Main" replaceByExpression="tab.tabName" ]
+
+}}}@  -->
+
     <mat-tab label="Main">
         <div class="column-layout">
+            <!-- @tt{{{
+                @foreach [ iteratorExpression="tab.columns" loopVariable="column" ]
+            }}}@  -->
+
             <div class="column">
-                <!-- @tt{{{ @ignore-text @slac }}}@ -->
+                <!-- @tt{{{
+                    @foreach [ iteratorExpression="column.blocks" loopVariable="block" ]
+
+                @replace-value-by-expression
+                [ searchValue="BLOCK-TYPE" replaceByExpression="block" ]
+
+
+                }}}@  -->
+                <!-- p>BLOCK-TYPE</p -->
+                <!-- @tt{{{
+                    @if [ conditionExpression="block is senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormNamedSectionSplitBlockModel" ]
+
+                    @replace-value-by-expression
+                    [ searchValue="All won library awards" replaceByExpression="block.sectionName" ]
+
+                }}}@  -->
                 <app-section-splitter label="All won library awards"></app-section-splitter>
-                <app-text-block label="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." />
+                <!-- @tt{{{
+                    @else-if [ conditionExpression="block is senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormTextBlockModel" ]
+                    @replace-value-by-expression
+                    [ searchValue="Lorem ipsum dolor sit amet, consetetur sadipscing elitr." replaceByExpression="block.text" ]
+
+                }}}@  -->
+                <app-text-block label="Lorem ipsum dolor sit amet, consetetur sadipscing elitr." />
+                <!-- @tt{{{
+                    @else-if [ conditionExpression="block is senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormItemAttributeBlockModel" ]
+                    @replace-value-by-expression
+                    [ searchValue="firstname" replaceByExpression="block.attributeName" ]
+                    [ searchValue="First name" replaceByExpression="block.attributeName" ]
+                    [ searchValue="first name" replaceByExpression="block.attributeName" ]
+
+                }}}@  -->
+                <div class="form-row">
+                    <app-field-wrapper label="First name">
+                        <app-text-input [textFormControl]="firstnameControl" label="firstname" placeholder="Enter first name" [validatorTranslations]="firstnameValidatorNames" />
+                    </app-field-wrapper>
+                </div>
+                <!-- @tt{{{
+                    @slbc
+                    @end-if
+                    @end-foreach
+                    @slac
+                }}}@  -->
+                <!-- @tt{{{ @ignore-text @slac }}}@ -->
                 <div class="form-row">
                     <app-field-wrapper label="Library Awards">
                         <app-library-award-table
@@ -65,25 +112,11 @@
                     </app-field-wrapper>
                 </div>
                 <app-section-splitter label="Names"></app-section-splitter>
-                <!-- @tt{{{ @slbc  @end-ignore-text @slac }}}@ -->
-                <!-- @tt{{{
-                @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
-
-                    @replace-value-by-expression
-                    [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
-                    [ searchValue="First name" replaceByExpression="attribute.attributeName" ]
-                    [ searchValue="first name" replaceByExpression="attribute.attributeName" ]
-
-            }}}@  -->
                 <div class="form-row">
                     <app-field-wrapper label="First name">
                         <app-text-input [textFormControl]="firstnameControl" label="firstname" placeholder="Enter first name" [validatorTranslations]="firstnameValidatorNames" />
                     </app-field-wrapper>
                 </div>
-                <!-- @tt{{{ @slbc @end-foreach @slac }}}@ -->
-
-                <!-- @tt{{{ @slbc  @ignore-text @slac }}}@ -->
-
                 <div class="form-row">
                     <app-field-wrapper label="Last name">
                         <app-text-input [textFormControl]="lastnameControl" label="lastname" placeholder="Enter lastname" [validatorTranslations]="lastnameValidatorNames" />
@@ -91,8 +124,9 @@
                 </div>
                 <!-- @tt{{{ @slbc  @end-ignore-text @slac }}}@ -->
             </div>
+            <!-- @tt{{{ @slbc @end-foreach @slac }}}@ -->
+            <!-- @tt{{{ @slbc  @ignore-text @slac }}}@ -->
             <div class="column">
-                <!-- @tt{{{ @slbc  @ignore-text @slac }}}@ -->
                 <div class="form-row">
                     <app-field-wrapper label="Gender">
                         <mat-form-field appearance="fill">
@@ -116,11 +150,12 @@
                         <app-text-input [textFormControl]="nicknameControl" label="nickname" placeholder="Enter nickname" [validatorTranslations]="nicknameValidatorNames" />
                     </app-field-wrapper>
                 </div>
-                <!-- @tt{{{ @slbc  @end-ignore-text @slac }}}@ -->
             </div>
+            <!-- @tt{{{ @slbc  @end-ignore-text @slac }}}@ -->
         </div>
     </mat-tab>
-    <!-- @tt{{{ @slbc  @ignore-text @slac }}}@ -->
+    <!-- @tt{{{ @slbc @end-foreach @slac }}}@ -->
+    <!-- @tt{{{ @slbc @ignore-text @slac }}}@ -->
     <mat-tab label="Miscellaneous">
         <div class="column-layout">
             <div class="column">
