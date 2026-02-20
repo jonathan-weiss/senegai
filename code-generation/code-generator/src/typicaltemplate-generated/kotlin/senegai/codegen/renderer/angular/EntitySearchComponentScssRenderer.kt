@@ -42,6 +42,6 @@ object EntitySearchComponentScssRenderer : UiEntityRenderer {
     }
 
     override fun filePath(model: UiEntityModel): String {
-      return "${model.entityNameDashCase}/${model.entityNameDashCase}-search/${model.entityNameDashCase}-search.component.scss"
+      return "${model.entityName.kebabCase}/${model.entityName.kebabCase}-search/${model.entityName.kebabCase}-search.component.scss"
     }
 }

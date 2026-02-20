@@ -39,6 +39,6 @@ object EntityFormComponentScssRenderer : UiEntityRenderer {
     }
 
     override fun filePath(model: UiEntityModel): String {
-      return "${model.entityNameDashCase}/${model.entityNameDashCase}-form/${model.entityNameDashCase}-form/${model.entityNameDashCase}-form.component.scss"
+      return "${model.entityName.kebabCase}/${model.entityName.kebabCase}-form/${model.entityName.kebabCase}-form/${model.entityName.kebabCase}-form.component.scss"
     }
 }

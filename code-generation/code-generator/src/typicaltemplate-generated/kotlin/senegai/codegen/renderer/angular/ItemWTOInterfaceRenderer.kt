@@ -15,11 +15,11 @@ object ItemWTOInterfaceRenderer : UiItemRenderer {
         return """
           |
           |/**
-          | * The ${model.itemName} WTO (Web Transfer Object) class.
+          | * The ${model.itemName.pascalCase} WTO (Web Transfer Object) class.
           | */
-          |export interface ${model.itemName}WTO {
+          |export interface ${model.itemName.pascalCase}WTO {
           |    ${ model.attributes.joinToString("") { attribute ->  """
-              |    ${attribute.attributeName}: ${attribute.typescriptAttributeType};
+              |    ${attribute.attributeName.camelCase}: ${attribute.typescriptAttributeType};
           """ } }
           |}
           |
@@ -27,6 +27,6 @@ object ItemWTOInterfaceRenderer : UiItemRenderer {
     }
 
     override fun filePath(model: UiItemModel): String {
-      return "wto/${model.itemNameLowercase}.wto.ts"
+      return "wto/${model.itemName.camelCase}.wto.ts"
     }
 }

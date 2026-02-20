@@ -11,9 +11,9 @@
     ]
 
     @replace-value-by-expression
-        [ searchValue="OpusMagnum" replaceByExpression="model.entityName" ]
-        [ searchValue="opusMagnum" replaceByExpression="model.entityNameLowercase" ]
-        [ searchValue="opus-magnum" replaceByExpression="model.entityNameDashCase" ]
+        [ searchValue="OpusMagnum" replaceByExpression="model.entityName.pascalCase" ]
+        [ searchValue="opusMagnum" replaceByExpression="model.entityName.camelCase" ]
+        [ searchValue="opus-magnum" replaceByExpression="model.entityName.kebabCase" ]
 
     @modify-provided-filename-by-replacements
 
@@ -70,7 +70,7 @@ export class OpusMagnumResultComponent implements OnChanges {
             @foreach [ iteratorExpression="model.searchResultAttributes" loopVariable="attribute" ]
 
             @replace-value-by-expression
-                [ searchValue="title" replaceByExpression="attribute.attributeName" ]
+                [ searchValue="title" replaceByExpression="attribute.attributeName.camelCase" ]
 
         }}}@  */
         'title',
@@ -115,7 +115,7 @@ export class OpusMagnumResultComponent implements OnChanges {
                     @foreach [ iteratorExpression="model.searchResultAttributes" loopVariable="attribute" ]
 
                     @replace-value-by-expression
-                        [ searchValue="title" replaceByExpression="attribute.attributeName" ]
+                        [ searchValue="title" replaceByExpression="attribute.attributeName.camelCase" ]
                         [ searchValue="String" replaceByExpression="attribute.typescriptAttributeTypeCapitalizedWithoutNullability" ]
                     @slac
                 }}}@  */

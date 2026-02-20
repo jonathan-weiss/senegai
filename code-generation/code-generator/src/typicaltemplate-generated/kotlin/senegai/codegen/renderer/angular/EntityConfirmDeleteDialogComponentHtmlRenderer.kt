@@ -13,8 +13,8 @@ object EntityConfirmDeleteDialogComponentHtmlRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
-          |<h2 mat-dialog-title>Delete ${model.entityName}</h2>
-          |<mat-dialog-content><ng-container>Are you sure you want to delete</ng-container> <b>${ model.summaryAttributes.joinToString("") { attribute ->  """{{ data.${attribute.attributeName} }} 
+          |<h2 mat-dialog-title>Delete ${model.entityName.pascalCase}</h2>
+          |<mat-dialog-content><ng-container>Are you sure you want to delete</ng-container> <b>${ model.summaryAttributes.joinToString("") { attribute ->  """{{ data.${attribute.attributeName.camelCase} }} 
           """ } }    </b>?
           |</mat-dialog-content>
           |<mat-dialog-actions align="end">
@@ -26,6 +26,6 @@ object EntityConfirmDeleteDialogComponentHtmlRenderer : UiEntityRenderer {
     }
 
     override fun filePath(model: UiEntityModel): String {
-      return "${model.entityNameDashCase}/${model.entityNameDashCase}-confirm-delete-dialog/${model.entityNameDashCase}-confirm-delete-dialog.component.html"
+      return "${model.entityName.kebabCase}/${model.entityName.kebabCase}-confirm-delete-dialog/${model.entityName.kebabCase}-confirm-delete-dialog.component.html"
     }
 }

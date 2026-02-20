@@ -13,8 +13,8 @@ object EntityRoutableEditComponentHtmlRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
-          |@if (selected${model.entityName}) {
-          |    <app-${model.entityNameDashCase}-form [${model.entityNameLowercase}]="selected${model.entityName}" />
+          |@if (selected${model.entityName.pascalCase}) {
+          |    <app-${model.entityName.kebabCase}-form [${model.entityName.camelCase}]="selected${model.entityName.pascalCase}" />
           |} @else {
           |   Loading...
           |}
@@ -24,6 +24,6 @@ object EntityRoutableEditComponentHtmlRenderer : UiEntityRenderer {
     }
 
     override fun filePath(model: UiEntityModel): String {
-      return "${model.entityNameDashCase}/${model.entityNameDashCase}-routable-edit/${model.entityNameDashCase}-routable-edit.component.html"
+      return "${model.entityName.kebabCase}/${model.entityName.kebabCase}-routable-edit/${model.entityName.kebabCase}-routable-edit.component.html"
     }
 }

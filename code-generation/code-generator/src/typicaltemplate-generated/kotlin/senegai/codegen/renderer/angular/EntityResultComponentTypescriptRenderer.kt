@@ -15,8 +15,8 @@ object EntityResultComponentTypescriptRenderer : UiEntityRenderer {
         return """
           |import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
           |import {MatTableDataSource, MatTableModule} from '@angular/material/table';
-          |import {${model.entityName}SearchCriteria} from '@app/${model.entityNameDashCase}/${model.entityNameDashCase}-search/${model.entityNameDashCase}-search.component';
-          |import {${model.entityName}Service} from '@app/${model.entityNameDashCase}/${model.entityNameDashCase}.service';
+          |import {${model.entityName.pascalCase}SearchCriteria} from '@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}-search/${model.entityName.kebabCase}-search.component';
+          |import {${model.entityName.pascalCase}Service} from '@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}.service';
           |import {ReactiveFormsModule} from "@angular/forms";
           |import {MatButtonModule} from "@angular/material/button";
           |import {MatToolbarModule} from "@angular/material/toolbar";
@@ -28,12 +28,12 @@ object EntityResultComponentTypescriptRenderer : UiEntityRenderer {
           |import {MatSidenavModule} from "@angular/material/sidenav";
           |import {MatListModule} from "@angular/material/list";
           |import {MatDialogModule} from "@angular/material/dialog";
-          |import {${model.entityName}WTO} from "@app/wto/${model.entityNameDashCase}.wto";
+          |import {${model.entityName.pascalCase}WTO} from "@app/wto/${model.entityName.kebabCase}.wto";
           |
           |@Component({
-          |    selector: 'app-${model.entityNameDashCase}-result',
-          |    templateUrl: './${model.entityNameDashCase}-result.component.html',
-          |    styleUrls: ['./${model.entityNameDashCase}-result.component.scss'],
+          |    selector: 'app-${model.entityName.kebabCase}-result',
+          |    templateUrl: './${model.entityName.kebabCase}-result.component.html',
+          |    styleUrls: ['./${model.entityName.kebabCase}-result.component.scss'],
           |    imports: [
           |        ReactiveFormsModule,
           |        MatButtonModule,
@@ -49,50 +49,50 @@ object EntityResultComponentTypescriptRenderer : UiEntityRenderer {
           |        MatDialogModule,
           |    ]
           |})
-          |export class ${model.entityName}ResultComponent implements OnChanges {
-          |    @Input() searchCriteria: ${model.entityName}SearchCriteria = {};
+          |export class ${model.entityName.pascalCase}ResultComponent implements OnChanges {
+          |    @Input() searchCriteria: ${model.entityName.pascalCase}SearchCriteria = {};
           |    @Input() refreshKey: number = 0;
-          |    @Output() select${model.entityName} = new EventEmitter<${model.entityName}WTO>();
-          |    @Output() delete${model.entityName} = new EventEmitter<${model.entityName}WTO>();
+          |    @Output() select${model.entityName.pascalCase} = new EventEmitter<${model.entityName.pascalCase}WTO>();
+          |    @Output() delete${model.entityName.pascalCase} = new EventEmitter<${model.entityName.pascalCase}WTO>();
           |
           |    displayedColumns: string[] = [        ${ model.searchResultAttributes.joinToString("") { attribute ->  """
-              |        '${attribute.attributeName}',
+              |        '${attribute.attributeName.camelCase}',
           """ } }        'actions'
           |    ];
-          |    dataSource: MatTableDataSource<${model.entityName}WTO> = new MatTableDataSource<${model.entityName}WTO>();
-          |    private all${model.entityName}s: ${model.entityName}WTO[] = [];
+          |    dataSource: MatTableDataSource<${model.entityName.pascalCase}WTO> = new MatTableDataSource<${model.entityName.pascalCase}WTO>();
+          |    private all${model.entityName.pascalCase}s: ${model.entityName.pascalCase}WTO[] = [];
           |
-          |    constructor(private ${model.entityNameLowercase}Service: ${model.entityName}Service) {
-          |        this.load${model.entityName}s();
+          |    constructor(private ${model.entityName.camelCase}Service: ${model.entityName.pascalCase}Service) {
+          |        this.load${model.entityName.pascalCase}s();
           |    }
           |
           |    ngOnChanges(changes: SimpleChanges): void {
           |        if (changes['refreshKey'] && !changes['refreshKey'].firstChange) {
-          |            this.load${model.entityName}s();
-          |        } else if (changes['searchCriteria'] && this.all${model.entityName}s.length) {
-          |            this.filter${model.entityName}s();
+          |            this.load${model.entityName.pascalCase}s();
+          |        } else if (changes['searchCriteria'] && this.all${model.entityName.pascalCase}s.length) {
+          |            this.filter${model.entityName.pascalCase}s();
           |        }
           |    }
           |
-          |    private load${model.entityName}s(): void {
-          |        this.${model.entityNameLowercase}Service.get${model.entityName}s().subscribe(${model.entityNameLowercase}List => {
-          |            this.all${model.entityName}s = ${model.entityNameLowercase}List;
-          |            this.filter${model.entityName}s();
+          |    private load${model.entityName.pascalCase}s(): void {
+          |        this.${model.entityName.camelCase}Service.get${model.entityName.pascalCase}s().subscribe(${model.entityName.camelCase}List => {
+          |            this.all${model.entityName.pascalCase}s = ${model.entityName.camelCase}List;
+          |            this.filter${model.entityName.pascalCase}s();
           |        });
           |    }
           |
-          |    onEdit(${model.entityNameLowercase}: ${model.entityName}WTO): void {
-          |        this.select${model.entityName}.emit(${model.entityNameLowercase});
+          |    onEdit(${model.entityName.camelCase}: ${model.entityName.pascalCase}WTO): void {
+          |        this.select${model.entityName.pascalCase}.emit(${model.entityName.camelCase});
           |    }
           |
-          |    onDelete(${model.entityNameLowercase}: ${model.entityName}WTO): void {
-          |        this.delete${model.entityName}.emit(${model.entityNameLowercase});
+          |    onDelete(${model.entityName.camelCase}: ${model.entityName.pascalCase}WTO): void {
+          |        this.delete${model.entityName.pascalCase}.emit(${model.entityName.camelCase});
           |    }
           |
-          |    private filter${model.entityName}s(): void {
+          |    private filter${model.entityName.pascalCase}s(): void {
           |        const criteria = this.searchCriteria;
-          |        this.dataSource.data = this.all${model.entityName}s.filter(${model.entityNameLowercase} => {
-          |            return (${ model.searchResultAttributes.joinToString("") { attribute ->  """                this.isMatching${attribute.typescriptAttributeTypeCapitalizedWithoutNullability}Criteria(criteria.${attribute.attributeName}, ${model.entityNameLowercase}.${attribute.attributeName}) &&
+          |        this.dataSource.data = this.all${model.entityName.pascalCase}s.filter(${model.entityName.camelCase} => {
+          |            return (${ model.searchResultAttributes.joinToString("") { attribute ->  """                this.isMatching${attribute.typescriptAttributeTypeCapitalizedWithoutNullability}Criteria(criteria.${attribute.attributeName.camelCase}, ${model.entityName.camelCase}.${attribute.attributeName.camelCase}) &&
           """ } }                    true
           |            );
           |        });
@@ -124,6 +124,6 @@ object EntityResultComponentTypescriptRenderer : UiEntityRenderer {
     }
 
     override fun filePath(model: UiEntityModel): String {
-      return "${model.entityNameDashCase}/${model.entityNameDashCase}-result/${model.entityNameDashCase}-result.component.ts"
+      return "${model.entityName.kebabCase}/${model.entityName.kebabCase}-result/${model.entityName.kebabCase}-result.component.ts"
     }
 }

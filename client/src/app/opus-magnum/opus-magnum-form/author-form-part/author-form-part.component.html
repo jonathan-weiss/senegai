@@ -10,11 +10,11 @@
     ]
 
     @replace-value-by-expression
-        [ searchValue="Author" replaceByExpression="model.item.itemName" ]
-        [ searchValue="author" replaceByExpression="model.item.itemNameLowercase" ]
-        [ searchValue="opus-magnum" replaceByExpression="model.entity.entityNameDashCase" ]
-        [ searchValue="OpusMagnum" replaceByExpression="model.entity.entityName" ]
-        [ searchValue="opusMagnum" replaceByExpression="model.entity.entityNameLowercase" ]
+        [ searchValue="Author" replaceByExpression="model.item.itemName.pascalCase" ]
+        [ searchValue="author" replaceByExpression="model.item.itemName.camelCase" ]
+        [ searchValue="opus-magnum" replaceByExpression="model.entity.entityName.kebabCase" ]
+        [ searchValue="OpusMagnum" replaceByExpression="model.entity.entityName.pascalCase" ]
+        [ searchValue="opusMagnum" replaceByExpression="model.entity.entityName.camelCase" ]
 
     @modify-provided-filename-by-replacements
 
@@ -82,8 +82,8 @@
                         @if [ conditionExpression="block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.SINGLE_ITEM" ]
 
                         @replace-value-by-expression
-                        [ searchValue="firstname" replaceByExpression="block.attribute.attributeName" ]
-                        [ searchValue="First Name" replaceByExpression="block.attribute.attributeName" ]
+                        [ searchValue="firstname" replaceByExpression="block.attribute.attributeName.camelCase" ]
+                        [ searchValue="First Name" replaceByExpression="block.attribute.attributeName.pascalCase" ]
 
                     }}}@  -->
 
@@ -98,8 +98,8 @@
                         @if [ conditionExpression="block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.NULLABLE_SINGLE_ITEM" ]
 
                         @replace-value-by-expression
-                        [ searchValue="nickname" replaceByExpression="block.attribute.attributeName" ]
-                        [ searchValue="Nickname" replaceByExpression="block.attribute.attributeName" ]
+                        [ searchValue="nickname" replaceByExpression="block.attribute.attributeName.camelCase" ]
+                        [ searchValue="Nickname" replaceByExpression="block.attribute.attributeName.pascalCase" ]
 
                     }}}@  -->
 
@@ -118,10 +118,10 @@
                     @if [ conditionExpression="block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.LIST_ITEMS" ]
 
                     @replace-value-by-expression
-                    [ searchValue="Library Awards" replaceByExpression="block.attribute.attributeName" ]
-                    [ searchValue="libraryAward" replaceByExpression="block.attribute.attributeName" ]
-                    [ searchValue="libraryAward" replaceByExpression="block.attribute.attributeNameCamelCase" ]
-                    [ searchValue="library-award" replaceByExpression="block.attribute.attributeNameDashCase" ]
+                    [ searchValue="Library Awards" replaceByExpression="block.attribute.attributeName.pascalCase" ]
+                    [ searchValue="libraryAward" replaceByExpression="block.attribute.attributeName.camelCase" ]
+                    [ searchValue="libraryAward" replaceByExpression="block.attribute.attributeName.pascalCase" ]
+                    [ searchValue="library-award" replaceByExpression="block.attribute.attributeName.kebabCase" ]
 
                 }}}@  -->
 

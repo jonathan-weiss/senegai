@@ -18,17 +18,17 @@ object TypescriptItemsRoutingListRenderer : UiEntitiesRenderer {
           |
           |import {Routes} from '@angular/router';${ models.joinToString("") { entity ->  """
               |
-              |import {${entity.entityName}BoardComponent} from '@app/${entity.entityNameDashCase}/${entity.entityNameDashCase}-board/${entity.entityNameDashCase}-board.component';
-              |import {${entity.entityName}FormComponent} from '@app/${entity.entityNameDashCase}/${entity.entityNameDashCase}-form/${entity.entityNameDashCase}-form/${entity.entityNameDashCase}-form.component';
+              |import {${entity.entityName.pascalCase}BoardComponent} from '@app/${entity.entityName.kebabCase}/${entity.entityName.kebabCase}-board/${entity.entityName.kebabCase}-board.component';
+              |import {${entity.entityName.pascalCase}FormComponent} from '@app/${entity.entityName.kebabCase}/${entity.entityName.kebabCase}-form/${entity.entityName.kebabCase}-form/${entity.entityName.kebabCase}-form.component';
               |import {
-              |    ${entity.entityName}RoutableEditComponent
-              |} from "@app/${entity.entityNameDashCase}/${entity.entityNameDashCase}-routable-edit/${entity.entityNameDashCase}-routable-edit.component";
+              |    ${entity.entityName.pascalCase}RoutableEditComponent
+              |} from "@app/${entity.entityName.kebabCase}/${entity.entityName.kebabCase}-routable-edit/${entity.entityName.kebabCase}-routable-edit.component";
           """ } }
           |
           |
           |export const GENERATED_ITEMS_ROUTES: Routes = [${ models.joinToString("") { entity ->  """
-              |    {path: '${entity.entityNameDashCase}-board', component: ${entity.entityName}BoardComponent},
-              |    {path: '${entity.entityNameDashCase}-edit/:id', component: ${entity.entityName}RoutableEditComponent},
+              |    {path: '${entity.entityName.kebabCase}-board', component: ${entity.entityName.pascalCase}BoardComponent},
+              |    {path: '${entity.entityName.kebabCase}-edit/:id', component: ${entity.entityName.pascalCase}RoutableEditComponent},
           """ } }];
           |
           |

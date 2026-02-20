@@ -21,8 +21,8 @@ import {Routes} from '@angular/router';
 /* @tt{{{
     @slbc
     @replace-value-by-expression
-        [ searchValue="opus-magnum" replaceByExpression="entity.entityNameDashCase" ]
-        [ searchValue="OpusMagnum" replaceByExpression="entity.entityName" ]
+        [ searchValue="opus-magnum" replaceByExpression="entity.entityName.kebabCase" ]
+        [ searchValue="OpusMagnum" replaceByExpression="entity.entityName.pascalCase" ]
 
     @foreach [ iteratorExpression="models" loopVariable="entity" ]
 }}}@  */
@@ -48,8 +48,8 @@ export const OPUS_MAGNUM_ROUTES: Routes = [
 /* @tt{{{
     @slbc
     @replace-value-by-expression
-        [ searchValue="opus-magnum" replaceByExpression="entity.entityNameDashCase" ]
-        [ searchValue="OpusMagnum" replaceByExpression="entity.entityName" ]
+        [ searchValue="opus-magnum" replaceByExpression="entity.entityName.kebabCase" ]
+        [ searchValue="OpusMagnum" replaceByExpression="entity.entityName.pascalCase" ]
 
     @foreach [ iteratorExpression="models" loopVariable="entity" ]
 }}}@  */

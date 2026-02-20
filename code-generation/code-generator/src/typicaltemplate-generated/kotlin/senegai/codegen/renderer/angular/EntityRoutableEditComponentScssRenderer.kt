@@ -18,6 +18,6 @@ object EntityRoutableEditComponentScssRenderer : UiEntityRenderer {
     }
 
     override fun filePath(model: UiEntityModel): String {
-      return "${model.entityNameDashCase}/${model.entityNameDashCase}-routable-edit/${model.entityNameDashCase}-routable-edit.component.scss"
+      return "${model.entityName.kebabCase}/${model.entityName.kebabCase}-routable-edit/${model.entityName.kebabCase}-routable-edit.component.scss"
     }
 }

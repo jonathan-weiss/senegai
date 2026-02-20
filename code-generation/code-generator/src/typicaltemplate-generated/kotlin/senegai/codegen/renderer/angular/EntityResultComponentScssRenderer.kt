@@ -13,7 +13,7 @@ object EntityResultComponentScssRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
-          |.${model.entityNameDashCase}-table-container {
+          |.${model.entityName.kebabCase}-table-container {
           |  padding: 20px;
           |
           |  table {
@@ -36,6 +36,6 @@ object EntityResultComponentScssRenderer : UiEntityRenderer {
     }
 
     override fun filePath(model: UiEntityModel): String {
-      return "${model.entityNameDashCase}/${model.entityNameDashCase}-result/${model.entityNameDashCase}-result.component.scss"
+      return "${model.entityName.kebabCase}/${model.entityName.kebabCase}-result/${model.entityName.kebabCase}-result.component.scss"
     }
 }

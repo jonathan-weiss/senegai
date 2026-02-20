@@ -29,14 +29,14 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
           |import {FormUtil} from "@app/shared/form-controls/form.util";
           |import {FieldWrapperComponent} from "@app/shared/form-controls/field-wrapper/field-wrapper.component";
           |import {
-          |    ${model.item.itemName}FormPartValidationService
-          |} from "@app/${model.entity.entityNameDashCase}/${model.entity.entityNameDashCase}-form/${model.item.itemNameLowercase}-form-part/${model.item.itemNameLowercase}-form-part-validation.service";
-          |import {${model.item.itemName}FormPartFieldName,} from "@app/${model.entity.entityNameDashCase}/${model.entity.entityNameDashCase}-form/${model.item.itemNameLowercase}-form-part/${model.item.itemNameLowercase}-form-part-field-name";
+          |    ${model.item.itemName.pascalCase}FormPartValidationService
+          |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.camelCase}-form-part/${model.item.itemName.camelCase}-form-part-validation.service";
+          |import {${model.item.itemName.pascalCase}FormPartFieldName,} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.camelCase}-form-part/${model.item.itemName.camelCase}-form-part-field-name";
           |import {TextInputComponent} from "@app/shared/form-controls/text-input/text-input.component";
           |import {DatepickerInputComponent} from "@app/shared/form-controls/datepicker-input/datepicker-input.component";
           |import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
           |import {MatTab, MatTabGroup} from "@angular/material/tabs";
-          |import {${model.item.itemName}FormPartGroup} from "@app/${model.entity.entityNameDashCase}/${model.entity.entityNameDashCase}-form/${model.item.itemNameLowercase}-form-part/${model.item.itemNameLowercase}-form-part-group";
+          |import {${model.item.itemName.pascalCase}FormPartGroup} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.camelCase}-form-part/${model.item.itemName.camelCase}-form-part-group";
           |${ if(model.containsNamedSectionSplitBlocks()) { """import {SectionSplitterComponent} from "@app/shared/blocks/section-splitter/section-splitter.component";
               |
           """ } else { """
@@ -45,9 +45,9 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
           """ } else { """
           """ } }
           |@Component({
-          |    selector: 'app-${model.item.itemNameLowercase}-form-part',
-          |    templateUrl: './${model.item.itemNameLowercase}-form-part.component.html',
-          |    styleUrls: ['./${model.item.itemNameLowercase}-form-part.component.scss'],
+          |    selector: 'app-${model.item.itemName.camelCase}-form-part',
+          |    templateUrl: './${model.item.itemName.camelCase}-form-part.component.html',
+          |    styleUrls: ['./${model.item.itemName.camelCase}-form-part.component.scss'],
           |    imports: [
           |        ReactiveFormsModule,
           |        MatButtonModule,
@@ -74,21 +74,21 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
           """ } }
           |    ]
           |})
-          |export class ${model.item.itemName}FormPartComponent implements OnInit {
-          |    @Input({ required: true }) ${model.item.itemNameLowercase}Form!: FormGroup<${model.item.itemName}FormPartGroup>;
-          |    ${ model.item.attributes.joinToString("") { attribute ->  """    protected ${attribute.attributeName}IsNotNullControl!: FormControl<boolean>
-              |    protected ${attribute.attributeName}IsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
-              |    protected ${attribute.attributeName}Control!: FormControl<string | null>
-              |    protected ${attribute.attributeName}ValidatorNames!: ReadonlyArray<ValidatorTranslation>
+          |export class ${model.item.itemName.pascalCase}FormPartComponent implements OnInit {
+          |    @Input({ required: true }) ${model.item.itemName.camelCase}Form!: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>;
+          |    ${ model.item.attributes.joinToString("") { attribute ->  """    protected ${attribute.attributeName.camelCase}IsNotNullControl!: FormControl<boolean>
+              |    protected ${attribute.attributeName.camelCase}IsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
+              |    protected ${attribute.attributeName.camelCase}Control!: FormControl<string | null>
+              |    protected ${attribute.attributeName.camelCase}ValidatorNames!: ReadonlyArray<ValidatorTranslation>
               |
           """ } }
-          |    constructor(private readonly ${model.item.itemNameLowercase}FormValidationService: ${model.item.itemName}FormPartValidationService,) {
+          |    constructor(private readonly ${model.item.itemName.camelCase}FormValidationService: ${model.item.itemName.pascalCase}FormPartValidationService,) {
           |    }
           |
           |    ngOnInit() {
           |        ${ model.item.attributes.joinToString("") { attribute ->  """
-              |        this.${attribute.attributeName}Control = FormUtil.requiredFormControl(this.${model.item.itemNameLowercase}Form, ${model.item.itemName}FormPartFieldName.${attribute.attributeName})
-              |        this.${attribute.attributeName}ValidatorNames = this.${model.item.itemNameLowercase}FormValidationService.validatorNames(${model.item.itemName}FormPartFieldName.${attribute.attributeName})
+              |        this.${attribute.attributeName.camelCase}Control = FormUtil.requiredFormControl(this.${model.item.itemName.camelCase}Form, ${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase})
+              |        this.${attribute.attributeName.camelCase}ValidatorNames = this.${model.item.itemName.camelCase}FormValidationService.validatorNames(${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase})
               |
           """ } }    }
           |}
@@ -97,6 +97,6 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
     }
 
     override fun filePath(model: UiEntityFormViewItemModel): String {
-      return "${model.entity.entityNameDashCase}/${model.entity.entityNameDashCase}-form/${model.item.itemNameLowercase}-form-part/${model.item.itemNameLowercase}-form-part.component.ts"
+      return "${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.camelCase}-form-part/${model.item.itemName.camelCase}-form-part.component.ts"
     }
 }

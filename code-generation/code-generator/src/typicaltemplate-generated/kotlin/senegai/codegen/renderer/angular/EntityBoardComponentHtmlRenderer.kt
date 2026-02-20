@@ -13,19 +13,19 @@ object EntityBoardComponentHtmlRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
-          |<div class="${model.entityNameDashCase}-container">
-          |    <h2>{{'${model.entityNameLowercase}.board.title' | transloco }}</h2>
+          |<div class="${model.entityName.kebabCase}-container">
+          |    <h2>{{'${model.entityName.camelCase}.board.title' | transloco }}</h2>
           |
-          |    <mat-accordion class="${model.entityNameDashCase}-accordion" multi>
+          |    <mat-accordion class="${model.entityName.kebabCase}-accordion" multi>
           |        <!-- Search Panel -->
           |        <mat-expansion-panel>
           |            <mat-expansion-panel-header>
           |                <mat-panel-title>
           |                    <mat-icon>search</mat-icon>
-          |                    <ng-container>Search ${model.entityName}s</ng-container>
+          |                    <ng-container>Search ${model.entityName.pascalCase}s</ng-container>
           |                </mat-panel-title>
           |            </mat-expansion-panel-header>
-          |            <app-${model.entityNameDashCase}-search (search)="onSearch(${"$"}event)"></app-${model.entityNameDashCase}-search>
+          |            <app-${model.entityName.kebabCase}-search (search)="onSearch(${"$"}event)"></app-${model.entityName.kebabCase}-search>
           |        </mat-expansion-panel>
           |
           |        <!-- Results Panel -->
@@ -33,39 +33,39 @@ object EntityBoardComponentHtmlRenderer : UiEntityRenderer {
           |            <mat-expansion-panel-header>
           |                <mat-panel-title>
           |                    <mat-icon>list</mat-icon>
-          |                    <ng-container>${model.entityName} List</ng-container>
+          |                    <ng-container>${model.entityName.pascalCase} List</ng-container>
           |                </mat-panel-title>
           |            </mat-expansion-panel-header>
-          |            <app-${model.entityNameDashCase}-result
+          |            <app-${model.entityName.kebabCase}-result
           |                    [searchCriteria]="currentSearchCriteria"
-          |                    (select${model.entityName})="on${model.entityName}Select(${"$"}event)"
-          |                    (delete${model.entityName})="onDelete${model.entityName}(${"$"}event)"
+          |                    (select${model.entityName.pascalCase})="on${model.entityName.pascalCase}Select(${"$"}event)"
+          |                    (delete${model.entityName.pascalCase})="onDelete${model.entityName.pascalCase}(${"$"}event)"
           |                    [refreshKey]="refreshKey">
-          |            </app-${model.entityNameDashCase}-result>
+          |            </app-${model.entityName.kebabCase}-result>
           |        </mat-expansion-panel>
           |
           |        <!-- Edit Form Panel -->
           |        <mat-expansion-panel
-          |                [expanded]="!!selected${model.entityName}"
-          |                [disabled]="!selected${model.entityName}">
+          |                [expanded]="!!selected${model.entityName.pascalCase}"
+          |                [disabled]="!selected${model.entityName.pascalCase}">
           |            <mat-expansion-panel-header>
           |                <mat-panel-title>
           |                    <mat-icon>edit</mat-icon>
-          |                    <ng-container>Edit ${model.entityName}</ng-container>
+          |                    <ng-container>Edit ${model.entityName.pascalCase}</ng-container>
           |                </mat-panel-title>
-          |                @if (selected${model.entityName}) {
-          |                    <mat-panel-description>${ model.summaryAttributes.joinToString("") { attribute ->  """{{ selected${model.entityName}.${attribute.attributeName} }} 
+          |                @if (selected${model.entityName.pascalCase}) {
+          |                    <mat-panel-description>${ model.summaryAttributes.joinToString("") { attribute ->  """{{ selected${model.entityName.pascalCase}.${attribute.attributeName.camelCase} }} 
           """ } }
           |                    </mat-panel-description>
           |                }
           |            </mat-expansion-panel-header>
           |
-          |            @if (selected${model.entityName}) {
-          |                <app-${model.entityNameDashCase}-form
-          |                        [${model.entityNameLowercase}]="selected${model.entityName}"
+          |            @if (selected${model.entityName.pascalCase}) {
+          |                <app-${model.entityName.kebabCase}-form
+          |                        [${model.entityName.camelCase}]="selected${model.entityName.pascalCase}"
           |                        (save)="onSave(${"$"}event)"
           |                        (cancel)="onCancel()">
-          |                </app-${model.entityNameDashCase}-form>
+          |                </app-${model.entityName.kebabCase}-form>
           |            }
           |        </mat-expansion-panel>
           |    </mat-accordion>
@@ -75,6 +75,6 @@ object EntityBoardComponentHtmlRenderer : UiEntityRenderer {
     }
 
     override fun filePath(model: UiEntityModel): String {
-      return "${model.entityNameDashCase}/${model.entityNameDashCase}-board/${model.entityNameDashCase}-board.component.html"
+      return "${model.entityName.kebabCase}/${model.entityName.kebabCase}-board/${model.entityName.kebabCase}-board.component.html"
     }
 }

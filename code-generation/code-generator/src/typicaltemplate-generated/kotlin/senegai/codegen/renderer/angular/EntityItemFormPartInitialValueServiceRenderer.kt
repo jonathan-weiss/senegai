@@ -17,11 +17,11 @@ object EntityItemFormPartInitialValueServiceRenderer : UiEntityItemRenderer {
           |import {Injectable} from '@angular/core';
           |
           |@Injectable({providedIn: 'root'})
-          |export class ${model.item.itemName}FormPartInitialValueService {
+          |export class ${model.item.itemName.pascalCase}FormPartInitialValueService {
           |    
           |
           |${ model.item.attributes.joinToString("") { attribute ->  """
-              |    ${attribute.attributeName}InitialValue(): string {
+              |    ${attribute.attributeName.camelCase}InitialValue(): string {
               |        return ''
               |    }
           """ } }
@@ -31,6 +31,6 @@ object EntityItemFormPartInitialValueServiceRenderer : UiEntityItemRenderer {
     }
 
     override fun filePath(model: UiEntityFormViewItemModel): String {
-      return "${model.entity.entityNameDashCase}/${model.entity.entityNameDashCase}-form/${model.item.itemNameLowercase}-form-part/${model.item.itemNameLowercase}-form-part-initial-value.service.ts"
+      return "${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.camelCase}-form-part/${model.item.itemName.camelCase}-form-part-initial-value.service.ts"
     }
 }

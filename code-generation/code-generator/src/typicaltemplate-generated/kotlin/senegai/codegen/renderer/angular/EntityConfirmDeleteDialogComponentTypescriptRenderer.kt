@@ -28,9 +28,9 @@ object EntityConfirmDeleteDialogComponentTypescriptRenderer : UiEntityRenderer {
           |import {MatListModule} from "@angular/material/list";
           |
           |@Component({
-          |    selector: 'app-${model.entityNameDashCase}-confirm-delete-dialog',
-          |    templateUrl: './${model.entityNameDashCase}-confirm-delete-dialog.component.html',
-          |    styleUrls: ['./${model.entityNameDashCase}-confirm-delete-dialog.component.scss'],
+          |    selector: 'app-${model.entityName.kebabCase}-confirm-delete-dialog',
+          |    templateUrl: './${model.entityName.kebabCase}-confirm-delete-dialog.component.html',
+          |    styleUrls: ['./${model.entityName.kebabCase}-confirm-delete-dialog.component.scss'],
           |    imports: [
           |        ReactiveFormsModule,
           |        MatButtonModule,
@@ -46,10 +46,10 @@ object EntityConfirmDeleteDialogComponentTypescriptRenderer : UiEntityRenderer {
           |        MatDialogModule,
           |    ]
           |})
-          |export class ${model.entityName}ConfirmDeleteDialogComponent {
+          |export class ${model.entityName.pascalCase}ConfirmDeleteDialogComponent {
           |    constructor(
-          |        public dialogRef: MatDialogRef<${model.entityName}ConfirmDeleteDialogComponent>,
-          |        @Inject(MAT_DIALOG_DATA) public data: {${ model.summaryAttributes.joinToString("") { attribute ->  """            ${attribute.attributeName}: ${attribute.typescriptAttributeTypeWithoutNullability},
+          |        public dialogRef: MatDialogRef<${model.entityName.pascalCase}ConfirmDeleteDialogComponent>,
+          |        @Inject(MAT_DIALOG_DATA) public data: {${ model.summaryAttributes.joinToString("") { attribute ->  """            ${attribute.attributeName.camelCase}: ${attribute.typescriptAttributeTypeWithoutNullability},
           """ } }        }
           |    ) {
           |    }
@@ -67,6 +67,6 @@ object EntityConfirmDeleteDialogComponentTypescriptRenderer : UiEntityRenderer {
     }
 
     override fun filePath(model: UiEntityModel): String {
-      return "${model.entityNameDashCase}/${model.entityNameDashCase}-confirm-delete-dialog/${model.entityNameDashCase}-confirm-delete-dialog.component.ts"
+      return "${model.entityName.kebabCase}/${model.entityName.kebabCase}-confirm-delete-dialog/${model.entityName.kebabCase}-confirm-delete-dialog.component.ts"
     }
 }

@@ -27,13 +27,13 @@ object EntitySearchComponentTypescriptRenderer : UiEntityRenderer {
           |import {MatListModule} from "@angular/material/list";
           |import {MatDialogModule} from "@angular/material/dialog";
           |
-          |export interface ${model.entityName}SearchCriteria {${ model.searchCriteriaAttributes.joinToString("") { attribute ->  """    ${attribute.attributeName}?: ${attribute.typescriptAttributeTypeWithoutNullability};
+          |export interface ${model.entityName.pascalCase}SearchCriteria {${ model.searchCriteriaAttributes.joinToString("") { attribute ->  """    ${attribute.attributeName.camelCase}?: ${attribute.typescriptAttributeTypeWithoutNullability};
           """ } }}
           |
           |@Component({
-          |    selector: 'app-${model.entityNameDashCase}-search',
-          |    templateUrl: './${model.entityNameDashCase}-search.component.html',
-          |    styleUrls: ['./${model.entityNameDashCase}-search.component.scss'],
+          |    selector: 'app-${model.entityName.kebabCase}-search',
+          |    templateUrl: './${model.entityName.kebabCase}-search.component.html',
+          |    styleUrls: ['./${model.entityName.kebabCase}-search.component.scss'],
           |    imports: [
           |        ReactiveFormsModule,
           |        MatButtonModule,
@@ -49,23 +49,23 @@ object EntitySearchComponentTypescriptRenderer : UiEntityRenderer {
           |        MatDialogModule,
           |    ]
           |})
-          |export class ${model.entityName}SearchComponent {
-          |    @Output() search = new EventEmitter<${model.entityName}SearchCriteria>();
+          |export class ${model.entityName.pascalCase}SearchComponent {
+          |    @Output() search = new EventEmitter<${model.entityName.pascalCase}SearchCriteria>();
           |
           |    searchForm: FormGroup;
           |
           |    constructor(private fb: FormBuilder) {
-          |        this.searchForm = this.fb.group({${ model.searchCriteriaAttributes.joinToString("") { attribute ->  """            ${attribute.attributeName}: [${attribute.typescriptAttributeInitialValue}],
+          |        this.searchForm = this.fb.group({${ model.searchCriteriaAttributes.joinToString("") { attribute ->  """            ${attribute.attributeName.camelCase}: [${attribute.typescriptAttributeInitialValue}],
           """ } }        });
           |    }
           |
           |    onSubmit(): void {
           |        if (this.searchForm.valid) {
-          |            const criteria: ${model.entityName}SearchCriteria = {};
+          |            const criteria: ${model.entityName.pascalCase}SearchCriteria = {};
           |            Object.keys(this.searchForm.controls).forEach(key => {
           |                const value = this.searchForm.get(key)?.value;
           |                if (value !== null && value !== '') {
-          |                    criteria[key as keyof ${model.entityName}SearchCriteria] = value;
+          |                    criteria[key as keyof ${model.entityName.pascalCase}SearchCriteria] = value;
           |                }
           |            });
           |            this.search.emit(criteria);
@@ -82,6 +82,6 @@ object EntitySearchComponentTypescriptRenderer : UiEntityRenderer {
     }
 
     override fun filePath(model: UiEntityModel): String {
-      return "${model.entityNameDashCase}/${model.entityNameDashCase}-search/${model.entityNameDashCase}-search.component.ts"
+      return "${model.entityName.kebabCase}/${model.entityName.kebabCase}-search/${model.entityName.kebabCase}-search.component.ts"
     }
 }

@@ -14,33 +14,33 @@ object EntityRoutableEditComponentTypescriptRenderer : UiEntityRenderer {
     override fun renderTemplate(model: UiEntityModel): String {
         return """
           |import {Component} from '@angular/core';
-          |import {${model.entityName}WTO} from "@app/wto/${model.entityNameDashCase}.wto";
-          |import {${model.entityName}Service} from "@app/${model.entityNameDashCase}/${model.entityNameDashCase}.service";
-          |import {${model.entityName}FormComponent} from "@app/${model.entityNameDashCase}/${model.entityNameDashCase}-form/${model.entityNameDashCase}-form/${model.entityNameDashCase}-form.component";
+          |import {${model.entityName.pascalCase}WTO} from "@app/wto/${model.entityName.kebabCase}.wto";
+          |import {${model.entityName.pascalCase}Service} from "@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}.service";
+          |import {${model.entityName.pascalCase}FormComponent} from "@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}-form/${model.entityName.kebabCase}-form/${model.entityName.kebabCase}-form.component";
           |import {ActivatedRoute} from "@angular/router";
           |
           |
           |@Component({
-          |    selector: 'app-${model.entityNameDashCase}-routable-edit',
-          |    templateUrl: './${model.entityNameDashCase}-routable-edit.component.html',
-          |    styleUrls: ['./${model.entityNameDashCase}-routable-edit.component.scss'],
+          |    selector: 'app-${model.entityName.kebabCase}-routable-edit',
+          |    templateUrl: './${model.entityName.kebabCase}-routable-edit.component.html',
+          |    styleUrls: ['./${model.entityName.kebabCase}-routable-edit.component.scss'],
           |    imports: [
-          |        ${model.entityName}FormComponent,
+          |        ${model.entityName.pascalCase}FormComponent,
           |    ]
           |})
-          |export class ${model.entityName}RoutableEditComponent {
-          |    selected${model.entityName}: ${model.entityName}WTO | null = null;
+          |export class ${model.entityName.pascalCase}RoutableEditComponent {
+          |    selected${model.entityName.pascalCase}: ${model.entityName.pascalCase}WTO | null = null;
           |
           |    constructor(
-          |        private ${model.entityNameLowercase}Service: ${model.entityName}Service,
+          |        private ${model.entityName.camelCase}Service: ${model.entityName.pascalCase}Service,
           |        private route: ActivatedRoute,
           |    ) {
           |        this.route.params.subscribe(params => {
           |            const idParam = params['id'];
           |            if (idParam) {
           |                const id = idParam as string;
-          |                this.${model.entityNameLowercase}Service.get${model.entityName}ById(id).subscribe(${model.entityNameLowercase} => {
-          |                    this.selected${model.entityName} = ${model.entityNameLowercase};
+          |                this.${model.entityName.camelCase}Service.get${model.entityName.pascalCase}ById(id).subscribe(${model.entityName.camelCase} => {
+          |                    this.selected${model.entityName.pascalCase} = ${model.entityName.camelCase};
           |                });
           |            }
           |        });
@@ -51,6 +51,6 @@ object EntityRoutableEditComponentTypescriptRenderer : UiEntityRenderer {
     }
 
     override fun filePath(model: UiEntityModel): String {
-      return "${model.entityNameDashCase}/${model.entityNameDashCase}-routable-edit/${model.entityNameDashCase}-routable-edit.component.ts"
+      return "${model.entityName.kebabCase}/${model.entityName.kebabCase}-routable-edit/${model.entityName.kebabCase}-routable-edit.component.ts"
     }
 }

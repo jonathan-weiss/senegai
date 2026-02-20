@@ -13,9 +13,9 @@ object EntityExampleDataRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
-          |import {${model.entityName}WTO} from "@app/wto/${model.entityNameDashCase}.wto";
-          |export const ${model.entityNameUppercase}_EXAMPLE_DATA: ${model.entityName}WTO[] = [
-          |    {${ model.allAttributes.joinToString("") { attribute ->  """        ${attribute.attributeName}: 'example',
+          |import {${model.entityName.pascalCase}WTO} from "@app/wto/${model.entityName.kebabCase}.wto";
+          |export const ${model.entityName.screamingSnakeCase}_EXAMPLE_DATA: ${model.entityName.pascalCase}WTO[] = [
+          |    {${ model.allAttributes.joinToString("") { attribute ->  """        ${attribute.attributeName.camelCase}: 'example',
           """ } }    }
           |];
           |
@@ -23,6 +23,6 @@ object EntityExampleDataRenderer : UiEntityRenderer {
     }
 
     override fun filePath(model: UiEntityModel): String {
-      return "${model.entityNameDashCase}/${model.entityNameDashCase}-example-data.ts"
+      return "${model.entityName.kebabCase}/${model.entityName.kebabCase}-example-data.ts"
     }
 }

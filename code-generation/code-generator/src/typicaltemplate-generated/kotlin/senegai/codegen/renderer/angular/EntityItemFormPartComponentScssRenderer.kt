@@ -48,6 +48,6 @@ object EntityItemFormPartComponentScssRenderer : UiEntityItemRenderer {
     }
 
     override fun filePath(model: UiEntityFormViewItemModel): String {
-      return "${model.entity.entityNameDashCase}/${model.entity.entityNameDashCase}-form/${model.item.itemNameLowercase}-form-part/${model.item.itemNameLowercase}-form-part.component.scss"
+      return "${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.camelCase}-form-part/${model.item.itemName.camelCase}-form-part.component.scss"
     }
 }

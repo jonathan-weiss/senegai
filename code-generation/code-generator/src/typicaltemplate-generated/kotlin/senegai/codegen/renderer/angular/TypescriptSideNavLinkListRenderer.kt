@@ -20,8 +20,8 @@ object TypescriptSideNavLinkListRenderer : UiEntitiesRenderer {
           |import {SideNavLink} from "@app/side-nav/side-nav-list/side-nav-link.model";
           |
           |export const GENERATED_SIDE_NAVIGATION_LINKS: ReadonlyArray<SideNavLink> = [
-          |    ${ models.joinToString("") { entity ->  """    {routeLink: '/${entity.entityNameDashCase}-board', name: "${entity.entityName}", icon: "people"},
-              |    {routeLink: '/${entity.entityNameDashCase}-edit/example', name: "Edit ${entity.entityName}", icon: "edit"},
+          |    ${ models.joinToString("") { entity ->  """    {routeLink: '/${entity.entityName.kebabCase}-board', name: "${entity.entityName.pascalCase}", icon: "people"},
+              |    {routeLink: '/${entity.entityName.kebabCase}-edit/example', name: "Edit ${entity.entityName.pascalCase}", icon: "edit"},
           """ } }]
           |
           |

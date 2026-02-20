@@ -10,8 +10,8 @@
     ]
 
     @replace-value-by-expression
-        [ searchValue="Author" replaceByExpression="model.itemName" ]
-        [ searchValue="author" replaceByExpression="model.itemNameLowercase" ]
+        [ searchValue="Author" replaceByExpression="model.itemName.pascalCase" ]
+        [ searchValue="author" replaceByExpression="model.itemName.camelCase" ]
 
     @modify-provided-filename-by-replacements
 
@@ -32,7 +32,7 @@ export interface AuthorWTO {
         @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
 
         @replace-value-by-expression
-            [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
+            [ searchValue="firstname" replaceByExpression="attribute.attributeName.camelCase" ]
             [ searchValue="string" replaceByExpression="attribute.typescriptAttributeType" ]
 
     }}}@  */

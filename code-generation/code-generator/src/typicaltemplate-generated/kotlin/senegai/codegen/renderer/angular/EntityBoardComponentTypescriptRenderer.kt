@@ -14,11 +14,11 @@ object EntityBoardComponentTypescriptRenderer : UiEntityRenderer {
     override fun renderTemplate(model: UiEntityModel): String {
         return """
           |import {Component} from '@angular/core';
-          |import {${model.entityName}SearchComponent, ${model.entityName}SearchCriteria} from '@app/${model.entityNameDashCase}/${model.entityNameDashCase}-search/${model.entityNameDashCase}-search.component';
-          |import {${model.entityName}ResultComponent} from '@app/${model.entityNameDashCase}/${model.entityNameDashCase}-result/${model.entityNameDashCase}-result.component';
+          |import {${model.entityName.pascalCase}SearchComponent, ${model.entityName.pascalCase}SearchCriteria} from '@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}-search/${model.entityName.kebabCase}-search.component';
+          |import {${model.entityName.pascalCase}ResultComponent} from '@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}-result/${model.entityName.kebabCase}-result.component';
           |import {MatDialog, MatDialogModule} from '@angular/material/dialog';
-          |import {${model.entityName}ConfirmDeleteDialogComponent} from '@app/${model.entityNameDashCase}/${model.entityNameDashCase}-confirm-delete-dialog/${model.entityNameDashCase}-confirm-delete-dialog.component';
-          |import {${model.entityName}Service} from '@app/${model.entityNameDashCase}/${model.entityNameDashCase}.service';
+          |import {${model.entityName.pascalCase}ConfirmDeleteDialogComponent} from '@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}-confirm-delete-dialog/${model.entityName.kebabCase}-confirm-delete-dialog.component';
+          |import {${model.entityName.pascalCase}Service} from '@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}.service';
           |import {ReactiveFormsModule} from "@angular/forms";
           |import {MatButtonModule} from "@angular/material/button";
           |import {MatToolbarModule} from "@angular/material/toolbar";
@@ -30,14 +30,14 @@ object EntityBoardComponentTypescriptRenderer : UiEntityRenderer {
           |import {MatExpansionModule} from "@angular/material/expansion";
           |import {MatSidenavModule} from "@angular/material/sidenav";
           |import {MatListModule} from "@angular/material/list";
-          |import {${model.entityName}FormComponent} from "@app/${model.entityNameDashCase}/${model.entityNameDashCase}-form/${model.entityNameDashCase}-form/${model.entityNameDashCase}-form.component";
-          |import {${model.entityName}WTO} from "@app/wto/${model.entityNameDashCase}.wto";
+          |import {${model.entityName.pascalCase}FormComponent} from "@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}-form/${model.entityName.kebabCase}-form/${model.entityName.kebabCase}-form.component";
+          |import {${model.entityName.pascalCase}WTO} from "@app/wto/${model.entityName.kebabCase}.wto";
           |import {TranslocoPipe} from "@jsverse/transloco";
           |
           |@Component({
-          |    selector: 'app-${model.entityNameDashCase}-board',
-          |    templateUrl: './${model.entityNameDashCase}-board.component.html',
-          |    styleUrls: ['./${model.entityNameDashCase}-board.component.scss'],
+          |    selector: 'app-${model.entityName.kebabCase}-board',
+          |    templateUrl: './${model.entityName.kebabCase}-board.component.html',
+          |    styleUrls: ['./${model.entityName.kebabCase}-board.component.scss'],
           |    imports: [
           |        ReactiveFormsModule,
           |        MatButtonModule,
@@ -51,51 +51,51 @@ object EntityBoardComponentTypescriptRenderer : UiEntityRenderer {
           |        MatSidenavModule,
           |        MatListModule,
           |        MatDialogModule,
-          |        ${model.entityName}SearchComponent,
-          |        ${model.entityName}ResultComponent,
-          |        ${model.entityName}FormComponent,
+          |        ${model.entityName.pascalCase}SearchComponent,
+          |        ${model.entityName.pascalCase}ResultComponent,
+          |        ${model.entityName.pascalCase}FormComponent,
           |        TranslocoPipe,
           |    ]
           |})
-          |export class ${model.entityName}BoardComponent {
-          |    currentSearchCriteria: ${model.entityName}SearchCriteria = {};
-          |    selected${model.entityName}: ${model.entityName}WTO | null = null;
+          |export class ${model.entityName.pascalCase}BoardComponent {
+          |    currentSearchCriteria: ${model.entityName.pascalCase}SearchCriteria = {};
+          |    selected${model.entityName.pascalCase}: ${model.entityName.pascalCase}WTO | null = null;
           |    refreshKey = 0;
           |
-          |    constructor(private dialog: MatDialog, private ${model.entityNameLowercase}Service: ${model.entityName}Service) {
+          |    constructor(private dialog: MatDialog, private ${model.entityName.camelCase}Service: ${model.entityName.pascalCase}Service) {
           |    }
           |
-          |    onSearch(criteria: ${model.entityName}SearchCriteria): void {
+          |    onSearch(criteria: ${model.entityName.pascalCase}SearchCriteria): void {
           |        this.currentSearchCriteria = criteria;
           |    }
           |
-          |    on${model.entityName}Select(${model.entityNameLowercase}: ${model.entityName}WTO): void {
-          |        this.selected${model.entityName} = ${model.entityNameLowercase};
+          |    on${model.entityName.pascalCase}Select(${model.entityName.camelCase}: ${model.entityName.pascalCase}WTO): void {
+          |        this.selected${model.entityName.pascalCase} = ${model.entityName.camelCase};
           |    }
           |
-          |    onDelete${model.entityName}(${model.entityNameLowercase}: ${model.entityName}WTO): void {
-          |        const dialogRef = this.dialog.open(${model.entityName}ConfirmDeleteDialogComponent, {
-          |            data: {${ model.summaryAttributes.joinToString("") { attribute ->  """                ${attribute.attributeName}: ${model.entityNameLowercase}.${attribute.attributeName},
+          |    onDelete${model.entityName.pascalCase}(${model.entityName.camelCase}: ${model.entityName.pascalCase}WTO): void {
+          |        const dialogRef = this.dialog.open(${model.entityName.pascalCase}ConfirmDeleteDialogComponent, {
+          |            data: {${ model.summaryAttributes.joinToString("") { attribute ->  """                ${attribute.attributeName.camelCase}: ${model.entityName.camelCase}.${attribute.attributeName.camelCase},
           """ } }            }
           |        });
           |        dialogRef.afterClosed().subscribe(result => {
           |            if (result) {
-          |                this.${model.entityNameLowercase}Service.delete${model.entityName}(${model.entityNameLowercase}.id).subscribe(() => {
+          |                this.${model.entityName.camelCase}Service.delete${model.entityName.pascalCase}(${model.entityName.camelCase}.id).subscribe(() => {
           |                    this.refreshKey++;
           |                });
           |            }
           |        });
           |    }
           |
-          |    onSave(updated${model.entityName}: ${model.entityName}WTO): void {
-          |        this.${model.entityNameLowercase}Service.update${model.entityName}(updated${model.entityName}).subscribe(() => {
-          |            this.selected${model.entityName} = null;
+          |    onSave(updated${model.entityName.pascalCase}: ${model.entityName.pascalCase}WTO): void {
+          |        this.${model.entityName.camelCase}Service.update${model.entityName.pascalCase}(updated${model.entityName.pascalCase}).subscribe(() => {
+          |            this.selected${model.entityName.pascalCase} = null;
           |            this.refreshKey++;
           |        });
           |    }
           |
           |    onCancel(): void {
-          |        this.selected${model.entityName} = null;
+          |        this.selected${model.entityName.pascalCase} = null;
           |    }
           |} 
           |
@@ -103,6 +103,6 @@ object EntityBoardComponentTypescriptRenderer : UiEntityRenderer {
     }
 
     override fun filePath(model: UiEntityModel): String {
-      return "${model.entityNameDashCase}/${model.entityNameDashCase}-board/${model.entityNameDashCase}-board.component.ts"
+      return "${model.entityName.kebabCase}/${model.entityName.kebabCase}-board/${model.entityName.kebabCase}-board.component.ts"
     }
 }

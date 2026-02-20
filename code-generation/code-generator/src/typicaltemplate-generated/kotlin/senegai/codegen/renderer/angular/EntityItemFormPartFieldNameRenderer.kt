@@ -14,8 +14,8 @@ object EntityItemFormPartFieldNameRenderer : UiEntityItemRenderer {
     override fun renderTemplate(model: UiEntityFormViewItemModel): String {
         return """
           |
-          |export enum ${model.item.itemName}FormPartFieldName {${ model.item.attributes.joinToString("") { attribute ->  """
-              |    ${attribute.attributeName} = "${attribute.attributeName}",
+          |export enum ${model.item.itemName.pascalCase}FormPartFieldName {${ model.item.attributes.joinToString("") { attribute ->  """
+              |    ${attribute.attributeName.camelCase} = "${attribute.attributeName.camelCase}",
           """ } }}
           |
           |
@@ -23,6 +23,6 @@ object EntityItemFormPartFieldNameRenderer : UiEntityItemRenderer {
     }
 
     override fun filePath(model: UiEntityFormViewItemModel): String {
-      return "${model.entity.entityNameDashCase}/${model.entity.entityNameDashCase}-form/${model.item.itemNameLowercase}-form-part/${model.item.itemNameLowercase}-form-part-field-name.ts"
+      return "${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.camelCase}-form-part/${model.item.itemName.camelCase}-form-part-field-name.ts"
     }
 }

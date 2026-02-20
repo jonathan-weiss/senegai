@@ -13,23 +13,23 @@ object EntityResultComponentHtmlRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
-          |<div class="${model.entityNameDashCase}-table-container">
+          |<div class="${model.entityName.kebabCase}-table-container">
           |    <table mat-table [dataSource]="dataSource">
           |        ${ model.searchResultAttributes.joinToString("") { attribute ->  """
               |        <!-- Firstname Column -->
-              |        <ng-container matColumnDef="${attribute.attributeName}">
-              |            <th mat-header-cell *matHeaderCellDef>${attribute.attributeName}</th>
-              |            <td mat-cell *matCellDef="let ${model.entityNameLowercase}">{{ ${model.entityNameLowercase}.${attribute.attributeName} }}</td>
+              |        <ng-container matColumnDef="${attribute.attributeName.camelCase}">
+              |            <th mat-header-cell *matHeaderCellDef>${attribute.attributeName.pascalCase}</th>
+              |            <td mat-cell *matCellDef="let ${model.entityName.camelCase}">{{ ${model.entityName.camelCase}.${attribute.attributeName.camelCase} }}</td>
               |        </ng-container>
           """ } }
           |        <!-- Actions Column -->
           |        <ng-container matColumnDef="actions">
           |            <th mat-header-cell *matHeaderCellDef>Actions</th>
-          |            <td mat-cell *matCellDef="let ${model.entityNameLowercase}">
-          |                <button mat-icon-button color="primary" (click)="onEdit(${model.entityNameLowercase})">
+          |            <td mat-cell *matCellDef="let ${model.entityName.camelCase}">
+          |                <button mat-icon-button color="primary" (click)="onEdit(${model.entityName.camelCase})">
           |                    <mat-icon>edit</mat-icon>
           |                </button>
-          |                <button mat-icon-button color="warn" (click)="onDelete(${model.entityNameLowercase})">
+          |                <button mat-icon-button color="warn" (click)="onDelete(${model.entityName.camelCase})">
           |                    <mat-icon>delete</mat-icon>
           |                </button>
           |            </td>
@@ -44,6 +44,6 @@ object EntityResultComponentHtmlRenderer : UiEntityRenderer {
     }
 
     override fun filePath(model: UiEntityModel): String {
-      return "${model.entityNameDashCase}/${model.entityNameDashCase}-result/${model.entityNameDashCase}-result.component.html"
+      return "${model.entityName.kebabCase}/${model.entityName.kebabCase}-result/${model.entityName.kebabCase}-result.component.html"
     }
 }

@@ -13,7 +13,7 @@ object EntityBoardComponentScssRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
-          |.${model.entityNameDashCase}-container {
+          |.${model.entityName.kebabCase}-container {
           |  padding: 20px;
           |
           |  h2 {
@@ -22,7 +22,7 @@ object EntityBoardComponentScssRenderer : UiEntityRenderer {
           |  }
           |}
           |
-          |.${model.entityNameDashCase}-accordion {
+          |.${model.entityName.kebabCase}-accordion {
           |  .mat-expansion-panel {
           |    margin-bottom: 16px;
           |  }
@@ -59,6 +59,6 @@ object EntityBoardComponentScssRenderer : UiEntityRenderer {
     }
 
     override fun filePath(model: UiEntityModel): String {
-      return "${model.entityNameDashCase}/${model.entityNameDashCase}-board/${model.entityNameDashCase}-board.component.scss"
+      return "${model.entityName.kebabCase}/${model.entityName.kebabCase}-board/${model.entityName.kebabCase}-board.component.scss"
     }
 }

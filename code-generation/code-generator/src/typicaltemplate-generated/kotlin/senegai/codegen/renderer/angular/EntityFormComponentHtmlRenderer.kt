@@ -16,18 +16,18 @@ object EntityFormComponentHtmlRenderer : UiEntityRenderer {
           |<div class="edit-form-container">
           |    <mat-card>
           |        <mat-card-header>
-          |            <mat-card-title>{{ ${model.entityNameLowercase} ? 'Edit ${model.entityName}' : 'New ${model.entityName}' }}</mat-card-title>
+          |            <mat-card-title>{{ ${model.entityName.camelCase} ? 'Edit ${model.entityName.pascalCase}' : 'New ${model.entityName.pascalCase}' }}</mat-card-title>
           |        </mat-card-header>
           |
           |        <mat-card-content>
-          |            <form [formGroup]="${model.entityNameLowercase}Form" (ngSubmit)="onSubmit()">
-          |                <app-${model.entityNameDashCase}-form-part [${model.entityNameLowercase}Form]="${model.entityNameLowercase}Form" />
+          |            <form [formGroup]="${model.entityName.camelCase}Form" (ngSubmit)="onSubmit()">
+          |                <app-${model.entityName.kebabCase}-form-part [${model.entityName.camelCase}Form]="${model.entityName.camelCase}Form" />
           |
           |                <div class="form-actions">
           |                    <button mat-button type="button" (click)="onCancel()">
           |                        Cancel
           |                    </button>
-          |                    <button mat-raised-button color="primary" type="submit" [disabled]="!${model.entityNameLowercase}Form.valid">
+          |                    <button mat-raised-button color="primary" type="submit" [disabled]="!${model.entityName.camelCase}Form.valid">
           |                        Save
           |                    </button>
           |                </div>
@@ -40,6 +40,6 @@ object EntityFormComponentHtmlRenderer : UiEntityRenderer {
     }
 
     override fun filePath(model: UiEntityModel): String {
-      return "${model.entityNameDashCase}/${model.entityNameDashCase}-form/${model.entityNameDashCase}-form/${model.entityNameDashCase}-form.component.html"
+      return "${model.entityName.kebabCase}/${model.entityName.kebabCase}-form/${model.entityName.kebabCase}-form/${model.entityName.kebabCase}-form.component.html"
     }
 }

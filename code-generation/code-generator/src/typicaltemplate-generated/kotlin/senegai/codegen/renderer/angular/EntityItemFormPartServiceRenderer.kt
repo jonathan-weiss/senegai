@@ -15,43 +15,43 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
         return """
           |
           |import {Injectable} from '@angular/core';
-          |import {${model.item.itemName}WTO} from "@app/wto/${model.item.itemNameLowercase}.wto";
+          |import {${model.item.itemName.pascalCase}WTO} from "@app/wto/${model.item.itemName.camelCase}.wto";
           |import {AbstractControl, FormArray, FormControl, FormGroup} from "@angular/forms";
           |import {FormUtil} from "@app/shared/form-controls/form.util";
           |import {
-          |    ${model.item.itemName}FormPartValidationService
-          |} from "@app/${model.entity.entityNameDashCase}/${model.entity.entityNameDashCase}-form/${model.item.itemNameLowercase}-form-part/${model.item.itemNameLowercase}-form-part-validation.service";
+          |    ${model.item.itemName.pascalCase}FormPartValidationService
+          |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.camelCase}-form-part/${model.item.itemName.camelCase}-form-part-validation.service";
           |import {
-          |    ${model.item.itemName}FormPartInitialValueService
-          |} from "@app/${model.entity.entityNameDashCase}/${model.entity.entityNameDashCase}-form/${model.item.itemNameLowercase}-form-part/${model.item.itemNameLowercase}-form-part-initial-value.service";
-          |import {${model.item.itemName}FormPartFieldName} from "@app/${model.entity.entityNameDashCase}/${model.entity.entityNameDashCase}-form/${model.item.itemNameLowercase}-form-part/${model.item.itemNameLowercase}-form-part-field-name";
-          |import {${model.item.itemName}FormPartGroup} from "@app/${model.entity.entityNameDashCase}/${model.entity.entityNameDashCase}-form/${model.item.itemNameLowercase}-form-part/${model.item.itemNameLowercase}-form-part-group";
+          |    ${model.item.itemName.pascalCase}FormPartInitialValueService
+          |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.camelCase}-form-part/${model.item.itemName.camelCase}-form-part-initial-value.service";
+          |import {${model.item.itemName.pascalCase}FormPartFieldName} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.camelCase}-form-part/${model.item.itemName.camelCase}-form-part-field-name";
+          |import {${model.item.itemName.pascalCase}FormPartGroup} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.camelCase}-form-part/${model.item.itemName.camelCase}-form-part-group";
           |
           |@Injectable({providedIn: 'root'})
-          |export class ${model.item.itemName}FormPartService {
+          |export class ${model.item.itemName.pascalCase}FormPartService {
           |
           |    constructor(
-          |        private ${model.item.itemNameLowercase}FormValidationService: ${model.item.itemName}FormPartValidationService,
-          |        private ${model.item.itemNameLowercase}FormInitialValueService: ${model.item.itemName}FormPartInitialValueService,    ) {}
+          |        private ${model.item.itemName.camelCase}FormValidationService: ${model.item.itemName.pascalCase}FormPartValidationService,
+          |        private ${model.item.itemName.camelCase}FormInitialValueService: ${model.item.itemName.pascalCase}FormPartInitialValueService,    ) {}
           |
-          |    public createInitial${model.item.itemName}Form(): FormGroup<${model.item.itemName}FormPartGroup> {
+          |    public createInitial${model.item.itemName.pascalCase}Form(): FormGroup<${model.item.itemName.pascalCase}FormPartGroup> {
           |        return new FormGroup({${ model.item.attributes.joinToString("") { attribute ->  """
-              |            [${model.item.itemName}FormPartFieldName.${attribute.attributeName}]: new FormControl<string>(
-              |                this.${model.item.itemNameLowercase}FormInitialValueService.${attribute.attributeName}InitialValue(),
+              |            [${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}]: new FormControl<string>(
+              |                this.${model.item.itemName.camelCase}FormInitialValueService.${attribute.attributeName.camelCase}InitialValue(),
               |                {
               |                    nonNullable: true,
-              |                    validators: this.${model.item.itemNameLowercase}FormValidationService.validatorFunctions(${model.item.itemName}FormPartFieldName.${attribute.attributeName})
+              |                    validators: this.${model.item.itemName.camelCase}FormValidationService.validatorFunctions(${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase})
               |                },
               |            ),
           """ } }        });
           |    }
           |
-          |    public patch${model.item.itemName}Form(form: FormGroup<${model.item.itemName}FormPartGroup>, ${model.item.itemNameLowercase}: ${model.item.itemName}WTO): void {        ${ model.item.attributes.joinToString("") { attribute ->  """        FormUtil.requiredFormControl(form, ${model.item.itemName}FormPartFieldName.${attribute.attributeName}).patchValue(${model.item.itemNameLowercase}.${attribute.attributeName});
+          |    public patch${model.item.itemName.pascalCase}Form(form: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>, ${model.item.itemName.camelCase}: ${model.item.itemName.pascalCase}WTO): void {        ${ model.item.attributes.joinToString("") { attribute ->  """        FormUtil.requiredFormControl(form, ${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}).patchValue(${model.item.itemName.camelCase}.${attribute.attributeName.camelCase});
           """ } }    }
           |
-          |    public create${model.item.itemName}FromFormData(form: AbstractControl): ${model.item.itemName}WTO {
+          |    public create${model.item.itemName.pascalCase}FromFormData(form: AbstractControl): ${model.item.itemName.pascalCase}WTO {
           |        return {
-          |                        ${ model.item.attributes.joinToString("") { attribute ->  """            ${attribute.attributeName}: FormUtil.requiredFormControl(form, ${model.item.itemName}FormPartFieldName.${attribute.attributeName}).value as string,
+          |                        ${ model.item.attributes.joinToString("") { attribute ->  """            ${attribute.attributeName.camelCase}: FormUtil.requiredFormControl(form, ${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}).value as string,
           """ } }        };
           |    }
           |}
@@ -60,6 +60,6 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
     }
 
     override fun filePath(model: UiEntityFormViewItemModel): String {
-      return "${model.entity.entityNameDashCase}/${model.entity.entityNameDashCase}-form/${model.item.itemNameLowercase}-form-part/${model.item.itemNameLowercase}-form-part.service.ts"
+      return "${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.camelCase}-form-part/${model.item.itemName.camelCase}-form-part.service.ts"
     }
 }

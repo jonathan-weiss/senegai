@@ -15,15 +15,15 @@ object EntitySearchComponentHtmlRenderer : UiEntityRenderer {
         return """
           |<mat-card class="search-card">
           |    <mat-card-header>
-          |        <mat-card-title>Search ${model.entityName}</mat-card-title>
+          |        <mat-card-title>Search ${model.entityName.pascalCase}</mat-card-title>
           |    </mat-card-header>
           |    <mat-card-content>
           |        <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
           |            <div class="search-fields">
           |                ${ model.searchCriteriaAttributes.joinToString("") { attribute ->  """
               |                <mat-form-field appearance="outline">
-              |                    <mat-label>${attribute.attributeName}</mat-label>
-              |                    <input matInput formControlName="${attribute.attributeName}" placeholder="Enter ${attribute.attributeName}">
+              |                    <mat-label>${attribute.attributeName.pascalCase}</mat-label>
+              |                    <input matInput formControlName="${attribute.attributeName.camelCase}" placeholder="Enter ${attribute.attributeName.camelCase}">
               |                </mat-form-field>
           """ } }            </div>
           |
@@ -45,6 +45,6 @@ object EntitySearchComponentHtmlRenderer : UiEntityRenderer {
     }
 
     override fun filePath(model: UiEntityModel): String {
-      return "${model.entityNameDashCase}/${model.entityNameDashCase}-search/${model.entityNameDashCase}-search.component.html"
+      return "${model.entityName.kebabCase}/${model.entityName.kebabCase}-search/${model.entityName.kebabCase}-search.component.html"
     }
 }

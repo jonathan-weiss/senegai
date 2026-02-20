@@ -26,14 +26,14 @@ object EntityFormComponentTypescriptRenderer : UiEntityRenderer {
           |import {MatSidenavModule} from "@angular/material/sidenav";
           |import {MatListModule} from "@angular/material/list";
           |import {MatDialogModule} from "@angular/material/dialog";
-          |import {${model.entityName}WTO} from "@app/wto/${model.entityNameDashCase}.wto";
-          |import {${model.entityName}FormPartService} from "@app/${model.entityNameDashCase}/${model.entityNameDashCase}-form/${model.entityNameDashCase}-form-part/${model.entityNameDashCase}-form-part.service";
-          |import {${model.entityName}FormPartComponent} from "@app/${model.entityNameDashCase}/${model.entityNameDashCase}-form/${model.entityNameDashCase}-form-part/${model.entityNameDashCase}-form-part.component";
+          |import {${model.entityName.pascalCase}WTO} from "@app/wto/${model.entityName.kebabCase}.wto";
+          |import {${model.entityName.pascalCase}FormPartService} from "@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}-form/${model.entityName.kebabCase}-form-part/${model.entityName.kebabCase}-form-part.service";
+          |import {${model.entityName.pascalCase}FormPartComponent} from "@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}-form/${model.entityName.kebabCase}-form-part/${model.entityName.kebabCase}-form-part.component";
           |
           |@Component({
-          |    selector: 'app-${model.entityNameDashCase}-form',
-          |    templateUrl: './${model.entityNameDashCase}-form.component.html',
-          |    styleUrls: ['./${model.entityNameDashCase}-form.component.scss'],
+          |    selector: 'app-${model.entityName.kebabCase}-form',
+          |    templateUrl: './${model.entityName.kebabCase}-form.component.html',
+          |    styleUrls: ['./${model.entityName.kebabCase}-form.component.scss'],
           |    imports: [
           |        ReactiveFormsModule,
           |        MatButtonModule,
@@ -47,30 +47,30 @@ object EntityFormComponentTypescriptRenderer : UiEntityRenderer {
           |        MatSidenavModule,
           |        MatListModule,
           |        MatDialogModule,
-          |        ${model.entityName}FormPartComponent,
+          |        ${model.entityName.pascalCase}FormPartComponent,
           |    ]
           |})
-          |export class ${model.entityName}FormComponent implements OnInit {
-          |    @Input() ${model.entityNameLowercase}: ${model.entityName}WTO | null = null;
-          |    @Output() save = new EventEmitter<${model.entityName}WTO>();
+          |export class ${model.entityName.pascalCase}FormComponent implements OnInit {
+          |    @Input() ${model.entityName.camelCase}: ${model.entityName.pascalCase}WTO | null = null;
+          |    @Output() save = new EventEmitter<${model.entityName.pascalCase}WTO>();
           |    @Output() cancel = new EventEmitter<void>();
           |
-          |    ${model.entityNameLowercase}Form: FormGroup;
+          |    ${model.entityName.camelCase}Form: FormGroup;
           |
-          |    constructor(private ${model.entityNameLowercase}FormPartService: ${model.entityName}FormPartService) {
-          |        this.${model.entityNameLowercase}Form = ${model.entityNameLowercase}FormPartService.createInitial${model.entityName}Form();
+          |    constructor(private ${model.entityName.camelCase}FormPartService: ${model.entityName.pascalCase}FormPartService) {
+          |        this.${model.entityName.camelCase}Form = ${model.entityName.camelCase}FormPartService.createInitial${model.entityName.pascalCase}Form();
           |    }
           |
           |    ngOnInit(): void {
-          |        if (this.${model.entityNameLowercase}) {
-          |            this.${model.entityNameLowercase}FormPartService.patch${model.entityName}Form(this.${model.entityNameLowercase}Form, this.${model.entityNameLowercase})
+          |        if (this.${model.entityName.camelCase}) {
+          |            this.${model.entityName.camelCase}FormPartService.patch${model.entityName.pascalCase}Form(this.${model.entityName.camelCase}Form, this.${model.entityName.camelCase})
           |        }
           |    }
           |
           |    onSubmit(): void {
-          |        if (this.${model.entityNameLowercase}Form.valid) {
-          |            const updated${model.entityName}: ${model.entityName}WTO = this.${model.entityNameLowercase}FormPartService.create${model.entityName}FromFormData(this.${model.entityNameLowercase}Form)
-          |            this.save.emit(updated${model.entityName});
+          |        if (this.${model.entityName.camelCase}Form.valid) {
+          |            const updated${model.entityName.pascalCase}: ${model.entityName.pascalCase}WTO = this.${model.entityName.camelCase}FormPartService.create${model.entityName.pascalCase}FromFormData(this.${model.entityName.camelCase}Form)
+          |            this.save.emit(updated${model.entityName.pascalCase});
           |        }
           |    }
           |
@@ -83,6 +83,6 @@ object EntityFormComponentTypescriptRenderer : UiEntityRenderer {
     }
 
     override fun filePath(model: UiEntityModel): String {
-      return "${model.entityNameDashCase}/${model.entityNameDashCase}-form/${model.entityNameDashCase}-form/${model.entityNameDashCase}-form.component.ts"
+      return "${model.entityName.kebabCase}/${model.entityName.kebabCase}-form/${model.entityName.kebabCase}-form/${model.entityName.kebabCase}-form.component.ts"
     }
 }

@@ -11,11 +11,11 @@
     ]
 
     @replace-value-by-expression
-        [ searchValue="Author" replaceByExpression="model.item.itemName" ]
-        [ searchValue="author" replaceByExpression="model.item.itemNameLowercase" ]
-        [ searchValue="opus-magnum" replaceByExpression="model.entity.entityNameDashCase" ]
-        [ searchValue="OpusMagnum" replaceByExpression="model.entity.entityName" ]
-        [ searchValue="opusMagnum" replaceByExpression="model.entity.entityNameLowercase" ]
+        [ searchValue="Author" replaceByExpression="model.item.itemName.pascalCase" ]
+        [ searchValue="author" replaceByExpression="model.item.itemName.camelCase" ]
+        [ searchValue="opus-magnum" replaceByExpression="model.entity.entityName.kebabCase" ]
+        [ searchValue="OpusMagnum" replaceByExpression="model.entity.entityName.pascalCase" ]
+        [ searchValue="opusMagnum" replaceByExpression="model.entity.entityName.camelCase" ]
 
     @modify-provided-filename-by-replacements
 
@@ -155,7 +155,7 @@ export class AuthorFormPartComponent implements OnInit {
     @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
     @replace-value-by-expression
-        [ searchValue="nickname" replaceByExpression="attribute.attributeName" ]
+        [ searchValue="nickname" replaceByExpression="attribute.attributeName.camelCase" ]
 
     @slac
     }}}@  */
@@ -192,7 +192,7 @@ export class AuthorFormPartComponent implements OnInit {
         @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
         @replace-value-by-expression
-            [ searchValue="firstname" replaceByExpression="attribute.attributeName" ]
+            [ searchValue="firstname" replaceByExpression="attribute.attributeName.camelCase" ]
 
         }}}@  */
         this.firstnameControl = FormUtil.requiredFormControl(this.authorForm, AuthorFormPartFieldName.firstname)

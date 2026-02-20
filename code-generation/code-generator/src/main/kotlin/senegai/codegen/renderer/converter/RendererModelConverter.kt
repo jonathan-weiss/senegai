@@ -59,7 +59,7 @@ object RendererModelConverter {
 
     private fun mapUiItemAttribute(itemAttribute: ItemAttribute): UiItemAttributeModel {
         return UiItemAttributeModel(
-            attributeName = itemAttribute.attributeName,
+            attributeName = NameCase(itemAttribute.attributeName),
             isNullable = itemAttribute.isNullable,
             isList = itemAttribute.isMultiple,
             type = itemAttribute.type,
@@ -75,7 +75,7 @@ object RendererModelConverter {
         val uiEntityItems =uiEntity.editorView.itemConfiguration.map { itemConfiguration ->
             val itemModel = when (itemConfiguration) {
                 is UiEntityEditorEntityConfiguration -> uiEntityModel.entityRootItem
-                is UiEntityEditorEntityNestedItemConfiguration -> requireNotNull(uiEntityModel.entityItemModels.firstOrNull { it.itemName === itemConfiguration.itemId.itemName }) {
+                is UiEntityEditorEntityNestedItemConfiguration -> requireNotNull(uiEntityModel.entityItemModels.firstOrNull { it.itemName.isEqual(itemConfiguration.itemId.itemName) }) {
                     "No item found with item id '${itemConfiguration.itemId.itemName}' within items ${uiEntityModel.entityItemModels.map { it.itemName }}"
                 }
             }
@@ -123,7 +123,7 @@ object RendererModelConverter {
             is UiItemAttributeBlock -> UiEntityFormItemAttributeBlockModel(
                 entity = uiEntityModel,
                 item = uiItemModel,
-                attribute = uiItemModel.attributes.single { it.attributeName == block.attributeName },
+                attribute = uiItemModel.attributes.single { it.attributeName.isEqual(block.attributeName) },
             )
             is UiSectionBlock -> UiEntityFormNamedSectionSplitBlockModel(block.sectionName)
             is UiTextBlock -> UiEntityFormTextBlockModel(block.textName)

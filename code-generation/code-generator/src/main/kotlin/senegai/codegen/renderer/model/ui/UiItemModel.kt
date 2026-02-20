@@ -7,7 +7,4 @@ data class UiItemModel(
     val itemId: ItemId,
     val itemName: NameCase,
     val attributes: List<UiItemAttributeModel>,
-) {
-    val itemNameDashCase: String = itemName.lowercaseDashCase
-    val itemNameLowercase: String = itemName.decapitalizedCamelCase
-}
+)

@@ -2,6 +2,7 @@ package senegai.codegen.renderer.model.ui
 
 import org.codeblessing.templatetools.CaseUtil
 import senegai.codegen.renderer.NotSupportedInTemplateException
+import senegai.codegen.renderer.model.NameCase
 import senegai.codegen.schema.BuiltInType
 import senegai.codegen.schema.EntityId
 import senegai.codegen.schema.EnumId
@@ -10,7 +11,7 @@ import senegai.codegen.schema.ItemAttributeType
 import senegai.codegen.schema.ItemId
 
 data class UiItemAttributeModel(
-    val attributeName: String,
+    val attributeName: NameCase,
     private val isNullable: Boolean,
     private val isList: Boolean,
     private val type: ItemAttributeType, // TODO that is wrong, it is not a model class
@@ -23,11 +24,6 @@ data class UiItemAttributeModel(
     //val typescriptAttributeType: String = if(attributeName == "nickname") "string | null" else "string"
 
     val attributeCardinality: AttributeCardinalityModel = attributeCardinalityModel()
-
-    val attributeNameUppercase: String = attributeName.uppercase()
-    val attributeNameLowercase: String = attributeName.lowercase()
-    val attributeNameDashCase: String = CaseUtil.camelToDashCase(attributeName)
-    val attributeNameCamelCase: String = attributeName
 
     private fun calculateAttributeType(): String {
         return when(type) {

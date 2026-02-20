@@ -13,7 +13,7 @@ object EntityItemFormPartComponentHtmlRenderer : UiEntityItemRenderer {
 
     override fun renderTemplate(model: UiEntityFormViewItemModel): String {
         return """
-          |<div [formGroup]="${model.item.itemNameLowercase}Form">
+          |<div [formGroup]="${model.item.itemName.camelCase}Form">
           |
           |<div>
           |    <div class="form-row">
@@ -46,21 +46,21 @@ object EntityItemFormPartComponentHtmlRenderer : UiEntityItemRenderer {
                           |                    ${ if(block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.SINGLE_ITEM) { """
                               |
                               |                    <div class="form-row">
-                              |                        <app-field-wrapper label="${block.attribute.attributeName}">
+                              |                        <app-field-wrapper label="${block.attribute.attributeName.pascalCase}">
                               |
-                              |                            <app-text-input [textFormControl]="${block.attribute.attributeName}Control" label="${block.attribute.attributeName}" placeholder="Enter ${block.attribute.attributeName}" [validatorTranslations]="${block.attribute.attributeName}ValidatorNames" />
+                              |                            <app-text-input [textFormControl]="${block.attribute.attributeName.camelCase}Control" label="${block.attribute.attributeName.camelCase}" placeholder="Enter ${block.attribute.attributeName.pascalCase}" [validatorTranslations]="${block.attribute.attributeName.camelCase}ValidatorNames" />
                               |                        </app-field-wrapper>
                               |                    </div>
           """ } else { """
           """ } }                    ${ if(block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.NULLABLE_SINGLE_ITEM) { """
                               |
                               |                    <div class="form-row">
-                              |                        <app-field-wrapper label="${block.attribute.attributeName}"
-                              |                                            [nullabilityCheckboxFormControl]="${block.attribute.attributeName}IsNotNullControl"
-                              |                                            [formGroupToDisableIfNullField]="${block.attribute.attributeName}Control"
+                              |                        <app-field-wrapper label="${block.attribute.attributeName.pascalCase}"
+                              |                                            [nullabilityCheckboxFormControl]="${block.attribute.attributeName.camelCase}IsNotNullControl"
+                              |                                            [formGroupToDisableIfNullField]="${block.attribute.attributeName.camelCase}Control"
                               |                         >
                               |
-                              |                            <app-text-input [textFormControl]="${block.attribute.attributeName}Control" label="${block.attribute.attributeName}" placeholder="Enter ${block.attribute.attributeName}" [validatorTranslations]="${block.attribute.attributeName}ValidatorNames" />
+                              |                            <app-text-input [textFormControl]="${block.attribute.attributeName.camelCase}Control" label="${block.attribute.attributeName.camelCase}" placeholder="Enter ${block.attribute.attributeName.camelCase}" [validatorTranslations]="${block.attribute.attributeName.camelCase}ValidatorNames" />
                               |                        </app-field-wrapper>
                               |                    </div>
           """ } else { """
@@ -68,18 +68,18 @@ object EntityItemFormPartComponentHtmlRenderer : UiEntityItemRenderer {
                           |                ${ if(block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.LIST_ITEMS) { """
                               |
                               |                <div class="form-row">
-                              |                    <app-field-wrapper label="${block.attribute.attributeName}">
-                              |                        <app-${block.attribute.attributeNameDashCase}-table
-                              |                                [${block.attribute.attributeNameCamelCase}FormArray]="${block.attribute.attributeNameCamelCase}ListFormArray"
-                              |                                (editLibraryAwardFormGroup)="on${model.item.itemName}LibraryAwardFormGroupEdit(${"$"}event)"
-                              |                                (deleteLibraryAwardFormGroup)="on${model.item.itemName}LibraryAwardFormGroupDelete(${"$"}event)"
+                              |                    <app-field-wrapper label="${block.attribute.attributeName.pascalCase}">
+                              |                        <app-${block.attribute.attributeName.kebabCase}-table
+                              |                                [${block.attribute.attributeName.pascalCase}FormArray]="${block.attribute.attributeName.pascalCase}ListFormArray"
+                              |                                (editLibraryAwardFormGroup)="on${model.item.itemName.pascalCase}LibraryAwardFormGroupEdit(${"$"}event)"
+                              |                                (deleteLibraryAwardFormGroup)="on${model.item.itemName.pascalCase}LibraryAwardFormGroupDelete(${"$"}event)"
                               |                        />
-                              |                        @if (${model.item.itemNameLowercase}LibraryAwardUnderEdit) {
+                              |                        @if (${model.item.itemName.camelCase}LibraryAwardUnderEdit) {
                               |                            <div class="edit-area">
-                              |                                <button mat-icon-button color="primary" (click)="close${model.item.itemName}LibraryAwardUnderEdit()">
+                              |                                <button mat-icon-button color="primary" (click)="close${model.item.itemName.pascalCase}LibraryAwardUnderEdit()">
                               |                                    <mat-icon>edit_off</mat-icon>
                               |                                </button>
-                              |                                <app-${block.attribute.attributeNameDashCase}-form-part [${block.attribute.attributeNameCamelCase}Form]="${model.item.itemNameLowercase}LibraryAwardUnderEdit!"  />
+                              |                                <app-${block.attribute.attributeName.kebabCase}-form-part [${block.attribute.attributeName.pascalCase}Form]="${model.item.itemName.camelCase}LibraryAwardUnderEdit!"  />
                               |                            </div>
                               |                        }
                               |                    </app-field-wrapper>
@@ -98,6 +98,6 @@ object EntityItemFormPartComponentHtmlRenderer : UiEntityItemRenderer {
     }
 
     override fun filePath(model: UiEntityFormViewItemModel): String {
-      return "${model.entity.entityNameDashCase}/${model.entity.entityNameDashCase}-form/${model.item.itemNameLowercase}-form-part/${model.item.itemNameLowercase}-form-part.component.html"
+      return "${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.camelCase}-form-part/${model.item.itemName.camelCase}-form-part.component.html"
     }
 }
