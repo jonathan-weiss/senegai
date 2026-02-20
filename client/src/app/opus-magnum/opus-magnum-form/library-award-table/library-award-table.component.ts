@@ -1,3 +1,28 @@
+/* @tt{{{
+
+    @slbc
+
+    @template-renderer [ templateRendererClassName="EntityItemTableComponentTypescriptRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="UiEntityItemRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
+
+    @template-model [
+        modelClassName="UiEntityFormViewItemModel"
+        modelPackageName="senegai.codegen.renderer.model.ui.entityform"
+        modelName="model"
+    ]
+
+    @replace-value-by-expression
+        [ searchValue="library-award" replaceByExpression="model.item.itemName.kebabCase" ]
+        [ searchValue="libraryAward" replaceByExpression="model.item.itemName.camelCase" ]
+        [ searchValue="LibraryAward" replaceByExpression="model.item.itemName.pascalCase" ]
+        [ searchValue="opus-magnum" replaceByExpression="model.entity.entityName.kebabCase" ]
+        [ searchValue="OpusMagnum" replaceByExpression="model.entity.entityName.pascalCase" ]
+        [ searchValue="opusMagnum" replaceByExpression="model.entity.entityName.camelCase" ]
+
+    @modify-provided-filename-by-replacements
+
+    @slac
+
+}}}@ */
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {AbstractControl, FormArray, FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
@@ -50,9 +75,22 @@ export class LibraryAwardTableComponent implements OnInit {
     @Output() deleteLibraryAwardFormGroup = new EventEmitter<FormGroup<LibraryAwardFormPartGroup>>();
 
     displayedColumns: string[] = [
+        /*
+        @tt{{{
+            @slbc
+            @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
+
+            @replace-value-by-expression
+            [ searchValue="description" replaceByExpression="attribute.attributeName.camelCase" ]
+            @slac
+        }}}@
+         */
         'description',
+        /* @tt{{{ @slbc  @end-foreach @slac }}}@ */
+        /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
         'year',
         'actions',
+        /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
     ];
     dataSource: MatTableDataSource<LibraryAwardTableRow> = new MatTableDataSource<LibraryAwardTableRow>();
 
@@ -68,8 +106,23 @@ export class LibraryAwardTableComponent implements OnInit {
 
     private toTableRow(formGroup: FormGroup<LibraryAwardFormPartGroup>): LibraryAwardTableRow {
         return {
-            description: this.descriptionFromControl(formGroup),
-            year: this.yearFromControl(formGroup),
+            /*
+            @tt{{{
+                @slbc
+                @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
+
+                @replace-value-by-expression
+                [ searchValue="description" replaceByExpression="attribute.attributeName.camelCase" ]
+                [ searchValue="Description" replaceByExpression="attribute.attributeName.pascalCase" ]
+                @slac
+            }}}@
+             */
+            description: FormUtil.requiredFormControl(formGroup, LibraryAwardFormPartFieldName.description).value as string,
+            /* @tt{{{ @slbc  @end-foreach @slac }}}@ */
+            /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+
+            year: FormUtil.requiredFormControl(formGroup, LibraryAwardFormPartFieldName.year).value as number,
+            /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
             formGroup: formGroup,
         }
     }
@@ -103,21 +156,5 @@ export class LibraryAwardTableComponent implements OnInit {
 
     onDelete(opusMagnumLibraryAwardFormGroup: FormGroup): void {
         this.deleteLibraryAwardFormGroup.emit(opusMagnumLibraryAwardFormGroup);
-    }
-
-    private descriptionControl(formControl: AbstractControl): FormControl<string> {
-        return FormUtil.requiredFormControl(formControl, LibraryAwardFormPartFieldName.libraryAwardListDescription);
-    }
-
-    private yearControl(formControl: AbstractControl): FormControl<number> {
-        return FormUtil.requiredFormControl(formControl, LibraryAwardFormPartFieldName.libraryAwardListYear);
-    }
-
-    private descriptionFromControl(formControl: AbstractControl): string {
-        return this.descriptionControl(formControl).value as string;
-    }
-
-    private yearFromControl(formControl: AbstractControl): number {
-        return this.yearControl(formControl).value as number;
     }
 }

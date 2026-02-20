@@ -27,7 +27,7 @@ export class LibraryAwardFormPartValidationService {
 
     namedValidators(field: LibraryAwardFormPartFieldName): ReadonlyArray<NamedValidator> {
         switch (field) {
-            case LibraryAwardFormPartFieldName.libraryAwardListDescription:
+            case LibraryAwardFormPartFieldName.description:
                 return [
                     {
                         validatorName: "required",
@@ -40,7 +40,7 @@ export class LibraryAwardFormPartValidationService {
                         validatorTranslationKey: "validator.minlength",
                     },
                 ]
-            case LibraryAwardFormPartFieldName.libraryAwardListYear:
+            case LibraryAwardFormPartFieldName.year:
                 return [
                     {
                         validatorName: "required",

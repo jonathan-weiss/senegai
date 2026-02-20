@@ -1,6 +1,6 @@
 export enum LibraryAwardFormPartFieldName {
-    libraryAwardListDescription = "libraryAwardListDescription",
-    libraryAwardListYear = "libraryAwardListYear",
-    libraryAwardListJuryList = "libraryAwardListJuryList",
+    description = "description",
+    year = "year",
+    juryList = "juryList",
 }
 

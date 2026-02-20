@@ -35,6 +35,12 @@ object Rendering {
                 uiEntityView.formView.entityItems.forEach { entityItem ->
                     renderFormPart(entityItem)
                 }
+
+                // TODO Filter for items that are nested items
+                // TODO Mix with nested item configuration
+                uiEntityView.formView.entityItems.forEach { entityItem ->
+                    renderTableComponent(entityItem)
+                }
             }
 
             uiEntities.forEach { uiEntityModel ->
@@ -127,6 +133,26 @@ object Rendering {
                 EntityItemFormPartServiceRenderer,
                 EntityItemFormPartGroupRenderer,
             )
+
+            uiEntityItemRenderer.forEach { renderer ->
+                writeFile(
+                    filePath = pathToGeneratedAngularFiles.resolve(renderer.filePath(model = formViewItemModel)),
+                    content = renderer.renderTemplate(model = formViewItemModel),
+                )
+            }
+
+        }
+
+        private fun renderTableComponent(
+            formViewItemModel: UiEntityFormViewItemModel,
+        ) {
+            val uiEntityItemRenderer: List<UiEntityItemRenderer> = listOf(
+                EntityItemTableComponentHtmlRenderer,
+                EntityItemTableComponentScssRenderer,
+                EntityItemTableComponentTypescriptRenderer,
+                EntityItemTableRowComponentTypescriptRenderer,
+            )
+
 
             uiEntityItemRenderer.forEach { renderer ->
                 writeFile(

@@ -5,7 +5,7 @@ import {
 
 
 export interface LibraryAwardFormPartGroup {
-    [LibraryAwardFormPartFieldName.libraryAwardListDescription]: FormControl<string>,
-    [LibraryAwardFormPartFieldName.libraryAwardListYear]: FormControl<number>,
-    [LibraryAwardFormPartFieldName.libraryAwardListJuryList]: FormArray<FormControl<string>>,
+    [LibraryAwardFormPartFieldName.description]: FormControl<string>,
+    [LibraryAwardFormPartFieldName.year]: FormControl<number>,
+    [LibraryAwardFormPartFieldName.juryList]: FormArray<FormControl<string>>,
 }

@@ -26,24 +26,24 @@ export class LibraryAwardFormPartService {
 
     public createInitialLibraryAwardForm(): FormGroup<LibraryAwardFormPartGroup> {
         return new FormGroup({
-            [LibraryAwardFormPartFieldName.libraryAwardListDescription]: new FormControl<string>(
+            [LibraryAwardFormPartFieldName.description]: new FormControl<string>(
                 this.libraryAwardFormInitialValueService.libraryAwardListDescriptionInitialValue(),
                 {
                     nonNullable: true,
-                    validators: this.libraryAwardFormValidationService.validatorFunctions(LibraryAwardFormPartFieldName.libraryAwardListDescription)
+                    validators: this.libraryAwardFormValidationService.validatorFunctions(LibraryAwardFormPartFieldName.description)
                 },
             ),
-            [LibraryAwardFormPartFieldName.libraryAwardListYear]: new FormControl<number>(
+            [LibraryAwardFormPartFieldName.year]: new FormControl<number>(
                 this.libraryAwardFormInitialValueService.libraryAwardListYearInitialValue(),
                 {
                     nonNullable: true,
-                    validators: this.libraryAwardFormValidationService.validatorFunctions(LibraryAwardFormPartFieldName.libraryAwardListYear)
+                    validators: this.libraryAwardFormValidationService.validatorFunctions(LibraryAwardFormPartFieldName.year)
                 },
             ),
-            [LibraryAwardFormPartFieldName.libraryAwardListJuryList]: new FormArray<FormControl<string>>(
+            [LibraryAwardFormPartFieldName.juryList]: new FormArray<FormControl<string>>(
                 [] as Array<FormControl<string>>,
                 {
-                    validators: this.libraryAwardFormValidationService.validatorFunctions(LibraryAwardFormPartFieldName.libraryAwardListYear)
+                    validators: this.libraryAwardFormValidationService.validatorFunctions(LibraryAwardFormPartFieldName.year)
                 },
             ),
         });
@@ -54,26 +54,26 @@ export class LibraryAwardFormPartService {
             this.libraryAwardFormInitialValueService.libraryAwardListJuryListInitialValue(),
             {
                 nonNullable: true,
-                validators: this.libraryAwardFormValidationService.validatorFunctions(LibraryAwardFormPartFieldName.libraryAwardListJuryList)
+                validators: this.libraryAwardFormValidationService.validatorFunctions(LibraryAwardFormPartFieldName.juryList)
             },
         )
     }
 
     public patchLibraryAwardForm(form: FormGroup<LibraryAwardFormPartGroup>, libraryAward: LibraryAwardWTO): void {
-        FormUtil.requiredFormControl(form, LibraryAwardFormPartFieldName.libraryAwardListDescription).patchValue(libraryAward.description);
-        FormUtil.requiredFormControl(form, LibraryAwardFormPartFieldName.libraryAwardListYear).patchValue(libraryAward.year);
+        FormUtil.requiredFormControl(form, LibraryAwardFormPartFieldName.description).patchValue(libraryAward.description);
+        FormUtil.requiredFormControl(form, LibraryAwardFormPartFieldName.year).patchValue(libraryAward.year);
         libraryAward.juryList.forEach((jury: string) => {
             const formGroup = this.createInitialLibraryAwardListJuryListForm()
             formGroup.patchValue(jury)
-            FormUtil.requiredFormArray(form, LibraryAwardFormPartFieldName.libraryAwardListJuryList).push(formGroup);
+            FormUtil.requiredFormArray(form, LibraryAwardFormPartFieldName.juryList).push(formGroup);
         })
     }
 
     public createLibraryAwardFromFormData(form: FormGroup<LibraryAwardFormPartGroup>): LibraryAwardWTO {
         return {
-            description: FormUtil.requiredFormControl(form, LibraryAwardFormPartFieldName.libraryAwardListDescription).value as string,
-            year: FormUtil.requiredFormControl(form, LibraryAwardFormPartFieldName.libraryAwardListYear).value as number,
-            juryList: FormUtil.requiredFormArray(form, LibraryAwardFormPartFieldName.libraryAwardListJuryList)
+            description: FormUtil.requiredFormControl(form, LibraryAwardFormPartFieldName.description).value as string,
+            year: FormUtil.requiredFormControl(form, LibraryAwardFormPartFieldName.year).value as number,
+            juryList: FormUtil.requiredFormArray(form, LibraryAwardFormPartFieldName.juryList)
                 .controls.map(control => control.value as string),
         };
     }

@@ -1,11 +1,45 @@
+<!-- @tt{{{
+    @slbc
+
+    @template-renderer [ templateRendererClassName="EntityItemTableComponentHtmlRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="UiEntityItemRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
+
+    @template-model [
+        modelClassName="UiEntityFormViewItemModel"
+        modelPackageName="senegai.codegen.renderer.model.ui.entityform"
+        modelName="model"
+    ]
+
+    @replace-value-by-expression
+        [ searchValue="library-award" replaceByExpression="model.item.itemName.kebabCase" ]
+        [ searchValue="libraryAward" replaceByExpression="model.item.itemName.camelCase" ]
+        [ searchValue="LibraryAward" replaceByExpression="model.item.itemName.pascalCase" ]
+        [ searchValue="opus-magnum" replaceByExpression="model.entity.entityName.kebabCase" ]
+        [ searchValue="OpusMagnum" replaceByExpression="model.entity.entityName.pascalCase" ]
+        [ searchValue="opusMagnum" replaceByExpression="model.entity.entityName.camelCase" ]
+
+    @modify-provided-filename-by-replacements
+
+    @slac
+
+}}}@ -->
 <div class="table-container">
     <div class="action-bar">
         <button mat-button color="primary" (click)="onAdd()">
-            <mat-icon>add</mat-icon> Add item...
+            <mat-icon>add</mat-icon> Add LibraryAward...
         </button>
 
     </div>
     <table mat-table [dataSource]="dataSource">
+        <!-- @tt{{{
+            @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
+
+            @replace-value-by-expression
+            [ searchValue="description" replaceByExpression="attribute.attributeName.camelCase" ]
+            [ searchValue="Description" replaceByExpression="attribute.attributeName.pascalCase" ]
+
+
+        }}}@  -->
+
         <!-- Description Column -->
         <ng-container matColumnDef="description">
             <th mat-header-cell *matHeaderCellDef>Description</th>
@@ -13,6 +47,8 @@
                 {{ tableRow.description }}
             </td>
         </ng-container>
+        <!-- @tt{{{ @slbc @end-foreach @slac }}}@  -->
+        <!-- @tt{{{ @ignore-text @slac }}}@ -->
 
         <!-- Year Column -->
         <ng-container matColumnDef="year">
@@ -21,6 +57,8 @@
                 {{ tableRow.year }}
             </td>
         </ng-container>
+        <!-- @tt{{{ @end-ignore-text @slac }}}@ -->
+
 
         <!-- Actions Column -->
         <ng-container matColumnDef="actions">
