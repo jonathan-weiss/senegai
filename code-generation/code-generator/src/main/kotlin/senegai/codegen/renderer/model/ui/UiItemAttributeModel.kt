@@ -12,6 +12,7 @@ import senegai.codegen.schema.ItemId
 data class UiItemAttributeModel(
     val attributeName: String,
     private val isNullable: Boolean,
+    private val isList: Boolean,
     private val type: ItemAttributeType, // TODO that is wrong, it is not a model class
 ) {
     val typescriptAttributeTypeExample: String = calculateExampleValue()

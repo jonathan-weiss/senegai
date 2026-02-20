@@ -84,6 +84,7 @@ data class Item(
 data class ItemAttribute(
     val attributeName: String,
     val isNullable: Boolean,
+    val isMultiple: Boolean,
     val type: ItemAttributeType,
 )
 

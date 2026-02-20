@@ -58,9 +58,10 @@ object RendererModelConverter {
 
     private fun mapUiItemAttribute(itemAttribute: ItemAttribute): UiItemAttributeModel {
         return UiItemAttributeModel(
-            itemAttribute.attributeName,
-            itemAttribute.isNullable,
-            itemAttribute.type,
+            attributeName = itemAttribute.attributeName,
+            isNullable = itemAttribute.isNullable,
+            isList = itemAttribute.isMultiple,
+            type = itemAttribute.type,
         )
     }
 

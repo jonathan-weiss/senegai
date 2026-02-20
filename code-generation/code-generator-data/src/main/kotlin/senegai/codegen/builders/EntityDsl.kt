@@ -19,18 +19,21 @@ interface ItemDsl {
         name: String,
         type: BuiltInType,
         nullable: Boolean = false,
+        multiple: Boolean = false,
     )
 
     fun attribute(
         name: String,
         itemId: ItemId,
         nullable: Boolean = false,
+        multiple: Boolean = false,
     )
 
     fun attribute(
         name: String,
         enumId: EnumId,
         nullable: Boolean = false,
+        multiple: Boolean = false,
     )
 }
 
