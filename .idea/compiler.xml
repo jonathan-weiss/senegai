@@ -4,6 +4,7 @@
     <bytecodeTargetLevel target="21" />
   </component>
   <component name="TypeScriptCompiler">
+    <option name="memoryLimit" value="5120" />
     <option name="useTypesFromServer" value="true" />
   </component>
 </project>
