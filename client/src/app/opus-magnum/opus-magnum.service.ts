@@ -1,5 +1,5 @@
 /* @tt{{{
-    @slbc
+    #expand-comment [ direction="backward" strip="linebreak"]
 
     @template-renderer [
         templateRendererClassName="EntityServiceRenderer"
@@ -20,7 +20,7 @@
 
     @modify-provided-filename-by-replacements
 
-    @slac
+    #expand-comment [ direction="forward" strip="linebreak"]
 
 }}}@ */
 

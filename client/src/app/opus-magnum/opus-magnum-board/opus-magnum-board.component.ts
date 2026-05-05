@@ -1,6 +1,6 @@
 /* @tt{{{
 
-    @slbc
+    #expand-comment [ direction="backward" strip="linebreak"]
 
     @template-renderer [
         templateRendererClassName="EntityBoardComponentTypescriptRenderer"
@@ -20,7 +20,7 @@
 
     @modify-provided-filename-by-replacements
 
-    @slac
+    #expand-comment [ direction="forward" strip="linebreak"]
 
 }}}@ */
 import {Component} from '@angular/core';
@@ -86,15 +86,15 @@ export class OpusMagnumBoardComponent {
     onDeleteOpusMagnum(opusMagnum: OpusMagnumWTO): void {
         const dialogRef = this.dialog.open(OpusMagnumConfirmDeleteDialogComponent, {
             data: {
-                /* @tt{{{ @slbc
+                /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]
                     @foreach [ iteratorExpression="model.summaryAttributes" loopVariable="attribute" ]
 
                     @replace-value-by-expression
                         [ searchValue="title" replaceByExpression="attribute.attributeName.camelCase" ]
-                    @slac
+                    #expand-comment [ direction="forward" strip="linebreak"]
                 }}}@  */
                 title: opusMagnum.title,
-                /* @tt{{{ @slbc @end-foreach @slac }}}@ */
+                /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"] @end-foreach #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
             }
         });
         dialogRef.afterClosed().subscribe(result => {

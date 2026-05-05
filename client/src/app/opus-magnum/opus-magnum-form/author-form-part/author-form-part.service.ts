@@ -1,5 +1,5 @@
 /* @tt{{{
-    @slbc
+    #expand-comment [ direction="backward" strip="linebreak"]
 
     @template-renderer [
         templateRendererClassName="EntityItemFormPartServiceRenderer"
@@ -21,7 +21,7 @@
 
     @modify-provided-filename-by-replacements
 
-    @slac
+    #expand-comment [ direction="forward" strip="linebreak"]
 
 }}}@ */
 
@@ -36,11 +36,11 @@ import {
 } from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-initial-value.service";
 import {AuthorFormPartFieldName} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-field-name";
 import {AuthorFormPartGroup} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-group";
-/* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+/* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
 import {GenderEnum} from "@app/wto/gender.enum";
-/* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+/* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
 
-/* @tt{{{ @slbc
+/* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]
     @foreach [ iteratorExpression="model.item.attributeItemsFlat" loopVariable="nestedItem" ]
     @replace-value-by-expression
         [ searchValue="library-award" replaceByExpression="nestedItem.itemName.kebabCase" ]
@@ -55,7 +55,7 @@ import {
 import {
     LibraryAwardFormPartFieldName
 } from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part-field-name";
-/* @tt{{{ @slbc  @end-foreach @slac }}}@ */
+/* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-foreach #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
 
 
 
@@ -66,7 +66,7 @@ export class AuthorFormPartService {
     constructor(
         private authorFormValidationService: AuthorFormPartValidationService,
         private authorFormInitialValueService: AuthorFormPartInitialValueService,
-        /* @tt{{{ @slbc
+        /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]
             @foreach [ iteratorExpression="model.item.attributeItemsFlat" loopVariable="nestedItem" ]
             @replace-value-by-expression
                 [ searchValue="libraryAward" replaceByExpression="nestedItem.itemName.camelCase" ]
@@ -74,12 +74,12 @@ export class AuthorFormPartService {
 
         }}}@  */
         private libraryAwardFormPartService: LibraryAwardFormPartService,
-        /* @tt{{{ @slbc  @end-foreach @slac }}}@ */
+        /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-foreach #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
     ) {}
 
     public createInitialAuthorForm(): FormGroup<AuthorFormPartGroup> {
         return new FormGroup({
-            /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+            /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
             [AuthorFormPartFieldName.id]: new FormControl<string>(
                 {
                     value: this.authorFormInitialValueService.idInitialValue(),
@@ -95,8 +95,8 @@ export class AuthorFormPartService {
                     validators: this.authorFormValidationService.validatorFunctions(AuthorFormPartFieldName.firstname)
                 },
             ),
-            /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
-            /* @tt{{{ @slbc
+            /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
+            /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]
                 @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
                 @replace-value-by-expression
@@ -104,7 +104,7 @@ export class AuthorFormPartService {
                     [ searchValue="FormControl<string | null>" replaceByExpression="attribute.typescriptAttributeFormControlType" ]
 
             }}}@  */
-            /* @tt{{{ @slbc  @if [ conditionExpression="attribute.isNullable"] @slac }}}@ */
+            /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @if [ conditionExpression="attribute.isNullable"] #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
             [AuthorFormPartFieldName.nicknameIsNotNull]: new FormControl<boolean>(
                 this.authorFormInitialValueService.nicknameInitialValue() != null,
                 {
@@ -112,7 +112,7 @@ export class AuthorFormPartService {
                     validators: this.authorFormValidationService.validatorFunctions(AuthorFormPartFieldName.nicknameIsNotNull)
                 },
             ),
-            /* @tt{{{ @slbc  @end-if @slac }}}@ */
+            /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-if #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
             [AuthorFormPartFieldName.nickname]: new FormControl<string | null>(
                 this.authorFormInitialValueService.nicknameInitialValue(),
                 {
@@ -120,8 +120,8 @@ export class AuthorFormPartService {
                     validators: this.authorFormValidationService.validatorFunctions(AuthorFormPartFieldName.nickname)
                 },
             ),
-            /* @tt{{{ @slbc @end-foreach @slac }}}@ */
-            /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+            /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"] @end-foreach #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
+            /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
             [AuthorFormPartFieldName.lastname]: new FormControl<string>(
                 this.authorFormInitialValueService.lastnameInitialValue(),
                 {
@@ -163,7 +163,7 @@ export class AuthorFormPartService {
                     validators: this.authorFormValidationService.validatorFunctions(AuthorFormPartFieldName.gender)
                 },
             ),
-            /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+            /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
         });
     }
 
@@ -196,38 +196,38 @@ export class AuthorFormPartService {
 
     public patchAuthorForm(form: FormGroup<AuthorFormPartGroup>, author: AuthorWTO): void {
 
-        /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+        /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
         form.controls[AuthorFormPartFieldName.id].patchValue(author.id);
         form.controls[AuthorFormPartFieldName.firstname].patchValue(author.firstname);
-        /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+        /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
         /* @tt{{{
             @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
             @replace-value-by-expression
                 [ searchValue="nickname" replaceByExpression="attribute.attributeName.camelCase" ]
 
-            @slac
+            #expand-comment [ direction="forward" strip="linebreak"]
         }}}@  */
-        /* @tt{{{ @slbc  @if [ conditionExpression="attribute.isNullable"] @slac }}}@ */
+        /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @if [ conditionExpression="attribute.isNullable"] #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
         form.controls[AuthorFormPartFieldName.nicknameIsNotNull].patchValue(!author.nickname);
-        /* @tt{{{ @slbc  @end-if @slac }}}@ */
+        /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-if #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
         form.controls[AuthorFormPartFieldName.nickname].patchValue(author.nickname ?? null);
-        /* @tt{{{ @slbc @end-foreach @slac }}}@ */
-        /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+        /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"] @end-foreach #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
+        /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
         form.controls[AuthorFormPartFieldName.lastname].patchValue(author.lastname);
         form.controls[AuthorFormPartFieldName.libraryAwardList].patchValue(author.libraryAwardList)
         form.controls[AuthorFormPartFieldName.birthdayIsNotNull].patchValue(!author.birthday);
         form.controls[AuthorFormPartFieldName.birthday].patchValue(author.birthday ?? null);
         form.controls[AuthorFormPartFieldName.vegetarian].patchValue(author.vegetarian);
         form.controls[AuthorFormPartFieldName.gender].patchValue(author.gender);
-        /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+        /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
     }
 
     public createAuthorFromFormData(form: FormGroup<AuthorFormPartGroup>): AuthorWTO {
         return {
-            /* @tt{{{ @ignore-text @slac }}}@ */
+            /* @tt{{{ @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
             id: form.controls[AuthorFormPartFieldName.id].getRawValue(),
-            /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+            /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
             /* @tt{{{
                 @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
@@ -235,23 +235,23 @@ export class AuthorFormPartService {
                     [ searchValue="firstname" replaceByExpression="attribute.attributeName.camelCase" ]
                     [ searchValue="nickname" replaceByExpression="attribute.attributeName.camelCase" ]
 
-                @slac
+                #expand-comment [ direction="forward" strip="linebreak"]
             }}}@  */
-            /* @tt{{{ @slbc  @if [ conditionExpression="!attribute.isNullable"] @slac }}}@ */
+            /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @if [ conditionExpression="!attribute.isNullable"] #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
             firstname: form.controls[AuthorFormPartFieldName.firstname].getRawValue(),
-            /* @tt{{{ @slbc  @else @slac }}}@ */
+            /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @else #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
             nickname: form.controls[AuthorFormPartFieldName.nicknameIsNotNull].value
                 ? form.controls[AuthorFormPartFieldName.nickname].getRawValue()
                 : null,
-            /* @tt{{{ @slbc  @end-if @slac }}}@ */
-            /* @tt{{{ @slbc @end-foreach @slac }}}@ */
-            /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+            /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-if #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
+            /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"] @end-foreach #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
+            /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
             lastname: form.controls[AuthorFormPartFieldName.lastname].getRawValue(),
             libraryAwardList: form.controls[AuthorFormPartFieldName.libraryAwardList].getRawValue(),
             birthday: form.controls[AuthorFormPartFieldName.birthdayIsNotNull].value ? form.controls[AuthorFormPartFieldName.birthday].getRawValue() : null,
             vegetarian: form.controls[AuthorFormPartFieldName.vegetarian].getRawValue(),
             gender: form.controls[AuthorFormPartFieldName.gender].getRawValue(),
-            /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+            /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
         };
     }
 }

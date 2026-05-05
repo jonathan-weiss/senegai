@@ -1,6 +1,6 @@
 /* @tt{{{
 
-    @slbc
+    #expand-comment [ direction="backward" strip="linebreak"]
 
     @template-renderer [
         templateRendererClassName="EntityConfirmDeleteDialogComponentTypescriptRenderer"
@@ -20,7 +20,7 @@
 
     @modify-provided-filename-by-replacements
 
-    @slac
+    #expand-comment [ direction="forward" strip="linebreak"]
 
 }}}@ */
 import {Component, Inject} from '@angular/core';
@@ -60,16 +60,16 @@ export class OpusMagnumConfirmDeleteDialogComponent {
     constructor(
         public dialogRef: MatDialogRef<OpusMagnumConfirmDeleteDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: {
-            /* @tt{{{ @slbc
+            /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]
                 @foreach [ iteratorExpression="model.summaryAttributes" loopVariable="attribute" ]
 
                 @replace-value-by-expression
                     [ searchValue="title" replaceByExpression="attribute.attributeName.camelCase" ]
                     [ searchValue="string" replaceByExpression="attribute.typescriptAttributeTypeWithoutNullability" ]
-                @slac
+                #expand-comment [ direction="forward" strip="linebreak"]
             }}}@  */
             title: string,
-            /* @tt{{{ @slbc @end-foreach @slac }}}@ */
+            /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"] @end-foreach #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
         }
     ) {
     }

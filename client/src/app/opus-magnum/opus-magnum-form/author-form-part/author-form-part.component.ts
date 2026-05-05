@@ -1,6 +1,6 @@
 /* @tt{{{
 
-    @slbc
+    #expand-comment [ direction="backward" strip="linebreak"]
 
     @template-renderer [
         templateRendererClassName="EntityItemFormPartComponentTypescriptRenderer"
@@ -22,7 +22,7 @@
 
     @modify-provided-filename-by-replacements
 
-    @slac
+    #expand-comment [ direction="forward" strip="linebreak"]
 
 }}}@ */
 import {Component, Input, OnInit} from '@angular/core';
@@ -52,36 +52,36 @@ import {AuthorFormPartGroup} from "@app/opus-magnum/opus-magnum-form/author-form
 /*
 @tt{{{
     @if [ conditionExpression="model.containsNamedSectionSplitBlocks()" ]
-    @slac
+    #expand-comment [ direction="forward" strip="linebreak"]
 }}}@
  */
 import {SectionSplitterComponent} from "@app/shared/blocks/section-splitter/section-splitter.component";
 /*
 @tt{{{
-    @end-if @slac
+    @end-if #expand-comment [ direction="forward" strip="linebreak"]
 }}}@
  */
 /*
 @tt{{{
     @if [ conditionExpression="model.containsTextBlocks()" ]
-    @slac
+    #expand-comment [ direction="forward" strip="linebreak"]
 }}}@
  */
 import {TextBlockComponent} from "@app/shared/blocks/text-block/text-block.component";
 /*
 @tt{{{
-    @end-if @slac
+    @end-if #expand-comment [ direction="forward" strip="linebreak"]
 }}}@
  */
-/* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+/* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
 import {GenderEnum} from "@app/wto/gender.enum";
 import {BooleanInputComponent} from "@app/shared/form-controls/boolean-input/boolean-input.component";
 import {GenderSelectorComponent} from "@app/enum/gender-input-selection/gender-selector.component";
 
-/* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+/* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
 
 
-/* @tt{{{ @slbc
+/* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]
     @foreach [ iteratorExpression="model.item.attributeItemsFlat" loopVariable="nestedItem" ]
     @replace-value-by-expression
         [ searchValue="library-award" replaceByExpression="nestedItem.itemName.kebabCase" ]
@@ -98,7 +98,7 @@ import {
 import {
     LibraryAwardFormPartGroup
 } from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part-group";
-/* @tt{{{ @slbc  @end-foreach @slac }}}@ */
+/* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-foreach #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
 
 @Component({
     selector: 'app-author-form-part',
@@ -124,28 +124,28 @@ import {
         /*
         @tt{{{
             @if [ conditionExpression="model.containsNamedSectionSplitBlocks()" ]
-            @slac
+            #expand-comment [ direction="forward" strip="linebreak"]
         }}}@
          */
         SectionSplitterComponent,
         /*
         @tt{{{
-            @end-if @slac
+            @end-if #expand-comment [ direction="forward" strip="linebreak"]
         }}}@
          */
         /*
         @tt{{{
             @if [ conditionExpression="model.containsTextBlocks()" ]
-            @slac
+            #expand-comment [ direction="forward" strip="linebreak"]
         }}}@
          */
         TextBlockComponent,
         /*
         @tt{{{
-            @end-if @slac
+            @end-if #expand-comment [ direction="forward" strip="linebreak"]
         }}}@
          */
-        /* @tt{{{ @slbc
+        /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]
             @foreach [ iteratorExpression="model.item.attributeItemsFlat" loopVariable="nestedItem" ]
             @replace-value-by-expression
                 [ searchValue="library-award" replaceByExpression="nestedItem.itemName.kebabCase" ]
@@ -156,18 +156,18 @@ import {
 
         LibraryAwardTableComponent,
         LibraryAwardFormPartComponent,
-        /* @tt{{{ @slbc  @end-foreach @slac }}}@ */
-        /* @tt{{{ @slbc  @ignore-text }}}@ */
+        /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-foreach #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
+        /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @ignore-text }}}@ */
         DatepickerInputComponent,
         BooleanInputComponent,
         GenderSelectorComponent,
-        /* @tt{{{ @slbc  @end-ignore-text }}}@ */
+        /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text }}}@ */
     ]
 })
 export class AuthorFormPartComponent implements OnInit {
     @Input({ required: true }) authorForm!: FormGroup<AuthorFormPartGroup>;
 
-    /* @tt{{{ @slbc
+    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]
         @foreach [ iteratorExpression="model.item.attributesWithItems" loopVariable="attribute" ]
         @replace-value-by-expression
             [ searchValue="libraryAwardList" replaceByExpression="attribute.attributeName.camelCase" ]
@@ -175,14 +175,14 @@ export class AuthorFormPartComponent implements OnInit {
 
     }}}@  */
     libraryAwardListFormGroupUnderEdit: FormGroup<LibraryAwardFormPartGroup> | undefined = undefined;
-    /* @tt{{{ @slbc  @end-foreach @slac }}}@ */
+    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-foreach #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
 
 
-    /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
     protected idControl!: FormControl<string>
     protected firstnameControl!: FormControl<string>
     protected firstnameValidatorNames!: ReadonlyArray<ValidatorTranslation>
-    /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
     /* @tt{{{
     @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
@@ -190,17 +190,17 @@ export class AuthorFormPartComponent implements OnInit {
         [ searchValue="nickname" replaceByExpression="attribute.attributeName.camelCase" ]
         [ searchValue="FormControl<string | null>" replaceByExpression="attribute.typescriptAttributeFormControlType" ]
 
-    @slac
+    #expand-comment [ direction="forward" strip="linebreak"]
     }}}@  */
-    /* @tt{{{ @slbc  @if [ conditionExpression="attribute.isNullable"] @slac }}}@ */
+    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @if [ conditionExpression="attribute.isNullable"] #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
     protected nicknameIsNotNullControl!: FormControl<boolean>
     protected nicknameIsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
-    /* @tt{{{ @slbc  @end-if @slac }}}@ */
+    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-if #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
     protected nicknameControl!: FormControl<string | null>
     protected nicknameValidatorNames!: ReadonlyArray<ValidatorTranslation>
 
-    /* @tt{{{ @slbc @end-foreach @slac }}}@ */
-    /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"] @end-foreach #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
+    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
 
     protected lastnameControl!: FormControl<string>
     protected lastnameValidatorNames!: ReadonlyArray<ValidatorTranslation>
@@ -214,33 +214,33 @@ export class AuthorFormPartComponent implements OnInit {
     protected vegetarianValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected genderControl!: FormControl<GenderEnum>
     protected genderValidatorNames!: ReadonlyArray<ValidatorTranslation>
-    /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
 
     constructor(private readonly authorFormValidationService: AuthorFormPartValidationService,) {
     }
 
     ngOnInit() {
-        /* @tt{{{ @ignore-text @slac }}}@ */
+        /* @tt{{{ @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
         this.idControl = this.authorForm.controls[AuthorFormPartFieldName.id]
         this.firstnameControl = this.authorForm.controls[AuthorFormPartFieldName.firstname]
         this.firstnameValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.firstname)
-        /* @tt{{{ @slbc  @end-ignore-text }}}@ */
-        /* @tt{{{ @slbc
+        /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text }}}@ */
+        /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]
         @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
         @replace-value-by-expression
             [ searchValue="nickname" replaceByExpression="attribute.attributeName.camelCase" ]
 
         }}}@  */
-        /* @tt{{{ @slbc  @if [ conditionExpression="attribute.isNullable"] @slac }}}@ */
+        /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @if [ conditionExpression="attribute.isNullable"] #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
         this.nicknameIsNotNullControl = this.authorForm.controls[AuthorFormPartFieldName.nicknameIsNotNull]
         this.nicknameIsNotNullValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.nicknameIsNotNull)
-        /* @tt{{{ @slbc  @end-if @slac }}}@ */
+        /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-if #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
         this.nicknameControl = this.authorForm.controls[AuthorFormPartFieldName.nickname]
         this.nicknameValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.nickname)
 
-        /* @tt{{{ @slbc @end-foreach @slac }}}@ */
-        /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+        /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"] @end-foreach #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
+        /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
         this.lastnameControl = this.authorForm.controls[AuthorFormPartFieldName.lastname]
         this.lastnameValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.lastname)
         this.libraryAwardListControl = this.authorForm.controls[AuthorFormPartFieldName.libraryAwardList]
@@ -253,11 +253,11 @@ export class AuthorFormPartComponent implements OnInit {
         this.vegetarianValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.vegetarian)
         this.genderControl = this.authorForm.controls[AuthorFormPartFieldName.gender]
         this.genderValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.gender)
-        /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+        /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
     }
 
 
-    /* @tt{{{ @slbc
+    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]
     @foreach [ iteratorExpression="model.item.attributesWithItems" loopVariable="attribute" ]
     @replace-value-by-expression
         [ searchValue="libraryAwardList" replaceByExpression="attribute.attributeName.camelCase" ]
@@ -280,5 +280,5 @@ export class AuthorFormPartComponent implements OnInit {
         this.libraryAwardListFormGroupUnderEdit = undefined;
     }
 
-    /* @tt{{{ @slbc  @end-foreach @slac }}}@ */
+    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-foreach #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
 }

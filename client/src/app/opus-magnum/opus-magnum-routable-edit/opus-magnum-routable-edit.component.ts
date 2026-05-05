@@ -1,6 +1,6 @@
 /* @tt{{{
 
-    @slbc
+    #expand-comment [ direction="backward" strip="linebreak"]
 
     @template-renderer [
         templateRendererClassName="EntityRoutableEditComponentTypescriptRenderer"
@@ -20,7 +20,7 @@
 
     @modify-provided-filename-by-replacements
 
-    @slac
+    #expand-comment [ direction="forward" strip="linebreak"]
 
 }}}@ */
 import {Component} from '@angular/core';

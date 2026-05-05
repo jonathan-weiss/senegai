@@ -1,5 +1,5 @@
 <!-- @tt{{{
-    @slbc
+    #expand-comment [ direction="backward" strip="linebreak"]
 
     @template-renderer [
         templateRendererClassName="EntityItemTableComponentHtmlRenderer"
@@ -22,7 +22,7 @@
 
     @modify-provided-filename-by-replacements
 
-    @slac
+    #expand-comment [ direction="forward" strip="linebreak"]
 
 }}}@ -->
 <div class="table-container">
@@ -50,8 +50,8 @@
                 {{ tableRow.description }}
             </td>
         </ng-container>
-        <!-- @tt{{{ @slbc @end-foreach @slac }}}@  -->
-        <!-- @tt{{{ @ignore-text @slac }}}@ -->
+        <!-- @tt{{{ #expand-comment [ direction="backward" strip="linebreak"] @end-foreach #expand-comment [ direction="forward" strip="linebreak"] }}}@  -->
+        <!-- @tt{{{ @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ -->
 
         <!-- Year Column -->
         <ng-container matColumnDef="year">
@@ -60,7 +60,7 @@
                 {{ tableRow.year }}
             </td>
         </ng-container>
-        <!-- @tt{{{ @end-ignore-text @slac }}}@ -->
+        <!-- @tt{{{ @end-ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ -->
 
 
         <!-- Actions Column -->

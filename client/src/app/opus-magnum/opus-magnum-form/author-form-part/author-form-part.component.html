@@ -1,5 +1,5 @@
 <!-- @tt{{{
-    @slbc
+    #expand-comment [ direction="backward" strip="linebreak"]
 
     @template-renderer [
         templateRendererClassName="EntityItemFormPartComponentHtmlRenderer"
@@ -21,7 +21,7 @@
 
     @modify-provided-filename-by-replacements
 
-    @slac
+    #expand-comment [ direction="forward" strip="linebreak"]
 
 }}}@ -->
 <div [formGroup]="authorForm">
@@ -96,7 +96,7 @@
                             <app-text-input [textFormControl]="firstnameControl" label="firstname" placeholder="Enter First Name" [validatorTranslations]="firstnameValidatorNames" />
                         </app-field-wrapper>
                     </div>
-                    <!-- @tt{{{ @slbc @end-if @slac }}}@  -->
+                    <!-- @tt{{{ #expand-comment [ direction="backward" strip="linebreak"] @end-if #expand-comment [ direction="forward" strip="linebreak"] }}}@  -->
                     <!-- @tt{{{
                         @if [ conditionExpression="block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.NULLABLE_SINGLE_ITEM" ]
 
@@ -115,7 +115,7 @@
                             <app-text-input [textFormControl]="nicknameControl" label="nickname" placeholder="Enter nickname" [validatorTranslations]="nicknameValidatorNames" />
                         </app-field-wrapper>
                     </div>
-                    <!-- @tt{{{ @slbc @end-if @slac }}}@  -->
+                    <!-- @tt{{{ #expand-comment [ direction="backward" strip="linebreak"] @end-if #expand-comment [ direction="forward" strip="linebreak"] }}}@  -->
 
                 <!-- @tt{{{
                     @if [ conditionExpression="block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.LIST_ITEMS" ]
@@ -145,25 +145,25 @@
                         }
                     </app-field-wrapper>
                 </div>
-                <!-- @tt{{{ @slbc @end-if @slac }}}@  -->
+                <!-- @tt{{{ #expand-comment [ direction="backward" strip="linebreak"] @end-if #expand-comment [ direction="forward" strip="linebreak"] }}}@  -->
 
                 <!-- @tt{{{
-                 @slbc
+                 #expand-comment [ direction="backward" strip="linebreak"]
                  @end-if
                  @end-foreach
-                 @slac
+                 #expand-comment [ direction="forward" strip="linebreak"]
                 }}}@  -->
-                <!-- @tt{{{ @ignore-text @slac }}}@ -->
+                <!-- @tt{{{ @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ -->
                 <app-section-splitter label="Names"></app-section-splitter>
                 <div class="form-row">
                     <app-field-wrapper label="Last name">
                         <app-text-input [textFormControl]="lastnameControl" label="lastname" placeholder="Enter lastname" [validatorTranslations]="lastnameValidatorNames" />
                     </app-field-wrapper>
                 </div>
-                <!-- @tt{{{ @slbc  @end-ignore-text @slac }}}@ -->
+                <!-- @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ -->
             </div>
-            <!-- @tt{{{ @slbc @end-foreach @slac }}}@ -->
-            <!-- @tt{{{ @slbc  @ignore-text @slac }}}@ -->
+            <!-- @tt{{{ #expand-comment [ direction="backward" strip="linebreak"] @end-foreach #expand-comment [ direction="forward" strip="linebreak"] }}}@ -->
+            <!-- @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ -->
             <div class="column">
                 <div class="form-row">
                     <app-field-wrapper label="Gender">
@@ -171,11 +171,11 @@
                     </app-field-wrapper>
                 </div>
             </div>
-            <!-- @tt{{{ @slbc  @end-ignore-text @slac }}}@ -->
+            <!-- @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ -->
         </div>
     </mat-tab>
-    <!-- @tt{{{ @slbc @end-foreach @slac }}}@ -->
-    <!-- @tt{{{ @slbc @ignore-text @slac }}}@ -->
+    <!-- @tt{{{ #expand-comment [ direction="backward" strip="linebreak"] @end-foreach #expand-comment [ direction="forward" strip="linebreak"] }}}@ -->
+    <!-- @tt{{{ #expand-comment [ direction="backward" strip="linebreak"] @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ -->
     <mat-tab label="Miscellaneous">
         <div class="column-layout">
             <div class="column">
@@ -197,6 +197,6 @@
             </div>
         </div>
     </mat-tab>
-    <!-- @tt{{{ @slbc  @end-ignore-text @slac }}}@ -->
+    <!-- @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ -->
 </mat-tab-group>
 </div>

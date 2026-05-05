@@ -1,5 +1,5 @@
 /* @tt{{{
-    @slbc
+    #expand-comment [ direction="backward" strip="linebreak"]
 
     @template-renderer [
         templateRendererClassName="ItemWTOInterfaceRenderer"
@@ -18,14 +18,14 @@
 
     @modify-provided-filename-by-replacements
 
-    @slac
+    #expand-comment [ direction="forward" strip="linebreak"]
 
 }}}@ */
 
-/* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+/* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
 import {LibraryAwardWTO} from "@app/wto/library-award.wto";
 import {GenderEnum} from "@app/wto/gender.enum";
-/* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+/* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
 
 /**
  * The Author WTO (Web Transfer Object) class.
@@ -41,11 +41,11 @@ export interface AuthorWTO {
     }}}@  */
     firstname: string;
     /* @tt{{{
-        @slbc
+        #expand-comment [ direction="backward" strip="linebreak"]
         @end-foreach
-        @slac
+        #expand-comment [ direction="forward" strip="linebreak"]
     }}}@ */
-    /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
     nickname: string | null;
     lastname: string;
     gender: GenderEnum;
@@ -53,5 +53,5 @@ export interface AuthorWTO {
     birthday: Date | null;
     vegetarian: boolean;
     id: string;
-    /* @tt{{{ @slbc  @end-ignore-text }}}@ */
+    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text }}}@ */
 }

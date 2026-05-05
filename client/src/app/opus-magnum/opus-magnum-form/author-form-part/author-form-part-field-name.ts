@@ -1,5 +1,5 @@
 /* @tt{{{
-    @slbc
+    #expand-comment [ direction="backward" strip="linebreak"]
 
     @template-renderer [
         templateRendererClassName="EntityItemFormPartFieldNameRenderer"
@@ -21,16 +21,16 @@
 
     @modify-provided-filename-by-replacements
 
-    @slac
+    #expand-comment [ direction="forward" strip="linebreak"]
 
 }}}@ */
 
-/* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+/* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
 import {GenderEnum} from "@app/wto/gender.enum";
-/* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+/* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
 
 export enum AuthorFormPartFieldName {
-    /* @tt{{{ @slbc
+    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]
         @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
         @replace-value-by-expression
@@ -39,11 +39,11 @@ export enum AuthorFormPartFieldName {
 
     }}}@  */
     nickname = "nickname",
-    /* @tt{{{ @slbc  @if [ conditionExpression="attribute.isNullable"] @slac }}}@ */
+    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @if [ conditionExpression="attribute.isNullable"] #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
     nicknameIsNotNull = "nicknameIsNotNull",
-    /* @tt{{{ @slbc  @end-if @slac }}}@ */
-/* @tt{{{ @slbc @end-foreach @slac }}}@ */
-/* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-if #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
+/* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"] @end-foreach #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
+/* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
     firstname = "firstname",
     lastname = "lastname",
     libraryAwardList = "libraryAwardList",
@@ -52,6 +52,6 @@ export enum AuthorFormPartFieldName {
     vegetarian = "vegetarian",
     gender = "gender",
     id = "id",
-/* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+/* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
 }
 

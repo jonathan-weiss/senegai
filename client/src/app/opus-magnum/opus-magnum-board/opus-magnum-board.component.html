@@ -1,5 +1,5 @@
 <!-- @tt{{{
-    @slbc
+    #expand-comment [ direction="backward" strip="linebreak"]
 
     @template-renderer [
         templateRendererClassName="EntityBoardComponentHtmlRenderer"
@@ -18,7 +18,7 @@
         [ searchValue="opus-magnum" replaceByExpression="model.entityName.kebabCase" ]
 
     @modify-provided-filename-by-replacements
-    @slac
+    #expand-comment [ direction="forward" strip="linebreak"]
 
 }}}@ -->
 <div class="opus-magnum-container">
@@ -63,12 +63,12 @@
                 </mat-panel-title>
                 @if (selectedOpusMagnum) {
                     <mat-panel-description>
-                        <!-- @tt{{{ @slbc
+                        <!-- @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]
     @foreach [ iteratorExpression="model.summaryAttributes" loopVariable="attribute" ]
 
     @replace-value-by-expression
     [ searchValue="title" replaceByExpression="attribute.attributeName.camelCase" ]
-}}}@  -->{{ selectedOpusMagnum.title }} <!-- @tt{{{ @end-foreach @slac }}}@ -->
+}}}@  -->{{ selectedOpusMagnum.title }} <!-- @tt{{{ @end-foreach #expand-comment [ direction="forward" strip="linebreak"] }}}@ -->
 
                     </mat-panel-description>
                 }

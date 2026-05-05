@@ -1,6 +1,6 @@
 /* @tt{{{
 
-    @slbc
+    #expand-comment [ direction="backward" strip="linebreak"]
 
     @template-renderer [
         templateRendererClassName="EntityResultComponentTypescriptRenderer"
@@ -20,7 +20,7 @@
 
     @modify-provided-filename-by-replacements
 
-    @slac
+    #expand-comment [ direction="forward" strip="linebreak"]
 
 }}}@ */
 import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
@@ -66,9 +66,9 @@ export class OpusMagnumResultComponent implements OnChanges {
     @Output() deleteOpusMagnum = new EventEmitter<OpusMagnumWTO>();
 
     displayedColumns: string[] = [
-        /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+        /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
         'id',
-        /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+        /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
         /* @tt{{{
             @foreach [ iteratorExpression="model.searchResultAttributes" loopVariable="attribute" ]
 
@@ -77,7 +77,7 @@ export class OpusMagnumResultComponent implements OnChanges {
 
         }}}@  */
         'title',
-    /* @tt{{{ @slbc @end-foreach @slac }}}@ */
+    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"] @end-foreach #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
         'actions'
     ];
     dataSource: MatTableDataSource<OpusMagnumWTO> = new MatTableDataSource<OpusMagnumWTO>();
@@ -114,19 +114,19 @@ export class OpusMagnumResultComponent implements OnChanges {
         const criteria = this.searchCriteria;
         this.dataSource.data = this.allOpusMagnums.filter(opusMagnum => {
             return (
-                /* @tt{{{ @slbc
+                /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]
                     @foreach [ iteratorExpression="model.searchResultAttributes" loopVariable="attribute" ]
 
                     @replace-value-by-expression
                         [ searchValue="title" replaceByExpression="attribute.attributeName.camelCase" ]
                         [ searchValue="String" replaceByExpression="attribute.typescriptAttributeTypeCapitalizedWithoutNullability" ]
-                    @slac
+                    #expand-comment [ direction="forward" strip="linebreak"]
                 }}}@  */
                 this.isMatchingStringCriteria(criteria.title, opusMagnum.title) &&
-                    /* @tt{{{ @slbc @end-foreach @slac }}}@ */
-                    /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+                    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"] @end-foreach #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
+                    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
                 this.isMatchingStringCriteria(criteria.id, opusMagnum.id) &&
-                    /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+                    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
                     true
             );
         });

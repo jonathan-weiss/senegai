@@ -1,5 +1,5 @@
 /* @tt{{{
-    @slbc
+    #expand-comment [ direction="backward" strip="linebreak"]
 
     @template-renderer [
         templateRendererClassName="EntityExampleDataRenderer"
@@ -20,28 +20,28 @@
 
     @modify-provided-filename-by-replacements
 
-    @slac
+    #expand-comment [ direction="forward" strip="linebreak"]
 
 }}}@ */
 import {OpusMagnumWTO} from "@app/wto/opus-magnum.wto";
-/* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+/* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
 import {GenderEnum} from "@app/wto/gender.enum";
-/* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+/* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
 
 export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
     {
-        /* @tt{{{ @slbc
+        /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]
             @foreach [ iteratorExpression="model.allAttributes" loopVariable="attribute" ]
 
             @replace-value-by-expression
                 [ searchValue="title" replaceByExpression="attribute.attributeName.camelCase" ]
             @replace-value-by-value
                 [ searchValue="the grande finali" replaceByValue="example" ]
-            @slac
+            #expand-comment [ direction="forward" strip="linebreak"]
         }}}@  */
         title: 'the grande finali',
-        /* @tt{{{ @slbc @end-foreach @slac }}}@ */
-        /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+        /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"] @end-foreach #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
+        /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
         id: '828cf29b-a7fb-4b07-bf13-9a313a9967f6',
         author: {
             id: '828cf29b-a7fb-4b07-bf13-9a313a9967f6',
@@ -128,6 +128,6 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
             vegetarian: false,
             gender: GenderEnum.FEMALE,
         }
-    /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
     }
 ];

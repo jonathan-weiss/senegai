@@ -1,5 +1,5 @@
 /* @tt{{{
-    @slbc
+    #expand-comment [ direction="backward" strip="linebreak"]
 
     @template-renderer [
         templateRendererClassName="EntityBoardComponentScssRenderer"
@@ -18,7 +18,7 @@
       [ searchValue="opus-magnum" replaceByExpression="model.entityName.kebabCase" ]
 
     @modify-provided-filename-by-replacements
-    @slac
+    #expand-comment [ direction="forward" strip="linebreak"]
 
 }}}@ */
 .opus-magnum-container {

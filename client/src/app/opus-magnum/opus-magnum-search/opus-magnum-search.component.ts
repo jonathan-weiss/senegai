@@ -1,6 +1,6 @@
 /* @tt{{{
 
-    @slbc
+    #expand-comment [ direction="backward" strip="linebreak"]
 
     @template-renderer [
         templateRendererClassName="EntitySearchComponentTypescriptRenderer"
@@ -20,7 +20,7 @@
 
     @modify-provided-filename-by-replacements
 
-    @slac
+    #expand-comment [ direction="forward" strip="linebreak"]
 
 }}}@ */
 import {Component, EventEmitter, Output} from '@angular/core';
@@ -38,19 +38,19 @@ import {MatListModule} from "@angular/material/list";
 import {MatDialogModule} from "@angular/material/dialog";
 
 export interface OpusMagnumSearchCriteria {
-    /* @tt{{{ @slbc
+    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]
         @foreach [ iteratorExpression="model.searchCriteriaAttributes" loopVariable="attribute" ]
 
         @replace-value-by-expression
             [ searchValue="title" replaceByExpression="attribute.attributeName.camelCase" ]
             [ searchValue="string" replaceByExpression="attribute.typescriptAttributeTypeWithoutNullability" ]
-        @slac
+        #expand-comment [ direction="forward" strip="linebreak"]
     }}}@  */
     title?: string;
-    /* @tt{{{ @slbc @end-foreach @slac }}}@ */
-    /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"] @end-foreach #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
+    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
     id?: string;
-    /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
 }
 
 @Component({
@@ -79,19 +79,19 @@ export class OpusMagnumSearchComponent {
 
     constructor(private fb: FormBuilder) {
         this.searchForm = this.fb.group({
-            /* @tt{{{ @slbc
+            /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]
                 @foreach [ iteratorExpression="model.searchCriteriaAttributes" loopVariable="attribute" ]
 
                 @replace-value-by-expression
                     [ searchValue="title" replaceByExpression="attribute.attributeName.camelCase" ]
                     [ searchValue="''" replaceByExpression="attribute.typescriptAttributeInitialValue" ]
-                @slac
+                #expand-comment [ direction="forward" strip="linebreak"]
             }}}@  */
             title: [''],
-            /* @tt{{{ @slbc @end-foreach @slac }}}@ */
-            /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+            /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"] @end-foreach #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
+            /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
             id: [''],
-            /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+            /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
         });
     }
 

@@ -1,6 +1,6 @@
 /* @tt{{{
 
-    @slbc
+    #expand-comment [ direction="backward" strip="linebreak"]
 
     @template-renderer [
         templateRendererClassName="EntityItemTableRowComponentTypescriptRenderer"
@@ -23,7 +23,7 @@
 
     @modify-provided-filename-by-replacements
 
-    @slac
+    #expand-comment [ direction="forward" strip="linebreak"]
 
 }}}@ */
 
@@ -35,19 +35,19 @@ import {
 export interface LibraryAwardTableRow {
     /*
     @tt{{{
-        @slbc
+        #expand-comment [ direction="backward" strip="linebreak"]
         @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
         @replace-value-by-expression
         [ searchValue="description" replaceByExpression="attribute.attributeName.camelCase" ]
         [ searchValue="Description" replaceByExpression="attribute.attributeName.pascalCase" ]
-        @slac
+        #expand-comment [ direction="forward" strip="linebreak"]
     }}}@
      */
     description: string
-    /* @tt{{{ @slbc  @end-foreach @slac }}}@ */
-    /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-foreach #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
+    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
     year: number
-    /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
     formGroup: FormGroup<LibraryAwardFormPartGroup>
 }

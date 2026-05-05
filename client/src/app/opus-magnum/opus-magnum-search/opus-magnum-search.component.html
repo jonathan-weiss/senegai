@@ -1,5 +1,5 @@
 <!-- @tt{{{
-    @slbc
+    #expand-comment [ direction="backward" strip="linebreak"]
 
     @template-renderer [
         templateRendererClassName="EntitySearchComponentHtmlRenderer"
@@ -19,7 +19,7 @@
 
     @modify-provided-filename-by-replacements
 
-    @slac
+    #expand-comment [ direction="forward" strip="linebreak"]
 
 }}}@ -->
 <mat-card class="search-card">
@@ -42,14 +42,14 @@
                     <mat-label>Title</mat-label>
                     <input matInput formControlName="title" placeholder="Enter title">
                 </mat-form-field>
-                <!-- @tt{{{ @slbc @end-foreach @slac }}}@ -->
+                <!-- @tt{{{ #expand-comment [ direction="backward" strip="linebreak"] @end-foreach #expand-comment [ direction="forward" strip="linebreak"] }}}@ -->
 
-                <!-- @tt{{{ @slbc  @ignore-text @slac }}}@ -->
+                <!-- @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ -->
                 <mat-form-field appearance="outline">
                     <mat-label>Id</mat-label>
                     <input matInput formControlName="id" placeholder="Enter id">
                 </mat-form-field>
-                <!-- @tt{{{ @slbc  @end-ignore-text @slac }}}@ -->
+                <!-- @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ -->
             </div>
 
             <div class="search-actions">

@@ -1,5 +1,5 @@
 <!-- @tt{{{
-    @slbc
+    #expand-comment [ direction="backward" strip="linebreak"]
 
     @template-renderer [
         templateRendererClassName="EntityConfirmDeleteDialogComponentHtmlRenderer"
@@ -19,18 +19,18 @@
 
     @modify-provided-filename-by-replacements
 
-    @slac
+    #expand-comment [ direction="forward" strip="linebreak"]
 
 }}}@ -->
 <h2 mat-dialog-title>Delete OpusMagnum</h2>
 <mat-dialog-content><ng-container>Are you sure you want to delete</ng-container> <b>
-        <!-- @tt{{{ @slbc
+        <!-- @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]
             @foreach [ iteratorExpression="model.summaryAttributes" loopVariable="attribute" ]
 
             @replace-value-by-expression
             [ searchValue="title" replaceByExpression="attribute.attributeName.camelCase" ]
             [ searchValue="string" replaceByExpression="attribute.typescriptAttributeTypeWithoutNullability" ]
-    }}}@  -->{{ data.title }} <!-- @tt{{{ @end-foreach @slac }}}@ -->
+    }}}@  -->{{ data.title }} <!-- @tt{{{ @end-foreach #expand-comment [ direction="forward" strip="linebreak"] }}}@ -->
     </b>?
 </mat-dialog-content>
 <mat-dialog-actions align="end">

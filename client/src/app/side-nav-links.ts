@@ -34,12 +34,12 @@ export const SIDE_NAVIGATION_LINKS: ReadonlyArray<SideNavLink> = [
             [ searchValue="opusMagnum" replaceByExpression="entity.entityName.camelCase" ]
             [ searchValue="Opera Magna" replaceByExpression="entity.entityName.pascalCase" ]
 
-        @slac
+        #expand-comment [ direction="forward" strip="linebreak"]
       }}}@  */
     {routeLink: '/opus-magnum-board', name: "Opera Magna", icon: "people"},
     {routeLink: '/opus-magnum-edit/example', name: "Edit Opera Magna", icon: "edit"},
-/* @tt{{{ @slbc  @end-replace-value-by-expression @end-foreach  @slac }}}@ */
+/* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-replace-value-by-expression @end-foreach  #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
 ]
-/* @tt{{{ @slbc  @end-replace-value-by-value @slac }}}@ */
+/* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-replace-value-by-value #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
 
 

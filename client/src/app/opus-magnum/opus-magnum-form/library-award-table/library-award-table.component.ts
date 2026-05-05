@@ -1,6 +1,6 @@
 /* @tt{{{
 
-    @slbc
+    #expand-comment [ direction="backward" strip="linebreak"]
 
     @template-renderer [
         templateRendererClassName="EntityItemTableComponentTypescriptRenderer"
@@ -23,7 +23,7 @@
 
     @modify-provided-filename-by-replacements
 
-    @slac
+    #expand-comment [ direction="forward" strip="linebreak"]
 
 }}}@ */
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
@@ -79,20 +79,20 @@ export class LibraryAwardTableComponent implements OnInit {
     displayedColumns: string[] = [
         /*
         @tt{{{
-            @slbc
+            #expand-comment [ direction="backward" strip="linebreak"]
             @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
             @replace-value-by-expression
             [ searchValue="description" replaceByExpression="attribute.attributeName.camelCase" ]
-            @slac
+            #expand-comment [ direction="forward" strip="linebreak"]
         }}}@
          */
         'description',
-        /* @tt{{{ @slbc  @end-foreach @slac }}}@ */
-        /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+        /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-foreach #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
+        /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
         'year',
         'actions',
-        /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+        /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
     ];
     dataSource: MatTableDataSource<LibraryAwardTableRow> = new MatTableDataSource<LibraryAwardTableRow>();
 
@@ -110,21 +110,21 @@ export class LibraryAwardTableComponent implements OnInit {
         return {
             /*
             @tt{{{
-                @slbc
+                #expand-comment [ direction="backward" strip="linebreak"]
                 @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
                 @replace-value-by-expression
                 [ searchValue="description" replaceByExpression="attribute.attributeName.camelCase" ]
                 [ searchValue="Description" replaceByExpression="attribute.attributeName.pascalCase" ]
-                @slac
+                #expand-comment [ direction="forward" strip="linebreak"]
             }}}@
              */
             description: formGroup.controls[LibraryAwardFormPartFieldName.description].value,
-            /* @tt{{{ @slbc  @end-foreach @slac }}}@ */
-            /* @tt{{{ @slbc  @ignore-text @slac }}}@ */
+            /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-foreach #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
+            /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
 
             year: formGroup.controls[LibraryAwardFormPartFieldName.year].value,
-            /* @tt{{{ @slbc  @end-ignore-text @slac }}}@ */
+            /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
             formGroup: formGroup,
         }
     }
