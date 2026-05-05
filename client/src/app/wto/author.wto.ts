@@ -1,12 +1,15 @@
 /* @tt{{{
     @slbc
 
-    @template-renderer [ templateRendererClassName="ItemWTOInterfaceRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="UiItemRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
-
-    @template-model [
-    modelClassName="UiItemModel"
-    modelPackageName="senegai.codegen.renderer.model.ui"
-    modelName="model"
+    @template-renderer [
+        templateRendererClassName="ItemWTOInterfaceRenderer"
+        templateRendererPackageName="senegai.codegen.renderer.angular"
+        templateRendererInterfaceName="UiItemRenderer"
+        templateRendererInterfacePackageName="senegai.codegen.renderer.angular"
+    ] [
+        modelClassName="UiItemModel"
+        modelPackageName="senegai.codegen.renderer.model.ui"
+        modelName="model"
     ]
 
     @replace-value-by-expression

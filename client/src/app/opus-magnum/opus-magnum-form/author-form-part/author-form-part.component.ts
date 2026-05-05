@@ -2,9 +2,12 @@
 
     @slbc
 
-    @template-renderer [ templateRendererClassName="EntityItemFormPartComponentTypescriptRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="UiEntityItemRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
-
-    @template-model [
+    @template-renderer [
+        templateRendererClassName="EntityItemFormPartComponentTypescriptRenderer"
+        templateRendererPackageName="senegai.codegen.renderer.angular"
+        templateRendererInterfaceName="UiEntityItemRenderer"
+        templateRendererInterfacePackageName="senegai.codegen.renderer.angular"
+    ] [
         modelClassName="UiEntityFormViewItemModel"
         modelPackageName="senegai.codegen.renderer.model.ui.entityform"
         modelName="model"

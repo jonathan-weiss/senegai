@@ -1,8 +1,11 @@
 /* @tt{{{
 
-  @template-renderer [ templateRendererClassName="TypescriptItemsRoutingListRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" templateRendererInterfaceName="UiEntitiesRenderer" templateRendererInterfacePackageName="senegai.codegen.renderer.angular"]
-
-  @template-model [
+  @template-renderer [
+      templateRendererClassName="TypescriptItemsRoutingListRenderer"
+      templateRendererPackageName="senegai.codegen.renderer.angular"
+      templateRendererInterfaceName="UiEntitiesRenderer"
+      templateRendererInterfacePackageName="senegai.codegen.renderer.angular"
+  ] [
       isList="true"
       modelClassName="UiEntityModel"
       modelPackageName="senegai.codegen.renderer.model.ui"
