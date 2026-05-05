@@ -2,6 +2,7 @@
 
     #expand-comment [ direction="backward" strip="linebreak"]
 
+    #move-comment [ direction="backward" ]
     @template-renderer [
         templateRendererClassName="EntityFormComponentTypescriptRenderer"
         templateRendererPackageName="senegai.codegen.renderer.angular"

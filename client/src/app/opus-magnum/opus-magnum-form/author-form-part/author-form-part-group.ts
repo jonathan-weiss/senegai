@@ -1,6 +1,7 @@
 /* @tt{{{
     #expand-comment [ direction="backward" strip="linebreak"]
 
+    #move-comment [ direction="backward" ]
     @template-renderer [
         templateRendererClassName="EntityItemFormPartGroupRenderer"
         templateRendererPackageName="senegai.codegen.renderer.angular"

@@ -1,5 +1,6 @@
 /* @tt{{{
 
+  #move-comment [ direction="backward" ]
   @template-renderer [
       templateRendererClassName="TypescriptItemsRoutingListRenderer"
       templateRendererPackageName="senegai.codegen.renderer.angular"
