@@ -7,7 +7,7 @@
       templateRendererInterfaceName="UiEntitiesRenderer"
       templateRendererInterfacePackageName="senegai.codegen.renderer.angular"
   ] [
-      isList="true"
+      isList="yes"
       modelClassName="UiEntityModel"
       modelPackageName="senegai.codegen.renderer.model.ui"
       modelName="models"
