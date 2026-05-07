@@ -6,8 +6,11 @@ package senegai.codegen.renderer.angular
 import senegai.codegen.renderer.model.ui.UiEntityModel
 
 /**
- * Generate the content for the template EntityResultComponentHtmlRenderer filled up
- * with the content of the passed models.
+ * Generate the content for the template `EntityResultComponentHtmlRenderer`.
+ *
+ * This template renderer was generated from the template:
+ * - file: `opus-magnum-result.component.html`
+ * - path: `opus-magnum/opus-magnum-result/opus-magnum-result.component.html`
  */
 object EntityResultComponentHtmlRenderer : UiEntityRenderer {
 

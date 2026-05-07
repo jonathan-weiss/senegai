@@ -6,8 +6,11 @@ package senegai.codegen.renderer.angular
 import senegai.codegen.renderer.model.ui.UiEntityModel
 
 /**
- * Generate the content for the template EntityConfirmDeleteDialogComponentTypescriptRenderer filled up
- * with the content of the passed models.
+ * Generate the content for the template `EntityConfirmDeleteDialogComponentTypescriptRenderer`.
+ *
+ * This template renderer was generated from the template:
+ * - file: `opus-magnum-confirm-delete-dialog.component.ts`
+ * - path: `opus-magnum/opus-magnum-confirm-delete-dialog/opus-magnum-confirm-delete-dialog.component.ts`
  */
 object EntityConfirmDeleteDialogComponentTypescriptRenderer : UiEntityRenderer {
 

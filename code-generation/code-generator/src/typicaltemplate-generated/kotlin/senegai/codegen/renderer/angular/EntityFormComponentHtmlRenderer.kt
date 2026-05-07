@@ -6,8 +6,11 @@ package senegai.codegen.renderer.angular
 import senegai.codegen.renderer.model.ui.UiEntityModel
 
 /**
- * Generate the content for the template EntityFormComponentHtmlRenderer filled up
- * with the content of the passed models.
+ * Generate the content for the template `EntityFormComponentHtmlRenderer`.
+ *
+ * This template renderer was generated from the template:
+ * - file: `opus-magnum-form.component.html`
+ * - path: `opus-magnum/opus-magnum-form/opus-magnum-form/opus-magnum-form.component.html`
  */
 object EntityFormComponentHtmlRenderer : UiEntityRenderer {
 

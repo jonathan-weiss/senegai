@@ -6,8 +6,11 @@ package senegai.codegen.renderer.angular
 import senegai.codegen.renderer.model.ui.UiItemModel
 
 /**
- * Generate the content for the template ItemWTOInterfaceRenderer filled up
- * with the content of the passed models.
+ * Generate the content for the template `ItemWTOInterfaceRenderer`.
+ *
+ * This template renderer was generated from the template:
+ * - file: `author.wto.ts`
+ * - path: `wto/author.wto.ts`
  */
 object ItemWTOInterfaceRenderer : UiItemRenderer {
 

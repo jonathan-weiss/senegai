@@ -6,8 +6,11 @@ package senegai.codegen.renderer.angular
 import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewItemModel
 
 /**
- * Generate the content for the template EntityItemFormPartValidationServiceRenderer filled up
- * with the content of the passed models.
+ * Generate the content for the template `EntityItemFormPartValidationServiceRenderer`.
+ *
+ * This template renderer was generated from the template:
+ * - file: `author-form-part-validation.service.ts`
+ * - path: `opus-magnum/opus-magnum-form/author-form-part/author-form-part-validation.service.ts`
  */
 object EntityItemFormPartValidationServiceRenderer : UiEntityItemRenderer {
 

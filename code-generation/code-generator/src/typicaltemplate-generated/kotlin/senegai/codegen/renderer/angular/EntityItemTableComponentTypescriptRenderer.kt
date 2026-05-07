@@ -6,8 +6,11 @@ package senegai.codegen.renderer.angular
 import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewItemModel
 
 /**
- * Generate the content for the template EntityItemTableComponentTypescriptRenderer filled up
- * with the content of the passed models.
+ * Generate the content for the template `EntityItemTableComponentTypescriptRenderer`.
+ *
+ * This template renderer was generated from the template:
+ * - file: `library-award-table.component.ts`
+ * - path: `opus-magnum/opus-magnum-form/library-award-table/library-award-table.component.ts`
  */
 object EntityItemTableComponentTypescriptRenderer : UiEntityItemRenderer {
 

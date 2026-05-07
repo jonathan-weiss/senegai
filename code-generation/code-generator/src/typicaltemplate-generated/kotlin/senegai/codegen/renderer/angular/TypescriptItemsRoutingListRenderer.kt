@@ -6,8 +6,11 @@ package senegai.codegen.renderer.angular
 import senegai.codegen.renderer.model.ui.UiEntityModel
 
 /**
- * Generate the content for the template TypescriptItemsRoutingListRenderer filled up
- * with the content of the passed models.
+ * Generate the content for the template `TypescriptItemsRoutingListRenderer`.
+ *
+ * This template renderer was generated from the template:
+ * - file: `app-opus-magnum-routing.ts`
+ * - path: `app-opus-magnum-routing.ts`
  */
 object TypescriptItemsRoutingListRenderer : UiEntitiesRenderer {
 

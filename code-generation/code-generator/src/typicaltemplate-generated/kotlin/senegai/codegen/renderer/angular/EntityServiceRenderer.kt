@@ -6,8 +6,11 @@ package senegai.codegen.renderer.angular
 import senegai.codegen.renderer.model.ui.UiEntityModel
 
 /**
- * Generate the content for the template EntityServiceRenderer filled up
- * with the content of the passed models.
+ * Generate the content for the template `EntityServiceRenderer`.
+ *
+ * This template renderer was generated from the template:
+ * - file: `opus-magnum.service.ts`
+ * - path: `opus-magnum/opus-magnum.service.ts`
  */
 object EntityServiceRenderer : UiEntityRenderer {
 
