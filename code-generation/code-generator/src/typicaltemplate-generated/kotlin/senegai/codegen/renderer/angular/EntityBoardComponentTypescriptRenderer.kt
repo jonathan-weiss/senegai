@@ -13,6 +13,7 @@ object EntityBoardComponentTypescriptRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
+          |
           |import {Component} from '@angular/core';
           |import {${model.entityName.pascalCase}SearchComponent, ${model.entityName.pascalCase}SearchCriteria} from '@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}-search/${model.entityName.kebabCase}-search.component';
           |import {${model.entityName.pascalCase}ResultComponent} from '@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}-result/${model.entityName.kebabCase}-result.component';
@@ -75,8 +76,10 @@ object EntityBoardComponentTypescriptRenderer : UiEntityRenderer {
           |
           |    onDelete${model.entityName.pascalCase}(${model.entityName.camelCase}: ${model.entityName.pascalCase}WTO): void {
           |        const dialogRef = this.dialog.open(${model.entityName.pascalCase}ConfirmDeleteDialogComponent, {
-          |            data: {${ model.summaryAttributes.joinToString("") { attribute ->  """                ${attribute.attributeName.camelCase}: ${model.entityName.camelCase}.${attribute.attributeName.camelCase},
-          """ } }            }
+          |            data: {${ model.summaryAttributes.joinToString("") { attribute ->  """
+              |                ${attribute.attributeName.camelCase}: ${model.entityName.camelCase}.${attribute.attributeName.camelCase},
+          """ } }
+          |            }
           |        });
           |        dialogRef.afterClosed().subscribe(result => {
           |            if (result) {

@@ -1,6 +1,6 @@
 /* @tt{{{
 
-    #expand-comment [ direction="backward" strip="linebreak"]
+    #expand-comment [ expandDirection="backward" strip="linebreak"]
 
     #move-comment [ direction="backward" ]
     @template-renderer [
@@ -21,7 +21,7 @@
 
     @modify-provided-filename-by-replacements
 
-    #expand-comment [ direction="forward" strip="linebreak"]
+    #expand-comment [ expandDirection="forward" strip="linebreak"]
 
 }}}@ */
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';

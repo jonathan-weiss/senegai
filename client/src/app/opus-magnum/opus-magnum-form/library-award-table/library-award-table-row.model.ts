@@ -1,6 +1,6 @@
 /* @tt{{{
 
-    #expand-comment [ direction="backward" strip="linebreak"]
+    #expand-comment [ expandDirection="backward" strip="linebreak"]
 
     #move-comment [ direction="backward" ]
     @template-renderer [
@@ -24,7 +24,7 @@
 
     @modify-provided-filename-by-replacements
 
-    #expand-comment [ direction="forward" strip="linebreak"]
+    #expand-comment [ expandDirection="forward" strip="linebreak"]
 
 }}}@ */
 
@@ -36,19 +36,19 @@ import {
 export interface LibraryAwardTableRow {
     /*
     @tt{{{
-        #expand-comment [ direction="backward" strip="linebreak"]
+        #expand-comment [ expandDirection="backward" strip="linebreak"]
         @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
         @replace-value-by-expression
         [ searchValue="description" replaceByExpression="attribute.attributeName.camelCase" ]
         [ searchValue="Description" replaceByExpression="attribute.attributeName.pascalCase" ]
-        #expand-comment [ direction="forward" strip="linebreak"]
+        #expand-comment [ expandDirection="forward" strip="linebreak"]
     }}}@
      */
     description: string
-    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-foreach #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
-    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
+    /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-foreach #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
+    /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
     year: number
-    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
+    /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
     formGroup: FormGroup<LibraryAwardFormPartGroup>
 }

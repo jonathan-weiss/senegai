@@ -13,6 +13,7 @@ object EntitySearchComponentScssRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
+          |
           |.search-card {
           |  margin-bottom: 20px;
           |}

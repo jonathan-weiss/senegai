@@ -14,7 +14,9 @@ object EntityItemFormPartInitialValueServiceRenderer : UiEntityItemRenderer {
     override fun renderTemplate(model: UiEntityFormViewItemModel): String {
         return """
           |
+          |
           |import {Injectable} from '@angular/core';
+          |
           |
           |@Injectable({providedIn: 'root'})
           |export class ${model.item.itemName.pascalCase}FormPartInitialValueService {

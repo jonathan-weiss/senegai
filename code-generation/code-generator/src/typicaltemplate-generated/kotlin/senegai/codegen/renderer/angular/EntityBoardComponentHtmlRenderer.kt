@@ -13,6 +13,7 @@ object EntityBoardComponentHtmlRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
+          |
           |<div class="${model.entityName.kebabCase}-container">
           |    <h2>{{'${model.entityName.camelCase}.board.title' | transloco }}</h2>
           |

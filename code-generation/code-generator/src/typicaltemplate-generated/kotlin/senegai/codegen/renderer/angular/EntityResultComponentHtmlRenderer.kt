@@ -13,8 +13,10 @@ object EntityResultComponentHtmlRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
+          |
           |<div class="${model.entityName.kebabCase}-table-container">
           |    <table mat-table [dataSource]="dataSource">
+          |
           |        ${ model.searchResultAttributes.joinToString("") { attribute ->  """
               |        <!-- Firstname Column -->
               |        <ng-container matColumnDef="${attribute.attributeName.camelCase}">
@@ -22,6 +24,7 @@ object EntityResultComponentHtmlRenderer : UiEntityRenderer {
               |            <td mat-cell *matCellDef="let ${model.entityName.camelCase}">{{ ${model.entityName.camelCase}.${attribute.attributeName.camelCase} }}</td>
               |        </ng-container>
           """ } }
+          |
           |        <!-- Actions Column -->
           |        <ng-container matColumnDef="actions">
           |            <th mat-header-cell *matHeaderCellDef>Actions</th>

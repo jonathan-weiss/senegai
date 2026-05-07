@@ -1,6 +1,6 @@
 /* @tt{{{
 
-    #expand-comment [ direction="backward" strip="linebreak"]
+    #expand-comment [ expandDirection="backward" strip="linebreak"]
 
     #move-comment [ direction="backward" ]
     @template-renderer [
@@ -24,7 +24,7 @@
 
     @modify-provided-filename-by-replacements
 
-    #expand-comment [ direction="forward" strip="linebreak"]
+    #expand-comment [ expandDirection="forward" strip="linebreak"]
 
 }}}@ */
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
@@ -80,20 +80,20 @@ export class LibraryAwardTableComponent implements OnInit {
     displayedColumns: string[] = [
         /*
         @tt{{{
-            #expand-comment [ direction="backward" strip="linebreak"]
+            #expand-comment [ expandDirection="backward" strip="linebreak"]
             @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
             @replace-value-by-expression
             [ searchValue="description" replaceByExpression="attribute.attributeName.camelCase" ]
-            #expand-comment [ direction="forward" strip="linebreak"]
+            #expand-comment [ expandDirection="forward" strip="linebreak"]
         }}}@
          */
         'description',
-        /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-foreach #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
-        /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
+        /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-foreach #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
+        /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
         'year',
         'actions',
-        /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
+        /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
     ];
     dataSource: MatTableDataSource<LibraryAwardTableRow> = new MatTableDataSource<LibraryAwardTableRow>();
 
@@ -111,21 +111,21 @@ export class LibraryAwardTableComponent implements OnInit {
         return {
             /*
             @tt{{{
-                #expand-comment [ direction="backward" strip="linebreak"]
+                #expand-comment [ expandDirection="backward" strip="linebreak"]
                 @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
                 @replace-value-by-expression
                 [ searchValue="description" replaceByExpression="attribute.attributeName.camelCase" ]
                 [ searchValue="Description" replaceByExpression="attribute.attributeName.pascalCase" ]
-                #expand-comment [ direction="forward" strip="linebreak"]
+                #expand-comment [ expandDirection="forward" strip="linebreak"]
             }}}@
              */
             description: formGroup.controls[LibraryAwardFormPartFieldName.description].value,
-            /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-foreach #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
-            /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
+            /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-foreach #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
+            /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
 
             year: formGroup.controls[LibraryAwardFormPartFieldName.year].value,
-            /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
+            /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
             formGroup: formGroup,
         }
     }

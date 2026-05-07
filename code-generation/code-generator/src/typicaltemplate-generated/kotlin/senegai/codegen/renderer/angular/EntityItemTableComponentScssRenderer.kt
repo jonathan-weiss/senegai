@@ -13,6 +13,7 @@ object EntityItemTableComponentScssRenderer : UiEntityItemRenderer {
 
     override fun renderTemplate(model: UiEntityFormViewItemModel): String {
         return """
+          |
           |.table-container {
           |  padding: 20px;
           |

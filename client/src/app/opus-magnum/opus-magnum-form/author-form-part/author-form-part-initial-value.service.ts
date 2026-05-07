@@ -1,5 +1,5 @@
 /* @tt{{{
-    #expand-comment [ direction="backward" strip="linebreak"]
+    #expand-comment [ expandDirection="backward" strip="linebreak"]
 
     #move-comment [ direction="backward" ]
     @template-renderer [
@@ -22,19 +22,19 @@
 
     @modify-provided-filename-by-replacements
 
-    #expand-comment [ direction="forward" strip="linebreak"]
+    #expand-comment [ expandDirection="forward" strip="linebreak"]
 
 }}}@ */
 
 import {Injectable} from '@angular/core';
-/* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
+/* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
 // imports here that are ignored
 import {GenderEnum} from "@app/wto/gender.enum";
 import {FormGroup} from "@angular/forms";
 import {
     LibraryAwardFormPartGroup
 } from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part-group";
-/* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
+/* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
 
 
 @Injectable({providedIn: 'root'})
@@ -44,10 +44,10 @@ export class AuthorFormPartInitialValueService {
     idInitialValue(): string {
         return ''
     }
-    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text }}}@ */
+    /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-ignore-text }}}@ */
 
 
-    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]
+    /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]
         @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
         @replace-value-by-expression
@@ -59,8 +59,8 @@ export class AuthorFormPartInitialValueService {
     firstnameInitialValue(): string {
         return ''
     }
-    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"] @end-foreach #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
-    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @ignore-text }}}@ */
+    /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"] @end-foreach #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
+    /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @ignore-text }}}@ */
 
     nicknameInitialValue(): string | null {
         return null
@@ -80,5 +80,5 @@ export class AuthorFormPartInitialValueService {
     genderInitialValue(): GenderEnum {
         return GenderEnum.FEMALE;
     }
-    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text }}}@ */
+    /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-ignore-text }}}@ */
 }

@@ -13,6 +13,7 @@ object EntityItemFormPartComponentHtmlRenderer : UiEntityItemRenderer {
 
     override fun renderTemplate(model: UiEntityFormViewItemModel): String {
         return """
+          |
           |<div [formGroup]="${model.item.itemName.camelCase}Form">
           |
           |<div>
@@ -52,7 +53,8 @@ object EntityItemFormPartComponentHtmlRenderer : UiEntityItemRenderer {
                               |                        </app-field-wrapper>
                               |                    </div>
           """ } else { """
-          """ } }                    ${ if(block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.NULLABLE_SINGLE_ITEM) { """
+          """ } }
+                          |                    ${ if(block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.NULLABLE_SINGLE_ITEM) { """
                               |
                               |                    <div class="form-row">
                               |                        <app-field-wrapper label="${block.attribute.attributeName.pascalCase}"
@@ -65,6 +67,7 @@ object EntityItemFormPartComponentHtmlRenderer : UiEntityItemRenderer {
                               |                    </div>
           """ } else { """
           """ } }
+                          |
                           |                ${ if(block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.LIST_ITEMS) { """
                               |
                               |                <div class="form-row">
@@ -86,12 +89,17 @@ object EntityItemFormPartComponentHtmlRenderer : UiEntityItemRenderer {
                               |                </div>
           """ } else { """
           """ } }
+                          |
           """ } else { """
           """ } }
-          """ } }                            </div>
-          """ } }        </div>
+          """ } }
+                  |                
+                  |            </div>
+          """ } }
+              |        </div>
               |    </mat-tab>
-          """ } }</mat-tab-group>
+          """ } }
+          |</mat-tab-group>
           |</div>
           |
         """.trimMargin(marginPrefix = "|")

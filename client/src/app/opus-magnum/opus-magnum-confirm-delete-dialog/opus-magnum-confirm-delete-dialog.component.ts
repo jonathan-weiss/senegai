@@ -1,6 +1,6 @@
 /* @tt{{{
 
-    #expand-comment [ direction="backward" strip="linebreak"]
+    #expand-comment [ expandDirection="backward" strip="linebreak"]
 
     #move-comment [ direction="backward" ]
     @template-renderer [
@@ -21,7 +21,7 @@
 
     @modify-provided-filename-by-replacements
 
-    #expand-comment [ direction="forward" strip="linebreak"]
+    #expand-comment [ expandDirection="forward" strip="linebreak"]
 
 }}}@ */
 import {Component, Inject} from '@angular/core';
@@ -61,16 +61,16 @@ export class OpusMagnumConfirmDeleteDialogComponent {
     constructor(
         public dialogRef: MatDialogRef<OpusMagnumConfirmDeleteDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: {
-            /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]
+            /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]
                 @foreach [ iteratorExpression="model.summaryAttributes" loopVariable="attribute" ]
 
                 @replace-value-by-expression
                     [ searchValue="title" replaceByExpression="attribute.attributeName.camelCase" ]
                     [ searchValue="string" replaceByExpression="attribute.typescriptAttributeTypeWithoutNullability" ]
-                #expand-comment [ direction="forward" strip="linebreak"]
+                #expand-comment [ expandDirection="forward" strip="linebreak"]
             }}}@  */
             title: string,
-            /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"] @end-foreach #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
+            /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"] @end-foreach #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
         }
     ) {
     }

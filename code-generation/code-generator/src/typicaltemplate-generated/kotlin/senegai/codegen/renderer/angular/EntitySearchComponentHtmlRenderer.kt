@@ -13,6 +13,7 @@ object EntitySearchComponentHtmlRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
+          |
           |<mat-card class="search-card">
           |    <mat-card-header>
           |        <mat-card-title>Search ${model.entityName.pascalCase}</mat-card-title>
@@ -25,7 +26,9 @@ object EntitySearchComponentHtmlRenderer : UiEntityRenderer {
               |                    <mat-label>${attribute.attributeName.pascalCase}</mat-label>
               |                    <input matInput formControlName="${attribute.attributeName.camelCase}" placeholder="Enter ${attribute.attributeName.camelCase}">
               |                </mat-form-field>
-          """ } }            </div>
+          """ } }
+          |
+          |            </div>
           |
           |            <div class="search-actions">
           |                <button mat-raised-button color="primary" type="submit">

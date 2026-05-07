@@ -14,6 +14,7 @@ object EntityRoutableEditComponentScssRenderer : UiEntityRenderer {
     override fun renderTemplate(model: UiEntityModel): String {
         return """
           |
+          |
         """.trimMargin(marginPrefix = "|")
     }
 

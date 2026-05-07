@@ -13,6 +13,7 @@ object EntityFormComponentScssRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
+          |
           |.edit-form-container {
           |  margin: 0 auto;
           |  padding: 20px;

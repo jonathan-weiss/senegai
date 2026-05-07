@@ -1,5 +1,5 @@
 /* @tt{{{
-    #expand-comment [ direction="backward" strip="linebreak"]
+    #expand-comment [ expandDirection="backward" strip="linebreak"]
 
     #move-comment [ direction="backward" ]
     @template-renderer [
@@ -21,28 +21,28 @@
 
     @modify-provided-filename-by-replacements
 
-    #expand-comment [ direction="forward" strip="linebreak"]
+    #expand-comment [ expandDirection="forward" strip="linebreak"]
 
 }}}@ */
 import {OpusMagnumWTO} from "@app/wto/opus-magnum.wto";
-/* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
+/* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
 import {GenderEnum} from "@app/wto/gender.enum";
-/* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
+/* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
 
 export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
     {
-        /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]
+        /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]
             @foreach [ iteratorExpression="model.allAttributes" loopVariable="attribute" ]
 
             @replace-value-by-expression
                 [ searchValue="title" replaceByExpression="attribute.attributeName.camelCase" ]
             @replace-value-by-value
                 [ searchValue="the grande finali" replaceByValue="example" ]
-            #expand-comment [ direction="forward" strip="linebreak"]
+            #expand-comment [ expandDirection="forward" strip="linebreak"]
         }}}@  */
         title: 'the grande finali',
-        /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"] @end-foreach #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
-        /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
+        /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"] @end-foreach #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
+        /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
         id: '828cf29b-a7fb-4b07-bf13-9a313a9967f6',
         author: {
             id: '828cf29b-a7fb-4b07-bf13-9a313a9967f6',
@@ -129,6 +129,6 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
             vegetarian: false,
             gender: GenderEnum.FEMALE,
         }
-    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
+    /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
     }
 ];

@@ -13,6 +13,7 @@ object EntityResultComponentTypescriptRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
+          |
           |import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
           |import {MatTableDataSource, MatTableModule} from '@angular/material/table';
           |import {${model.entityName.pascalCase}SearchCriteria} from '@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}-search/${model.entityName.kebabCase}-search.component';
@@ -55,9 +56,11 @@ object EntityResultComponentTypescriptRenderer : UiEntityRenderer {
           |    @Output() select${model.entityName.pascalCase} = new EventEmitter<${model.entityName.pascalCase}WTO>();
           |    @Output() delete${model.entityName.pascalCase} = new EventEmitter<${model.entityName.pascalCase}WTO>();
           |
-          |    displayedColumns: string[] = [        ${ model.searchResultAttributes.joinToString("") { attribute ->  """
+          |    displayedColumns: string[] = [
+          |        ${ model.searchResultAttributes.joinToString("") { attribute ->  """
               |        '${attribute.attributeName.camelCase}',
-          """ } }        'actions'
+          """ } }
+          |        'actions'
           |    ];
           |    dataSource: MatTableDataSource<${model.entityName.pascalCase}WTO> = new MatTableDataSource<${model.entityName.pascalCase}WTO>();
           |    private all${model.entityName.pascalCase}s: ${model.entityName.pascalCase}WTO[] = [];
@@ -92,8 +95,10 @@ object EntityResultComponentTypescriptRenderer : UiEntityRenderer {
           |    private filter${model.entityName.pascalCase}s(): void {
           |        const criteria = this.searchCriteria;
           |        this.dataSource.data = this.all${model.entityName.pascalCase}s.filter(${model.entityName.camelCase} => {
-          |            return (${ model.searchResultAttributes.joinToString("") { attribute ->  """                this.isMatching${attribute.typescriptAttributeTypeCapitalizedWithoutNullability}Criteria(criteria.${attribute.attributeName.camelCase}, ${model.entityName.camelCase}.${attribute.attributeName.camelCase}) &&
-          """ } }                    true
+          |            return (${ model.searchResultAttributes.joinToString("") { attribute ->  """
+              |                this.isMatching${attribute.typescriptAttributeTypeCapitalizedWithoutNullability}Criteria(criteria.${attribute.attributeName.camelCase}, ${model.entityName.camelCase}.${attribute.attributeName.camelCase}) &&
+          """ } }
+          |                    true
           |            );
           |        });
           |    }

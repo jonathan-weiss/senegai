@@ -13,6 +13,7 @@ object EntityFormComponentTypescriptRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
+          |
           |import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
           |import {FormGroup, ReactiveFormsModule} from '@angular/forms';
           |import {MatButtonModule} from "@angular/material/button";

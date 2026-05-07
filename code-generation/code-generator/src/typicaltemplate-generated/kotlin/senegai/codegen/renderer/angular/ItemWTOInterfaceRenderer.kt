@@ -14,6 +14,8 @@ object ItemWTOInterfaceRenderer : UiItemRenderer {
     override fun renderTemplate(model: UiItemModel): String {
         return """
           |
+          |
+          |
           |/**
           | * The ${model.itemName.pascalCase} WTO (Web Transfer Object) class.
           | */

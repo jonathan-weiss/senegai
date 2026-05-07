@@ -14,6 +14,7 @@ object EntityItemFormPartComponentScssRenderer : UiEntityItemRenderer {
     override fun renderTemplate(model: UiEntityFormViewItemModel): String {
         return """
           |
+          |
           |.form-row {
           |  margin-bottom: 20px;
           |

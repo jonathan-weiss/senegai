@@ -1,5 +1,5 @@
 /* @tt{{{
-    #expand-comment [ direction="backward" strip="linebreak"]
+    #expand-comment [ expandDirection="backward" strip="linebreak"]
 
     #move-comment [ direction="backward" ]
     @template-renderer [
@@ -22,7 +22,7 @@
 
     @modify-provided-filename-by-replacements
 
-    #expand-comment [ direction="forward" strip="linebreak"]
+    #expand-comment [ expandDirection="forward" strip="linebreak"]
 
 }}}@ */
 
@@ -31,9 +31,9 @@ import {ValidatorFn, Validators} from "@angular/forms";
 import {AuthorFormPartFieldName} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-field-name";
 import {NamedValidator} from "@app/shared/form-controls/named-validator";
 import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
-/* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
+/* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
 
-/* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
+/* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
 
 
 @Injectable({providedIn: 'root'})
@@ -57,7 +57,7 @@ export class AuthorFormPartValidationService {
 
     namedValidators(field: AuthorFormPartFieldName): ReadonlyArray<NamedValidator> {
         switch(field) {
-            /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]
+            /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]
                 @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
                 @replace-value-by-expression
@@ -76,8 +76,8 @@ export class AuthorFormPartValidationService {
                     validatorTranslationKey: "validator.minlength",
                 },
             ]
-            /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"] @end-foreach #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
-            /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
+            /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"] @end-foreach #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
+            /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
             case AuthorFormPartFieldName.nickname: return [
                 {
                     validatorName: "required",
@@ -103,7 +103,7 @@ export class AuthorFormPartValidationService {
 
                 },
             ]
-            /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
+            /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
             default: return []
         }
     };

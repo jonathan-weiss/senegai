@@ -14,6 +14,7 @@ object EntityServiceRenderer : UiEntityRenderer {
     override fun renderTemplate(model: UiEntityModel): String {
         return """
           |
+          |
           |import {Injectable} from '@angular/core';
           |import {Observable, of} from 'rxjs';
           |import {delay} from 'rxjs/operators';

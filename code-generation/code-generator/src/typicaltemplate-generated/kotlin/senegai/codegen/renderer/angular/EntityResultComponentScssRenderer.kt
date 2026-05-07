@@ -13,6 +13,7 @@ object EntityResultComponentScssRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
+          |
           |.${model.entityName.kebabCase}-table-container {
           |  padding: 20px;
           |

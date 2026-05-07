@@ -1,5 +1,5 @@
 <!-- @tt{{{
-    #expand-comment [ direction="backward" strip="linebreak"]
+    #expand-comment [ expandDirection="backward" strip="linebreak"]
 
     #move-comment [ direction="backward" ]
     @template-renderer [
@@ -20,7 +20,7 @@
 
     @modify-provided-filename-by-replacements
 
-    #expand-comment [ direction="forward" strip="linebreak"]
+    #expand-comment [ expandDirection="forward" strip="linebreak"]
 
 }}}@ -->
 <mat-card class="search-card">
@@ -43,14 +43,14 @@
                     <mat-label>Title</mat-label>
                     <input matInput formControlName="title" placeholder="Enter title">
                 </mat-form-field>
-                <!-- @tt{{{ #expand-comment [ direction="backward" strip="linebreak"] @end-foreach #expand-comment [ direction="forward" strip="linebreak"] }}}@ -->
+                <!-- @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"] @end-foreach #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ -->
 
-                <!-- @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ -->
+                <!-- @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ -->
                 <mat-form-field appearance="outline">
                     <mat-label>Id</mat-label>
                     <input matInput formControlName="id" placeholder="Enter id">
                 </mat-form-field>
-                <!-- @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ -->
+                <!-- @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ -->
             </div>
 
             <div class="search-actions">

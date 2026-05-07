@@ -1,6 +1,6 @@
 /* @tt{{{
 
-    #expand-comment [ direction="backward" strip="linebreak"]
+    #expand-comment [ expandDirection="backward" strip="linebreak"]
 
     #move-comment [ direction="backward" ]
     @template-renderer [
@@ -21,7 +21,7 @@
 
     @modify-provided-filename-by-replacements
 
-    #expand-comment [ direction="forward" strip="linebreak"]
+    #expand-comment [ expandDirection="forward" strip="linebreak"]
 
 }}}@ */
 import {Component, EventEmitter, Output} from '@angular/core';
@@ -39,19 +39,19 @@ import {MatListModule} from "@angular/material/list";
 import {MatDialogModule} from "@angular/material/dialog";
 
 export interface OpusMagnumSearchCriteria {
-    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]
+    /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]
         @foreach [ iteratorExpression="model.searchCriteriaAttributes" loopVariable="attribute" ]
 
         @replace-value-by-expression
             [ searchValue="title" replaceByExpression="attribute.attributeName.camelCase" ]
             [ searchValue="string" replaceByExpression="attribute.typescriptAttributeTypeWithoutNullability" ]
-        #expand-comment [ direction="forward" strip="linebreak"]
+        #expand-comment [ expandDirection="forward" strip="linebreak"]
     }}}@  */
     title?: string;
-    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"] @end-foreach #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
-    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
+    /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"] @end-foreach #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
+    /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
     id?: string;
-    /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
+    /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
 }
 
 @Component({
@@ -80,19 +80,19 @@ export class OpusMagnumSearchComponent {
 
     constructor(private fb: FormBuilder) {
         this.searchForm = this.fb.group({
-            /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]
+            /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]
                 @foreach [ iteratorExpression="model.searchCriteriaAttributes" loopVariable="attribute" ]
 
                 @replace-value-by-expression
                     [ searchValue="title" replaceByExpression="attribute.attributeName.camelCase" ]
                     [ searchValue="''" replaceByExpression="attribute.typescriptAttributeInitialValue" ]
-                #expand-comment [ direction="forward" strip="linebreak"]
+                #expand-comment [ expandDirection="forward" strip="linebreak"]
             }}}@  */
             title: [''],
-            /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"] @end-foreach #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
-            /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
+            /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"] @end-foreach #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
+            /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
             id: [''],
-            /* @tt{{{ #expand-comment [ direction="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ direction="forward" strip="linebreak"] }}}@ */
+            /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
         });
     }
 

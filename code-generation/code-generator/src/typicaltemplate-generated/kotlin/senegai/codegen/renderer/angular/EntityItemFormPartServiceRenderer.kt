@@ -14,6 +14,7 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
     override fun renderTemplate(model: UiEntityFormViewItemModel): String {
         return """
           |
+          |
           |import {Injectable} from '@angular/core';
           |import {${model.item.itemName.pascalCase}WTO} from "@app/wto/${model.item.itemName.camelCase}.wto";
           |import {FormArray, FormControl, FormGroup} from "@angular/forms";
@@ -24,7 +25,8 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
           |    ${model.item.itemName.pascalCase}FormPartInitialValueService
           |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.camelCase}-form-part/${model.item.itemName.camelCase}-form-part-initial-value.service";
           |import {${model.item.itemName.pascalCase}FormPartFieldName} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.camelCase}-form-part/${model.item.itemName.camelCase}-form-part-field-name";
-          |import {${model.item.itemName.pascalCase}FormPartGroup} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.camelCase}-form-part/${model.item.itemName.camelCase}-form-part-group";${ model.item.attributeItemsFlat.joinToString("") { nestedItem ->  """
+          |import {${model.item.itemName.pascalCase}FormPartGroup} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.camelCase}-form-part/${model.item.itemName.camelCase}-form-part-group";
+          |${ model.item.attributeItemsFlat.joinToString("") { nestedItem ->  """
               |import {${nestedItem.itemName.pascalCase}WTO} from "@app/wto/${nestedItem.itemName.kebabCase}.wto";
               |import {
               |    ${nestedItem.itemName.pascalCase}FormPartService
@@ -36,6 +38,7 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
           |
           |
           |
+          |
           |@Injectable({providedIn: 'root'})
           |export class ${model.item.itemName.pascalCase}FormPartService {
           |
@@ -43,10 +46,12 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
           |        private ${model.item.itemName.camelCase}FormValidationService: ${model.item.itemName.pascalCase}FormPartValidationService,
           |        private ${model.item.itemName.camelCase}FormInitialValueService: ${model.item.itemName.pascalCase}FormPartInitialValueService,${ model.item.attributeItemsFlat.joinToString("") { nestedItem ->  """
               |        private ${nestedItem.itemName.camelCase}FormPartService: ${nestedItem.itemName.pascalCase}FormPartService,
-          """ } }    ) {}
+          """ } }
+          |    ) {}
           |
           |    public createInitial${model.item.itemName.pascalCase}Form(): FormGroup<${model.item.itemName.pascalCase}FormPartGroup> {
-          |        return new FormGroup({${ model.item.attributes.joinToString("") { attribute ->  """${ if(attribute.isNullable) { """            [${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull]: new FormControl<boolean>(
+          |        return new FormGroup({${ model.item.attributes.joinToString("") { attribute ->  """${ if(attribute.isNullable) { """
+                  |            [${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull]: new FormControl<boolean>(
                   |                this.${model.item.itemName.camelCase}FormInitialValueService.${attribute.attributeName.camelCase}InitialValue() != null,
                   |                {
                   |                    nonNullable: true,
@@ -54,14 +59,16 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
                   |                },
                   |            ),
           """ } else { """
-          """ } }            [${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}]: new ${attribute.typescriptAttributeFormControlType}(
+          """ } }
+              |            [${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}]: new ${attribute.typescriptAttributeFormControlType}(
               |                this.${model.item.itemName.camelCase}FormInitialValueService.${attribute.attributeName.camelCase}InitialValue(),
               |                {
               |                    nonNullable: true,
               |                    validators: this.${model.item.itemName.camelCase}FormValidationService.validatorFunctions(${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase})
               |                },
               |            ),
-          """ } }        });
+          """ } }
+          |        });
           |    }
           |
           |    /**
@@ -85,19 +92,27 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
           |    }
           |
           |    public patch${model.item.itemName.pascalCase}Form(form: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>, ${model.item.itemName.camelCase}: ${model.item.itemName.pascalCase}WTO): void {
-          |        ${ model.item.attributes.joinToString("") { attribute ->  """${ if(attribute.isNullable) { """        form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull].patchValue(!${model.item.itemName.camelCase}.${attribute.attributeName.camelCase});
+          |
+          |        ${ model.item.attributes.joinToString("") { attribute ->  """        ${ if(attribute.isNullable) { """
+                  |        form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull].patchValue(!${model.item.itemName.camelCase}.${attribute.attributeName.camelCase});
           """ } else { """
-          """ } }        form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].patchValue(${model.item.itemName.camelCase}.${attribute.attributeName.camelCase} ?? null);
-          """ } }    }
+          """ } }
+              |        form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].patchValue(${model.item.itemName.camelCase}.${attribute.attributeName.camelCase} ?? null);
+          """ } }
+          |    }
           |
           |    public create${model.item.itemName.pascalCase}FromFormData(form: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>): ${model.item.itemName.pascalCase}WTO {
           |        return {
-          |                        ${ model.item.attributes.joinToString("") { attribute ->  """${ if(!attribute.isNullable) { """            ${attribute.attributeName.camelCase}: form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].getRawValue(),
-          """ } else { """            ${attribute.attributeName.camelCase}: form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull].value
+          |            
+          |            ${ model.item.attributes.joinToString("") { attribute ->  """            ${ if(!attribute.isNullable) { """
+                  |            ${attribute.attributeName.camelCase}: form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].getRawValue(),
+          """ } else { """
+                  |            ${attribute.attributeName.camelCase}: form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull].value
                   |                ? form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].getRawValue()
                   |                : null,
           """ } }
-          """ } }        };
+          """ } }
+          |        };
           |    }
           |}
           |
