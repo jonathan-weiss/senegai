@@ -17,16 +17,15 @@ object EntityItemTableRowComponentTypescriptRenderer : UiEntityItemRenderer {
     override fun renderTemplate(model: UiEntityFormViewItemModel): String {
         return """
           |
-          |
           |import {FormGroup} from "@angular/forms";
           |import {
           |    ${model.item.itemName.pascalCase}FormPartGroup
           |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-group";
           |
-          |export interface ${model.item.itemName.pascalCase}TableRow {${ model.item.attributes.joinToString("") { attribute ->  """
-              |    ${attribute.attributeName.camelCase}: string
-          """ } }
-          |    formGroup: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>
+          |export interface ${model.item.itemName.pascalCase}TableRow {
+          |    ${ model.item.attributes.joinToString("") { attribute ->  """    ${attribute.attributeName.camelCase}: string
+              |    
+          """ } }        formGroup: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>
           |}
           |
         """.trimMargin(marginPrefix = "|")

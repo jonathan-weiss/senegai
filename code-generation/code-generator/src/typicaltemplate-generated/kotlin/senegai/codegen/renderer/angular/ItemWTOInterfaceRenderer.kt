@@ -18,14 +18,13 @@ object ItemWTOInterfaceRenderer : UiItemRenderer {
         return """
           |
           |
-          |
           |/**
           | * The ${model.itemName.pascalCase} WTO (Web Transfer Object) class.
           | */
           |export interface ${model.itemName.pascalCase}WTO {
           |    ${ model.attributes.joinToString("") { attribute ->  """
               |    ${attribute.attributeName.camelCase}: ${attribute.typescriptAttributeType};
-          """ } }
+          """ } }    
           |}
           |
         """.trimMargin(marginPrefix = "|")

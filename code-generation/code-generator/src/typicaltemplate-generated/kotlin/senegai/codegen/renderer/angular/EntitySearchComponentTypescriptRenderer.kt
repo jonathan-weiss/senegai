@@ -16,7 +16,6 @@ object EntitySearchComponentTypescriptRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
-          |
           |import {Component, EventEmitter, Output} from '@angular/core';
           |import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
           |import {MatButtonModule} from "@angular/material/button";
@@ -31,10 +30,10 @@ object EntitySearchComponentTypescriptRenderer : UiEntityRenderer {
           |import {MatListModule} from "@angular/material/list";
           |import {MatDialogModule} from "@angular/material/dialog";
           |
-          |export interface ${model.entityName.pascalCase}SearchCriteria {${ model.searchCriteriaAttributes.joinToString("") { attribute ->  """
-              |    ${attribute.attributeName.camelCase}?: ${attribute.typescriptAttributeTypeWithoutNullability};
-          """ } }
-          |}
+          |export interface ${model.entityName.pascalCase}SearchCriteria {
+          |    ${ model.searchCriteriaAttributes.joinToString("") { attribute ->  """    ${attribute.attributeName.camelCase}?: ${attribute.typescriptAttributeTypeWithoutNullability};
+              |    
+          """ } }    }
           |
           |@Component({
           |    selector: 'app-${model.entityName.kebabCase}-search',
@@ -61,10 +60,10 @@ object EntitySearchComponentTypescriptRenderer : UiEntityRenderer {
           |    searchForm: FormGroup;
           |
           |    constructor(private fb: FormBuilder) {
-          |        this.searchForm = this.fb.group({${ model.searchCriteriaAttributes.joinToString("") { attribute ->  """
-              |            ${attribute.attributeName.camelCase}: [${attribute.typescriptAttributeInitialValue}],
-          """ } }
-          |        });
+          |        this.searchForm = this.fb.group({
+          |            ${ model.searchCriteriaAttributes.joinToString("") { attribute ->  """            ${attribute.attributeName.camelCase}: [${attribute.typescriptAttributeInitialValue}],
+              |            
+          """ } }                    });
           |    }
           |
           |    onSubmit(): void {

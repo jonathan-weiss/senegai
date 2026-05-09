@@ -16,7 +16,6 @@ object EntityBoardComponentHtmlRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
-          |
           |<div class="${model.entityName.kebabCase}-container">
           |    <h2>{{'${model.entityName.camelCase}.board.title' | transloco }}</h2>
           |
@@ -58,7 +57,8 @@ object EntityBoardComponentHtmlRenderer : UiEntityRenderer {
           |                    <ng-container>Edit ${model.entityName.pascalCase}</ng-container>
           |                </mat-panel-title>
           |                @if (selected${model.entityName.pascalCase}) {
-          |                    <mat-panel-description>${ model.summaryAttributes.joinToString("") { attribute ->  """{{ selected${model.entityName.pascalCase}.${attribute.attributeName.camelCase} }} 
+          |                    <mat-panel-description>
+          |                        ${ model.summaryAttributes.joinToString("") { attribute ->  """{{ selected${model.entityName.pascalCase}.${attribute.attributeName.camelCase} }} 
           """ } }
           |                    </mat-panel-description>
           |                }

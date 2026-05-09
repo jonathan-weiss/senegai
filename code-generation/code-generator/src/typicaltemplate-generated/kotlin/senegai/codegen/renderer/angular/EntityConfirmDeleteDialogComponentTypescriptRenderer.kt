@@ -16,7 +16,6 @@ object EntityConfirmDeleteDialogComponentTypescriptRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
-          |
           |import {Component, Inject} from '@angular/core';
           |import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
           |import {ReactiveFormsModule} from "@angular/forms";
@@ -53,10 +52,10 @@ object EntityConfirmDeleteDialogComponentTypescriptRenderer : UiEntityRenderer {
           |export class ${model.entityName.pascalCase}ConfirmDeleteDialogComponent {
           |    constructor(
           |        public dialogRef: MatDialogRef<${model.entityName.pascalCase}ConfirmDeleteDialogComponent>,
-          |        @Inject(MAT_DIALOG_DATA) public data: {${ model.summaryAttributes.joinToString("") { attribute ->  """
-              |            ${attribute.attributeName.camelCase}: ${attribute.typescriptAttributeTypeWithoutNullability},
-          """ } }
-          |        }
+          |        @Inject(MAT_DIALOG_DATA) public data: {
+          |            ${ model.summaryAttributes.joinToString("") { attribute ->  """            ${attribute.attributeName.camelCase}: ${attribute.typescriptAttributeTypeWithoutNullability},
+              |            
+          """ } }        }
           |    ) {
           |    }
           |

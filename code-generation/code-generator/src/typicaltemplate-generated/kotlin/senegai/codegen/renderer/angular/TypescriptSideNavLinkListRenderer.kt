@@ -26,8 +26,7 @@ object TypescriptSideNavLinkListRenderer : UiEntitiesRenderer {
           |    ${ models.joinToString("") { entity ->  """    {routeLink: '/${entity.entityName.kebabCase}-board', name: "${entity.entityName.pascalCase}", icon: "people"},
               |    {routeLink: '/${entity.entityName.kebabCase}-edit/example', name: "Edit ${entity.entityName.pascalCase}", icon: "edit"},
               |
-          """ } }
-          |]
+          """ } }]
           |
           |
           |

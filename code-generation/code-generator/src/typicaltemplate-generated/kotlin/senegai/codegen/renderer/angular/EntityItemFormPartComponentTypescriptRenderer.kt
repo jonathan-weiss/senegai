@@ -16,7 +16,6 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
 
     override fun renderTemplate(model: UiEntityFormViewItemModel): String {
         return """
-          |
           |import {Component, Input, OnInit} from '@angular/core';
           |import {FormArray, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
           |import {MatButtonModule} from "@angular/material/button";
@@ -60,7 +59,6 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
               |    ${nestedItem.itemName.pascalCase}FormPartGroup
               |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${nestedItem.itemName.kebabCase}-form-part/${nestedItem.itemName.kebabCase}-form-part-group";
           """ } }
-          |
           |@Component({
           |    selector: 'app-${model.item.itemName.camelCase}-form-part',
           |    templateUrl: './${model.item.itemName.camelCase}-form-part.component.html',
@@ -92,7 +90,7 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
               |
               |        ${nestedItem.itemName.pascalCase}TableComponent,
               |        ${nestedItem.itemName.pascalCase}FormPartComponent,
-          """ } }
+          """ } }        
           |    ]
           |})
           |export class ${model.item.itemName.pascalCase}FormPartComponent implements OnInit {
@@ -101,33 +99,31 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
               |    ${attribute.attributeName.camelCase}FormGroupUnderEdit: ${attribute.typescriptAttributeFormControlType} | undefined = undefined;
           """ } }
           |
-          |
-          |    ${ model.item.attributes.joinToString("") { attribute ->  """    ${ if(attribute.isNullable) { """
-                  |    protected ${attribute.attributeName.camelCase}IsNotNullControl!: FormControl<boolean>
+          |        ${ model.item.attributes.joinToString("") { attribute ->  """    ${ if(attribute.isNullable) { """    protected ${attribute.attributeName.camelCase}IsNotNullControl!: FormControl<boolean>
                   |    protected ${attribute.attributeName.camelCase}IsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
+                  |    
           """ } else { """
-          """ } }
-              |    protected ${attribute.attributeName.camelCase}Control!: ${attribute.typescriptAttributeFormControlType}
+          """ } }    protected ${attribute.attributeName.camelCase}Control!: ${attribute.typescriptAttributeFormControlType}
               |    protected ${attribute.attributeName.camelCase}ValidatorNames!: ReadonlyArray<ValidatorTranslation>
               |
-          """ } }
-          |
+              |    
+          """ } }    
           |    constructor(private readonly ${model.item.itemName.camelCase}FormValidationService: ${model.item.itemName.pascalCase}FormPartValidationService,) {
           |    }
           |
           |    ngOnInit() {
-          |        ${ model.item.attributes.joinToString("") { attribute ->  """${ if(attribute.isNullable) { """
-                  |        this.${attribute.attributeName.camelCase}IsNotNullControl = this.${model.item.itemName.camelCase}Form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull]
+          |        ${ model.item.attributes.joinToString("") { attribute ->  """${ if(attribute.isNullable) { """        this.${attribute.attributeName.camelCase}IsNotNullControl = this.${model.item.itemName.camelCase}Form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull]
                   |        this.${attribute.attributeName.camelCase}IsNotNullValidatorNames = this.${model.item.itemName.camelCase}FormValidationService.validatorNames(${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull)
+                  |        
           """ } else { """
-          """ } }
-              |        this.${attribute.attributeName.camelCase}Control = this.${model.item.itemName.camelCase}Form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}]
+          """ } }        this.${attribute.attributeName.camelCase}Control = this.${model.item.itemName.camelCase}Form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}]
               |        this.${attribute.attributeName.camelCase}ValidatorNames = this.${model.item.itemName.camelCase}FormValidationService.validatorNames(${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase})
               |
-          """ } }
-          |    }
+              |        
+          """ } }            }
           |
-          |${ model.item.attributesWithItems.joinToString("") { attribute ->  """
+          |
+          |    ${ model.item.attributesWithItems.joinToString("") { attribute ->  """
               |    on${attribute.attributeName.pascalCase}FormGroupEdit(formGroup: ${attribute.typescriptAttributeFormControlType}): void {
               |        this.${attribute.attributeName.camelCase}FormGroupUnderEdit = formGroup;
               |    }
@@ -143,8 +139,7 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
               |        this.${attribute.attributeName.camelCase}FormGroupUnderEdit = undefined;
               |    }
               |
-          """ } }
-          |}
+          """ } }}
           |
         """.trimMargin(marginPrefix = "|")
     }

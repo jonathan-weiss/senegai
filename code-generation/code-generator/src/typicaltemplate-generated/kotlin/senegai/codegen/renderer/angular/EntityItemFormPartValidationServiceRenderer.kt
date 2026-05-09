@@ -17,7 +17,6 @@ object EntityItemFormPartValidationServiceRenderer : UiEntityItemRenderer {
     override fun renderTemplate(model: UiEntityFormViewItemModel): String {
         return """
           |
-          |
           |import {Injectable} from '@angular/core';
           |import {ValidatorFn, Validators} from "@angular/forms";
           |import {${model.item.itemName.pascalCase}FormPartFieldName} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.camelCase}-form-part/${model.item.itemName.camelCase}-form-part-field-name";
@@ -45,7 +44,8 @@ object EntityItemFormPartValidationServiceRenderer : UiEntityItemRenderer {
           |    }
           |
           |    namedValidators(field: ${model.item.itemName.pascalCase}FormPartFieldName): ReadonlyArray<NamedValidator> {
-          |        switch(field) {${ model.item.attributes.joinToString("") { attribute ->  """
+          |        switch(field) {
+          |            ${ model.item.attributes.joinToString("") { attribute ->  """
               |            case ${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}: return [
               |                {
               |                    validatorName: "required",
@@ -58,8 +58,7 @@ object EntityItemFormPartValidationServiceRenderer : UiEntityItemRenderer {
               |                    validatorTranslationKey: "validator.minlength",
               |                },
               |            ]
-          """ } }
-          |            default: return []
+          """ } }                        default: return []
           |        }
           |    };
           |} 

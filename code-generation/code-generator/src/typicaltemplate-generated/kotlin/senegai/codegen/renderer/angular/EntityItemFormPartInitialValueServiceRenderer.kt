@@ -17,7 +17,6 @@ object EntityItemFormPartInitialValueServiceRenderer : UiEntityItemRenderer {
     override fun renderTemplate(model: UiEntityFormViewItemModel): String {
         return """
           |
-          |
           |import {Injectable} from '@angular/core';
           |
           |
@@ -29,7 +28,7 @@ object EntityItemFormPartInitialValueServiceRenderer : UiEntityItemRenderer {
               |    ${attribute.attributeName.camelCase}InitialValue(): ${attribute.typescriptAttributeFormType} {
               |        return ${attribute.formInitialValue}
               |    }
-          """ } }
+          """ } }    
           |}
           |
         """.trimMargin(marginPrefix = "|")
