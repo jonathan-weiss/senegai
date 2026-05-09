@@ -1,7 +1,7 @@
 <!-- @tt{{{
-    #expand-comment [ expandDirection="backward" strip="linebreak"]
+    @remove-blanks-and-linebreak-before-comment
 
-    #move-comment [ direction="backward" ]
+    @move-comment-backward
     @template-renderer [
         templateRendererClassName="EntityItemFormPartComponentHtmlRenderer"
         templateRendererPackageName="senegai.codegen.renderer.angular"
@@ -22,7 +22,7 @@
 
     @modify-provided-filename-by-replacements
 
-    #expand-comment [ expandDirection="forward" strip="linebreak"]
+    @remove-blanks-and-linebreak-after-comment
 
 }}}@ -->
 <div [formGroup]="authorForm">
@@ -97,7 +97,7 @@
                             <app-text-input [textFormControl]="firstnameControl" label="firstname" placeholder="Enter First Name" [validatorTranslations]="firstnameValidatorNames" />
                         </app-field-wrapper>
                     </div>
-                    <!-- @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"] @end-if #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@  -->
+                    <!-- @tt{{{ @remove-blanks-and-linebreak-before-comment @end-if @remove-blanks-and-linebreak-after-comment }}}@  -->
                     <!-- @tt{{{
                         @if [ conditionExpression="block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.NULLABLE_SINGLE_ITEM" ]
 
@@ -116,7 +116,7 @@
                             <app-text-input [textFormControl]="nicknameControl" label="nickname" placeholder="Enter nickname" [validatorTranslations]="nicknameValidatorNames" />
                         </app-field-wrapper>
                     </div>
-                    <!-- @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"] @end-if #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@  -->
+                    <!-- @tt{{{ @remove-blanks-and-linebreak-before-comment @end-if @remove-blanks-and-linebreak-after-comment }}}@  -->
 
                 <!-- @tt{{{
                     @if [ conditionExpression="block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.LIST_ITEMS" ]
@@ -146,25 +146,25 @@
                         }
                     </app-field-wrapper>
                 </div>
-                <!-- @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"] @end-if #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@  -->
+                <!-- @tt{{{ @remove-blanks-and-linebreak-before-comment @end-if @remove-blanks-and-linebreak-after-comment }}}@  -->
 
                 <!-- @tt{{{
-                 #expand-comment [ expandDirection="backward" strip="linebreak"]
+                 @remove-blanks-and-linebreak-before-comment
                  @end-if
                  @end-foreach
-                 #expand-comment [ expandDirection="forward" strip="linebreak"]
+                 @remove-blanks-and-linebreak-after-comment
                 }}}@  -->
-                <!-- @tt{{{ @ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ -->
+                <!-- @tt{{{ @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ -->
                 <app-section-splitter label="Names"></app-section-splitter>
                 <div class="form-row">
                     <app-field-wrapper label="Last name">
                         <app-text-input [textFormControl]="lastnameControl" label="lastname" placeholder="Enter lastname" [validatorTranslations]="lastnameValidatorNames" />
                     </app-field-wrapper>
                 </div>
-                <!-- @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ -->
+                <!-- @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ -->
             </div>
-            <!-- @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"] @end-foreach #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ -->
-            <!-- @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ -->
+            <!-- @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ -->
+            <!-- @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ -->
             <div class="column">
                 <div class="form-row">
                     <app-field-wrapper label="Gender">
@@ -172,11 +172,11 @@
                     </app-field-wrapper>
                 </div>
             </div>
-            <!-- @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ -->
+            <!-- @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ -->
         </div>
     </mat-tab>
-    <!-- @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"] @end-foreach #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ -->
-    <!-- @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"] @ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ -->
+    <!-- @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ -->
+    <!-- @tt{{{ @remove-blanks-and-linebreak-before-comment @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ -->
     <mat-tab label="Miscellaneous">
         <div class="column-layout">
             <div class="column">
@@ -198,6 +198,6 @@
             </div>
         </div>
     </mat-tab>
-    <!-- @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ -->
+    <!-- @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ -->
 </mat-tab-group>
 </div>

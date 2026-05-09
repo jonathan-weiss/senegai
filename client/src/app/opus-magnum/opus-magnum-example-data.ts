@@ -1,7 +1,7 @@
 /* @tt{{{
-    #expand-comment [ expandDirection="backward" strip="linebreak"]
+    @remove-blanks-and-linebreak-before-comment
 
-    #move-comment [ direction="backward" ]
+    @move-comment-backward
     @template-renderer [
         templateRendererClassName="EntityExampleDataRenderer"
         templateRendererPackageName="senegai.codegen.renderer.angular"
@@ -21,28 +21,28 @@
 
     @modify-provided-filename-by-replacements
 
-    #expand-comment [ expandDirection="forward" strip="linebreak"]
+    @remove-blanks-and-linebreak-after-comment
 
 }}}@ */
 import {OpusMagnumWTO} from "@app/wto/opus-magnum.wto";
-/* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
+/* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
 import {GenderEnum} from "@app/wto/gender.enum";
-/* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
+/* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
 
 export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
     {
-        /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]
+        /* @tt{{{ @remove-blanks-and-linebreak-before-comment
             @foreach [ iteratorExpression="model.allAttributes" loopVariable="attribute" ]
 
             @replace-value-by-expression
                 [ searchValue="title" replaceByExpression="attribute.attributeName.camelCase" ]
             @replace-value-by-value
                 [ searchValue="the grande finali" replaceByValue="example" ]
-            #expand-comment [ expandDirection="forward" strip="linebreak"]
+            @remove-blanks-and-linebreak-after-comment
         }}}@  */
         title: 'the grande finali',
-        /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"] @end-foreach #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
-        /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
+        /* @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
+        /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
         id: '828cf29b-a7fb-4b07-bf13-9a313a9967f6',
         author: {
             id: '828cf29b-a7fb-4b07-bf13-9a313a9967f6',
@@ -129,6 +129,6 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
             vegetarian: false,
             gender: GenderEnum.FEMALE,
         }
-    /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
+    /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
     }
 ];

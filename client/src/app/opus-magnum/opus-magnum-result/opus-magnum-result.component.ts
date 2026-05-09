@@ -1,8 +1,8 @@
 /* @tt{{{
 
-    #expand-comment [ expandDirection="backward" strip="linebreak"]
+    @remove-blanks-and-linebreak-before-comment
 
-    #move-comment [ direction="backward" ]
+    @move-comment-backward
     @template-renderer [
         templateRendererClassName="EntityResultComponentTypescriptRenderer"
         templateRendererPackageName="senegai.codegen.renderer.angular"
@@ -21,7 +21,7 @@
 
     @modify-provided-filename-by-replacements
 
-    #expand-comment [ expandDirection="forward" strip="linebreak"]
+    @remove-blanks-and-linebreak-after-comment
 
 }}}@ */
 import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
@@ -67,9 +67,9 @@ export class OpusMagnumResultComponent implements OnChanges {
     @Output() deleteOpusMagnum = new EventEmitter<OpusMagnumWTO>();
 
     displayedColumns: string[] = [
-        /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
+        /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
         'id',
-        /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
+        /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
         /* @tt{{{
             @foreach [ iteratorExpression="model.searchResultAttributes" loopVariable="attribute" ]
 
@@ -78,7 +78,7 @@ export class OpusMagnumResultComponent implements OnChanges {
 
         }}}@  */
         'title',
-    /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"] @end-foreach #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
+    /* @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
         'actions'
     ];
     dataSource: MatTableDataSource<OpusMagnumWTO> = new MatTableDataSource<OpusMagnumWTO>();
@@ -115,19 +115,19 @@ export class OpusMagnumResultComponent implements OnChanges {
         const criteria = this.searchCriteria;
         this.dataSource.data = this.allOpusMagnums.filter(opusMagnum => {
             return (
-                /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]
+                /* @tt{{{ @remove-blanks-and-linebreak-before-comment
                     @foreach [ iteratorExpression="model.searchResultAttributes" loopVariable="attribute" ]
 
                     @replace-value-by-expression
                         [ searchValue="title" replaceByExpression="attribute.attributeName.camelCase" ]
                         [ searchValue="String" replaceByExpression="attribute.typescriptAttributeTypeCapitalizedWithoutNullability" ]
-                    #expand-comment [ expandDirection="forward" strip="linebreak"]
+                    @remove-blanks-and-linebreak-after-comment
                 }}}@  */
                 this.isMatchingStringCriteria(criteria.title, opusMagnum.title) &&
-                    /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"] @end-foreach #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
-                    /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
+                    /* @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
+                    /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
                 this.isMatchingStringCriteria(criteria.id, opusMagnum.id) &&
-                    /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
+                    /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
                     true
             );
         });

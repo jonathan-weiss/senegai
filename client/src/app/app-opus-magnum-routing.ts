@@ -1,6 +1,6 @@
 /* @tt{{{
 
-  #move-comment [ direction="backward" ]
+  @move-comment-backward
   @template-renderer [
       templateRendererClassName="TypescriptItemsRoutingListRenderer"
       templateRendererPackageName="senegai.codegen.renderer.angular"
@@ -23,7 +23,7 @@
 
 import {Routes} from '@angular/router';
 /* @tt{{{
-    #expand-comment [ expandDirection="backward" strip="linebreak"]
+    @remove-blanks-and-linebreak-before-comment
     @replace-value-by-expression
         [ searchValue="opus-magnum" replaceByExpression="entity.entityName.kebabCase" ]
         [ searchValue="OpusMagnum" replaceByExpression="entity.entityName.pascalCase" ]
@@ -37,9 +37,9 @@ import {
     OpusMagnumRoutableEditComponent
 } from "@app/opus-magnum/opus-magnum-routable-edit/opus-magnum-routable-edit.component";
 /* @tt{{{
-    #expand-comment [ expandDirection="backward" strip="linebreak"]
+    @remove-blanks-and-linebreak-before-comment
     @end-foreach
-    #expand-comment [ expandDirection="forward" strip="linebreak"]
+    @remove-blanks-and-linebreak-after-comment
 }}}@ */
 
 /* @tt{{{
@@ -50,7 +50,7 @@ import {
 
 export const OPUS_MAGNUM_ROUTES: Routes = [
 /* @tt{{{
-    #expand-comment [ expandDirection="backward" strip="linebreak"]
+    @remove-blanks-and-linebreak-before-comment
     @replace-value-by-expression
         [ searchValue="opus-magnum" replaceByExpression="entity.entityName.kebabCase" ]
         [ searchValue="OpusMagnum" replaceByExpression="entity.entityName.pascalCase" ]
@@ -60,9 +60,9 @@ export const OPUS_MAGNUM_ROUTES: Routes = [
     {path: 'opus-magnum-board', component: OpusMagnumBoardComponent},
     {path: 'opus-magnum-edit/:id', component: OpusMagnumRoutableEditComponent},
 /* @tt{{{
-    #expand-comment [ expandDirection="backward" strip="linebreak"]
+    @remove-blanks-and-linebreak-before-comment
     @end-foreach
-    #expand-comment [ expandDirection="forward" strip="linebreak"]
+    @remove-blanks-and-linebreak-after-comment
 }}}@ */
 ];
 

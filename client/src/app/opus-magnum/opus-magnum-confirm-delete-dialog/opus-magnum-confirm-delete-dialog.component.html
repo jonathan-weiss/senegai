@@ -1,7 +1,7 @@
 <!-- @tt{{{
-    #expand-comment [ expandDirection="backward" strip="linebreak"]
+    @remove-blanks-and-linebreak-before-comment
 
-    #move-comment [ direction="backward" ]
+    @move-comment-backward
     @template-renderer [
         templateRendererClassName="EntityConfirmDeleteDialogComponentHtmlRenderer"
         templateRendererPackageName="senegai.codegen.renderer.angular"
@@ -20,18 +20,18 @@
 
     @modify-provided-filename-by-replacements
 
-    #expand-comment [ expandDirection="forward" strip="linebreak"]
+    @remove-blanks-and-linebreak-after-comment
 
 }}}@ -->
 <h2 mat-dialog-title>Delete OpusMagnum</h2>
 <mat-dialog-content><ng-container>Are you sure you want to delete</ng-container> <b>
-        <!-- @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]
+        <!-- @tt{{{ @remove-blanks-and-linebreak-before-comment
             @foreach [ iteratorExpression="model.summaryAttributes" loopVariable="attribute" ]
 
             @replace-value-by-expression
             [ searchValue="title" replaceByExpression="attribute.attributeName.camelCase" ]
             [ searchValue="string" replaceByExpression="attribute.typescriptAttributeTypeWithoutNullability" ]
-    }}}@  -->{{ data.title }} <!-- @tt{{{ @end-foreach #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ -->
+    }}}@  -->{{ data.title }} <!-- @tt{{{ @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ -->
     </b>?
 </mat-dialog-content>
 <mat-dialog-actions align="end">

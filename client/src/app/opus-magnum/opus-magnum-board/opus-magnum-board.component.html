@@ -1,7 +1,7 @@
 <!-- @tt{{{
-    #expand-comment [ expandDirection="backward" strip="linebreak"]
+    @remove-blanks-and-linebreak-before-comment
 
-    #move-comment [ direction="backward" ]
+    @move-comment-backward
     @template-renderer [
         templateRendererClassName="EntityBoardComponentHtmlRenderer"
         templateRendererPackageName="senegai.codegen.renderer.angular"
@@ -19,7 +19,7 @@
         [ searchValue="opus-magnum" replaceByExpression="model.entityName.kebabCase" ]
 
     @modify-provided-filename-by-replacements
-    #expand-comment [ expandDirection="forward" strip="linebreak"]
+    @remove-blanks-and-linebreak-after-comment
 
 }}}@ -->
 <div class="opus-magnum-container">
@@ -64,12 +64,12 @@
                 </mat-panel-title>
                 @if (selectedOpusMagnum) {
                     <mat-panel-description>
-                        <!-- @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]
+                        <!-- @tt{{{ @remove-blanks-and-linebreak-before-comment
     @foreach [ iteratorExpression="model.summaryAttributes" loopVariable="attribute" ]
 
     @replace-value-by-expression
     [ searchValue="title" replaceByExpression="attribute.attributeName.camelCase" ]
-}}}@  -->{{ selectedOpusMagnum.title }} <!-- @tt{{{ @end-foreach #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ -->
+}}}@  -->{{ selectedOpusMagnum.title }} <!-- @tt{{{ @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ -->
 
                     </mat-panel-description>
                 }

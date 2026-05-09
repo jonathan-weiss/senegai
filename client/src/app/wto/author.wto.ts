@@ -1,7 +1,7 @@
 /* @tt{{{
-    #expand-comment [ expandDirection="backward" strip="linebreak"]
+    @remove-blanks-and-linebreak-before-comment
 
-    #move-comment [ direction="backward" ]
+    @move-comment-backward
     @template-renderer [
         templateRendererClassName="ItemWTOInterfaceRenderer"
         templateRendererPackageName="senegai.codegen.renderer.angular"
@@ -19,14 +19,14 @@
 
     @modify-provided-filename-by-replacements
 
-    #expand-comment [ expandDirection="forward" strip="linebreak"]
+    @remove-blanks-and-linebreak-after-comment
 
 }}}@ */
 
-/* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
+/* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
 import {LibraryAwardWTO} from "@app/wto/library-award.wto";
 import {GenderEnum} from "@app/wto/gender.enum";
-/* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
+/* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
 
 /**
  * The Author WTO (Web Transfer Object) class.
@@ -42,11 +42,11 @@ export interface AuthorWTO {
     }}}@  */
     firstname: string;
     /* @tt{{{
-        #expand-comment [ expandDirection="backward" strip="linebreak"]
+        @remove-blanks-and-linebreak-before-comment
         @end-foreach
-        #expand-comment [ expandDirection="forward" strip="linebreak"]
+        @remove-blanks-and-linebreak-after-comment
     }}}@ */
-    /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
+    /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
     nickname: string | null;
     lastname: string;
     gender: GenderEnum;
@@ -54,5 +54,5 @@ export interface AuthorWTO {
     birthday: Date | null;
     vegetarian: boolean;
     id: string;
-    /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-ignore-text }}}@ */
+    /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text }}}@ */
 }

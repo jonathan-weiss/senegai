@@ -1,7 +1,7 @@
 /* @tt{{{
-    #expand-comment [ expandDirection="backward" strip="linebreak"]
+    @remove-blanks-and-linebreak-before-comment
 
-    #move-comment [ direction="backward" ]
+    @move-comment-backward
     @template-renderer [
         templateRendererClassName="EntityItemFormPartFieldNameRenderer"
         templateRendererPackageName="senegai.codegen.renderer.angular"
@@ -22,16 +22,16 @@
 
     @modify-provided-filename-by-replacements
 
-    #expand-comment [ expandDirection="forward" strip="linebreak"]
+    @remove-blanks-and-linebreak-after-comment
 
 }}}@ */
 
-/* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
+/* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
 import {GenderEnum} from "@app/wto/gender.enum";
-/* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
+/* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
 
 export enum AuthorFormPartFieldName {
-    /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]
+    /* @tt{{{ @remove-blanks-and-linebreak-before-comment
         @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
         @replace-value-by-expression
@@ -40,11 +40,11 @@ export enum AuthorFormPartFieldName {
 
     }}}@  */
     nickname = "nickname",
-    /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @if [ conditionExpression="attribute.isNullable"] #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
+    /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @if [ conditionExpression="attribute.isNullable"] @remove-blanks-and-linebreak-after-comment }}}@ */
     nicknameIsNotNull = "nicknameIsNotNull",
-    /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-if #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
-/* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"] @end-foreach #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
-/* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
+    /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-if @remove-blanks-and-linebreak-after-comment }}}@ */
+/* @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
+/* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
     firstname = "firstname",
     lastname = "lastname",
     libraryAwardList = "libraryAwardList",
@@ -53,6 +53,6 @@ export enum AuthorFormPartFieldName {
     vegetarian = "vegetarian",
     gender = "gender",
     id = "id",
-/* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
+/* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
 }
 

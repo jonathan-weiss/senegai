@@ -1,6 +1,6 @@
 /* @tt{{{
 
-  #move-comment [ direction="backward" ]
+  @move-comment-backward
   @template-renderer [
       templateRendererClassName="TypescriptSideNavLinkListRenderer"
       templateRendererPackageName="senegai.codegen.renderer.angular"
@@ -35,12 +35,12 @@ export const SIDE_NAVIGATION_LINKS: ReadonlyArray<SideNavLink> = [
             [ searchValue="opusMagnum" replaceByExpression="entity.entityName.camelCase" ]
             [ searchValue="Opera Magna" replaceByExpression="entity.entityName.pascalCase" ]
 
-        #expand-comment [ expandDirection="forward" strip="linebreak"]
+        @remove-blanks-and-linebreak-after-comment
       }}}@  */
     {routeLink: '/opus-magnum-board', name: "Opera Magna", icon: "people"},
     {routeLink: '/opus-magnum-edit/example', name: "Edit Opera Magna", icon: "edit"},
-/* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-replace-value-by-expression @end-foreach  #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
+/* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-replace-value-by-expression @end-foreach  @remove-blanks-and-linebreak-after-comment }}}@ */
 ]
-/* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-replace-value-by-value #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
+/* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-replace-value-by-value @remove-blanks-and-linebreak-after-comment }}}@ */
 
 

@@ -1,7 +1,7 @@
 /* @tt{{{
-    #expand-comment [ expandDirection="backward" strip="linebreak"]
+    @remove-blanks-and-linebreak-before-comment
 
-    #move-comment [ direction="backward" ]
+    @move-comment-backward
     @template-renderer [
         templateRendererClassName="EntityItemFormPartValidationServiceRenderer"
         templateRendererPackageName="senegai.codegen.renderer.angular"
@@ -22,7 +22,7 @@
 
     @modify-provided-filename-by-replacements
 
-    #expand-comment [ expandDirection="forward" strip="linebreak"]
+    @remove-blanks-and-linebreak-after-comment
 
 }}}@ */
 
@@ -31,9 +31,9 @@ import {ValidatorFn, Validators} from "@angular/forms";
 import {AuthorFormPartFieldName} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-field-name";
 import {NamedValidator} from "@app/shared/form-controls/named-validator";
 import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
-/* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
+/* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
 
-/* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
+/* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
 
 
 @Injectable({providedIn: 'root'})
@@ -57,7 +57,7 @@ export class AuthorFormPartValidationService {
 
     namedValidators(field: AuthorFormPartFieldName): ReadonlyArray<NamedValidator> {
         switch(field) {
-            /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]
+            /* @tt{{{ @remove-blanks-and-linebreak-before-comment
                 @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
                 @replace-value-by-expression
@@ -76,8 +76,8 @@ export class AuthorFormPartValidationService {
                     validatorTranslationKey: "validator.minlength",
                 },
             ]
-            /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"] @end-foreach #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
-            /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
+            /* @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
+            /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
             case AuthorFormPartFieldName.nickname: return [
                 {
                     validatorName: "required",
@@ -103,7 +103,7 @@ export class AuthorFormPartValidationService {
 
                 },
             ]
-            /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
+            /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
             default: return []
         }
     };

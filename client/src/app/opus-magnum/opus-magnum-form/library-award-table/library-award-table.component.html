@@ -1,7 +1,7 @@
 <!-- @tt{{{
-    #expand-comment [ expandDirection="backward" strip="linebreak"]
+    @remove-blanks-and-linebreak-before-comment
 
-    #move-comment [ direction="backward" ]
+    @move-comment-backward
     @template-renderer [
         templateRendererClassName="EntityItemTableComponentHtmlRenderer"
         templateRendererPackageName="senegai.codegen.renderer.angular"
@@ -23,7 +23,7 @@
 
     @modify-provided-filename-by-replacements
 
-    #expand-comment [ expandDirection="forward" strip="linebreak"]
+    @remove-blanks-and-linebreak-after-comment
 
 }}}@ -->
 <div class="table-container">
@@ -51,8 +51,8 @@
                 {{ tableRow.description }}
             </td>
         </ng-container>
-        <!-- @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"] @end-foreach #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@  -->
-        <!-- @tt{{{ @ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ -->
+        <!-- @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@  -->
+        <!-- @tt{{{ @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ -->
 
         <!-- Year Column -->
         <ng-container matColumnDef="year">
@@ -61,7 +61,7 @@
                 {{ tableRow.year }}
             </td>
         </ng-container>
-        <!-- @tt{{{ @end-ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ -->
+        <!-- @tt{{{ @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ -->
 
 
         <!-- Actions Column -->

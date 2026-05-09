@@ -1,8 +1,8 @@
 /* @tt{{{
 
-    #expand-comment [ expandDirection="backward" strip="linebreak"]
+    @remove-blanks-and-linebreak-before-comment
 
-    #move-comment [ direction="backward" ]
+    @move-comment-backward
     @template-renderer [
         templateRendererClassName="EntityFormComponentTypescriptRenderer"
         templateRendererPackageName="senegai.codegen.renderer.angular"
@@ -21,7 +21,7 @@
 
     @modify-provided-filename-by-replacements
 
-    #expand-comment [ expandDirection="forward" strip="linebreak"]
+    @remove-blanks-and-linebreak-after-comment
 
 }}}@ */
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';

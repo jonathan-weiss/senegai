@@ -1,7 +1,7 @@
 <!-- @tt{{{
-    #expand-comment [ expandDirection="backward" strip="linebreak"]
+    @remove-blanks-and-linebreak-before-comment
 
-    #move-comment [ direction="backward" ]
+    @move-comment-backward
     @template-renderer [
         templateRendererClassName="EntitySearchComponentHtmlRenderer"
         templateRendererPackageName="senegai.codegen.renderer.angular"
@@ -20,7 +20,7 @@
 
     @modify-provided-filename-by-replacements
 
-    #expand-comment [ expandDirection="forward" strip="linebreak"]
+    @remove-blanks-and-linebreak-after-comment
 
 }}}@ -->
 <mat-card class="search-card">
@@ -43,14 +43,14 @@
                     <mat-label>Title</mat-label>
                     <input matInput formControlName="title" placeholder="Enter title">
                 </mat-form-field>
-                <!-- @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"] @end-foreach #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ -->
+                <!-- @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ -->
 
-                <!-- @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ -->
+                <!-- @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ -->
                 <mat-form-field appearance="outline">
                     <mat-label>Id</mat-label>
                     <input matInput formControlName="id" placeholder="Enter id">
                 </mat-form-field>
-                <!-- @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ -->
+                <!-- @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ -->
             </div>
 
             <div class="search-actions">

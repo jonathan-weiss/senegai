@@ -1,7 +1,7 @@
 <!-- @tt{{{
-    #expand-comment [ expandDirection="backward" strip="linebreak"]
+    @remove-blanks-and-linebreak-before-comment
 
-    #move-comment [ direction="backward" ]
+    @move-comment-backward
     @template-renderer [
         templateRendererClassName="EntityResultComponentHtmlRenderer"
         templateRendererPackageName="senegai.codegen.renderer.angular"
@@ -20,18 +20,18 @@
 
     @modify-provided-filename-by-replacements
 
-    #expand-comment [ expandDirection="forward" strip="linebreak"]
+    @remove-blanks-and-linebreak-after-comment
 
 }}}@ -->
 <div class="opus-magnum-table-container">
     <table mat-table [dataSource]="dataSource">
-        <!-- @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ -->
+        <!-- @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ -->
         <!-- Id Column -->
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef>Id</th>
             <td mat-cell *matCellDef="let opusMagnum">{{ opusMagnum.id }}</td>
         </ng-container>
-        <!-- @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ -->
+        <!-- @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ -->
 
         <!-- @tt{{{
             @foreach [ iteratorExpression="model.searchResultAttributes" loopVariable="attribute" ]
@@ -47,7 +47,7 @@
             <th mat-header-cell *matHeaderCellDef>Title</th>
             <td mat-cell *matCellDef="let opusMagnum">{{ opusMagnum.title }}</td>
         </ng-container>
-        <!-- @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"] @end-foreach #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ -->
+        <!-- @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ -->
 
         <!-- Actions Column -->
         <ng-container matColumnDef="actions">

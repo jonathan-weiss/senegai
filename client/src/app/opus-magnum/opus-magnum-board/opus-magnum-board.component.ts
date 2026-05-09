@@ -1,8 +1,8 @@
 /* @tt{{{
 
-    #expand-comment [ expandDirection="backward" strip="linebreak"]
+    @remove-blanks-and-linebreak-before-comment
 
-    #move-comment [ direction="backward" ]
+    @move-comment-backward
     @template-renderer [
         templateRendererClassName="EntityBoardComponentTypescriptRenderer"
         templateRendererPackageName="senegai.codegen.renderer.angular"
@@ -21,7 +21,7 @@
 
     @modify-provided-filename-by-replacements
 
-    #expand-comment [ expandDirection="forward" strip="linebreak"]
+    @remove-blanks-and-linebreak-after-comment
 
 }}}@ */
 import {Component} from '@angular/core';
@@ -87,15 +87,15 @@ export class OpusMagnumBoardComponent {
     onDeleteOpusMagnum(opusMagnum: OpusMagnumWTO): void {
         const dialogRef = this.dialog.open(OpusMagnumConfirmDeleteDialogComponent, {
             data: {
-                /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]
+                /* @tt{{{ @remove-blanks-and-linebreak-before-comment
                     @foreach [ iteratorExpression="model.summaryAttributes" loopVariable="attribute" ]
 
                     @replace-value-by-expression
                         [ searchValue="title" replaceByExpression="attribute.attributeName.camelCase" ]
-                    #expand-comment [ expandDirection="forward" strip="linebreak"]
+                    @remove-blanks-and-linebreak-after-comment
                 }}}@  */
                 title: opusMagnum.title,
-                /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"] @end-foreach #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
+                /* @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
             }
         });
         dialogRef.afterClosed().subscribe(result => {

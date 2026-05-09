@@ -1,8 +1,8 @@
 /* @tt{{{
 
-    #expand-comment [ expandDirection="backward" strip="linebreak"]
+    @remove-blanks-and-linebreak-before-comment
 
-    #move-comment [ direction="backward" ]
+    @move-comment-backward
     @template-renderer [
         templateRendererClassName="EntityItemTableComponentTypescriptRenderer"
         templateRendererPackageName="senegai.codegen.renderer.angular"
@@ -24,7 +24,7 @@
 
     @modify-provided-filename-by-replacements
 
-    #expand-comment [ expandDirection="forward" strip="linebreak"]
+    @remove-blanks-and-linebreak-after-comment
 
 }}}@ */
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
@@ -80,20 +80,20 @@ export class LibraryAwardTableComponent implements OnInit {
     displayedColumns: string[] = [
         /*
         @tt{{{
-            #expand-comment [ expandDirection="backward" strip="linebreak"]
+            @remove-blanks-and-linebreak-before-comment
             @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
             @replace-value-by-expression
             [ searchValue="description" replaceByExpression="attribute.attributeName.camelCase" ]
-            #expand-comment [ expandDirection="forward" strip="linebreak"]
+            @remove-blanks-and-linebreak-after-comment
         }}}@
          */
         'description',
-        /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-foreach #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
-        /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
+        /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
+        /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
         'year',
         'actions',
-        /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
+        /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
     ];
     dataSource: MatTableDataSource<LibraryAwardTableRow> = new MatTableDataSource<LibraryAwardTableRow>();
 
@@ -111,21 +111,21 @@ export class LibraryAwardTableComponent implements OnInit {
         return {
             /*
             @tt{{{
-                #expand-comment [ expandDirection="backward" strip="linebreak"]
+                @remove-blanks-and-linebreak-before-comment
                 @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
                 @replace-value-by-expression
                 [ searchValue="description" replaceByExpression="attribute.attributeName.camelCase" ]
                 [ searchValue="Description" replaceByExpression="attribute.attributeName.pascalCase" ]
-                #expand-comment [ expandDirection="forward" strip="linebreak"]
+                @remove-blanks-and-linebreak-after-comment
             }}}@
              */
             description: formGroup.controls[LibraryAwardFormPartFieldName.description].value,
-            /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-foreach #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
-            /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
+            /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
+            /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
 
             year: formGroup.controls[LibraryAwardFormPartFieldName.year].value,
-            /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
+            /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
             formGroup: formGroup,
         }
     }

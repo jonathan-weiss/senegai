@@ -1,8 +1,8 @@
 /* @tt{{{
 
-    #expand-comment [ expandDirection="backward" strip="linebreak"]
+    @remove-blanks-and-linebreak-before-comment
 
-    #move-comment [ direction="backward" ]
+    @move-comment-backward
     @template-renderer [
         templateRendererClassName="EntityConfirmDeleteDialogComponentTypescriptRenderer"
         templateRendererPackageName="senegai.codegen.renderer.angular"
@@ -21,7 +21,7 @@
 
     @modify-provided-filename-by-replacements
 
-    #expand-comment [ expandDirection="forward" strip="linebreak"]
+    @remove-blanks-and-linebreak-after-comment
 
 }}}@ */
 import {Component, Inject} from '@angular/core';
@@ -61,16 +61,16 @@ export class OpusMagnumConfirmDeleteDialogComponent {
     constructor(
         public dialogRef: MatDialogRef<OpusMagnumConfirmDeleteDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: {
-            /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]
+            /* @tt{{{ @remove-blanks-and-linebreak-before-comment
                 @foreach [ iteratorExpression="model.summaryAttributes" loopVariable="attribute" ]
 
                 @replace-value-by-expression
                     [ searchValue="title" replaceByExpression="attribute.attributeName.camelCase" ]
                     [ searchValue="string" replaceByExpression="attribute.typescriptAttributeTypeWithoutNullability" ]
-                #expand-comment [ expandDirection="forward" strip="linebreak"]
+                @remove-blanks-and-linebreak-after-comment
             }}}@  */
             title: string,
-            /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"] @end-foreach #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
+            /* @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
         }
     ) {
     }

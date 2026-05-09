@@ -1,7 +1,7 @@
 /* @tt{{{
-    #expand-comment [ expandDirection="backward" strip="linebreak"]
+    @remove-blanks-and-linebreak-before-comment
 
-    #move-comment [ direction="backward" ]
+    @move-comment-backward
     @template-renderer [
         templateRendererClassName="EntityItemFormPartInitialValueServiceRenderer"
         templateRendererPackageName="senegai.codegen.renderer.angular"
@@ -22,19 +22,19 @@
 
     @modify-provided-filename-by-replacements
 
-    #expand-comment [ expandDirection="forward" strip="linebreak"]
+    @remove-blanks-and-linebreak-after-comment
 
 }}}@ */
 
 import {Injectable} from '@angular/core';
-/* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
+/* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
 // imports here that are ignored
 import {GenderEnum} from "@app/wto/gender.enum";
 import {FormGroup} from "@angular/forms";
 import {
     LibraryAwardFormPartGroup
 } from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part-group";
-/* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-ignore-text #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
+/* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
 
 
 @Injectable({providedIn: 'root'})
@@ -44,10 +44,10 @@ export class AuthorFormPartInitialValueService {
     idInitialValue(): string {
         return ''
     }
-    /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-ignore-text }}}@ */
+    /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text }}}@ */
 
 
-    /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]
+    /* @tt{{{ @remove-blanks-and-linebreak-before-comment
         @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
         @replace-value-by-expression
@@ -59,8 +59,8 @@ export class AuthorFormPartInitialValueService {
     firstnameInitialValue(): string {
         return ''
     }
-    /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"] @end-foreach #expand-comment [ expandDirection="forward" strip="linebreak"] }}}@ */
-    /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @ignore-text }}}@ */
+    /* @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
+    /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text }}}@ */
 
     nicknameInitialValue(): string | null {
         return null
@@ -80,5 +80,5 @@ export class AuthorFormPartInitialValueService {
     genderInitialValue(): GenderEnum {
         return GenderEnum.FEMALE;
     }
-    /* @tt{{{ #expand-comment [ expandDirection="backward" strip="linebreak"]  @end-ignore-text }}}@ */
+    /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text }}}@ */
 }
