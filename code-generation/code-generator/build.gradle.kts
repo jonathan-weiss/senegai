@@ -19,7 +19,7 @@ tasks.test {
 }
 
 val directoryForGeneratedTemplateRenderer = "src/typicaltemplate-generated/kotlin"
-val pathToAngularProject = project(":client").projectDir
+val pathToAngularProject: File = project(":client").projectDir
 val directoryForAngularGeneratedSource = pathToAngularProject.resolve("src/app-generated")
 
 kotlin {
