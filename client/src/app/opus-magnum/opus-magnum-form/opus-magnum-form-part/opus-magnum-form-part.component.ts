@@ -28,8 +28,8 @@ import {
 import {SectionSplitterComponent} from "@app/shared/blocks/section-splitter/section-splitter.component";
 import {TextBlockComponent} from "@app/shared/blocks/text-block/text-block.component";
 import {
-    LibraryAwardFormPartGroup
-} from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part-group";
+    ArticulusInteriorFormPartGroup
+} from "@app/opus-magnum/opus-magnum-form/articulus-interior-form-part/articulus-interior-form-part-group";
 import {SilvaOptionumFormPartGroup} from "@app/opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part-group";
 import {SilvaOptionumFormPartComponent} from "@app/opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part.component";
 

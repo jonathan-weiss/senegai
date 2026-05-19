@@ -9,8 +9,8 @@ import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewItemModel
  * Generate the content for the template `EntityItemTableRowComponentTypescriptRenderer`.
  *
  * This template renderer was generated from the template:
- * - file: `library-award-table-row.model.ts`
- * - path: `opus-magnum/opus-magnum-form/library-award-table/library-award-table-row.model.ts`
+ * - file: `articulus-interior-table-row.model.ts`
+ * - path: `opus-magnum/opus-magnum-form/articulus-interior-table/articulus-interior-table-row.model.ts`
  */
 object EntityItemTableRowComponentTypescriptRenderer : UiEntityItemRenderer {
 

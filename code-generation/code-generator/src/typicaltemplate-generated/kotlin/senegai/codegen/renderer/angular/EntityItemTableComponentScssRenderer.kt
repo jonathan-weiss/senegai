@@ -9,8 +9,8 @@ import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewItemModel
  * Generate the content for the template `EntityItemTableComponentScssRenderer`.
  *
  * This template renderer was generated from the template:
- * - file: `library-award-table.component.scss`
- * - path: `opus-magnum/opus-magnum-form/library-award-table/library-award-table.component.scss`
+ * - file: `articulus-interior-table.component.scss`
+ * - path: `opus-magnum/opus-magnum-form/articulus-interior-table/articulus-interior-table.component.scss`
  */
 object EntityItemTableComponentScssRenderer : UiEntityItemRenderer {
 

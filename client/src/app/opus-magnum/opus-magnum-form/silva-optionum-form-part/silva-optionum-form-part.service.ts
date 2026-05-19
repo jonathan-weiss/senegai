@@ -45,18 +45,18 @@ import {GenderEnum} from "@app/wto/gender.enum";
 /* @tt{{{ @remove-blanks-and-linebreak-before-comment
     @foreach [ iteratorExpression="model.item.attributeItemsFlat" loopVariable="nestedItem" ]
     @replace-value-by-expression
-        [ searchValue="library-award" replaceByExpression="nestedItem.itemName.kebabCase" ]
-        [ searchValue="libraryAward" replaceByExpression="nestedItem.itemName.camelCase" ]
-        [ searchValue="LibraryAward" replaceByExpression="nestedItem.itemName.pascalCase" ]
+        [ searchValue="articulus-interior" replaceByExpression="nestedItem.itemName.kebabCase" ]
+        [ searchValue="articulusInterior" replaceByExpression="nestedItem.itemName.camelCase" ]
+        [ searchValue="ArticulusInterior" replaceByExpression="nestedItem.itemName.pascalCase" ]
 
 }}}@  */
-import {LibraryAwardWTO} from "@app/wto/library-award.wto";
+import {ArticulusInteriorWTO} from "@app/wto/articulus-interior.wto";
 import {
-    LibraryAwardFormPartService
-} from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part.service";
+    ArticulusInteriorFormPartService
+} from "@app/opus-magnum/opus-magnum-form/articulus-interior-form-part/articulus-interior-form-part.service";
 import {
-    LibraryAwardFormPartFieldName
-} from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part-field-name";
+    ArticulusInteriorFormPartFieldName
+} from "@app/opus-magnum/opus-magnum-form/articulus-interior-form-part/articulus-interior-form-part-field-name";
 /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
 
 
@@ -71,11 +71,11 @@ export class SilvaOptionumFormPartService {
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment
             @foreach [ iteratorExpression="model.item.attributeItemsFlat" loopVariable="nestedItem" ]
             @replace-value-by-expression
-                [ searchValue="libraryAward" replaceByExpression="nestedItem.itemName.camelCase" ]
-                [ searchValue="LibraryAward" replaceByExpression="nestedItem.itemName.pascalCase" ]
+                [ searchValue="articulusInterior" replaceByExpression="nestedItem.itemName.camelCase" ]
+                [ searchValue="ArticulusInterior" replaceByExpression="nestedItem.itemName.pascalCase" ]
 
         }}}@  */
-        private libraryAwardFormPartService: LibraryAwardFormPartService,
+        private articulusInteriorFormPartService: ArticulusInteriorFormPartService,
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
     ) {}
 
@@ -131,10 +131,10 @@ export class SilvaOptionumFormPartService {
                     validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.lastname)
                 },
             ),
-            [SilvaOptionumFormPartFieldName.libraryAwardList]: new FormArray(
-                this.silvaOptionumFormInitialValueService.libraryAwardListInitialValue(),
+            [SilvaOptionumFormPartFieldName.articulusInteriorList]: new FormArray(
+                this.silvaOptionumFormInitialValueService.articulusInteriorListInitialValue(),
                 {
-                    validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.libraryAwardList)
+                    validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.articulusInteriorList)
                 },
             ),
             [SilvaOptionumFormPartFieldName.birthdayIsNotNull]: new FormControl<boolean>(
@@ -175,22 +175,22 @@ export class SilvaOptionumFormPartService {
      * We need to prefill the FormArray with empty values first
      */
     public patchPreparation(form: FormGroup<SilvaOptionumFormPartGroup>, silvaOptionum: SilvaOptionumWTO): void {
-        // TODO Rename libraryAwardList to awardList to bypass the name clash when replacing
+        // TODO Rename articulusInteriorList to awardList to bypass the name clash when replacing
         // TODO If the attribute is an item attribute, call the formPartService
         /* @tt{{{
             @foreach [ iteratorExpression="model.item.attributesWithLists" loopVariable="attribute" ]
             @replace-value-by-expression
-                    [ searchValue="libraryAwardList" replaceByExpression="attribute.attributeName.camelCase" ]
-                    [ searchValue="LibraryAwardList" replaceByExpression="attribute.attributeName.pascalCase" ]
-                    [ searchValue="libraryAward" replaceByExpression="attribute.attributeName.pascalCase" ]
-                    [ searchValue="LibraryAward" replaceByExpression="attribute.attributeName.pascalCase" ]
+                    [ searchValue="articulusInteriorList" replaceByExpression="attribute.attributeName.camelCase" ]
+                    [ searchValue="ArticulusInteriorList" replaceByExpression="attribute.attributeName.pascalCase" ]
+                    [ searchValue="articulusInterior" replaceByExpression="attribute.attributeName.pascalCase" ]
+                    [ searchValue="ArticulusInterior" replaceByExpression="attribute.attributeName.pascalCase" ]
 
             }}}@  */
 
-        const libraryAwardListLength = form.controls[SilvaOptionumFormPartFieldName.libraryAwardList].controls.length
-        if(libraryAwardListLength < silvaOptionum.libraryAwardList.length) {
-            for (let i = libraryAwardListLength; i < silvaOptionum.libraryAwardList.length; i++) {
-                form.controls[SilvaOptionumFormPartFieldName.libraryAwardList].push(this.libraryAwardFormPartService.createInitialLibraryAwardForm())
+        const articulusInteriorListLength = form.controls[SilvaOptionumFormPartFieldName.articulusInteriorList].controls.length
+        if(articulusInteriorListLength < silvaOptionum.articulusInteriorList.length) {
+            for (let i = articulusInteriorListLength; i < silvaOptionum.articulusInteriorList.length; i++) {
+                form.controls[SilvaOptionumFormPartFieldName.articulusInteriorList].push(this.articulusInteriorFormPartService.createInitialArticulusInteriorForm())
             }
         }
         /* @tt{{{ @end-foreach }}}@ */
@@ -217,7 +217,7 @@ export class SilvaOptionumFormPartService {
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
         form.controls[SilvaOptionumFormPartFieldName.lastname].patchValue(silvaOptionum.lastname);
-        form.controls[SilvaOptionumFormPartFieldName.libraryAwardList].patchValue(silvaOptionum.libraryAwardList)
+        form.controls[SilvaOptionumFormPartFieldName.articulusInteriorList].patchValue(silvaOptionum.articulusInteriorList)
         form.controls[SilvaOptionumFormPartFieldName.birthdayIsNotNull].patchValue(!silvaOptionum.birthday);
         form.controls[SilvaOptionumFormPartFieldName.birthday].patchValue(silvaOptionum.birthday ?? null);
         form.controls[SilvaOptionumFormPartFieldName.vegetarian].patchValue(silvaOptionum.vegetarian);
@@ -249,7 +249,7 @@ export class SilvaOptionumFormPartService {
             /* @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
             /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
             lastname: form.controls[SilvaOptionumFormPartFieldName.lastname].getRawValue(),
-            libraryAwardList: form.controls[SilvaOptionumFormPartFieldName.libraryAwardList].getRawValue(),
+            articulusInteriorList: form.controls[SilvaOptionumFormPartFieldName.articulusInteriorList].getRawValue(),
             birthday: form.controls[SilvaOptionumFormPartFieldName.birthdayIsNotNull].value ? form.controls[SilvaOptionumFormPartFieldName.birthday].getRawValue() : null,
             vegetarian: form.controls[SilvaOptionumFormPartFieldName.vegetarian].getRawValue(),
             gender: form.controls[SilvaOptionumFormPartFieldName.gender].getRawValue(),

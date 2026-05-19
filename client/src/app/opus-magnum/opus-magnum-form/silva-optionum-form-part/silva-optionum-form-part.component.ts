@@ -86,20 +86,20 @@ import {GenderSelectorComponent} from "@app/enum/gender-input-selection/gender-s
 /* @tt{{{ @remove-blanks-and-linebreak-before-comment
     @foreach [ iteratorExpression="model.item.attributeItemsFlat" loopVariable="nestedItem" ]
     @replace-value-by-expression
-        [ searchValue="library-award" replaceByExpression="nestedItem.itemName.kebabCase" ]
-        [ searchValue="libraryAward" replaceByExpression="nestedItem.itemName.camelCase" ]
-        [ searchValue="LibraryAward" replaceByExpression="nestedItem.itemName.pascalCase" ]
+        [ searchValue="articulus-interior" replaceByExpression="nestedItem.itemName.kebabCase" ]
+        [ searchValue="articulusInterior" replaceByExpression="nestedItem.itemName.camelCase" ]
+        [ searchValue="ArticulusInterior" replaceByExpression="nestedItem.itemName.pascalCase" ]
 
 }}}@  */
 import {
-    LibraryAwardTableComponent
-} from "@app/opus-magnum/opus-magnum-form/library-award-table/library-award-table.component";
+    ArticulusInteriorTableComponent
+} from "@app/opus-magnum/opus-magnum-form/articulus-interior-table/articulus-interior-table.component";
 import {
-    LibraryAwardFormPartComponent
-} from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part.component";
+    ArticulusInteriorFormPartComponent
+} from "@app/opus-magnum/opus-magnum-form/articulus-interior-form-part/articulus-interior-form-part.component";
 import {
-    LibraryAwardFormPartGroup
-} from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part-group";
+    ArticulusInteriorFormPartGroup
+} from "@app/opus-magnum/opus-magnum-form/articulus-interior-form-part/articulus-interior-form-part-group";
 /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
 
 @Component({
@@ -150,14 +150,14 @@ import {
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment
             @foreach [ iteratorExpression="model.item.attributeItemsFlat" loopVariable="nestedItem" ]
             @replace-value-by-expression
-                [ searchValue="library-award" replaceByExpression="nestedItem.itemName.kebabCase" ]
-                [ searchValue="libraryAward" replaceByExpression="nestedItem.itemName.camelCase" ]
-                [ searchValue="LibraryAward" replaceByExpression="nestedItem.itemName.pascalCase" ]
+                [ searchValue="articulus-interior" replaceByExpression="nestedItem.itemName.kebabCase" ]
+                [ searchValue="articulusInterior" replaceByExpression="nestedItem.itemName.camelCase" ]
+                [ searchValue="ArticulusInterior" replaceByExpression="nestedItem.itemName.pascalCase" ]
 
         }}}@  */
 
-        LibraryAwardTableComponent,
-        LibraryAwardFormPartComponent,
+        ArticulusInteriorTableComponent,
+        ArticulusInteriorFormPartComponent,
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text }}}@ */
         DatepickerInputComponent,
@@ -172,11 +172,11 @@ export class SilvaOptionumFormPartComponent implements OnInit {
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment
         @foreach [ iteratorExpression="model.item.attributesWithItems" loopVariable="attribute" ]
         @replace-value-by-expression
-            [ searchValue="libraryAwardList" replaceByExpression="attribute.attributeName.camelCase" ]
-            [ searchValue="FormGroup<LibraryAwardFormPartGroup>" replaceByExpression="attribute.typescriptAttributeFormControlType" ]
+            [ searchValue="articulusInteriorList" replaceByExpression="attribute.attributeName.camelCase" ]
+            [ searchValue="FormGroup<ArticulusInteriorFormPartGroup>" replaceByExpression="attribute.typescriptAttributeFormControlType" ]
 
     }}}@  */
-    libraryAwardListFormGroupUnderEdit: FormGroup<LibraryAwardFormPartGroup> | undefined = undefined;
+    articulusInteriorListFormGroupUnderEdit: FormGroup<ArticulusInteriorFormPartGroup> | undefined = undefined;
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
 
 
@@ -206,8 +206,8 @@ export class SilvaOptionumFormPartComponent implements OnInit {
 
     protected lastnameControl!: FormControl<string>
     protected lastnameValidatorNames!: ReadonlyArray<ValidatorTranslation>
-    protected libraryAwardListControl!: FormArray<FormGroup<LibraryAwardFormPartGroup>>
-    protected libraryAwardListValidatorNames!: ReadonlyArray<ValidatorTranslation>
+    protected articulusInteriorListControl!: FormArray<FormGroup<ArticulusInteriorFormPartGroup>>
+    protected articulusInteriorListValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected birthdayIsNotNullControl!: FormControl<boolean>
     protected birthdayIsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected birthdayControl!: FormControl<Date | null>
@@ -245,8 +245,8 @@ export class SilvaOptionumFormPartComponent implements OnInit {
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
         this.lastnameControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.lastname]
         this.lastnameValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.lastname)
-        this.libraryAwardListControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.libraryAwardList]
-        this.libraryAwardListValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.libraryAwardList)
+        this.articulusInteriorListControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.articulusInteriorList]
+        this.articulusInteriorListValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.articulusInteriorList)
         this.birthdayIsNotNullControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.birthdayIsNotNull]
         this.birthdayIsNotNullValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.birthdayIsNotNull)
         this.birthdayControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.birthday]
@@ -262,24 +262,24 @@ export class SilvaOptionumFormPartComponent implements OnInit {
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment
     @foreach [ iteratorExpression="model.item.attributesWithItems" loopVariable="attribute" ]
     @replace-value-by-expression
-        [ searchValue="libraryAwardList" replaceByExpression="attribute.attributeName.camelCase" ]
-        [ searchValue="LibraryAwardList" replaceByExpression="attribute.attributeName.pascalCase" ]
-        [ searchValue="FormGroup<LibraryAwardFormPartGroup>" replaceByExpression="attribute.typescriptAttributeFormControlType" ]
+        [ searchValue="articulusInteriorList" replaceByExpression="attribute.attributeName.camelCase" ]
+        [ searchValue="ArticulusInteriorList" replaceByExpression="attribute.attributeName.pascalCase" ]
+        [ searchValue="FormGroup<ArticulusInteriorFormPartGroup>" replaceByExpression="attribute.typescriptAttributeFormControlType" ]
 
     }}}@  */
-    onLibraryAwardListFormGroupEdit(formGroup: FormGroup<LibraryAwardFormPartGroup>): void {
-        this.libraryAwardListFormGroupUnderEdit = formGroup;
+    onArticulusInteriorListFormGroupEdit(formGroup: FormGroup<ArticulusInteriorFormPartGroup>): void {
+        this.articulusInteriorListFormGroupUnderEdit = formGroup;
     }
 
-    onLibraryAwardListFormGroupDelete(formGroup: FormGroup<LibraryAwardFormPartGroup>): void {
-        if(this.libraryAwardListFormGroupUnderEdit == formGroup) {
-            this.libraryAwardListFormGroupUnderEdit = undefined
+    onArticulusInteriorListFormGroupDelete(formGroup: FormGroup<ArticulusInteriorFormPartGroup>): void {
+        if(this.articulusInteriorListFormGroupUnderEdit == formGroup) {
+            this.articulusInteriorListFormGroupUnderEdit = undefined
         }
-        FormUtil.removeControl(this.libraryAwardListControl, formGroup)
+        FormUtil.removeControl(this.articulusInteriorListControl, formGroup)
     }
 
-    closeLibraryAwardListFormGroupUnderEdit(): void {
-        this.libraryAwardListFormGroupUnderEdit = undefined;
+    closeArticulusInteriorListFormGroupUnderEdit(): void {
+        this.articulusInteriorListFormGroupUnderEdit = undefined;
     }
 
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */

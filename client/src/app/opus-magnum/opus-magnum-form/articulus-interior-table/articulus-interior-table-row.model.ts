@@ -15,9 +15,9 @@
     ]
 
     @replace-value-by-expression
-        [ searchValue="library-award" replaceByExpression="model.item.itemName.kebabCase" ]
-        [ searchValue="libraryAward" replaceByExpression="model.item.itemName.camelCase" ]
-        [ searchValue="LibraryAward" replaceByExpression="model.item.itemName.pascalCase" ]
+        [ searchValue="articulus-interior" replaceByExpression="model.item.itemName.kebabCase" ]
+        [ searchValue="articulusInterior" replaceByExpression="model.item.itemName.camelCase" ]
+        [ searchValue="ArticulusInterior" replaceByExpression="model.item.itemName.pascalCase" ]
         [ searchValue="opus-magnum" replaceByExpression="model.entity.entityName.kebabCase" ]
         [ searchValue="OpusMagnum" replaceByExpression="model.entity.entityName.pascalCase" ]
         [ searchValue="opusMagnum" replaceByExpression="model.entity.entityName.camelCase" ]
@@ -30,10 +30,10 @@
 
 import {FormGroup} from "@angular/forms";
 import {
-    LibraryAwardFormPartGroup
-} from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part-group";
+    ArticulusInteriorFormPartGroup
+} from "@app/opus-magnum/opus-magnum-form/articulus-interior-form-part/articulus-interior-form-part-group";
 
-export interface LibraryAwardTableRow {
+export interface ArticulusInteriorTableRow {
     /*
     @tt{{{
         @remove-blanks-and-linebreak-before-comment
@@ -50,5 +50,5 @@ export interface LibraryAwardTableRow {
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
     year: number
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
-    formGroup: FormGroup<LibraryAwardFormPartGroup>
+    formGroup: FormGroup<ArticulusInteriorFormPartGroup>
 }

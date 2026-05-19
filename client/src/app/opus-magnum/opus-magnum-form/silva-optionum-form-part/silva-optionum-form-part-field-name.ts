@@ -48,7 +48,7 @@ export enum SilvaOptionumFormPartFieldName {
 /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
     firstname = "firstname",
     lastname = "lastname",
-    libraryAwardList = "libraryAwardList",
+    articulusInteriorList = "articulusInteriorList",
     birthdayIsNotNull = "birthdayIsNotNull",
     birthday = "birthday",
     vegetarian = "vegetarian",

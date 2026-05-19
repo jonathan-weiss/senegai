@@ -14,9 +14,9 @@
     ]
 
     @replace-value-by-expression
-        [ searchValue="library-award" replaceByExpression="model.item.itemName.kebabCase" ]
-        [ searchValue="libraryAward" replaceByExpression="model.item.itemName.camelCase" ]
-        [ searchValue="LibraryAward" replaceByExpression="model.item.itemName.pascalCase" ]
+        [ searchValue="articulus-interior" replaceByExpression="model.item.itemName.kebabCase" ]
+        [ searchValue="articulusInterior" replaceByExpression="model.item.itemName.camelCase" ]
+        [ searchValue="ArticulusInterior" replaceByExpression="model.item.itemName.pascalCase" ]
         [ searchValue="opus-magnum" replaceByExpression="model.entity.entityName.kebabCase" ]
         [ searchValue="OpusMagnum" replaceByExpression="model.entity.entityName.pascalCase" ]
         [ searchValue="opusMagnum" replaceByExpression="model.entity.entityName.camelCase" ]

@@ -33,8 +33,8 @@ import {Injectable} from '@angular/core';
 import {GenderEnum} from "@app/wto/gender.enum";
 import {FormGroup} from "@angular/forms";
 import {
-    LibraryAwardFormPartGroup
-} from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part-group";
+    ArticulusInteriorFormPartGroup
+} from "@app/opus-magnum/opus-magnum-form/articulus-interior-form-part/articulus-interior-form-part-group";
 /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
 
 
@@ -66,7 +66,7 @@ export class SilvaOptionumFormPartInitialValueService {
     nicknameInitialValue(): string | null {
         return null
     }
-    libraryAwardListInitialValue(): Array<FormGroup<LibraryAwardFormPartGroup>> {
+    articulusInteriorListInitialValue(): Array<FormGroup<ArticulusInteriorFormPartGroup>> {
         return []
     }
     lastnameInitialValue(): string {

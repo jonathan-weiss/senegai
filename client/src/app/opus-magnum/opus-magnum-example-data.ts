@@ -49,7 +49,7 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
             firstname: 'John',
             nickname: 'Johnny',
             lastname: 'Doe',
-            libraryAwardList: [
+            articulusInteriorList: [
                 {
                     description: "ALA Medal of Excellence.",
                     year: 1956,
@@ -74,7 +74,7 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
             firstname: 'Jane',
             nickname: 'Janey',
             lastname: 'Smith',
-            libraryAwardList: [
+            articulusInteriorList: [
                 {
                     description: "James Madison Award ",
                     year: 1956,
@@ -99,7 +99,7 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
             firstname: 'Robert',
             nickname: null,
             lastname: 'Johnson',
-            libraryAwardList: [],
+            articulusInteriorList: [],
             birthday: new Date(1963, 11, 31),
             vegetarian: true,
             gender: GenderEnum.MALE,
@@ -113,7 +113,7 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
             firstname: 'Mary',
             nickname: 'Molly',
             lastname: 'Williams',
-            libraryAwardList: [
+            articulusInteriorList: [
                 {
                     description: "Jean E. Coleman Library Outreach Lecture",
                     year: 1956,

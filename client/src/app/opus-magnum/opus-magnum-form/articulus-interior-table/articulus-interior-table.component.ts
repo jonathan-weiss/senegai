@@ -15,9 +15,9 @@
     ]
 
     @replace-value-by-expression
-        [ searchValue="library-award" replaceByExpression="model.item.itemName.kebabCase" ]
-        [ searchValue="libraryAward" replaceByExpression="model.item.itemName.camelCase" ]
-        [ searchValue="LibraryAward" replaceByExpression="model.item.itemName.pascalCase" ]
+        [ searchValue="articulus-interior" replaceByExpression="model.item.itemName.kebabCase" ]
+        [ searchValue="articulusInterior" replaceByExpression="model.item.itemName.camelCase" ]
+        [ searchValue="ArticulusInterior" replaceByExpression="model.item.itemName.pascalCase" ]
         [ searchValue="opus-magnum" replaceByExpression="model.entity.entityName.kebabCase" ]
         [ searchValue="OpusMagnum" replaceByExpression="model.entity.entityName.pascalCase" ]
         [ searchValue="opusMagnum" replaceByExpression="model.entity.entityName.camelCase" ]
@@ -41,22 +41,22 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {MatDialogModule} from "@angular/material/dialog";
 import {
-    LibraryAwardTableRow
-} from "@app/opus-magnum/opus-magnum-form/library-award-table/library-award-table-row.model";
+    ArticulusInteriorTableRow
+} from "@app/opus-magnum/opus-magnum-form/articulus-interior-table/articulus-interior-table-row.model";
 import {
-    LibraryAwardFormPartFieldName
-} from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part-field-name";
+    ArticulusInteriorFormPartFieldName
+} from "@app/opus-magnum/opus-magnum-form/articulus-interior-form-part/articulus-interior-form-part-field-name";
 import {
-    LibraryAwardFormPartService
-} from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part.service";
+    ArticulusInteriorFormPartService
+} from "@app/opus-magnum/opus-magnum-form/articulus-interior-form-part/articulus-interior-form-part.service";
 import {
-    LibraryAwardFormPartGroup
-} from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part-group";
+    ArticulusInteriorFormPartGroup
+} from "@app/opus-magnum/opus-magnum-form/articulus-interior-form-part/articulus-interior-form-part-group";
 
 @Component({
-    selector: 'app-library-award-table',
-    templateUrl: './library-award-table.component.html',
-    styleUrls: ['./library-award-table.component.scss'],
+    selector: 'app-articulus-interior-table',
+    templateUrl: './articulus-interior-table.component.html',
+    styleUrls: ['./articulus-interior-table.component.scss'],
     imports: [
         ReactiveFormsModule,
         MatButtonModule,
@@ -72,10 +72,10 @@ import {
         MatDialogModule,
     ]
 })
-export class LibraryAwardTableComponent implements OnInit {
-    @Input({ required: true }) libraryAwardFormArray!: FormArray<FormGroup<LibraryAwardFormPartGroup>>;
-    @Output() editLibraryAwardFormGroup = new EventEmitter<FormGroup<LibraryAwardFormPartGroup>>();
-    @Output() deleteLibraryAwardFormGroup = new EventEmitter<FormGroup<LibraryAwardFormPartGroup>>();
+export class ArticulusInteriorTableComponent implements OnInit {
+    @Input({ required: true }) articulusInteriorFormArray!: FormArray<FormGroup<ArticulusInteriorFormPartGroup>>;
+    @Output() editArticulusInteriorFormGroup = new EventEmitter<FormGroup<ArticulusInteriorFormPartGroup>>();
+    @Output() deleteArticulusInteriorFormGroup = new EventEmitter<FormGroup<ArticulusInteriorFormPartGroup>>();
 
     displayedColumns: string[] = [
         /*
@@ -95,19 +95,19 @@ export class LibraryAwardTableComponent implements OnInit {
         'actions',
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
     ];
-    dataSource: MatTableDataSource<LibraryAwardTableRow> = new MatTableDataSource<LibraryAwardTableRow>();
+    dataSource: MatTableDataSource<ArticulusInteriorTableRow> = new MatTableDataSource<ArticulusInteriorTableRow>();
 
     selectedFormGroup: FormGroup | undefined = undefined;
 
-    constructor(private readonly libraryAwardFormService: LibraryAwardFormPartService) {
+    constructor(private readonly articulusInteriorFormService: ArticulusInteriorFormPartService) {
     }
 
     ngOnInit(): void {
         this.updateFormData()
-        this.libraryAwardFormArray.valueChanges.subscribe(() => this.updateFormData())
+        this.articulusInteriorFormArray.valueChanges.subscribe(() => this.updateFormData())
     }
 
-    private toTableRow(formGroup: FormGroup<LibraryAwardFormPartGroup>): LibraryAwardTableRow {
+    private toTableRow(formGroup: FormGroup<ArticulusInteriorFormPartGroup>): ArticulusInteriorTableRow {
         return {
             /*
             @tt{{{
@@ -120,44 +120,44 @@ export class LibraryAwardTableComponent implements OnInit {
                 @remove-blanks-and-linebreak-after-comment
             }}}@
              */
-            description: formGroup.controls[LibraryAwardFormPartFieldName.description].value,
+            description: formGroup.controls[ArticulusInteriorFormPartFieldName.description].value,
             /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
             /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
 
-            year: formGroup.controls[LibraryAwardFormPartFieldName.year].value,
+            year: formGroup.controls[ArticulusInteriorFormPartFieldName.year].value,
             /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
             formGroup: formGroup,
         }
     }
 
     private updateFormData(): void {
-        this.dataSource.data = this.libraryAwardFormArray.controls.map((control) => this.toTableRow(control))
+        this.dataSource.data = this.articulusInteriorFormArray.controls.map((control) => this.toTableRow(control))
     }
 
     onAdd(): void {
-        const newEntry = this.libraryAwardFormService.createInitialLibraryAwardForm()
-        const indexOfSelected = this.selectedFormGroup ? this.libraryAwardFormArray.controls.indexOf(this.selectedFormGroup) : -1
+        const newEntry = this.articulusInteriorFormService.createInitialArticulusInteriorForm()
+        const indexOfSelected = this.selectedFormGroup ? this.articulusInteriorFormArray.controls.indexOf(this.selectedFormGroup) : -1
         if(indexOfSelected !== -1) {
-            this.libraryAwardFormArray.insert(indexOfSelected + 1, newEntry)
+            this.articulusInteriorFormArray.insert(indexOfSelected + 1, newEntry)
         } else {
-            this.libraryAwardFormArray.push(newEntry)
+            this.articulusInteriorFormArray.push(newEntry)
         }
-        this.editLibraryAwardFormGroup.emit(newEntry);
+        this.editArticulusInteriorFormGroup.emit(newEntry);
     }
 
-    onSelect(opusMagnumLibraryAwardFormGroup: FormGroup): void {
-        this.selectedFormGroup = opusMagnumLibraryAwardFormGroup
+    onSelect(opusMagnumArticulusInteriorFormGroup: FormGroup): void {
+        this.selectedFormGroup = opusMagnumArticulusInteriorFormGroup
     }
 
-    isSelected(opusMagnumLibraryAwardFormGroup: FormGroup): boolean {
-        return this.selectedFormGroup == opusMagnumLibraryAwardFormGroup
+    isSelected(opusMagnumArticulusInteriorFormGroup: FormGroup): boolean {
+        return this.selectedFormGroup == opusMagnumArticulusInteriorFormGroup
     }
 
-    onEdit(opusMagnumLibraryAwardFormGroup: FormGroup): void {
-        this.editLibraryAwardFormGroup.emit(opusMagnumLibraryAwardFormGroup);
+    onEdit(opusMagnumArticulusInteriorFormGroup: FormGroup): void {
+        this.editArticulusInteriorFormGroup.emit(opusMagnumArticulusInteriorFormGroup);
     }
 
-    onDelete(opusMagnumLibraryAwardFormGroup: FormGroup): void {
-        this.deleteLibraryAwardFormGroup.emit(opusMagnumLibraryAwardFormGroup);
+    onDelete(opusMagnumArticulusInteriorFormGroup: FormGroup): void {
+        this.deleteArticulusInteriorFormGroup.emit(opusMagnumArticulusInteriorFormGroup);
     }
 }

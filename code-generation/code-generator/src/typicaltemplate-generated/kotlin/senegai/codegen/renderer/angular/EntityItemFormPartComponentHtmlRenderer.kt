@@ -74,12 +74,12 @@ object EntityItemFormPartComponentHtmlRenderer : UiEntityItemRenderer {
                               |                    <app-field-wrapper label="${block.attribute.attributeName.pascalCase}">
                               |                        <app-${block.attribute.attributeName.kebabCase}-table
                               |                                [${block.attribute.attributeName.pascalCase}FormArray]="${block.attribute.attributeName.pascalCase}ListControl"
-                              |                                (editLibraryAwardFormGroup)="onLibraryAwardListFormGroupEdit(${"$"}event)"
-                              |                                (deleteLibraryAwardFormGroup)="onLibraryAwardListFormGroupDelete(${"$"}event)"
+                              |                                (editArticulusInteriorFormGroup)="onArticulusInteriorListFormGroupEdit(${"$"}event)"
+                              |                                (deleteArticulusInteriorFormGroup)="onArticulusInteriorListFormGroupDelete(${"$"}event)"
                               |                        />
                               |                        @if (${block.attribute.attributeName.pascalCase}ListFormGroupUnderEdit) {
                               |                            <div class="edit-area">
-                              |                                <button mat-icon-button color="primary" (click)="closeLibraryAwardListFormGroupUnderEdit()">
+                              |                                <button mat-icon-button color="primary" (click)="closeArticulusInteriorListFormGroupUnderEdit()">
                               |                                    <mat-icon>edit_off</mat-icon>
                               |                                </button>
                               |                                <app-${block.attribute.attributeName.kebabCase}-form-part [${block.attribute.attributeName.pascalCase}Form]="${block.attribute.attributeName.pascalCase}ListFormGroupUnderEdit!"  />

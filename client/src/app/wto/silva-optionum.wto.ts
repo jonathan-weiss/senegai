@@ -25,7 +25,7 @@
 }}}@ */
 
 /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
-import {LibraryAwardWTO} from "@app/wto/library-award.wto";
+import {ArticulusInteriorWTO} from "@app/wto/articulus-interior.wto";
 import {GenderEnum} from "@app/wto/gender.enum";
 /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
 
@@ -51,7 +51,7 @@ export interface SilvaOptionumWTO {
     nickname: string | null;
     lastname: string;
     gender: GenderEnum;
-    libraryAwardList: Array<LibraryAwardWTO>;
+    articulusInteriorList: Array<ArticulusInteriorWTO>;
     birthday: Date | null;
     vegetarian: boolean;
     id: string;

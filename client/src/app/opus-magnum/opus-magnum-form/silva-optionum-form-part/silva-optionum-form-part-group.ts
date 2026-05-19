@@ -32,8 +32,8 @@ import {SilvaOptionumFormPartFieldName} from "@app/opus-magnum/opus-magnum-form/
 /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
 import {GenderEnum} from "@app/wto/gender.enum";
 import {
-    LibraryAwardFormPartGroup
-} from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part-group";
+    ArticulusInteriorFormPartGroup
+} from "@app/opus-magnum/opus-magnum-form/articulus-interior-form-part/articulus-interior-form-part-group";
 
 /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
 
@@ -55,7 +55,7 @@ export interface SilvaOptionumFormPartGroup {
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
     [SilvaOptionumFormPartFieldName.firstname]: FormControl<string>,
     [SilvaOptionumFormPartFieldName.lastname]: FormControl<string>,
-    [SilvaOptionumFormPartFieldName.libraryAwardList]: FormArray<FormGroup<LibraryAwardFormPartGroup>>,
+    [SilvaOptionumFormPartFieldName.articulusInteriorList]: FormArray<FormGroup<ArticulusInteriorFormPartGroup>>,
     [SilvaOptionumFormPartFieldName.birthdayIsNotNull]: FormControl<boolean>,
     [SilvaOptionumFormPartFieldName.birthday]: FormControl<Date | null>,
     [SilvaOptionumFormPartFieldName.vegetarian]: FormControl<boolean>,

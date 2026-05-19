@@ -32,7 +32,7 @@ import {MatDialogModule} from "@angular/material/dialog";
     ]
 })
 export class TabulaSimplexComponent implements OnInit {
-    @Input({ required: true }) libraryAwardJuryFormArray!: FormArray;
+    @Input({ required: true }) articulusInteriorJuryFormArray!: FormArray;
 
     displayedColumns: string[] = ['jury', 'actions'];
     dataSource: MatTableDataSource<AbstractControl> = new MatTableDataSource<AbstractControl>();
@@ -40,36 +40,36 @@ export class TabulaSimplexComponent implements OnInit {
     selectedControl: FormControl | undefined = undefined;
 
     ngOnInit(): void {
-        this.dataSource.data = this.libraryAwardJuryFormArray.controls
-        this.libraryAwardJuryFormArray.valueChanges.subscribe(() => this.updateFormData())
+        this.dataSource.data = this.articulusInteriorJuryFormArray.controls
+        this.articulusInteriorJuryFormArray.valueChanges.subscribe(() => this.updateFormData())
     }
 
     private updateFormData(): void {
-        this.dataSource.data = this.libraryAwardJuryFormArray.controls
+        this.dataSource.data = this.articulusInteriorJuryFormArray.controls
     }
 
     onAdd(): void {
         const newEntry = new FormControl('')
-        const indexOfSelected = this.selectedControl ? this.libraryAwardJuryFormArray.controls.indexOf(this.selectedControl) : -1
+        const indexOfSelected = this.selectedControl ? this.articulusInteriorJuryFormArray.controls.indexOf(this.selectedControl) : -1
         if(indexOfSelected !== -1) {
-            this.libraryAwardJuryFormArray.insert(indexOfSelected + 1, newEntry)
+            this.articulusInteriorJuryFormArray.insert(indexOfSelected + 1, newEntry)
         } else {
-            this.libraryAwardJuryFormArray.push(newEntry)
+            this.articulusInteriorJuryFormArray.push(newEntry)
         }
     }
 
-    onSelect(opusMagnumLibraryAwardFormControl: FormControl): void {
-        this.selectedControl = opusMagnumLibraryAwardFormControl
+    onSelect(opusMagnumArticulusInteriorFormControl: FormControl): void {
+        this.selectedControl = opusMagnumArticulusInteriorFormControl
     }
 
-    isSelected(opusMagnumLibraryAwardFormControl: FormControl): boolean {
-        return this.selectedControl == opusMagnumLibraryAwardFormControl
+    isSelected(opusMagnumArticulusInteriorFormControl: FormControl): boolean {
+        return this.selectedControl == opusMagnumArticulusInteriorFormControl
     }
 
-    onDelete(opusMagnumLibraryAwardFormControl: FormControl): void {
-        const indexOfSelected = this.libraryAwardJuryFormArray.controls.indexOf(opusMagnumLibraryAwardFormControl)
+    onDelete(opusMagnumArticulusInteriorFormControl: FormControl): void {
+        const indexOfSelected = this.articulusInteriorJuryFormArray.controls.indexOf(opusMagnumArticulusInteriorFormControl)
         if(indexOfSelected !== -1) {
-            this.libraryAwardJuryFormArray.removeAt(indexOfSelected)
+            this.articulusInteriorJuryFormArray.removeAt(indexOfSelected)
         }
     }
 }
