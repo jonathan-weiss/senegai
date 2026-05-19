@@ -53,6 +53,5 @@ export interface SilvaOptionumWTO {
     articulusInteriorList: Array<ArticulusInteriorWTO>;
     campusDiei: Date | null;
     campusBivalens: boolean;
-    id: string;
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text }}}@ */
 }

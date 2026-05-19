@@ -181,7 +181,6 @@ export class SilvaOptionumFormPartComponent implements OnInit {
 
 
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
-    protected idControl!: FormControl<string>
     protected campusTextusObligatoriusControl!: FormControl<string>
     protected campusTextusObligatoriusValidatorNames!: ReadonlyArray<ValidatorTranslation>
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
@@ -221,7 +220,6 @@ export class SilvaOptionumFormPartComponent implements OnInit {
 
     ngOnInit() {
         /* @tt{{{ @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
-        this.idControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.id]
         this.campusTextusObligatoriusControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.campusTextusObligatorius]
         this.campusTextusObligatoriusValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.campusTextusObligatorius)
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text }}}@ */

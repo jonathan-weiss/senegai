@@ -52,7 +52,6 @@ export enum SilvaOptionumFormPartFieldName {
     campusDiei = "campusDiei",
     campusBivalens = "campusBivalens",
     appellatio = "appellatio",
-    id = "id",
 /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
 }
 

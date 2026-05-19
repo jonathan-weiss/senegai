@@ -59,6 +59,5 @@ export interface SilvaOptionumFormPartGroup {
     [SilvaOptionumFormPartFieldName.campusDiei]: FormControl<Date | null>,
     [SilvaOptionumFormPartFieldName.campusBivalens]: FormControl<boolean>,
     [SilvaOptionumFormPartFieldName.appellatio]: FormControl<AppellatioEnum>,
-    [SilvaOptionumFormPartFieldName.id]: FormControl<string>,
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
 }

@@ -82,14 +82,6 @@ export class SilvaOptionumFormPartService {
     public createInitialSilvaOptionumForm(): FormGroup<SilvaOptionumFormPartGroup> {
         return new FormGroup({
             /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
-            [SilvaOptionumFormPartFieldName.id]: new FormControl<string>(
-                {
-                    value: this.silvaOptionumFormInitialValueService.idInitialValue(),
-                    disabled: true, // ID is readonly
-                }, {
-                    nonNullable: true,
-                },
-            ),
             [SilvaOptionumFormPartFieldName.campusTextusObligatorius]: new FormControl<string>(
                 this.silvaOptionumFormInitialValueService.campusTextusObligatoriusInitialValue(),
                 {
@@ -192,7 +184,6 @@ export class SilvaOptionumFormPartService {
     public patchSilvaOptionumForm(form: FormGroup<SilvaOptionumFormPartGroup>, silvaOptionum: SilvaOptionumWTO): void {
 
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
-        form.controls[SilvaOptionumFormPartFieldName.id].patchValue(silvaOptionum.id);
         form.controls[SilvaOptionumFormPartFieldName.campusTextusObligatorius].patchValue(silvaOptionum.campusTextusObligatorius);
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
         /* @tt{{{
@@ -219,9 +210,6 @@ export class SilvaOptionumFormPartService {
 
     public createSilvaOptionumFromFormData(form: FormGroup<SilvaOptionumFormPartGroup>): SilvaOptionumWTO {
         return {
-            /* @tt{{{ @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
-            id: form.controls[SilvaOptionumFormPartFieldName.id].getRawValue(),
-            /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
             /* @tt{{{
                 @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 

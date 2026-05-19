@@ -45,7 +45,6 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
         id: '828cf29b-a7fb-4b07-bf13-9a313a9967f6',
         silvaOptionum: {
-            id: '828cf29b-a7fb-4b07-bf13-9a313a9967f6',
             campusTextusObligatorius: 'Doe',
             campusTextusOptionalis: 'Johnny',
             articulusInteriorList: [
@@ -69,7 +68,6 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
         id: '6b9a179c-641b-4204-a6ae-46be2fbbaa3a',
         title: 'populari opulari',
         silvaOptionum: {
-            id: '6b9a179c-641b-4204-a6ae-46be2fbbaa3a',
             campusTextusObligatorius: 'Smith',
             campusTextusOptionalis: 'Jane',
             articulusInteriorList: [
@@ -93,7 +91,6 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
         id: 'd4076f05-50ac-4ceb-b54d-06f5c77874e4',
         title: 'sczenzo riguldi',
         silvaOptionum: {
-            id: 'd4076f05-50ac-4ceb-b54d-06f5c77874e4',
             campusTextusObligatorius: 'Johnson',
             campusTextusOptionalis: null,
             articulusInteriorList: [],
@@ -106,7 +103,6 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
         id: 'example',
         title: 'dak szena',
         silvaOptionum: {
-            id: 'af18a7cc-7e7a-4388-bb32-95652fc1e379',
             campusTextusObligatorius: 'Williams',
             campusTextusOptionalis: 'Molly',
             articulusInteriorList: [
