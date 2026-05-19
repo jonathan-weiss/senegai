@@ -11,20 +11,20 @@ describe('AppellatioI18n', () => {
         component = fixture.componentInstance;
     });
 
-    it('should display correct text for MALE', () => {
-        component.enumValue = AppellatioEnum.MALE;
+    it('should display correct text for SENIOR', () => {
+        component.enumValue = AppellatioEnum.SENIOR;
 
         fixture.detectChanges();
 
-        expect(fixture.nativeElement.textContent).toBe('MALE');
+        expect(fixture.nativeElement.textContent).toBe('SENIOR');
     });
 
-    it('should display correct text for FEMALE', () => {
-        component.enumValue = AppellatioEnum.FEMALE;
+    it('should display correct text for MATRONA', () => {
+        component.enumValue = AppellatioEnum.MATRONA;
 
         fixture.detectChanges();
 
-        expect(fixture.nativeElement.textContent).toBe('FEMALE');
+        expect(fixture.nativeElement.textContent).toBe('MATRONA');
     });
 
     // checking if everything is translated

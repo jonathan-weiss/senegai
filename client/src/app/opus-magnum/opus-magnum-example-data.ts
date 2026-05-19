@@ -63,7 +63,7 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
             ],
             birthday: new Date(1979, 3, 23),
             vegetarian: false,
-            appellatio: AppellatioEnum.MALE,
+            appellatio: AppellatioEnum.SENIOR,
         }
     },
     {
@@ -88,7 +88,7 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
             ],
             birthday: null,
             vegetarian: false,
-            appellatio: AppellatioEnum.FEMALE,
+            appellatio: AppellatioEnum.MATRONA,
         }
     },
     {
@@ -102,7 +102,7 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
             articulusInteriorList: [],
             birthday: new Date(1963, 11, 31),
             vegetarian: true,
-            appellatio: AppellatioEnum.MALE,
+            appellatio: AppellatioEnum.SENIOR,
         }
     },
     {
@@ -127,7 +127,7 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
             ],
             birthday: new Date(1954, 8, 3),
             vegetarian: false,
-            appellatio: AppellatioEnum.FEMALE,
+            appellatio: AppellatioEnum.MATRONA,
         }
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
     }

@@ -1,8 +1,8 @@
 export enum AppellatioEnum {
-    MALE = 'MALE',
-    FEMALE = 'FEMALE',
+    SENIOR = 'SENIOR',
+    MATRONA = 'MATRONA',
 }
 
-export const AppellatioEnumValues: ReadonlyArray<AppellatioEnum> = [ AppellatioEnum.MALE, AppellatioEnum.FEMALE ]
+export const AppellatioEnumValues: ReadonlyArray<AppellatioEnum> = [ AppellatioEnum.SENIOR, AppellatioEnum.MATRONA ]
 
 
