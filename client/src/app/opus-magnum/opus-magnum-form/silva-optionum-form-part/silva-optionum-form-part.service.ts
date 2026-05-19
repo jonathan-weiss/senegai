@@ -39,7 +39,7 @@ import {
 import {SilvaOptionumFormPartFieldName} from "@app/opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part-field-name";
 import {SilvaOptionumFormPartGroup} from "@app/opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part-group";
 /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
-import {GenderEnum} from "@app/wto/gender.enum";
+import {AppellatioEnum} from "@app/wto/appellatio.enum";
 /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
 
 /* @tt{{{ @remove-blanks-and-linebreak-before-comment
@@ -158,11 +158,11 @@ export class SilvaOptionumFormPartService {
                     validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.vegetarian)
                 },
             ),
-            [SilvaOptionumFormPartFieldName.gender]: new FormControl<GenderEnum>(
-                this.silvaOptionumFormInitialValueService.genderInitialValue(),
+            [SilvaOptionumFormPartFieldName.appellatio]: new FormControl<AppellatioEnum>(
+                this.silvaOptionumFormInitialValueService.appellatioInitialValue(),
                 {
                     nonNullable: true,
-                    validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.gender)
+                    validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.appellatio)
                 },
             ),
             /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
@@ -221,7 +221,7 @@ export class SilvaOptionumFormPartService {
         form.controls[SilvaOptionumFormPartFieldName.birthdayIsNotNull].patchValue(!silvaOptionum.birthday);
         form.controls[SilvaOptionumFormPartFieldName.birthday].patchValue(silvaOptionum.birthday ?? null);
         form.controls[SilvaOptionumFormPartFieldName.vegetarian].patchValue(silvaOptionum.vegetarian);
-        form.controls[SilvaOptionumFormPartFieldName.gender].patchValue(silvaOptionum.gender);
+        form.controls[SilvaOptionumFormPartFieldName.appellatio].patchValue(silvaOptionum.appellatio);
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
     }
 
@@ -252,7 +252,7 @@ export class SilvaOptionumFormPartService {
             articulusInteriorList: form.controls[SilvaOptionumFormPartFieldName.articulusInteriorList].getRawValue(),
             birthday: form.controls[SilvaOptionumFormPartFieldName.birthdayIsNotNull].value ? form.controls[SilvaOptionumFormPartFieldName.birthday].getRawValue() : null,
             vegetarian: form.controls[SilvaOptionumFormPartFieldName.vegetarian].getRawValue(),
-            gender: form.controls[SilvaOptionumFormPartFieldName.gender].getRawValue(),
+            appellatio: form.controls[SilvaOptionumFormPartFieldName.appellatio].getRawValue(),
             /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
         };
     }

@@ -25,7 +25,7 @@ object CodegenData {
     }
 
     enum class EnumTypes(override val enumName: String): EnumId {
-        GENDER(enumName = "Gender"),
+        APPELLATIO(enumName = "Appellatio"),
         ;
     }
 
@@ -34,7 +34,7 @@ object CodegenData {
             entity(entityId = Entities.EMPLOYEE, entityRootItemId = Items.CONTACT)
             entity(entityId = Entities.EXTERNAL_PERSON, entityRootItemId = Items.ADDRESS)
 
-            enumType(enumId = EnumTypes.GENDER) {
+            enumType(enumId = EnumTypes.APPELLATIO) {
                 enumValue(name = "Male")
                 enumValue(name = "Female")
             }

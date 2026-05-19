@@ -30,7 +30,7 @@
 import {FormArray, FormControl, FormGroup} from "@angular/forms";
 import {SilvaOptionumFormPartFieldName} from "@app/opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part-field-name";
 /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
-import {GenderEnum} from "@app/wto/gender.enum";
+import {AppellatioEnum} from "@app/wto/appellatio.enum";
 import {
     ArticulusInteriorFormPartGroup
 } from "@app/opus-magnum/opus-magnum-form/articulus-interior-form-part/articulus-interior-form-part-group";
@@ -59,7 +59,7 @@ export interface SilvaOptionumFormPartGroup {
     [SilvaOptionumFormPartFieldName.birthdayIsNotNull]: FormControl<boolean>,
     [SilvaOptionumFormPartFieldName.birthday]: FormControl<Date | null>,
     [SilvaOptionumFormPartFieldName.vegetarian]: FormControl<boolean>,
-    [SilvaOptionumFormPartFieldName.gender]: FormControl<GenderEnum>,
+    [SilvaOptionumFormPartFieldName.appellatio]: FormControl<AppellatioEnum>,
     [SilvaOptionumFormPartFieldName.id]: FormControl<string>,
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
 }

@@ -28,7 +28,7 @@
 }}}@ */
 
 /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
-import {GenderEnum} from "@app/wto/gender.enum";
+import {AppellatioEnum} from "@app/wto/appellatio.enum";
 /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
 
 export enum SilvaOptionumFormPartFieldName {
@@ -52,7 +52,7 @@ export enum SilvaOptionumFormPartFieldName {
     birthdayIsNotNull = "birthdayIsNotNull",
     birthday = "birthday",
     vegetarian = "vegetarian",
-    gender = "gender",
+    appellatio = "appellatio",
     id = "id",
 /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
 }

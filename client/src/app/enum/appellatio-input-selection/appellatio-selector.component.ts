@@ -5,15 +5,15 @@ import {CommonModule} from '@angular/common';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
 import {TranslocoPipe} from "@jsverse/transloco";
-import {GenderI18nComponent} from "@app/enum/gender-i18n/gender-i18n.component";
+import {AppellatioI18nComponent} from "@app/enum/appellatio-i18n/appellatio-i18n.component";
 import {MatOption} from "@angular/material/core";
 import {MatSelect} from "@angular/material/select";
-import {GenderEnumValues} from "@app/wto/gender.enum";
+import {AppellatioEnumValues} from "@app/wto/appellatio.enum";
 
 @Component({
-    selector: 'app-gender-selector',
-    templateUrl: './gender-selector.component.html',
-    styleUrls: ['./gender-selector.component.scss'],
+    selector: 'app-appellatio-selector',
+    templateUrl: './appellatio-selector.component.html',
+    styleUrls: ['./appellatio-selector.component.scss'],
     standalone: true,
     imports: [
         CommonModule,
@@ -21,12 +21,12 @@ import {GenderEnumValues} from "@app/wto/gender.enum";
         MatFormFieldModule,
         MatInputModule,
         TranslocoPipe,
-        GenderI18nComponent,
+        AppellatioI18nComponent,
         MatOption,
         MatSelect,
     ]
 })
-export class GenderSelectorComponent {
+export class AppellatioSelectorComponent {
     @Input() label: string = '';
     @Input({required: true}) enumFormControl!: FormControl;
     @Input() validatorTranslations: ReadonlyArray<ValidatorTranslation> = [];
@@ -36,5 +36,5 @@ export class GenderSelectorComponent {
     }
 
 
-    protected readonly genderList = GenderEnumValues;
+    protected readonly appellatioList = AppellatioEnumValues;
 }

@@ -30,7 +30,7 @@
 import {Injectable} from '@angular/core';
 /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
 // imports here that are ignored
-import {GenderEnum} from "@app/wto/gender.enum";
+import {AppellatioEnum} from "@app/wto/appellatio.enum";
 import {FormGroup} from "@angular/forms";
 import {
     ArticulusInteriorFormPartGroup
@@ -78,8 +78,8 @@ export class SilvaOptionumFormPartInitialValueService {
     vegetarianInitialValue(): boolean {
         return false;
     }
-    genderInitialValue(): GenderEnum {
-        return GenderEnum.FEMALE;
+    appellatioInitialValue(): AppellatioEnum {
+        return AppellatioEnum.FEMALE;
     }
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text }}}@ */
 }

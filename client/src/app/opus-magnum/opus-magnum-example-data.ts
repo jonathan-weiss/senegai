@@ -26,7 +26,7 @@
 }}}@ */
 import {OpusMagnumWTO} from "@app/wto/opus-magnum.wto";
 /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
-import {GenderEnum} from "@app/wto/gender.enum";
+import {AppellatioEnum} from "@app/wto/appellatio.enum";
 /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
 
 export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
@@ -63,7 +63,7 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
             ],
             birthday: new Date(1979, 3, 23),
             vegetarian: false,
-            gender: GenderEnum.MALE,
+            appellatio: AppellatioEnum.MALE,
         }
     },
     {
@@ -88,7 +88,7 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
             ],
             birthday: null,
             vegetarian: false,
-            gender: GenderEnum.FEMALE,
+            appellatio: AppellatioEnum.FEMALE,
         }
     },
     {
@@ -102,7 +102,7 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
             articulusInteriorList: [],
             birthday: new Date(1963, 11, 31),
             vegetarian: true,
-            gender: GenderEnum.MALE,
+            appellatio: AppellatioEnum.MALE,
         }
     },
     {
@@ -127,7 +127,7 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
             ],
             birthday: new Date(1954, 8, 3),
             vegetarian: false,
-            gender: GenderEnum.FEMALE,
+            appellatio: AppellatioEnum.FEMALE,
         }
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
     }

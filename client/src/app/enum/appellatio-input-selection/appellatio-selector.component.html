@@ -3,9 +3,9 @@
         <mat-label>{{ label }}</mat-label>
     }
     <mat-select [formControl]="enumFormControl">
-        @for (gender of genderList; track gender) {
-            <mat-option [value]="gender">
-                <app-gender-i18n [enumValue]="gender" />
+        @for (appellatio of appellatioList; track appellatio) {
+            <mat-option [value]="appellatio">
+                <app-appellatio-i18n [enumValue]="appellatio" />
             </mat-option>
         }
     </mat-select>

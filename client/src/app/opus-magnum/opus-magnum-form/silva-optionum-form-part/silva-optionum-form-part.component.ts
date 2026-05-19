@@ -76,9 +76,9 @@ import {TextBlockComponent} from "@app/shared/blocks/text-block/text-block.compo
 }}}@
  */
 /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
-import {GenderEnum} from "@app/wto/gender.enum";
+import {AppellatioEnum} from "@app/wto/appellatio.enum";
 import {BooleanInputComponent} from "@app/shared/form-controls/boolean-input/boolean-input.component";
-import {GenderSelectorComponent} from "@app/enum/gender-input-selection/gender-selector.component";
+import {AppellatioSelectorComponent} from "@app/enum/appellatio-input-selection/appellatio-selector.component";
 
 /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
 
@@ -162,7 +162,7 @@ import {
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text }}}@ */
         DatepickerInputComponent,
         BooleanInputComponent,
-        GenderSelectorComponent,
+        AppellatioSelectorComponent,
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text }}}@ */
     ]
 })
@@ -214,8 +214,8 @@ export class SilvaOptionumFormPartComponent implements OnInit {
     protected birthdayValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected vegetarianControl!: FormControl<boolean>
     protected vegetarianValidatorNames!: ReadonlyArray<ValidatorTranslation>
-    protected genderControl!: FormControl<GenderEnum>
-    protected genderValidatorNames!: ReadonlyArray<ValidatorTranslation>
+    protected appellatioControl!: FormControl<AppellatioEnum>
+    protected appellatioValidatorNames!: ReadonlyArray<ValidatorTranslation>
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
 
     constructor(private readonly silvaOptionumFormValidationService: SilvaOptionumFormPartValidationService,) {
@@ -253,8 +253,8 @@ export class SilvaOptionumFormPartComponent implements OnInit {
         this.birthdayValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.birthday)
         this.vegetarianControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.vegetarian]
         this.vegetarianValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.vegetarian)
-        this.genderControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.gender]
-        this.genderValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.gender)
+        this.appellatioControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.appellatio]
+        this.appellatioValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.appellatio)
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
     }
 

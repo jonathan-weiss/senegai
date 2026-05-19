@@ -1,18 +1,18 @@
-import {GenderI18nComponent} from "@app/enum/gender-i18n/gender-i18n.component";
-import {GenderEnum} from "@app/wto/gender.enum";
+import {AppellatioI18nComponent} from "@app/enum/appellatio-i18n/appellatio-i18n.component";
+import {AppellatioEnum} from "@app/wto/appellatio.enum";
 import {ComponentFixture, TestBed} from "@angular/core/testing";
 
-describe('GenderI18n', () => {
-    let component: GenderI18nComponent;
-    let fixture: ComponentFixture<GenderI18nComponent>;
+describe('AppellatioI18n', () => {
+    let component: AppellatioI18nComponent;
+    let fixture: ComponentFixture<AppellatioI18nComponent>;
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(GenderI18nComponent);
+        fixture = TestBed.createComponent(AppellatioI18nComponent);
         component = fixture.componentInstance;
     });
 
     it('should display correct text for MALE', () => {
-        component.enumValue = GenderEnum.MALE;
+        component.enumValue = AppellatioEnum.MALE;
 
         fixture.detectChanges();
 
@@ -20,7 +20,7 @@ describe('GenderI18n', () => {
     });
 
     it('should display correct text for FEMALE', () => {
-        component.enumValue = GenderEnum.FEMALE;
+        component.enumValue = AppellatioEnum.FEMALE;
 
         fixture.detectChanges();
 
@@ -28,7 +28,7 @@ describe('GenderI18n', () => {
     });
 
     // checking if everything is translated
-    Object.values(GenderEnum).forEach((value) => {
+    Object.values(AppellatioEnum).forEach((value) => {
         it(`should translate ${value}`, () => {
             component.enumValue = value;
 
