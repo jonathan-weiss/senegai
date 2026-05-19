@@ -9,8 +9,8 @@ import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewItemModel
  * Generate the content for the template `EntityItemFormPartGroupRenderer`.
  *
  * This template renderer was generated from the template:
- * - file: `author-form-part-group.ts`
- * - path: `opus-magnum/opus-magnum-form/author-form-part/author-form-part-group.ts`
+ * - file: `silva-optionum-form-part-group.ts`
+ * - path: `opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part-group.ts`
  */
 object EntityItemFormPartGroupRenderer : UiEntityItemRenderer {
 
@@ -18,7 +18,7 @@ object EntityItemFormPartGroupRenderer : UiEntityItemRenderer {
         return """
           |
           |import {FormArray, FormControl, FormGroup} from "@angular/forms";
-          |import {${model.item.itemName.pascalCase}FormPartFieldName} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.camelCase}-form-part/${model.item.itemName.camelCase}-form-part-field-name";
+          |import {${model.item.itemName.pascalCase}FormPartFieldName} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-field-name";
           |
           |
           |export interface ${model.item.itemName.pascalCase}FormPartGroup {
@@ -33,6 +33,6 @@ object EntityItemFormPartGroupRenderer : UiEntityItemRenderer {
     }
 
     override fun filePath(model: UiEntityFormViewItemModel): String {
-      return "${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.camelCase}-form-part/${model.item.itemName.camelCase}-form-part-group.ts"
+      return "${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-group.ts"
     }
 }

@@ -14,8 +14,9 @@
     ]
 
     @replace-value-by-expression
-        [ searchValue="Author" replaceByExpression="model.itemName.pascalCase" ]
-        [ searchValue="author" replaceByExpression="model.itemName.camelCase" ]
+        [ searchValue="silva-optionum" replaceByExpression="model.itemName.kebabCase" ]
+        [ searchValue="SilvaOptionum" replaceByExpression="model.itemName.pascalCase" ]
+        [ searchValue="silvaOptionum" replaceByExpression="model.itemName.camelCase" ]
 
     @modify-provided-filename-by-replacements
 
@@ -29,9 +30,9 @@ import {GenderEnum} from "@app/wto/gender.enum";
 /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
 
 /**
- * The Author WTO (Web Transfer Object) class.
+ * The Silva Optionum WTO (Web Transfer Object) class.
  */
-export interface AuthorWTO {
+export interface SilvaOptionumWTO {
     /* @tt{{{
         @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
 

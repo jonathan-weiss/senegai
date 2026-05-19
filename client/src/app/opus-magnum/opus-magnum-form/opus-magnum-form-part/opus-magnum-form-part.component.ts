@@ -30,8 +30,8 @@ import {TextBlockComponent} from "@app/shared/blocks/text-block/text-block.compo
 import {
     LibraryAwardFormPartGroup
 } from "@app/opus-magnum/opus-magnum-form/library-award-form-part/library-award-form-part-group";
-import {AuthorFormPartGroup} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-group";
-import {AuthorFormPartComponent} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part.component";
+import {SilvaOptionumFormPartGroup} from "@app/opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part-group";
+import {SilvaOptionumFormPartComponent} from "@app/opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part.component";
 
 @Component({
     selector: 'app-opus-magnum-form-part',
@@ -56,7 +56,7 @@ import {AuthorFormPartComponent} from "@app/opus-magnum/opus-magnum-form/author-
         MatTab,
         SectionSplitterComponent,
         TextBlockComponent,
-        AuthorFormPartComponent,
+        SilvaOptionumFormPartComponent,
     ]
 })
 export class OpusMagnumFormPartComponent implements OnInit {
@@ -65,8 +65,8 @@ export class OpusMagnumFormPartComponent implements OnInit {
     protected idControl!: FormControl<string>
     protected titleControl!: FormControl<string>
     protected titleValidatorNames!: ReadonlyArray<ValidatorTranslation>
-    protected authorFormGroup!: FormGroup<AuthorFormPartGroup>
-    protected authorValidatorNames!: ReadonlyArray<ValidatorTranslation>
+    protected silvaOptionumFormGroup!: FormGroup<SilvaOptionumFormPartGroup>
+    protected silvaOptionumValidatorNames!: ReadonlyArray<ValidatorTranslation>
 
     constructor(private readonly opusMagnumFormValidationService: OpusMagnumFormPartValidationService,) {
     }
@@ -75,7 +75,7 @@ export class OpusMagnumFormPartComponent implements OnInit {
         this.idControl = this.opusMagnumForm.controls[OpusMagnumFormPartFieldName.id]
         this.titleControl = this.opusMagnumForm.controls[OpusMagnumFormPartFieldName.title]
         this.titleValidatorNames = this.opusMagnumFormValidationService.validatorNames(OpusMagnumFormPartFieldName.title)
-        this.authorFormGroup = this.opusMagnumForm.controls[OpusMagnumFormPartFieldName.author]
-        this.authorValidatorNames = this.opusMagnumFormValidationService.validatorNames(OpusMagnumFormPartFieldName.author)
+        this.silvaOptionumFormGroup = this.opusMagnumForm.controls[OpusMagnumFormPartFieldName.silvaOptionum]
+        this.silvaOptionumValidatorNames = this.opusMagnumFormValidationService.validatorNames(OpusMagnumFormPartFieldName.silvaOptionum)
     }
 }

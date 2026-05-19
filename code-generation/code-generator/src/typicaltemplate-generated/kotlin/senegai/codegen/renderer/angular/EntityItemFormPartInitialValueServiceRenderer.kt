@@ -9,8 +9,8 @@ import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewItemModel
  * Generate the content for the template `EntityItemFormPartInitialValueServiceRenderer`.
  *
  * This template renderer was generated from the template:
- * - file: `author-form-part-initial-value.service.ts`
- * - path: `opus-magnum/opus-magnum-form/author-form-part/author-form-part-initial-value.service.ts`
+ * - file: `silva-optionum-form-part-initial-value.service.ts`
+ * - path: `opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part-initial-value.service.ts`
  */
 object EntityItemFormPartInitialValueServiceRenderer : UiEntityItemRenderer {
 
@@ -35,6 +35,6 @@ object EntityItemFormPartInitialValueServiceRenderer : UiEntityItemRenderer {
     }
 
     override fun filePath(model: UiEntityFormViewItemModel): String {
-      return "${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.camelCase}-form-part/${model.item.itemName.camelCase}-form-part-initial-value.service.ts"
+      return "${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-initial-value.service.ts"
     }
 }

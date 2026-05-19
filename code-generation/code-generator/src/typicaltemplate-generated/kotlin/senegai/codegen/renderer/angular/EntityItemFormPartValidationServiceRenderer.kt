@@ -9,8 +9,8 @@ import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewItemModel
  * Generate the content for the template `EntityItemFormPartValidationServiceRenderer`.
  *
  * This template renderer was generated from the template:
- * - file: `author-form-part-validation.service.ts`
- * - path: `opus-magnum/opus-magnum-form/author-form-part/author-form-part-validation.service.ts`
+ * - file: `silva-optionum-form-part-validation.service.ts`
+ * - path: `opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part-validation.service.ts`
  */
 object EntityItemFormPartValidationServiceRenderer : UiEntityItemRenderer {
 
@@ -19,7 +19,7 @@ object EntityItemFormPartValidationServiceRenderer : UiEntityItemRenderer {
           |
           |import {Injectable} from '@angular/core';
           |import {ValidatorFn, Validators} from "@angular/forms";
-          |import {${model.item.itemName.pascalCase}FormPartFieldName} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.camelCase}-form-part/${model.item.itemName.camelCase}-form-part-field-name";
+          |import {${model.item.itemName.pascalCase}FormPartFieldName} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-field-name";
           |import {NamedValidator} from "@app/shared/form-controls/named-validator";
           |import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
           |
@@ -67,6 +67,6 @@ object EntityItemFormPartValidationServiceRenderer : UiEntityItemRenderer {
     }
 
     override fun filePath(model: UiEntityFormViewItemModel): String {
-      return "${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.camelCase}-form-part/${model.item.itemName.camelCase}-form-part-validation.service.ts"
+      return "${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-validation.service.ts"
     }
 }

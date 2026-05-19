@@ -14,8 +14,9 @@
     ]
 
     @replace-value-by-expression
-        [ searchValue="Author" replaceByExpression="model.item.itemName.pascalCase" ]
-        [ searchValue="author" replaceByExpression="model.item.itemName.camelCase" ]
+        [ searchValue="silva-optionum" replaceByExpression="model.item.itemName.kebabCase" ]
+        [ searchValue="SilvaOptionum" replaceByExpression="model.item.itemName.pascalCase" ]
+        [ searchValue="silvaOptionum" replaceByExpression="model.item.itemName.camelCase" ]
         [ searchValue="opus-magnum" replaceByExpression="model.entity.entityName.kebabCase" ]
         [ searchValue="OpusMagnum" replaceByExpression="model.entity.entityName.pascalCase" ]
         [ searchValue="opusMagnum" replaceByExpression="model.entity.entityName.camelCase" ]
@@ -38,7 +39,7 @@ import {
 
 
 @Injectable({providedIn: 'root'})
-export class AuthorFormPartInitialValueService {
+export class SilvaOptionumFormPartInitialValueService {
     /* @tt{{{ @ignore-text }}}@ */
 
     idInitialValue(): string {

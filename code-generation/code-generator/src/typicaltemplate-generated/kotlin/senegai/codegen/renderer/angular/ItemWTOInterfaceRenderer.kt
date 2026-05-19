@@ -9,8 +9,8 @@ import senegai.codegen.renderer.model.ui.UiItemModel
  * Generate the content for the template `ItemWTOInterfaceRenderer`.
  *
  * This template renderer was generated from the template:
- * - file: `author.wto.ts`
- * - path: `wto/author.wto.ts`
+ * - file: `silva-optionum.wto.ts`
+ * - path: `wto/silva-optionum.wto.ts`
  */
 object ItemWTOInterfaceRenderer : UiItemRenderer {
 
@@ -19,7 +19,7 @@ object ItemWTOInterfaceRenderer : UiItemRenderer {
           |
           |
           |/**
-          | * The ${model.itemName.pascalCase} WTO (Web Transfer Object) class.
+          | * The Silva Optionum WTO (Web Transfer Object) class.
           | */
           |export interface ${model.itemName.pascalCase}WTO {
           |    ${ model.attributes.joinToString("") { attribute ->  """
@@ -31,6 +31,6 @@ object ItemWTOInterfaceRenderer : UiItemRenderer {
     }
 
     override fun filePath(model: UiItemModel): String {
-      return "wto/${model.itemName.camelCase}.wto.ts"
+      return "wto/${model.itemName.kebabCase}.wto.ts"
     }
 }

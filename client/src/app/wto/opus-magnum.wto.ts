@@ -1,4 +1,4 @@
-import {AuthorWTO} from "@app/wto/author.wto";
+import {SilvaOptionumWTO} from "@app/wto/silva-optionum.wto";
 
 /**
  * The OpusMagnum WTO (Web Transfer Object) class.
@@ -6,5 +6,5 @@ import {AuthorWTO} from "@app/wto/author.wto";
 export interface OpusMagnumWTO {
     id: string;
     title: string;
-    author: AuthorWTO;
+    silvaOptionum: SilvaOptionumWTO;
 }

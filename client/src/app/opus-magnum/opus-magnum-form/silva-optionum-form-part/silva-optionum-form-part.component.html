@@ -14,8 +14,9 @@
     ]
 
     @replace-value-by-expression
-        [ searchValue="Author" replaceByExpression="model.item.itemName.pascalCase" ]
-        [ searchValue="author" replaceByExpression="model.item.itemName.camelCase" ]
+        [ searchValue="silva-optionum" replaceByExpression="model.item.itemName.kebabCase" ]
+        [ searchValue="SilvaOptionum" replaceByExpression="model.item.itemName.pascalCase" ]
+        [ searchValue="silvaOptionum" replaceByExpression="model.item.itemName.camelCase" ]
         [ searchValue="opus-magnum" replaceByExpression="model.entity.entityName.kebabCase" ]
         [ searchValue="OpusMagnum" replaceByExpression="model.entity.entityName.pascalCase" ]
         [ searchValue="opusMagnum" replaceByExpression="model.entity.entityName.camelCase" ]
@@ -25,7 +26,7 @@
     @remove-blanks-and-linebreak-after-comment
 
 }}}@ -->
-<div [formGroup]="authorForm">
+<div [formGroup]="silvaOptionumForm">
 
 <div>
     <div class="form-row">

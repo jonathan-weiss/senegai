@@ -14,8 +14,9 @@
     ]
 
     @replace-value-by-expression
-        [ searchValue="Author" replaceByExpression="model.item.itemName.pascalCase" ]
-        [ searchValue="author" replaceByExpression="model.item.itemName.camelCase" ]
+        [ searchValue="silva-optionum" replaceByExpression="model.item.itemName.kebabCase" ]
+        [ searchValue="SilvaOptionum" replaceByExpression="model.item.itemName.pascalCase" ]
+        [ searchValue="silvaOptionum" replaceByExpression="model.item.itemName.camelCase" ]
         [ searchValue="opus-magnum" replaceByExpression="model.entity.entityName.kebabCase" ]
         [ searchValue="OpusMagnum" replaceByExpression="model.entity.entityName.pascalCase" ]
         [ searchValue="opusMagnum" replaceByExpression="model.entity.entityName.camelCase" ]
@@ -27,16 +28,16 @@
 }}}@ */
 
 import {Injectable} from '@angular/core';
-import {AuthorWTO} from "@app/wto/author.wto";
+import {SilvaOptionumWTO} from "@app/wto/silva-optionum.wto";
 import {FormArray, FormControl, FormGroup} from "@angular/forms";
 import {
-    AuthorFormPartValidationService
-} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-validation.service";
+    SilvaOptionumFormPartValidationService
+} from "@app/opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part-validation.service";
 import {
-    AuthorFormPartInitialValueService
-} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-initial-value.service";
-import {AuthorFormPartFieldName} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-field-name";
-import {AuthorFormPartGroup} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-group";
+    SilvaOptionumFormPartInitialValueService
+} from "@app/opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part-initial-value.service";
+import {SilvaOptionumFormPartFieldName} from "@app/opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part-field-name";
+import {SilvaOptionumFormPartGroup} from "@app/opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part-group";
 /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
 import {GenderEnum} from "@app/wto/gender.enum";
 /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
@@ -62,11 +63,11 @@ import {
 
 
 @Injectable({providedIn: 'root'})
-export class AuthorFormPartService {
+export class SilvaOptionumFormPartService {
 
     constructor(
-        private authorFormValidationService: AuthorFormPartValidationService,
-        private authorFormInitialValueService: AuthorFormPartInitialValueService,
+        private silvaOptionumFormValidationService: SilvaOptionumFormPartValidationService,
+        private silvaOptionumFormInitialValueService: SilvaOptionumFormPartInitialValueService,
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment
             @foreach [ iteratorExpression="model.item.attributeItemsFlat" loopVariable="nestedItem" ]
             @replace-value-by-expression
@@ -78,22 +79,22 @@ export class AuthorFormPartService {
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
     ) {}
 
-    public createInitialAuthorForm(): FormGroup<AuthorFormPartGroup> {
+    public createInitialSilvaOptionumForm(): FormGroup<SilvaOptionumFormPartGroup> {
         return new FormGroup({
             /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
-            [AuthorFormPartFieldName.id]: new FormControl<string>(
+            [SilvaOptionumFormPartFieldName.id]: new FormControl<string>(
                 {
-                    value: this.authorFormInitialValueService.idInitialValue(),
+                    value: this.silvaOptionumFormInitialValueService.idInitialValue(),
                     disabled: true, // ID is readonly
                 }, {
                     nonNullable: true,
                 },
             ),
-            [AuthorFormPartFieldName.firstname]: new FormControl<string>(
-                this.authorFormInitialValueService.firstnameInitialValue(),
+            [SilvaOptionumFormPartFieldName.firstname]: new FormControl<string>(
+                this.silvaOptionumFormInitialValueService.firstnameInitialValue(),
                 {
                     nonNullable: true,
-                    validators: this.authorFormValidationService.validatorFunctions(AuthorFormPartFieldName.firstname)
+                    validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.firstname)
                 },
             ),
             /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
@@ -106,62 +107,62 @@ export class AuthorFormPartService {
 
             }}}@  */
             /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @if [ conditionExpression="attribute.isNullable"] @remove-blanks-and-linebreak-after-comment }}}@ */
-            [AuthorFormPartFieldName.nicknameIsNotNull]: new FormControl<boolean>(
-                this.authorFormInitialValueService.nicknameInitialValue() != null,
+            [SilvaOptionumFormPartFieldName.nicknameIsNotNull]: new FormControl<boolean>(
+                this.silvaOptionumFormInitialValueService.nicknameInitialValue() != null,
                 {
                     nonNullable: true,
-                    validators: this.authorFormValidationService.validatorFunctions(AuthorFormPartFieldName.nicknameIsNotNull)
+                    validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.nicknameIsNotNull)
                 },
             ),
             /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-if @remove-blanks-and-linebreak-after-comment }}}@ */
-            [AuthorFormPartFieldName.nickname]: new FormControl<string | null>(
-                this.authorFormInitialValueService.nicknameInitialValue(),
+            [SilvaOptionumFormPartFieldName.nickname]: new FormControl<string | null>(
+                this.silvaOptionumFormInitialValueService.nicknameInitialValue(),
                 {
                     nonNullable: true,
-                    validators: this.authorFormValidationService.validatorFunctions(AuthorFormPartFieldName.nickname)
+                    validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.nickname)
                 },
             ),
             /* @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
             /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
-            [AuthorFormPartFieldName.lastname]: new FormControl<string>(
-                this.authorFormInitialValueService.lastnameInitialValue(),
+            [SilvaOptionumFormPartFieldName.lastname]: new FormControl<string>(
+                this.silvaOptionumFormInitialValueService.lastnameInitialValue(),
                 {
                     nonNullable: true,
-                    validators: this.authorFormValidationService.validatorFunctions(AuthorFormPartFieldName.lastname)
+                    validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.lastname)
                 },
             ),
-            [AuthorFormPartFieldName.libraryAwardList]: new FormArray(
-                this.authorFormInitialValueService.libraryAwardListInitialValue(),
+            [SilvaOptionumFormPartFieldName.libraryAwardList]: new FormArray(
+                this.silvaOptionumFormInitialValueService.libraryAwardListInitialValue(),
                 {
-                    validators: this.authorFormValidationService.validatorFunctions(AuthorFormPartFieldName.libraryAwardList)
+                    validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.libraryAwardList)
                 },
             ),
-            [AuthorFormPartFieldName.birthdayIsNotNull]: new FormControl<boolean>(
-                this.authorFormInitialValueService.birthdayInitialValue() != null,
+            [SilvaOptionumFormPartFieldName.birthdayIsNotNull]: new FormControl<boolean>(
+                this.silvaOptionumFormInitialValueService.birthdayInitialValue() != null,
                 {
                     nonNullable: true,
-                    validators: this.authorFormValidationService.validatorFunctions(AuthorFormPartFieldName.birthdayIsNotNull)
+                    validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.birthdayIsNotNull)
                 },
             ),
-            [AuthorFormPartFieldName.birthday]: new FormControl<Date>(
-                this.authorFormInitialValueService.birthdayInitialValue(),
+            [SilvaOptionumFormPartFieldName.birthday]: new FormControl<Date>(
+                this.silvaOptionumFormInitialValueService.birthdayInitialValue(),
                 {
                     nonNullable: false,
-                    validators: this.authorFormValidationService.validatorFunctions(AuthorFormPartFieldName.birthday)
+                    validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.birthday)
                 },
             ),
-            [AuthorFormPartFieldName.vegetarian]: new FormControl<boolean>(
-                this.authorFormInitialValueService.vegetarianInitialValue(),
+            [SilvaOptionumFormPartFieldName.vegetarian]: new FormControl<boolean>(
+                this.silvaOptionumFormInitialValueService.vegetarianInitialValue(),
                 {
                     nonNullable: true,
-                    validators: this.authorFormValidationService.validatorFunctions(AuthorFormPartFieldName.vegetarian)
+                    validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.vegetarian)
                 },
             ),
-            [AuthorFormPartFieldName.gender]: new FormControl<GenderEnum>(
-                this.authorFormInitialValueService.genderInitialValue(),
+            [SilvaOptionumFormPartFieldName.gender]: new FormControl<GenderEnum>(
+                this.silvaOptionumFormInitialValueService.genderInitialValue(),
                 {
                     nonNullable: true,
-                    validators: this.authorFormValidationService.validatorFunctions(AuthorFormPartFieldName.gender)
+                    validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.gender)
                 },
             ),
             /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
@@ -173,7 +174,7 @@ export class AuthorFormPartService {
      * So if your FormArray is empty (or shorter than the incoming data), nothing (or only the first N) gets patched.
      * We need to prefill the FormArray with empty values first
      */
-    public patchPreparation(form: FormGroup<AuthorFormPartGroup>, author: AuthorWTO): void {
+    public patchPreparation(form: FormGroup<SilvaOptionumFormPartGroup>, silvaOptionum: SilvaOptionumWTO): void {
         // TODO Rename libraryAwardList to awardList to bypass the name clash when replacing
         // TODO If the attribute is an item attribute, call the formPartService
         /* @tt{{{
@@ -186,20 +187,20 @@ export class AuthorFormPartService {
 
             }}}@  */
 
-        const libraryAwardListLength = form.controls[AuthorFormPartFieldName.libraryAwardList].controls.length
-        if(libraryAwardListLength < author.libraryAwardList.length) {
-            for (let i = libraryAwardListLength; i < author.libraryAwardList.length; i++) {
-                form.controls[AuthorFormPartFieldName.libraryAwardList].push(this.libraryAwardFormPartService.createInitialLibraryAwardForm())
+        const libraryAwardListLength = form.controls[SilvaOptionumFormPartFieldName.libraryAwardList].controls.length
+        if(libraryAwardListLength < silvaOptionum.libraryAwardList.length) {
+            for (let i = libraryAwardListLength; i < silvaOptionum.libraryAwardList.length; i++) {
+                form.controls[SilvaOptionumFormPartFieldName.libraryAwardList].push(this.libraryAwardFormPartService.createInitialLibraryAwardForm())
             }
         }
         /* @tt{{{ @end-foreach }}}@ */
     }
 
-    public patchAuthorForm(form: FormGroup<AuthorFormPartGroup>, author: AuthorWTO): void {
+    public patchSilvaOptionumForm(form: FormGroup<SilvaOptionumFormPartGroup>, silvaOptionum: SilvaOptionumWTO): void {
 
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
-        form.controls[AuthorFormPartFieldName.id].patchValue(author.id);
-        form.controls[AuthorFormPartFieldName.firstname].patchValue(author.firstname);
+        form.controls[SilvaOptionumFormPartFieldName.id].patchValue(silvaOptionum.id);
+        form.controls[SilvaOptionumFormPartFieldName.firstname].patchValue(silvaOptionum.firstname);
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
         /* @tt{{{
             @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
@@ -210,24 +211,24 @@ export class AuthorFormPartService {
             @remove-blanks-and-linebreak-after-comment
         }}}@  */
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @if [ conditionExpression="attribute.isNullable"] @remove-blanks-and-linebreak-after-comment }}}@ */
-        form.controls[AuthorFormPartFieldName.nicknameIsNotNull].patchValue(!author.nickname);
+        form.controls[SilvaOptionumFormPartFieldName.nicknameIsNotNull].patchValue(!silvaOptionum.nickname);
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-if @remove-blanks-and-linebreak-after-comment }}}@ */
-        form.controls[AuthorFormPartFieldName.nickname].patchValue(author.nickname ?? null);
+        form.controls[SilvaOptionumFormPartFieldName.nickname].patchValue(silvaOptionum.nickname ?? null);
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
-        form.controls[AuthorFormPartFieldName.lastname].patchValue(author.lastname);
-        form.controls[AuthorFormPartFieldName.libraryAwardList].patchValue(author.libraryAwardList)
-        form.controls[AuthorFormPartFieldName.birthdayIsNotNull].patchValue(!author.birthday);
-        form.controls[AuthorFormPartFieldName.birthday].patchValue(author.birthday ?? null);
-        form.controls[AuthorFormPartFieldName.vegetarian].patchValue(author.vegetarian);
-        form.controls[AuthorFormPartFieldName.gender].patchValue(author.gender);
+        form.controls[SilvaOptionumFormPartFieldName.lastname].patchValue(silvaOptionum.lastname);
+        form.controls[SilvaOptionumFormPartFieldName.libraryAwardList].patchValue(silvaOptionum.libraryAwardList)
+        form.controls[SilvaOptionumFormPartFieldName.birthdayIsNotNull].patchValue(!silvaOptionum.birthday);
+        form.controls[SilvaOptionumFormPartFieldName.birthday].patchValue(silvaOptionum.birthday ?? null);
+        form.controls[SilvaOptionumFormPartFieldName.vegetarian].patchValue(silvaOptionum.vegetarian);
+        form.controls[SilvaOptionumFormPartFieldName.gender].patchValue(silvaOptionum.gender);
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
     }
 
-    public createAuthorFromFormData(form: FormGroup<AuthorFormPartGroup>): AuthorWTO {
+    public createSilvaOptionumFromFormData(form: FormGroup<SilvaOptionumFormPartGroup>): SilvaOptionumWTO {
         return {
             /* @tt{{{ @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
-            id: form.controls[AuthorFormPartFieldName.id].getRawValue(),
+            id: form.controls[SilvaOptionumFormPartFieldName.id].getRawValue(),
             /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
             /* @tt{{{
                 @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
@@ -239,19 +240,19 @@ export class AuthorFormPartService {
                 @remove-blanks-and-linebreak-after-comment
             }}}@  */
             /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @if [ conditionExpression="!attribute.isNullable"] @remove-blanks-and-linebreak-after-comment }}}@ */
-            firstname: form.controls[AuthorFormPartFieldName.firstname].getRawValue(),
+            firstname: form.controls[SilvaOptionumFormPartFieldName.firstname].getRawValue(),
             /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @else @remove-blanks-and-linebreak-after-comment }}}@ */
-            nickname: form.controls[AuthorFormPartFieldName.nicknameIsNotNull].value
-                ? form.controls[AuthorFormPartFieldName.nickname].getRawValue()
+            nickname: form.controls[SilvaOptionumFormPartFieldName.nicknameIsNotNull].value
+                ? form.controls[SilvaOptionumFormPartFieldName.nickname].getRawValue()
                 : null,
             /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-if @remove-blanks-and-linebreak-after-comment }}}@ */
             /* @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
             /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
-            lastname: form.controls[AuthorFormPartFieldName.lastname].getRawValue(),
-            libraryAwardList: form.controls[AuthorFormPartFieldName.libraryAwardList].getRawValue(),
-            birthday: form.controls[AuthorFormPartFieldName.birthdayIsNotNull].value ? form.controls[AuthorFormPartFieldName.birthday].getRawValue() : null,
-            vegetarian: form.controls[AuthorFormPartFieldName.vegetarian].getRawValue(),
-            gender: form.controls[AuthorFormPartFieldName.gender].getRawValue(),
+            lastname: form.controls[SilvaOptionumFormPartFieldName.lastname].getRawValue(),
+            libraryAwardList: form.controls[SilvaOptionumFormPartFieldName.libraryAwardList].getRawValue(),
+            birthday: form.controls[SilvaOptionumFormPartFieldName.birthdayIsNotNull].value ? form.controls[SilvaOptionumFormPartFieldName.birthday].getRawValue() : null,
+            vegetarian: form.controls[SilvaOptionumFormPartFieldName.vegetarian].getRawValue(),
+            gender: form.controls[SilvaOptionumFormPartFieldName.gender].getRawValue(),
             /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
         };
     }

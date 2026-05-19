@@ -15,8 +15,9 @@
     ]
 
     @replace-value-by-expression
-        [ searchValue="Author" replaceByExpression="model.item.itemName.pascalCase" ]
-        [ searchValue="author" replaceByExpression="model.item.itemName.camelCase" ]
+        [ searchValue="silva-optionum" replaceByExpression="model.item.itemName.kebabCase" ]
+        [ searchValue="SilvaOptionum" replaceByExpression="model.item.itemName.pascalCase" ]
+        [ searchValue="silvaOptionum" replaceByExpression="model.item.itemName.camelCase" ]
         [ searchValue="opus-magnum" replaceByExpression="model.entity.entityName.kebabCase" ]
         [ searchValue="OpusMagnum" replaceByExpression="model.entity.entityName.pascalCase" ]
         [ searchValue="opusMagnum" replaceByExpression="model.entity.entityName.camelCase" ]
@@ -42,14 +43,14 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {FormUtil} from "@app/shared/form-controls/form.util";
 import {FieldWrapperComponent} from "@app/shared/form-controls/field-wrapper/field-wrapper.component";
 import {
-    AuthorFormPartValidationService
-} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-validation.service";
-import {AuthorFormPartFieldName,} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-field-name";
+    SilvaOptionumFormPartValidationService
+} from "@app/opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part-validation.service";
+import {SilvaOptionumFormPartFieldName,} from "@app/opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part-field-name";
 import {TextInputComponent} from "@app/shared/form-controls/text-input/text-input.component";
 import {DatepickerInputComponent} from "@app/shared/form-controls/datepicker-input/datepicker-input.component";
 import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
-import {AuthorFormPartGroup} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-group";
+import {SilvaOptionumFormPartGroup} from "@app/opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part-group";
 /*
 @tt{{{
     @if [ conditionExpression="model.containsNamedSectionSplitBlocks()" ]
@@ -102,9 +103,9 @@ import {
 /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
 
 @Component({
-    selector: 'app-author-form-part',
-    templateUrl: './author-form-part.component.html',
-    styleUrls: ['./author-form-part.component.scss'],
+    selector: 'app-silva-optionum-form-part',
+    templateUrl: './silva-optionum-form-part.component.html',
+    styleUrls: ['./silva-optionum-form-part.component.scss'],
     imports: [
         ReactiveFormsModule,
         MatButtonModule,
@@ -165,8 +166,8 @@ import {
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text }}}@ */
     ]
 })
-export class AuthorFormPartComponent implements OnInit {
-    @Input({ required: true }) authorForm!: FormGroup<AuthorFormPartGroup>;
+export class SilvaOptionumFormPartComponent implements OnInit {
+    @Input({ required: true }) silvaOptionumForm!: FormGroup<SilvaOptionumFormPartGroup>;
 
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment
         @foreach [ iteratorExpression="model.item.attributesWithItems" loopVariable="attribute" ]
@@ -217,14 +218,14 @@ export class AuthorFormPartComponent implements OnInit {
     protected genderValidatorNames!: ReadonlyArray<ValidatorTranslation>
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
 
-    constructor(private readonly authorFormValidationService: AuthorFormPartValidationService,) {
+    constructor(private readonly silvaOptionumFormValidationService: SilvaOptionumFormPartValidationService,) {
     }
 
     ngOnInit() {
         /* @tt{{{ @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
-        this.idControl = this.authorForm.controls[AuthorFormPartFieldName.id]
-        this.firstnameControl = this.authorForm.controls[AuthorFormPartFieldName.firstname]
-        this.firstnameValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.firstname)
+        this.idControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.id]
+        this.firstnameControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.firstname]
+        this.firstnameValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.firstname)
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text }}}@ */
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment
         @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
@@ -234,26 +235,26 @@ export class AuthorFormPartComponent implements OnInit {
 
         }}}@  */
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @if [ conditionExpression="attribute.isNullable"] @remove-blanks-and-linebreak-after-comment }}}@ */
-        this.nicknameIsNotNullControl = this.authorForm.controls[AuthorFormPartFieldName.nicknameIsNotNull]
-        this.nicknameIsNotNullValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.nicknameIsNotNull)
+        this.nicknameIsNotNullControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.nicknameIsNotNull]
+        this.nicknameIsNotNullValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.nicknameIsNotNull)
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-if @remove-blanks-and-linebreak-after-comment }}}@ */
-        this.nicknameControl = this.authorForm.controls[AuthorFormPartFieldName.nickname]
-        this.nicknameValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.nickname)
+        this.nicknameControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.nickname]
+        this.nicknameValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.nickname)
 
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
-        this.lastnameControl = this.authorForm.controls[AuthorFormPartFieldName.lastname]
-        this.lastnameValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.lastname)
-        this.libraryAwardListControl = this.authorForm.controls[AuthorFormPartFieldName.libraryAwardList]
-        this.libraryAwardListValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.libraryAwardList)
-        this.birthdayIsNotNullControl = this.authorForm.controls[AuthorFormPartFieldName.birthdayIsNotNull]
-        this.birthdayIsNotNullValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.birthdayIsNotNull)
-        this.birthdayControl = this.authorForm.controls[AuthorFormPartFieldName.birthday]
-        this.birthdayValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.birthday)
-        this.vegetarianControl = this.authorForm.controls[AuthorFormPartFieldName.vegetarian]
-        this.vegetarianValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.vegetarian)
-        this.genderControl = this.authorForm.controls[AuthorFormPartFieldName.gender]
-        this.genderValidatorNames = this.authorFormValidationService.validatorNames(AuthorFormPartFieldName.gender)
+        this.lastnameControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.lastname]
+        this.lastnameValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.lastname)
+        this.libraryAwardListControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.libraryAwardList]
+        this.libraryAwardListValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.libraryAwardList)
+        this.birthdayIsNotNullControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.birthdayIsNotNull]
+        this.birthdayIsNotNullValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.birthdayIsNotNull)
+        this.birthdayControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.birthday]
+        this.birthdayValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.birthday)
+        this.vegetarianControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.vegetarian]
+        this.vegetarianValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.vegetarian)
+        this.genderControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.gender]
+        this.genderValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.gender)
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
     }
 

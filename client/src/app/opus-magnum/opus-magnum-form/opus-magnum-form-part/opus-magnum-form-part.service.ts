@@ -11,7 +11,7 @@ import {
 import {
     OpusMagnumFormPartGroup
 } from "@app/opus-magnum/opus-magnum-form/opus-magnum-form-part/opus-magnum-form-part-group";
-import {AuthorFormPartService} from "../author-form-part/author-form-part.service";
+import {SilvaOptionumFormPartService} from "../silva-optionum-form-part/silva-optionum-form-part.service";
 
 
 @Injectable({providedIn: 'root'})
@@ -19,7 +19,7 @@ export class OpusMagnumFormPartService {
 
     constructor(
         private opusMagnumFormInitialValueService: OpusMagnumFormPartInitialValueService,
-        private authorFormPartService: AuthorFormPartService,
+        private silvaOptionumFormPartService: SilvaOptionumFormPartService,
     ) {}
 
     public createInitialOpusMagnumForm(): FormGroup<OpusMagnumFormPartGroup> {
@@ -38,23 +38,23 @@ export class OpusMagnumFormPartService {
                     nonNullable: true,
                 },
             ),
-            [OpusMagnumFormPartFieldName.author]: this.authorFormPartService.createInitialAuthorForm(),
+            [OpusMagnumFormPartFieldName.silvaOptionum]: this.silvaOptionumFormPartService.createInitialSilvaOptionumForm(),
         });
     }
 
     public patchOpusMagnumForm(form: FormGroup<OpusMagnumFormPartGroup>, opusMagnum: OpusMagnumWTO): void {
-        this.authorFormPartService.patchPreparation(form.controls[OpusMagnumFormPartFieldName.author], opusMagnum.author)
+        this.silvaOptionumFormPartService.patchPreparation(form.controls[OpusMagnumFormPartFieldName.silvaOptionum], opusMagnum.silvaOptionum)
 
         form.controls[OpusMagnumFormPartFieldName.id].patchValue(opusMagnum.id);
         form.controls[OpusMagnumFormPartFieldName.title].patchValue(opusMagnum.title);
-        form.controls[OpusMagnumFormPartFieldName.author].patchValue(opusMagnum.author)
+        form.controls[OpusMagnumFormPartFieldName.silvaOptionum].patchValue(opusMagnum.silvaOptionum)
     }
 
     public createOpusMagnumFromFormData(form: FormGroup<OpusMagnumFormPartGroup>): OpusMagnumWTO {
         return {
             id: form.controls[OpusMagnumFormPartFieldName.id].getRawValue(),
             title: form.controls[OpusMagnumFormPartFieldName.title].getRawValue(),
-            author: form.controls[OpusMagnumFormPartFieldName.author].getRawValue(),
+            silvaOptionum: form.controls[OpusMagnumFormPartFieldName.silvaOptionum].getRawValue(),
         };
     }
 }

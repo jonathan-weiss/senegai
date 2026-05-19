@@ -14,8 +14,9 @@
     ]
 
     @replace-value-by-expression
-        [ searchValue="Author" replaceByExpression="model.item.itemName.pascalCase" ]
-        [ searchValue="author" replaceByExpression="model.item.itemName.camelCase" ]
+        [ searchValue="silva-optionum" replaceByExpression="model.item.itemName.kebabCase" ]
+        [ searchValue="SilvaOptionum" replaceByExpression="model.item.itemName.pascalCase" ]
+        [ searchValue="silvaOptionum" replaceByExpression="model.item.itemName.camelCase" ]
         [ searchValue="opus-magnum" replaceByExpression="model.entity.entityName.kebabCase" ]
         [ searchValue="OpusMagnum" replaceByExpression="model.entity.entityName.pascalCase" ]
         [ searchValue="opusMagnum" replaceByExpression="model.entity.entityName.camelCase" ]
@@ -28,7 +29,7 @@
 
 import {Injectable} from '@angular/core';
 import {ValidatorFn, Validators} from "@angular/forms";
-import {AuthorFormPartFieldName} from "@app/opus-magnum/opus-magnum-form/author-form-part/author-form-part-field-name";
+import {SilvaOptionumFormPartFieldName} from "@app/opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part-field-name";
 import {NamedValidator} from "@app/shared/form-controls/named-validator";
 import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
 /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
@@ -37,13 +38,13 @@ import {ValidatorTranslation} from "@app/shared/form-controls/validator-translat
 
 
 @Injectable({providedIn: 'root'})
-export class AuthorFormPartValidationService {
+export class SilvaOptionumFormPartValidationService {
 
-    validatorFunctions(field: AuthorFormPartFieldName): Array<ValidatorFn> {
+    validatorFunctions(field: SilvaOptionumFormPartFieldName): Array<ValidatorFn> {
         return this.namedValidators(field).map(namedValidator => namedValidator.validatorFunction)
     }
 
-    validatorNames(field: AuthorFormPartFieldName): Array<ValidatorTranslation> {
+    validatorNames(field: SilvaOptionumFormPartFieldName): Array<ValidatorTranslation> {
         return this.namedValidators(field)
             .map(namedValidator => this.toValidatorTranslation(namedValidator))
     }
@@ -55,7 +56,7 @@ export class AuthorFormPartValidationService {
         }
     }
 
-    namedValidators(field: AuthorFormPartFieldName): ReadonlyArray<NamedValidator> {
+    namedValidators(field: SilvaOptionumFormPartFieldName): ReadonlyArray<NamedValidator> {
         switch(field) {
             /* @tt{{{ @remove-blanks-and-linebreak-before-comment
                 @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
@@ -64,7 +65,7 @@ export class AuthorFormPartValidationService {
                     [ searchValue="firstname" replaceByExpression="attribute.attributeName.camelCase" ]
 
             }}}@  */
-            case AuthorFormPartFieldName.firstname: return [
+            case SilvaOptionumFormPartFieldName.firstname: return [
                 {
                     validatorName: "required",
                     validatorFunction: Validators.required,
@@ -78,7 +79,7 @@ export class AuthorFormPartValidationService {
             ]
             /* @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
             /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
-            case AuthorFormPartFieldName.nickname: return [
+            case SilvaOptionumFormPartFieldName.nickname: return [
                 {
                     validatorName: "required",
                     validatorFunction: Validators.required,
@@ -90,7 +91,7 @@ export class AuthorFormPartValidationService {
                     validatorTranslationKey: "validator.minlength",
                 },
             ]
-            case AuthorFormPartFieldName.lastname: return [
+            case SilvaOptionumFormPartFieldName.lastname: return [
                 {
                     validatorName: "required",
                     validatorFunction: Validators.required,
