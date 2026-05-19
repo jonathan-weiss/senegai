@@ -36,17 +36,17 @@ export enum SilvaOptionumFormPartFieldName {
         @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
         @replace-value-by-expression
-            [ searchValue="firstname" replaceByExpression="attribute.attributeName.camelCase" ]
-            [ searchValue="nickname" replaceByExpression="attribute.attributeName.camelCase" ]
+            [ searchValue="campusTextusObligatorius" replaceByExpression="attribute.attributeName.camelCase" ]
+            [ searchValue="campusTextusOptionalis" replaceByExpression="attribute.attributeName.camelCase" ]
 
     }}}@  */
-    nickname = "nickname",
+    campusTextusOptionalis = "campusTextusOptionalis",
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @if [ conditionExpression="attribute.isNullable"] @remove-blanks-and-linebreak-after-comment }}}@ */
-    nicknameIsNotNull = "nicknameIsNotNull",
+    campusTextusOptionalisIsNotNull = "campusTextusOptionalisIsNotNull",
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-if @remove-blanks-and-linebreak-after-comment }}}@ */
 /* @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
 /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
-    firstname = "firstname",
+    campusTextusObligatorius = "campusTextusObligatorius",
     lastname = "lastname",
     articulusInteriorList = "articulusInteriorList",
     birthdayIsNotNull = "birthdayIsNotNull",

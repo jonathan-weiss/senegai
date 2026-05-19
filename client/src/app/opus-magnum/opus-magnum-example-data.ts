@@ -46,8 +46,8 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
         id: '828cf29b-a7fb-4b07-bf13-9a313a9967f6',
         silvaOptionum: {
             id: '828cf29b-a7fb-4b07-bf13-9a313a9967f6',
-            firstname: 'John',
-            nickname: 'Johnny',
+            campusTextusObligatorius: 'John',
+            campusTextusOptionalis: 'Johnny',
             lastname: 'Doe',
             articulusInteriorList: [
                 {
@@ -71,8 +71,8 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
         title: 'populari opulari',
         silvaOptionum: {
             id: '6b9a179c-641b-4204-a6ae-46be2fbbaa3a',
-            firstname: 'Jane',
-            nickname: 'Janey',
+            campusTextusObligatorius: 'Jane',
+            campusTextusOptionalis: 'Janey',
             lastname: 'Smith',
             articulusInteriorList: [
                 {
@@ -96,8 +96,8 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
         title: 'sczenzo riguldi',
         silvaOptionum: {
             id: 'd4076f05-50ac-4ceb-b54d-06f5c77874e4',
-            firstname: 'Robert',
-            nickname: null,
+            campusTextusObligatorius: 'Robert',
+            campusTextusOptionalis: null,
             lastname: 'Johnson',
             articulusInteriorList: [],
             birthday: new Date(1963, 11, 31),
@@ -110,8 +110,8 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
         title: 'dak szena',
         silvaOptionum: {
             id: 'af18a7cc-7e7a-4388-bb32-95652fc1e379',
-            firstname: 'Mary',
-            nickname: 'Molly',
+            campusTextusObligatorius: 'Mary',
+            campusTextusOptionalis: 'Molly',
             lastname: 'Williams',
             articulusInteriorList: [
                 {

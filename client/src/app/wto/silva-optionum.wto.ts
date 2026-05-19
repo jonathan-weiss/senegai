@@ -37,18 +37,18 @@ export interface SilvaOptionumWTO {
         @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
 
         @replace-value-by-expression
-            [ searchValue="firstname" replaceByExpression="attribute.attributeName.camelCase" ]
+            [ searchValue="campusTextusObligatorius" replaceByExpression="attribute.attributeName.camelCase" ]
             [ searchValue="string" replaceByExpression="attribute.typescriptAttributeType" ]
 
     }}}@  */
-    firstname: string;
+    campusTextusObligatorius: string;
     /* @tt{{{
         @remove-blanks-and-linebreak-before-comment
         @end-foreach
         @remove-blanks-and-linebreak-after-comment
     }}}@ */
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
-    nickname: string | null;
+    campusTextusOptionalis: string | null;
     lastname: string;
     appellatio: AppellatioEnum;
     articulusInteriorList: Array<ArticulusInteriorWTO>;

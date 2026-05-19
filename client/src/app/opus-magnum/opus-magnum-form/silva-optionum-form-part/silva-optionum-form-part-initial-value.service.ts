@@ -52,18 +52,18 @@ export class SilvaOptionumFormPartInitialValueService {
         @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
         @replace-value-by-expression
-            [ searchValue="firstname" replaceByExpression="attribute.attributeName.camelCase" ]
+            [ searchValue="campusTextusObligatorius" replaceByExpression="attribute.attributeName.camelCase" ]
             [ searchValue="string" replaceByExpression="attribute.typescriptAttributeFormType" ]
             [ searchValue="''" replaceByExpression="attribute.formInitialValue" ]
 
     }}}@  */
-    firstnameInitialValue(): string {
+    campusTextusObligatoriusInitialValue(): string {
         return ''
     }
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text }}}@ */
 
-    nicknameInitialValue(): string | null {
+    campusTextusOptionalisInitialValue(): string | null {
         return null
     }
     articulusInteriorListInitialValue(): Array<FormGroup<ArticulusInteriorFormPartGroup>> {

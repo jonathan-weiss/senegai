@@ -182,24 +182,24 @@ export class SilvaOptionumFormPartComponent implements OnInit {
 
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
     protected idControl!: FormControl<string>
-    protected firstnameControl!: FormControl<string>
-    protected firstnameValidatorNames!: ReadonlyArray<ValidatorTranslation>
+    protected campusTextusObligatoriusControl!: FormControl<string>
+    protected campusTextusObligatoriusValidatorNames!: ReadonlyArray<ValidatorTranslation>
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
     /* @tt{{{
     @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
     @replace-value-by-expression
-        [ searchValue="nickname" replaceByExpression="attribute.attributeName.camelCase" ]
+        [ searchValue="campusTextusOptionalis" replaceByExpression="attribute.attributeName.camelCase" ]
         [ searchValue="FormControl<string | null>" replaceByExpression="attribute.typescriptAttributeFormControlType" ]
 
     @remove-blanks-and-linebreak-after-comment
     }}}@  */
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @if [ conditionExpression="attribute.isNullable"] @remove-blanks-and-linebreak-after-comment }}}@ */
-    protected nicknameIsNotNullControl!: FormControl<boolean>
-    protected nicknameIsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
+    protected campusTextusOptionalisIsNotNullControl!: FormControl<boolean>
+    protected campusTextusOptionalisIsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-if @remove-blanks-and-linebreak-after-comment }}}@ */
-    protected nicknameControl!: FormControl<string | null>
-    protected nicknameValidatorNames!: ReadonlyArray<ValidatorTranslation>
+    protected campusTextusOptionalisControl!: FormControl<string | null>
+    protected campusTextusOptionalisValidatorNames!: ReadonlyArray<ValidatorTranslation>
 
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
@@ -224,22 +224,22 @@ export class SilvaOptionumFormPartComponent implements OnInit {
     ngOnInit() {
         /* @tt{{{ @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
         this.idControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.id]
-        this.firstnameControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.firstname]
-        this.firstnameValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.firstname)
+        this.campusTextusObligatoriusControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.campusTextusObligatorius]
+        this.campusTextusObligatoriusValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.campusTextusObligatorius)
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text }}}@ */
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment
         @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
         @replace-value-by-expression
-            [ searchValue="nickname" replaceByExpression="attribute.attributeName.camelCase" ]
+            [ searchValue="campusTextusOptionalis" replaceByExpression="attribute.attributeName.camelCase" ]
 
         }}}@  */
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @if [ conditionExpression="attribute.isNullable"] @remove-blanks-and-linebreak-after-comment }}}@ */
-        this.nicknameIsNotNullControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.nicknameIsNotNull]
-        this.nicknameIsNotNullValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.nicknameIsNotNull)
+        this.campusTextusOptionalisIsNotNullControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.campusTextusOptionalisIsNotNull]
+        this.campusTextusOptionalisIsNotNullValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.campusTextusOptionalisIsNotNull)
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-if @remove-blanks-and-linebreak-after-comment }}}@ */
-        this.nicknameControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.nickname]
-        this.nicknameValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.nickname)
+        this.campusTextusOptionalisControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.campusTextusOptionalis]
+        this.campusTextusOptionalisValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.campusTextusOptionalis)
 
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */

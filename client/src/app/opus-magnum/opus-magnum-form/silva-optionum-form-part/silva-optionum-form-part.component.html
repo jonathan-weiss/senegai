@@ -87,15 +87,15 @@
                         @if [ conditionExpression="block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.SINGLE_ITEM" ]
 
                         @replace-value-by-expression
-                        [ searchValue="firstname" replaceByExpression="block.attribute.attributeName.camelCase" ]
-                        [ searchValue="First Name" replaceByExpression="block.attribute.attributeName.pascalCase" ]
+                        [ searchValue="campusTextusObligatorius" replaceByExpression="block.attribute.attributeName.camelCase" ]
+                        [ searchValue="Campus Textus Obligatorius" replaceByExpression="block.attribute.attributeName.pascalCase" ]
 
                     }}}@  -->
 
                     <div class="form-row">
-                        <app-field-wrapper label="First Name">
+                        <app-field-wrapper label="Campus Textus Obligatorius">
 
-                            <app-text-input [textFormControl]="firstnameControl" label="firstname" placeholder="Enter First Name" [validatorTranslations]="firstnameValidatorNames" />
+                            <app-text-input [textFormControl]="campusTextusObligatoriusControl" label="campusTextusObligatorius" placeholder="Enter Campus Textus Obligatorius" [validatorTranslations]="campusTextusObligatoriusValidatorNames" />
                         </app-field-wrapper>
                     </div>
                     <!-- @tt{{{ @remove-blanks-and-linebreak-before-comment @end-if @remove-blanks-and-linebreak-after-comment }}}@  -->
@@ -103,18 +103,18 @@
                         @if [ conditionExpression="block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.NULLABLE_SINGLE_ITEM" ]
 
                         @replace-value-by-expression
-                        [ searchValue="nickname" replaceByExpression="block.attribute.attributeName.camelCase" ]
-                        [ searchValue="Nickname" replaceByExpression="block.attribute.attributeName.pascalCase" ]
+                        [ searchValue="campusTextusOptionalis" replaceByExpression="block.attribute.attributeName.camelCase" ]
+                        [ searchValue="CampusTextusOptionalis" replaceByExpression="block.attribute.attributeName.pascalCase" ]
 
                     }}}@  -->
 
                     <div class="form-row">
-                        <app-field-wrapper label="Nickname"
-                                            [nullabilityCheckboxFormControl]="nicknameIsNotNullControl"
-                                            [formGroupToDisableIfNullField]="nicknameControl"
+                        <app-field-wrapper label="CampusTextusOptionalis"
+                                            [nullabilityCheckboxFormControl]="campusTextusOptionalisIsNotNullControl"
+                                            [formGroupToDisableIfNullField]="campusTextusOptionalisControl"
                          >
 
-                            <app-text-input [textFormControl]="nicknameControl" label="nickname" placeholder="Enter nickname" [validatorTranslations]="nicknameValidatorNames" />
+                            <app-text-input [textFormControl]="campusTextusOptionalisControl" label="campusTextusOptionalis" placeholder="Enter campusTextusOptionalis" [validatorTranslations]="campusTextusOptionalisValidatorNames" />
                         </app-field-wrapper>
                     </div>
                     <!-- @tt{{{ @remove-blanks-and-linebreak-before-comment @end-if @remove-blanks-and-linebreak-after-comment }}}@  -->

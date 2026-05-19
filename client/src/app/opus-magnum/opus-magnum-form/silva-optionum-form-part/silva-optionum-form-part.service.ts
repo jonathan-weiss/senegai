@@ -90,11 +90,11 @@ export class SilvaOptionumFormPartService {
                     nonNullable: true,
                 },
             ),
-            [SilvaOptionumFormPartFieldName.firstname]: new FormControl<string>(
-                this.silvaOptionumFormInitialValueService.firstnameInitialValue(),
+            [SilvaOptionumFormPartFieldName.campusTextusObligatorius]: new FormControl<string>(
+                this.silvaOptionumFormInitialValueService.campusTextusObligatoriusInitialValue(),
                 {
                     nonNullable: true,
-                    validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.firstname)
+                    validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.campusTextusObligatorius)
                 },
             ),
             /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
@@ -102,24 +102,24 @@ export class SilvaOptionumFormPartService {
                 @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
                 @replace-value-by-expression
-                    [ searchValue="nickname" replaceByExpression="attribute.attributeName.camelCase" ]
+                    [ searchValue="campusTextusOptionalis" replaceByExpression="attribute.attributeName.camelCase" ]
                     [ searchValue="FormControl<string | null>" replaceByExpression="attribute.typescriptAttributeFormControlType" ]
 
             }}}@  */
             /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @if [ conditionExpression="attribute.isNullable"] @remove-blanks-and-linebreak-after-comment }}}@ */
-            [SilvaOptionumFormPartFieldName.nicknameIsNotNull]: new FormControl<boolean>(
-                this.silvaOptionumFormInitialValueService.nicknameInitialValue() != null,
+            [SilvaOptionumFormPartFieldName.campusTextusOptionalisIsNotNull]: new FormControl<boolean>(
+                this.silvaOptionumFormInitialValueService.campusTextusOptionalisInitialValue() != null,
                 {
                     nonNullable: true,
-                    validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.nicknameIsNotNull)
+                    validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.campusTextusOptionalisIsNotNull)
                 },
             ),
             /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-if @remove-blanks-and-linebreak-after-comment }}}@ */
-            [SilvaOptionumFormPartFieldName.nickname]: new FormControl<string | null>(
-                this.silvaOptionumFormInitialValueService.nicknameInitialValue(),
+            [SilvaOptionumFormPartFieldName.campusTextusOptionalis]: new FormControl<string | null>(
+                this.silvaOptionumFormInitialValueService.campusTextusOptionalisInitialValue(),
                 {
                     nonNullable: true,
-                    validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.nickname)
+                    validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.campusTextusOptionalis)
                 },
             ),
             /* @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
@@ -200,20 +200,20 @@ export class SilvaOptionumFormPartService {
 
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
         form.controls[SilvaOptionumFormPartFieldName.id].patchValue(silvaOptionum.id);
-        form.controls[SilvaOptionumFormPartFieldName.firstname].patchValue(silvaOptionum.firstname);
+        form.controls[SilvaOptionumFormPartFieldName.campusTextusObligatorius].patchValue(silvaOptionum.campusTextusObligatorius);
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
         /* @tt{{{
             @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
             @replace-value-by-expression
-                [ searchValue="nickname" replaceByExpression="attribute.attributeName.camelCase" ]
+                [ searchValue="campusTextusOptionalis" replaceByExpression="attribute.attributeName.camelCase" ]
 
             @remove-blanks-and-linebreak-after-comment
         }}}@  */
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @if [ conditionExpression="attribute.isNullable"] @remove-blanks-and-linebreak-after-comment }}}@ */
-        form.controls[SilvaOptionumFormPartFieldName.nicknameIsNotNull].patchValue(!silvaOptionum.nickname);
+        form.controls[SilvaOptionumFormPartFieldName.campusTextusOptionalisIsNotNull].patchValue(!silvaOptionum.campusTextusOptionalis);
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-if @remove-blanks-and-linebreak-after-comment }}}@ */
-        form.controls[SilvaOptionumFormPartFieldName.nickname].patchValue(silvaOptionum.nickname ?? null);
+        form.controls[SilvaOptionumFormPartFieldName.campusTextusOptionalis].patchValue(silvaOptionum.campusTextusOptionalis ?? null);
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
         form.controls[SilvaOptionumFormPartFieldName.lastname].patchValue(silvaOptionum.lastname);
@@ -234,16 +234,16 @@ export class SilvaOptionumFormPartService {
                 @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
                 @replace-value-by-expression
-                    [ searchValue="firstname" replaceByExpression="attribute.attributeName.camelCase" ]
-                    [ searchValue="nickname" replaceByExpression="attribute.attributeName.camelCase" ]
+                    [ searchValue="campusTextusObligatorius" replaceByExpression="attribute.attributeName.camelCase" ]
+                    [ searchValue="campusTextusOptionalis" replaceByExpression="attribute.attributeName.camelCase" ]
 
                 @remove-blanks-and-linebreak-after-comment
             }}}@  */
             /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @if [ conditionExpression="!attribute.isNullable"] @remove-blanks-and-linebreak-after-comment }}}@ */
-            firstname: form.controls[SilvaOptionumFormPartFieldName.firstname].getRawValue(),
+            campusTextusObligatorius: form.controls[SilvaOptionumFormPartFieldName.campusTextusObligatorius].getRawValue(),
             /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @else @remove-blanks-and-linebreak-after-comment }}}@ */
-            nickname: form.controls[SilvaOptionumFormPartFieldName.nicknameIsNotNull].value
-                ? form.controls[SilvaOptionumFormPartFieldName.nickname].getRawValue()
+            campusTextusOptionalis: form.controls[SilvaOptionumFormPartFieldName.campusTextusOptionalisIsNotNull].value
+                ? form.controls[SilvaOptionumFormPartFieldName.campusTextusOptionalis].getRawValue()
                 : null,
             /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-if @remove-blanks-and-linebreak-after-comment }}}@ */
             /* @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */

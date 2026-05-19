@@ -43,17 +43,17 @@ export interface SilvaOptionumFormPartGroup {
         @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
         @replace-value-by-expression
-            [ searchValue="nickname" replaceByExpression="attribute.attributeName.camelCase" ]
+            [ searchValue="campusTextusOptionalis" replaceByExpression="attribute.attributeName.camelCase" ]
             [ searchValue="string | null" replaceByExpression="attribute.typescriptAttributeFormType" ]
 
     }}}@  */
-    [SilvaOptionumFormPartFieldName.nickname]: FormControl<string | null>,
+    [SilvaOptionumFormPartFieldName.campusTextusOptionalis]: FormControl<string | null>,
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @if [ conditionExpression="attribute.isNullable"] @remove-blanks-and-linebreak-after-comment }}}@ */
-    [SilvaOptionumFormPartFieldName.nicknameIsNotNull]: FormControl<boolean>,
+    [SilvaOptionumFormPartFieldName.campusTextusOptionalisIsNotNull]: FormControl<boolean>,
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-if @remove-blanks-and-linebreak-after-comment }}}@ */
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
-    [SilvaOptionumFormPartFieldName.firstname]: FormControl<string>,
+    [SilvaOptionumFormPartFieldName.campusTextusObligatorius]: FormControl<string>,
     [SilvaOptionumFormPartFieldName.lastname]: FormControl<string>,
     [SilvaOptionumFormPartFieldName.articulusInteriorList]: FormArray<FormGroup<ArticulusInteriorFormPartGroup>>,
     [SilvaOptionumFormPartFieldName.birthdayIsNotNull]: FormControl<boolean>,
