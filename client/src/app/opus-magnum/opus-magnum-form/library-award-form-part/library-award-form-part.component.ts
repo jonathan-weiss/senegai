@@ -14,8 +14,8 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {FieldWrapperComponent} from "@app/shared/form-controls/field-wrapper/field-wrapper.component";
 import {FormUtil} from "@app/shared/form-controls/form.util";
 import {
-    LibraryAwardJuryTableComponent
-} from "@app/opus-magnum/opus-magnum-form/library-award-jury-table/library-award-jury-table.component";
+    TabulaSimplexComponent
+} from "@app/opus-magnum/opus-magnum-form/tabula-simplex/tabula-simplex.component";
 import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
 import {TextInputComponent} from "@app/shared/form-controls/text-input/text-input.component";
 import {NumberInputComponent} from "@app/shared/form-controls/number-input/number-input.component";
@@ -49,7 +49,7 @@ import {
         FieldWrapperComponent,
         TextInputComponent,
         NumberInputComponent,
-        LibraryAwardJuryTableComponent,
+        TabulaSimplexComponent,
     ]
 })
 export class LibraryAwardFormPartComponent implements OnInit {

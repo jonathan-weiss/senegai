@@ -13,9 +13,9 @@ import {MatListModule} from "@angular/material/list";
 import {MatDialogModule} from "@angular/material/dialog";
 
 @Component({
-    selector: 'app-library-award-jury-table',
-    templateUrl: './library-award-jury-table.component.html',
-    styleUrls: ['./library-award-jury-table.component.scss'],
+    selector: 'app-tabula-simplex',
+    templateUrl: './tabula-simplex.component.html',
+    styleUrls: ['./tabula-simplex.component.scss'],
     imports: [
         ReactiveFormsModule,
         MatButtonModule,
@@ -31,7 +31,7 @@ import {MatDialogModule} from "@angular/material/dialog";
         MatDialogModule,
     ]
 })
-export class LibraryAwardJuryTableComponent implements OnInit {
+export class TabulaSimplexComponent implements OnInit {
     @Input({ required: true }) libraryAwardJuryFormArray!: FormArray;
 
     displayedColumns: string[] = ['jury', 'actions'];
