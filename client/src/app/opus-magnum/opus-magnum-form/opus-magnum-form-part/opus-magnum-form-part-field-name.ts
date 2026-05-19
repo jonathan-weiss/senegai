@@ -1,5 +1,5 @@
 export enum OpusMagnumFormPartFieldName {
-    id = "id",
+    indexUnicus = "indexUnicus",
     title = "title",
     silvaOptionum = "silvaOptionum",
 }

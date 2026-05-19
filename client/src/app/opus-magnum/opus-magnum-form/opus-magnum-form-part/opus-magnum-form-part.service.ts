@@ -24,10 +24,10 @@ export class OpusMagnumFormPartService {
 
     public createInitialOpusMagnumForm(): FormGroup<OpusMagnumFormPartGroup> {
         return new FormGroup<OpusMagnumFormPartGroup>({
-            [OpusMagnumFormPartFieldName.id]: new FormControl<string>(
+            [OpusMagnumFormPartFieldName.indexUnicus]: new FormControl<string>(
                 {
                     value: this.opusMagnumFormInitialValueService.idInitialValue(),
-                    disabled: true, // ID is readonly
+                    disabled: true, // IndexUnicus is readonly
                 }, {
                     nonNullable: true,
                 },
@@ -45,14 +45,14 @@ export class OpusMagnumFormPartService {
     public patchOpusMagnumForm(form: FormGroup<OpusMagnumFormPartGroup>, opusMagnum: OpusMagnumWTO): void {
         this.silvaOptionumFormPartService.patchPreparation(form.controls[OpusMagnumFormPartFieldName.silvaOptionum], opusMagnum.silvaOptionum)
 
-        form.controls[OpusMagnumFormPartFieldName.id].patchValue(opusMagnum.id);
+        form.controls[OpusMagnumFormPartFieldName.indexUnicus].patchValue(opusMagnum.indexUnicus);
         form.controls[OpusMagnumFormPartFieldName.title].patchValue(opusMagnum.title);
         form.controls[OpusMagnumFormPartFieldName.silvaOptionum].patchValue(opusMagnum.silvaOptionum)
     }
 
     public createOpusMagnumFromFormData(form: FormGroup<OpusMagnumFormPartGroup>): OpusMagnumWTO {
         return {
-            id: form.controls[OpusMagnumFormPartFieldName.id].getRawValue(),
+            indexUnicus: form.controls[OpusMagnumFormPartFieldName.indexUnicus].getRawValue(),
             title: form.controls[OpusMagnumFormPartFieldName.title].getRawValue(),
             silvaOptionum: form.controls[OpusMagnumFormPartFieldName.silvaOptionum].getRawValue(),
         };

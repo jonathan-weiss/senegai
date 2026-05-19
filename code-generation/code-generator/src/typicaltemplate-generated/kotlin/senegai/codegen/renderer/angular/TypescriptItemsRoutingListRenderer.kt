@@ -31,7 +31,7 @@ object TypescriptItemsRoutingListRenderer : UiEntitiesRenderer {
           |
           |export const GENERATED_ITEMS_ROUTES: Routes = [${ models.joinToString("") { entity ->  """
               |    {path: '${entity.entityName.kebabCase}-board', component: ${entity.entityName.pascalCase}BoardComponent},
-              |    {path: '${entity.entityName.kebabCase}-edit/:id', component: ${entity.entityName.pascalCase}RoutableEditComponent},
+              |    {path: '${entity.entityName.kebabCase}-edit/:indexUnicus', component: ${entity.entityName.pascalCase}RoutableEditComponent},
           """ } }];
           |
           |

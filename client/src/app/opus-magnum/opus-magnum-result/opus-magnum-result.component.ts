@@ -68,7 +68,7 @@ export class OpusMagnumResultComponent implements OnChanges {
 
     displayedColumns: string[] = [
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
-        'id',
+        'indexUnicus',
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
         /* @tt{{{
             @foreach [ iteratorExpression="model.searchResultAttributes" loopVariable="attribute" ]
@@ -126,7 +126,7 @@ export class OpusMagnumResultComponent implements OnChanges {
                 this.isMatchingStringCriteria(criteria.title, opusMagnum.title) &&
                     /* @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
                     /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
-                this.isMatchingStringCriteria(criteria.id, opusMagnum.id) &&
+                this.isMatchingStringCriteria(criteria.indexUnicus, opusMagnum.indexUnicus) &&
                     /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
                     true
             );

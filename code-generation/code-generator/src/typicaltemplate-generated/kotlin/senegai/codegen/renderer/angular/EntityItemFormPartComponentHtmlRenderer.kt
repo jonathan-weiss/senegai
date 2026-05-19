@@ -18,17 +18,6 @@ object EntityItemFormPartComponentHtmlRenderer : UiEntityItemRenderer {
         return """
           |<div [formGroup]="${model.item.itemName.camelCase}Form">
           |
-          |<div>
-          |    <div class="form-row">
-          |        <app-field-wrapper label="ID">
-          |            <mat-form-field appearance="fill">
-          |                <input matInput [formControl]="idControl" readonly>
-          |                <mat-hint>ID cannot be modified</mat-hint>
-          |            </mat-form-field>
-          |        </app-field-wrapper>
-          |    </div>
-          |</div>
-          |
           |<mat-tab-group dynamicHeight>
           |${ model.tabs.joinToString("") { tab ->  """
               |
@@ -92,7 +81,7 @@ object EntityItemFormPartComponentHtmlRenderer : UiEntityItemRenderer {
                           |                
           """ } else { """
           """ } }
-          """ } }                            </div>
+          """ } }            </div>
                   |            
           """ } }                    </div>
               |    </mat-tab>

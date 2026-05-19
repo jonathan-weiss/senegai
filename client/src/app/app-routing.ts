@@ -8,7 +8,7 @@ import {
 export const ROUTES: Routes = [
     ...OPUS_MAGNUM_ROUTES,
     ...GENERATED_ITEMS_ROUTES,
-    {path: 'opus-magnum-routable-edit/:id', component: OpusMagnumRoutableEditComponent},
+    {path: 'opus-magnum-routable-edit/:indexUnicus', component: OpusMagnumRoutableEditComponent},
     {path: '', redirectTo: '/opus-magnum-board', pathMatch: 'full'}
 ];
 

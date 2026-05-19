@@ -47,10 +47,10 @@ export class OpusMagnumRoutableEditComponent {
         private route: ActivatedRoute,
     ) {
         this.route.params.subscribe(params => {
-            const idParam = params['id'];
+            const idParam = params['indexUnicus'];
             if (idParam) {
-                const id = idParam as string;
-                this.opusMagnumService.getOpusMagnumById(id).subscribe(opusMagnum => {
+                const indexUnicus = idParam as string;
+                this.opusMagnumService.getOpusMagnumById(indexUnicus).subscribe(opusMagnum => {
                     this.selectedOpusMagnum = opusMagnum;
                 });
             }

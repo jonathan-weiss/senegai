@@ -58,7 +58,7 @@ export const OPUS_MAGNUM_ROUTES: Routes = [
     @foreach [ iteratorExpression="models" loopVariable="entity" ]
 }}}@  */
     {path: 'opus-magnum-board', component: OpusMagnumBoardComponent},
-    {path: 'opus-magnum-edit/:id', component: OpusMagnumRoutableEditComponent},
+    {path: 'opus-magnum-edit/:indexUnicus', component: OpusMagnumRoutableEditComponent},
 /* @tt{{{
     @remove-blanks-and-linebreak-before-comment
     @end-foreach

@@ -19,6 +19,10 @@
         [ searchValue="opusMagnum" replaceByExpression="model.entityName.camelCase" ]
         [ searchValue="opus-magnum" replaceByExpression="model.entityName.kebabCase" ]
 
+    @replace-value-by-value
+        [ searchValue="IndexUnicus" replaceByValue="Id" ]
+        [ searchValue="indexUnicus" replaceByValue="id" ]
+
     @modify-provided-filename-by-replacements
 
     @remove-blanks-and-linebreak-after-comment
@@ -100,7 +104,7 @@ export class OpusMagnumBoardComponent {
         });
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.opusMagnumService.deleteOpusMagnum(opusMagnum.id).subscribe(() => {
+                this.opusMagnumService.deleteOpusMagnum(opusMagnum.indexUnicus).subscribe(() => {
                     this.refreshKey++;
                 });
             }

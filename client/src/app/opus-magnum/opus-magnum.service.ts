@@ -19,6 +19,11 @@
         [ searchValue="opus-magnum" replaceByExpression="model.entityName.kebabCase" ]
         [ searchValue="OPUS_MAGNUM" replaceByExpression="model.entityName.screamingSnakeCase" ]
 
+    @replace-value-by-value
+        [ searchValue="IndexUnicus" replaceByValue="Id" ]
+        [ searchValue="indexUnicus" replaceByValue="id" ]
+
+
     @modify-provided-filename-by-replacements
 
     @remove-blanks-and-linebreak-after-comment
@@ -45,18 +50,18 @@ export class OpusMagnumService {
         return of(this.opusMagnumList).pipe(delay(200));
     }
 
-    getOpusMagnumById(id: string): Observable<OpusMagnumWTO | null> {
-        const found = this.opusMagnumList.find(a => a.id === id) || null;
+    getOpusMagnumById(indexUnicus: string): Observable<OpusMagnumWTO | null> {
+        const found = this.opusMagnumList.find(a => a.indexUnicus === indexUnicus) || null;
         return of(found).pipe(delay(200));
     }
 
-    deleteOpusMagnum(id: string): Observable<void> {
-        this.opusMagnumList = this.opusMagnumList.filter(a => a.id !== id);
+    deleteOpusMagnum(indexUnicus: string): Observable<void> {
+        this.opusMagnumList = this.opusMagnumList.filter(a => a.indexUnicus !== indexUnicus);
         return of(void 0).pipe(delay(200));
     }
 
     updateOpusMagnum(opusMagnum: OpusMagnumWTO): Observable<OpusMagnumWTO> {
-        const idx = this.opusMagnumList.findIndex(a => a.id === opusMagnum.id);
+        const idx = this.opusMagnumList.findIndex(a => a.indexUnicus === opusMagnum.indexUnicus);
         if (idx !== -1) {
             this.opusMagnumList[idx] = {...opusMagnum};
         }

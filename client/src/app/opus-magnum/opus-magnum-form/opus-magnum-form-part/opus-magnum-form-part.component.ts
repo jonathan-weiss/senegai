@@ -72,7 +72,7 @@ export class OpusMagnumFormPartComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.idControl = this.opusMagnumForm.controls[OpusMagnumFormPartFieldName.id]
+        this.idControl = this.opusMagnumForm.controls[OpusMagnumFormPartFieldName.indexUnicus]
         this.titleControl = this.opusMagnumForm.controls[OpusMagnumFormPartFieldName.title]
         this.titleValidatorNames = this.opusMagnumFormValidationService.validatorNames(OpusMagnumFormPartFieldName.title)
         this.silvaOptionumFormGroup = this.opusMagnumForm.controls[OpusMagnumFormPartFieldName.silvaOptionum]

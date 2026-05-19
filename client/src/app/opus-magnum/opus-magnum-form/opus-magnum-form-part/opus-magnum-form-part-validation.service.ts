@@ -27,7 +27,7 @@ export class OpusMagnumFormPartValidationService {
 
     namedValidators(field: OpusMagnumFormPartFieldName): ReadonlyArray<NamedValidator> {
         switch(field) {
-            case OpusMagnumFormPartFieldName.id: return [
+            case OpusMagnumFormPartFieldName.indexUnicus: return [
                 {
                     validatorName: "required",
                     validatorFunction: Validators.required,

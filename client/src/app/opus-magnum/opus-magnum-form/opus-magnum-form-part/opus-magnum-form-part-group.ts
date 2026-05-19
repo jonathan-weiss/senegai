@@ -6,7 +6,7 @@ import {SilvaOptionumFormPartGroup} from "@app/opus-magnum/opus-magnum-form/silv
 
 
 export interface OpusMagnumFormPartGroup {
-    [OpusMagnumFormPartFieldName.id]: FormControl<string>,
+    [OpusMagnumFormPartFieldName.indexUnicus]: FormControl<string>,
     [OpusMagnumFormPartFieldName.title]: FormControl<string>,
     [OpusMagnumFormPartFieldName.silvaOptionum]: FormGroup<SilvaOptionumFormPartGroup>,
 }
