@@ -69,9 +69,6 @@ export class SilvaOptionumFormPartInitialValueService {
     articulusInteriorListInitialValue(): Array<FormGroup<ArticulusInteriorFormPartGroup>> {
         return []
     }
-    lastnameInitialValue(): string {
-        return ''
-    }
     campusDieiInitialValue(): Date {
         return new Date();
     }

@@ -46,9 +46,8 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
         id: '828cf29b-a7fb-4b07-bf13-9a313a9967f6',
         silvaOptionum: {
             id: '828cf29b-a7fb-4b07-bf13-9a313a9967f6',
-            campusTextusObligatorius: 'John',
+            campusTextusObligatorius: 'Doe',
             campusTextusOptionalis: 'Johnny',
-            lastname: 'Doe',
             articulusInteriorList: [
                 {
                     description: "ALA Medal of Excellence.",
@@ -71,9 +70,8 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
         title: 'populari opulari',
         silvaOptionum: {
             id: '6b9a179c-641b-4204-a6ae-46be2fbbaa3a',
-            campusTextusObligatorius: 'Jane',
-            campusTextusOptionalis: 'Janey',
-            lastname: 'Smith',
+            campusTextusObligatorius: 'Smith',
+            campusTextusOptionalis: 'Jane',
             articulusInteriorList: [
                 {
                     description: "James Madison Award ",
@@ -96,9 +94,8 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
         title: 'sczenzo riguldi',
         silvaOptionum: {
             id: 'd4076f05-50ac-4ceb-b54d-06f5c77874e4',
-            campusTextusObligatorius: 'Robert',
+            campusTextusObligatorius: 'Johnson',
             campusTextusOptionalis: null,
-            lastname: 'Johnson',
             articulusInteriorList: [],
             campusDiei: new Date(1963, 11, 31),
             campusBivalens: true,
@@ -110,9 +107,8 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
         title: 'dak szena',
         silvaOptionum: {
             id: 'af18a7cc-7e7a-4388-bb32-95652fc1e379',
-            campusTextusObligatorius: 'Mary',
+            campusTextusObligatorius: 'Williams',
             campusTextusOptionalis: 'Molly',
-            lastname: 'Williams',
             articulusInteriorList: [
                 {
                     description: "Jean E. Coleman Library Outreach Lecture",

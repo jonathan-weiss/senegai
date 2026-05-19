@@ -204,8 +204,6 @@ export class SilvaOptionumFormPartComponent implements OnInit {
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
 
-    protected lastnameControl!: FormControl<string>
-    protected lastnameValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected articulusInteriorListControl!: FormArray<FormGroup<ArticulusInteriorFormPartGroup>>
     protected articulusInteriorListValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected campusDieiIsNotNullControl!: FormControl<boolean>
@@ -243,8 +241,6 @@ export class SilvaOptionumFormPartComponent implements OnInit {
 
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
-        this.lastnameControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.lastname]
-        this.lastnameValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.lastname)
         this.articulusInteriorListControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.articulusInteriorList]
         this.articulusInteriorListValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.articulusInteriorList)
         this.campusDieiIsNotNullControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.campusDieiIsNotNull]

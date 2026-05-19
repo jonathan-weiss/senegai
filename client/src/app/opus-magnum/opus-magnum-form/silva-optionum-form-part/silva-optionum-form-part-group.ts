@@ -54,7 +54,6 @@ export interface SilvaOptionumFormPartGroup {
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
     [SilvaOptionumFormPartFieldName.campusTextusObligatorius]: FormControl<string>,
-    [SilvaOptionumFormPartFieldName.lastname]: FormControl<string>,
     [SilvaOptionumFormPartFieldName.articulusInteriorList]: FormArray<FormGroup<ArticulusInteriorFormPartGroup>>,
     [SilvaOptionumFormPartFieldName.campusDieiIsNotNull]: FormControl<boolean>,
     [SilvaOptionumFormPartFieldName.campusDiei]: FormControl<Date | null>,

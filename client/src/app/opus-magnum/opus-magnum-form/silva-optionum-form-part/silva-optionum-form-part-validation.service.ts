@@ -91,19 +91,6 @@ export class SilvaOptionumFormPartValidationService {
                     validatorTranslationKey: "validator.minlength",
                 },
             ]
-            case SilvaOptionumFormPartFieldName.lastname: return [
-                {
-                    validatorName: "required",
-                    validatorFunction: Validators.required,
-                    validatorTranslationKey: "validator.required",
-                },
-                {
-                    validatorName: "maxlength",
-                    validatorFunction: Validators.maxLength(45),
-                    validatorTranslationKey: "validator.maxlength",
-
-                },
-            ]
             /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
             default: return []
         }

@@ -49,7 +49,6 @@ export interface SilvaOptionumWTO {
     }}}@ */
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
     campusTextusOptionalis: string | null;
-    lastname: string;
     appellatio: AppellatioEnum;
     articulusInteriorList: Array<ArticulusInteriorWTO>;
     campusDiei: Date | null;
