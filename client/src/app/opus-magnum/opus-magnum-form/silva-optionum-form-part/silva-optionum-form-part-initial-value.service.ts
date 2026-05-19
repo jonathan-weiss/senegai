@@ -72,7 +72,7 @@ export class SilvaOptionumFormPartInitialValueService {
     lastnameInitialValue(): string {
         return ''
     }
-    birthdayInitialValue(): Date {
+    campusDieiInitialValue(): Date {
         return new Date();
     }
     vegetarianInitialValue(): boolean {

@@ -52,7 +52,7 @@ export interface SilvaOptionumWTO {
     lastname: string;
     appellatio: AppellatioEnum;
     articulusInteriorList: Array<ArticulusInteriorWTO>;
-    birthday: Date | null;
+    campusDiei: Date | null;
     vegetarian: boolean;
     id: string;
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text }}}@ */

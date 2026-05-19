@@ -208,10 +208,10 @@ export class SilvaOptionumFormPartComponent implements OnInit {
     protected lastnameValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected articulusInteriorListControl!: FormArray<FormGroup<ArticulusInteriorFormPartGroup>>
     protected articulusInteriorListValidatorNames!: ReadonlyArray<ValidatorTranslation>
-    protected birthdayIsNotNullControl!: FormControl<boolean>
-    protected birthdayIsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
-    protected birthdayControl!: FormControl<Date | null>
-    protected birthdayValidatorNames!: ReadonlyArray<ValidatorTranslation>
+    protected campusDieiIsNotNullControl!: FormControl<boolean>
+    protected campusDieiIsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
+    protected campusDieiControl!: FormControl<Date | null>
+    protected campusDieiValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected vegetarianControl!: FormControl<boolean>
     protected vegetarianValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected appellatioControl!: FormControl<AppellatioEnum>
@@ -247,10 +247,10 @@ export class SilvaOptionumFormPartComponent implements OnInit {
         this.lastnameValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.lastname)
         this.articulusInteriorListControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.articulusInteriorList]
         this.articulusInteriorListValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.articulusInteriorList)
-        this.birthdayIsNotNullControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.birthdayIsNotNull]
-        this.birthdayIsNotNullValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.birthdayIsNotNull)
-        this.birthdayControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.birthday]
-        this.birthdayValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.birthday)
+        this.campusDieiIsNotNullControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.campusDieiIsNotNull]
+        this.campusDieiIsNotNullValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.campusDieiIsNotNull)
+        this.campusDieiControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.campusDiei]
+        this.campusDieiValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.campusDiei)
         this.vegetarianControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.vegetarian]
         this.vegetarianValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.vegetarian)
         this.appellatioControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.appellatio]

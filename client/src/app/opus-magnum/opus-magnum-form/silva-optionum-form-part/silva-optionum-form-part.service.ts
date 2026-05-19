@@ -137,18 +137,18 @@ export class SilvaOptionumFormPartService {
                     validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.articulusInteriorList)
                 },
             ),
-            [SilvaOptionumFormPartFieldName.birthdayIsNotNull]: new FormControl<boolean>(
-                this.silvaOptionumFormInitialValueService.birthdayInitialValue() != null,
+            [SilvaOptionumFormPartFieldName.campusDieiIsNotNull]: new FormControl<boolean>(
+                this.silvaOptionumFormInitialValueService.campusDieiInitialValue() != null,
                 {
                     nonNullable: true,
-                    validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.birthdayIsNotNull)
+                    validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.campusDieiIsNotNull)
                 },
             ),
-            [SilvaOptionumFormPartFieldName.birthday]: new FormControl<Date>(
-                this.silvaOptionumFormInitialValueService.birthdayInitialValue(),
+            [SilvaOptionumFormPartFieldName.campusDiei]: new FormControl<Date>(
+                this.silvaOptionumFormInitialValueService.campusDieiInitialValue(),
                 {
                     nonNullable: false,
-                    validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.birthday)
+                    validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.campusDiei)
                 },
             ),
             [SilvaOptionumFormPartFieldName.vegetarian]: new FormControl<boolean>(
@@ -218,8 +218,8 @@ export class SilvaOptionumFormPartService {
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
         form.controls[SilvaOptionumFormPartFieldName.lastname].patchValue(silvaOptionum.lastname);
         form.controls[SilvaOptionumFormPartFieldName.articulusInteriorList].patchValue(silvaOptionum.articulusInteriorList)
-        form.controls[SilvaOptionumFormPartFieldName.birthdayIsNotNull].patchValue(!silvaOptionum.birthday);
-        form.controls[SilvaOptionumFormPartFieldName.birthday].patchValue(silvaOptionum.birthday ?? null);
+        form.controls[SilvaOptionumFormPartFieldName.campusDieiIsNotNull].patchValue(!silvaOptionum.campusDiei);
+        form.controls[SilvaOptionumFormPartFieldName.campusDiei].patchValue(silvaOptionum.campusDiei ?? null);
         form.controls[SilvaOptionumFormPartFieldName.vegetarian].patchValue(silvaOptionum.vegetarian);
         form.controls[SilvaOptionumFormPartFieldName.appellatio].patchValue(silvaOptionum.appellatio);
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
@@ -250,7 +250,7 @@ export class SilvaOptionumFormPartService {
             /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
             lastname: form.controls[SilvaOptionumFormPartFieldName.lastname].getRawValue(),
             articulusInteriorList: form.controls[SilvaOptionumFormPartFieldName.articulusInteriorList].getRawValue(),
-            birthday: form.controls[SilvaOptionumFormPartFieldName.birthdayIsNotNull].value ? form.controls[SilvaOptionumFormPartFieldName.birthday].getRawValue() : null,
+            campusDiei: form.controls[SilvaOptionumFormPartFieldName.campusDieiIsNotNull].value ? form.controls[SilvaOptionumFormPartFieldName.campusDiei].getRawValue() : null,
             vegetarian: form.controls[SilvaOptionumFormPartFieldName.vegetarian].getRawValue(),
             appellatio: form.controls[SilvaOptionumFormPartFieldName.appellatio].getRawValue(),
             /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */

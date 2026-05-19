@@ -61,7 +61,7 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
                     juryList: ["Peter Booker"]
                 }
             ],
-            birthday: new Date(1979, 3, 23),
+            campusDiei: new Date(1979, 3, 23),
             vegetarian: false,
             appellatio: AppellatioEnum.SENIOR,
         }
@@ -86,7 +86,7 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
                     juryList: ["Elisabeth Smith", "Aaron Glasgow", "James Duroldi"]
                 }
             ],
-            birthday: null,
+            campusDiei: null,
             vegetarian: false,
             appellatio: AppellatioEnum.MATRONA,
         }
@@ -100,7 +100,7 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
             campusTextusOptionalis: null,
             lastname: 'Johnson',
             articulusInteriorList: [],
-            birthday: new Date(1963, 11, 31),
+            campusDiei: new Date(1963, 11, 31),
             vegetarian: true,
             appellatio: AppellatioEnum.SENIOR,
         }
@@ -125,7 +125,7 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
                     juryList: ["Justin Windsor", "Edward Swandson", "May Hill"]
                 }
             ],
-            birthday: new Date(1954, 8, 3),
+            campusDiei: new Date(1954, 8, 3),
             vegetarian: false,
             appellatio: AppellatioEnum.MATRONA,
         }
