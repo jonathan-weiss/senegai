@@ -20,7 +20,7 @@ object EntityResultComponentHtmlRenderer : UiEntityRenderer {
           |    <table mat-table [dataSource]="dataSource">
           |        
           |        ${ model.searchResultAttributes.joinToString("") { attribute ->  """
-              |        <!-- Firstname Column -->
+              |        <!-- ${attribute.attributeName.pascalCase} Column -->
               |        <ng-container matColumnDef="${attribute.attributeName.camelCase}">
               |            <th mat-header-cell *matHeaderCellDef>${attribute.attributeName.pascalCase}</th>
               |            <td mat-cell *matCellDef="let ${model.entityName.camelCase}">{{ ${model.entityName.camelCase}.${attribute.attributeName.camelCase} }}</td>
