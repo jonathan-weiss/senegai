@@ -151,11 +151,11 @@ export class SilvaOptionumFormPartService {
                     validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.campusDiei)
                 },
             ),
-            [SilvaOptionumFormPartFieldName.vegetarian]: new FormControl<boolean>(
-                this.silvaOptionumFormInitialValueService.vegetarianInitialValue(),
+            [SilvaOptionumFormPartFieldName.campusBivalens]: new FormControl<boolean>(
+                this.silvaOptionumFormInitialValueService.campusBivalensInitialValue(),
                 {
                     nonNullable: true,
-                    validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.vegetarian)
+                    validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.campusBivalens)
                 },
             ),
             [SilvaOptionumFormPartFieldName.appellatio]: new FormControl<AppellatioEnum>(
@@ -220,7 +220,7 @@ export class SilvaOptionumFormPartService {
         form.controls[SilvaOptionumFormPartFieldName.articulusInteriorList].patchValue(silvaOptionum.articulusInteriorList)
         form.controls[SilvaOptionumFormPartFieldName.campusDieiIsNotNull].patchValue(!silvaOptionum.campusDiei);
         form.controls[SilvaOptionumFormPartFieldName.campusDiei].patchValue(silvaOptionum.campusDiei ?? null);
-        form.controls[SilvaOptionumFormPartFieldName.vegetarian].patchValue(silvaOptionum.vegetarian);
+        form.controls[SilvaOptionumFormPartFieldName.campusBivalens].patchValue(silvaOptionum.campusBivalens);
         form.controls[SilvaOptionumFormPartFieldName.appellatio].patchValue(silvaOptionum.appellatio);
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
     }
@@ -251,7 +251,7 @@ export class SilvaOptionumFormPartService {
             lastname: form.controls[SilvaOptionumFormPartFieldName.lastname].getRawValue(),
             articulusInteriorList: form.controls[SilvaOptionumFormPartFieldName.articulusInteriorList].getRawValue(),
             campusDiei: form.controls[SilvaOptionumFormPartFieldName.campusDieiIsNotNull].value ? form.controls[SilvaOptionumFormPartFieldName.campusDiei].getRawValue() : null,
-            vegetarian: form.controls[SilvaOptionumFormPartFieldName.vegetarian].getRawValue(),
+            campusBivalens: form.controls[SilvaOptionumFormPartFieldName.campusBivalens].getRawValue(),
             appellatio: form.controls[SilvaOptionumFormPartFieldName.appellatio].getRawValue(),
             /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
         };

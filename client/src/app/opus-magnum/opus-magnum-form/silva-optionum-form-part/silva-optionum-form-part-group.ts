@@ -58,7 +58,7 @@ export interface SilvaOptionumFormPartGroup {
     [SilvaOptionumFormPartFieldName.articulusInteriorList]: FormArray<FormGroup<ArticulusInteriorFormPartGroup>>,
     [SilvaOptionumFormPartFieldName.campusDieiIsNotNull]: FormControl<boolean>,
     [SilvaOptionumFormPartFieldName.campusDiei]: FormControl<Date | null>,
-    [SilvaOptionumFormPartFieldName.vegetarian]: FormControl<boolean>,
+    [SilvaOptionumFormPartFieldName.campusBivalens]: FormControl<boolean>,
     [SilvaOptionumFormPartFieldName.appellatio]: FormControl<AppellatioEnum>,
     [SilvaOptionumFormPartFieldName.id]: FormControl<string>,
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */

@@ -62,7 +62,7 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
                 }
             ],
             campusDiei: new Date(1979, 3, 23),
-            vegetarian: false,
+            campusBivalens: false,
             appellatio: AppellatioEnum.SENIOR,
         }
     },
@@ -87,7 +87,7 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
                 }
             ],
             campusDiei: null,
-            vegetarian: false,
+            campusBivalens: false,
             appellatio: AppellatioEnum.MATRONA,
         }
     },
@@ -101,7 +101,7 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
             lastname: 'Johnson',
             articulusInteriorList: [],
             campusDiei: new Date(1963, 11, 31),
-            vegetarian: true,
+            campusBivalens: true,
             appellatio: AppellatioEnum.SENIOR,
         }
     },
@@ -126,7 +126,7 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
                 }
             ],
             campusDiei: new Date(1954, 8, 3),
-            vegetarian: false,
+            campusBivalens: false,
             appellatio: AppellatioEnum.MATRONA,
         }
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */

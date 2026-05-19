@@ -75,7 +75,7 @@ export class SilvaOptionumFormPartInitialValueService {
     campusDieiInitialValue(): Date {
         return new Date();
     }
-    vegetarianInitialValue(): boolean {
+    campusBivalensInitialValue(): boolean {
         return false;
     }
     appellatioInitialValue(): AppellatioEnum {

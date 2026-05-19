@@ -51,7 +51,7 @@ export enum SilvaOptionumFormPartFieldName {
     articulusInteriorList = "articulusInteriorList",
     campusDieiIsNotNull = "campusDieiIsNotNull",
     campusDiei = "campusDiei",
-    vegetarian = "vegetarian",
+    campusBivalens = "campusBivalens",
     appellatio = "appellatio",
     id = "id",
 /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */

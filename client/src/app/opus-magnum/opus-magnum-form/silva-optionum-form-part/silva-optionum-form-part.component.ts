@@ -212,8 +212,8 @@ export class SilvaOptionumFormPartComponent implements OnInit {
     protected campusDieiIsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected campusDieiControl!: FormControl<Date | null>
     protected campusDieiValidatorNames!: ReadonlyArray<ValidatorTranslation>
-    protected vegetarianControl!: FormControl<boolean>
-    protected vegetarianValidatorNames!: ReadonlyArray<ValidatorTranslation>
+    protected campusBivalensControl!: FormControl<boolean>
+    protected campusBivalensValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected appellatioControl!: FormControl<AppellatioEnum>
     protected appellatioValidatorNames!: ReadonlyArray<ValidatorTranslation>
     /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
@@ -251,8 +251,8 @@ export class SilvaOptionumFormPartComponent implements OnInit {
         this.campusDieiIsNotNullValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.campusDieiIsNotNull)
         this.campusDieiControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.campusDiei]
         this.campusDieiValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.campusDiei)
-        this.vegetarianControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.vegetarian]
-        this.vegetarianValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.vegetarian)
+        this.campusBivalensControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.campusBivalens]
+        this.campusBivalensValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.campusBivalens)
         this.appellatioControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.appellatio]
         this.appellatioValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.appellatio)
         /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
