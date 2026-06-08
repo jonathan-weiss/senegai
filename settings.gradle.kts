@@ -9,18 +9,33 @@ dependencyResolutionManagement {
             library("kotlin-reflect", "org.jetbrains.kotlin", "kotlin-reflect").versionRef(kotlinVersion)
             plugin("kotlin-jvm", "org.jetbrains.kotlin.jvm").versionRef(kotlinVersion)
 
-            val typicalTemplateVersion = version("typicalTemplate", "0.0.8")
+            val typicalTemplateVersion = version("typicalTemplate", "0.0.9")
             library("typicaltemplate-api", "org.codeblessing.typicaltemplate", "typical-template-api").versionRef(typicalTemplateVersion)
             library("typicaltemplate", "org.codeblessing.typicaltemplate", "typical-template").versionRef(typicalTemplateVersion)
 
             val sourceAmazingVersion = version("sourceAmazing", "4.0.0")
-            library("sourceamazing-schema-api", "org.codeblessing.sourceamazing", "sourceamazing-schema-api").versionRef(sourceAmazingVersion)
+            library(
+                "sourceamazing-schema-api",
+                "org.codeblessing.sourceamazing",
+                "sourceamazing-schema-api",
+            ).versionRef(sourceAmazingVersion)
             library("sourceamazing-schema", "org.codeblessing.sourceamazing", "sourceamazing-schema").versionRef(sourceAmazingVersion)
-            library("sourceamazing-builder-api", "org.codeblessing.sourceamazing", "sourceamazing-builder-api").versionRef(sourceAmazingVersion)
+            library(
+                "sourceamazing-builder-api",
+                "org.codeblessing.sourceamazing",
+                "sourceamazing-builder-api",
+            ).versionRef(sourceAmazingVersion)
             library("sourceamazing-builder", "org.codeblessing.sourceamazing", "sourceamazing-builder").versionRef(sourceAmazingVersion)
-            library("sourceamazing-xmlschema-api", "org.codeblessing.sourceamazing", "sourceamazing-xml-schema-api").versionRef(sourceAmazingVersion)
-            library("sourceamazing-xmlschema", "org.codeblessing.sourceamazing", "sourceamazing-xml-schema").versionRef(sourceAmazingVersion)
-
+            library(
+                "sourceamazing-xmlschema-api",
+                "org.codeblessing.sourceamazing",
+                "sourceamazing-xml-schema-api",
+            ).versionRef(sourceAmazingVersion)
+            library(
+                "sourceamazing-xmlschema",
+                "org.codeblessing.sourceamazing",
+                "sourceamazing-xml-schema",
+            ).versionRef(sourceAmazingVersion)
         }
     }
 }
