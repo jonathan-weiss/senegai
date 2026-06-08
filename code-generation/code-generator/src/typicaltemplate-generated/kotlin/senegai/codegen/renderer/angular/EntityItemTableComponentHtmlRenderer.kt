@@ -18,7 +18,7 @@ object EntityItemTableComponentHtmlRenderer : UiEntityItemRenderer {
         return """
           |<div class="table-container">
           |    <div class="action-bar">
-          |        <button mat-button color="primary" (click)="onAdd()">
+          |        <button mat-button color="primary" (click)="onAdd()" type="button">
           |            <mat-icon>add</mat-icon> Add ${model.item.itemName.pascalCase}...
           |        </button>
           |
@@ -39,10 +39,10 @@ object EntityItemTableComponentHtmlRenderer : UiEntityItemRenderer {
           |        <ng-container matColumnDef="actions">
           |            <th mat-header-cell *matHeaderCellDef>Actions</th>
           |            <td mat-cell *matCellDef="let tableRow">
-          |                <button mat-icon-button color="primary" (click)="onEdit(tableRow.formGroup)">
+          |                <button mat-icon-button color="primary" (click)="onEdit(tableRow.formGroup)" type="button">
           |                    <mat-icon>edit</mat-icon>
           |                </button>
-          |                <button mat-icon-button color="warn" (click)="onDelete(tableRow.formGroup)">
+          |                <button mat-icon-button color="warn" (click)="onDelete(tableRow.formGroup)" type="button">
           |                    <mat-icon>delete</mat-icon>
           |                </button>
           |            </td>
