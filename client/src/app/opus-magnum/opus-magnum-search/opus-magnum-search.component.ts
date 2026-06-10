@@ -85,7 +85,6 @@ export class OpusMagnumSearchComponent {
 
                 @replace-value-by-expression
                     [ searchValue="title" replaceByExpression="attribute.attributeName.camelCase" ]
-                    [ searchValue="''" replaceByExpression="attribute.typescriptAttributeInitialValue" ]
                 @rla
             }}}@  */
             title: [''],

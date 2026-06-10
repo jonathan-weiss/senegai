@@ -61,7 +61,7 @@ object EntitySearchComponentTypescriptRenderer : UiEntityRenderer {
           |
           |    constructor(private fb: FormBuilder) {
           |        this.searchForm = this.fb.group({
-          |            ${ model.searchCriteriaAttributes.joinToString("") { attribute ->  """            ${attribute.attributeName.camelCase}: [${attribute.typescriptAttributeInitialValue}],
+          |            ${ model.searchCriteriaAttributes.joinToString("") { attribute ->  """            ${attribute.attributeName.camelCase}: [''],
               |            
           """ } }                    });
           |    }

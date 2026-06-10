@@ -15,12 +15,9 @@ data class UiItemAttributeModel(
     val isList: Boolean,
     val type: UiItemAttributeTypeModel,
 ) {
-    val typescriptAttributeTypeExample: String = calculateExampleValue()
-    val typescriptAttributeInitialValue: String = calculateInitialValue()
     val typescriptAttributeType: String = calculateAttributeTypeWithNullability()
     val typescriptAttributeTypeWithoutNullability: String = calculateAttributeType()
     val typescriptAttributeTypeCapitalizedWithoutNullability: String = CaseUtil.capitalize(calculateAttributeType())
-    //val typescriptAttributeType: String = if(attributeName == "nickname") "string | null" else "string"
 
     val typescriptAttributeFormType: String = calculateFormType()
     val typescriptAttributeFormControlType: String = calculateFormTypeIncludingCollection()
@@ -78,38 +75,6 @@ data class UiItemAttributeModel(
             "[]"
         } else {
             "''"
-        }
-    }
-
-    private fun calculateInitialValue(): String {
-        return when(type) {
-            is BuiltInTypeUiItemAttributeTypeModel -> type.builtInType.builtInTypeInitialValue()
-            is EnumUiItemAttributeTypeModel -> throw NotSupportedInTemplateException(type.toString())
-            is ItemUiItemAttributeTypeModel -> throw NotSupportedInTemplateException(type.toString())
-        }
-    }
-
-    private fun BuiltInType.builtInTypeInitialValue(): String {
-        return when(this) {
-            BuiltInType.STRING -> "''"
-            BuiltInType.NUMBER -> "0"
-            BuiltInType.BOOLEAN -> "false"
-        }
-    }
-
-    private fun calculateExampleValue(): String {
-        return when(type) {
-            is BuiltInTypeUiItemAttributeTypeModel -> type.builtInType.builtInTypeExampleValue()
-            is EnumUiItemAttributeTypeModel -> throw NotSupportedInTemplateException(type.toString())
-            is ItemUiItemAttributeTypeModel -> throw NotSupportedInTemplateException(type.toString())
-        }
-    }
-
-    private fun BuiltInType.builtInTypeExampleValue(): String {
-        return when(this) {
-            BuiltInType.STRING -> "'John'"
-            BuiltInType.NUMBER -> "316"
-            BuiltInType.BOOLEAN -> "true"
         }
     }
 
