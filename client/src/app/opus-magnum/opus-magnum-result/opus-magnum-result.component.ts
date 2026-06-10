@@ -1,6 +1,6 @@
 /* @tt{{{
 
-    @remove-blanks-and-linebreak-before-comment
+    @rlb
 
     @move-comment-backward
     @template-renderer [
@@ -21,7 +21,7 @@
 
     @modify-provided-filename-by-replacements
 
-    @remove-blanks-and-linebreak-after-comment
+    @rla
 
 }}}@ */
 import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
@@ -67,9 +67,9 @@ export class OpusMagnumResultComponent implements OnChanges {
     @Output() deleteOpusMagnum = new EventEmitter<OpusMagnumWTO>();
 
     displayedColumns: string[] = [
-        /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
+        /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
         'indexUnicus',
-        /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
+        /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
         /* @tt{{{
             @foreach [ iteratorExpression="model.searchResultAttributes" loopVariable="attribute" ]
 
@@ -78,7 +78,7 @@ export class OpusMagnumResultComponent implements OnChanges {
 
         }}}@  */
         'title',
-    /* @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
+    /* @tt{{{ @rlb @end-foreach @rla }}}@ */
         'actions'
     ];
     dataSource: MatTableDataSource<OpusMagnumWTO> = new MatTableDataSource<OpusMagnumWTO>();
@@ -115,19 +115,19 @@ export class OpusMagnumResultComponent implements OnChanges {
         const criteria = this.searchCriteria;
         this.dataSource.data = this.allOpusMagnums.filter(opusMagnum => {
             return (
-                /* @tt{{{ @remove-blanks-and-linebreak-before-comment
+                /* @tt{{{ @rlb
                     @foreach [ iteratorExpression="model.searchResultAttributes" loopVariable="attribute" ]
 
                     @replace-value-by-expression
                         [ searchValue="title" replaceByExpression="attribute.attributeName.camelCase" ]
                         [ searchValue="String" replaceByExpression="attribute.typescriptAttributeTypeCapitalizedWithoutNullability" ]
-                    @remove-blanks-and-linebreak-after-comment
+                    @rla
                 }}}@  */
                 this.isMatchingStringCriteria(criteria.title, opusMagnum.title) &&
-                    /* @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
-                    /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
+                    /* @tt{{{ @rlb @end-foreach @rla }}}@ */
+                    /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
                 this.isMatchingStringCriteria(criteria.indexUnicus, opusMagnum.indexUnicus) &&
-                    /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
+                    /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
                     true
             );
         });

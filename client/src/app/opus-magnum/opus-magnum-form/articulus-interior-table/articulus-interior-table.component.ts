@@ -1,6 +1,6 @@
 /* @tt{{{
 
-    @remove-blanks-and-linebreak-before-comment
+    @rlb
 
     @move-comment-backward
     @template-renderer [
@@ -24,7 +24,7 @@
 
     @modify-provided-filename-by-replacements
 
-    @remove-blanks-and-linebreak-after-comment
+    @rla
 
 }}}@ */
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
@@ -80,20 +80,20 @@ export class ArticulusInteriorTableComponent implements OnInit {
     displayedColumns: string[] = [
         /*
         @tt{{{
-            @remove-blanks-and-linebreak-before-comment
+            @rlb
             @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
             @replace-value-by-expression
             [ searchValue="description" replaceByExpression="attribute.attributeName.camelCase" ]
-            @remove-blanks-and-linebreak-after-comment
+            @rla
         }}}@
          */
         'description',
-        /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
-        /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
+        /* @tt{{{ @rlb  @end-foreach @rla }}}@ */
+        /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
         'year',
         'actions',
-        /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
+        /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
     ];
     dataSource: MatTableDataSource<ArticulusInteriorTableRow> = new MatTableDataSource<ArticulusInteriorTableRow>();
 
@@ -111,21 +111,21 @@ export class ArticulusInteriorTableComponent implements OnInit {
         return {
             /*
             @tt{{{
-                @remove-blanks-and-linebreak-before-comment
+                @rlb
                 @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
                 @replace-value-by-expression
                 [ searchValue="description" replaceByExpression="attribute.attributeName.camelCase" ]
                 [ searchValue="Description" replaceByExpression="attribute.attributeName.pascalCase" ]
-                @remove-blanks-and-linebreak-after-comment
+                @rla
             }}}@
              */
             description: formGroup.controls[ArticulusInteriorFormPartFieldName.description].value,
-            /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
-            /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
+            /* @tt{{{ @rlb  @end-foreach @rla }}}@ */
+            /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
 
             year: formGroup.controls[ArticulusInteriorFormPartFieldName.year].value,
-            /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
+            /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
             formGroup: formGroup,
         }
     }

@@ -1,5 +1,5 @@
 <!-- @tt{{{
-    @remove-blanks-and-linebreak-before-comment
+    @rlb
 
     @move-comment-backward
     @template-renderer [
@@ -23,7 +23,7 @@
 
     @modify-provided-filename-by-replacements
 
-    @remove-blanks-and-linebreak-after-comment
+    @rla
 
 }}}@ -->
 <div [formGroup]="silvaOptionumForm">
@@ -87,7 +87,7 @@
                             <app-text-input [textFormControl]="campusTextusObligatoriusControl" label="campusTextusObligatorius" placeholder="Enter Campus Textus Obligatorius" [validatorTranslations]="campusTextusObligatoriusValidatorNames" />
                         </app-field-wrapper>
                     </div>
-                    <!-- @tt{{{ @remove-blanks-and-linebreak-before-comment @end-if @remove-blanks-and-linebreak-after-comment }}}@  -->
+                    <!-- @tt{{{ @rlb @end-if @rla }}}@  -->
                     <!-- @tt{{{
                         @if [ conditionExpression="block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.NULLABLE_SINGLE_ITEM" ]
 
@@ -106,7 +106,7 @@
                             <app-text-input [textFormControl]="campusTextusOptionalisControl" label="campusTextusOptionalis" placeholder="Enter campusTextusOptionalis" [validatorTranslations]="campusTextusOptionalisValidatorNames" />
                         </app-field-wrapper>
                     </div>
-                    <!-- @tt{{{ @remove-blanks-and-linebreak-before-comment @end-if @remove-blanks-and-linebreak-after-comment }}}@  -->
+                    <!-- @tt{{{ @rlb @end-if @rla }}}@  -->
 
                 <!-- @tt{{{
                     @if [ conditionExpression="block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.LIST_ITEMS" ]
@@ -136,17 +136,17 @@
                         }
                     </app-field-wrapper>
                 </div>
-                <!-- @tt{{{ @remove-blanks-and-linebreak-before-comment @end-if @remove-blanks-and-linebreak-after-comment }}}@  -->
+                <!-- @tt{{{ @rlb @end-if @rla }}}@  -->
 
                 <!-- @tt{{{
-                 @remove-blanks-and-linebreak-before-comment
+                 @rlb
                  @end-if
                  @end-foreach
-                 @remove-blanks-and-linebreak-after-comment
+                 @rla
                 }}}@  -->
             </div>
-            <!-- @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ -->
-            <!-- @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ -->
+            <!-- @tt{{{ @rlb @end-foreach @rla }}}@ -->
+            <!-- @tt{{{ @rlb  @ignore-text @rla }}}@ -->
             <div class="column">
                 <div class="form-row">
                     <app-field-wrapper label="Appellatio">
@@ -154,11 +154,11 @@
                     </app-field-wrapper>
                 </div>
             </div>
-            <!-- @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ -->
+            <!-- @tt{{{ @rlb  @end-ignore-text @rla }}}@ -->
         </div>
     </mat-tab>
-    <!-- @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ -->
-    <!-- @tt{{{ @remove-blanks-and-linebreak-before-comment @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ -->
+    <!-- @tt{{{ @rlb @end-foreach @rla }}}@ -->
+    <!-- @tt{{{ @rlb @ignore-text @rla }}}@ -->
     <mat-tab label="Miscellaneous">
         <div class="column-layout">
             <div class="column">
@@ -180,6 +180,6 @@
             </div>
         </div>
     </mat-tab>
-    <!-- @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ -->
+    <!-- @tt{{{ @rlb  @end-ignore-text @rla }}}@ -->
 </mat-tab-group>
 </div>

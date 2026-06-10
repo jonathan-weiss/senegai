@@ -35,12 +35,12 @@ export const SIDE_NAVIGATION_LINKS: ReadonlyArray<SideNavLink> = [
             [ searchValue="opusMagnum" replaceByExpression="entity.entityName.camelCase" ]
             [ searchValue="Opera Magna" replaceByExpression="entity.entityName.pascalCase" ]
 
-        @remove-blanks-and-linebreak-after-comment
+        @rla
       }}}@  */
     {routeLink: '/opus-magnum-board', name: "Opera Magna", icon: "people"},
     {routeLink: '/opus-magnum-edit/example', name: "Edit Opera Magna", icon: "edit"},
-/* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-replace-value-by-expression @end-foreach  @remove-blanks-and-linebreak-after-comment }}}@ */
+/* @tt{{{ @rlb  @end-replace-value-by-expression @end-foreach  @rla }}}@ */
 ]
-/* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-replace-value-by-value @remove-blanks-and-linebreak-after-comment }}}@ */
+/* @tt{{{ @rlb  @end-replace-value-by-value @rla }}}@ */
 
 

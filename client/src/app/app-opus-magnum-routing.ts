@@ -23,7 +23,7 @@
 
 import {Routes} from '@angular/router';
 /* @tt{{{
-    @remove-blanks-and-linebreak-before-comment
+    @rlb
     @replace-value-by-expression
         [ searchValue="opus-magnum" replaceByExpression="entity.entityName.kebabCase" ]
         [ searchValue="OpusMagnum" replaceByExpression="entity.entityName.pascalCase" ]
@@ -37,9 +37,9 @@ import {
     OpusMagnumRoutableEditComponent
 } from "@app/opus-magnum/opus-magnum-routable-edit/opus-magnum-routable-edit.component";
 /* @tt{{{
-    @remove-blanks-and-linebreak-before-comment
+    @rlb
     @end-foreach
-    @remove-blanks-and-linebreak-after-comment
+    @rla
 }}}@ */
 
 /* @tt{{{
@@ -50,7 +50,7 @@ import {
 
 export const OPUS_MAGNUM_ROUTES: Routes = [
 /* @tt{{{
-    @remove-blanks-and-linebreak-before-comment
+    @rlb
     @replace-value-by-expression
         [ searchValue="opus-magnum" replaceByExpression="entity.entityName.kebabCase" ]
         [ searchValue="OpusMagnum" replaceByExpression="entity.entityName.pascalCase" ]
@@ -60,9 +60,9 @@ export const OPUS_MAGNUM_ROUTES: Routes = [
     {path: 'opus-magnum-board', component: OpusMagnumBoardComponent},
     {path: 'opus-magnum-edit/:indexUnicus', component: OpusMagnumRoutableEditComponent},
 /* @tt{{{
-    @remove-blanks-and-linebreak-before-comment
+    @rlb
     @end-foreach
-    @remove-blanks-and-linebreak-after-comment
+    @rla
 }}}@ */
 ];
 

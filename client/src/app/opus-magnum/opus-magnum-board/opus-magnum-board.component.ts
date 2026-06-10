@@ -1,6 +1,6 @@
 /* @tt{{{
 
-    @remove-blanks-and-linebreak-before-comment
+    @rlb
 
     @move-comment-backward
     @template-renderer [
@@ -25,7 +25,7 @@
 
     @modify-provided-filename-by-replacements
 
-    @remove-blanks-and-linebreak-after-comment
+    @rla
 
 }}}@ */
 import {Component} from '@angular/core';
@@ -91,15 +91,15 @@ export class OpusMagnumBoardComponent {
     onDeleteOpusMagnum(opusMagnum: OpusMagnumWTO): void {
         const dialogRef = this.dialog.open(OpusMagnumConfirmDeleteDialogComponent, {
             data: {
-                /* @tt{{{ @remove-blanks-and-linebreak-before-comment
+                /* @tt{{{ @rlb
                     @foreach [ iteratorExpression="model.summaryAttributes" loopVariable="attribute" ]
 
                     @replace-value-by-expression
                         [ searchValue="title" replaceByExpression="attribute.attributeName.camelCase" ]
-                    @remove-blanks-and-linebreak-after-comment
+                    @rla
                 }}}@  */
                 title: opusMagnum.title,
-                /* @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
+                /* @tt{{{ @rlb @end-foreach @rla }}}@ */
             }
         });
         dialogRef.afterClosed().subscribe(result => {

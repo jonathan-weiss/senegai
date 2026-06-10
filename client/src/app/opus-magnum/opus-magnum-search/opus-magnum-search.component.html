@@ -1,5 +1,5 @@
 <!-- @tt{{{
-    @remove-blanks-and-linebreak-before-comment
+    @rlb
 
     @move-comment-backward
     @template-renderer [
@@ -20,7 +20,7 @@
 
     @modify-provided-filename-by-replacements
 
-    @remove-blanks-and-linebreak-after-comment
+    @rla
 
 }}}@ -->
 <mat-card class="search-card">
@@ -43,14 +43,14 @@
                     <mat-label>Title</mat-label>
                     <input matInput formControlName="title" placeholder="Enter title">
                 </mat-form-field>
-                <!-- @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ -->
+                <!-- @tt{{{ @rlb @end-foreach @rla }}}@ -->
 
-                <!-- @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ -->
+                <!-- @tt{{{ @rlb  @ignore-text @rla }}}@ -->
                 <mat-form-field appearance="outline">
                     <mat-label>IndexUnicus</mat-label>
                     <input matInput formControlName="indexUnicus" placeholder="Enter indexUnicus">
                 </mat-form-field>
-                <!-- @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ -->
+                <!-- @tt{{{ @rlb  @end-ignore-text @rla }}}@ -->
             </div>
 
             <div class="search-actions">

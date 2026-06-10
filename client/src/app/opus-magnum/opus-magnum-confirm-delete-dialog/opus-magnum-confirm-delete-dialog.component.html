@@ -1,5 +1,5 @@
 <!-- @tt{{{
-    @remove-blanks-and-linebreak-before-comment
+    @rlb
 
     @move-comment-backward
     @template-renderer [
@@ -20,18 +20,18 @@
 
     @modify-provided-filename-by-replacements
 
-    @remove-blanks-and-linebreak-after-comment
+    @rla
 
 }}}@ -->
 <h2 mat-dialog-title>Delete OpusMagnum</h2>
 <mat-dialog-content><ng-container>Are you sure you want to delete</ng-container> <b>
-        <!-- @tt{{{ @remove-blanks-and-linebreak-before-comment
+        <!-- @tt{{{ @rlb
             @foreach [ iteratorExpression="model.summaryAttributes" loopVariable="attribute" ]
 
             @replace-value-by-expression
             [ searchValue="title" replaceByExpression="attribute.attributeName.camelCase" ]
             [ searchValue="string" replaceByExpression="attribute.typescriptAttributeTypeWithoutNullability" ]
-    }}}@  -->{{ data.title }} <!-- @tt{{{ @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ -->
+    }}}@  -->{{ data.title }} <!-- @tt{{{ @end-foreach @rla }}}@ -->
     </b>?
 </mat-dialog-content>
 <mat-dialog-actions align="end">

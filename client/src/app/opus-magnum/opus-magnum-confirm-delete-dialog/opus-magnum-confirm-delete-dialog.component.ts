@@ -1,6 +1,6 @@
 /* @tt{{{
 
-    @remove-blanks-and-linebreak-before-comment
+    @rlb
 
     @move-comment-backward
     @template-renderer [
@@ -21,7 +21,7 @@
 
     @modify-provided-filename-by-replacements
 
-    @remove-blanks-and-linebreak-after-comment
+    @rla
 
 }}}@ */
 import {Component, Inject} from '@angular/core';
@@ -61,16 +61,16 @@ export class OpusMagnumConfirmDeleteDialogComponent {
     constructor(
         public dialogRef: MatDialogRef<OpusMagnumConfirmDeleteDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: {
-            /* @tt{{{ @remove-blanks-and-linebreak-before-comment
+            /* @tt{{{ @rlb
                 @foreach [ iteratorExpression="model.summaryAttributes" loopVariable="attribute" ]
 
                 @replace-value-by-expression
                     [ searchValue="title" replaceByExpression="attribute.attributeName.camelCase" ]
                     [ searchValue="string" replaceByExpression="attribute.typescriptAttributeTypeWithoutNullability" ]
-                @remove-blanks-and-linebreak-after-comment
+                @rla
             }}}@  */
             title: string,
-            /* @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
+            /* @tt{{{ @rlb @end-foreach @rla }}}@ */
         }
     ) {
     }

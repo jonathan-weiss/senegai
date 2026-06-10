@@ -1,5 +1,5 @@
 /* @tt{{{
-    @remove-blanks-and-linebreak-before-comment
+    @rlb
 
     @move-comment-backward
     @template-renderer [
@@ -23,7 +23,7 @@
 
     @modify-provided-filename-by-replacements
 
-    @remove-blanks-and-linebreak-after-comment
+    @rla
 
 }}}@ */
 
@@ -32,9 +32,9 @@ import {ValidatorFn, Validators} from "@angular/forms";
 import {SilvaOptionumFormPartFieldName} from "@app/opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part-field-name";
 import {NamedValidator} from "@app/shared/form-controls/named-validator";
 import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
-/* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
+/* @tt{{{ @rlb  @ignore-text @rla }}}@ */
 
-/* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
+/* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
 
 
 @Injectable({providedIn: 'root'})
@@ -58,7 +58,7 @@ export class SilvaOptionumFormPartValidationService {
 
     namedValidators(field: SilvaOptionumFormPartFieldName): ReadonlyArray<NamedValidator> {
         switch(field) {
-            /* @tt{{{ @remove-blanks-and-linebreak-before-comment
+            /* @tt{{{ @rlb
                 @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
                 @replace-value-by-expression
@@ -77,8 +77,8 @@ export class SilvaOptionumFormPartValidationService {
                     validatorTranslationKey: "validator.minlength",
                 },
             ]
-            /* @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
-            /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
+            /* @tt{{{ @rlb @end-foreach @rla }}}@ */
+            /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
             case SilvaOptionumFormPartFieldName.campusTextusOptionalis: return [
                 {
                     validatorName: "required",
@@ -91,7 +91,7 @@ export class SilvaOptionumFormPartValidationService {
                     validatorTranslationKey: "validator.minlength",
                 },
             ]
-            /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
+            /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
             default: return []
         }
     };

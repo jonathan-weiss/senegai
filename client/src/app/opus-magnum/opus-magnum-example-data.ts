@@ -1,5 +1,5 @@
 /* @tt{{{
-    @remove-blanks-and-linebreak-before-comment
+    @rlb
 
     @move-comment-backward
     @template-renderer [
@@ -21,28 +21,28 @@
 
     @modify-provided-filename-by-replacements
 
-    @remove-blanks-and-linebreak-after-comment
+    @rla
 
 }}}@ */
 import {OpusMagnumWTO} from "@app/wto/opus-magnum.wto";
-/* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
+/* @tt{{{ @rlb  @ignore-text @rla }}}@ */
 import {AppellatioEnum} from "@app/wto/appellatio.enum";
-/* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
+/* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
 
 export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
     {
-        /* @tt{{{ @remove-blanks-and-linebreak-before-comment
+        /* @tt{{{ @rlb
             @foreach [ iteratorExpression="model.allAttributes" loopVariable="attribute" ]
 
             @replace-value-by-expression
                 [ searchValue="title" replaceByExpression="attribute.attributeName.camelCase" ]
             @replace-value-by-value
                 [ searchValue="the grande finali" replaceByValue="example" ]
-            @remove-blanks-and-linebreak-after-comment
+            @rla
         }}}@  */
         title: 'the grande finali',
-        /* @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
-        /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
+        /* @tt{{{ @rlb @end-foreach @rla }}}@ */
+        /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
         indexUnicus: '828cf29b-a7fb-4b07-bf13-9a313a9967f6',
         silvaOptionum: {
             campusTextusObligatorius: 'Doe',
@@ -121,6 +121,6 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
             campusBivalens: false,
             appellatio: AppellatioEnum.MATRONA,
         }
-    /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
+    /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
     }
 ];

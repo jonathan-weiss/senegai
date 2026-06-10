@@ -1,5 +1,5 @@
 /* @tt{{{
-    @remove-blanks-and-linebreak-before-comment
+    @rlb
 
     @move-comment-backward
     @template-renderer [
@@ -23,16 +23,16 @@
 
     @modify-provided-filename-by-replacements
 
-    @remove-blanks-and-linebreak-after-comment
+    @rla
 
 }}}@ */
 
-/* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
+/* @tt{{{ @rlb  @ignore-text @rla }}}@ */
 import {AppellatioEnum} from "@app/wto/appellatio.enum";
-/* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
+/* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
 
 export enum SilvaOptionumFormPartFieldName {
-    /* @tt{{{ @remove-blanks-and-linebreak-before-comment
+    /* @tt{{{ @rlb
         @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
         @replace-value-by-expression
@@ -41,17 +41,17 @@ export enum SilvaOptionumFormPartFieldName {
 
     }}}@  */
     campusTextusOptionalis = "campusTextusOptionalis",
-    /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @if [ conditionExpression="attribute.isNullable"] @remove-blanks-and-linebreak-after-comment }}}@ */
+    /* @tt{{{ @rlb  @if [ conditionExpression="attribute.isNullable"] @rla }}}@ */
     campusTextusOptionalisIsNotNull = "campusTextusOptionalisIsNotNull",
-    /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-if @remove-blanks-and-linebreak-after-comment }}}@ */
-/* @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
-/* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
+    /* @tt{{{ @rlb  @end-if @rla }}}@ */
+/* @tt{{{ @rlb @end-foreach @rla }}}@ */
+/* @tt{{{ @rlb  @ignore-text @rla }}}@ */
     campusTextusObligatorius = "campusTextusObligatorius",
     articulusInteriorList = "articulusInteriorList",
     campusDieiIsNotNull = "campusDieiIsNotNull",
     campusDiei = "campusDiei",
     campusBivalens = "campusBivalens",
     appellatio = "appellatio",
-/* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
+/* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
 }
 

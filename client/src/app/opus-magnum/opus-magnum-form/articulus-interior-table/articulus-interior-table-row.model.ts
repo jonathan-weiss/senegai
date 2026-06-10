@@ -1,6 +1,6 @@
 /* @tt{{{
 
-    @remove-blanks-and-linebreak-before-comment
+    @rlb
 
     @move-comment-backward
     @template-renderer [
@@ -24,7 +24,7 @@
 
     @modify-provided-filename-by-replacements
 
-    @remove-blanks-and-linebreak-after-comment
+    @rla
 
 }}}@ */
 
@@ -36,19 +36,19 @@ import {
 export interface ArticulusInteriorTableRow {
     /*
     @tt{{{
-        @remove-blanks-and-linebreak-before-comment
+        @rlb
         @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
         @replace-value-by-expression
         [ searchValue="description" replaceByExpression="attribute.attributeName.camelCase" ]
         [ searchValue="Description" replaceByExpression="attribute.attributeName.pascalCase" ]
-        @remove-blanks-and-linebreak-after-comment
+        @rla
     }}}@
      */
     description: string
-    /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
-    /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
+    /* @tt{{{ @rlb  @end-foreach @rla }}}@ */
+    /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
     year: number
-    /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
+    /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
     formGroup: FormGroup<ArticulusInteriorFormPartGroup>
 }

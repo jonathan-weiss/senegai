@@ -1,5 +1,5 @@
 /* @tt{{{
-    @remove-blanks-and-linebreak-before-comment
+    @rlb
 
     @move-comment-backward
     @template-renderer [
@@ -20,14 +20,14 @@
 
     @modify-provided-filename-by-replacements
 
-    @remove-blanks-and-linebreak-after-comment
+    @rla
 
 }}}@ */
 
-/* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
+/* @tt{{{ @rlb  @ignore-text @rla }}}@ */
 import {ArticulusInteriorWTO} from "@app/wto/articulus-interior.wto";
 import {AppellatioEnum} from "@app/wto/appellatio.enum";
-/* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
+/* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
 
 /**
  * The Silva Optionum WTO (Web Transfer Object) class.
@@ -43,15 +43,15 @@ export interface SilvaOptionumWTO {
     }}}@  */
     campusTextusObligatorius: string;
     /* @tt{{{
-        @remove-blanks-and-linebreak-before-comment
+        @rlb
         @end-foreach
-        @remove-blanks-and-linebreak-after-comment
+        @rla
     }}}@ */
-    /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
+    /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
     campusTextusOptionalis: string | null;
     appellatio: AppellatioEnum;
     articulusInteriorList: Array<ArticulusInteriorWTO>;
     campusDiei: Date | null;
     campusBivalens: boolean;
-    /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text }}}@ */
+    /* @tt{{{ @rlb  @end-ignore-text }}}@ */
 }

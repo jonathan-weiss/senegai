@@ -1,5 +1,5 @@
 /* @tt{{{
-    @remove-blanks-and-linebreak-before-comment
+    @rlb
 
     @move-comment-backward
     @template-renderer [
@@ -23,19 +23,19 @@
 
     @modify-provided-filename-by-replacements
 
-    @remove-blanks-and-linebreak-after-comment
+    @rla
 
 }}}@ */
 
 import {Injectable} from '@angular/core';
-/* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
+/* @tt{{{ @rlb  @ignore-text @rla }}}@ */
 // imports here that are ignored
 import {AppellatioEnum} from "@app/wto/appellatio.enum";
 import {FormGroup} from "@angular/forms";
 import {
     ArticulusInteriorFormPartGroup
 } from "@app/opus-magnum/opus-magnum-form/articulus-interior-form-part/articulus-interior-form-part-group";
-/* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ */
+/* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
 
 
 @Injectable({providedIn: 'root'})
@@ -45,10 +45,10 @@ export class SilvaOptionumFormPartInitialValueService {
     idInitialValue(): string {
         return ''
     }
-    /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text }}}@ */
+    /* @tt{{{ @rlb  @end-ignore-text }}}@ */
 
 
-    /* @tt{{{ @remove-blanks-and-linebreak-before-comment
+    /* @tt{{{ @rlb
         @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
         @replace-value-by-expression
@@ -60,8 +60,8 @@ export class SilvaOptionumFormPartInitialValueService {
     campusTextusObligatoriusInitialValue(): string {
         return ''
     }
-    /* @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ */
-    /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text }}}@ */
+    /* @tt{{{ @rlb @end-foreach @rla }}}@ */
+    /* @tt{{{ @rlb  @ignore-text }}}@ */
 
     campusTextusOptionalisInitialValue(): string | null {
         return null
@@ -78,5 +78,5 @@ export class SilvaOptionumFormPartInitialValueService {
     appellatioInitialValue(): AppellatioEnum {
         return AppellatioEnum.MATRONA;
     }
-    /* @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text }}}@ */
+    /* @tt{{{ @rlb  @end-ignore-text }}}@ */
 }

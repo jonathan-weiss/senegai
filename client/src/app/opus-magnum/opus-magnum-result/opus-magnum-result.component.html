@@ -1,5 +1,5 @@
 <!-- @tt{{{
-    @remove-blanks-and-linebreak-before-comment
+    @rlb
 
     @move-comment-backward
     @template-renderer [
@@ -20,18 +20,18 @@
 
     @modify-provided-filename-by-replacements
 
-    @remove-blanks-and-linebreak-after-comment
+    @rla
 
 }}}@ -->
 <div class="opus-magnum-table-container">
     <table mat-table [dataSource]="dataSource">
-        <!-- @tt{{{ @remove-blanks-and-linebreak-before-comment  @ignore-text @remove-blanks-and-linebreak-after-comment }}}@ -->
+        <!-- @tt{{{ @rlb  @ignore-text @rla }}}@ -->
         <!-- IndexUnicus Column -->
         <ng-container matColumnDef="indexUnicus">
             <th mat-header-cell *matHeaderCellDef>IndexUnicus</th>
             <td mat-cell *matCellDef="let opusMagnum">{{ opusMagnum.indexUnicus }}</td>
         </ng-container>
-        <!-- @tt{{{ @remove-blanks-and-linebreak-before-comment  @end-ignore-text @remove-blanks-and-linebreak-after-comment }}}@ -->
+        <!-- @tt{{{ @rlb  @end-ignore-text @rla }}}@ -->
 
         <!-- @tt{{{
             @foreach [ iteratorExpression="model.searchResultAttributes" loopVariable="attribute" ]
@@ -47,7 +47,7 @@
             <th mat-header-cell *matHeaderCellDef>Title</th>
             <td mat-cell *matCellDef="let opusMagnum">{{ opusMagnum.title }}</td>
         </ng-container>
-        <!-- @tt{{{ @remove-blanks-and-linebreak-before-comment @end-foreach @remove-blanks-and-linebreak-after-comment }}}@ -->
+        <!-- @tt{{{ @rlb @end-foreach @rla }}}@ -->
 
         <!-- Actions Column -->
         <ng-container matColumnDef="actions">
