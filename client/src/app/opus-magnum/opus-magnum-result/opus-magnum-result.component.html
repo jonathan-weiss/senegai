@@ -24,6 +24,12 @@
 
 }}}@ -->
 <div class="opus-magnum-table-container">
+    <div class="opus-magnum-result-actions">
+        <button mat-raised-button color="primary" (click)="onCreate()">
+            <mat-icon>add</mat-icon>
+            <ng-container>New OpusMagnum</ng-container>
+        </button>
+    </div>
     <table mat-table [dataSource]="dataSource">
         <!-- @tt{{{ @rlb  @ignore-text @rla }}}@ -->
         <!-- IndexUnicus Column -->

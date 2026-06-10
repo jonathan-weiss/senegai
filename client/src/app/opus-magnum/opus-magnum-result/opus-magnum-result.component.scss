@@ -26,6 +26,16 @@
 .opus-magnum-table-container {
   padding: 20px;
 
+  .opus-magnum-result-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 16px;
+
+    mat-icon {
+      margin-right: 8px;
+    }
+  }
+
   table {
     width: 100%;
   }

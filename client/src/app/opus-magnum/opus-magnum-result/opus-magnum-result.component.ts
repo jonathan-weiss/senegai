@@ -65,6 +65,7 @@ export class OpusMagnumResultComponent implements OnChanges {
     @Input() refreshKey: number = 0;
     @Output() selectOpusMagnum = new EventEmitter<OpusMagnumWTO>();
     @Output() deleteOpusMagnum = new EventEmitter<OpusMagnumWTO>();
+    @Output() createOpusMagnum = new EventEmitter<void>();
 
     displayedColumns: string[] = [
         /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
@@ -101,6 +102,10 @@ export class OpusMagnumResultComponent implements OnChanges {
             this.allOpusMagnums = opusMagnumList;
             this.filterOpusMagnums();
         });
+    }
+
+    onCreate(): void {
+        this.createOpusMagnum.emit();
     }
 
     onEdit(opusMagnum: OpusMagnumWTO): void {

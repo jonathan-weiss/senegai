@@ -67,4 +67,10 @@ export class OpusMagnumService {
         }
         return of(opusMagnum).pipe(delay(200));
     }
-} 
+
+    createOpusMagnum(opusMagnum: OpusMagnumWTO): Observable<OpusMagnumWTO> {
+        const created: OpusMagnumWTO = {...opusMagnum, indexUnicus: crypto.randomUUID()};
+        this.opusMagnumList = [...this.opusMagnumList, created];
+        return of(created).pipe(delay(200));
+    }
+}

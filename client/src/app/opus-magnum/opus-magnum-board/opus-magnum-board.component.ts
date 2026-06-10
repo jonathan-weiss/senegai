@@ -75,6 +75,7 @@ import {TranslocoPipe} from "@jsverse/transloco";
 export class OpusMagnumBoardComponent {
     currentSearchCriteria: OpusMagnumSearchCriteria = {};
     selectedOpusMagnum: OpusMagnumWTO | null = null;
+    creating = false;
     refreshKey = 0;
 
     constructor(private dialog: MatDialog, private opusMagnumService: OpusMagnumService) {
@@ -84,7 +85,13 @@ export class OpusMagnumBoardComponent {
         this.currentSearchCriteria = criteria;
     }
 
+    onCreateOpusMagnum(): void {
+        this.selectedOpusMagnum = null;
+        this.creating = true;
+    }
+
     onOpusMagnumSelect(opusMagnum: OpusMagnumWTO): void {
+        this.creating = false;
         this.selectedOpusMagnum = opusMagnum;
     }
 
@@ -111,14 +118,19 @@ export class OpusMagnumBoardComponent {
         });
     }
 
-    onSave(updatedOpusMagnum: OpusMagnumWTO): void {
-        this.opusMagnumService.updateOpusMagnum(updatedOpusMagnum).subscribe(() => {
+    onSave(opusMagnum: OpusMagnumWTO): void {
+        const save$ = this.creating
+            ? this.opusMagnumService.createOpusMagnum(opusMagnum)
+            : this.opusMagnumService.updateOpusMagnum(opusMagnum);
+        save$.subscribe(() => {
             this.selectedOpusMagnum = null;
+            this.creating = false;
             this.refreshKey++;
         });
     }
 
     onCancel(): void {
         this.selectedOpusMagnum = null;
+        this.creating = false;
     }
-} 
+}

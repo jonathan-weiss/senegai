@@ -23,7 +23,9 @@
 
 }}}@ -->
 <div class="opus-magnum-container">
-    <h2>{{'opusMagnum.board.title' | transloco }}</h2>
+    <div class="opus-magnum-header">
+        <h2>{{'opusMagnum.board.title' | transloco }}</h2>
+    </div>
 
     <mat-accordion class="opus-magnum-accordion" multi>
         <!-- Search Panel -->
@@ -49,18 +51,19 @@
                     [searchCriteria]="currentSearchCriteria"
                     (selectOpusMagnum)="onOpusMagnumSelect($event)"
                     (deleteOpusMagnum)="onDeleteOpusMagnum($event)"
+                    (createOpusMagnum)="onCreateOpusMagnum()"
                     [refreshKey]="refreshKey">
             </app-opus-magnum-result>
         </mat-expansion-panel>
 
         <!-- Edit Form Panel -->
         <mat-expansion-panel
-                [expanded]="!!selectedOpusMagnum"
-                [disabled]="!selectedOpusMagnum">
+                [expanded]="!!selectedOpusMagnum || creating"
+                [disabled]="!selectedOpusMagnum && !creating">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <mat-icon>edit</mat-icon>
-                    <ng-container>Edit OpusMagnum</ng-container>
+                    <ng-container>{{ creating ? 'New OpusMagnum' : 'Edit OpusMagnum' }}</ng-container>
                 </mat-panel-title>
                 @if (selectedOpusMagnum) {
                     <mat-panel-description>
@@ -75,7 +78,7 @@
                 }
             </mat-expansion-panel-header>
 
-            @if (selectedOpusMagnum) {
+            @if (selectedOpusMagnum || creating) {
                 <app-opus-magnum-form
                         [opusMagnum]="selectedOpusMagnum"
                         (save)="onSave($event)"
