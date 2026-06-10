@@ -17,7 +17,9 @@ object EntityBoardComponentHtmlRenderer : UiEntityRenderer {
     override fun renderTemplate(model: UiEntityModel): String {
         return """
           |<div class="${model.entityName.kebabCase}-container">
-          |    <h2>{{'${model.entityName.camelCase}.board.title' | transloco }}</h2>
+          |    <div class="${model.entityName.kebabCase}-header">
+          |        <h2>{{'${model.entityName.camelCase}.board.title' | transloco }}</h2>
+          |    </div>
           |
           |    <mat-accordion class="${model.entityName.kebabCase}-accordion" multi>
           |        <!-- Search Panel -->
@@ -43,18 +45,19 @@ object EntityBoardComponentHtmlRenderer : UiEntityRenderer {
           |                    [searchCriteria]="currentSearchCriteria"
           |                    (select${model.entityName.pascalCase})="on${model.entityName.pascalCase}Select(${"$"}event)"
           |                    (delete${model.entityName.pascalCase})="onDelete${model.entityName.pascalCase}(${"$"}event)"
+          |                    (create${model.entityName.pascalCase})="onCreate${model.entityName.pascalCase}()"
           |                    [refreshKey]="refreshKey">
           |            </app-${model.entityName.kebabCase}-result>
           |        </mat-expansion-panel>
           |
           |        <!-- Edit Form Panel -->
           |        <mat-expansion-panel
-          |                [expanded]="!!selected${model.entityName.pascalCase}"
-          |                [disabled]="!selected${model.entityName.pascalCase}">
+          |                [expanded]="!!selected${model.entityName.pascalCase} || creating"
+          |                [disabled]="!selected${model.entityName.pascalCase} && !creating">
           |            <mat-expansion-panel-header>
           |                <mat-panel-title>
           |                    <mat-icon>edit</mat-icon>
-          |                    <ng-container>Edit ${model.entityName.pascalCase}</ng-container>
+          |                    <ng-container>{{ creating ? 'New ${model.entityName.pascalCase}' : 'Edit ${model.entityName.pascalCase}' }}</ng-container>
           |                </mat-panel-title>
           |                @if (selected${model.entityName.pascalCase}) {
           |                    <mat-panel-description>
@@ -64,7 +67,7 @@ object EntityBoardComponentHtmlRenderer : UiEntityRenderer {
           |                }
           |            </mat-expansion-panel-header>
           |
-          |            @if (selected${model.entityName.pascalCase}) {
+          |            @if (selected${model.entityName.pascalCase} || creating) {
           |                <app-${model.entityName.kebabCase}-form
           |                        [${model.entityName.camelCase}]="selected${model.entityName.pascalCase}"
           |                        (save)="onSave(${"$"}event)"

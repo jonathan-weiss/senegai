@@ -19,6 +19,16 @@ object EntityResultComponentScssRenderer : UiEntityRenderer {
           |.${model.entityName.kebabCase}-table-container {
           |  padding: 20px;
           |
+          |  .${model.entityName.kebabCase}-result-actions {
+          |    display: flex;
+          |    justify-content: flex-end;
+          |    margin-bottom: 16px;
+          |
+          |    mat-icon {
+          |      margin-right: 8px;
+          |    }
+          |  }
+          |
           |  table {
           |    width: 100%;
           |  }

@@ -54,7 +54,13 @@ object EntityServiceRenderer : UiEntityRenderer {
           |        }
           |        return of(${model.entityName.camelCase}).pipe(delay(200));
           |    }
-          |} 
+          |
+          |    create${model.entityName.pascalCase}(${model.entityName.camelCase}: ${model.entityName.pascalCase}WTO): Observable<${model.entityName.pascalCase}WTO> {
+          |        const created: ${model.entityName.pascalCase}WTO = {...${model.entityName.camelCase}, id: crypto.randomUUID()};
+          |        this.${model.entityName.camelCase}List = [...this.${model.entityName.camelCase}List, created];
+          |        return of(created).pipe(delay(200));
+          |    }
+          |}
           |
         """.trimMargin(marginPrefix = "|")
     }

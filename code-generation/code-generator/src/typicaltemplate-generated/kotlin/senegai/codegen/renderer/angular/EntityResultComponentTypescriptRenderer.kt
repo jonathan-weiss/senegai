@@ -57,6 +57,7 @@ object EntityResultComponentTypescriptRenderer : UiEntityRenderer {
           |    @Input() refreshKey: number = 0;
           |    @Output() select${model.entityName.pascalCase} = new EventEmitter<${model.entityName.pascalCase}WTO>();
           |    @Output() delete${model.entityName.pascalCase} = new EventEmitter<${model.entityName.pascalCase}WTO>();
+          |    @Output() create${model.entityName.pascalCase} = new EventEmitter<void>();
           |
           |    displayedColumns: string[] = [
           |                ${ model.searchResultAttributes.joinToString("") { attribute ->  """
@@ -83,6 +84,10 @@ object EntityResultComponentTypescriptRenderer : UiEntityRenderer {
           |            this.all${model.entityName.pascalCase}s = ${model.entityName.camelCase}List;
           |            this.filter${model.entityName.pascalCase}s();
           |        });
+          |    }
+          |
+          |    onCreate(): void {
+          |        this.create${model.entityName.pascalCase}.emit();
           |    }
           |
           |    onEdit(${model.entityName.camelCase}: ${model.entityName.pascalCase}WTO): void {

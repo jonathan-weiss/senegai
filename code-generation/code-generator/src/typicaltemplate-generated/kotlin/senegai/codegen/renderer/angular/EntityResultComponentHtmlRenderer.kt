@@ -17,6 +17,12 @@ object EntityResultComponentHtmlRenderer : UiEntityRenderer {
     override fun renderTemplate(model: UiEntityModel): String {
         return """
           |<div class="${model.entityName.kebabCase}-table-container">
+          |    <div class="${model.entityName.kebabCase}-result-actions">
+          |        <button mat-raised-button color="primary" (click)="onCreate()">
+          |            <mat-icon>add</mat-icon>
+          |            <ng-container>New ${model.entityName.pascalCase}</ng-container>
+          |        </button>
+          |    </div>
           |    <table mat-table [dataSource]="dataSource">
           |        
           |        ${ model.searchResultAttributes.joinToString("") { attribute ->  """

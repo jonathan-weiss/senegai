@@ -25,6 +25,17 @@ object EntityBoardComponentScssRenderer : UiEntityRenderer {
           |  }
           |}
           |
+          |.${model.entityName.kebabCase}-header {
+          |  display: flex;
+          |  align-items: center;
+          |  justify-content: space-between;
+          |  gap: 16px;
+          |
+          |  h2 {
+          |    margin-bottom: 0;
+          |  }
+          |}
+          |
           |.${model.entityName.kebabCase}-accordion {
           |  .mat-expansion-panel {
           |    margin-bottom: 16px;

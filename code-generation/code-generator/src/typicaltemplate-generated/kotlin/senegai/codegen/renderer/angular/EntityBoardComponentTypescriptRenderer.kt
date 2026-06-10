@@ -63,6 +63,7 @@ object EntityBoardComponentTypescriptRenderer : UiEntityRenderer {
           |export class ${model.entityName.pascalCase}BoardComponent {
           |    currentSearchCriteria: ${model.entityName.pascalCase}SearchCriteria = {};
           |    selected${model.entityName.pascalCase}: ${model.entityName.pascalCase}WTO | null = null;
+          |    creating = false;
           |    refreshKey = 0;
           |
           |    constructor(private dialog: MatDialog, private ${model.entityName.camelCase}Service: ${model.entityName.pascalCase}Service) {
@@ -72,7 +73,13 @@ object EntityBoardComponentTypescriptRenderer : UiEntityRenderer {
           |        this.currentSearchCriteria = criteria;
           |    }
           |
+          |    onCreate${model.entityName.pascalCase}(): void {
+          |        this.selected${model.entityName.pascalCase} = null;
+          |        this.creating = true;
+          |    }
+          |
           |    on${model.entityName.pascalCase}Select(${model.entityName.camelCase}: ${model.entityName.pascalCase}WTO): void {
+          |        this.creating = false;
           |        this.selected${model.entityName.pascalCase} = ${model.entityName.camelCase};
           |    }
           |
@@ -92,17 +99,22 @@ object EntityBoardComponentTypescriptRenderer : UiEntityRenderer {
           |        });
           |    }
           |
-          |    onSave(updated${model.entityName.pascalCase}: ${model.entityName.pascalCase}WTO): void {
-          |        this.${model.entityName.camelCase}Service.update${model.entityName.pascalCase}(updated${model.entityName.pascalCase}).subscribe(() => {
+          |    onSave(${model.entityName.camelCase}: ${model.entityName.pascalCase}WTO): void {
+          |        const save${"$"} = this.creating
+          |            ? this.${model.entityName.camelCase}Service.create${model.entityName.pascalCase}(${model.entityName.camelCase})
+          |            : this.${model.entityName.camelCase}Service.update${model.entityName.pascalCase}(${model.entityName.camelCase});
+          |        save${"$"}.subscribe(() => {
           |            this.selected${model.entityName.pascalCase} = null;
+          |            this.creating = false;
           |            this.refreshKey++;
           |        });
           |    }
           |
           |    onCancel(): void {
           |        this.selected${model.entityName.pascalCase} = null;
+          |        this.creating = false;
           |    }
-          |} 
+          |}
           |
         """.trimMargin(marginPrefix = "|")
     }
