@@ -30,19 +30,9 @@ import {AppellatioEnum} from "@app/wto/appellatio.enum";
 /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
 
 export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
-    {
-        /* @tt{{{ @rlb
-            @foreach [ iteratorExpression="model.allAttributes" loopVariable="attribute" ]
-
-            @replace-value-by-expression
-                [ searchValue="title" replaceByExpression="attribute.attributeName.camelCase" ]
-            @replace-value-by-value
-                [ searchValue="the grande finali" replaceByValue="example" ]
-            @rla
-        }}}@  */
-        title: 'the grande finali',
-        /* @tt{{{ @rlb @end-foreach @rla }}}@ */
         /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
+    {
+        title: 'the grande finali',
         indexUnicus: '828cf29b-a7fb-4b07-bf13-9a313a9967f6',
         silvaOptionum: {
             campusTextusObligatorius: 'Doe',
@@ -121,6 +111,6 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
             campusBivalens: false,
             appellatio: AppellatioEnum.MATRONA,
         }
-    /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
     }
+    /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
 ];

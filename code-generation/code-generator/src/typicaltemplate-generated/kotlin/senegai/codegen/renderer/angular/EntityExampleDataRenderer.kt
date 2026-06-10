@@ -19,11 +19,7 @@ object EntityExampleDataRenderer : UiEntityRenderer {
           |import {${model.entityName.pascalCase}WTO} from "@app/wto/${model.entityName.kebabCase}.wto";
           |
           |export const ${model.entityName.screamingSnakeCase}_EXAMPLE_DATA: ${model.entityName.pascalCase}WTO[] = [
-          |    {
-          |        ${ model.allAttributes.joinToString("") { attribute ->  """        ${attribute.attributeName.camelCase}: 'example',
-              |        
-          """ } }            }
-          |];
+          |        ];
           |
         """.trimMargin(marginPrefix = "|")
     }
