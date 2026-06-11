@@ -23,37 +23,12 @@
     @rla
 
 }}}@ -->
-<mat-card class="search-card">
-    <mat-card-header>
-        <mat-card-title>Search OpusMagnum</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
         <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
             <div class="search-fields">
-                <!-- @tt{{{
-                    @foreach [ iteratorExpression="model.searchCriteriaAttributes" loopVariable="attribute" ]
-
-                        @replace-value-by-expression
-                        [ searchValue="title" replaceByExpression="attribute.attributeName.camelCase" ]
-                        [ searchValue="Title" replaceByExpression="attribute.attributeName.pascalCase" ]
-                        [ searchValue="string" replaceByExpression="attribute.typescriptAttributeType" ]
-
-                }}}@  -->
-                <mat-form-field appearance="outline">
-                    <mat-label>Title</mat-label>
-                    <input matInput formControlName="title" placeholder="Enter title">
+                <mat-form-field>
+                    <mat-label>Search</mat-label>
+                    <input matInput [formControl]="searchQueryControl" placeholder="Enter search query for OpusMagnum">
                 </mat-form-field>
-                <!-- @tt{{{ @rlb @end-foreach @rla }}}@ -->
-
-                <!-- @tt{{{ @rlb  @ignore-text @rla }}}@ -->
-                <mat-form-field appearance="outline">
-                    <mat-label>IndexUnicus</mat-label>
-                    <input matInput formControlName="indexUnicus" placeholder="Enter indexUnicus">
-                </mat-form-field>
-                <!-- @tt{{{ @rlb  @end-ignore-text @rla }}}@ -->
-            </div>
-
-            <div class="search-actions">
                 <button mat-raised-button color="primary" type="submit">
                     <mat-icon>search</mat-icon>
                     Search
@@ -64,5 +39,3 @@
                 </button>
             </div>
         </form>
-    </mat-card-content>
-</mat-card> 

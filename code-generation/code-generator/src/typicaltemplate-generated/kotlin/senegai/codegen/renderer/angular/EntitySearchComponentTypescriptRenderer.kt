@@ -16,8 +16,8 @@ object EntitySearchComponentTypescriptRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
-          |import {Component, EventEmitter, Output} from '@angular/core';
-          |import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
+          |import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+          |import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
           |import {MatButtonModule} from "@angular/material/button";
           |import {MatToolbarModule} from "@angular/material/toolbar";
           |import {MatTableModule} from "@angular/material/table";
@@ -31,9 +31,17 @@ object EntitySearchComponentTypescriptRenderer : UiEntityRenderer {
           |import {MatDialogModule} from "@angular/material/dialog";
           |
           |export interface ${model.entityName.pascalCase}SearchCriteria {
-          |    ${ model.searchCriteriaAttributes.joinToString("") { attribute ->  """    ${attribute.attributeName.camelCase}?: ${attribute.typescriptAttributeTypeWithoutNullability};
-              |    
-          """ } }    }
+          |    searchQuery?: string;
+          |}
+          |
+          |export interface ${model.entityName.pascalCase}SearchForm {
+          |    [${model.entityName.pascalCase}SearchFormFieldName.searchQuery]: FormControl<string>,
+          |}
+          |
+          |export enum ${model.entityName.pascalCase}SearchFormFieldName {
+          |    searchQuery = "searchQuery",
+          |}
+          |
           |
           |@Component({
           |    selector: 'app-${model.entityName.kebabCase}-search',
@@ -54,27 +62,33 @@ object EntitySearchComponentTypescriptRenderer : UiEntityRenderer {
           |        MatDialogModule,
           |    ]
           |})
-          |export class ${model.entityName.pascalCase}SearchComponent {
+          |export class ${model.entityName.pascalCase}SearchComponent implements OnInit {
           |    @Output() search = new EventEmitter<${model.entityName.pascalCase}SearchCriteria>();
           |
-          |    searchForm: FormGroup;
+          |    protected searchForm: FormGroup<${model.entityName.pascalCase}SearchForm>;
+          |    protected searchQueryControl!: FormControl<string>
           |
-          |    constructor(private fb: FormBuilder) {
-          |        this.searchForm = this.fb.group({
-          |            ${ model.searchCriteriaAttributes.joinToString("") { attribute ->  """            ${attribute.attributeName.camelCase}: [''],
-              |            
-          """ } }                    });
+          |    constructor() {
+          |        this.searchForm = new FormGroup<${model.entityName.pascalCase}SearchForm>({
+          |            [${model.entityName.pascalCase}SearchFormFieldName.searchQuery]: new FormControl<string>(
+          |                '',
+          |                {
+          |                    nonNullable: true,
+          |                },
+          |            ),
+          |        });
+          |    }
+          |
+          |    ngOnInit(): void {
+          |        // TODO move that to constructor
+          |        this.searchQueryControl = this.searchForm.controls[${model.entityName.pascalCase}SearchFormFieldName.searchQuery]
           |    }
           |
           |    onSubmit(): void {
           |        if (this.searchForm.valid) {
-          |            const criteria: ${model.entityName.pascalCase}SearchCriteria = {};
-          |            Object.keys(this.searchForm.controls).forEach(key => {
-          |                const value = this.searchForm.get(key)?.value;
-          |                if (value !== null && value !== '') {
-          |                    criteria[key as keyof ${model.entityName.pascalCase}SearchCriteria] = value;
-          |                }
-          |            });
+          |            const criteria: ${model.entityName.pascalCase}SearchCriteria = {
+          |                searchQuery: this.searchQueryControl.value,
+          |            };
           |            this.search.emit(criteria);
           |        }
           |    }
@@ -83,7 +97,7 @@ object EntitySearchComponentTypescriptRenderer : UiEntityRenderer {
           |        this.searchForm.reset();
           |        this.search.emit({});
           |    }
-          |} 
+          |}
           |
         """.trimMargin(marginPrefix = "|")
     }

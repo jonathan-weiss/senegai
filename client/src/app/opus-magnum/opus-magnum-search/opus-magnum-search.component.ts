@@ -24,8 +24,8 @@
     @rla
 
 }}}@ */
-import {Component, EventEmitter, Output} from '@angular/core';
-import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from "@angular/material/button";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatTableModule} from "@angular/material/table";
@@ -39,20 +39,17 @@ import {MatListModule} from "@angular/material/list";
 import {MatDialogModule} from "@angular/material/dialog";
 
 export interface OpusMagnumSearchCriteria {
-    /* @tt{{{ @rlb
-        @foreach [ iteratorExpression="model.searchCriteriaAttributes" loopVariable="attribute" ]
-
-        @replace-value-by-expression
-            [ searchValue="title" replaceByExpression="attribute.attributeName.camelCase" ]
-            [ searchValue="string" replaceByExpression="attribute.typescriptAttributeTypeWithoutNullability" ]
-        @rla
-    }}}@  */
-    title?: string;
-    /* @tt{{{ @rlb @end-foreach @rla }}}@ */
-    /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
-    indexUnicus?: string;
-    /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
+    searchQuery?: string;
 }
+
+export interface OpusMagnumSearchForm {
+    [OpusMagnumSearchFormFieldName.searchQuery]: FormControl<string>,
+}
+
+export enum OpusMagnumSearchFormFieldName {
+    searchQuery = "searchQuery",
+}
+
 
 @Component({
     selector: 'app-opus-magnum-search',
@@ -73,37 +70,33 @@ export interface OpusMagnumSearchCriteria {
         MatDialogModule,
     ]
 })
-export class OpusMagnumSearchComponent {
+export class OpusMagnumSearchComponent implements OnInit {
     @Output() search = new EventEmitter<OpusMagnumSearchCriteria>();
 
-    searchForm: FormGroup;
+    protected searchForm: FormGroup<OpusMagnumSearchForm>;
+    protected searchQueryControl!: FormControl<string>
 
-    constructor(private fb: FormBuilder) {
-        this.searchForm = this.fb.group({
-            /* @tt{{{ @rlb
-                @foreach [ iteratorExpression="model.searchCriteriaAttributes" loopVariable="attribute" ]
-
-                @replace-value-by-expression
-                    [ searchValue="title" replaceByExpression="attribute.attributeName.camelCase" ]
-                @rla
-            }}}@  */
-            title: [''],
-            /* @tt{{{ @rlb @end-foreach @rla }}}@ */
-            /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
-            indexUnicus: [''],
-            /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
+    constructor() {
+        this.searchForm = new FormGroup<OpusMagnumSearchForm>({
+            [OpusMagnumSearchFormFieldName.searchQuery]: new FormControl<string>(
+                '',
+                {
+                    nonNullable: true,
+                },
+            ),
         });
+    }
+
+    ngOnInit(): void {
+        // TODO move that to constructor
+        this.searchQueryControl = this.searchForm.controls[OpusMagnumSearchFormFieldName.searchQuery]
     }
 
     onSubmit(): void {
         if (this.searchForm.valid) {
-            const criteria: OpusMagnumSearchCriteria = {};
-            Object.keys(this.searchForm.controls).forEach(key => {
-                const value = this.searchForm.get(key)?.value;
-                if (value !== null && value !== '') {
-                    criteria[key as keyof OpusMagnumSearchCriteria] = value;
-                }
-            });
+            const criteria: OpusMagnumSearchCriteria = {
+                searchQuery: this.searchQueryControl.value,
+            };
             this.search.emit(criteria);
         }
     }
@@ -112,4 +105,4 @@ export class OpusMagnumSearchComponent {
         this.searchForm.reset();
         this.search.emit({});
     }
-} 
+}

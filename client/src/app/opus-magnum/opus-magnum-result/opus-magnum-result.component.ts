@@ -117,45 +117,25 @@ export class OpusMagnumResultComponent implements OnChanges {
     }
 
     private filterOpusMagnums(): void {
-        const criteria = this.searchCriteria;
-        this.dataSource.data = this.allOpusMagnums.filter(opusMagnum => {
-            return (
-                /* @tt{{{ @rlb
-                    @foreach [ iteratorExpression="model.searchResultAttributes" loopVariable="attribute" ]
-
-                    @replace-value-by-expression
-                        [ searchValue="title" replaceByExpression="attribute.attributeName.camelCase" ]
-                        [ searchValue="String" replaceByExpression="attribute.typescriptAttributeTypeCapitalizedWithoutNullability" ]
-                    @rla
-                }}}@  */
-                this.isMatchingStringCriteria(criteria.title, opusMagnum.title) &&
-                    /* @tt{{{ @rlb @end-foreach @rla }}}@ */
-                    /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
-                this.isMatchingStringCriteria(criteria.indexUnicus, opusMagnum.indexUnicus) &&
-                    /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
-                    true
-            );
-        });
+        this.dataSource.data = this.filteredOpusMagnumList(this.searchCriteria, this.allOpusMagnums);
     }
 
-    private isMatchingStringCriteria(searchCriteriaText: string | undefined | null, dataText: string | undefined | null): boolean {
+    private filteredOpusMagnumList(searchCriteria: OpusMagnumSearchCriteria, allOpusMagnum: OpusMagnumWTO[]): OpusMagnumWTO[] {
+        const searchTokens = searchCriteria?.searchQuery?.split(" ") ?? [];
+        if(searchTokens.length < 1) {
+            return allOpusMagnum
+        } else {
+            return allOpusMagnum.filter(opusMagnum => {
+                return searchTokens.some(searchToken => this.isMatchingCriteria(searchToken, opusMagnum))
+            });
+        }
+    }
+
+    private isMatchingCriteria(searchCriteriaText: string | undefined | null, opusMagnum: OpusMagnumWTO): boolean {
         if(searchCriteriaText == undefined) {
             return true;
         }
-        if(dataText == undefined) {
-            return false;
-        }
-        return dataText.toLowerCase().trim().includes(searchCriteriaText.toLowerCase().trim())
+        // a rather simple implementation to search, but good enough for the moment...
+        return JSON.stringify(opusMagnum).includes(searchCriteriaText);
     }
-
-    private isMatchingNumberCriteria(searchCriteriaNumber: number | undefined | null, dataNumber: number | undefined | null): boolean {
-        if(searchCriteriaNumber == undefined) {
-            return true;
-        }
-        if(dataNumber == undefined) {
-            return false;
-        }
-        return searchCriteriaNumber === dataNumber;
-    }
-
-} 
+}

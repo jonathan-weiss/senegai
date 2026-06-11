@@ -99,37 +99,28 @@ object EntityResultComponentTypescriptRenderer : UiEntityRenderer {
           |    }
           |
           |    private filter${model.entityName.pascalCase}s(): void {
-          |        const criteria = this.searchCriteria;
-          |        this.dataSource.data = this.all${model.entityName.pascalCase}s.filter(${model.entityName.camelCase} => {
-          |            return (
-          |                ${ model.searchResultAttributes.joinToString("") { attribute ->  """                this.isMatching${attribute.typescriptAttributeTypeCapitalizedWithoutNullability}Criteria(criteria.${attribute.attributeName.camelCase}, ${model.entityName.camelCase}.${attribute.attributeName.camelCase}) &&
-              |                    
-          """ } }                                        true
-          |            );
-          |        });
+          |        this.dataSource.data = this.filtered${model.entityName.pascalCase}List(this.searchCriteria, this.all${model.entityName.pascalCase}s);
           |    }
           |
-          |    private isMatchingStringCriteria(searchCriteriaText: string | undefined | null, dataText: string | undefined | null): boolean {
+          |    private filtered${model.entityName.pascalCase}List(searchCriteria: ${model.entityName.pascalCase}SearchCriteria, all${model.entityName.pascalCase}: ${model.entityName.pascalCase}WTO[]): ${model.entityName.pascalCase}WTO[] {
+          |        const searchTokens = searchCriteria?.searchQuery?.split(" ") ?? [];
+          |        if(searchTokens.length < 1) {
+          |            return all${model.entityName.pascalCase}
+          |        } else {
+          |            return all${model.entityName.pascalCase}.filter(${model.entityName.camelCase} => {
+          |                return searchTokens.some(searchToken => this.isMatchingCriteria(searchToken, ${model.entityName.camelCase}))
+          |            });
+          |        }
+          |    }
+          |
+          |    private isMatchingCriteria(searchCriteriaText: string | undefined | null, ${model.entityName.camelCase}: ${model.entityName.pascalCase}WTO): boolean {
           |        if(searchCriteriaText == undefined) {
           |            return true;
           |        }
-          |        if(dataText == undefined) {
-          |            return false;
-          |        }
-          |        return dataText.toLowerCase().trim().includes(searchCriteriaText.toLowerCase().trim())
+          |        // a rather simple implementation to search, but good enough for the moment...
+          |        return JSON.stringify(${model.entityName.camelCase}).includes(searchCriteriaText);
           |    }
-          |
-          |    private isMatchingNumberCriteria(searchCriteriaNumber: number | undefined | null, dataNumber: number | undefined | null): boolean {
-          |        if(searchCriteriaNumber == undefined) {
-          |            return true;
-          |        }
-          |        if(dataNumber == undefined) {
-          |            return false;
-          |        }
-          |        return searchCriteriaNumber === dataNumber;
-          |    }
-          |
-          |} 
+          |}
           |
         """.trimMargin(marginPrefix = "|")
     }
