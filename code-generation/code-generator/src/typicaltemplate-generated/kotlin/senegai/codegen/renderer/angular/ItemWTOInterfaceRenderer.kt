@@ -17,7 +17,9 @@ object ItemWTOInterfaceRenderer : UiItemRenderer {
     override fun renderTemplate(model: UiItemModel): String {
         return """
           |
-          |
+          |${ model.attributeItemsFlat.joinToString("") { nestedItem ->  """
+              |import {${nestedItem.itemName.pascalCase}WTO} from "@app/wto/${nestedItem.itemName.kebabCase}.wto";
+          """ } }
           |/**
           | * The Silva Optionum WTO (Web Transfer Object) class.
           | */
