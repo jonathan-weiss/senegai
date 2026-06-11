@@ -1,6 +1,7 @@
 package senegai.codegen.renderer.model.ui
 
 import senegai.codegen.renderer.model.NameCase
+import senegai.codegen.schema.BuiltInType
 import senegai.codegen.schema.EnumType
 
 data class UiEntityModel(
@@ -13,5 +14,6 @@ data class UiEntityModel(
     val searchResultAttributes: List<UiItemAttributeModel> = entityRootItem.attributes
     val searchCriteriaAttributes: List<UiItemAttributeModel> = entityRootItem.attributes
     val summaryAttributes: List<UiItemAttributeModel> = entityRootItem.attributes
+        .filter { !it.isList && it.type is BuiltInTypeUiItemAttributeTypeModel }
     val allAttributes: List<UiItemAttributeModel> = entityRootItem.attributes
 }
