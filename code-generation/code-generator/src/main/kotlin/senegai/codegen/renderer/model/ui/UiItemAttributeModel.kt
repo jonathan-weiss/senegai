@@ -24,8 +24,8 @@ data class UiItemAttributeModel(
     private fun calculateAttributeType(): String =
         when (type) {
             is BuiltInTypeUiItemAttributeTypeModel -> type.builtInTypeAsString()
-            is EnumUiItemAttributeTypeModel -> type.enumTypeAsString()
-            is ItemUiItemAttributeTypeModel -> type.itemTypeAsString()
+            is EnumUiItemAttributeTypeModel -> throw NotSupportedInTemplateException("EnumUiItemAttributeTypeModel is not supported.")
+            is ItemUiItemAttributeTypeModel -> throw NotSupportedInTemplateException("ItemUiItemAttributeTypeModel is not supported.") // TODO type.itemTypeAsString()
         }
 
     private fun ItemUiItemAttributeTypeModel.itemTypeAsString(): String = this.item.itemName.pascalCase
