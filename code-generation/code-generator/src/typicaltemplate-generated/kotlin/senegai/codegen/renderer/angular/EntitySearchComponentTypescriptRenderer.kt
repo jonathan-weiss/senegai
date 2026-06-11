@@ -16,7 +16,7 @@ object EntitySearchComponentTypescriptRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
-          |import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+          |import {Component, EventEmitter, Output} from '@angular/core';
           |import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
           |import {MatButtonModule} from "@angular/material/button";
           |import {MatToolbarModule} from "@angular/material/toolbar";
@@ -62,7 +62,7 @@ object EntitySearchComponentTypescriptRenderer : UiEntityRenderer {
           |        MatDialogModule,
           |    ]
           |})
-          |export class ${model.entityName.pascalCase}SearchComponent implements OnInit {
+          |export class ${model.entityName.pascalCase}SearchComponent {
           |    @Output() search = new EventEmitter<${model.entityName.pascalCase}SearchCriteria>();
           |
           |    protected searchForm: FormGroup<${model.entityName.pascalCase}SearchForm>;
@@ -77,10 +77,6 @@ object EntitySearchComponentTypescriptRenderer : UiEntityRenderer {
           |                },
           |            ),
           |        });
-          |    }
-          |
-          |    ngOnInit(): void {
-          |        // TODO move that to constructor
           |        this.searchQueryControl = this.searchForm.controls[${model.entityName.pascalCase}SearchFormFieldName.searchQuery]
           |    }
           |

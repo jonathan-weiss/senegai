@@ -24,7 +24,7 @@
     @rla
 
 }}}@ */
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from "@angular/material/button";
 import {MatToolbarModule} from "@angular/material/toolbar";
@@ -70,7 +70,7 @@ export enum OpusMagnumSearchFormFieldName {
         MatDialogModule,
     ]
 })
-export class OpusMagnumSearchComponent implements OnInit {
+export class OpusMagnumSearchComponent {
     @Output() search = new EventEmitter<OpusMagnumSearchCriteria>();
 
     protected searchForm: FormGroup<OpusMagnumSearchForm>;
@@ -85,10 +85,6 @@ export class OpusMagnumSearchComponent implements OnInit {
                 },
             ),
         });
-    }
-
-    ngOnInit(): void {
-        // TODO move that to constructor
         this.searchQueryControl = this.searchForm.controls[OpusMagnumSearchFormFieldName.searchQuery]
     }
 
