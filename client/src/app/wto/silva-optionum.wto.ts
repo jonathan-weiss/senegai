@@ -24,8 +24,16 @@
 
 }}}@ */
 
-/* @tt{{{ @rlb  @ignore-text @rla }}}@ */
+/* @tt{{{
+    @foreach [ iteratorExpression="model.attributeItemsFlat" loopVariable="nestedItem" ]
+
+    @replace-value-by-expression
+        [ searchValue="ArticulusInterior" replaceByExpression="nestedItem.itemName.pascalCase" ]
+        [ searchValue="articulus-interior" replaceByExpression="nestedItem.itemName.kebabCase" ]
+}}}@  */
 import {ArticulusInteriorWTO} from "@app/wto/articulus-interior.wto";
+/* @tt{{{ @rlb  @end-foreach @rla }}}@ */
+/* @tt{{{ @rlb  @ignore-text @rla }}}@ */
 import {AppellatioEnum} from "@app/wto/appellatio.enum";
 /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
 
