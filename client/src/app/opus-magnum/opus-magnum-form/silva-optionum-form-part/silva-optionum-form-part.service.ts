@@ -57,6 +57,9 @@ import {
 import {
     ArticulusInteriorFormPartFieldName
 } from "@app/opus-magnum/opus-magnum-form/articulus-interior-form-part/articulus-interior-form-part-field-name";
+import {
+    OpusMagnumFormPartFieldName
+} from "@app/opus-magnum/opus-magnum-form/opus-magnum-form-part/opus-magnum-form-part-field-name";
 /* @tt{{{ @rlb  @end-foreach @rla }}}@ */
 
 
@@ -174,10 +177,17 @@ export class SilvaOptionumFormPartService {
         const articulusInteriorListLength = form.controls[SilvaOptionumFormPartFieldName.articulusInteriorList].controls.length
         if(articulusInteriorListLength < silvaOptionum.articulusInteriorList.length) {
             for (let i = articulusInteriorListLength; i < silvaOptionum.articulusInteriorList.length; i++) {
-                form.controls[SilvaOptionumFormPartFieldName.articulusInteriorList].push(this.articulusInteriorFormPartService.createInitialArticulusInteriorForm())
+                const articulusInteriorControl = this.articulusInteriorFormPartService.createInitialArticulusInteriorForm()
+                const articulurInterior = silvaOptionum.articulusInteriorList[i]
+                form.controls[SilvaOptionumFormPartFieldName.articulusInteriorList].push(articulusInteriorControl)
+                this.articulusInteriorFormPartService.patchPreparation(articulusInteriorControl, articulurInterior)
             }
         }
         /* @tt{{{ @end-foreach }}}@ */
+        /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
+        // TODO This has to be included in the code generation
+        this.articulusInteriorFormPartService.patchPreparation(form.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularis], silvaOptionum.articulusInteriorSingularis)
+        /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
     }
 
     public patchSilvaOptionumForm(form: FormGroup<SilvaOptionumFormPartGroup>, silvaOptionum: SilvaOptionumWTO): void {

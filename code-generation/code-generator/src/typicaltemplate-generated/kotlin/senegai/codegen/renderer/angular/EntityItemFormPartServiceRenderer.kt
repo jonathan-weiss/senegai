@@ -37,6 +37,9 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
               |import {
               |    ${nestedItem.itemName.pascalCase}FormPartFieldName
               |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${nestedItem.itemName.kebabCase}-form-part/${nestedItem.itemName.kebabCase}-form-part-field-name";
+              |import {
+              |    ${model.entity.entityName.pascalCase}FormPartFieldName
+              |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-form-part/${model.entity.entityName.kebabCase}-form-part-field-name";
           """ } }
           |
           |
@@ -84,15 +87,18 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
               |        const ${attribute.attributeName.camelCase}Length = form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].controls.length
               |        if(${attribute.attributeName.camelCase}Length < ${model.item.itemName.camelCase}.${attribute.attributeName.camelCase}.length) {
               |            for (let i = ${attribute.attributeName.camelCase}Length; i < ${model.item.itemName.camelCase}.${attribute.attributeName.camelCase}.length; i++) {
-              |                form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].push(this.${attribute.attributeName.pascalCase}FormPartService.createInitial${attribute.attributeName.pascalCase}Form())
+              |                const ${attribute.attributeName.pascalCase}Control = this.${attribute.attributeName.pascalCase}FormPartService.createInitial${attribute.attributeName.pascalCase}Form()
+              |                const articulurInterior = ${model.item.itemName.camelCase}.${attribute.attributeName.camelCase}[i]
+              |                form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].push(${attribute.attributeName.pascalCase}Control)
+              |                this.${attribute.attributeName.pascalCase}FormPartService.patchPreparation(${attribute.attributeName.pascalCase}Control, articulurInterior)
               |            }
               |        }
               |        
-          """ } }
-          |    }
+          """ } }    }
           |
           |    public patch${model.item.itemName.pascalCase}Form(form: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>, ${model.item.itemName.camelCase}: ${model.item.itemName.pascalCase}WTO): void {
-          |        ${ model.item.attributes.joinToString("") { attribute ->  """        ${ if(attribute.isNullable) { """        form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull].patchValue(!${model.item.itemName.camelCase}.${attribute.attributeName.camelCase});
+          |
+          |                ${ model.item.attributes.joinToString("") { attribute ->  """        ${ if(attribute.isNullable) { """        form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull].patchValue(!${model.item.itemName.camelCase}.${attribute.attributeName.camelCase});
                   |        
           """ } else { """
           """ } }        form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].patchValue(${model.item.itemName.camelCase}.${attribute.attributeName.camelCase} ?? null);

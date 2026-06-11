@@ -14,6 +14,13 @@ import {
 import {
     ArticulusInteriorFormPartFieldName
 } from "@app/opus-magnum/opus-magnum-form/articulus-interior-form-part/articulus-interior-form-part-field-name";
+import {
+    SilvaOptionumFormPartGroup
+} from "@app/opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part-group";
+import {SilvaOptionumWTO} from "@app/wto/silva-optionum.wto";
+import {
+    SilvaOptionumFormPartFieldName
+} from "@app/opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part-field-name";
 
 
 @Injectable({providedIn: 'root'})
@@ -58,6 +65,21 @@ export class ArticulusInteriorFormPartService {
             },
         )
     }
+
+    /**
+     * patchValue does not create missing FormGroups inside the FormArray.
+     * So if your FormArray is empty (or shorter than the incoming data), nothing (or only the first N) gets patched.
+     * We need to prefill the FormArray with empty values first
+     */
+    public patchPreparation(form: FormGroup<ArticulusInteriorFormPartGroup>, articulusInterior: ArticulusInteriorWTO): void {
+        const juryListLength = form.controls[ArticulusInteriorFormPartFieldName.juryList].controls.length
+        if(juryListLength < articulusInterior.juryList.length) {
+            for (let i = juryListLength; i < articulusInterior.juryList.length; i++) {
+                form.controls[ArticulusInteriorFormPartFieldName.juryList].push(this.createInitialArticulusInteriorListJuryListForm())
+            }
+        }
+    }
+
 
     public patchArticulusInteriorForm(form: FormGroup<ArticulusInteriorFormPartGroup>, articulusInterior: ArticulusInteriorWTO): void {
         // TODO Prepare the list to patch
