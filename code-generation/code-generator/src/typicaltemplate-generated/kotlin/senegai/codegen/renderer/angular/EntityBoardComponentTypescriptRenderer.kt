@@ -86,9 +86,8 @@ object EntityBoardComponentTypescriptRenderer : UiEntityRenderer {
           |    onDelete${model.entityName.pascalCase}(${model.entityName.camelCase}: ${model.entityName.pascalCase}WTO): void {
           |        const dialogRef = this.dialog.open(${model.entityName.pascalCase}ConfirmDeleteDialogComponent, {
           |            data: {
-          |                ${ model.summaryAttributes.joinToString("") { attribute ->  """                ${attribute.attributeName.camelCase}: ${model.entityName.camelCase}.${attribute.attributeName.camelCase},
-              |                
-          """ } }            }
+          |                entity: ${model.entityName.camelCase},
+          |            }
           |        });
           |        dialogRef.afterClosed().subscribe(result => {
           |            if (result) {
