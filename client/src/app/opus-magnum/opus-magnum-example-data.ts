@@ -30,13 +30,74 @@ import {AppellatioEnum} from "@app/wto/appellatio.enum";
 /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
 
 export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
-        /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
+    /* @tt{{{
+    @rlb
+    @render-template
+        [ templateRendererClassName="ItemExampleDataRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" ]
+        [ modelName="model" modelExpression="model.entityRootItem" ]
+    @rla
+    }}}@ */
+
+    /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
     {
         title: 'the grande finali',
         indexUnicus: '828cf29b-a7fb-4b07-bf13-9a313a9967f6',
+        /* @tt{{{ @rlb
+            @move-comment-forward [ afterFirstOccurrenceOf="silvaOptionum: " ]
+            @template-renderer [
+                templateRendererClassName="ItemExampleDataRenderer"
+                templateRendererPackageName="senegai.codegen.renderer.angular"
+            ] [
+                modelClassName="UiItemModel"
+                modelPackageName="senegai.codegen.renderer.model.ui"
+                modelName="model"
+            ]
+            @print-text [text="        "]
+            @modify-provided-filename-by-replacements
+
+        }}}@  */
         silvaOptionum: {
-            campusTextusObligatorius: 'Doe',
+            /* @tt{{{
+                @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
+
+                @replace-value-by-expression
+                    [ searchValue="campusTextusOptionalis" replaceByExpression="attribute.attributeName.camelCase" ]
+
+                @replace-value-by-value
+                    [ searchValue="Johnny" replaceByValue="example" ]
+
+                @rla
+            }}}@  */
+            /* @tt{{{
+                @rlb
+                @if [conditionExpression="attribute.isBuildInTypeOf(senegai.codegen.schema.BuiltInType.STRING)"]
+                @rla
+            }}}@ */
             campusTextusOptionalis: 'Johnny',
+            /* @tt{{{
+                @rlb
+                @end-if
+                @rla
+            }}}@ */
+            /* @tt{{{
+                @rlb
+                @if [conditionExpression="attribute.isBuildInTypeOf(senegai.codegen.schema.BuiltInType.BOOLEAN)"]
+                @rla
+            }}}@ */
+            campusBivalens: false,
+            /* @tt{{{
+                @rlb
+                @end-if
+                @rla
+            }}}@ */
+            /* @tt{{{
+                @rlb
+                @ignore-text
+                @rla
+            }}}@ */
+            campusDiei: new Date(1979, 3, 23),
+            appellatio: AppellatioEnum.SENIOR,
+            campusTextusObligatorius: 'Doe',
             articulusInteriorList: [
                 {
                     description: "ALA Medal of Excellence.",
@@ -49,10 +110,13 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
                     juryList: ["Peter Booker"]
                 }
             ],
-            campusDiei: new Date(1979, 3, 23),
-            campusBivalens: false,
-            appellatio: AppellatioEnum.SENIOR,
+            /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
+            /* @tt{{{ @rlb @end-foreach @rla }}}@ */
         }
+        /* @tt{{{ @rlb
+        @end-template-renderer
+        @rla
+        }}}@  */
     },
     {
         indexUnicus: '6b9a179c-641b-4204-a6ae-46be2fbbaa3a',

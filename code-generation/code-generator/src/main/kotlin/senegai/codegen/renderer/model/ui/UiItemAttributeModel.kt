@@ -4,10 +4,6 @@ import org.codeblessing.templatetools.CaseUtil
 import senegai.codegen.renderer.NotSupportedInTemplateException
 import senegai.codegen.renderer.model.NameCase
 import senegai.codegen.schema.BuiltInType
-import senegai.codegen.schema.EntityId
-import senegai.codegen.schema.EnumId
-import senegai.codegen.schema.ItemAttributeType
-import senegai.codegen.schema.ItemId
 
 data class UiItemAttributeModel(
     val attributeName: NameCase,
@@ -23,6 +19,13 @@ data class UiItemAttributeModel(
     val typescriptAttributeFormControlType: String = calculateFormTypeIncludingCollection()
     val formInitialValue: String = determineFormInitialValue()
     val attributeCardinality: AttributeCardinalityModel = attributeCardinalityModel()
+
+    fun isBuildInTypeOf(expectedType: BuiltInType): Boolean {
+        if (type !is BuiltInTypeUiItemAttributeTypeModel) {
+            return false
+        }
+        return expectedType == type.builtInType
+    }
 
     private fun calculateAttributeType(): String =
         when (type) {

@@ -4,6 +4,7 @@
 package senegai.codegen.renderer.angular
 
 import senegai.codegen.renderer.model.ui.UiEntityModel
+import senegai.codegen.renderer.angular.ItemExampleDataRenderer
 
 /**
  * Generate the content for the template `EntityExampleDataRenderer`.
@@ -19,7 +20,8 @@ object EntityExampleDataRenderer : UiEntityRenderer {
           |import {${model.entityName.pascalCase}WTO} from "@app/wto/${model.entityName.kebabCase}.wto";
           |
           |export const ${model.entityName.screamingSnakeCase}_EXAMPLE_DATA: ${model.entityName.pascalCase}WTO[] = [
-          |        ];
+          |    ${ItemExampleDataRenderer.renderTemplate(model = model.entityRootItem)}
+          |    ];
           |
         """.trimMargin(marginPrefix = "|")
     }
