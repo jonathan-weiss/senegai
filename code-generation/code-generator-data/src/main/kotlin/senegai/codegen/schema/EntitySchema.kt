@@ -9,7 +9,7 @@ sealed interface ItemAttributeType
 /**
  * An [EntityId] is globally unique.
  */
-interface EntityId: ItemAttributeType {
+interface EntityId : ItemAttributeType {
     val entityName: String
 }
 
@@ -46,21 +46,19 @@ data class EnumType(
     val enumName: String = enumId.enumName
 }
 
-enum class BuiltInType: ItemAttributeType {
+enum class BuiltInType : ItemAttributeType {
     STRING,
     NUMBER,
     BOOLEAN,
 }
 
-
 /**
  * An [ItemId] is only used to wire the
  * different items and entities together.
  */
-interface ItemId: ItemAttributeType {
+interface ItemId : ItemAttributeType {
     val itemName: String
 }
-
 
 /**
  * An [Item] is named list of attributes.
@@ -74,7 +72,6 @@ data class Item(
     val attributes: List<ItemAttribute>,
 ) {
     val itemName: String = itemId.itemName
-
 }
 
 /**
@@ -93,4 +90,3 @@ enum class ItemAttributeCardinality {
     EXACTLY_ONE, // = non-nullable
     ZERO_TO_MANY, // = list
 }
-

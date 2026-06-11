@@ -24,25 +24,23 @@ data class UiItemAttributeModel(
     val formInitialValue: String = determineFormInitialValue()
     val attributeCardinality: AttributeCardinalityModel = attributeCardinalityModel()
 
-    private fun calculateAttributeType(): String {
-        return when(type) {
+    private fun calculateAttributeType(): String =
+        when (type) {
             is BuiltInTypeUiItemAttributeTypeModel -> type.builtInType.builtInTypeAsString()
             is EnumUiItemAttributeTypeModel -> throw NotSupportedInTemplateException(type.toString())
             is ItemUiItemAttributeTypeModel -> throw NotSupportedInTemplateException(type.toString())
         }
-    }
 
-    private fun BuiltInType.builtInTypeAsString(): String {
-        return when(this) {
+    private fun BuiltInType.builtInTypeAsString(): String =
+        when (this) {
             BuiltInType.STRING -> "string"
             BuiltInType.NUMBER -> "number"
             BuiltInType.BOOLEAN -> "boolean"
         }
-    }
 
     private fun calculateAttributeTypeWithNullability(): String {
         val type = calculateAttributeType()
-        return when(attributeCardinalityModel()) {
+        return when (attributeCardinalityModel()) {
             AttributeCardinalityModel.NULLABLE_SINGLE_ITEM -> "$type | null"
             AttributeCardinalityModel.SINGLE_ITEM -> type
             AttributeCardinalityModel.LIST_ITEMS -> "ReadonlyArray<$type>"
@@ -51,7 +49,7 @@ data class UiItemAttributeModel(
 
     private fun calculateFormType(): String {
         val type = calculateAttributeType()
-        return if(isNullable) {
+        return if (isNullable) {
             "$type | null"
         } else {
             type
@@ -61,28 +59,26 @@ data class UiItemAttributeModel(
     private fun calculateFormTypeIncludingCollection(): String {
         // TODO if it is an item, we need FormArray<FormGroup<...>
         val type = calculateFormType()
-        return if(isList) {
+        return if (isList) {
             "FormArray<FormControl<$type>>"
         } else {
             "FormControl<$type>"
         }
     }
 
-    private fun determineFormInitialValue(): String {
-        return if(isNullable) {
+    private fun determineFormInitialValue(): String =
+        if (isNullable) {
             "null"
-        } else if(isList) {
+        } else if (isList) {
             "[]"
         } else {
             "''"
         }
-    }
 
-    private fun attributeCardinalityModel(): AttributeCardinalityModel {
-        return if(isNullable) {
+    private fun attributeCardinalityModel(): AttributeCardinalityModel =
+        if (isNullable) {
             AttributeCardinalityModel.NULLABLE_SINGLE_ITEM
         } else {
             AttributeCardinalityModel.SINGLE_ITEM
         }
-    }
 }

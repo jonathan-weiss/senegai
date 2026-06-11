@@ -6,13 +6,11 @@ import senegai.codegen.schema.ItemId
 
 @MainDslMarker
 interface RootDsl {
-
-    fun schema(builder: SchemaDsl.() -> Unit,)
+    fun schema(builder: SchemaDsl.() -> Unit)
 }
 
 @MainDslMarker
 interface SchemaDsl {
-
     fun entity(
         entityId: EntityId,
         entityRootItemId: ItemId,
@@ -33,5 +31,3 @@ interface SchemaDsl {
         builder: UiEntityDsl.() -> Unit,
     )
 }
-
-

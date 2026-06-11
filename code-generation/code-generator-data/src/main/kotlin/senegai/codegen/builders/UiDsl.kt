@@ -4,77 +4,49 @@ import senegai.codegen.schema.ItemId
 
 @MainDslMarker
 interface UiEntityDsl {
-
-    fun views(
-        builder: UiViewsDsl.() -> Unit,
-    )
+    fun views(builder: UiViewsDsl.() -> Unit)
 }
 
 @MainDslMarker
 interface UiViewsDsl {
-
-    fun editor(
-        builder: UiEditorDsl.() -> Unit,
-    )
+    fun editor(builder: UiEditorDsl.() -> Unit)
 }
 
 @MainDslMarker
 interface UiEditorDsl {
-
-    fun configureEditorForEntity(
-        builder: UiEditorForMainItemDsl.() -> Unit
-    )
+    fun configureEditorForEntity(builder: UiEditorForMainItemDsl.() -> Unit)
 
     fun configureNestedEntityItem(
         itemId: ItemId,
-        builder: UiEditorForNestedItemDsl.() -> Unit
+        builder: UiEditorForNestedItemDsl.() -> Unit,
     )
 }
 
-
 @MainDslMarker
 interface UiEditorForMainItemDsl {
-
     fun tab(
         tabName: String,
         builder: UiTabDsl.() -> Unit,
     )
 
-    fun column(
-        builder: UiBlockEditorDsl.() -> Unit,
-    )
-
+    fun column(builder: UiBlockEditorDsl.() -> Unit)
 }
 
 @MainDslMarker
 interface UiEditorForNestedItemDsl {
-    fun column(
-        builder: UiBlockEditorDsl.() -> Unit,
-    )
-
+    fun column(builder: UiBlockEditorDsl.() -> Unit)
 }
 
 @MainDslMarker
 interface UiTabDsl {
-    fun column(
-        builder: UiBlockEditorDsl.() -> Unit,
-    )
+    fun column(builder: UiBlockEditorDsl.() -> Unit)
 }
 
 @MainDslMarker
 interface UiBlockEditorDsl {
+    fun text(text: String)
 
-    fun text(
-        text: String,
-    )
+    fun section(sectionName: String)
 
-    fun section(
-        sectionName: String,
-    )
-
-    fun attribute(
-        attributeName: String,
-    )
+    fun attribute(attributeName: String)
 }
-
-

@@ -7,12 +7,12 @@ sealed interface UiItemAttributeTypeModel
 
 data class BuiltInTypeUiItemAttributeTypeModel(
     val builtInType: BuiltInType,
-): UiItemAttributeTypeModel
+) : UiItemAttributeTypeModel
 
 data class ItemUiItemAttributeTypeModel(
     val item: UiItemDescriptionModel,
-): UiItemAttributeTypeModel
+) : UiItemAttributeTypeModel
 
 data class EnumUiItemAttributeTypeModel(
     val enumId: EnumId,
-): UiItemAttributeTypeModel
+) : UiItemAttributeTypeModel

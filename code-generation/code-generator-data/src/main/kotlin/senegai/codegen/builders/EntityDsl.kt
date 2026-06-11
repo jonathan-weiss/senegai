@@ -6,15 +6,11 @@ import senegai.codegen.schema.ItemId
 
 @MainDslMarker
 interface EnumDsl {
-
-    fun enumValue(
-        name: String,
-    )
+    fun enumValue(name: String)
 }
 
 @MainDslMarker
 interface ItemDsl {
-
     fun attribute(
         name: String,
         type: BuiltInType,
@@ -36,4 +32,3 @@ interface ItemDsl {
         multiple: Boolean = false,
     )
 }
-
