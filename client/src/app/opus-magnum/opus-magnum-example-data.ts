@@ -34,7 +34,8 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
     @rlb
     @render-template
         [ templateRendererClassName="ItemExampleDataRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" ]
-        [ modelName="model" modelExpression="model.entityRootItem" ]
+        [ modelName="itemModel" modelExpression="model.entityRootItem" ]
+        [ modelName="entityModel" modelExpression="model" ]
     @rla
     }}}@ */
 
@@ -50,7 +51,11 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
             ] [
                 modelClassName="UiItemModel"
                 modelPackageName="senegai.codegen.renderer.model.ui"
-                modelName="model"
+                modelName="itemModel"
+            ] [
+                modelClassName="UiEntityModel"
+                modelPackageName="senegai.codegen.renderer.model.ui"
+                modelName="entityModel"
             ]
             @print-text [text="        "]
             @modify-provided-filename-by-replacements
@@ -58,43 +63,27 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
         }}}@  */
         silvaOptionum: {
             /* @tt{{{
-                @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
+                @foreach [ iteratorExpression="itemModel.attributes" loopVariable="attribute" ]
 
                 @replace-value-by-expression
                     [ searchValue="campusTextusOptionalis" replaceByExpression="attribute.attributeName.camelCase" ]
-
-                @replace-value-by-value
-                    [ searchValue="Johnny" replaceByValue="example" ]
-
                 @rla
             }}}@  */
             /* @tt{{{
-                @rlb
-                @if [conditionExpression="attribute.isBuildInTypeOf(senegai.codegen.schema.BuiltInType.STRING)"]
-                @rla
-            }}}@ */
-            campusTextusOptionalis: 'Johnny',
-            /* @tt{{{
-                @rlb
-                @end-if
-                @rla
-            }}}@ */
-            /* @tt{{{
-                @rlb
-                @if [conditionExpression="attribute.isBuildInTypeOf(senegai.codegen.schema.BuiltInType.BOOLEAN)"]
-                @rla
-            }}}@ */
-            campusBivalens: false,
-            /* @tt{{{
-                @rlb
-                @end-if
-                @rla
-            }}}@ */
+                @move-comment-forward [ afterFirstOccurrenceOf="campusTextusOptionalis: " ]
+                @render-template
+                    [ templateRendererClassName="AttributeExampleDataRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" ]
+                    [ modelName="attributeModel" modelExpression="attribute" ]
+                    [ modelName="entityModel" modelExpression="entityModel" ]
+                @ignore-text
+            }}}@  */
+            campusTextusOptionalis: 'Johnny'/* @tt{{{@end-ignore-text}}}@  */,
             /* @tt{{{
                 @rlb
                 @ignore-text
                 @rla
             }}}@ */
+            campusBivalens: false,
             campusDiei: new Date(1979, 3, 23),
             appellatio: AppellatioEnum.SENIOR,
             campusTextusObligatorius: 'Doe',
@@ -113,9 +102,10 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
             /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
             /* @tt{{{ @rlb @end-foreach @rla }}}@ */
         }
-        /* @tt{{{ @rlb
-        @end-template-renderer
-        @rla
+        /* @tt{{{
+            @rlb
+            @end-template-renderer
+            @rla
         }}}@  */
     },
     {

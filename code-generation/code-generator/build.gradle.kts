@@ -19,11 +19,13 @@ tasks.test {
 }
 
 val directoryForGeneratedTemplateRenderer = "src/typicaltemplate-generated/kotlin"
+val directoryForManualTemplateRenderer = "src/typicaltemplate-manual/kotlin"
 val pathToAngularProject: File = project(":client").projectDir
 val directoryForAngularGeneratedSource = pathToAngularProject.resolve("src/app-generated")
 
 kotlin {
     sourceSets["main"].kotlin.srcDir(directoryForGeneratedTemplateRenderer)
+    sourceSets["main"].kotlin.srcDir(directoryForManualTemplateRenderer)
 }
 
 tasks.register<JavaExec>("codegen") {
@@ -40,4 +42,3 @@ tasks.register<JavaExec>("codegen") {
 tasks.register<Delete>("cleanCodegen") {
     delete(directoryForAngularGeneratedSource)
 }
-

@@ -25,6 +25,7 @@ import senegai.codegen.renderer.model.ui.entityform.blocks.UiFormAttributeType
 import senegai.codegen.schema.BuiltInType
 import senegai.codegen.schema.EntityId
 import senegai.codegen.schema.EnumId
+import senegai.codegen.schema.EnumType
 import senegai.codegen.schema.Item
 import senegai.codegen.schema.ItemAttribute
 import senegai.codegen.schema.ItemAttributeType
@@ -49,7 +50,7 @@ object RendererModelConverter {
                     .map {
                         val entity = schemaData.entities.single { entity -> it.entity.entityId == entity.entityId }
                         val allNestedItemIds = HierarchicalItemSearch.findAllItemNames(entity.item, schemaData.items)
-                        mapUiEntityViewsModel(it, allNestedItemIds, schemaData.allUiItemModels())
+                        mapUiEntityViewsModel(it, allNestedItemIds, schemaData.allUiItemModels(), schemaData.enums)
                     }
             )
         )
@@ -91,10 +92,11 @@ object RendererModelConverter {
         }
     }
 
-    private fun mapUiEntityViewsModel(uiEntity: UiEntity, entityItemModelIds: Set<ItemId>, allUiItemModels: List<UiItemModel>): UiEntityViewsModel {
+    private fun mapUiEntityViewsModel(uiEntity: UiEntity, entityItemModelIds: Set<ItemId>, allUiItemModels: List<UiItemModel>, allEnumTypes: List<EnumType>): UiEntityViewsModel {
         val uiEntityModel = UiEntityModel(
             entityRootItem = allUiItemModels.single { it.itemId == uiEntity.entity.item.itemId },
             entityItemModels = allUiItemModels.filter { it.itemId in entityItemModelIds },
+            entityEnumTypes = allEnumTypes, // TODO filter for only the enums used in this entity
         )
 
         val uiEntityItems =uiEntity.editorView.itemConfiguration.map { itemConfiguration ->

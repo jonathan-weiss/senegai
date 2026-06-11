@@ -20,7 +20,7 @@ object EntityExampleDataRenderer : UiEntityRenderer {
           |import {${model.entityName.pascalCase}WTO} from "@app/wto/${model.entityName.kebabCase}.wto";
           |
           |export const ${model.entityName.screamingSnakeCase}_EXAMPLE_DATA: ${model.entityName.pascalCase}WTO[] = [
-          |    ${ItemExampleDataRenderer.renderTemplate(model = model.entityRootItem)}
+          |    ${ItemExampleDataRenderer.renderTemplate(itemModel = model.entityRootItem, entityModel = model)}
           |    ];
           |
         """.trimMargin(marginPrefix = "|")

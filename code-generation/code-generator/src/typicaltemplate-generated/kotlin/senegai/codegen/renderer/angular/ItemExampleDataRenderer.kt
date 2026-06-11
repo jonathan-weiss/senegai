@@ -4,6 +4,8 @@
 package senegai.codegen.renderer.angular
 
 import senegai.codegen.renderer.model.ui.UiItemModel
+import senegai.codegen.renderer.model.ui.UiEntityModel
+import senegai.codegen.renderer.angular.AttributeExampleDataRenderer
 
 /**
  * Generate the content for the template `ItemExampleDataRenderer`.
@@ -14,22 +16,17 @@ import senegai.codegen.renderer.model.ui.UiItemModel
  */
 object ItemExampleDataRenderer {
 
-    fun renderTemplate(model: UiItemModel): String {
+    fun renderTemplate(itemModel: UiItemModel, entityModel: UiEntityModel): String {
         return """
           |        {
-          |            ${ model.attributes.joinToString("") { attribute ->  """            ${ if(attribute.isBuildInTypeOf(senegai.codegen.schema.BuiltInType.STRING)) { """            ${attribute.attributeName.camelCase}: 'example',
-                  |            
-          """ } else { """
-          """ } }            ${ if(attribute.isBuildInTypeOf(senegai.codegen.schema.BuiltInType.BOOLEAN)) { """            campusBivalens: false,
-                  |            
-          """ } else { """
-          """ } }                        
+          |            ${ itemModel.attributes.joinToString("") { attribute ->  """            
+              |            ${attribute.attributeName.camelCase}: ${AttributeExampleDataRenderer.renderTemplate(attributeModel = attribute, entityModel = entityModel)},            
           """ } }        }
           |        
         """.trimMargin(marginPrefix = "|")
     }
 
-    fun filePath(model: UiItemModel): String {
+    fun filePath(itemModel: UiItemModel, entityModel: UiEntityModel): String {
       return "opus-magnum/opus-magnum-example-data.ts"
     }
 }

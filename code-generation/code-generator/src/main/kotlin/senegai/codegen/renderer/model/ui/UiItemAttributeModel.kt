@@ -4,6 +4,7 @@ import org.codeblessing.templatetools.CaseUtil
 import senegai.codegen.renderer.NotSupportedInTemplateException
 import senegai.codegen.renderer.model.NameCase
 import senegai.codegen.schema.BuiltInType
+import senegai.codegen.schema.EnumId
 
 data class UiItemAttributeModel(
     val attributeName: NameCase,
@@ -20,22 +21,19 @@ data class UiItemAttributeModel(
     val formInitialValue: String = determineFormInitialValue()
     val attributeCardinality: AttributeCardinalityModel = attributeCardinalityModel()
 
-    fun isBuildInTypeOf(expectedType: BuiltInType): Boolean {
-        if (type !is BuiltInTypeUiItemAttributeTypeModel) {
-            return false
-        }
-        return expectedType == type.builtInType
-    }
-
     private fun calculateAttributeType(): String =
         when (type) {
-            is BuiltInTypeUiItemAttributeTypeModel -> type.builtInType.builtInTypeAsString()
-            is EnumUiItemAttributeTypeModel -> throw NotSupportedInTemplateException(type.toString())
-            is ItemUiItemAttributeTypeModel -> throw NotSupportedInTemplateException(type.toString())
+            is BuiltInTypeUiItemAttributeTypeModel -> type.builtInTypeAsString()
+            is EnumUiItemAttributeTypeModel -> type.enumTypeAsString()
+            is ItemUiItemAttributeTypeModel -> type.itemTypeAsString()
         }
 
-    private fun BuiltInType.builtInTypeAsString(): String =
-        when (this) {
+    private fun ItemUiItemAttributeTypeModel.itemTypeAsString(): String = this.item.itemName.pascalCase
+
+    private fun EnumUiItemAttributeTypeModel.enumTypeAsString(): String = this.enumId.enumName
+
+    private fun BuiltInTypeUiItemAttributeTypeModel.builtInTypeAsString(): String =
+        when (this.builtInType) {
             BuiltInType.STRING -> "string"
             BuiltInType.NUMBER -> "number"
             BuiltInType.BOOLEAN -> "boolean"
