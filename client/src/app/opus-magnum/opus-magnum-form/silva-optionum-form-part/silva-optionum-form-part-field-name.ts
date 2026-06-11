@@ -47,6 +47,7 @@ export enum SilvaOptionumFormPartFieldName {
 /* @tt{{{ @rlb @end-foreach @rla }}}@ */
 /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
     campusTextusObligatorius = "campusTextusObligatorius",
+    articulusInteriorSingularis = "articulusInteriorSingularis",
     articulusInteriorList = "articulusInteriorList",
     campusDieiIsNotNull = "campusDieiIsNotNull",
     campusDiei = "campusDiei",

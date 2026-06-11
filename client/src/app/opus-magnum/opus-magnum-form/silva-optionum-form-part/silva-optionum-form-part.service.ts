@@ -116,6 +116,7 @@ export class SilvaOptionumFormPartService {
             ),
             /* @tt{{{ @rlb @end-foreach @rla }}}@ */
             /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
+            [SilvaOptionumFormPartFieldName.articulusInteriorSingularis]: this.articulusInteriorFormPartService.createInitialArticulusInteriorForm(),
             [SilvaOptionumFormPartFieldName.articulusInteriorList]: new FormArray(
                 this.silvaOptionumFormInitialValueService.articulusInteriorListInitialValue(),
                 {
@@ -160,8 +161,6 @@ export class SilvaOptionumFormPartService {
      * We need to prefill the FormArray with empty values first
      */
     public patchPreparation(form: FormGroup<SilvaOptionumFormPartGroup>, silvaOptionum: SilvaOptionumWTO): void {
-        // TODO Rename articulusInteriorList to awardList to bypass the name clash when replacing
-        // TODO If the attribute is an item attribute, call the formPartService
         /* @tt{{{
             @foreach [ iteratorExpression="model.item.attributesWithLists" loopVariable="attribute" ]
             @replace-value-by-expression
@@ -228,6 +227,7 @@ export class SilvaOptionumFormPartService {
             /* @tt{{{ @rlb  @end-if @rla }}}@ */
             /* @tt{{{ @rlb @end-foreach @rla }}}@ */
             /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
+            articulusInteriorSingularis: form.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularis].getRawValue(),
             articulusInteriorList: form.controls[SilvaOptionumFormPartFieldName.articulusInteriorList].getRawValue(),
             campusDiei: form.controls[SilvaOptionumFormPartFieldName.campusDieiIsNotNull].value ? form.controls[SilvaOptionumFormPartFieldName.campusDiei].getRawValue() : null,
             campusBivalens: form.controls[SilvaOptionumFormPartFieldName.campusBivalens].getRawValue(),

@@ -213,6 +213,8 @@ export class SilvaOptionumFormPartComponent implements OnInit {
     protected campusBivalensValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected appellatioControl!: FormControl<AppellatioEnum>
     protected appellatioValidatorNames!: ReadonlyArray<ValidatorTranslation>
+    protected articulusInteriorSingularisControl!: FormGroup<ArticulusInteriorFormPartGroup>
+    protected articulusInteriorSingularisValidatorNames!: ReadonlyArray<ValidatorTranslation>
     /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
 
     constructor(private readonly silvaOptionumFormValidationService: SilvaOptionumFormPartValidationService,) {
@@ -249,6 +251,8 @@ export class SilvaOptionumFormPartComponent implements OnInit {
         this.campusBivalensValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.campusBivalens)
         this.appellatioControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.appellatio]
         this.appellatioValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.appellatio)
+        this.articulusInteriorSingularisControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularis]
+        this.articulusInteriorSingularisValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.articulusInteriorSingularis)
         /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
     }
 

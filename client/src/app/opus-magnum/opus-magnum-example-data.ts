@@ -87,6 +87,11 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
             campusDiei: new Date(1979, 3, 23),
             appellatio: AppellatioEnum.SENIOR,
             campusTextusObligatorius: 'Doe',
+            articulusInteriorSingularis:                 {
+                description: "ALA Medal of Excellence.",
+                year: 1956,
+                juryList: ["Elisabeth Smith", "Aaron Glasgow", "James Duroldi"]
+            },
             articulusInteriorList: [
                 {
                     description: "ALA Medal of Excellence.",
@@ -114,6 +119,11 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
         silvaOptionum: {
             campusTextusObligatorius: 'Smith',
             campusTextusOptionalis: 'Jane',
+            articulusInteriorSingularis:                 {
+                description: "ALA Medal of Excellence.",
+                year: 1956,
+                juryList: ["Elisabeth Smith", "Aaron Glasgow", "James Duroldi"]
+            },
             articulusInteriorList: [
                 {
                     description: "James Madison Award ",
@@ -137,6 +147,11 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
         silvaOptionum: {
             campusTextusObligatorius: 'Johnson',
             campusTextusOptionalis: null,
+            articulusInteriorSingularis:                 {
+                description: "ALA Medal of Excellence.",
+                year: 1956,
+                juryList: ["Elisabeth Smith", "Aaron Glasgow", "James Duroldi"]
+            },
             articulusInteriorList: [],
             campusDiei: new Date(1963, 11, 31),
             campusBivalens: true,
@@ -149,6 +164,11 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
         silvaOptionum: {
             campusTextusObligatorius: 'Williams',
             campusTextusOptionalis: 'Molly',
+            articulusInteriorSingularis:                 {
+                description: "ALA Medal of Excellence.",
+                year: 1956,
+                juryList: ["Elisabeth Smith", "Aaron Glasgow", "James Duroldi"]
+            },
             articulusInteriorList: [
                 {
                     description: "Jean E. Coleman Library Outreach Lecture",

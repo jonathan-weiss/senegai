@@ -149,6 +149,12 @@
             <!-- @tt{{{ @rlb  @ignore-text @rla }}}@ -->
             <div class="column">
                 <div class="form-row">
+                    <app-field-wrapper label="Articulus Interior Singularis">
+                        <app-articulus-interior-form-part [articulusInteriorForm]="articulusInteriorSingularisControl"  />
+                    </app-field-wrapper>
+                </div>
+
+                <div class="form-row">
                     <app-field-wrapper label="Appellatio">
                         <app-appellatio-selector [enumFormControl]="appellatioControl" [validatorTranslations]="appellatioValidatorNames"></app-appellatio-selector>
                     </app-field-wrapper>

@@ -60,6 +60,8 @@ export class ArticulusInteriorFormPartService {
     }
 
     public patchArticulusInteriorForm(form: FormGroup<ArticulusInteriorFormPartGroup>, articulusInterior: ArticulusInteriorWTO): void {
+        // TODO Prepare the list to patch
+
         if(form.controls[ArticulusInteriorFormPartFieldName.juryList].controls.length < articulusInterior.juryList.length) {
             for (let i = articulusInterior.juryList.length; i < form.controls[ArticulusInteriorFormPartFieldName.juryList].controls.length; i++) {
                 form.controls[ArticulusInteriorFormPartFieldName.juryList].push(this.createInitialArticulusInteriorListJuryListForm())

@@ -79,8 +79,6 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
           |     * We need to prefill the FormArray with empty values first
           |     */
           |    public patchPreparation(form: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>, ${model.item.itemName.camelCase}: ${model.item.itemName.pascalCase}WTO): void {
-          |        // TODO Rename articulusInteriorList to awardList to bypass the name clash when replacing
-          |        // TODO If the attribute is an item attribute, call the formPartService
           |        ${ model.item.attributesWithLists.joinToString("") { attribute ->  """
               |
               |        const ${attribute.attributeName.camelCase}Length = form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].controls.length
