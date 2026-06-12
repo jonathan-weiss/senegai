@@ -28,8 +28,6 @@ interface UiEditorViewBuilder: UiEditorDsl {
     @BuilderMethod
     @NewClazzModel(clazz = UiEntityEditorEntityNestedItemConfiguration::class, alias = "nestedItemConfiguration")
     @SetClazzModelOfAlias(alias = "uiEditor", clazzProperty = "itemConfiguration", referencedAlias = "nestedItemConfiguration")
-    @NewClazzModel(clazz = UiEntityEditorColumn::class, alias = "singleColumn")
-    @SetClazzModelOfAlias(alias = "nestedItemConfiguration", clazzProperty = "noTab", referencedAlias = "singleColumn")
     fun configureEditorForNestedEntityItemInternal(
         @SetAsValue(alias = "nestedItemConfiguration", clazzProperty = "itemId")
         itemId: ItemId,
