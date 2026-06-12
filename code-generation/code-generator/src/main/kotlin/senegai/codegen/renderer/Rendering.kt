@@ -33,18 +33,8 @@ object Rendering {
 
             uiModel.uiEntitiesViews.forEach { uiEntityView ->
                 uiEntityView.formView.entityItems.forEach { entityItem ->
-                    // create for root item
                     renderFormPart(entityItem)
                     renderTableComponent(entityItem)
-
-                    // create for other item
-                    // TODO Hier sind noch Blocks drin mit den falschen Attributen
-                    entityItem.entity.entityItemModels.forEach { involvedItem ->
-                        val involvedViewItemModel = entityItem.copy(item = involvedItem)
-                        renderFormPart(involvedViewItemModel)
-                        renderTableComponent(involvedViewItemModel)
-
-                    }
                 }
             }
 
