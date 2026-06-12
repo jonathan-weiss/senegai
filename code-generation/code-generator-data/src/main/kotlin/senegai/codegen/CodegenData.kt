@@ -47,7 +47,7 @@ object CodegenData {
                 attribute(name = "firstname", type = BuiltInType.STRING)
                 attribute(name = "nickname", type = BuiltInType.STRING, nullable = true)
                 attribute(name = "lastname", type = BuiltInType.STRING)
-                // attribute(name = "age", type = BuiltInType.NUMBER)
+                attribute(name = "age", type = BuiltInType.NUMBER)
             }
 
             item(itemId = Items.ADDRESS) {
@@ -88,7 +88,7 @@ object CodegenData {
                                     section(sectionName = "Legend:")
                                     @Suppress()
                                     text(text = Constants.MULTILINE_TEXT)
-                                    // attribute(attributeName = "age")
+                                    attribute(attributeName = "age")
                                 }
                             }
                         }

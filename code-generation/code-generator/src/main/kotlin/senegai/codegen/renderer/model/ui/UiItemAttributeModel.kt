@@ -73,7 +73,15 @@ data class UiItemAttributeModel(
         } else if (isList) {
             "[]"
         } else {
-            "''"
+            when (type) {
+                is BuiltInTypeUiItemAttributeTypeModel -> when (type.builtInType) {
+                    BuiltInType.STRING -> "''"
+                    BuiltInType.NUMBER -> "0"
+                    BuiltInType.BOOLEAN -> "false"
+                }
+                is EnumUiItemAttributeTypeModel -> throw NotSupportedInTemplateException("EnumUiItemAttributeTypeModel is not supported.")
+                is ItemUiItemAttributeTypeModel -> throw NotSupportedInTemplateException("ItemUiItemAttributeTypeModel is not supported.") // TODO type.itemTypeAsString()
+            }
         }
 
     private fun attributeCardinalityModel(): AttributeCardinalityModel =
