@@ -43,7 +43,7 @@ object CodegenData {
             }
 
             item(itemId = Items.CONTACT) {
-                attribute(name = "id", type = BuiltInType.STRING)
+                attribute(name = "contactId", type = BuiltInType.STRING)
                 attribute(name = "firstname", type = BuiltInType.STRING)
                 attribute(name = "nickname", type = BuiltInType.STRING, nullable = true)
                 attribute(name = "lastname", type = BuiltInType.STRING)
@@ -67,7 +67,7 @@ object CodegenData {
                         configureEditorForEntity {
                             tab(tabName = "Common") {
                                 column {
-                                    attribute(attributeName = "id")
+                                    attribute(attributeName = "contactId")
                                     section(sectionName = "Names")
                                     text(text = "Lorem ipsum dolor sit amet")
                                     attribute(attributeName = "firstname")

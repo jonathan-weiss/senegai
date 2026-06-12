@@ -14,13 +14,6 @@ import {
 import {
     ArticulusInteriorFormPartFieldName
 } from "@app/opus-magnum/opus-magnum-form/articulus-interior-form-part/articulus-interior-form-part-field-name";
-import {
-    SilvaOptionumFormPartGroup
-} from "@app/opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part-group";
-import {SilvaOptionumWTO} from "@app/wto/silva-optionum.wto";
-import {
-    SilvaOptionumFormPartFieldName
-} from "@app/opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part-field-name";
 
 
 @Injectable({providedIn: 'root'})
@@ -78,29 +71,5 @@ export class ArticulusInteriorFormPartService {
                 form.controls[ArticulusInteriorFormPartFieldName.juryList].push(this.createInitialArticulusInteriorListJuryListForm())
             }
         }
-    }
-
-
-    public patchArticulusInteriorForm(form: FormGroup<ArticulusInteriorFormPartGroup>, articulusInterior: ArticulusInteriorWTO): void {
-        // TODO Prepare the list to patch
-
-        if(form.controls[ArticulusInteriorFormPartFieldName.juryList].controls.length < articulusInterior.juryList.length) {
-            for (let i = articulusInterior.juryList.length; i < form.controls[ArticulusInteriorFormPartFieldName.juryList].controls.length; i++) {
-                form.controls[ArticulusInteriorFormPartFieldName.juryList].push(this.createInitialArticulusInteriorListJuryListForm())
-            }
-        }
-
-        form.controls[ArticulusInteriorFormPartFieldName.description].patchValue(articulusInterior.description);
-        form.controls[ArticulusInteriorFormPartFieldName.year].patchValue(articulusInterior.year);
-        form.controls[ArticulusInteriorFormPartFieldName.juryList].patchValue(articulusInterior.juryList)
-
-    }
-
-    public createArticulusInteriorFromFormData(form: FormGroup<ArticulusInteriorFormPartGroup>): ArticulusInteriorWTO {
-        return {
-            description: form.controls[ArticulusInteriorFormPartFieldName.description].getRawValue(),
-            year: form.controls[ArticulusInteriorFormPartFieldName.year].getRawValue(),
-            juryList: form.controls[ArticulusInteriorFormPartFieldName.juryList].getRawValue(),
-        };
     }
 }

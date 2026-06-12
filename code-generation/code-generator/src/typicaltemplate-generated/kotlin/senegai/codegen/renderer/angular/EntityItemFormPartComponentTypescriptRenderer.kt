@@ -9,8 +9,8 @@ import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewItemModel
  * Generate the content for the template `EntityItemFormPartComponentTypescriptRenderer`.
  *
  * This template renderer was generated from the template:
- * - file: `silva-optionum-form-part.component.ts`
- * - path: `opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part.component.ts`
+ * - file: `opus-magnum-form-part.component.ts`
+ * - path: `opus-magnum/opus-magnum-form/opus-magnum-form-part/opus-magnum-form-part.component.ts`
  */
 object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
 
@@ -33,13 +33,13 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
           |import {FieldWrapperComponent} from "@app/shared/form-controls/field-wrapper/field-wrapper.component";
           |import {
           |    ${model.item.itemName.pascalCase}FormPartValidationService
-          |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-validation.service";
-          |import {${model.item.itemName.pascalCase}FormPartFieldName,} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-field-name";
+          |} from "@app/${model.item.itemName.kebabCase}/${model.item.itemName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-validation.service";
+          |import {${model.item.itemName.pascalCase}FormPartFieldName,} from "@app/${model.item.itemName.kebabCase}/${model.item.itemName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-field-name";
           |import {TextInputComponent} from "@app/shared/form-controls/text-input/text-input.component";
           |import {DatepickerInputComponent} from "@app/shared/form-controls/datepicker-input/datepicker-input.component";
           |import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
           |import {MatTab, MatTabGroup} from "@angular/material/tabs";
-          |import {${model.item.itemName.pascalCase}FormPartGroup} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-group";
+          |import {${model.item.itemName.pascalCase}FormPartGroup} from "@app/${model.item.itemName.kebabCase}/${model.item.itemName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-group";
           |${ if(model.containsNamedSectionSplitBlocks()) { """import {SectionSplitterComponent} from "@app/shared/blocks/section-splitter/section-splitter.component";
               |
           """ } else { """
@@ -51,13 +51,13 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
           |${ model.item.attributeItemsFlat.joinToString("") { nestedItem ->  """
               |import {
               |    ${nestedItem.itemName.pascalCase}TableComponent
-              |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${nestedItem.itemName.kebabCase}-table/${nestedItem.itemName.kebabCase}-table.component";
+              |} from "@app/${model.item.itemName.kebabCase}/${model.item.itemName.kebabCase}-form/${nestedItem.itemName.kebabCase}-table/${nestedItem.itemName.kebabCase}-table.component";
               |import {
               |    ${nestedItem.itemName.pascalCase}FormPartComponent
-              |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${nestedItem.itemName.kebabCase}-form-part/${nestedItem.itemName.kebabCase}-form-part.component";
+              |} from "@app/${model.item.itemName.kebabCase}/${model.item.itemName.kebabCase}-form/${nestedItem.itemName.kebabCase}-form-part/${nestedItem.itemName.kebabCase}-form-part.component";
               |import {
               |    ${nestedItem.itemName.pascalCase}FormPartGroup
-              |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${nestedItem.itemName.kebabCase}-form-part/${nestedItem.itemName.kebabCase}-form-part-group";
+              |} from "@app/${model.item.itemName.kebabCase}/${model.item.itemName.kebabCase}-form/${nestedItem.itemName.kebabCase}-form-part/${nestedItem.itemName.kebabCase}-form-part-group";
           """ } }
           |@Component({
           |    selector: 'app-${model.item.itemName.kebabCase}-form-part',
@@ -145,6 +145,6 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
     }
 
     override fun filePath(model: UiEntityFormViewItemModel): String {
-      return "${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part.component.ts"
+      return "${model.item.itemName.kebabCase}/${model.item.itemName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part.component.ts"
     }
 }

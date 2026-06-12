@@ -9,8 +9,8 @@ import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewItemModel
  * Generate the content for the template `EntityItemFormPartGroupRenderer`.
  *
  * This template renderer was generated from the template:
- * - file: `silva-optionum-form-part-group.ts`
- * - path: `opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part-group.ts`
+ * - file: `opus-magnum-form-part-group.ts`
+ * - path: `opus-magnum/opus-magnum-form/opus-magnum-form-part/opus-magnum-form-part-group.ts`
  */
 object EntityItemFormPartGroupRenderer : UiEntityItemRenderer {
 
@@ -18,12 +18,12 @@ object EntityItemFormPartGroupRenderer : UiEntityItemRenderer {
         return """
           |
           |import {FormArray, FormControl, FormGroup} from "@angular/forms";
-          |import {${model.item.itemName.pascalCase}FormPartFieldName} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-field-name";
+          |import {${model.entity.entityName.pascalCase}FormPartFieldName} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-form-part/${model.entity.entityName.kebabCase}-form-part-field-name";
           |
           |
-          |export interface ${model.item.itemName.pascalCase}FormPartGroup {
+          |export interface ${model.entity.entityName.pascalCase}FormPartGroup {
           |    ${ model.item.attributes.joinToString("") { attribute ->  """
-              |    [${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}]: FormControl<${attribute.typescriptAttributeFormType}>,${ if(attribute.isNullable) { """    [${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull]: FormControl<boolean>,
+              |    [${model.entity.entityName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}]: FormControl<${attribute.typescriptAttributeFormType}>,${ if(attribute.isNullable) { """    [${model.entity.entityName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull]: FormControl<boolean>,
                   |    
           """ } else { """
           """ } }    
@@ -33,6 +33,6 @@ object EntityItemFormPartGroupRenderer : UiEntityItemRenderer {
     }
 
     override fun filePath(model: UiEntityFormViewItemModel): String {
-      return "${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-group.ts"
+      return "${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-form-part/${model.entity.entityName.kebabCase}-form-part-group.ts"
     }
 }

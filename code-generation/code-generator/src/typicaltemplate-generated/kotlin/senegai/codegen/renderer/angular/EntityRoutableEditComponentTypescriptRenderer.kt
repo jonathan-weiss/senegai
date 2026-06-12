@@ -39,10 +39,10 @@ object EntityRoutableEditComponentTypescriptRenderer : UiEntityRenderer {
           |        private route: ActivatedRoute,
           |    ) {
           |        this.route.params.subscribe(params => {
-          |            const idParam = params['indexUnicus'];
+          |            const idParam = params['${model.idAttribute.attributeName.camelCase}'];
           |            if (idParam) {
-          |                const indexUnicus = idParam as string;
-          |                this.${model.entityName.camelCase}Service.get${model.entityName.pascalCase}ById(indexUnicus).subscribe(${model.entityName.camelCase} => {
+          |                const ${model.idAttribute.attributeName.camelCase} = idParam as string;
+          |                this.${model.entityName.camelCase}Service.get${model.entityName.pascalCase}ById(${model.idAttribute.attributeName.camelCase}).subscribe(${model.entityName.camelCase} => {
           |                    this.selected${model.entityName.pascalCase} = ${model.entityName.camelCase};
           |                });
           |            }

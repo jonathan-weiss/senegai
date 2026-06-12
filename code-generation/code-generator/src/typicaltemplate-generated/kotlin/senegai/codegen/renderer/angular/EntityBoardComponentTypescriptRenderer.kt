@@ -91,7 +91,7 @@ object EntityBoardComponentTypescriptRenderer : UiEntityRenderer {
           |        });
           |        dialogRef.afterClosed().subscribe(result => {
           |            if (result) {
-          |                this.${model.entityName.camelCase}Service.delete${model.entityName.pascalCase}(${model.entityName.camelCase}.id).subscribe(() => {
+          |                this.${model.entityName.camelCase}Service.delete${model.entityName.pascalCase}(${model.entityName.camelCase}.${model.idAttribute.attributeName.camelCase}).subscribe(() => {
           |                    this.refreshKey++;
           |                });
           |            }

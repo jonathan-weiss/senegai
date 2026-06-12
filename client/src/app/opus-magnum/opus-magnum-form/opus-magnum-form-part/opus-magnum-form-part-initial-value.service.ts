@@ -14,9 +14,9 @@
     ]
 
     @replace-value-by-expression
-        [ searchValue="silva-optionum" replaceByExpression="model.item.itemName.kebabCase" ]
-        [ searchValue="SilvaOptionum" replaceByExpression="model.item.itemName.pascalCase" ]
-        [ searchValue="silvaOptionum" replaceByExpression="model.item.itemName.camelCase" ]
+        [ searchValue="opus-magnum" replaceByExpression="model.item.itemName.kebabCase" ]
+        [ searchValue="OpusMagnum" replaceByExpression="model.item.itemName.pascalCase" ]
+        [ searchValue="opusMagnum" replaceByExpression="model.item.itemName.camelCase" ]
         [ searchValue="opus-magnum" replaceByExpression="model.entity.entityName.kebabCase" ]
         [ searchValue="OpusMagnum" replaceByExpression="model.entity.entityName.pascalCase" ]
         [ searchValue="opusMagnum" replaceByExpression="model.entity.entityName.camelCase" ]
@@ -39,15 +39,7 @@ import {
 
 
 @Injectable({providedIn: 'root'})
-export class SilvaOptionumFormPartInitialValueService {
-    /* @tt{{{ @ignore-text }}}@ */
-
-    idInitialValue(): string {
-        return ''
-    }
-    /* @tt{{{ @rlb  @end-ignore-text }}}@ */
-
-
+export class OpusMagnumFormPartInitialValueService {
     /* @tt{{{ @rlb
         @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
@@ -77,6 +69,9 @@ export class SilvaOptionumFormPartInitialValueService {
     }
     appellatioInitialValue(): AppellatioEnum {
         return AppellatioEnum.MATRONA;
+    }
+    indexUnicusInitialValue(): string {
+        return crypto.randomUUID()
     }
     /* @tt{{{ @rlb  @end-ignore-text }}}@ */
 }

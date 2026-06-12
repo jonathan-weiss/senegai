@@ -14,9 +14,9 @@
     ]
 
     @replace-value-by-expression
-        [ searchValue="silva-optionum" replaceByExpression="model.item.itemName.kebabCase" ]
-        [ searchValue="SilvaOptionum" replaceByExpression="model.item.itemName.pascalCase" ]
-        [ searchValue="silvaOptionum" replaceByExpression="model.item.itemName.camelCase" ]
+        [ searchValue="opus-magnum" replaceByExpression="model.item.itemName.kebabCase" ]
+        [ searchValue="OpusMagnum" replaceByExpression="model.item.itemName.pascalCase" ]
+        [ searchValue="opusMagnum" replaceByExpression="model.item.itemName.camelCase" ]
         [ searchValue="opus-magnum" replaceByExpression="model.entity.entityName.kebabCase" ]
         [ searchValue="OpusMagnum" replaceByExpression="model.entity.entityName.pascalCase" ]
         [ searchValue="opusMagnum" replaceByExpression="model.entity.entityName.camelCase" ]
@@ -31,7 +31,7 @@
 import {AppellatioEnum} from "@app/wto/appellatio.enum";
 /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
 
-export enum SilvaOptionumFormPartFieldName {
+export enum OpusMagnumFormPartFieldName {
     /* @tt{{{ @rlb
         @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
@@ -53,6 +53,7 @@ export enum SilvaOptionumFormPartFieldName {
     campusDiei = "campusDiei",
     campusBivalens = "campusBivalens",
     appellatio = "appellatio",
+    indexUnicus = "indexUnicus",
 /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
 }
 

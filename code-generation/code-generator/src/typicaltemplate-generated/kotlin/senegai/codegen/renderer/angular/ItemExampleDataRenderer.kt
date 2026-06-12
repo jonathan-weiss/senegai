@@ -18,11 +18,12 @@ object ItemExampleDataRenderer {
 
     fun renderTemplate(itemModel: UiItemModel, entityModel: UiEntityModel): String {
         return """
-          |        {
-          |            ${ itemModel.attributes.joinToString("") { attribute ->  """            
-              |            ${attribute.attributeName.camelCase}: ${AttributeExampleDataRenderer.renderTemplate(attributeModel = attribute, entityModel = entityModel)},            
-          """ } }        }
           |        
+          |    {
+          |        ${ itemModel.attributes.joinToString("") { attribute ->  """        
+              |        ${attribute.attributeName.camelCase}: ${AttributeExampleDataRenderer.renderTemplate(attributeModel = attribute, entityModel = entityModel)},        
+          """ } }
+          |    }
         """.trimMargin(marginPrefix = "|")
     }
 

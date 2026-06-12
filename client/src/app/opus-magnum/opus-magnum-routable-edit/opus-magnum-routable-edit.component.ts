@@ -19,6 +19,9 @@
         [ searchValue="opusMagnum" replaceByExpression="model.entityName.camelCase" ]
         [ searchValue="opus-magnum" replaceByExpression="model.entityName.kebabCase" ]
 
+    @replace-value-by-expression
+        [ searchValue="indexUnicus" replaceByExpression="model.idAttribute.attributeName.camelCase" ]
+
     @modify-provided-filename-by-replacements
 
     @rla

@@ -61,9 +61,9 @@ object EntityBoardComponentHtmlRenderer : UiEntityRenderer {
           |                </mat-panel-title>
           |                @if (selected${model.entityName.pascalCase}) {
           |                    <mat-panel-description>
-          |                        ${ model.summaryAttributes.joinToString("") { attribute ->  """{{ selected${model.entityName.pascalCase}.${attribute.attributeName.camelCase} }} 
-          """ } }
-          |                    </mat-panel-description>
+          |                        
+          |                        {{ selected${model.entityName.pascalCase}.${model.idAttribute.attributeName.camelCase} }}
+          |                                            </mat-panel-description>
           |                }
           |            </mat-expansion-panel-header>
           |

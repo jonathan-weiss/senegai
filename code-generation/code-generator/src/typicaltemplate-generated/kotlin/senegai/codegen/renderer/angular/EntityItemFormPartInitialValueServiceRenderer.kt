@@ -9,8 +9,8 @@ import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewItemModel
  * Generate the content for the template `EntityItemFormPartInitialValueServiceRenderer`.
  *
  * This template renderer was generated from the template:
- * - file: `silva-optionum-form-part-initial-value.service.ts`
- * - path: `opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part-initial-value.service.ts`
+ * - file: `opus-magnum-form-part-initial-value.service.ts`
+ * - path: `opus-magnum/opus-magnum-form/opus-magnum-form-part/opus-magnum-form-part-initial-value.service.ts`
  */
 object EntityItemFormPartInitialValueServiceRenderer : UiEntityItemRenderer {
 
@@ -21,10 +21,8 @@ object EntityItemFormPartInitialValueServiceRenderer : UiEntityItemRenderer {
           |
           |
           |@Injectable({providedIn: 'root'})
-          |export class ${model.item.itemName.pascalCase}FormPartInitialValueService {
-          |    
-          |
-          |${ model.item.attributes.joinToString("") { attribute ->  """
+          |export class ${model.entity.entityName.pascalCase}FormPartInitialValueService {
+          |    ${ model.item.attributes.joinToString("") { attribute ->  """
               |    ${attribute.attributeName.camelCase}InitialValue(): ${attribute.typescriptAttributeFormType} {
               |        return ${attribute.formInitialValue}
               |    }
@@ -35,6 +33,6 @@ object EntityItemFormPartInitialValueServiceRenderer : UiEntityItemRenderer {
     }
 
     override fun filePath(model: UiEntityFormViewItemModel): String {
-      return "${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-initial-value.service.ts"
+      return "${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-form-part/${model.entity.entityName.kebabCase}-form-part-initial-value.service.ts"
     }
 }

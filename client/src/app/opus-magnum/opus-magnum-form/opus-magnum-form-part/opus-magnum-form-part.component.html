@@ -14,19 +14,16 @@
     ]
 
     @replace-value-by-expression
-        [ searchValue="silva-optionum" replaceByExpression="model.item.itemName.kebabCase" ]
-        [ searchValue="SilvaOptionum" replaceByExpression="model.item.itemName.pascalCase" ]
-        [ searchValue="silvaOptionum" replaceByExpression="model.item.itemName.camelCase" ]
-        [ searchValue="opus-magnum" replaceByExpression="model.entity.entityName.kebabCase" ]
-        [ searchValue="OpusMagnum" replaceByExpression="model.entity.entityName.pascalCase" ]
-        [ searchValue="opusMagnum" replaceByExpression="model.entity.entityName.camelCase" ]
+        [ searchValue="opus-magnum" replaceByExpression="model.item.itemName.kebabCase" ]
+        [ searchValue="OpusMagnum" replaceByExpression="model.item.itemName.pascalCase" ]
+        [ searchValue="opusMagnum" replaceByExpression="model.item.itemName.camelCase" ]
 
     @modify-provided-filename-by-replacements
 
     @rla
 
 }}}@ -->
-<div [formGroup]="silvaOptionumForm">
+<div [formGroup]="opusMagnumForm">
 
 <mat-tab-group dynamicHeight>
 <!-- @tt{{{
@@ -44,6 +41,17 @@
             }}}@  -->
 
             <div class="column">
+                <!-- @tt{{{ @rlb  @ignore-text @rla }}}@ -->
+                <div class="form-row">
+                    <app-field-wrapper label="IndexUnicus">
+                        <mat-form-field appearance="fill">
+                            <input matInput [formControl]="indexUnicusControl" readonly>
+                            <mat-hint>IndexUnicus cannot be modified</mat-hint>
+                        </mat-form-field>
+                    </app-field-wrapper>
+                </div>
+                <!-- @tt{{{ @rlb  @end-ignore-text @rla }}}@ -->
+
                 <!-- @tt{{{
                     @foreach [ iteratorExpression="column.blocks" loopVariable="block" ]
 
@@ -57,10 +65,10 @@
                     @if [ conditionExpression="block is senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormNamedSectionSplitBlockModel" ]
 
                     @replace-value-by-expression
-                    [ searchValue="All won Articulus Interior" replaceByExpression="block.sectionName" ]
+                    [ searchValue="Veni, vidi, vici" replaceByExpression="block.sectionName" ]
 
                 }}}@  -->
-                <app-section-splitter label="All won Articulus Interior"></app-section-splitter>
+                <app-section-splitter label="Veni, vidi, vici"></app-section-splitter>
                 <!-- @tt{{{
                     @else-if [ conditionExpression="block is senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormTextBlockModel" ]
                     @replace-value-by-expression

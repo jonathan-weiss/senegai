@@ -32,6 +32,9 @@ object EntityFormComponentTypescriptRenderer : UiEntityRenderer {
           |import {${model.entityName.pascalCase}WTO} from "@app/wto/${model.entityName.kebabCase}.wto";
           |import {${model.entityName.pascalCase}FormPartService} from "@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}-form/${model.entityName.kebabCase}-form-part/${model.entityName.kebabCase}-form-part.service";
           |import {${model.entityName.pascalCase}FormPartComponent} from "@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}-form/${model.entityName.kebabCase}-form-part/${model.entityName.kebabCase}-form-part.component";
+          |import {
+          |    ${model.entityName.pascalCase}FormPartGroup
+          |} from "@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}-form/${model.entityName.kebabCase}-form-part/${model.entityName.kebabCase}-form-part-group";
           |
           |@Component({
           |    selector: 'app-${model.entityName.kebabCase}-form',
@@ -58,7 +61,7 @@ object EntityFormComponentTypescriptRenderer : UiEntityRenderer {
           |    @Output() save = new EventEmitter<${model.entityName.pascalCase}WTO>();
           |    @Output() cancel = new EventEmitter<void>();
           |
-          |    ${model.entityName.camelCase}Form: FormGroup;
+          |    ${model.entityName.camelCase}Form: FormGroup<${model.entityName.pascalCase}FormPartGroup>;
           |
           |    constructor(private ${model.entityName.camelCase}FormPartService: ${model.entityName.pascalCase}FormPartService) {
           |        this.${model.entityName.camelCase}Form = ${model.entityName.camelCase}FormPartService.createInitial${model.entityName.pascalCase}Form();
@@ -66,13 +69,14 @@ object EntityFormComponentTypescriptRenderer : UiEntityRenderer {
           |
           |    ngOnInit(): void {
           |        if (this.${model.entityName.camelCase}) {
-          |            this.${model.entityName.camelCase}FormPartService.patch${model.entityName.pascalCase}Form(this.${model.entityName.camelCase}Form, this.${model.entityName.camelCase})
+          |            this.${model.entityName.camelCase}FormPartService.patchPreparation(this.${model.entityName.camelCase}Form, this.${model.entityName.camelCase})
+          |            this.${model.entityName.camelCase}Form.patchValue(this.${model.entityName.camelCase});
           |        }
           |    }
           |
           |    onSubmit(): void {
           |        if (this.${model.entityName.camelCase}Form.valid) {
-          |            const updated${model.entityName.pascalCase}: ${model.entityName.pascalCase}WTO = this.${model.entityName.camelCase}FormPartService.create${model.entityName.pascalCase}FromFormData(this.${model.entityName.camelCase}Form)
+          |            const updated${model.entityName.pascalCase}: ${model.entityName.pascalCase}WTO = this.${model.entityName.camelCase}Form.getRawValue()
           |            this.save.emit(updated${model.entityName.pascalCase});
           |        }
           |    }

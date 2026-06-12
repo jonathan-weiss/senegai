@@ -40,6 +40,9 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {OpusMagnumWTO} from "@app/wto/opus-magnum.wto";
 import {OpusMagnumFormPartService} from "@app/opus-magnum/opus-magnum-form/opus-magnum-form-part/opus-magnum-form-part.service";
 import {OpusMagnumFormPartComponent} from "@app/opus-magnum/opus-magnum-form/opus-magnum-form-part/opus-magnum-form-part.component";
+import {
+    OpusMagnumFormPartGroup
+} from "@app/opus-magnum/opus-magnum-form/opus-magnum-form-part/opus-magnum-form-part-group";
 
 @Component({
     selector: 'app-opus-magnum-form',
@@ -66,7 +69,7 @@ export class OpusMagnumFormComponent implements OnInit {
     @Output() save = new EventEmitter<OpusMagnumWTO>();
     @Output() cancel = new EventEmitter<void>();
 
-    opusMagnumForm: FormGroup;
+    opusMagnumForm: FormGroup<OpusMagnumFormPartGroup>;
 
     constructor(private opusMagnumFormPartService: OpusMagnumFormPartService) {
         this.opusMagnumForm = opusMagnumFormPartService.createInitialOpusMagnumForm();
@@ -74,13 +77,14 @@ export class OpusMagnumFormComponent implements OnInit {
 
     ngOnInit(): void {
         if (this.opusMagnum) {
-            this.opusMagnumFormPartService.patchOpusMagnumForm(this.opusMagnumForm, this.opusMagnum)
+            this.opusMagnumFormPartService.patchPreparation(this.opusMagnumForm, this.opusMagnum)
+            this.opusMagnumForm.patchValue(this.opusMagnum);
         }
     }
 
     onSubmit(): void {
         if (this.opusMagnumForm.valid) {
-            const updatedOpusMagnum: OpusMagnumWTO = this.opusMagnumFormPartService.createOpusMagnumFromFormData(this.opusMagnumForm)
+            const updatedOpusMagnum: OpusMagnumWTO = this.opusMagnumForm.getRawValue()
             this.save.emit(updatedOpusMagnum);
         }
     }

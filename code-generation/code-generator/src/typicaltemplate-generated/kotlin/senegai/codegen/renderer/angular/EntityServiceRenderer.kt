@@ -37,18 +37,18 @@ object EntityServiceRenderer : UiEntityRenderer {
           |        return of(this.${model.entityName.camelCase}List).pipe(delay(200));
           |    }
           |
-          |    get${model.entityName.pascalCase}ById(id: string): Observable<${model.entityName.pascalCase}WTO | null> {
-          |        const found = this.${model.entityName.camelCase}List.find(a => a.id === id) || null;
+          |    get${model.entityName.pascalCase}ById(${model.idAttribute.attributeName.camelCase}: string): Observable<${model.entityName.pascalCase}WTO | null> {
+          |        const found = this.${model.entityName.camelCase}List.find(a => a.${model.idAttribute.attributeName.camelCase} === ${model.idAttribute.attributeName.camelCase}) || null;
           |        return of(found).pipe(delay(200));
           |    }
           |
-          |    delete${model.entityName.pascalCase}(id: string): Observable<void> {
-          |        this.${model.entityName.camelCase}List = this.${model.entityName.camelCase}List.filter(a => a.id !== id);
+          |    delete${model.entityName.pascalCase}(${model.idAttribute.attributeName.camelCase}: string): Observable<void> {
+          |        this.${model.entityName.camelCase}List = this.${model.entityName.camelCase}List.filter(a => a.${model.idAttribute.attributeName.camelCase} !== ${model.idAttribute.attributeName.camelCase});
           |        return of(void 0).pipe(delay(200));
           |    }
           |
           |    update${model.entityName.pascalCase}(${model.entityName.camelCase}: ${model.entityName.pascalCase}WTO): Observable<${model.entityName.pascalCase}WTO> {
-          |        const idx = this.${model.entityName.camelCase}List.findIndex(a => a.id === ${model.entityName.camelCase}.id);
+          |        const idx = this.${model.entityName.camelCase}List.findIndex(a => a.${model.idAttribute.attributeName.camelCase} === ${model.entityName.camelCase}.${model.idAttribute.attributeName.camelCase});
           |        if (idx !== -1) {
           |            this.${model.entityName.camelCase}List[idx] = {...${model.entityName.camelCase}};
           |        }
@@ -56,7 +56,7 @@ object EntityServiceRenderer : UiEntityRenderer {
           |    }
           |
           |    create${model.entityName.pascalCase}(${model.entityName.camelCase}: ${model.entityName.pascalCase}WTO): Observable<${model.entityName.pascalCase}WTO> {
-          |        const created: ${model.entityName.pascalCase}WTO = {...${model.entityName.camelCase}, id: crypto.randomUUID()};
+          |        const created: ${model.entityName.pascalCase}WTO = {...${model.entityName.camelCase}, ${model.idAttribute.attributeName.camelCase}: crypto.randomUUID()};
           |        this.${model.entityName.camelCase}List = [...this.${model.entityName.camelCase}List, created];
           |        return of(created).pipe(delay(200));
           |    }

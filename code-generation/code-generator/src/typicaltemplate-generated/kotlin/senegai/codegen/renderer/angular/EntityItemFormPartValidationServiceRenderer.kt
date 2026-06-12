@@ -9,8 +9,8 @@ import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewItemModel
  * Generate the content for the template `EntityItemFormPartValidationServiceRenderer`.
  *
  * This template renderer was generated from the template:
- * - file: `silva-optionum-form-part-validation.service.ts`
- * - path: `opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part-validation.service.ts`
+ * - file: `opus-magnum-form-part-validation.service.ts`
+ * - path: `opus-magnum/opus-magnum-form/opus-magnum-form-part/opus-magnum-form-part-validation.service.ts`
  */
 object EntityItemFormPartValidationServiceRenderer : UiEntityItemRenderer {
 
@@ -19,19 +19,19 @@ object EntityItemFormPartValidationServiceRenderer : UiEntityItemRenderer {
           |
           |import {Injectable} from '@angular/core';
           |import {ValidatorFn, Validators} from "@angular/forms";
-          |import {${model.item.itemName.pascalCase}FormPartFieldName} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-field-name";
+          |import {${model.entity.entityName.pascalCase}FormPartFieldName} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-form-part/${model.entity.entityName.kebabCase}-form-part-field-name";
           |import {NamedValidator} from "@app/shared/form-controls/named-validator";
           |import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
           |
           |
           |@Injectable({providedIn: 'root'})
-          |export class ${model.item.itemName.pascalCase}FormPartValidationService {
+          |export class ${model.entity.entityName.pascalCase}FormPartValidationService {
           |
-          |    validatorFunctions(field: ${model.item.itemName.pascalCase}FormPartFieldName): Array<ValidatorFn> {
+          |    validatorFunctions(field: ${model.entity.entityName.pascalCase}FormPartFieldName): Array<ValidatorFn> {
           |        return this.namedValidators(field).map(namedValidator => namedValidator.validatorFunction)
           |    }
           |
-          |    validatorNames(field: ${model.item.itemName.pascalCase}FormPartFieldName): Array<ValidatorTranslation> {
+          |    validatorNames(field: ${model.entity.entityName.pascalCase}FormPartFieldName): Array<ValidatorTranslation> {
           |        return this.namedValidators(field)
           |            .map(namedValidator => this.toValidatorTranslation(namedValidator))
           |    }
@@ -43,10 +43,10 @@ object EntityItemFormPartValidationServiceRenderer : UiEntityItemRenderer {
           |        }
           |    }
           |
-          |    namedValidators(field: ${model.item.itemName.pascalCase}FormPartFieldName): ReadonlyArray<NamedValidator> {
+          |    namedValidators(field: ${model.entity.entityName.pascalCase}FormPartFieldName): ReadonlyArray<NamedValidator> {
           |        switch(field) {
           |            ${ model.item.attributes.joinToString("") { attribute ->  """
-              |            case ${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}: return [
+              |            case ${model.entity.entityName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}: return [
               |                {
               |                    validatorName: "required",
               |                    validatorFunction: Validators.required,
@@ -67,6 +67,6 @@ object EntityItemFormPartValidationServiceRenderer : UiEntityItemRenderer {
     }
 
     override fun filePath(model: UiEntityFormViewItemModel): String {
-      return "${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-validation.service.ts"
+      return "${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-form-part/${model.entity.entityName.kebabCase}-form-part-validation.service.ts"
     }
 }

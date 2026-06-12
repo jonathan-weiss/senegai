@@ -68,12 +68,11 @@
                 @if (selectedOpusMagnum) {
                     <mat-panel-description>
                         <!-- @tt{{{ @rlb
-    @foreach [ iteratorExpression="model.summaryAttributes" loopVariable="attribute" ]
-
-    @replace-value-by-expression
-    [ searchValue="title" replaceByExpression="attribute.attributeName.camelCase" ]
-}}}@  -->{{ selectedOpusMagnum.title }} <!-- @tt{{{ @end-foreach @rla }}}@ -->
-
+                            @replace-value-by-expression
+                            [ searchValue="indexUnicus" replaceByExpression="model.idAttribute.attributeName.camelCase" ]
+                        }}}@  -->
+                        {{ selectedOpusMagnum.indexUnicus }}
+                        <!-- @tt{{{ @end-replace-value-by-expression @rla }}}@ -->
                     </mat-panel-description>
                 }
             </mat-expansion-panel-header>

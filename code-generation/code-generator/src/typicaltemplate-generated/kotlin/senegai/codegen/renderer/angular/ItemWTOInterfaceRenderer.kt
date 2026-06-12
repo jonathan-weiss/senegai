@@ -9,8 +9,8 @@ import senegai.codegen.renderer.model.ui.UiItemModel
  * Generate the content for the template `ItemWTOInterfaceRenderer`.
  *
  * This template renderer was generated from the template:
- * - file: `silva-optionum.wto.ts`
- * - path: `wto/silva-optionum.wto.ts`
+ * - file: `opus-magnum.wto.ts`
+ * - path: `wto/opus-magnum.wto.ts`
  */
 object ItemWTOInterfaceRenderer : UiItemRenderer {
 
