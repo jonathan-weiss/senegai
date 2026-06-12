@@ -27,7 +27,9 @@
 
 }}}@ -->
 <div [formGroup]="silvaOptionumForm">
-
+<!-- @tt{{{
+    @if [ conditionExpression="model.tabs.isNotEmpty()" ]
+}}}@  -->
 <mat-tab-group dynamicHeight>
 <!-- @tt{{{
     @foreach [ iteratorExpression="model.tabs" loopVariable="tab" ]
@@ -44,6 +46,34 @@
             }}}@  -->
 
             <div class="column">
+                <!-- @tt{{{
+                    @render-template
+                    [ templateRendererClassName="EntityItemFormPartBlocksComponentHtmlRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" ]
+                    [ modelName="blocks" modelExpression="column.blocks" ]
+                    [ modelName="item" modelExpression="model.item" ]
+                    [ modelName="entity" modelExpression="model.entity" ]
+                }}}@  -->
+
+                <!-- @tt{{{
+                    @template-renderer [
+                        templateRendererClassName="EntityItemFormPartBlocksComponentHtmlRenderer"
+                        templateRendererPackageName="senegai.codegen.renderer.angular"
+                    ] [
+                        modelClassName="UiEntityFormBlockModel"
+                        modelPackageName="senegai.codegen.renderer.model.ui.entityform.blocks"
+                        modelName="blocks"
+                        isList="yes"
+                    ] [
+                        modelClassName="UiItemModel"
+                        modelPackageName="senegai.codegen.renderer.model.ui"
+                        modelName="item"
+                    ] [
+                        modelClassName="UiEntityModel"
+                        modelPackageName="senegai.codegen.renderer.model.ui"
+                        modelName="entity"
+                    ]
+                }}}@  -->
+
                 <!-- @tt{{{ @rlb  @ignore-text @rla }}}@ -->
                 <div class="form-row">
                     <app-field-wrapper label="IndexUnicus">
@@ -56,7 +86,7 @@
                 <!-- @tt{{{ @rlb  @end-ignore-text @rla }}}@ -->
 
                 <!-- @tt{{{
-                    @foreach [ iteratorExpression="column.blocks" loopVariable="block" ]
+                    @foreach [ iteratorExpression="blocks" loopVariable="block" ]
 
                 @replace-value-by-expression
                 [ searchValue="BLOCK-TYPE" replaceByExpression="block" ]
@@ -98,7 +128,6 @@
                                 @render-template
                                     [ templateRendererClassName="SingleFormInputHtmlTagRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" ]
                                     [ modelName="attributeModel" modelExpression="block.attribute" ]
-                                    [ modelName="model" modelExpression="model" ]
                                 @ignore-text
                             }}}@  -->
                             <app-text-input [textFormControl]="campusTextusObligatoriusControl" label="campusTextusObligatorius" placeholder="Enter Campus Textus Obligatorius" [validatorTranslations]="campusTextusObligatoriusValidatorNames" />
@@ -124,7 +153,6 @@
                                 @render-template
                                     [ templateRendererClassName="SingleFormInputHtmlTagRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" ]
                                     [ modelName="attributeModel" modelExpression="block.attribute" ]
-                                    [ modelName="model" modelExpression="model" ]
                                 @ignore-text
                             }}}@  -->
                             <app-text-input [textFormControl]="campusTextusOptionalisControl" label="campusTextusOptionalis" placeholder="Enter campusTextusOptionalis" [validatorTranslations]="campusTextusOptionalisValidatorNames" />
@@ -160,7 +188,6 @@
                                     @render-template
                                         [ templateRendererClassName="SingleFormInputHtmlTagRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" ]
                                         [ modelName="attributeModel" modelExpression="block.attribute" ]
-                                        [ modelName="model" modelExpression="model" ]
                                     @ignore-text
                                 }}}@  -->
                                 <app-articulus-interior-form-part [articulusInteriorForm]="articulusInteriorListFormGroupUnderEdit!"  />
@@ -177,6 +204,7 @@
                  @end-foreach
                  @rla
                 }}}@  -->
+                <!-- @tt{{{ @rlb  @end-template-renderer @rla }}}@ -->
             </div>
             <!-- @tt{{{ @rlb @end-foreach @rla }}}@ -->
             <!-- @tt{{{ @rlb  @ignore-text @rla }}}@ -->
@@ -227,4 +255,31 @@
     </mat-tab>
     <!-- @tt{{{ @rlb  @end-ignore-text @rla }}}@ -->
 </mat-tab-group>
+<!-- @tt{{{
+    @end-if
+}}}@  -->
+
+<!-- @tt{{{
+    @if [ conditionExpression="model.noTab.isNotEmpty()" ]
+}}}@  -->
+<div class="column-layout">
+    <!-- @tt{{{
+        @foreach [ iteratorExpression="model.noTab" loopVariable="column" ]
+    }}}@  -->
+    <div class="column">
+            <!-- @tt{{{
+                @render-template
+                [ templateRendererClassName="EntityItemFormPartBlocksComponentHtmlRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" ]
+                [ modelName="blocks" modelExpression="column.blocks" ]
+                [ modelName="item" modelExpression="model.item" ]
+                [ modelName="entity" modelExpression="model.entity" ]
+            }}}@  -->
+    </div>
+    <!-- @tt{{{
+        @end-foreach
+    }}}@  -->
+</div>
+<!-- @tt{{{
+    @end-if
+}}}@  -->
 </div>

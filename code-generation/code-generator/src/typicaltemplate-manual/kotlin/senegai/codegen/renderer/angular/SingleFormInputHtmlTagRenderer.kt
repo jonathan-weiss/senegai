@@ -25,7 +25,6 @@ object SingleFormInputHtmlTagRenderer {
      *  ` <app-appellatio-selector [enumFormControl]="appellatioControl" [validatorTranslations]="appellatioValidatorNames" />`
      */
     fun renderTemplate(
-        model: UiEntityFormViewItemModel,
         attributeModel: UiItemAttributeModel,
     ): String {
         val inputTag = when (attributeModel.type) {
