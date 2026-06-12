@@ -94,6 +94,7 @@ object RendererModelConverter {
 
     private fun mapUiEntityViewsModel(uiEntity: UiEntity, entityItemModelIds: Set<ItemId>, allUiItemModels: List<UiItemModel>, allEnumTypes: List<EnumType>): UiEntityViewsModel {
         val uiEntityModel = UiEntityModel(
+            entityName = NameCase(uiEntity.entity.entityName),
             entityRootItem = allUiItemModels.single { it.itemId == uiEntity.entity.item.itemId },
             entityItemModels = allUiItemModels.filter { it.itemId in entityItemModelIds },
             entityEnumTypes = allEnumTypes, // TODO filter for only the enums used in this entity

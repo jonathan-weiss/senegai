@@ -14,9 +14,12 @@
     ]
 
     @replace-value-by-expression
-      [ searchValue="opus-magnum" replaceByExpression="model.item.itemName.kebabCase" ]
-      [ searchValue="OpusMagnum" replaceByExpression="model.item.itemName.pascalCase" ]
-      [ searchValue="opusMagnum" replaceByExpression="model.item.itemName.camelCase" ]
+      [ searchValue="OpusMagnum" replaceByExpression="model.entity.entityName.pascalCase" ]
+      [ searchValue="opusMagnum" replaceByExpression="model.entity.entityName.camelCase" ]
+      [ searchValue="opus-magnum" replaceByExpression="model.entity.entityName.kebabCase" ]
+      [ searchValue="silva-optionum" replaceByExpression="model.item.itemName.kebabCase" ]
+      [ searchValue="SilvaOptionum" replaceByExpression="model.item.itemName.pascalCase" ]
+      [ searchValue="silvaOptionum" replaceByExpression="model.item.itemName.camelCase" ]
 
     @modify-provided-filename-by-replacements
 

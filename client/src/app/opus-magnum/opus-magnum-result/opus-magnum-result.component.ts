@@ -18,6 +18,9 @@
         [ searchValue="OpusMagnum" replaceByExpression="model.entityName.pascalCase" ]
         [ searchValue="opusMagnum" replaceByExpression="model.entityName.camelCase" ]
         [ searchValue="opus-magnum" replaceByExpression="model.entityName.kebabCase" ]
+        [ searchValue="SilvaOptionum" replaceByExpression="model.entityRootItem.itemName.pascalCase" ]
+        [ searchValue="silvaOptionum" replaceByExpression="model.entityRootItem.itemName.camelCase" ]
+        [ searchValue="silva-optionum" replaceByExpression="model.entityRootItem.itemName.kebabCase" ]
 
     @modify-provided-filename-by-replacements
 
@@ -39,7 +42,7 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {MatDialogModule} from "@angular/material/dialog";
-import {OpusMagnumWTO} from "@app/wto/opus-magnum.wto";
+import {SilvaOptionumWTO} from "@app/wto/silva-optionum-wto";
 
 @Component({
     selector: 'app-opus-magnum-result',
@@ -63,8 +66,8 @@ import {OpusMagnumWTO} from "@app/wto/opus-magnum.wto";
 export class OpusMagnumResultComponent implements OnChanges {
     @Input() searchCriteria: OpusMagnumSearchCriteria = {};
     @Input() refreshKey: number = 0;
-    @Output() selectOpusMagnum = new EventEmitter<OpusMagnumWTO>();
-    @Output() deleteOpusMagnum = new EventEmitter<OpusMagnumWTO>();
+    @Output() selectOpusMagnum = new EventEmitter<SilvaOptionumWTO>();
+    @Output() deleteOpusMagnum = new EventEmitter<SilvaOptionumWTO>();
     @Output() createOpusMagnum = new EventEmitter<void>();
 
     displayedColumns: string[] = [
@@ -82,8 +85,8 @@ export class OpusMagnumResultComponent implements OnChanges {
     /* @tt{{{ @rlb @end-foreach @rla }}}@ */
         'actions'
     ];
-    dataSource: MatTableDataSource<OpusMagnumWTO> = new MatTableDataSource<OpusMagnumWTO>();
-    private allOpusMagnums: OpusMagnumWTO[] = [];
+    dataSource: MatTableDataSource<SilvaOptionumWTO> = new MatTableDataSource<SilvaOptionumWTO>();
+    private allOpusMagnums: SilvaOptionumWTO[] = [];
 
     constructor(private opusMagnumService: OpusMagnumService) {
         this.loadOpusMagnums();
@@ -98,7 +101,7 @@ export class OpusMagnumResultComponent implements OnChanges {
     }
 
     private loadOpusMagnums(): void {
-        this.opusMagnumService.getOpusMagnums().subscribe(opusMagnumList => {
+        this.opusMagnumService.getSilvaOptionumList().subscribe(opusMagnumList => {
             this.allOpusMagnums = opusMagnumList;
             this.filterOpusMagnums();
         });
@@ -108,11 +111,11 @@ export class OpusMagnumResultComponent implements OnChanges {
         this.createOpusMagnum.emit();
     }
 
-    onEdit(opusMagnum: OpusMagnumWTO): void {
+    onEdit(opusMagnum: SilvaOptionumWTO): void {
         this.selectOpusMagnum.emit(opusMagnum);
     }
 
-    onDelete(opusMagnum: OpusMagnumWTO): void {
+    onDelete(opusMagnum: SilvaOptionumWTO): void {
         this.deleteOpusMagnum.emit(opusMagnum);
     }
 
@@ -120,7 +123,7 @@ export class OpusMagnumResultComponent implements OnChanges {
         this.dataSource.data = this.filteredOpusMagnumList(this.searchCriteria, this.allOpusMagnums);
     }
 
-    private filteredOpusMagnumList(searchCriteria: OpusMagnumSearchCriteria, allOpusMagnum: OpusMagnumWTO[]): OpusMagnumWTO[] {
+    private filteredOpusMagnumList(searchCriteria: OpusMagnumSearchCriteria, allOpusMagnum: SilvaOptionumWTO[]): SilvaOptionumWTO[] {
         const searchTokens = searchCriteria?.searchQuery?.split(" ") ?? [];
         if(searchTokens.length < 1) {
             return allOpusMagnum
@@ -131,7 +134,7 @@ export class OpusMagnumResultComponent implements OnChanges {
         }
     }
 
-    private isMatchingCriteria(searchCriteriaText: string | undefined | null, opusMagnum: OpusMagnumWTO): boolean {
+    private isMatchingCriteria(searchCriteriaText: string | undefined | null, opusMagnum: SilvaOptionumWTO): boolean {
         if(searchCriteriaText == undefined) {
             return true;
         }

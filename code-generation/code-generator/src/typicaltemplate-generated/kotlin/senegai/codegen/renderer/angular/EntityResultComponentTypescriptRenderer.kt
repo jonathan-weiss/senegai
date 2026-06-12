@@ -31,7 +31,7 @@ object EntityResultComponentTypescriptRenderer : UiEntityRenderer {
           |import {MatSidenavModule} from "@angular/material/sidenav";
           |import {MatListModule} from "@angular/material/list";
           |import {MatDialogModule} from "@angular/material/dialog";
-          |import {${model.entityName.pascalCase}WTO} from "@app/wto/${model.entityName.kebabCase}.wto";
+          |import {${model.entityRootItem.itemName.pascalCase}WTO} from "@app/wto/${model.entityRootItem.itemName.kebabCase}-wto";
           |
           |@Component({
           |    selector: 'app-${model.entityName.kebabCase}-result',
@@ -55,8 +55,8 @@ object EntityResultComponentTypescriptRenderer : UiEntityRenderer {
           |export class ${model.entityName.pascalCase}ResultComponent implements OnChanges {
           |    @Input() searchCriteria: ${model.entityName.pascalCase}SearchCriteria = {};
           |    @Input() refreshKey: number = 0;
-          |    @Output() select${model.entityName.pascalCase} = new EventEmitter<${model.entityName.pascalCase}WTO>();
-          |    @Output() delete${model.entityName.pascalCase} = new EventEmitter<${model.entityName.pascalCase}WTO>();
+          |    @Output() select${model.entityName.pascalCase} = new EventEmitter<${model.entityRootItem.itemName.pascalCase}WTO>();
+          |    @Output() delete${model.entityName.pascalCase} = new EventEmitter<${model.entityRootItem.itemName.pascalCase}WTO>();
           |    @Output() create${model.entityName.pascalCase} = new EventEmitter<void>();
           |
           |    displayedColumns: string[] = [
@@ -64,8 +64,8 @@ object EntityResultComponentTypescriptRenderer : UiEntityRenderer {
               |        '${attribute.attributeName.camelCase}',
           """ } }        'actions'
           |    ];
-          |    dataSource: MatTableDataSource<${model.entityName.pascalCase}WTO> = new MatTableDataSource<${model.entityName.pascalCase}WTO>();
-          |    private all${model.entityName.pascalCase}s: ${model.entityName.pascalCase}WTO[] = [];
+          |    dataSource: MatTableDataSource<${model.entityRootItem.itemName.pascalCase}WTO> = new MatTableDataSource<${model.entityRootItem.itemName.pascalCase}WTO>();
+          |    private all${model.entityName.pascalCase}s: ${model.entityRootItem.itemName.pascalCase}WTO[] = [];
           |
           |    constructor(private ${model.entityName.camelCase}Service: ${model.entityName.pascalCase}Service) {
           |        this.load${model.entityName.pascalCase}s();
@@ -80,7 +80,7 @@ object EntityResultComponentTypescriptRenderer : UiEntityRenderer {
           |    }
           |
           |    private load${model.entityName.pascalCase}s(): void {
-          |        this.${model.entityName.camelCase}Service.get${model.entityName.pascalCase}s().subscribe(${model.entityName.camelCase}List => {
+          |        this.${model.entityName.camelCase}Service.get${model.entityRootItem.itemName.pascalCase}List().subscribe(${model.entityName.camelCase}List => {
           |            this.all${model.entityName.pascalCase}s = ${model.entityName.camelCase}List;
           |            this.filter${model.entityName.pascalCase}s();
           |        });
@@ -90,11 +90,11 @@ object EntityResultComponentTypescriptRenderer : UiEntityRenderer {
           |        this.create${model.entityName.pascalCase}.emit();
           |    }
           |
-          |    onEdit(${model.entityName.camelCase}: ${model.entityName.pascalCase}WTO): void {
+          |    onEdit(${model.entityName.camelCase}: ${model.entityRootItem.itemName.pascalCase}WTO): void {
           |        this.select${model.entityName.pascalCase}.emit(${model.entityName.camelCase});
           |    }
           |
-          |    onDelete(${model.entityName.camelCase}: ${model.entityName.pascalCase}WTO): void {
+          |    onDelete(${model.entityName.camelCase}: ${model.entityRootItem.itemName.pascalCase}WTO): void {
           |        this.delete${model.entityName.pascalCase}.emit(${model.entityName.camelCase});
           |    }
           |
@@ -102,7 +102,7 @@ object EntityResultComponentTypescriptRenderer : UiEntityRenderer {
           |        this.dataSource.data = this.filtered${model.entityName.pascalCase}List(this.searchCriteria, this.all${model.entityName.pascalCase}s);
           |    }
           |
-          |    private filtered${model.entityName.pascalCase}List(searchCriteria: ${model.entityName.pascalCase}SearchCriteria, all${model.entityName.pascalCase}: ${model.entityName.pascalCase}WTO[]): ${model.entityName.pascalCase}WTO[] {
+          |    private filtered${model.entityName.pascalCase}List(searchCriteria: ${model.entityName.pascalCase}SearchCriteria, all${model.entityName.pascalCase}: ${model.entityRootItem.itemName.pascalCase}WTO[]): ${model.entityRootItem.itemName.pascalCase}WTO[] {
           |        const searchTokens = searchCriteria?.searchQuery?.split(" ") ?? [];
           |        if(searchTokens.length < 1) {
           |            return all${model.entityName.pascalCase}
@@ -113,7 +113,7 @@ object EntityResultComponentTypescriptRenderer : UiEntityRenderer {
           |        }
           |    }
           |
-          |    private isMatchingCriteria(searchCriteriaText: string | undefined | null, ${model.entityName.camelCase}: ${model.entityName.pascalCase}WTO): boolean {
+          |    private isMatchingCriteria(searchCriteriaText: string | undefined | null, ${model.entityName.camelCase}: ${model.entityRootItem.itemName.pascalCase}WTO): boolean {
           |        if(searchCriteriaText == undefined) {
           |            return true;
           |        }

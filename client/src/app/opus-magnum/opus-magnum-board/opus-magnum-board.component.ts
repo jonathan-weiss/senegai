@@ -18,6 +18,9 @@
         [ searchValue="OpusMagnum" replaceByExpression="model.entityName.pascalCase" ]
         [ searchValue="opusMagnum" replaceByExpression="model.entityName.camelCase" ]
         [ searchValue="opus-magnum" replaceByExpression="model.entityName.kebabCase" ]
+        [ searchValue="SilvaOptionum" replaceByExpression="model.entityRootItem.itemName.pascalCase" ]
+        [ searchValue="silvaOptionum" replaceByExpression="model.entityRootItem.itemName.camelCase" ]
+        [ searchValue="silva-optionum" replaceByExpression="model.entityRootItem.itemName.kebabCase" ]
 
     @replace-value-by-expression
         [ searchValue="indexUnicus" replaceByExpression="model.idAttribute.attributeName.camelCase" ]
@@ -45,7 +48,7 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {OpusMagnumFormComponent} from "@app/opus-magnum/opus-magnum-form/opus-magnum-form/opus-magnum-form.component";
-import {OpusMagnumWTO} from "@app/wto/opus-magnum.wto";
+import {SilvaOptionumWTO} from "@app/wto/silva-optionum-wto";
 import {TranslocoPipe} from "@jsverse/transloco";
 
 @Component({
@@ -73,7 +76,7 @@ import {TranslocoPipe} from "@jsverse/transloco";
 })
 export class OpusMagnumBoardComponent {
     currentSearchCriteria: OpusMagnumSearchCriteria = {};
-    selectedOpusMagnum: OpusMagnumWTO | null = null;
+    selectedOpusMagnum: SilvaOptionumWTO | null = null;
     creating = false;
     refreshKey = 0;
 
@@ -89,12 +92,12 @@ export class OpusMagnumBoardComponent {
         this.creating = true;
     }
 
-    onOpusMagnumSelect(opusMagnum: OpusMagnumWTO): void {
+    onOpusMagnumSelect(opusMagnum: SilvaOptionumWTO): void {
         this.creating = false;
         this.selectedOpusMagnum = opusMagnum;
     }
 
-    onDeleteOpusMagnum(opusMagnum: OpusMagnumWTO): void {
+    onDeleteOpusMagnum(opusMagnum: SilvaOptionumWTO): void {
         const dialogRef = this.dialog.open(OpusMagnumConfirmDeleteDialogComponent, {
             data: {
                 entity: opusMagnum,
@@ -102,17 +105,17 @@ export class OpusMagnumBoardComponent {
         });
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.opusMagnumService.deleteOpusMagnum(opusMagnum.indexUnicus).subscribe(() => {
+                this.opusMagnumService.deleteSilvaOptionum(opusMagnum.indexUnicus).subscribe(() => {
                     this.refreshKey++;
                 });
             }
         });
     }
 
-    onSave(opusMagnum: OpusMagnumWTO): void {
+    onSave(opusMagnum: SilvaOptionumWTO): void {
         const save$ = this.creating
-            ? this.opusMagnumService.createOpusMagnum(opusMagnum)
-            : this.opusMagnumService.updateOpusMagnum(opusMagnum);
+            ? this.opusMagnumService.createSilvaOptionum(opusMagnum)
+            : this.opusMagnumService.updateSilvaOptionum(opusMagnum);
         save$.subscribe(() => {
             this.selectedOpusMagnum = null;
             this.creating = false;

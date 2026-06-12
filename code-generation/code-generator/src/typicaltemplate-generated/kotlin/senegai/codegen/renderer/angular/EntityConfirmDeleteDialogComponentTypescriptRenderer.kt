@@ -29,7 +29,7 @@ object EntityConfirmDeleteDialogComponentTypescriptRenderer : UiEntityRenderer {
           |import {MatExpansionModule} from "@angular/material/expansion";
           |import {MatSidenavModule} from "@angular/material/sidenav";
           |import {MatListModule} from "@angular/material/list";
-          |import {${model.entityName.pascalCase}WTO} from "@app/wto/${model.entityName.kebabCase}.wto";
+          |import {${model.entityRootItem.itemName.pascalCase}WTO} from "@app/wto/${model.entityRootItem.itemName.kebabCase}-wto";
           |import {JsonPipe} from "@angular/common";
           |
           |@Component({
@@ -56,7 +56,7 @@ object EntityConfirmDeleteDialogComponentTypescriptRenderer : UiEntityRenderer {
           |    constructor(
           |        public dialogRef: MatDialogRef<${model.entityName.pascalCase}ConfirmDeleteDialogComponent>,
           |        @Inject(MAT_DIALOG_DATA) public data: {
-          |            entity: ${model.entityName.pascalCase}WTO,
+          |            entity: ${model.entityRootItem.itemName.pascalCase}WTO,
           |        }
           |    ) {
           |    }

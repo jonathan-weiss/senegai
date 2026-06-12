@@ -17,19 +17,22 @@
         [ searchValue="OpusMagnum" replaceByExpression="model.entityName.pascalCase" ]
         [ searchValue="opusMagnum" replaceByExpression="model.entityName.camelCase" ]
         [ searchValue="opus-magnum" replaceByExpression="model.entityName.kebabCase" ]
-        [ searchValue="OPUS_MAGNUM" replaceByExpression="model.entityName.screamingSnakeCase" ]
+        [ searchValue="SilvaOptionum" replaceByExpression="model.entityRootItem.itemName.pascalCase" ]
+        [ searchValue="silvaOptionum" replaceByExpression="model.entityRootItem.itemName.camelCase" ]
+        [ searchValue="silva-optionum" replaceByExpression="model.entityRootItem.itemName.kebabCase" ]
+        [ searchValue="SILVA_OTIONUM" replaceByExpression="model.entityRootItem.itemName.screamingSnakeCase" ]
 
     @modify-provided-filename-by-replacements
 
     @rla
 
 }}}@ */
-import {OpusMagnumWTO} from "@app/wto/opus-magnum.wto";
+import {SilvaOptionumWTO} from "@app/wto/silva-optionum-wto";
 /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
 import {AppellatioEnum} from "@app/wto/appellatio.enum";
 /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
 
-export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
+export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
     /* @tt{{{
     @rlb
     @render-template

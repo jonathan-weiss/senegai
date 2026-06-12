@@ -19,18 +19,18 @@ object EntityFormComponentHtmlRenderer : UiEntityRenderer {
           |<div class="edit-form-container">
           |    <mat-card>
           |        <mat-card-header>
-          |            <mat-card-title>{{ ${model.entityName.camelCase} ? 'Edit ${model.entityName.pascalCase}' : 'New ${model.entityName.pascalCase}' }}</mat-card-title>
+          |            <mat-card-title>{{ ${model.entityRootItem.itemName.camelCase} ? 'Edit ${model.entityName.pascalCase}' : 'New ${model.entityName.pascalCase}' }}</mat-card-title>
           |        </mat-card-header>
           |
           |        <mat-card-content>
-          |            <form [formGroup]="${model.entityName.camelCase}Form" (ngSubmit)="onSubmit()">
-          |                <app-${model.entityName.kebabCase}-form-part [${model.entityName.camelCase}Form]="${model.entityName.camelCase}Form" />
+          |            <form [formGroup]="${model.entityRootItem.itemName.camelCase}Form" (ngSubmit)="onSubmit()">
+          |                <app-${model.entityRootItem.itemName.kebabCase}-form-part [${model.entityRootItem.itemName.camelCase}Form]="${model.entityRootItem.itemName.camelCase}Form" />
           |
           |                <div class="form-actions">
           |                    <button mat-button type="button" (click)="onCancel()">
           |                        Cancel
           |                    </button>
-          |                    <button mat-raised-button color="primary" type="submit" [disabled]="!${model.entityName.camelCase}Form.valid">
+          |                    <button mat-raised-button color="primary" type="submit" [disabled]="!${model.entityRootItem.itemName.camelCase}Form.valid">
           |                        Save
           |                    </button>
           |                </div>

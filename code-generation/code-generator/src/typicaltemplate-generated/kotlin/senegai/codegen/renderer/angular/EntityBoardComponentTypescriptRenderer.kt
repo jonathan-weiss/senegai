@@ -34,7 +34,7 @@ object EntityBoardComponentTypescriptRenderer : UiEntityRenderer {
           |import {MatSidenavModule} from "@angular/material/sidenav";
           |import {MatListModule} from "@angular/material/list";
           |import {${model.entityName.pascalCase}FormComponent} from "@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}-form/${model.entityName.kebabCase}-form/${model.entityName.kebabCase}-form.component";
-          |import {${model.entityName.pascalCase}WTO} from "@app/wto/${model.entityName.kebabCase}.wto";
+          |import {${model.entityRootItem.itemName.pascalCase}WTO} from "@app/wto/${model.entityRootItem.itemName.kebabCase}-wto";
           |import {TranslocoPipe} from "@jsverse/transloco";
           |
           |@Component({
@@ -62,7 +62,7 @@ object EntityBoardComponentTypescriptRenderer : UiEntityRenderer {
           |})
           |export class ${model.entityName.pascalCase}BoardComponent {
           |    currentSearchCriteria: ${model.entityName.pascalCase}SearchCriteria = {};
-          |    selected${model.entityName.pascalCase}: ${model.entityName.pascalCase}WTO | null = null;
+          |    selected${model.entityName.pascalCase}: ${model.entityRootItem.itemName.pascalCase}WTO | null = null;
           |    creating = false;
           |    refreshKey = 0;
           |
@@ -78,12 +78,12 @@ object EntityBoardComponentTypescriptRenderer : UiEntityRenderer {
           |        this.creating = true;
           |    }
           |
-          |    on${model.entityName.pascalCase}Select(${model.entityName.camelCase}: ${model.entityName.pascalCase}WTO): void {
+          |    on${model.entityName.pascalCase}Select(${model.entityName.camelCase}: ${model.entityRootItem.itemName.pascalCase}WTO): void {
           |        this.creating = false;
           |        this.selected${model.entityName.pascalCase} = ${model.entityName.camelCase};
           |    }
           |
-          |    onDelete${model.entityName.pascalCase}(${model.entityName.camelCase}: ${model.entityName.pascalCase}WTO): void {
+          |    onDelete${model.entityName.pascalCase}(${model.entityName.camelCase}: ${model.entityRootItem.itemName.pascalCase}WTO): void {
           |        const dialogRef = this.dialog.open(${model.entityName.pascalCase}ConfirmDeleteDialogComponent, {
           |            data: {
           |                entity: ${model.entityName.camelCase},
@@ -91,17 +91,17 @@ object EntityBoardComponentTypescriptRenderer : UiEntityRenderer {
           |        });
           |        dialogRef.afterClosed().subscribe(result => {
           |            if (result) {
-          |                this.${model.entityName.camelCase}Service.delete${model.entityName.pascalCase}(${model.entityName.camelCase}.${model.idAttribute.attributeName.camelCase}).subscribe(() => {
+          |                this.${model.entityName.camelCase}Service.delete${model.entityRootItem.itemName.pascalCase}(${model.entityName.camelCase}.${model.idAttribute.attributeName.camelCase}).subscribe(() => {
           |                    this.refreshKey++;
           |                });
           |            }
           |        });
           |    }
           |
-          |    onSave(${model.entityName.camelCase}: ${model.entityName.pascalCase}WTO): void {
+          |    onSave(${model.entityName.camelCase}: ${model.entityRootItem.itemName.pascalCase}WTO): void {
           |        const save${"$"} = this.creating
-          |            ? this.${model.entityName.camelCase}Service.create${model.entityName.pascalCase}(${model.entityName.camelCase})
-          |            : this.${model.entityName.camelCase}Service.update${model.entityName.pascalCase}(${model.entityName.camelCase});
+          |            ? this.${model.entityName.camelCase}Service.create${model.entityRootItem.itemName.pascalCase}(${model.entityName.camelCase})
+          |            : this.${model.entityName.camelCase}Service.update${model.entityRootItem.itemName.pascalCase}(${model.entityName.camelCase});
           |        save${"$"}.subscribe(() => {
           |            this.selected${model.entityName.pascalCase} = null;
           |            this.creating = false;

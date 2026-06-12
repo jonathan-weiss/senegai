@@ -17,7 +17,7 @@ object EntityRoutableEditComponentHtmlRenderer : UiEntityRenderer {
     override fun renderTemplate(model: UiEntityModel): String {
         return """
           |@if (selected${model.entityName.pascalCase}) {
-          |    <app-${model.entityName.kebabCase}-form [${model.entityName.camelCase}]="selected${model.entityName.pascalCase}" />
+          |    <app-${model.entityName.kebabCase}-form [${model.entityRootItem.itemName.camelCase}]="selected${model.entityName.pascalCase}" />
           |} @else {
           |   Loading...
           |}

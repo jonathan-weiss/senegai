@@ -17,7 +17,10 @@
         [ searchValue="OpusMagnum" replaceByExpression="model.entityName.pascalCase" ]
         [ searchValue="opusMagnum" replaceByExpression="model.entityName.camelCase" ]
         [ searchValue="opus-magnum" replaceByExpression="model.entityName.kebabCase" ]
-        [ searchValue="OPUS_MAGNUM" replaceByExpression="model.entityName.screamingSnakeCase" ]
+        [ searchValue="SilvaOptionum" replaceByExpression="model.entityRootItem.itemName.pascalCase" ]
+        [ searchValue="silvaOptionum" replaceByExpression="model.entityRootItem.itemName.camelCase" ]
+        [ searchValue="silva-optionum" replaceByExpression="model.entityRootItem.itemName.kebabCase" ]
+        [ searchValue="SILVA_OTIONUM" replaceByExpression="model.entityRootItem.itemName.screamingSnakeCase" ]
 
     @replace-value-by-expression
         [ searchValue="indexUnicus" replaceByExpression="model.idAttribute.attributeName.camelCase" ]
@@ -32,44 +35,44 @@
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {delay} from 'rxjs/operators';
-import {OpusMagnumWTO} from "@app/wto/opus-magnum.wto";
-import {OPUS_MAGNUM_EXAMPLE_DATA} from "@app/opus-magnum/opus-magnum-example-data";
+import {SilvaOptionumWTO} from "@app/wto/silva-optionum-wto";
+import {SILVA_OTIONUM_EXAMPLE_DATA} from "@app/opus-magnum/opus-magnum-example-data";
 
 
 @Injectable({providedIn: 'root'})
 export class OpusMagnumService {
-    private opusMagnumList: OpusMagnumWTO[] = []
+    private silvaOptionumList: SilvaOptionumWTO[] = []
 
     constructor() {
-        this.opusMagnumList = OPUS_MAGNUM_EXAMPLE_DATA
+        this.silvaOptionumList = SILVA_OTIONUM_EXAMPLE_DATA
     }
 
-    getOpusMagnums(): Observable<OpusMagnumWTO[]> {
+    getSilvaOptionumList(): Observable<SilvaOptionumWTO[]> {
         // Simulate HTTP delay
-        return of(this.opusMagnumList).pipe(delay(200));
+        return of(this.silvaOptionumList).pipe(delay(200));
     }
 
-    getOpusMagnumById(indexUnicus: string): Observable<OpusMagnumWTO | null> {
-        const found = this.opusMagnumList.find(a => a.indexUnicus === indexUnicus) || null;
+    getSilvaOptionumById(indexUnicus: string): Observable<SilvaOptionumWTO | null> {
+        const found = this.silvaOptionumList.find(a => a.indexUnicus === indexUnicus) || null;
         return of(found).pipe(delay(200));
     }
 
-    deleteOpusMagnum(indexUnicus: string): Observable<void> {
-        this.opusMagnumList = this.opusMagnumList.filter(a => a.indexUnicus !== indexUnicus);
+    deleteSilvaOptionum(indexUnicus: string): Observable<void> {
+        this.silvaOptionumList = this.silvaOptionumList.filter(a => a.indexUnicus !== indexUnicus);
         return of(void 0).pipe(delay(200));
     }
 
-    updateOpusMagnum(opusMagnum: OpusMagnumWTO): Observable<OpusMagnumWTO> {
-        const idx = this.opusMagnumList.findIndex(a => a.indexUnicus === opusMagnum.indexUnicus);
+    updateSilvaOptionum(silvaOptionum: SilvaOptionumWTO): Observable<SilvaOptionumWTO> {
+        const idx = this.silvaOptionumList.findIndex(a => a.indexUnicus === silvaOptionum.indexUnicus);
         if (idx !== -1) {
-            this.opusMagnumList[idx] = {...opusMagnum};
+            this.silvaOptionumList[idx] = {...silvaOptionum};
         }
-        return of(opusMagnum).pipe(delay(200));
+        return of(silvaOptionum).pipe(delay(200));
     }
 
-    createOpusMagnum(opusMagnum: OpusMagnumWTO): Observable<OpusMagnumWTO> {
-        const created: OpusMagnumWTO = {...opusMagnum, indexUnicus: crypto.randomUUID()};
-        this.opusMagnumList = [...this.opusMagnumList, created];
+    createSilvaOptionum(opusMagnum: SilvaOptionumWTO): Observable<SilvaOptionumWTO> {
+        const created: SilvaOptionumWTO = {...opusMagnum, indexUnicus: crypto.randomUUID()};
+        this.silvaOptionumList = [...this.silvaOptionumList, created];
         return of(created).pipe(delay(200));
     }
 }

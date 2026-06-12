@@ -14,9 +14,9 @@
     ]
 
     @replace-value-by-expression
-        [ searchValue="opus-magnum" replaceByExpression="model.itemName.kebabCase" ]
-        [ searchValue="OpusMagnum" replaceByExpression="model.itemName.pascalCase" ]
-        [ searchValue="opusMagnum" replaceByExpression="model.itemName.camelCase" ]
+        [ searchValue="silva-optionum" replaceByExpression="model.itemName.kebabCase" ]
+        [ searchValue="SilvaOptionum" replaceByExpression="model.itemName.pascalCase" ]
+        [ searchValue="silvaOptionum" replaceByExpression="model.itemName.camelCase" ]
 
     @modify-provided-filename-by-replacements
 
@@ -40,7 +40,7 @@ import {AppellatioEnum} from "@app/wto/appellatio.enum";
 /**
  * The Silva Optionum WTO (Web Transfer Object) class.
  */
-export interface OpusMagnumWTO {
+export interface SilvaOptionumWTO {
     /* @tt{{{
         @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
 

@@ -69,7 +69,7 @@ object EntityBoardComponentHtmlRenderer : UiEntityRenderer {
           |
           |            @if (selected${model.entityName.pascalCase} || creating) {
           |                <app-${model.entityName.kebabCase}-form
-          |                        [${model.entityName.camelCase}]="selected${model.entityName.pascalCase}"
+          |                        [${model.entityRootItem.itemName.camelCase}]="selected${model.entityName.pascalCase}"
           |                        (save)="onSave(${"$"}event)"
           |                        (cancel)="onCancel()">
           |                </app-${model.entityName.kebabCase}-form>

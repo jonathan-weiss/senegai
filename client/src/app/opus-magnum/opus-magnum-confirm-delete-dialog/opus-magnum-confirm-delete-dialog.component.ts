@@ -18,6 +18,9 @@
         [ searchValue="OpusMagnum" replaceByExpression="model.entityName.pascalCase" ]
         [ searchValue="opusMagnum" replaceByExpression="model.entityName.camelCase" ]
         [ searchValue="opus-magnum" replaceByExpression="model.entityName.kebabCase" ]
+        [ searchValue="SilvaOptionum" replaceByExpression="model.entityRootItem.itemName.pascalCase" ]
+        [ searchValue="silvaOptionum" replaceByExpression="model.entityRootItem.itemName.camelCase" ]
+        [ searchValue="silva-optionum" replaceByExpression="model.entityRootItem.itemName.kebabCase" ]
 
     @modify-provided-filename-by-replacements
 
@@ -37,7 +40,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
-import {OpusMagnumWTO} from "@app/wto/opus-magnum.wto";
+import {SilvaOptionumWTO} from "@app/wto/silva-optionum-wto";
 import {JsonPipe} from "@angular/common";
 
 @Component({
@@ -64,7 +67,7 @@ export class OpusMagnumConfirmDeleteDialogComponent {
     constructor(
         public dialogRef: MatDialogRef<OpusMagnumConfirmDeleteDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: {
-            entity: OpusMagnumWTO,
+            entity: SilvaOptionumWTO,
         }
     ) {
     }

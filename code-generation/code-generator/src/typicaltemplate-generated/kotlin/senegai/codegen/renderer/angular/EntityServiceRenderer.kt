@@ -20,44 +20,44 @@ object EntityServiceRenderer : UiEntityRenderer {
           |import {Injectable} from '@angular/core';
           |import {Observable, of} from 'rxjs';
           |import {delay} from 'rxjs/operators';
-          |import {${model.entityName.pascalCase}WTO} from "@app/wto/${model.entityName.kebabCase}.wto";
-          |import {${model.entityName.screamingSnakeCase}_EXAMPLE_DATA} from "@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}-example-data";
+          |import {${model.entityRootItem.itemName.pascalCase}WTO} from "@app/wto/${model.entityRootItem.itemName.kebabCase}-wto";
+          |import {${model.entityRootItem.itemName.screamingSnakeCase}_EXAMPLE_DATA} from "@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}-example-data";
           |
           |
           |@Injectable({providedIn: 'root'})
           |export class ${model.entityName.pascalCase}Service {
-          |    private ${model.entityName.camelCase}List: ${model.entityName.pascalCase}WTO[] = []
+          |    private ${model.entityRootItem.itemName.camelCase}List: ${model.entityRootItem.itemName.pascalCase}WTO[] = []
           |
           |    constructor() {
-          |        this.${model.entityName.camelCase}List = ${model.entityName.screamingSnakeCase}_EXAMPLE_DATA
+          |        this.${model.entityRootItem.itemName.camelCase}List = ${model.entityRootItem.itemName.screamingSnakeCase}_EXAMPLE_DATA
           |    }
           |
-          |    get${model.entityName.pascalCase}s(): Observable<${model.entityName.pascalCase}WTO[]> {
+          |    get${model.entityRootItem.itemName.pascalCase}List(): Observable<${model.entityRootItem.itemName.pascalCase}WTO[]> {
           |        // Simulate HTTP delay
-          |        return of(this.${model.entityName.camelCase}List).pipe(delay(200));
+          |        return of(this.${model.entityRootItem.itemName.camelCase}List).pipe(delay(200));
           |    }
           |
-          |    get${model.entityName.pascalCase}ById(${model.idAttribute.attributeName.camelCase}: string): Observable<${model.entityName.pascalCase}WTO | null> {
-          |        const found = this.${model.entityName.camelCase}List.find(a => a.${model.idAttribute.attributeName.camelCase} === ${model.idAttribute.attributeName.camelCase}) || null;
+          |    get${model.entityRootItem.itemName.pascalCase}ById(${model.idAttribute.attributeName.camelCase}: string): Observable<${model.entityRootItem.itemName.pascalCase}WTO | null> {
+          |        const found = this.${model.entityRootItem.itemName.camelCase}List.find(a => a.${model.idAttribute.attributeName.camelCase} === ${model.idAttribute.attributeName.camelCase}) || null;
           |        return of(found).pipe(delay(200));
           |    }
           |
-          |    delete${model.entityName.pascalCase}(${model.idAttribute.attributeName.camelCase}: string): Observable<void> {
-          |        this.${model.entityName.camelCase}List = this.${model.entityName.camelCase}List.filter(a => a.${model.idAttribute.attributeName.camelCase} !== ${model.idAttribute.attributeName.camelCase});
+          |    delete${model.entityRootItem.itemName.pascalCase}(${model.idAttribute.attributeName.camelCase}: string): Observable<void> {
+          |        this.${model.entityRootItem.itemName.camelCase}List = this.${model.entityRootItem.itemName.camelCase}List.filter(a => a.${model.idAttribute.attributeName.camelCase} !== ${model.idAttribute.attributeName.camelCase});
           |        return of(void 0).pipe(delay(200));
           |    }
           |
-          |    update${model.entityName.pascalCase}(${model.entityName.camelCase}: ${model.entityName.pascalCase}WTO): Observable<${model.entityName.pascalCase}WTO> {
-          |        const idx = this.${model.entityName.camelCase}List.findIndex(a => a.${model.idAttribute.attributeName.camelCase} === ${model.entityName.camelCase}.${model.idAttribute.attributeName.camelCase});
+          |    update${model.entityRootItem.itemName.pascalCase}(${model.entityRootItem.itemName.camelCase}: ${model.entityRootItem.itemName.pascalCase}WTO): Observable<${model.entityRootItem.itemName.pascalCase}WTO> {
+          |        const idx = this.${model.entityRootItem.itemName.camelCase}List.findIndex(a => a.${model.idAttribute.attributeName.camelCase} === ${model.entityRootItem.itemName.camelCase}.${model.idAttribute.attributeName.camelCase});
           |        if (idx !== -1) {
-          |            this.${model.entityName.camelCase}List[idx] = {...${model.entityName.camelCase}};
+          |            this.${model.entityRootItem.itemName.camelCase}List[idx] = {...${model.entityRootItem.itemName.camelCase}};
           |        }
-          |        return of(${model.entityName.camelCase}).pipe(delay(200));
+          |        return of(${model.entityRootItem.itemName.camelCase}).pipe(delay(200));
           |    }
           |
-          |    create${model.entityName.pascalCase}(${model.entityName.camelCase}: ${model.entityName.pascalCase}WTO): Observable<${model.entityName.pascalCase}WTO> {
-          |        const created: ${model.entityName.pascalCase}WTO = {...${model.entityName.camelCase}, ${model.idAttribute.attributeName.camelCase}: crypto.randomUUID()};
-          |        this.${model.entityName.camelCase}List = [...this.${model.entityName.camelCase}List, created];
+          |    create${model.entityRootItem.itemName.pascalCase}(${model.entityName.camelCase}: ${model.entityRootItem.itemName.pascalCase}WTO): Observable<${model.entityRootItem.itemName.pascalCase}WTO> {
+          |        const created: ${model.entityRootItem.itemName.pascalCase}WTO = {...${model.entityName.camelCase}, ${model.idAttribute.attributeName.camelCase}: crypto.randomUUID()};
+          |        this.${model.entityRootItem.itemName.camelCase}List = [...this.${model.entityRootItem.itemName.camelCase}List, created];
           |        return of(created).pipe(delay(200));
           |    }
           |}

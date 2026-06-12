@@ -14,12 +14,12 @@
     ]
 
     @replace-value-by-expression
-        [ searchValue="opus-magnum" replaceByExpression="model.item.itemName.kebabCase" ]
-        [ searchValue="OpusMagnum" replaceByExpression="model.item.itemName.pascalCase" ]
-        [ searchValue="opusMagnum" replaceByExpression="model.item.itemName.camelCase" ]
-        [ searchValue="opus-magnum" replaceByExpression="model.entity.entityName.kebabCase" ]
-        [ searchValue="OpusMagnum" replaceByExpression="model.entity.entityName.pascalCase" ]
-        [ searchValue="opusMagnum" replaceByExpression="model.entity.entityName.camelCase" ]
+      [ searchValue="OpusMagnum" replaceByExpression="model.entity.entityName.pascalCase" ]
+      [ searchValue="opusMagnum" replaceByExpression="model.entity.entityName.camelCase" ]
+      [ searchValue="opus-magnum" replaceByExpression="model.entity.entityName.kebabCase" ]
+        [ searchValue="silva-optionum" replaceByExpression="model.item.itemName.kebabCase" ]
+        [ searchValue="SilvaOptionum" replaceByExpression="model.item.itemName.pascalCase" ]
+        [ searchValue="silvaOptionum" replaceByExpression="model.item.itemName.camelCase" ]
 
     @modify-provided-filename-by-replacements
 
@@ -28,7 +28,7 @@
 }}}@ */
 
 import {FormArray, FormControl, FormGroup} from "@angular/forms";
-import {OpusMagnumFormPartFieldName} from "@app/opus-magnum/opus-magnum-form/opus-magnum-form-part/opus-magnum-form-part-field-name";
+import {SilvaOptionumFormPartFieldName} from "@app/opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part-field-name";
 /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
 import {AppellatioEnum} from "@app/wto/appellatio.enum";
 /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
@@ -49,7 +49,7 @@ import {
 
 
 
-export interface OpusMagnumFormPartGroup {
+export interface SilvaOptionumFormPartGroup {
     /* @tt{{{ @rlb
         @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
@@ -58,20 +58,20 @@ export interface OpusMagnumFormPartGroup {
             [ searchValue="FormControl<string | null>" replaceByExpression="attribute.angularFormControlType" ]
 
     }}}@  */
-    [OpusMagnumFormPartFieldName.campusTextusOptionalis]: FormControl<string | null>,
+    [SilvaOptionumFormPartFieldName.campusTextusOptionalis]: FormControl<string | null>,
     /* @tt{{{ @rlb  @if [ conditionExpression="attribute.isNullable"] @rla }}}@ */
-    [OpusMagnumFormPartFieldName.campusTextusOptionalisIsNotNull]: FormControl<boolean>,
+    [SilvaOptionumFormPartFieldName.campusTextusOptionalisIsNotNull]: FormControl<boolean>,
     /* @tt{{{ @rlb  @end-if @rla }}}@ */
     /* @tt{{{ @rlb @end-foreach @rla }}}@ */
     /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
-    [OpusMagnumFormPartFieldName.campusTextusObligatorius]: FormControl<string>,
-    [OpusMagnumFormPartFieldName.articulusInteriorSingularis]: FormGroup<ArticulusInteriorFormPartGroup>,
-    [OpusMagnumFormPartFieldName.articulusInteriorList]: FormArray<FormGroup<ArticulusInteriorFormPartGroup>>,
-    [OpusMagnumFormPartFieldName.campusDieiIsNotNull]: FormControl<boolean>,
-    [OpusMagnumFormPartFieldName.campusDiei]: FormControl<Date | null>,
-    [OpusMagnumFormPartFieldName.campusBivalens]: FormControl<boolean>,
-    [OpusMagnumFormPartFieldName.appellatio]: FormControl<AppellatioEnum>,
-    [OpusMagnumFormPartFieldName.campusNumerorum]: FormControl<number>,
-    [OpusMagnumFormPartFieldName.indexUnicus]: FormControl<string>,
+    [SilvaOptionumFormPartFieldName.campusTextusObligatorius]: FormControl<string>,
+    [SilvaOptionumFormPartFieldName.articulusInteriorSingularis]: FormGroup<ArticulusInteriorFormPartGroup>,
+    [SilvaOptionumFormPartFieldName.articulusInteriorList]: FormArray<FormGroup<ArticulusInteriorFormPartGroup>>,
+    [SilvaOptionumFormPartFieldName.campusDieiIsNotNull]: FormControl<boolean>,
+    [SilvaOptionumFormPartFieldName.campusDiei]: FormControl<Date | null>,
+    [SilvaOptionumFormPartFieldName.campusBivalens]: FormControl<boolean>,
+    [SilvaOptionumFormPartFieldName.appellatio]: FormControl<AppellatioEnum>,
+    [SilvaOptionumFormPartFieldName.campusNumerorum]: FormControl<number>,
+    [SilvaOptionumFormPartFieldName.indexUnicus]: FormControl<string>,
     /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
 }

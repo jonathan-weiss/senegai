@@ -9,8 +9,8 @@ import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewItemModel
  * Generate the content for the template `EntityItemFormPartServiceRenderer`.
  *
  * This template renderer was generated from the template:
- * - file: `opus-magnum-form-part.service.ts`
- * - path: `opus-magnum/opus-magnum-form/opus-magnum-form-part/opus-magnum-form-part.service.ts`
+ * - file: `silva-optionum-form-part.service.ts`
+ * - path: `opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part.service.ts`
  */
 object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
 
@@ -18,22 +18,22 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
         return """
           |
           |import {Injectable} from '@angular/core';
-          |import {${model.item.itemName.pascalCase}WTO} from "@app/wto/${model.item.itemName.kebabCase}.wto";
+          |import {${model.item.itemName.pascalCase}WTO} from "@app/wto/${model.item.itemName.kebabCase}-wto";
           |import {FormArray, FormControl, FormGroup} from "@angular/forms";
           |import {
           |    ${model.item.itemName.pascalCase}FormPartValidationService
-          |} from "@app/${model.item.itemName.kebabCase}/${model.item.itemName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-validation.service";
+          |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-validation.service";
           |import {
           |    ${model.item.itemName.pascalCase}FormPartInitialValueService
-          |} from "@app/${model.item.itemName.kebabCase}/${model.item.itemName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-initial-value.service";
-          |import {${model.item.itemName.pascalCase}FormPartGroup} from "@app/${model.item.itemName.kebabCase}/${model.item.itemName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-group";
-          |import {${model.item.itemName.pascalCase}FormPartFieldName} from "@app/${model.item.itemName.kebabCase}/${model.item.itemName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-field-name";
+          |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-initial-value.service";
+          |import {${model.item.itemName.pascalCase}FormPartGroup} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-group";
+          |import {${model.item.itemName.pascalCase}FormPartFieldName} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-field-name";
           |
           |
           |${ model.item.directlyNestedItems.joinToString("") { directlyNestedItem ->  """
               |import {
               |    ${directlyNestedItem.itemName.pascalCase}FormPartService
-              |} from "@app/${model.item.itemName.kebabCase}/${model.item.itemName.kebabCase}-form/${directlyNestedItem.itemName.kebabCase}-form-part/${directlyNestedItem.itemName.kebabCase}-form-part.service";
+              |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${directlyNestedItem.itemName.kebabCase}-form-part/${directlyNestedItem.itemName.kebabCase}-form-part.service";
           """ } }
           |@Injectable({providedIn: 'root'})
           |export class ${model.item.itemName.pascalCase}FormPartService {
@@ -98,6 +98,6 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
     }
 
     override fun filePath(model: UiEntityFormViewItemModel): String {
-      return "${model.item.itemName.kebabCase}/${model.item.itemName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part.service.ts"
+      return "${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part.service.ts"
     }
 }

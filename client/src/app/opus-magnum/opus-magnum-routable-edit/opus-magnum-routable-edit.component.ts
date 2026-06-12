@@ -18,6 +18,9 @@
         [ searchValue="OpusMagnum" replaceByExpression="model.entityName.pascalCase" ]
         [ searchValue="opusMagnum" replaceByExpression="model.entityName.camelCase" ]
         [ searchValue="opus-magnum" replaceByExpression="model.entityName.kebabCase" ]
+        [ searchValue="SilvaOptionum" replaceByExpression="model.entityRootItem.itemName.pascalCase" ]
+        [ searchValue="silvaOptionum" replaceByExpression="model.entityRootItem.itemName.camelCase" ]
+        [ searchValue="silva-optionum" replaceByExpression="model.entityRootItem.itemName.kebabCase" ]
 
     @replace-value-by-expression
         [ searchValue="indexUnicus" replaceByExpression="model.idAttribute.attributeName.camelCase" ]
@@ -28,7 +31,7 @@
 
 }}}@ */
 import {Component} from '@angular/core';
-import {OpusMagnumWTO} from "@app/wto/opus-magnum.wto";
+import {SilvaOptionumWTO} from "@app/wto/silva-optionum-wto";
 import {OpusMagnumService} from "@app/opus-magnum/opus-magnum.service";
 import {OpusMagnumFormComponent} from "@app/opus-magnum/opus-magnum-form/opus-magnum-form/opus-magnum-form.component";
 import {ActivatedRoute} from "@angular/router";
@@ -43,7 +46,7 @@ import {ActivatedRoute} from "@angular/router";
     ]
 })
 export class OpusMagnumRoutableEditComponent {
-    selectedOpusMagnum: OpusMagnumWTO | null = null;
+    selectedOpusMagnum: SilvaOptionumWTO | null = null;
 
     constructor(
         private opusMagnumService: OpusMagnumService,
@@ -53,7 +56,7 @@ export class OpusMagnumRoutableEditComponent {
             const idParam = params['indexUnicus'];
             if (idParam) {
                 const indexUnicus = idParam as string;
-                this.opusMagnumService.getOpusMagnumById(indexUnicus).subscribe(opusMagnum => {
+                this.opusMagnumService.getSilvaOptionumById(indexUnicus).subscribe(opusMagnum => {
                     this.selectedOpusMagnum = opusMagnum;
                 });
             }

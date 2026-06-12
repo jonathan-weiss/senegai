@@ -17,7 +17,7 @@ object EntityRoutableEditComponentTypescriptRenderer : UiEntityRenderer {
     override fun renderTemplate(model: UiEntityModel): String {
         return """
           |import {Component} from '@angular/core';
-          |import {${model.entityName.pascalCase}WTO} from "@app/wto/${model.entityName.kebabCase}.wto";
+          |import {${model.entityRootItem.itemName.pascalCase}WTO} from "@app/wto/${model.entityRootItem.itemName.kebabCase}-wto";
           |import {${model.entityName.pascalCase}Service} from "@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}.service";
           |import {${model.entityName.pascalCase}FormComponent} from "@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}-form/${model.entityName.kebabCase}-form/${model.entityName.kebabCase}-form.component";
           |import {ActivatedRoute} from "@angular/router";
@@ -32,7 +32,7 @@ object EntityRoutableEditComponentTypescriptRenderer : UiEntityRenderer {
           |    ]
           |})
           |export class ${model.entityName.pascalCase}RoutableEditComponent {
-          |    selected${model.entityName.pascalCase}: ${model.entityName.pascalCase}WTO | null = null;
+          |    selected${model.entityName.pascalCase}: ${model.entityRootItem.itemName.pascalCase}WTO | null = null;
           |
           |    constructor(
           |        private ${model.entityName.camelCase}Service: ${model.entityName.pascalCase}Service,
@@ -42,7 +42,7 @@ object EntityRoutableEditComponentTypescriptRenderer : UiEntityRenderer {
           |            const idParam = params['${model.idAttribute.attributeName.camelCase}'];
           |            if (idParam) {
           |                const ${model.idAttribute.attributeName.camelCase} = idParam as string;
-          |                this.${model.entityName.camelCase}Service.get${model.entityName.pascalCase}ById(${model.idAttribute.attributeName.camelCase}).subscribe(${model.entityName.camelCase} => {
+          |                this.${model.entityName.camelCase}Service.get${model.entityRootItem.itemName.pascalCase}ById(${model.idAttribute.attributeName.camelCase}).subscribe(${model.entityName.camelCase} => {
           |                    this.selected${model.entityName.pascalCase} = ${model.entityName.camelCase};
           |                });
           |            }

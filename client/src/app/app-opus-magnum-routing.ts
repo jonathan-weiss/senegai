@@ -24,11 +24,11 @@
 import {Routes} from '@angular/router';
 /* @tt{{{
     @rlb
+    @foreach [ iteratorExpression="models" loopVariable="entity" ]
     @replace-value-by-expression
         [ searchValue="opus-magnum" replaceByExpression="entity.entityName.kebabCase" ]
         [ searchValue="OpusMagnum" replaceByExpression="entity.entityName.pascalCase" ]
 
-    @foreach [ iteratorExpression="models" loopVariable="entity" ]
 }}}@  */
 
 import {OpusMagnumBoardComponent} from '@app/opus-magnum/opus-magnum-board/opus-magnum-board.component';
@@ -51,11 +51,14 @@ import {
 export const OPUS_MAGNUM_ROUTES: Routes = [
 /* @tt{{{
     @rlb
+    @foreach [ iteratorExpression="models" loopVariable="entity" ]
     @replace-value-by-expression
         [ searchValue="opus-magnum" replaceByExpression="entity.entityName.kebabCase" ]
         [ searchValue="OpusMagnum" replaceByExpression="entity.entityName.pascalCase" ]
 
-    @foreach [ iteratorExpression="models" loopVariable="entity" ]
+    @replace-value-by-expression
+        [ searchValue="indexUnicus" replaceByExpression="entity.idAttribute.attributeName.camelCase" ]
+
 }}}@  */
     {path: 'opus-magnum-board', component: OpusMagnumBoardComponent},
     {path: 'opus-magnum-edit/:indexUnicus', component: OpusMagnumRoutableEditComponent},

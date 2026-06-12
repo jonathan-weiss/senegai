@@ -18,6 +18,9 @@
         [ searchValue="OpusMagnum" replaceByExpression="model.entityName.pascalCase" ]
         [ searchValue="opusMagnum" replaceByExpression="model.entityName.camelCase" ]
         [ searchValue="opus-magnum" replaceByExpression="model.entityName.kebabCase" ]
+        [ searchValue="SilvaOptionum" replaceByExpression="model.entityRootItem.itemName.pascalCase" ]
+        [ searchValue="silvaOptionum" replaceByExpression="model.entityRootItem.itemName.camelCase" ]
+        [ searchValue="silva-optionum" replaceByExpression="model.entityRootItem.itemName.kebabCase" ]
 
     @modify-provided-filename-by-replacements
 
@@ -37,12 +40,12 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {MatDialogModule} from "@angular/material/dialog";
-import {OpusMagnumWTO} from "@app/wto/opus-magnum.wto";
-import {OpusMagnumFormPartService} from "@app/opus-magnum/opus-magnum-form/opus-magnum-form-part/opus-magnum-form-part.service";
-import {OpusMagnumFormPartComponent} from "@app/opus-magnum/opus-magnum-form/opus-magnum-form-part/opus-magnum-form-part.component";
+import {SilvaOptionumWTO} from "@app/wto/silva-optionum-wto";
+import {SilvaOptionumFormPartService} from "@app/opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part.service";
+import {SilvaOptionumFormPartComponent} from "@app/opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part.component";
 import {
-    OpusMagnumFormPartGroup
-} from "@app/opus-magnum/opus-magnum-form/opus-magnum-form-part/opus-magnum-form-part-group";
+    SilvaOptionumFormPartGroup
+} from "@app/opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part-group";
 
 @Component({
     selector: 'app-opus-magnum-form',
@@ -61,31 +64,31 @@ import {
         MatSidenavModule,
         MatListModule,
         MatDialogModule,
-        OpusMagnumFormPartComponent,
+        SilvaOptionumFormPartComponent,
     ]
 })
 export class OpusMagnumFormComponent implements OnInit {
-    @Input() opusMagnum: OpusMagnumWTO | null = null;
-    @Output() save = new EventEmitter<OpusMagnumWTO>();
+    @Input() silvaOptionum: SilvaOptionumWTO | null = null;
+    @Output() save = new EventEmitter<SilvaOptionumWTO>();
     @Output() cancel = new EventEmitter<void>();
 
-    opusMagnumForm: FormGroup<OpusMagnumFormPartGroup>;
+    silvaOptionumForm: FormGroup<SilvaOptionumFormPartGroup>;
 
-    constructor(private opusMagnumFormPartService: OpusMagnumFormPartService) {
-        this.opusMagnumForm = opusMagnumFormPartService.createInitialOpusMagnumForm();
+    constructor(private silvaOptionumFormPartService: SilvaOptionumFormPartService) {
+        this.silvaOptionumForm = silvaOptionumFormPartService.createInitialSilvaOptionumForm();
     }
 
     ngOnInit(): void {
-        if (this.opusMagnum) {
-            this.opusMagnumFormPartService.patchPreparation(this.opusMagnumForm, this.opusMagnum)
-            this.opusMagnumForm.patchValue(this.opusMagnum);
+        if (this.silvaOptionum) {
+            this.silvaOptionumFormPartService.patchPreparation(this.silvaOptionumForm, this.silvaOptionum)
+            this.silvaOptionumForm.patchValue(this.silvaOptionum);
         }
     }
 
     onSubmit(): void {
-        if (this.opusMagnumForm.valid) {
-            const updatedOpusMagnum: OpusMagnumWTO = this.opusMagnumForm.getRawValue()
-            this.save.emit(updatedOpusMagnum);
+        if (this.silvaOptionumForm.valid) {
+            const updatedSilvaOptionum: SilvaOptionumWTO = this.silvaOptionumForm.getRawValue()
+            this.save.emit(updatedSilvaOptionum);
         }
     }
 

@@ -9,8 +9,8 @@ import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewItemModel
  * Generate the content for the template `EntityItemFormPartComponentScssRenderer`.
  *
  * This template renderer was generated from the template:
- * - file: `opus-magnum-form-part.component.scss`
- * - path: `opus-magnum/opus-magnum-form/opus-magnum-form-part/opus-magnum-form-part.component.scss`
+ * - file: `silva-optionum-form-part.component.scss`
+ * - path: `opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part.component.scss`
  */
 object EntityItemFormPartComponentScssRenderer : UiEntityItemRenderer {
 
@@ -51,6 +51,6 @@ object EntityItemFormPartComponentScssRenderer : UiEntityItemRenderer {
     }
 
     override fun filePath(model: UiEntityFormViewItemModel): String {
-      return "${model.item.itemName.kebabCase}/${model.item.itemName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part.component.scss"
+      return "${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part.component.scss"
     }
 }

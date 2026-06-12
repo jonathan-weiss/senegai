@@ -14,12 +14,12 @@
     ]
 
     @replace-value-by-expression
-        [ searchValue="opus-magnum" replaceByExpression="model.item.itemName.kebabCase" ]
-        [ searchValue="OpusMagnum" replaceByExpression="model.item.itemName.pascalCase" ]
-        [ searchValue="opusMagnum" replaceByExpression="model.item.itemName.camelCase" ]
-        [ searchValue="opus-magnum" replaceByExpression="model.entity.entityName.kebabCase" ]
-        [ searchValue="OpusMagnum" replaceByExpression="model.entity.entityName.pascalCase" ]
-        [ searchValue="opusMagnum" replaceByExpression="model.entity.entityName.camelCase" ]
+      [ searchValue="OpusMagnum" replaceByExpression="model.entity.entityName.pascalCase" ]
+      [ searchValue="opusMagnum" replaceByExpression="model.entity.entityName.camelCase" ]
+      [ searchValue="opus-magnum" replaceByExpression="model.entity.entityName.kebabCase" ]
+        [ searchValue="silva-optionum" replaceByExpression="model.item.itemName.kebabCase" ]
+        [ searchValue="SilvaOptionum" replaceByExpression="model.item.itemName.pascalCase" ]
+        [ searchValue="silvaOptionum" replaceByExpression="model.item.itemName.camelCase" ]
 
     @modify-provided-filename-by-replacements
 
@@ -31,7 +31,7 @@
 import {AppellatioEnum} from "@app/wto/appellatio.enum";
 /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
 
-export enum OpusMagnumFormPartFieldName {
+export enum SilvaOptionumFormPartFieldName {
     /* @tt{{{ @rlb
         @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
