@@ -49,7 +49,7 @@ object CodegenData {
                 attribute(name = "lastname", type = BuiltInType.STRING)
                 attribute(name = "age", type = BuiltInType.NUMBER)
                 attribute(name = "vegetarian", type = BuiltInType.BOOLEAN)
-                //attribute(name = "contactAddress", itemId = Items.ADDRESS)
+                attribute(name = "contactAddress", itemId = Items.ADDRESS)
             }
 
             item(itemId = Items.ADDRESS) {
@@ -83,27 +83,25 @@ object CodegenData {
                             tab(tabName = "Miscellaneous") {
                                 column {
                                     section(sectionName = "Misc")
-                                    @Suppress("MaxLineLength")
                                     text(text = Constants.TEXT)
                                 }
                                 column {
                                     section(sectionName = "Legend:")
-                                    @Suppress()
                                     text(text = Constants.MULTILINE_TEXT)
                                     attribute(attributeName = "age")
                                     attribute(attributeName = "vegetarian")
-                                    //attribute(attributeName = "contactAddress")
+                                    attribute(attributeName = "contactAddress")
                                 }
                             }
                         }
-// TODO ADDRESS is not a correct nested item
-//                        configureNestedEntityItem(itemId = Items.ADDRESS) {
-//                            column {
-//                                attribute(attributeName = "address")
-//                                attribute(attributeName = "zipCode")
-//                                attribute(attributeName = "city")
-//                            }
-//                        }
+                        configureNestedEntityItem(itemId = Items.ADDRESS) {
+                            column {
+                                attribute(attributeName = "id")
+                                attribute(attributeName = "street")
+                                attribute(attributeName = "postalCode")
+                                attribute(attributeName = "town")
+                            }
+                        }
                     }
                 }
             }
