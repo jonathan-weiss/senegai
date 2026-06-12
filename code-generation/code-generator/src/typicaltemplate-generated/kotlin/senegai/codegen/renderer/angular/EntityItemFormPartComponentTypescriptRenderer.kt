@@ -112,7 +112,7 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
           |})
           |export class ${model.item.itemName.pascalCase}FormPartComponent implements OnInit {
           |    @Input({ required: true }) ${model.item.itemName.camelCase}Form!: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>;
-          |${ model.item.attributesWithItems.joinToString("") { attributeWithItem ->  """
+          |${ model.item.attributesWithItem.joinToString("") { attributeWithItem ->  """
               |    ${attributeWithItem.attribute.attributeName.camelCase}FormGroupUnderEdit: ${attributeWithItem.attribute.angularFormControlType} | undefined = undefined;
           """ } }
           |

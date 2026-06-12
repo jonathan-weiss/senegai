@@ -91,16 +91,9 @@ export class SilvaOptionumFormPartService {
                     [ searchValue="campusTextusOptionalis" replaceByExpression="attribute.attributeName.camelCase" ]
                     [ searchValue="FormControl<string | null>" replaceByExpression="attribute.angularFormControlType" ]
 
+
             }}}@  */
-            /* @tt{{{ @rlb  @if [ conditionExpression="attribute.isNullable"] @rla }}}@ */
-            [SilvaOptionumFormPartFieldName.campusTextusOptionalisIsNotNull]: new FormControl<boolean>(
-                this.silvaOptionumFormInitialValueService.campusTextusOptionalisInitialValue() != null,
-                {
-                    nonNullable: true,
-                    validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.campusTextusOptionalisIsNotNull)
-                },
-            ),
-            /* @tt{{{ @rlb  @end-if @rla }}}@ */
+            /* @tt{{{ @rlb  @if [ conditionExpression="!attribute.isItem"] @rla }}}@ */
             [SilvaOptionumFormPartFieldName.campusTextusOptionalis]: new FormControl<string | null>(
                 this.silvaOptionumFormInitialValueService.campusTextusOptionalisInitialValue(),
                 {
@@ -108,9 +101,22 @@ export class SilvaOptionumFormPartService {
                     validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.campusTextusOptionalis)
                 },
             ),
+            /* @tt{{{ @rlb  @end-if @rla }}}@ */
+            /* @tt{{{ @rlb @end-foreach @rla }}}@ */
+
+            /* @tt{{{ @rlb
+                @foreach [ iteratorExpression="model.item.attributesWithItem" loopVariable="attributeWithItem" ]
+
+                @replace-value-by-expression
+                    [ searchValue="articulusInteriorSingularis" replaceByExpression="attributeWithItem.attribute.attributeName.camelCase" ]
+                    [ searchValue="articulusInterior" replaceByExpression="attributeWithItem.type.item.itemName.camelCase" ]
+                    [ searchValue="ArticulusInterior" replaceByExpression="attributeWithItem.type.item.itemName.pascalCase" ]
+
+            }}}@  */
+
+            [SilvaOptionumFormPartFieldName.articulusInteriorSingularis]: this.articulusInteriorFormPartService.createInitialArticulusInteriorForm(),
             /* @tt{{{ @rlb @end-foreach @rla }}}@ */
             /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
-            [SilvaOptionumFormPartFieldName.articulusInteriorSingularis]: this.articulusInteriorFormPartService.createInitialArticulusInteriorForm(),
             [SilvaOptionumFormPartFieldName.articulusInteriorList]: new FormArray(
                 this.silvaOptionumFormInitialValueService.articulusInteriorListInitialValue(),
                 {
@@ -160,6 +166,29 @@ export class SilvaOptionumFormPartService {
                 },
             ),
             /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
+
+            // ------------------------
+            // All isNotNull controls
+            // ------------------------
+
+            /* @tt{{{ @rlb
+                @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
+
+                @replace-value-by-expression
+                    [ searchValue="campusTextusOptionalis" replaceByExpression="attribute.attributeName.camelCase" ]
+                    [ searchValue="FormControl<string | null>" replaceByExpression="attribute.angularFormControlType" ]
+
+            }}}@  */
+            /* @tt{{{ @rlb  @if [ conditionExpression="attribute.isNullable"] @rla }}}@ */
+            [SilvaOptionumFormPartFieldName.campusTextusOptionalisIsNotNull]: new FormControl<boolean>(
+                this.silvaOptionumFormInitialValueService.campusTextusOptionalisInitialValue() != null,
+                {
+                    nonNullable: true,
+                    validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.campusTextusOptionalisIsNotNull)
+                },
+            ),
+            /* @tt{{{ @rlb  @end-if @rla }}}@ */
+            /* @tt{{{ @rlb @end-foreach @rla }}}@ */
         });
     }
 
@@ -191,7 +220,7 @@ export class SilvaOptionumFormPartService {
         /* @tt{{{ @end-foreach }}}@ */
 
         /* @tt{{{
-            @foreach [ iteratorExpression="model.item.attributesWithItems" loopVariable="attributeWithItem" ]
+            @foreach [ iteratorExpression="model.item.attributesWithItem" loopVariable="attributeWithItem" ]
             @replace-value-by-expression
                     [ searchValue="articulusInteriorSingularis" replaceByExpression="attributeWithItem.attribute.attributeName.camelCase" ]
                     [ searchValue="articulusInterior" replaceByExpression="attributeWithItem.type.item.itemName.camelCase" ]

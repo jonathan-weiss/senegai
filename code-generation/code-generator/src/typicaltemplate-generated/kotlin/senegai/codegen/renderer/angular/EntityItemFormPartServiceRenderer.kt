@@ -47,7 +47,26 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
           |
           |    public createInitial${model.item.itemName.pascalCase}Form(): FormGroup<${model.item.itemName.pascalCase}FormPartGroup> {
           |        return new FormGroup({
-          |                        ${ model.item.attributes.joinToString("") { attribute ->  """${ if(attribute.isNullable) { """            [${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull]: new FormControl<boolean>(
+          |                        ${ model.item.attributes.joinToString("") { attribute ->  """${ if(!attribute.isItem) { """            [${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}]: new ${attribute.angularFormControlType}(
+                  |                this.${model.item.itemName.camelCase}FormInitialValueService.${attribute.attributeName.camelCase}InitialValue(),
+                  |                {
+                  |                    nonNullable: true,
+                  |                    validators: this.${model.item.itemName.camelCase}FormValidationService.validatorFunctions(${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase})
+                  |                },
+                  |            ),
+                  |            
+          """ } else { """
+          """ } }            
+          """ } }
+          |            ${ model.item.attributesWithItem.joinToString("") { attributeWithItem ->  """
+              |
+              |            [${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItem.attribute.attributeName.camelCase}]: this.${attributeWithItem.type.item.itemName.camelCase}FormPartService.createInitial${attributeWithItem.type.item.itemName.pascalCase}Form(),
+          """ } }            
+          |            // ------------------------
+          |            // All isNotNull controls
+          |            // ------------------------
+          |
+          |            ${ model.item.attributes.joinToString("") { attribute ->  """${ if(attribute.isNullable) { """            [${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull]: new FormControl<boolean>(
                   |                this.${model.item.itemName.camelCase}FormInitialValueService.${attribute.attributeName.camelCase}InitialValue() != null,
                   |                {
                   |                    nonNullable: true,
@@ -56,15 +75,8 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
                   |            ),
                   |            
           """ } else { """
-          """ } }            [${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}]: new ${attribute.angularFormControlType}(
-              |                this.${model.item.itemName.camelCase}FormInitialValueService.${attribute.attributeName.camelCase}InitialValue(),
-              |                {
-              |                    nonNullable: true,
-              |                    validators: this.${model.item.itemName.camelCase}FormValidationService.validatorFunctions(${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase})
-              |                },
-              |            ),
-              |            
-          """ } }                    });
+          """ } }            
+          """ } }        });
           |    }
           |
           |    /**
@@ -87,7 +99,7 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
               |        
           """ } }
           |
-          |        ${ model.item.attributesWithItems.joinToString("") { attributeWithItem ->  """
+          |        ${ model.item.attributesWithItem.joinToString("") { attributeWithItem ->  """
               |        this.${attributeWithItem.type.item.itemName.camelCase}FormPartService.patchPreparation(form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItem.attribute.attributeName.camelCase}], ${model.item.itemName.camelCase}.${attributeWithItem.attribute.attributeName.camelCase})
               |        
           """ } }

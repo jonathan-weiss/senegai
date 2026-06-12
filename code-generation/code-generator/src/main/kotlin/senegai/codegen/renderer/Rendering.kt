@@ -33,6 +33,12 @@ object Rendering {
 
             uiModel.uiEntitiesViews.forEach { uiEntityView ->
                 uiEntityView.formView.entityItems.forEach { entityItem ->
+                    // create for root item
+                    renderFormPart(entityItem)
+                    renderTableComponent(entityItem)
+
+                    // create for other item
+                    // TODO Hier sind noch Blocks drin mit den falschen Attributen
                     entityItem.entity.entityItemModels.forEach { involvedItem ->
                         val involvedViewItemModel = entityItem.copy(item = involvedItem)
                         renderFormPart(involvedViewItemModel)
@@ -40,11 +46,6 @@ object Rendering {
 
                     }
                 }
-
-//                // TODO Filter for items that are nested items
-//                // TODO Mix with nested item configuration
-//                uiEntityView.formView.entityItems.forEach { entityItem ->
-//                }
             }
 
             uiEntities.forEach { uiEntityModel ->

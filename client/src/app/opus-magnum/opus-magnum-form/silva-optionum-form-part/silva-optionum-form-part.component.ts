@@ -184,7 +184,7 @@ export class SilvaOptionumFormPartComponent implements OnInit {
     @Input({ required: true }) silvaOptionumForm!: FormGroup<SilvaOptionumFormPartGroup>;
 
     /* @tt{{{ @rlb
-        @foreach [ iteratorExpression="model.item.attributesWithItems" loopVariable="attributeWithItem" ]
+        @foreach [ iteratorExpression="model.item.attributesWithItem" loopVariable="attributeWithItem" ]
         @replace-value-by-expression
             [ searchValue="articulusInteriorList" replaceByExpression="attributeWithItem.attribute.attributeName.camelCase" ]
             [ searchValue="FormGroup<ArticulusInteriorFormPartGroup>" replaceByExpression="attributeWithItem.attribute.angularFormControlType" ]
