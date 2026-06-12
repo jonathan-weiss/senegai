@@ -86,14 +86,20 @@
                         @replace-value-by-expression
                         [ searchValue="campusTextusObligatorius" replaceByExpression="block.attribute.attributeName.camelCase" ]
                         [ searchValue="Campus Textus Obligatorius" replaceByExpression="block.attribute.attributeName.pascalCase" ]
-                        [ searchValue="text" replaceByExpression="block.attribute.formComponentTypeInfix" ]
 
                     }}}@  -->
 
                     <div class="form-row">
                         <app-field-wrapper label="Campus Textus Obligatorius">
-
+                            <!-- @tt{{{
+                                @render-template
+                                    [ templateRendererClassName="SingleFormInputHtmlTagRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" ]
+                                    [ modelName="attributeModel" modelExpression="block.attribute" ]
+                                    [ modelName="model" modelExpression="model" ]
+                                @ignore-text
+                            }}}@  -->
                             <app-text-input [textFormControl]="campusTextusObligatoriusControl" label="campusTextusObligatorius" placeholder="Enter Campus Textus Obligatorius" [validatorTranslations]="campusTextusObligatoriusValidatorNames" />
+                            <!-- @tt{{{ @end-ignore-text }}}@  -->
                         </app-field-wrapper>
                     </div>
                     <!-- @tt{{{ @rlb @end-if @rla }}}@  -->
@@ -111,8 +117,15 @@
                                             [nullabilityCheckboxFormControl]="campusTextusOptionalisIsNotNullControl"
                                             [formGroupToDisableIfNullField]="campusTextusOptionalisControl"
                          >
-
+                            <!-- @tt{{{
+                                @render-template
+                                    [ templateRendererClassName="SingleFormInputHtmlTagRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" ]
+                                    [ modelName="attributeModel" modelExpression="block.attribute" ]
+                                    [ modelName="model" modelExpression="model" ]
+                                @ignore-text
+                            }}}@  -->
                             <app-text-input [textFormControl]="campusTextusOptionalisControl" label="campusTextusOptionalis" placeholder="Enter campusTextusOptionalis" [validatorTranslations]="campusTextusOptionalisValidatorNames" />
+                            <!-- @tt{{{ @end-ignore-text }}}@  -->
                         </app-field-wrapper>
                     </div>
                     <!-- @tt{{{ @rlb @end-if @rla }}}@  -->
@@ -140,7 +153,15 @@
                                 <button mat-icon-button color="primary" (click)="closeArticulusInteriorListFormGroupUnderEdit()">
                                     <mat-icon>edit_off</mat-icon>
                                 </button>
+                                <!-- @tt{{{
+                                    @render-template
+                                        [ templateRendererClassName="SingleFormInputHtmlTagRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" ]
+                                        [ modelName="attributeModel" modelExpression="block.attribute" ]
+                                        [ modelName="model" modelExpression="model" ]
+                                    @ignore-text
+                                }}}@  -->
                                 <app-articulus-interior-form-part [articulusInteriorForm]="articulusInteriorListFormGroupUnderEdit!"  />
+                                <!-- @tt{{{ @end-ignore-text }}}@  -->
                             </div>
                         }
                     </app-field-wrapper>

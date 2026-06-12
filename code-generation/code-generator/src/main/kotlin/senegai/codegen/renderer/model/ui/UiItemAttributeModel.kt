@@ -18,8 +18,6 @@ data class UiItemAttributeModel(
     val angularFormControlTypeWithCollection: String = calculateAngularFormControlType(withCollection = true)
     val angularFormInitialValue: String
         get() = determineAngularFormInitialValue()
-    val formComponentTypeInfix: String
-        get() = determineFormComponentTypeInfix()
     val attributeCardinality: AttributeCardinalityModel = attributeCardinalityModel()
 
     private fun calculateAttributeType(): String =
@@ -120,21 +118,6 @@ data class UiItemAttributeModel(
             singleType
         }
     }
-
-    /**
-     * Replaces the component to <app-text-input />
-     */
-    private fun determineFormComponentTypeInfix(): String =
-        when (type) {
-            is BuiltInTypeUiItemAttributeTypeModel -> when (type.builtInType) {
-                BuiltInType.STRING -> "text"
-                BuiltInType.NUMBER -> "number"
-                BuiltInType.BOOLEAN -> "boolean"
-            }
-            is EnumUiItemAttributeTypeModel -> throw NotSupportedInTemplateException("EnumUiItemAttributeTypeModel is not supported.")
-            is ItemUiItemAttributeTypeModel -> throw NotSupportedInTemplateException("ItemUiItemAttributeTypeModel is not supported.") // TODO type.itemTypeAsString()
-        }
-
 
     private fun determineAngularFormInitialValue(): String =
         if (isNullable) {

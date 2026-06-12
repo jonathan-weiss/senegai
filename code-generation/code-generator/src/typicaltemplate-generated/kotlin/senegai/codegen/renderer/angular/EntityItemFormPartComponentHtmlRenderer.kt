@@ -4,6 +4,7 @@
 package senegai.codegen.renderer.angular
 
 import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewItemModel
+import senegai.codegen.renderer.angular.SingleFormInputHtmlTagRenderer
 
 /**
  * Generate the content for the template `EntityItemFormPartComponentHtmlRenderer`.
@@ -39,8 +40,7 @@ object EntityItemFormPartComponentHtmlRenderer : UiEntityItemRenderer {
                               |
                               |                    <div class="form-row">
                               |                        <app-field-wrapper label="${block.attribute.attributeName.pascalCase}">
-                              |
-                              |                            <app-${block.attribute.formComponentTypeInfix}-input [${block.attribute.formComponentTypeInfix}FormControl]="${block.attribute.attributeName.camelCase}Control" label="${block.attribute.attributeName.camelCase}" placeholder="Enter ${block.attribute.attributeName.pascalCase}" [validatorTranslations]="${block.attribute.attributeName.camelCase}ValidatorNames" />
+                              |                            ${SingleFormInputHtmlTagRenderer.renderTemplate(attributeModel = block.attribute, model = model)}
                               |                        </app-field-wrapper>
                               |                    </div>
           """ } else { """
@@ -51,8 +51,7 @@ object EntityItemFormPartComponentHtmlRenderer : UiEntityItemRenderer {
                               |                                            [nullabilityCheckboxFormControl]="${block.attribute.attributeName.camelCase}IsNotNullControl"
                               |                                            [formGroupToDisableIfNullField]="${block.attribute.attributeName.camelCase}Control"
                               |                         >
-                              |
-                              |                            <app-text-input [textFormControl]="${block.attribute.attributeName.camelCase}Control" label="${block.attribute.attributeName.camelCase}" placeholder="Enter ${block.attribute.attributeName.camelCase}" [validatorTranslations]="${block.attribute.attributeName.camelCase}ValidatorNames" />
+                              |                            ${SingleFormInputHtmlTagRenderer.renderTemplate(attributeModel = block.attribute, model = model)}
                               |                        </app-field-wrapper>
                               |                    </div>
           """ } else { """
@@ -71,7 +70,7 @@ object EntityItemFormPartComponentHtmlRenderer : UiEntityItemRenderer {
                               |                                <button mat-icon-button color="primary" (click)="closeArticulusInteriorListFormGroupUnderEdit()">
                               |                                    <mat-icon>edit_off</mat-icon>
                               |                                </button>
-                              |                                <app-${block.attribute.attributeName.kebabCase}-form-part [${block.attribute.attributeName.pascalCase}Form]="${block.attribute.attributeName.pascalCase}ListFormGroupUnderEdit!"  />
+                              |                                ${SingleFormInputHtmlTagRenderer.renderTemplate(attributeModel = block.attribute, model = model)}
                               |                            </div>
                               |                        }
                               |                    </app-field-wrapper>
