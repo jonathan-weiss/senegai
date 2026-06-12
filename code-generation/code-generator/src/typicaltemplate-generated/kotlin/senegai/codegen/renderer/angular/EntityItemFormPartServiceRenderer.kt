@@ -18,7 +18,7 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
         return """
           |
           |import {Injectable} from '@angular/core';
-          |import {${model.item.itemName.pascalCase}WTO} from "@app/wto/${model.item.itemName.kebabCase}-wto";
+          |import {${model.item.itemName.pascalCase}WTO} from "@app/wto/${model.item.itemName.kebabCase}.wto";
           |import {FormArray, FormControl, FormGroup} from "@angular/forms";
           |import {
           |    ${model.item.itemName.pascalCase}FormPartValidationService
@@ -30,10 +30,10 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
           |import {${model.item.itemName.pascalCase}FormPartFieldName} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-field-name";
           |
           |
-          |${ model.item.directlyNestedItems.joinToString("") { directlyNestedItem ->  """
+          |${ model.item.directlyNestedItems.joinToString("") { nestedItem ->  """
               |import {
-              |    ${directlyNestedItem.itemName.pascalCase}FormPartService
-              |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${directlyNestedItem.itemName.kebabCase}-form-part/${directlyNestedItem.itemName.kebabCase}-form-part.service";
+              |    ${nestedItem.itemName.pascalCase}FormPartService
+              |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${nestedItem.itemName.kebabCase}-form-part/${nestedItem.itemName.kebabCase}-form-part.service";
           """ } }
           |@Injectable({providedIn: 'root'})
           |export class ${model.item.itemName.pascalCase}FormPartService {
@@ -41,7 +41,7 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
           |    constructor(
           |        private ${model.item.itemName.camelCase}FormValidationService: ${model.item.itemName.pascalCase}FormPartValidationService,
           |        private ${model.item.itemName.camelCase}FormInitialValueService: ${model.item.itemName.pascalCase}FormPartInitialValueService,
-          |        ${ model.item.attributeItemsFlat.joinToString("") { nestedItem ->  """
+          |        ${ model.item.directlyNestedItems.joinToString("") { nestedItem ->  """
               |        private ${nestedItem.itemName.camelCase}FormPartService: ${nestedItem.itemName.pascalCase}FormPartService,
           """ } }    ) {}
           |
@@ -78,17 +78,17 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
               |        const ${attribute.attributeName.camelCase}Length = form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].controls.length
               |        if(${attribute.attributeName.camelCase}Length < ${model.item.itemName.camelCase}.${attribute.attributeName.camelCase}.length) {
               |            for (let i = ${attribute.attributeName.camelCase}Length; i < ${model.item.itemName.camelCase}.${attribute.attributeName.camelCase}.length; i++) {
-              |                const ${attribute.attributeName.pascalCase}Control = this.${attribute.attributeName.pascalCase}FormPartService.createInitial${attribute.attributeName.pascalCase}Form()
+              |                const ${model.item.itemName.camelCase}Control = this.${model.item.itemName.camelCase}FormPartService.createInitial${model.item.itemName.pascalCase}Form()
               |                const articulurInterior = ${model.item.itemName.camelCase}.${attribute.attributeName.camelCase}[i]
-              |                form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].push(${attribute.attributeName.pascalCase}Control)
-              |                this.${attribute.attributeName.pascalCase}FormPartService.patchPreparation(${attribute.attributeName.pascalCase}Control, articulurInterior)
+              |                form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].push(${model.item.itemName.camelCase}Control)
+              |                this.${model.item.itemName.camelCase}FormPartService.patchPreparation(${model.item.itemName.camelCase}Control, articulurInterior)
               |            }
               |        }
               |        
           """ } }
           |
-          |        ${ model.item.attributesWithItems.joinToString("") { attribute ->  """
-              |        this.${attribute.attributeName.pascalCase}FormPartService.patchPreparation(form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}], ${model.item.itemName.camelCase}.${attribute.attributeName.camelCase})
+          |        ${ model.item.attributesWithItems.joinToString("") { attributeWithItem ->  """
+              |        this.${attributeWithItem.type.item.itemName.camelCase}FormPartService.patchPreparation(form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItem.attribute.attributeName.camelCase}], ${model.item.itemName.camelCase}.${attributeWithItem.attribute.attributeName.camelCase})
               |        
           """ } }
           |    }

@@ -57,7 +57,7 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
           """ } else { """
           """ } }
           |
-          |${ model.item.attributeItemsFlat.joinToString("") { nestedItem ->  """
+          |${ model.item.directlyNestedItems.joinToString("") { nestedItem ->  """
               |import {
               |    ${nestedItem.itemName.pascalCase}TableComponent
               |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${nestedItem.itemName.kebabCase}-table/${nestedItem.itemName.kebabCase}-table.component";
@@ -94,7 +94,7 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
           """ } }        ${ if(model.containsTextBlocks()) { """        TextBlockComponent,
               |        
           """ } else { """
-          """ } }        ${ model.item.attributeItemsFlat.joinToString("") { nestedItem ->  """
+          """ } }        ${ model.item.directlyNestedItems.joinToString("") { nestedItem ->  """
               |
               |        ${nestedItem.itemName.pascalCase}TableComponent,
               |        ${nestedItem.itemName.pascalCase}FormPartComponent,
@@ -112,8 +112,8 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
           |})
           |export class ${model.item.itemName.pascalCase}FormPartComponent implements OnInit {
           |    @Input({ required: true }) ${model.item.itemName.camelCase}Form!: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>;
-          |${ model.item.attributesWithItems.joinToString("") { attribute ->  """
-              |    ${attribute.attributeName.camelCase}FormGroupUnderEdit: ${attribute.angularFormControlType} | undefined = undefined;
+          |${ model.item.attributesWithItems.joinToString("") { attributeWithItem ->  """
+              |    ${attributeWithItem.attribute.attributeName.camelCase}FormGroupUnderEdit: ${attributeWithItem.attribute.angularFormControlType} | undefined = undefined;
           """ } }
           |
           |        ${ model.item.attributes.joinToString("") { attribute ->  """    ${ if(attribute.isNullable) { """    protected ${attribute.attributeName.camelCase}IsNotNullControl!: FormControl<boolean>
@@ -140,7 +140,7 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
           """ } }            }
           |
           |
-          |    ${ model.item.attributesWithItems.joinToString("") { attribute ->  """
+          |    ${ model.item.attributesWithLists.joinToString("") { attribute ->  """
               |    on${attribute.attributeName.pascalCase}FormGroupEdit(formGroup: ${attribute.angularFormControlType}): void {
               |        this.${attribute.attributeName.camelCase}FormGroupUnderEdit = formGroup;
               |    }

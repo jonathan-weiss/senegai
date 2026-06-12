@@ -40,7 +40,7 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {MatDialogModule} from "@angular/material/dialog";
-import {SilvaOptionumWTO} from "@app/wto/silva-optionum-wto";
+import {SilvaOptionumWTO} from "@app/wto/silva-optionum.wto";
 import {SilvaOptionumFormPartService} from "@app/opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part.service";
 import {SilvaOptionumFormPartComponent} from "@app/opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part.component";
 import {

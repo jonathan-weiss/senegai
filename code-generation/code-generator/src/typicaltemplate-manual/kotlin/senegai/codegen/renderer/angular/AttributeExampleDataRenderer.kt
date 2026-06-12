@@ -41,7 +41,7 @@ object AttributeExampleDataRenderer {
         attributeContext: AttributeContext,
     ): String {
         if (attributeContext.attributeModel.isList) {
-            val singleValues = (1..10).map {
+            val singleValues = (1..2).map {
                 createSingleValue(attributeContext.withNextSeed())
             }
             return wrapToList(singleValues)

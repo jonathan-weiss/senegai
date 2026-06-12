@@ -40,7 +40,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
-import {SilvaOptionumWTO} from "@app/wto/silva-optionum-wto";
+import {SilvaOptionumWTO} from "@app/wto/silva-optionum.wto";
 import {JsonPipe} from "@angular/common";
 
 @Component({

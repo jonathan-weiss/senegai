@@ -9,15 +9,15 @@ import senegai.codegen.renderer.model.ui.UiItemModel
  * Generate the content for the template `ItemWTOInterfaceRenderer`.
  *
  * This template renderer was generated from the template:
- * - file: `silva-optionum-wto.ts`
- * - path: `wto/silva-optionum-wto.ts`
+ * - file: `silva-optionum.wto.ts`
+ * - path: `wto/silva-optionum.wto.ts`
  */
 object ItemWTOInterfaceRenderer : UiItemRenderer {
 
     override fun renderTemplate(model: UiItemModel): String {
         return """
           |
-          |${ model.attributeItemsFlat.joinToString("") { nestedItem ->  """
+          |${ model.directlyNestedItems.joinToString("") { nestedItem ->  """
               |import {${nestedItem.itemName.pascalCase}WTO} from "@app/wto/${nestedItem.itemName.kebabCase}.wto";
           """ } }
           |/**
@@ -33,6 +33,6 @@ object ItemWTOInterfaceRenderer : UiItemRenderer {
     }
 
     override fun filePath(model: UiItemModel): String {
-      return "wto/${model.itemName.kebabCase}-wto.ts"
+      return "wto/${model.itemName.kebabCase}.wto.ts"
     }
 }

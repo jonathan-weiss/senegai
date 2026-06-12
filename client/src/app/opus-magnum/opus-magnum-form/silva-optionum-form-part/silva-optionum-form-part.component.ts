@@ -91,7 +91,7 @@ import {AppellatioSelectorComponent} from "@app/enum/appellatio-input-selection/
 
 
 /* @tt{{{ @rlb
-    @foreach [ iteratorExpression="model.item.attributeItemsFlat" loopVariable="nestedItem" ]
+    @foreach [ iteratorExpression="model.item.directlyNestedItems" loopVariable="nestedItem" ]
     @replace-value-by-expression
         [ searchValue="articulus-interior" replaceByExpression="nestedItem.itemName.kebabCase" ]
         [ searchValue="articulusInterior" replaceByExpression="nestedItem.itemName.camelCase" ]
@@ -154,7 +154,7 @@ import {
         }}}@
          */
         /* @tt{{{ @rlb
-            @foreach [ iteratorExpression="model.item.attributeItemsFlat" loopVariable="nestedItem" ]
+            @foreach [ iteratorExpression="model.item.directlyNestedItems" loopVariable="nestedItem" ]
             @replace-value-by-expression
                 [ searchValue="articulus-interior" replaceByExpression="nestedItem.itemName.kebabCase" ]
                 [ searchValue="articulusInterior" replaceByExpression="nestedItem.itemName.camelCase" ]
@@ -184,10 +184,10 @@ export class SilvaOptionumFormPartComponent implements OnInit {
     @Input({ required: true }) silvaOptionumForm!: FormGroup<SilvaOptionumFormPartGroup>;
 
     /* @tt{{{ @rlb
-        @foreach [ iteratorExpression="model.item.attributesWithItems" loopVariable="attribute" ]
+        @foreach [ iteratorExpression="model.item.attributesWithItems" loopVariable="attributeWithItem" ]
         @replace-value-by-expression
-            [ searchValue="articulusInteriorList" replaceByExpression="attribute.attributeName.camelCase" ]
-            [ searchValue="FormGroup<ArticulusInteriorFormPartGroup>" replaceByExpression="attribute.angularFormControlType" ]
+            [ searchValue="articulusInteriorList" replaceByExpression="attributeWithItem.attribute.attributeName.camelCase" ]
+            [ searchValue="FormGroup<ArticulusInteriorFormPartGroup>" replaceByExpression="attributeWithItem.attribute.angularFormControlType" ]
 
     }}}@  */
     articulusInteriorListFormGroupUnderEdit: FormGroup<ArticulusInteriorFormPartGroup> | undefined = undefined;
@@ -280,7 +280,7 @@ export class SilvaOptionumFormPartComponent implements OnInit {
 
 
     /* @tt{{{ @rlb
-    @foreach [ iteratorExpression="model.item.attributesWithItems" loopVariable="attribute" ]
+    @foreach [ iteratorExpression="model.item.attributesWithLists" loopVariable="attribute" ]
     @replace-value-by-expression
         [ searchValue="articulusInteriorList" replaceByExpression="attribute.attributeName.camelCase" ]
         [ searchValue="ArticulusInteriorList" replaceByExpression="attribute.attributeName.pascalCase" ]

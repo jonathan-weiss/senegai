@@ -48,7 +48,7 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {OpusMagnumFormComponent} from "@app/opus-magnum/opus-magnum-form/opus-magnum-form/opus-magnum-form.component";
-import {SilvaOptionumWTO} from "@app/wto/silva-optionum-wto";
+import {SilvaOptionumWTO} from "@app/wto/silva-optionum.wto";
 import {TranslocoPipe} from "@jsverse/transloco";
 
 @Component({

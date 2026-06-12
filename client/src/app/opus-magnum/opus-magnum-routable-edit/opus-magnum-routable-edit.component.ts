@@ -31,7 +31,7 @@
 
 }}}@ */
 import {Component} from '@angular/core';
-import {SilvaOptionumWTO} from "@app/wto/silva-optionum-wto";
+import {SilvaOptionumWTO} from "@app/wto/silva-optionum.wto";
 import {OpusMagnumService} from "@app/opus-magnum/opus-magnum.service";
 import {OpusMagnumFormComponent} from "@app/opus-magnum/opus-magnum-form/opus-magnum-form/opus-magnum-form.component";
 import {ActivatedRoute} from "@angular/router";

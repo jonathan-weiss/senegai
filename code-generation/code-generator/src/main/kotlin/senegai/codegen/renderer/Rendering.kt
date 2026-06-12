@@ -33,14 +33,18 @@ object Rendering {
 
             uiModel.uiEntitiesViews.forEach { uiEntityView ->
                 uiEntityView.formView.entityItems.forEach { entityItem ->
-                    renderFormPart(entityItem)
+                    entityItem.entity.entityItemModels.forEach { involvedItem ->
+                        val involvedViewItemModel = entityItem.copy(item = involvedItem)
+                        renderFormPart(involvedViewItemModel)
+                        renderTableComponent(involvedViewItemModel)
+
+                    }
                 }
 
-                // TODO Filter for items that are nested items
-                // TODO Mix with nested item configuration
-                uiEntityView.formView.entityItems.forEach { entityItem ->
-                    renderTableComponent(entityItem)
-                }
+//                // TODO Filter for items that are nested items
+//                // TODO Mix with nested item configuration
+//                uiEntityView.formView.entityItems.forEach { entityItem ->
+//                }
             }
 
             uiEntities.forEach { uiEntityModel ->

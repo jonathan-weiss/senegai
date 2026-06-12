@@ -14,14 +14,19 @@ data class UiItemModel(
     val attributesWithAngularFormInitialValues: List<UiItemAttributeModel> = attributes
         .filter { it.type is BuiltInTypeUiItemAttributeTypeModel || it.isList || it.isNullable }
 
-    val attributesWithItems: List<UiItemAttributeModel> = attributes
-        .filter { it.type is ItemUiItemAttributeTypeModel}
+    val attributesWithItems: List<AttributeAndItemDescriptionModel> = attributes
+        .filter { it.isItem }
+        .map { AttributeAndItemDescriptionModel(
+            attribute = it,
+            type = it.type as ItemUiItemAttributeTypeModel,
+        ) }
 
     val attributesWithLists: List<UiItemAttributeModel> = attributes
-        .filter { it.isList}
+        .filter { it.isList }
 
     val attributeItemsFlat: List<UiItemDescriptionModel> = attributes
-        .map { it.type }.filterIsInstance<ItemUiItemAttributeTypeModel>()
+        .map { it.type }
+        .filterIsInstance<ItemUiItemAttributeTypeModel>()
         .map { it.item }
 
     val directlyNestedItems: List<UiItemDescriptionModel> = attributes

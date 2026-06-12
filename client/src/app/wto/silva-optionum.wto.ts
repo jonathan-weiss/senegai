@@ -25,7 +25,7 @@
 }}}@ */
 
 /* @tt{{{
-    @foreach [ iteratorExpression="model.attributeItemsFlat" loopVariable="nestedItem" ]
+    @foreach [ iteratorExpression="model.directlyNestedItems" loopVariable="nestedItem" ]
 
     @replace-value-by-expression
         [ searchValue="ArticulusInterior" replaceByExpression="nestedItem.itemName.pascalCase" ]

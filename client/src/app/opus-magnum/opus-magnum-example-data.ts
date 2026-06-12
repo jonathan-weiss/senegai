@@ -27,7 +27,7 @@
     @rla
 
 }}}@ */
-import {SilvaOptionumWTO} from "@app/wto/silva-optionum-wto";
+import {SilvaOptionumWTO} from "@app/wto/silva-optionum.wto";
 /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
 import {AppellatioEnum} from "@app/wto/appellatio.enum";
 /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
@@ -86,7 +86,7 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
         campusDiei: new Date(1979, 3, 23),
         appellatio: AppellatioEnum.SENIOR,
         campusTextusObligatorius: 'Doe',
-        articulusInteriorSingularis:                 {
+        articulusInteriorSingularis: {
             description: "ALA Medal of Excellence.",
             year: 1956,
             juryList: ["Elisabeth Smith", "Aaron Glasgow", "James Duroldi"]
@@ -113,7 +113,7 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
         indexUnicus: '6b9a179c-641b-4204-a6ae-46be2fbbaa3a',
         campusTextusObligatorius: 'Smith',
         campusTextusOptionalis: 'Jane',
-        articulusInteriorSingularis:                 {
+        articulusInteriorSingularis: {
             description: "ALA Medal of Excellence.",
             year: 1956,
             juryList: ["Elisabeth Smith", "Aaron Glasgow", "James Duroldi"]
@@ -139,7 +139,7 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
         indexUnicus: 'd4076f05-50ac-4ceb-b54d-06f5c77874e4',
         campusTextusObligatorius: 'Johnson',
         campusTextusOptionalis: null,
-        articulusInteriorSingularis:                 {
+        articulusInteriorSingularis: {
             description: "ALA Medal of Excellence.",
             year: 1956,
             juryList: ["Elisabeth Smith", "Aaron Glasgow", "James Duroldi"]
@@ -154,7 +154,7 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
         indexUnicus: 'example',
         campusTextusObligatorius: 'Williams',
         campusTextusOptionalis: 'Molly',
-        articulusInteriorSingularis:                 {
+        articulusInteriorSingularis: {
             description: "ALA Medal of Excellence.",
             year: 1956,
             juryList: ["Elisabeth Smith", "Aaron Glasgow", "James Duroldi"]
