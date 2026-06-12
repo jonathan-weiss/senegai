@@ -49,6 +49,7 @@ object CodegenData {
                 attribute(name = "lastname", type = BuiltInType.STRING)
                 attribute(name = "age", type = BuiltInType.NUMBER)
                 attribute(name = "vegetarian", type = BuiltInType.BOOLEAN)
+                //attribute(name = "contactAddress", itemId = Items.ADDRESS, multiple = true)
             }
 
             item(itemId = Items.ADDRESS) {
@@ -91,6 +92,7 @@ object CodegenData {
                                     text(text = Constants.MULTILINE_TEXT)
                                     attribute(attributeName = "age")
                                     attribute(attributeName = "vegetarian")
+                                    //attribute(attributeName = "contactAddress")
                                 }
                             }
                         }
