@@ -113,14 +113,14 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
           |export class ${model.item.itemName.pascalCase}FormPartComponent implements OnInit {
           |    @Input({ required: true }) ${model.item.itemName.camelCase}Form!: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>;
           |${ model.item.attributesWithItems.joinToString("") { attribute ->  """
-              |    ${attribute.attributeName.camelCase}FormGroupUnderEdit: ${attribute.typescriptAttributeFormControlType} | undefined = undefined;
+              |    ${attribute.attributeName.camelCase}FormGroupUnderEdit: ${attribute.angularFormControlType} | undefined = undefined;
           """ } }
           |
           |        ${ model.item.attributes.joinToString("") { attribute ->  """    ${ if(attribute.isNullable) { """    protected ${attribute.attributeName.camelCase}IsNotNullControl!: FormControl<boolean>
                   |    protected ${attribute.attributeName.camelCase}IsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
                   |    
           """ } else { """
-          """ } }    protected ${attribute.attributeName.camelCase}Control!: ${attribute.typescriptAttributeFormControlType}
+          """ } }    protected ${attribute.attributeName.camelCase}Control!: ${attribute.angularFormControlTypeWithCollection}
               |    protected ${attribute.attributeName.camelCase}ValidatorNames!: ReadonlyArray<ValidatorTranslation>
               |
               |    
@@ -141,11 +141,11 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
           |
           |
           |    ${ model.item.attributesWithItems.joinToString("") { attribute ->  """
-              |    on${attribute.attributeName.pascalCase}FormGroupEdit(formGroup: ${attribute.typescriptAttributeFormControlType}): void {
+              |    on${attribute.attributeName.pascalCase}FormGroupEdit(formGroup: ${attribute.angularFormControlType}): void {
               |        this.${attribute.attributeName.camelCase}FormGroupUnderEdit = formGroup;
               |    }
               |
-              |    on${attribute.attributeName.pascalCase}FormGroupDelete(formGroup: ${attribute.typescriptAttributeFormControlType}): void {
+              |    on${attribute.attributeName.pascalCase}FormGroupDelete(formGroup: ${attribute.angularFormControlType}): void {
               |        if(this.${attribute.attributeName.camelCase}FormGroupUnderEdit == formGroup) {
               |            this.${attribute.attributeName.camelCase}FormGroupUnderEdit = undefined
               |        }

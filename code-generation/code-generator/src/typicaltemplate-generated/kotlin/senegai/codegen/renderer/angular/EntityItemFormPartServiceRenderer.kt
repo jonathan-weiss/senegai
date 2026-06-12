@@ -56,7 +56,7 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
                   |            ),
                   |            
           """ } else { """
-          """ } }            [${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}]: new ${attribute.typescriptAttributeFormControlType}(
+          """ } }            [${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}]: new ${attribute.angularFormControlType}(
               |                this.${model.item.itemName.camelCase}FormInitialValueService.${attribute.attributeName.camelCase}InitialValue(),
               |                {
               |                    nonNullable: true,

@@ -1,10 +1,8 @@
 package senegai.codegen.renderer.model.ui
 
-import org.codeblessing.templatetools.CaseUtil
 import senegai.codegen.renderer.NotSupportedInTemplateException
 import senegai.codegen.renderer.model.NameCase
 import senegai.codegen.schema.BuiltInType
-import senegai.codegen.schema.EnumId
 
 data class UiItemAttributeModel(
     val attributeName: NameCase,
@@ -13,20 +11,22 @@ data class UiItemAttributeModel(
     val type: UiItemAttributeTypeModel,
 ) {
     val typescriptAttributeType: String = calculateAttributeTypeWithNullability()
-    val typescriptAttributeTypeWithoutNullability: String = calculateAttributeType()
-    val typescriptAttributeTypeCapitalizedWithoutNullability: String = CaseUtil.capitalize(calculateAttributeType())
+    val isItem: Boolean = (type is ItemUiItemAttributeTypeModel)
 
-    val typescriptAttributeFormType: String = calculateFormType()
-    val typescriptAttributeFormControlType: String = calculateFormTypeIncludingCollection()
-    val formInitialValue: String = determineFormInitialValue()
-    val formComponentTypeInfix: String = determineFormComponentTypeInfix()
+    val angularInitialValueFormType: String = calculateAngularInitialValueFormType()
+    val angularFormControlType: String = calculateAngularFormControlType(withCollection = false)
+    val angularFormControlTypeWithCollection: String = calculateAngularFormControlType(withCollection = true)
+    val angularFormInitialValue: String
+        get() = determineAngularFormInitialValue()
+    val formComponentTypeInfix: String
+        get() = determineFormComponentTypeInfix()
     val attributeCardinality: AttributeCardinalityModel = attributeCardinalityModel()
 
     private fun calculateAttributeType(): String =
         when (type) {
             is BuiltInTypeUiItemAttributeTypeModel -> type.builtInTypeAsString()
             is EnumUiItemAttributeTypeModel -> throw NotSupportedInTemplateException("EnumUiItemAttributeTypeModel is not supported.")
-            is ItemUiItemAttributeTypeModel -> throw NotSupportedInTemplateException("ItemUiItemAttributeTypeModel is not supported.") // TODO type.itemTypeAsString()
+            is ItemUiItemAttributeTypeModel -> type.itemTypeAsString()
         }
 
     private fun ItemUiItemAttributeTypeModel.itemTypeAsString(): String = this.item.itemName.pascalCase
@@ -49,22 +49,75 @@ data class UiItemAttributeModel(
         }
     }
 
-    private fun calculateFormType(): String {
-        val type = calculateAttributeType()
-        return if (isNullable) {
-            "$type | null"
+    /**
+     * Something like:
+     * - `string`
+     * - `string | null`
+     * - `AppellatioEnum | null`
+     * - `Array<FormGroup<ArticulusInteriorFormPartGroup>>`
+     * Form values are always `null`based, not `undefined`.
+     */
+    private fun calculateAngularInitialValueFormType(): String {
+        val singleType = when (type) {
+            is BuiltInTypeUiItemAttributeTypeModel -> typescriptBuildInType(type.builtInType)
+            is EnumUiItemAttributeTypeModel -> type.enumTypeAsString()
+            is ItemUiItemAttributeTypeModel -> "FormGroup<${type.itemTypeAsString()}FormPartGroup>"
+        }
+
+        val singleTypeWithNullability =  withAngularFormNullability(singleType)
+
+        return if(isList) {
+            "Array<$singleTypeWithNullability>"
         } else {
-            type
+            singleTypeWithNullability
         }
     }
 
-    private fun calculateFormTypeIncludingCollection(): String {
-        // TODO if it is an item, we need FormArray<FormGroup<...>
-        val type = calculateFormType()
-        return if (isList) {
-            "FormArray<FormControl<$type>>"
+    /**
+     * Something like:
+     * - `FormControl<string>`
+     * - `FormControl<string | null>`
+     * - `FormControl<AppellatioEnum>`
+     * - `FormGroup<ArticulusInteriorFormPartGroup>`
+     * - `FormArray<FormGroup<ArticulusInteriorFormPartGroup>>`
+     * Form values are always `null`based, not `undefined`.
+     */
+    private fun calculateAngularFormControlType(withCollection: Boolean): String {
+        val singleType = when (type) {
+            is BuiltInTypeUiItemAttributeTypeModel -> typescriptBuildInType(type.builtInType)
+            is EnumUiItemAttributeTypeModel -> type.enumTypeAsString()
+            is ItemUiItemAttributeTypeModel -> "${type.itemTypeAsString()}FormPartGroup"
+        }
+
+        val singleTypeWithNullability =  withAngularFormNullability(singleType)
+        val singleFormType = if(isItem) {
+            "FormGroup<$singleTypeWithNullability>"
         } else {
-            "FormControl<$type>"
+            "FormControl<$singleTypeWithNullability>"
+        }
+        return if(isList && withCollection) {
+            "FormArray<$singleFormType>"
+        } else {
+            singleFormType
+        }
+    }
+
+    private fun typescriptBuildInType(builtInType: BuiltInType): String {
+        return when (builtInType) {
+            BuiltInType.STRING -> "string"
+            BuiltInType.NUMBER -> "number"
+            BuiltInType.BOOLEAN -> "boolean"
+        }
+    }
+
+    /**
+     * Form values are always `null`based, not `undefined`.
+     */
+    private fun withAngularFormNullability(singleType: String): String {
+        return if (isNullable) {
+            "$singleType | null"
+        } else {
+            singleType
         }
     }
 
@@ -83,7 +136,7 @@ data class UiItemAttributeModel(
         }
 
 
-    private fun determineFormInitialValue(): String =
+    private fun determineAngularFormInitialValue(): String =
         if (isNullable) {
             "null"
         } else if (isList) {
@@ -95,8 +148,8 @@ data class UiItemAttributeModel(
                     BuiltInType.NUMBER -> "0"
                     BuiltInType.BOOLEAN -> "false"
                 }
-                is EnumUiItemAttributeTypeModel -> throw NotSupportedInTemplateException("EnumUiItemAttributeTypeModel is not supported.")
-                is ItemUiItemAttributeTypeModel -> throw NotSupportedInTemplateException("ItemUiItemAttributeTypeModel is not supported.") // TODO type.itemTypeAsString()
+                is EnumUiItemAttributeTypeModel -> throw RuntimeException("EnumUiItemAttributeTypeModel has no form initial value.") // should not occur
+                is ItemUiItemAttributeTypeModel -> throw RuntimeException("ItemUiItemAttributeTypeModel has no form initial value.") // should not occur
             }
         }
 

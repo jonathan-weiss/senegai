@@ -86,7 +86,7 @@ export class OpusMagnumFormPartService {
 
                 @replace-value-by-expression
                     [ searchValue="campusTextusOptionalis" replaceByExpression="attribute.attributeName.camelCase" ]
-                    [ searchValue="FormControl<string | null>" replaceByExpression="attribute.typescriptAttributeFormControlType" ]
+                    [ searchValue="FormControl<string | null>" replaceByExpression="attribute.angularFormControlType" ]
 
             }}}@  */
             /* @tt{{{ @rlb  @if [ conditionExpression="attribute.isNullable"] @rla }}}@ */

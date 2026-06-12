@@ -184,7 +184,7 @@ export class OpusMagnumFormPartComponent implements OnInit {
         @foreach [ iteratorExpression="model.item.attributesWithItems" loopVariable="attribute" ]
         @replace-value-by-expression
             [ searchValue="articulusInteriorList" replaceByExpression="attribute.attributeName.camelCase" ]
-            [ searchValue="FormGroup<ArticulusInteriorFormPartGroup>" replaceByExpression="attribute.typescriptAttributeFormControlType" ]
+            [ searchValue="FormGroup<ArticulusInteriorFormPartGroup>" replaceByExpression="attribute.angularFormControlType" ]
 
     }}}@  */
     articulusInteriorListFormGroupUnderEdit: FormGroup<ArticulusInteriorFormPartGroup> | undefined = undefined;
@@ -200,7 +200,7 @@ export class OpusMagnumFormPartComponent implements OnInit {
 
     @replace-value-by-expression
         [ searchValue="campusTextusOptionalis" replaceByExpression="attribute.attributeName.camelCase" ]
-        [ searchValue="FormControl<string | null>" replaceByExpression="attribute.typescriptAttributeFormControlType" ]
+        [ searchValue="FormControl<string | null>" replaceByExpression="attribute.angularFormControlTypeWithCollection" ]
 
     @rla
     }}}@  */
@@ -281,7 +281,7 @@ export class OpusMagnumFormPartComponent implements OnInit {
     @replace-value-by-expression
         [ searchValue="articulusInteriorList" replaceByExpression="attribute.attributeName.camelCase" ]
         [ searchValue="ArticulusInteriorList" replaceByExpression="attribute.attributeName.pascalCase" ]
-        [ searchValue="FormGroup<ArticulusInteriorFormPartGroup>" replaceByExpression="attribute.typescriptAttributeFormControlType" ]
+        [ searchValue="FormGroup<ArticulusInteriorFormPartGroup>" replaceByExpression="attribute.angularFormControlType" ]
 
     }}}@  */
     onArticulusInteriorListFormGroupEdit(formGroup: FormGroup<ArticulusInteriorFormPartGroup>): void {

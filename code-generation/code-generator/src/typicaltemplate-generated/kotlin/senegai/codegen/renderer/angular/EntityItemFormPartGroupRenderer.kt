@@ -23,7 +23,7 @@ object EntityItemFormPartGroupRenderer : UiEntityItemRenderer {
           |
           |export interface ${model.entity.entityName.pascalCase}FormPartGroup {
           |    ${ model.item.attributes.joinToString("") { attribute ->  """
-              |    [${model.entity.entityName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}]: FormControl<${attribute.typescriptAttributeFormType}>,${ if(attribute.isNullable) { """    [${model.entity.entityName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull]: FormControl<boolean>,
+              |    [${model.entity.entityName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}]: ${attribute.angularFormControlType},${ if(attribute.isNullable) { """    [${model.entity.entityName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull]: FormControl<boolean>,
                   |    
           """ } else { """
           """ } }    

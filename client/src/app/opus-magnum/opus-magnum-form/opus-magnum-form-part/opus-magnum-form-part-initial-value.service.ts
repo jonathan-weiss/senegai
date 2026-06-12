@@ -41,12 +41,11 @@ import {
 @Injectable({providedIn: 'root'})
 export class OpusMagnumFormPartInitialValueService {
     /* @tt{{{ @rlb
-        @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
-
+        @foreach [ iteratorExpression="model.item.attributesWithAngularFormInitialValues" loopVariable="attribute" ]
         @replace-value-by-expression
             [ searchValue="campusTextusObligatorius" replaceByExpression="attribute.attributeName.camelCase" ]
-            [ searchValue="string" replaceByExpression="attribute.typescriptAttributeFormType" ]
-            [ searchValue="''" replaceByExpression="attribute.formInitialValue" ]
+            [ searchValue="string" replaceByExpression="attribute.angularInitialValueFormType" ]
+            [ searchValue="''" replaceByExpression="attribute.angularFormInitialValue" ]
 
     }}}@  */
     campusTextusObligatoriusInitialValue(): string {

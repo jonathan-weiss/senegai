@@ -44,7 +44,7 @@ export interface OpusMagnumFormPartGroup {
 
         @replace-value-by-expression
             [ searchValue="campusTextusOptionalis" replaceByExpression="attribute.attributeName.camelCase" ]
-            [ searchValue="string | null" replaceByExpression="attribute.typescriptAttributeFormType" ]
+            [ searchValue="FormControl<string | null>" replaceByExpression="attribute.angularFormControlType" ]
 
     }}}@  */
     [OpusMagnumFormPartFieldName.campusTextusOptionalis]: FormControl<string | null>,

@@ -11,6 +11,9 @@ data class UiItemModel(
     val itemId: ItemId = itemDescription.itemId
     val itemName: NameCase = itemDescription.itemName
 
+    val attributesWithAngularFormInitialValues: List<UiItemAttributeModel> = attributes
+        .filter { it.type is BuiltInTypeUiItemAttributeTypeModel || it.isList || it.isNullable }
+
     val attributesWithItems: List<UiItemAttributeModel> = attributes
         .filter { it.type is ItemUiItemAttributeTypeModel}
 
