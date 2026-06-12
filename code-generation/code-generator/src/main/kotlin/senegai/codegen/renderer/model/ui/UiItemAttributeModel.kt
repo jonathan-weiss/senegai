@@ -20,6 +20,17 @@ data class UiItemAttributeModel(
         get() = determineAngularFormInitialValue()
     val attributeCardinality: AttributeCardinalityModel = attributeCardinalityModel()
 
+    val attributeAndItem: AttributeAndItemDescriptionModel
+        get() = createAttributeAndItemDescriptionModel()
+
+    private fun createAttributeAndItemDescriptionModel(): AttributeAndItemDescriptionModel {
+        return if(type is ItemUiItemAttributeTypeModel) {
+            AttributeAndItemDescriptionModel(this, type)
+        } else {
+            throw RuntimeException("Attribute $attributeName is not an item type")
+        }
+    }
+
     private fun calculateAttributeType(): String =
         when (type) {
             is BuiltInTypeUiItemAttributeTypeModel -> type.builtInTypeAsString()
@@ -136,10 +147,14 @@ data class UiItemAttributeModel(
             }
         }
 
-    private fun attributeCardinalityModel(): AttributeCardinalityModel =
-        if (isNullable) {
+    private fun attributeCardinalityModel(): AttributeCardinalityModel {
+        if(isList) {
+            return AttributeCardinalityModel.LIST_ITEMS
+        }
+        return if (isNullable) {
             AttributeCardinalityModel.NULLABLE_SINGLE_ITEM
         } else {
             AttributeCardinalityModel.SINGLE_ITEM
         }
+    }
 }

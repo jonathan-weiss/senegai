@@ -55,7 +55,7 @@ export interface SilvaOptionumFormPartGroup {
 
         @replace-value-by-expression
             [ searchValue="campusTextusOptionalis" replaceByExpression="attribute.attributeName.camelCase" ]
-            [ searchValue="FormControl<string | null>" replaceByExpression="attribute.angularFormControlType" ]
+            [ searchValue="FormControl<string | null>" replaceByExpression="attribute.angularFormControlTypeWithCollection" ]
 
     }}}@  */
     [SilvaOptionumFormPartFieldName.campusTextusOptionalis]: FormControl<string | null>,

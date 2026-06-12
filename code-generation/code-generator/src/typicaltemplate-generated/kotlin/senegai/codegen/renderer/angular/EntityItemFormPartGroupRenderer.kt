@@ -30,7 +30,7 @@ object EntityItemFormPartGroupRenderer : UiEntityItemRenderer {
           |
           |export interface ${model.item.itemName.pascalCase}FormPartGroup {
           |    ${ model.item.attributes.joinToString("") { attribute ->  """
-              |    [${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}]: ${attribute.angularFormControlType},${ if(attribute.isNullable) { """    [${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull]: FormControl<boolean>,
+              |    [${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}]: ${attribute.angularFormControlTypeWithCollection},${ if(attribute.isNullable) { """    [${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull]: FormControl<boolean>,
                   |    
           """ } else { """
           """ } }    

@@ -162,18 +162,20 @@
                     <!-- @tt{{{ @rlb @end-if @rla }}}@  -->
 
                 <!-- @tt{{{
-                    @if [ conditionExpression="block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.LIST_ITEMS" ]
+                    @if [ conditionExpression="block.attribute.isItem && (block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.LIST_ITEMS)" ]
 
                     @replace-value-by-expression
-                    [ searchValue="Articulus Interior" replaceByExpression="block.attribute.attributeName.pascalCase" ]
-                    [ searchValue="articulusInterior" replaceByExpression="block.attribute.attributeName.camelCase" ]
-                    [ searchValue="articulusInterior" replaceByExpression="block.attribute.attributeName.pascalCase" ]
-                    [ searchValue="articulus-interior" replaceByExpression="block.attribute.attributeName.kebabCase" ]
+                    [ searchValue="Articulus Interior List" replaceByExpression="block.attribute.attributeName.pascalCase" ]
+                    [ searchValue="ArticulusInteriorList" replaceByExpression="block.attribute.attributeName.pascalCase" ]
+                    [ searchValue="articulusInteriorList" replaceByExpression="block.attribute.attributeName.camelCase" ]
+                    [ searchValue="ArticulusInterior" replaceByExpression="block.attribute.attributeAndItem.type.item.itemName.pascalCase" ]
+                    [ searchValue="articulusInterior" replaceByExpression="block.attribute.attributeAndItem.type.item.itemName.camelCase" ]
+                    [ searchValue="articulus-interior" replaceByExpression="block.attribute.attributeAndItem.type.item.itemName.kebabCase" ]
 
                 }}}@  -->
 
                 <div class="form-row">
-                    <app-field-wrapper label="Articulus Interior">
+                    <app-field-wrapper label="Articulus Interior List">
                         <app-articulus-interior-table
                                 [articulusInteriorFormArray]="articulusInteriorListControl"
                                 (editArticulusInteriorFormGroup)="onArticulusInteriorListFormGroupEdit($event)"
@@ -188,6 +190,7 @@
                                     @render-template
                                         [ templateRendererClassName="SingleFormInputHtmlTagRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" ]
                                         [ modelName="attributeModel" modelExpression="block.attribute" ]
+                                        [ modelName="isList" modelExpression="true" ]
                                     @ignore-text
                                 }}}@  -->
                                 <app-articulus-interior-form-part [articulusInteriorForm]="articulusInteriorListFormGroupUnderEdit!"  />
