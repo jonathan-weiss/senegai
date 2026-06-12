@@ -142,6 +142,13 @@ export class OpusMagnumFormPartService {
                     validators: this.opusMagnumFormValidationService.validatorFunctions(OpusMagnumFormPartFieldName.appellatio)
                 },
             ),
+            [OpusMagnumFormPartFieldName.campusNumerorum]: new FormControl<number>(
+                this.opusMagnumFormInitialValueService.campusNumerorumInitialValue(),
+                {
+                    nonNullable: true,
+                    validators: this.opusMagnumFormValidationService.validatorFunctions(OpusMagnumFormPartFieldName.campusNumerorum)
+                },
+            ),
             [OpusMagnumFormPartFieldName.indexUnicus]: new FormControl<string>(
                 this.opusMagnumFormInitialValueService.indexUnicusInitialValue(),
                 {

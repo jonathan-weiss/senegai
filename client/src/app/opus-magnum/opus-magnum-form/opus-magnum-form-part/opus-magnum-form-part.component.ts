@@ -43,7 +43,15 @@ import {
     OpusMagnumFormPartValidationService
 } from "@app/opus-magnum/opus-magnum-form/opus-magnum-form-part/opus-magnum-form-part-validation.service";
 import {OpusMagnumFormPartFieldName,} from "@app/opus-magnum/opus-magnum-form/opus-magnum-form-part/opus-magnum-form-part-field-name";
+/* @tt{{{ @rlb  @if [ conditionExpression="model.item.containsTextAttributes"]  @rla }}}@ */
 import {TextInputComponent} from "@app/shared/form-controls/text-input/text-input.component";
+/* @tt{{{ @rlb  @end-if @rla }}}@ */
+/* @tt{{{ @rlb  @if [ conditionExpression="model.item.containsBooleanAttributes"] }}}@ */
+import {BooleanInputComponent} from "@app/shared/form-controls/boolean-input/boolean-input.component";
+/* @tt{{{ @rlb  @end-if @rla }}}@ */
+/* @tt{{{ @rlb  @if [ conditionExpression="model.item.containsNumberAttributes"] }}}@ */
+import {NumberInputComponent} from "@app/shared/form-controls/number-input/number-input.component";
+/* @tt{{{ @rlb  @end-if }}}@ */
 import {DatepickerInputComponent} from "@app/shared/form-controls/datepicker-input/datepicker-input.component";
 import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
@@ -74,7 +82,6 @@ import {TextBlockComponent} from "@app/shared/blocks/text-block/text-block.compo
  */
 /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
 import {AppellatioEnum} from "@app/wto/appellatio.enum";
-import {BooleanInputComponent} from "@app/shared/form-controls/boolean-input/boolean-input.component";
 import {AppellatioSelectorComponent} from "@app/enum/appellatio-input-selection/appellatio-selector.component";
 
 /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
@@ -117,7 +124,6 @@ import {
         MatListModule,
         MatDialogModule,
         FieldWrapperComponent,
-        TextInputComponent,
         MatTabGroup,
         MatTab,
         /*
@@ -156,9 +162,17 @@ import {
         ArticulusInteriorTableComponent,
         ArticulusInteriorFormPartComponent,
         /* @tt{{{ @rlb  @end-foreach @rla }}}@ */
+        /* @tt{{{ @rlb  @if [ conditionExpression="model.item.containsTextAttributes"] }}}@ */
+        TextInputComponent,
+        /* @tt{{{ @rlb  @end-if }}}@ */
+        /* @tt{{{ @rlb  @if [ conditionExpression="model.item.containsBooleanAttributes"] }}}@ */
+        BooleanInputComponent,
+        /* @tt{{{ @rlb  @end-if }}}@ */
+        /* @tt{{{ @rlb  @if [ conditionExpression="model.item.containsNumberAttributes"] }}}@ */
+        NumberInputComponent,
+        /* @tt{{{ @rlb  @end-if }}}@ */
         /* @tt{{{ @rlb  @ignore-text }}}@ */
         DatepickerInputComponent,
-        BooleanInputComponent,
         AppellatioSelectorComponent,
         /* @tt{{{ @rlb  @end-ignore-text }}}@ */
     ]
@@ -214,6 +228,8 @@ export class OpusMagnumFormPartComponent implements OnInit {
     protected articulusInteriorSingularisValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected indexUnicusControl!: FormControl<string>
     protected indexUnicusValidatorNames!: ReadonlyArray<ValidatorTranslation>
+    protected campusNumerorumControl!: FormControl<number>
+    protected campusNumerorumValidatorNames!: ReadonlyArray<ValidatorTranslation>
     /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
 
     constructor(private readonly opusMagnumFormValidationService: OpusMagnumFormPartValidationService,) {
@@ -254,6 +270,8 @@ export class OpusMagnumFormPartComponent implements OnInit {
         this.articulusInteriorSingularisValidatorNames = this.opusMagnumFormValidationService.validatorNames(OpusMagnumFormPartFieldName.articulusInteriorSingularis)
         this.indexUnicusControl = this.opusMagnumForm.controls[OpusMagnumFormPartFieldName.indexUnicus]
         this.indexUnicusValidatorNames = this.opusMagnumFormValidationService.validatorNames(OpusMagnumFormPartFieldName.indexUnicus)
+        this.campusNumerorumControl = this.opusMagnumForm.controls[OpusMagnumFormPartFieldName.campusNumerorum]
+        this.campusNumerorumValidatorNames = this.opusMagnumFormValidationService.validatorNames(OpusMagnumFormPartFieldName.campusNumerorum)
         /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
     }
 

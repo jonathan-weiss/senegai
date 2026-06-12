@@ -62,6 +62,7 @@ export interface OpusMagnumWTO {
     articulusInteriorList: Array<ArticulusInteriorWTO>;
     campusDiei: Date | null;
     campusBivalens: boolean;
+    campusNumerorum: number;
     indexUnicus: string;
     /* @tt{{{ @rlb  @end-ignore-text }}}@ */
 }

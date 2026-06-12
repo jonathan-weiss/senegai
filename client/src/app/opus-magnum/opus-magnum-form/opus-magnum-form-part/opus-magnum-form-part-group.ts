@@ -60,6 +60,7 @@ export interface OpusMagnumFormPartGroup {
     [OpusMagnumFormPartFieldName.campusDiei]: FormControl<Date | null>,
     [OpusMagnumFormPartFieldName.campusBivalens]: FormControl<boolean>,
     [OpusMagnumFormPartFieldName.appellatio]: FormControl<AppellatioEnum>,
+    [OpusMagnumFormPartFieldName.campusNumerorum]: FormControl<number>,
     [OpusMagnumFormPartFieldName.indexUnicus]: FormControl<string>,
     /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
 }

@@ -53,6 +53,7 @@ export enum OpusMagnumFormPartFieldName {
     campusDiei = "campusDiei",
     campusBivalens = "campusBivalens",
     appellatio = "appellatio",
+    campusNumerorum = "campusNumerorum",
     indexUnicus = "indexUnicus",
 /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
 }

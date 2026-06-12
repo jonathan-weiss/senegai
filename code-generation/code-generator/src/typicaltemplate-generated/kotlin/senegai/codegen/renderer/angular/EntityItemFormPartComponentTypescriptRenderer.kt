@@ -35,7 +35,16 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
           |    ${model.item.itemName.pascalCase}FormPartValidationService
           |} from "@app/${model.item.itemName.kebabCase}/${model.item.itemName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-validation.service";
           |import {${model.item.itemName.pascalCase}FormPartFieldName,} from "@app/${model.item.itemName.kebabCase}/${model.item.itemName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-field-name";
-          |import {TextInputComponent} from "@app/shared/form-controls/text-input/text-input.component";
+          |${ if(model.item.containsTextAttributes) { """import {TextInputComponent} from "@app/shared/form-controls/text-input/text-input.component";
+              |
+          """ } else { """
+          """ } }${ if(model.item.containsBooleanAttributes) { """
+              |import {BooleanInputComponent} from "@app/shared/form-controls/boolean-input/boolean-input.component";
+          """ } else { """
+          """ } }${ if(model.item.containsNumberAttributes) { """
+              |import {NumberInputComponent} from "@app/shared/form-controls/number-input/number-input.component";
+          """ } else { """
+          """ } }
           |import {DatepickerInputComponent} from "@app/shared/form-controls/datepicker-input/datepicker-input.component";
           |import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
           |import {MatTab, MatTabGroup} from "@angular/material/tabs";
@@ -77,7 +86,6 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
           |        MatListModule,
           |        MatDialogModule,
           |        FieldWrapperComponent,
-          |        TextInputComponent,
           |        MatTabGroup,
           |        MatTab,
           |        ${ if(model.containsNamedSectionSplitBlocks()) { """        SectionSplitterComponent,
@@ -90,7 +98,16 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
               |
               |        ${nestedItem.itemName.pascalCase}TableComponent,
               |        ${nestedItem.itemName.pascalCase}FormPartComponent,
-          """ } }        
+          """ } }        ${ if(model.item.containsTextAttributes) { """
+              |        TextInputComponent,
+          """ } else { """
+          """ } }${ if(model.item.containsBooleanAttributes) { """
+              |        BooleanInputComponent,
+          """ } else { """
+          """ } }${ if(model.item.containsNumberAttributes) { """
+              |        NumberInputComponent,
+          """ } else { """
+          """ } }
           |    ]
           |})
           |export class ${model.item.itemName.pascalCase}FormPartComponent implements OnInit {

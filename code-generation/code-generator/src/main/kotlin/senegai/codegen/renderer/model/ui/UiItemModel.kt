@@ -1,6 +1,7 @@
 package senegai.codegen.renderer.model.ui
 
 import senegai.codegen.renderer.model.NameCase
+import senegai.codegen.schema.BuiltInType
 import senegai.codegen.schema.ItemId
 
 data class UiItemModel(
@@ -20,4 +21,11 @@ data class UiItemModel(
         .map { it.type }.filterIsInstance<ItemUiItemAttributeTypeModel>()
         .map { it.item }
 
+    val containsTextAttributes: Boolean = attributesOfType(BuiltInType.STRING).isNotEmpty()
+    val containsBooleanAttributes: Boolean = attributesOfType(BuiltInType.BOOLEAN).isNotEmpty()
+    val containsNumberAttributes: Boolean = attributesOfType(BuiltInType.NUMBER).isNotEmpty()
+
+    private fun attributesOfType(filterBuiltInType: BuiltInType): List<UiItemAttributeModel> {
+        return attributes.filter { it.type is BuiltInTypeUiItemAttributeTypeModel && it.type.builtInType == filterBuiltInType }
+    }
 }

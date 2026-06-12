@@ -67,6 +67,9 @@ export class OpusMagnumFormPartInitialValueService {
     campusBivalensInitialValue(): boolean {
         return false;
     }
+    campusNumerorumInitialValue(): number {
+        return 0;
+    }
     appellatioInitialValue(): AppellatioEnum {
         return AppellatioEnum.MATRONA;
     }

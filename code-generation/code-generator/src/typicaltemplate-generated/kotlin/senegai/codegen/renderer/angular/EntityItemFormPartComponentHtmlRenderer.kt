@@ -40,7 +40,7 @@ object EntityItemFormPartComponentHtmlRenderer : UiEntityItemRenderer {
                               |                    <div class="form-row">
                               |                        <app-field-wrapper label="${block.attribute.attributeName.pascalCase}">
                               |
-                              |                            <app-text-input [textFormControl]="${block.attribute.attributeName.camelCase}Control" label="${block.attribute.attributeName.camelCase}" placeholder="Enter ${block.attribute.attributeName.pascalCase}" [validatorTranslations]="${block.attribute.attributeName.camelCase}ValidatorNames" />
+                              |                            <app-${block.attribute.formComponentTypeInfix}-input [${block.attribute.formComponentTypeInfix}FormControl]="${block.attribute.attributeName.camelCase}Control" label="${block.attribute.attributeName.camelCase}" placeholder="Enter ${block.attribute.attributeName.pascalCase}" [validatorTranslations]="${block.attribute.attributeName.camelCase}ValidatorNames" />
                               |                        </app-field-wrapper>
                               |                    </div>
           """ } else { """

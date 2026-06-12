@@ -100,6 +100,7 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
                 juryList: ["Peter Booker"]
             }
         ],
+        campusNumerorum: 42,
         indexUnicus: '828cf29b-a7fb-4b07-bf13-9a313a9967f6',
         /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
         /* @tt{{{ @rlb @end-foreach @rla }}}@ */
@@ -129,6 +130,7 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
         campusDiei: null,
         campusBivalens: false,
         appellatio: AppellatioEnum.MATRONA,
+        campusNumerorum: -2,
     },
     {
         indexUnicus: 'd4076f05-50ac-4ceb-b54d-06f5c77874e4',
@@ -142,6 +144,7 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
         articulusInteriorList: [],
         campusDiei: new Date(1963, 11, 31),
         campusBivalens: true,
+        campusNumerorum: 7544,
         appellatio: AppellatioEnum.SENIOR,
     },
     {
@@ -168,6 +171,7 @@ export const OPUS_MAGNUM_EXAMPLE_DATA: OpusMagnumWTO[] = [
         campusDiei: new Date(1954, 8, 3),
         campusBivalens: false,
         appellatio: AppellatioEnum.MATRONA,
+        campusNumerorum: 687358,
     }
     /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
 ];

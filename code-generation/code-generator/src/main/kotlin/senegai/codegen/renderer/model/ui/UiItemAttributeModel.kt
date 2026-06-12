@@ -19,6 +19,7 @@ data class UiItemAttributeModel(
     val typescriptAttributeFormType: String = calculateFormType()
     val typescriptAttributeFormControlType: String = calculateFormTypeIncludingCollection()
     val formInitialValue: String = determineFormInitialValue()
+    val formComponentTypeInfix: String = determineFormComponentTypeInfix()
     val attributeCardinality: AttributeCardinalityModel = attributeCardinalityModel()
 
     private fun calculateAttributeType(): String =
@@ -66,6 +67,21 @@ data class UiItemAttributeModel(
             "FormControl<$type>"
         }
     }
+
+    /**
+     * Replaces the component to <app-text-input />
+     */
+    private fun determineFormComponentTypeInfix(): String =
+        when (type) {
+            is BuiltInTypeUiItemAttributeTypeModel -> when (type.builtInType) {
+                BuiltInType.STRING -> "text"
+                BuiltInType.NUMBER -> "number"
+                BuiltInType.BOOLEAN -> "boolean"
+            }
+            is EnumUiItemAttributeTypeModel -> throw NotSupportedInTemplateException("EnumUiItemAttributeTypeModel is not supported.")
+            is ItemUiItemAttributeTypeModel -> throw NotSupportedInTemplateException("ItemUiItemAttributeTypeModel is not supported.") // TODO type.itemTypeAsString()
+        }
+
 
     private fun determineFormInitialValue(): String =
         if (isNullable) {
