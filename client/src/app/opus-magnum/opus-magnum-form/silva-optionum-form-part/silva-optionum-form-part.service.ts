@@ -184,10 +184,17 @@ export class SilvaOptionumFormPartService {
             }
         }
         /* @tt{{{ @end-foreach }}}@ */
-        /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
-        // TODO This has to be included in the code generation
+
+        /* @tt{{{
+            @foreach [ iteratorExpression="model.item.attributesWithItems" loopVariable="attribute" ]
+            @replace-value-by-expression
+                    [ searchValue="articulusInteriorSingularis" replaceByExpression="attribute.attributeName.camelCase" ]
+                    [ searchValue="articulusInterior" replaceByExpression="attribute.attributeName.pascalCase" ]
+                    [ searchValue="ArticulusInterior" replaceByExpression="attribute.attributeName.pascalCase" ]
+
+            }}}@  */
         this.articulusInteriorFormPartService.patchPreparation(form.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularis], silvaOptionum.articulusInteriorSingularis)
-        /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
+        /* @tt{{{ @end-foreach }}}@ */
     }
 
     public patchSilvaOptionumForm(form: FormGroup<SilvaOptionumFormPartGroup>, silvaOptionum: SilvaOptionumWTO): void {

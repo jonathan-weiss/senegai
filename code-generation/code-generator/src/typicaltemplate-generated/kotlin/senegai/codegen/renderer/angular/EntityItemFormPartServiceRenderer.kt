@@ -94,11 +94,16 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
               |            }
               |        }
               |        
-          """ } }    }
+          """ } }
+          |
+          |        ${ model.item.attributesWithItems.joinToString("") { attribute ->  """
+              |        this.${attribute.attributeName.pascalCase}FormPartService.patchPreparation(form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}], ${model.item.itemName.camelCase}.${attribute.attributeName.camelCase})
+              |        
+          """ } }
+          |    }
           |
           |    public patch${model.item.itemName.pascalCase}Form(form: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>, ${model.item.itemName.camelCase}: ${model.item.itemName.pascalCase}WTO): void {
-          |
-          |                ${ model.item.attributes.joinToString("") { attribute ->  """        ${ if(attribute.isNullable) { """        form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull].patchValue(!${model.item.itemName.camelCase}.${attribute.attributeName.camelCase});
+          |        ${ model.item.attributes.joinToString("") { attribute ->  """        ${ if(attribute.isNullable) { """        form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull].patchValue(!${model.item.itemName.camelCase}.${attribute.attributeName.camelCase});
                   |        
           """ } else { """
           """ } }        form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].patchValue(${model.item.itemName.camelCase}.${attribute.attributeName.camelCase} ?? null);
