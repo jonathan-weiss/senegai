@@ -31,7 +31,7 @@ object SingleFormInputHtmlTagRenderer {
         val inputTag = when (attributeModel.type) {
             is BuiltInTypeUiItemAttributeTypeModel -> createBuiltInInput(attributeModel.attributeName, attributeModel.type.builtInType)
             is EnumUiItemAttributeTypeModel -> createEnumInput(NameCase(attributeModel.type.enumId.enumName), attributeModel.attributeName)
-            is ItemUiItemAttributeTypeModel -> createItemInput(model.item.itemName, attributeModel.attributeName)
+            is ItemUiItemAttributeTypeModel -> createItemInput(attributeModel.type.item.itemName, attributeModel.attributeName)
         }
         
         return """
