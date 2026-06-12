@@ -30,10 +30,10 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
           |import {${model.item.itemName.pascalCase}FormPartFieldName} from "@app/${model.item.itemName.kebabCase}/${model.item.itemName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-field-name";
           |
           |
-          |${ model.item.attributeItemsFlat.joinToString("") { nestedItem ->  """
+          |${ model.item.directlyNestedItems.joinToString("") { directlyNestedItem ->  """
               |import {
-              |    ${nestedItem.itemName.pascalCase}FormPartService
-              |} from "@app/${model.item.itemName.kebabCase}/${model.item.itemName.kebabCase}-form/${nestedItem.itemName.kebabCase}-form-part/${nestedItem.itemName.kebabCase}-form-part.service";
+              |    ${directlyNestedItem.itemName.pascalCase}FormPartService
+              |} from "@app/${model.item.itemName.kebabCase}/${model.item.itemName.kebabCase}-form/${directlyNestedItem.itemName.kebabCase}-form-part/${directlyNestedItem.itemName.kebabCase}-form-part.service";
           """ } }
           |@Injectable({providedIn: 'root'})
           |export class ${model.item.itemName.pascalCase}FormPartService {

@@ -10,7 +10,7 @@ data class UiItemAttributeModel(
     val isList: Boolean,
     val type: UiItemAttributeTypeModel,
 ) {
-    val typescriptAttributeType: String = calculateAttributeTypeWithNullability()
+    val typescriptAttributeType: String = calculateAttributeTypeWithCardinality()
     val isItem: Boolean = (type is ItemUiItemAttributeTypeModel)
 
     val angularInitialValueFormType: String = calculateAngularInitialValueFormType()
@@ -26,7 +26,7 @@ data class UiItemAttributeModel(
         when (type) {
             is BuiltInTypeUiItemAttributeTypeModel -> type.builtInTypeAsString()
             is EnumUiItemAttributeTypeModel -> throw NotSupportedInTemplateException("EnumUiItemAttributeTypeModel is not supported.")
-            is ItemUiItemAttributeTypeModel -> type.itemTypeAsString()
+            is ItemUiItemAttributeTypeModel -> "${type.itemTypeAsString()}WTO"
         }
 
     private fun ItemUiItemAttributeTypeModel.itemTypeAsString(): String = this.item.itemName.pascalCase
@@ -40,7 +40,7 @@ data class UiItemAttributeModel(
             BuiltInType.BOOLEAN -> "boolean"
         }
 
-    private fun calculateAttributeTypeWithNullability(): String {
+    private fun calculateAttributeTypeWithCardinality(): String {
         val type = calculateAttributeType()
         return when (attributeCardinalityModel()) {
             AttributeCardinalityModel.NULLABLE_SINGLE_ITEM -> "$type | null"

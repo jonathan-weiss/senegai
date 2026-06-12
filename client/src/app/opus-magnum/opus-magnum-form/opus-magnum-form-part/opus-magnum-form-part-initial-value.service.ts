@@ -28,13 +28,25 @@
 }}}@ */
 
 import {Injectable} from '@angular/core';
-/* @tt{{{ @rlb  @ignore-text @rla }}}@ */
-// imports here that are ignored
-import {AppellatioEnum} from "@app/wto/appellatio.enum";
 import {FormGroup} from "@angular/forms";
+
+/* @tt{{{ @rlb
+    @foreach [ iteratorExpression="model.item.directlyNestedItems" loopVariable="directlyNestedItem" ]
+
+    @replace-value-by-expression
+        [ searchValue="ArticulusInterior" replaceByExpression="directlyNestedItem.itemName.pascalCase" ]
+        [ searchValue="articulus-interior" replaceByExpression="directlyNestedItem.itemName.kebabCase" ]
+
+}}}@  */
+
 import {
     ArticulusInteriorFormPartGroup
 } from "@app/opus-magnum/opus-magnum-form/articulus-interior-form-part/articulus-interior-form-part-group";
+/* @tt{{{ @rlb @end-foreach @rla }}}@ */
+
+/* @tt{{{ @rlb  @ignore-text @rla }}}@ */
+// imports here that are ignored
+import {AppellatioEnum} from "@app/wto/appellatio.enum";
 /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
 
 

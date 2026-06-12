@@ -41,11 +41,11 @@ import {AppellatioEnum} from "@app/wto/appellatio.enum";
 /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
 
 /* @tt{{{ @rlb
-    @foreach [ iteratorExpression="model.item.attributeItemsFlat" loopVariable="nestedItem" ]
+    @foreach [ iteratorExpression="model.item.directlyNestedItems" loopVariable="directlyNestedItem" ]
+
     @replace-value-by-expression
-        [ searchValue="articulus-interior" replaceByExpression="nestedItem.itemName.kebabCase" ]
-        [ searchValue="articulusInterior" replaceByExpression="nestedItem.itemName.camelCase" ]
-        [ searchValue="ArticulusInterior" replaceByExpression="nestedItem.itemName.pascalCase" ]
+        [ searchValue="ArticulusInterior" replaceByExpression="directlyNestedItem.itemName.pascalCase" ]
+        [ searchValue="articulus-interior" replaceByExpression="directlyNestedItem.itemName.kebabCase" ]
 
 }}}@  */
 import {

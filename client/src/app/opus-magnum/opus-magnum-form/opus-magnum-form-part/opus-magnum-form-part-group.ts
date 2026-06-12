@@ -31,11 +31,22 @@ import {FormArray, FormControl, FormGroup} from "@angular/forms";
 import {OpusMagnumFormPartFieldName} from "@app/opus-magnum/opus-magnum-form/opus-magnum-form-part/opus-magnum-form-part-field-name";
 /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
 import {AppellatioEnum} from "@app/wto/appellatio.enum";
+/* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
+
+/* @tt{{{ @rlb
+    @foreach [ iteratorExpression="model.item.directlyNestedItems" loopVariable="directlyNestedItem" ]
+
+    @replace-value-by-expression
+        [ searchValue="ArticulusInterior" replaceByExpression="directlyNestedItem.itemName.pascalCase" ]
+        [ searchValue="articulus-interior" replaceByExpression="directlyNestedItem.itemName.kebabCase" ]
+
+}}}@  */
+
 import {
     ArticulusInteriorFormPartGroup
 } from "@app/opus-magnum/opus-magnum-form/articulus-interior-form-part/articulus-interior-form-part-group";
+/* @tt{{{ @rlb @end-foreach @rla }}}@ */
 
-/* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
 
 
 export interface OpusMagnumFormPartGroup {

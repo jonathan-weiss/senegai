@@ -18,6 +18,14 @@ object EntityItemFormPartInitialValueServiceRenderer : UiEntityItemRenderer {
         return """
           |
           |import {Injectable} from '@angular/core';
+          |import {FormGroup} from "@angular/forms";
+          |
+          |${ model.item.directlyNestedItems.joinToString("") { directlyNestedItem ->  """
+              |
+              |import {
+              |    ${directlyNestedItem.itemName.pascalCase}FormPartGroup
+              |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${directlyNestedItem.itemName.kebabCase}-form-part/${directlyNestedItem.itemName.kebabCase}-form-part-group";
+          """ } }
           |
           |
           |@Injectable({providedIn: 'root'})

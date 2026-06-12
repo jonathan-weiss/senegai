@@ -20,6 +20,13 @@ object EntityItemFormPartGroupRenderer : UiEntityItemRenderer {
           |import {FormArray, FormControl, FormGroup} from "@angular/forms";
           |import {${model.entity.entityName.pascalCase}FormPartFieldName} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-form-part/${model.entity.entityName.kebabCase}-form-part-field-name";
           |
+          |${ model.item.directlyNestedItems.joinToString("") { directlyNestedItem ->  """
+              |
+              |import {
+              |    ${directlyNestedItem.itemName.pascalCase}FormPartGroup
+              |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${directlyNestedItem.itemName.kebabCase}-form-part/${directlyNestedItem.itemName.kebabCase}-form-part-group";
+          """ } }
+          |
           |
           |export interface ${model.entity.entityName.pascalCase}FormPartGroup {
           |    ${ model.item.attributes.joinToString("") { attribute ->  """
