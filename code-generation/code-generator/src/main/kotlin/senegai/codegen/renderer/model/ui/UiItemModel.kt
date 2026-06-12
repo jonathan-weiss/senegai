@@ -24,11 +24,6 @@ data class UiItemModel(
     val attributesWithLists: List<UiItemAttributeModel> = attributes
         .filter { it.isList }
 
-    val attributeItemsFlat: List<UiItemDescriptionModel> = attributes
-        .map { it.type }
-        .filterIsInstance<ItemUiItemAttributeTypeModel>()
-        .map { it.item }
-
     val directlyNestedItems: List<UiItemDescriptionModel> = attributes
         .map { it.type }
         .filterIsInstance<ItemUiItemAttributeTypeModel>()

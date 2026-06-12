@@ -127,8 +127,19 @@ import {
         MatListModule,
         MatDialogModule,
         FieldWrapperComponent,
+        /*
+        @tt{{{
+            @if [ conditionExpression="model.tabs.isNotEmpty()" ]
+            @rla
+        }}}@
+         */
         MatTabGroup,
         MatTab,
+        /*
+        @tt{{{
+            @end-if @rla
+        }}}@
+         */
         /*
         @tt{{{
             @if [ conditionExpression="model.containsNamedSectionSplitBlocks()" ]
@@ -154,15 +165,17 @@ import {
         }}}@
          */
         /* @tt{{{ @rlb
-            @foreach [ iteratorExpression="model.item.directlyNestedItems" loopVariable="nestedItem" ]
+            @foreach [ iteratorExpression="model.item.attributesWithItem" loopVariable="attributeWithItem" ]
             @replace-value-by-expression
-                [ searchValue="articulus-interior" replaceByExpression="nestedItem.itemName.kebabCase" ]
-                [ searchValue="articulusInterior" replaceByExpression="nestedItem.itemName.camelCase" ]
-                [ searchValue="ArticulusInterior" replaceByExpression="nestedItem.itemName.pascalCase" ]
+                [ searchValue="articulus-interior" replaceByExpression="attributeWithItem.type.item.itemName.kebabCase" ]
+                [ searchValue="articulusInterior" replaceByExpression="attributeWithItem.type.item.itemName.camelCase" ]
+                [ searchValue="ArticulusInterior" replaceByExpression="attributeWithItem.type.item.itemName.pascalCase" ]
 
         }}}@  */
 
+        /* @tt{{{ @rlb  @if [ conditionExpression="attributeWithItem.attribute.isList"] }}}@ */
         ArticulusInteriorTableComponent,
+        /* @tt{{{ @rlb  @end-if }}}@ */
         ArticulusInteriorFormPartComponent,
         /* @tt{{{ @rlb  @end-foreach @rla }}}@ */
         /* @tt{{{ @rlb  @if [ conditionExpression="model.item.containsTextAttributes"] }}}@ */

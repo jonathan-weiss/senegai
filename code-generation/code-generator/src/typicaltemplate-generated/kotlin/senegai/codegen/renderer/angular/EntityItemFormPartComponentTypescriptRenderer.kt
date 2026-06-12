@@ -86,18 +86,22 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
           |        MatListModule,
           |        MatDialogModule,
           |        FieldWrapperComponent,
-          |        MatTabGroup,
-          |        MatTab,
-          |        ${ if(model.containsNamedSectionSplitBlocks()) { """        SectionSplitterComponent,
+          |        ${ if(model.tabs.isNotEmpty()) { """        MatTabGroup,
+              |        MatTab,
+              |        
+          """ } else { """
+          """ } }        ${ if(model.containsNamedSectionSplitBlocks()) { """        SectionSplitterComponent,
               |        
           """ } else { """
           """ } }        ${ if(model.containsTextBlocks()) { """        TextBlockComponent,
               |        
           """ } else { """
-          """ } }        ${ model.item.directlyNestedItems.joinToString("") { nestedItem ->  """
-              |
-              |        ${nestedItem.itemName.pascalCase}TableComponent,
-              |        ${nestedItem.itemName.pascalCase}FormPartComponent,
+          """ } }        ${ model.item.attributesWithItem.joinToString("") { attributeWithItem ->  """
+              |${ if(attributeWithItem.attribute.isList) { """
+                  |        ${attributeWithItem.type.item.itemName.pascalCase}TableComponent,
+          """ } else { """
+          """ } }
+              |        ${attributeWithItem.type.item.itemName.pascalCase}FormPartComponent,
           """ } }        ${ if(model.item.containsTextAttributes) { """
               |        TextInputComponent,
           """ } else { """
