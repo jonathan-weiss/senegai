@@ -2,6 +2,7 @@ package senegai.codegen.renderer.model.ui
 
 import senegai.codegen.renderer.NotSupportedInTemplateException
 import senegai.codegen.renderer.model.NameCase
+import senegai.codegen.renderer.model.ui.entityform.AttributeAndBuiltInTypeDescriptionModel
 import senegai.codegen.schema.BuiltInType
 
 data class UiItemAttributeModel(
@@ -11,7 +12,6 @@ data class UiItemAttributeModel(
     val type: UiItemAttributeTypeModel,
 ) {
     val typescriptAttributeType: String = calculateAttributeTypeWithCardinality()
-    val isItem: Boolean = (type is ItemUiItemAttributeTypeModel)
 
     val angularInitialValueFormType: String = calculateAngularInitialValueFormType()
     val angularFormControlType: String = calculateAngularFormControlType(withCollection = false)
@@ -20,14 +20,28 @@ data class UiItemAttributeModel(
         get() = determineAngularFormInitialValue()
     val attributeCardinality: AttributeCardinalityModel = attributeCardinalityModel()
 
+    val isItem: Boolean = (type is ItemUiItemAttributeTypeModel)
     val attributeAndItem: AttributeAndItemDescriptionModel
-        get() = createAttributeAndItemDescriptionModel()
+        get() = createAttributeAndItem()
 
-    private fun createAttributeAndItemDescriptionModel(): AttributeAndItemDescriptionModel {
+    val isHideFormControlWithNullValues: Boolean = (type is BuiltInTypeUiItemAttributeTypeModel)
+    val isBuiltIn: Boolean = (type is BuiltInTypeUiItemAttributeTypeModel)
+    val attributeAndBuiltInType: AttributeAndBuiltInTypeDescriptionModel
+        get() = createAttributeAndBuiltInType()
+
+    private fun createAttributeAndItem(): AttributeAndItemDescriptionModel {
         return if(type is ItemUiItemAttributeTypeModel) {
             AttributeAndItemDescriptionModel(this, type)
         } else {
             throw RuntimeException("Attribute $attributeName is not an item type")
+        }
+    }
+
+    private fun createAttributeAndBuiltInType(): AttributeAndBuiltInTypeDescriptionModel {
+        return if(type is BuiltInTypeUiItemAttributeTypeModel) {
+            AttributeAndBuiltInTypeDescriptionModel(this, type)
+        } else {
+            throw RuntimeException("Attribute $attributeName is not a builtInType type")
         }
     }
 
