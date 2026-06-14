@@ -242,6 +242,10 @@ export class SilvaOptionumFormPartComponent implements OnInit {
     protected appellatioValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected articulusInteriorSingularisControl!: FormGroup<ArticulusInteriorFormPartGroup>
     protected articulusInteriorSingularisValidatorNames!: ReadonlyArray<ValidatorTranslation>
+    protected articulusInteriorSingularisOptionalisControl!: FormGroup<ArticulusInteriorFormPartGroup>
+    protected articulusInteriorSingularisOptionalisValidatorNames!: ReadonlyArray<ValidatorTranslation>
+    protected articulusInteriorSingularisOptionalisIsNotNullControl!: FormControl<boolean>
+    protected articulusInteriorSingularisOptionalisIsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected indexUnicusControl!: FormControl<string>
     protected indexUnicusValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected campusNumerorumControl!: FormControl<number>
@@ -288,6 +292,10 @@ export class SilvaOptionumFormPartComponent implements OnInit {
         this.indexUnicusValidatorNames = this.silvaOptionumMagnumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.indexUnicus)
         this.campusNumerorumControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.campusNumerorum]
         this.campusNumerorumValidatorNames = this.silvaOptionumMagnumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.campusNumerorum)
+        this.articulusInteriorSingularisOptionalisControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalis]
+        this.articulusInteriorSingularisOptionalisValidatorNames = this.silvaOptionumMagnumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalis)
+        this.articulusInteriorSingularisOptionalisIsNotNullControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalisIsNotNull]
+        this.articulusInteriorSingularisOptionalisIsNotNullValidatorNames = this.silvaOptionumMagnumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalisIsNotNull)
         /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
     }
 

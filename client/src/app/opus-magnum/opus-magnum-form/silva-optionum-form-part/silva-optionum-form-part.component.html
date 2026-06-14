@@ -229,6 +229,15 @@
                         <app-number-input [numberFormControl]="campusNumerorumControl" [validatorTranslations]="campusNumerorumValidatorNames"></app-number-input>
                     </app-field-wrapper>
                 </div>
+
+                <div class="form-row">
+                    <app-field-wrapper label="Articulus Interior Singularis Optionalis"
+                                       [nullabilityCheckboxFormControl]="articulusInteriorSingularisOptionalisIsNotNullControl"
+                                       [formGroupToDisableIfNullField]="articulusInteriorSingularisOptionalisControl"
+                    >
+                        <app-articulus-interior-form-part [articulusInteriorForm]="articulusInteriorSingularisOptionalisControl"  />
+                    </app-field-wrapper>
+                </div>
             </div>
             <!-- @tt{{{ @rlb  @end-ignore-text @rla }}}@ -->
         </div>

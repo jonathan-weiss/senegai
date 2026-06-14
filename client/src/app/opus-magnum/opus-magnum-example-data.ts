@@ -103,6 +103,11 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
                 juryList: ["Peter Booker"]
             }
         ],
+        articulusInteriorSingularisOptionalis: {
+            description: "Truth an right.",
+            year: 1981,
+            juryList: ["Jonathan Wright"]
+        },
         campusNumerorum: 42,
         indexUnicus: '828cf29b-a7fb-4b07-bf13-9a313a9967f6',
         /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
@@ -130,6 +135,7 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
                 juryList: ["Elisabeth Smith", "Aaron Glasgow", "James Duroldi"]
             }
         ],
+        articulusInteriorSingularisOptionalis: null,
         campusDiei: null,
         campusBivalens: false,
         appellatio: AppellatioEnum.MATRONA,
@@ -145,6 +151,7 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
             juryList: ["Elisabeth Smith", "Aaron Glasgow", "James Duroldi"]
         },
         articulusInteriorList: [],
+        articulusInteriorSingularisOptionalis: null,
         campusDiei: new Date(1963, 11, 31),
         campusBivalens: true,
         campusNumerorum: 7544,
@@ -171,6 +178,11 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
                 juryList: ["Justin Windsor", "Edward Swandson", "May Hill"]
             }
         ],
+        articulusInteriorSingularisOptionalis: {
+            description: "A bright shining day",
+            year: 2021,
+            juryList: ["Isaac Hamilton"]
+        },
         campusDiei: new Date(1954, 8, 3),
         campusBivalens: false,
         appellatio: AppellatioEnum.MATRONA,

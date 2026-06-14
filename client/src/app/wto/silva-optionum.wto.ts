@@ -60,6 +60,7 @@ export interface SilvaOptionumWTO {
     appellatio: AppellatioEnum;
     articulusInteriorSingularis: ArticulusInteriorWTO;
     articulusInteriorList: Array<ArticulusInteriorWTO>;
+    articulusInteriorSingularisOptionalis: ArticulusInteriorWTO | null;
     campusDiei: Date | null;
     campusBivalens: boolean;
     campusNumerorum: number;

@@ -66,6 +66,8 @@ export interface SilvaOptionumFormPartGroup {
     /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
     [SilvaOptionumFormPartFieldName.campusTextusObligatorius]: FormControl<string>,
     [SilvaOptionumFormPartFieldName.articulusInteriorSingularis]: FormGroup<ArticulusInteriorFormPartGroup>,
+    [SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalis]: FormGroup<ArticulusInteriorFormPartGroup>,
+    [SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalisIsNotNull]: FormControl<boolean>,
     [SilvaOptionumFormPartFieldName.articulusInteriorList]: FormArray<FormGroup<ArticulusInteriorFormPartGroup>>,
     [SilvaOptionumFormPartFieldName.campusDieiIsNotNull]: FormControl<boolean>,
     [SilvaOptionumFormPartFieldName.campusDiei]: FormControl<Date | null>,
