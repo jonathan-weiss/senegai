@@ -20,7 +20,8 @@ data class UiItemAttributeModel(
         get() = determineAngularFormInitialValue()
     val attributeCardinality: AttributeCardinalityModel = attributeCardinalityModel()
 
-    val isItem: Boolean = (type is ItemUiItemAttributeTypeModel)
+    val isItem: Boolean
+        get() = (type is ItemUiItemAttributeTypeModel)
     val attributeAndItem: AttributeAndItemDescriptionModel
         get() = createAttributeAndItem()
 
@@ -87,12 +88,13 @@ data class UiItemAttributeModel(
             is ItemUiItemAttributeTypeModel -> "FormGroup<${type.itemTypeAsString()}FormPartGroup>"
         }
 
-        val singleTypeWithNullability =  withAngularFormNullability(singleType)
+        // TODO form values are never null, as the initial value is used for
+        //val singleTypeWithNullability =  withAngularFormNullability(singleType)
 
         return if(isList) {
-            "Array<$singleTypeWithNullability>"
+            "Array<$singleType>"
         } else {
-            singleTypeWithNullability
+            singleType
         }
     }
 
@@ -111,13 +113,20 @@ data class UiItemAttributeModel(
             is EnumUiItemAttributeTypeModel -> type.enumTypeAsString()
             is ItemUiItemAttributeTypeModel -> "${type.itemTypeAsString()}FormPartGroup"
         }
-
-        val singleTypeWithNullability =  withAngularFormNullability(singleType)
+        // TODO form values are never null, as the initial value is used for
+//        val singleTypeWithNullability =  withAngularFormNullability(singleType)
         val singleFormType = if(isItem) {
-            "FormGroup<$singleTypeWithNullability>"
+            "FormGroup<$singleType>"
         } else {
-            "FormControl<$singleTypeWithNullability>"
+            "FormControl<$singleType>"
         }
+//
+//        if(this.attributeName.camelCase == "contactAddress") {
+//            println("!! contactAddress($isItem, ${(type is ItemUiItemAttributeTypeModel)}, $type): $singleType -> $singleFormType ($this)")
+//
+//        }
+//
+
         return if(isList && withCollection) {
             "FormArray<$singleFormType>"
         } else {
@@ -145,9 +154,7 @@ data class UiItemAttributeModel(
     }
 
     private fun determineAngularFormInitialValue(): String =
-        if (isNullable) {
-            "null"
-        } else if (isList) {
+        if (isList) {
             "[]"
         } else {
             when (type) {

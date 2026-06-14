@@ -55,13 +55,13 @@ export interface SilvaOptionumFormPartGroup {
 
         @replace-value-by-expression
             [ searchValue="campusTextusOptionalis" replaceByExpression="attribute.attributeName.camelCase" ]
-            [ searchValue="FormControl<string | null>" replaceByExpression="attribute.angularFormControlTypeWithCollection" ]
+            [ searchValue="FormControl<string>" replaceByExpression="attribute.angularFormControlTypeWithCollection" ]
 
     }}}@  */
-    [SilvaOptionumFormPartFieldName.campusTextusOptionalis]: FormControl<string | null>,
-    /* @tt{{{ @rlb  @if [ conditionExpression="attribute.isNullable"] @rla }}}@ */
+    [SilvaOptionumFormPartFieldName.campusTextusOptionalis]: FormControl<string>,
+    /* @tt{{{ @rlb  @if [ conditionExpression="attribute.isNullable"] }}}@ */
     [SilvaOptionumFormPartFieldName.campusTextusOptionalisIsNotNull]: FormControl<boolean>,
-    /* @tt{{{ @rlb  @end-if @rla }}}@ */
+    /* @tt{{{ @rlb  @end-if }}}@ */
     /* @tt{{{ @rlb @end-foreach @rla }}}@ */
     /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
     [SilvaOptionumFormPartFieldName.campusTextusObligatorius]: FormControl<string>,

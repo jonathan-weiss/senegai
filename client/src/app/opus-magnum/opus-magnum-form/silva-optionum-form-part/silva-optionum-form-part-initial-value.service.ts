@@ -66,8 +66,8 @@ export class SilvaOptionumFormPartInitialValueService {
     /* @tt{{{ @rlb @end-foreach @rla }}}@ */
     /* @tt{{{ @rlb  @ignore-text }}}@ */
 
-    campusTextusOptionalisInitialValue(): string | null {
-        return null
+    campusTextusOptionalisInitialValue(): string {
+        return ''
     }
     articulusInteriorListInitialValue(): Array<FormGroup<ArticulusInteriorFormPartGroup>> {
         return []

@@ -67,7 +67,7 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
           |            // ------------------------
           |
           |            ${ model.item.attributes.joinToString("") { attribute ->  """${ if(attribute.isNullable) { """            [${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull]: new FormControl<boolean>(
-                  |                this.${model.item.itemName.camelCase}FormInitialValueService.${attribute.attributeName.camelCase}InitialValue() != null,
+                  |                false,
                   |                {
                   |                    nonNullable: true,
                   |                    validators: this.${model.item.itemName.camelCase}FormValidationService.validatorFunctions(${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull)
@@ -110,7 +110,7 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
           |     * So if your FormArray is empty (or shorter than the incoming data), nothing (or only the first N) gets patched.
           |     * We need to prefill the FormArray with empty values first
           |     */
-          |    private patchPreparation(form: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>, ${model.item.itemName.camelCase}: ${model.item.itemName.pascalCase}WTO): void {
+          |    public patchPreparation(form: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>, ${model.item.itemName.camelCase}: ${model.item.itemName.pascalCase}WTO): void {
           |        ${ model.item.attributesWithLists.joinToString("") { attribute ->  """
               |
               |        const ${attribute.attributeName.camelCase}Length = form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].controls.length
