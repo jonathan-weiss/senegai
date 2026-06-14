@@ -239,6 +239,8 @@ export class SilvaOptionumFormPartService {
         form.controls[SilvaOptionumFormPartFieldName.campusNumerorum].patchValue(silvaOptionum.campusNumerorum);
         form.controls[SilvaOptionumFormPartFieldName.indexUnicus].patchValue(silvaOptionum.indexUnicus);
         /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
+
+        this.patchNestedItems(form, silvaOptionum);
     }
 
     /**
@@ -246,7 +248,7 @@ export class SilvaOptionumFormPartService {
      * So if your FormArray is empty (or shorter than the incoming data), nothing (or only the first N) gets patched.
      * We need to prefill the FormArray with empty values first
      */
-    public patchPreparation(form: FormGroup<SilvaOptionumFormPartGroup>, silvaOptionum: SilvaOptionumWTO): void {
+    private patchPreparation(form: FormGroup<SilvaOptionumFormPartGroup>, silvaOptionum: SilvaOptionumWTO): void {
         /* @tt{{{
             @foreach [ iteratorExpression="model.item.attributesWithLists" loopVariable="attribute" ]
             @replace-value-by-expression
@@ -260,10 +262,31 @@ export class SilvaOptionumFormPartService {
         const articulusInteriorListLength = form.controls[SilvaOptionumFormPartFieldName.articulusInteriorList].controls.length
         if(articulusInteriorListLength < silvaOptionum.articulusInteriorList.length) {
             for (let i = articulusInteriorListLength; i < silvaOptionum.articulusInteriorList.length; i++) {
-                const articulusInteriorControl = this.articulusInteriorFormPartService.createInitialArticulusInteriorForm()
-                const articulurInterior = silvaOptionum.articulusInteriorList[i]
-                form.controls[SilvaOptionumFormPartFieldName.articulusInteriorList].push(articulusInteriorControl)
-                this.articulusInteriorFormPartService.patchPreparation(articulusInteriorControl, articulurInterior)
+                form.controls[SilvaOptionumFormPartFieldName.articulusInteriorList].push(this.articulusInteriorFormPartService.createInitialArticulusInteriorForm())
+            }
+        }
+        /* @tt{{{ @end-foreach }}}@ */
+    }
+
+
+    private patchNestedItems(form: FormGroup<SilvaOptionumFormPartGroup>, silvaOptionum: SilvaOptionumWTO): void {
+        /* @tt{{{
+            @foreach [ iteratorExpression="model.item.attributesWithLists" loopVariable="attribute" ]
+            @replace-value-by-expression
+                    [ searchValue="articulusInteriorList" replaceByExpression="attribute.attributeName.camelCase" ]
+                    [ searchValue="ArticulusInteriorList" replaceByExpression="attribute.attributeName.pascalCase" ]
+                    [ searchValue="articulusInterior" replaceByExpression="model.item.itemName.camelCase" ]
+                    [ searchValue="ArticulusInterior" replaceByExpression="model.item.itemName.pascalCase" ]
+
+            }}}@  */
+
+        const articulusInteriorListLength = form.controls[SilvaOptionumFormPartFieldName.articulusInteriorList].controls.length
+        if(articulusInteriorListLength < silvaOptionum.articulusInteriorList.length) {
+            for (let i = articulusInteriorListLength; i < silvaOptionum.articulusInteriorList.length; i++) {
+                this.articulusInteriorFormPartService.patchArticulusInteriorForm(
+                    form.controls[SilvaOptionumFormPartFieldName.articulusInteriorList].at(i),
+                    silvaOptionum.articulusInteriorList[i]
+                )
             }
         }
         /* @tt{{{ @end-foreach }}}@ */
@@ -271,17 +294,22 @@ export class SilvaOptionumFormPartService {
         /* @tt{{{
             @foreach [ iteratorExpression="model.item.attributesWithItem" loopVariable="attributeWithItem" ]
             @replace-value-by-expression
+                    [ searchValue="articulusInteriorSingularisOptionalis" replaceByExpression="attributeWithItem.attribute.attributeName.camelCase" ]
                     [ searchValue="articulusInteriorSingularis" replaceByExpression="attributeWithItem.attribute.attributeName.camelCase" ]
                     [ searchValue="articulusInterior" replaceByExpression="attributeWithItem.type.item.itemName.camelCase" ]
                     [ searchValue="ArticulusInterior" replaceByExpression="attributeWithItem.type.item.itemName.pascalCase" ]
 
             }}}@  */
-        this.articulusInteriorFormPartService.patchPreparation(form.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularis], silvaOptionum.articulusInteriorSingularis)
+        /* @tt{{{ @if [conditionExpression="attributeWithItem.attribute.isNullable"] }}}@ */
+        if(silvaOptionum.articulusInteriorSingularisOptionalis != null) {
+            this.articulusInteriorFormPartService.patchArticulusInteriorForm(form.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalis], silvaOptionum.articulusInteriorSingularisOptionalis)
+        }
+        /* @tt{{{ @else }}}@ */
+        this.articulusInteriorFormPartService.patchArticulusInteriorForm(form.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularis], silvaOptionum.articulusInteriorSingularis)
+        /* @tt{{{ @end-if }}}@ */
         /* @tt{{{ @end-foreach }}}@ */
         /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
-        this.articulusInteriorFormPartService.patchPreparation(form.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalis], silvaOptionum.articulusInteriorSingularis)
         /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
-
     }
 
     public createSilvaOptionumWTOFromForm(form: FormGroup<SilvaOptionumFormPartGroup>): SilvaOptionumWTO {
@@ -304,10 +332,12 @@ export class SilvaOptionumFormPartService {
             /* @tt{{{ @rlb  @end-if @rla }}}@ */
             /* @tt{{{ @rlb @end-foreach @rla }}}@ */
             /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
-            articulusInteriorSingularis: form.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularis].getRawValue(),
-            articulusInteriorList: form.controls[SilvaOptionumFormPartFieldName.articulusInteriorList].getRawValue(),
+            articulusInteriorSingularis: this.articulusInteriorFormPartService.createArticulusInteriorWTOFromForm(form.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularis]),
+            articulusInteriorList: form.controls[SilvaOptionumFormPartFieldName.articulusInteriorList].controls.map(
+                (controlEntry) => this.articulusInteriorFormPartService.createArticulusInteriorWTOFromForm(controlEntry)
+            ),
             articulusInteriorSingularisOptionalis: form.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalis].value
-                ? form.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalis].getRawValue()
+                ? this.articulusInteriorFormPartService.createArticulusInteriorWTOFromForm(form.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalis])
                 : null,
             campusDiei: form.controls[SilvaOptionumFormPartFieldName.campusDieiIsNotNull].value ? form.controls[SilvaOptionumFormPartFieldName.campusDiei].getRawValue() : null,
             campusBivalens: form.controls[SilvaOptionumFormPartFieldName.campusBivalens].getRawValue(),

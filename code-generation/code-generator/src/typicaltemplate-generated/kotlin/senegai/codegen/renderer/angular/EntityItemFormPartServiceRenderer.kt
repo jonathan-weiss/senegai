@@ -91,7 +91,56 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
                   |        
           """ } else { """
           """ } }        
-          """ } }            }
+          """ } }        
+          |        this.patchNestedItems(form, ${model.item.itemName.camelCase});
+          |    }
+          |
+          |    /**
+          |     * patchValue does not create missing FormGroups inside the FormArray.
+          |     * So if your FormArray is empty (or shorter than the incoming data), nothing (or only the first N) gets patched.
+          |     * We need to prefill the FormArray with empty values first
+          |     */
+          |    private patchPreparation(form: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>, ${model.item.itemName.camelCase}: ${model.item.itemName.pascalCase}WTO): void {
+          |        ${ model.item.attributesWithLists.joinToString("") { attribute ->  """
+              |
+              |        const ${attribute.attributeName.camelCase}Length = form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].controls.length
+              |        if(${attribute.attributeName.camelCase}Length < ${model.item.itemName.camelCase}.${attribute.attributeName.camelCase}.length) {
+              |            for (let i = ${attribute.attributeName.camelCase}Length; i < ${model.item.itemName.camelCase}.${attribute.attributeName.camelCase}.length; i++) {
+              |                form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].push(this.${model.item.itemName.camelCase}FormPartService.createInitial${model.item.itemName.pascalCase}Form())
+              |            }
+              |        }
+              |        
+          """ } }
+          |    }
+          |
+          |
+          |    private patchNestedItems(form: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>, ${model.item.itemName.camelCase}: ${model.item.itemName.pascalCase}WTO): void {
+          |        ${ model.item.attributesWithLists.joinToString("") { attribute ->  """
+              |
+              |        const ${attribute.attributeName.camelCase}Length = form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].controls.length
+              |        if(${attribute.attributeName.camelCase}Length < ${model.item.itemName.camelCase}.${attribute.attributeName.camelCase}.length) {
+              |            for (let i = ${attribute.attributeName.camelCase}Length; i < ${model.item.itemName.camelCase}.${attribute.attributeName.camelCase}.length; i++) {
+              |                this.${model.item.itemName.camelCase}FormPartService.patch${model.item.itemName.pascalCase}Form(
+              |                    form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].at(i),
+              |                    ${model.item.itemName.camelCase}.${attribute.attributeName.camelCase}[i]
+              |                )
+              |            }
+              |        }
+              |        
+          """ } }
+          |
+          |        ${ model.item.attributesWithItem.joinToString("") { attributeWithItem ->  """
+              |        ${ if(attributeWithItem.attribute.isNullable) { """
+                  |        if(${model.item.itemName.camelCase}.${attributeWithItem.attribute.attributeName.camelCase} != null) {
+                  |            this.${attributeWithItem.type.item.itemName.camelCase}FormPartService.patch${attributeWithItem.type.item.itemName.pascalCase}Form(form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItem.attribute.attributeName.camelCase}], ${model.item.itemName.camelCase}.${attributeWithItem.attribute.attributeName.camelCase})
+                  |        }
+                  |        
+          """ } else { """
+                  |        this.${attributeWithItem.type.item.itemName.camelCase}FormPartService.patch${attributeWithItem.type.item.itemName.pascalCase}Form(form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItem.attribute.attributeName.camelCase}], ${model.item.itemName.camelCase}.${attributeWithItem.attribute.attributeName.camelCase})
+                  |        
+          """ } }
+              |        
+          """ } }    }
           |
           |    public create${model.item.itemName.pascalCase}WTOFromForm(form: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>): ${model.item.itemName.pascalCase}WTO {
           |        return {
@@ -103,32 +152,6 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
                   |            
           """ } }            
           """ } }                    };
-          |    }
-          |
-          |    /**
-          |     * patchValue does not create missing FormGroups inside the FormArray.
-          |     * So if your FormArray is empty (or shorter than the incoming data), nothing (or only the first N) gets patched.
-          |     * We need to prefill the FormArray with empty values first
-          |     */
-          |    public patchPreparation(form: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>, ${model.item.itemName.camelCase}: ${model.item.itemName.pascalCase}WTO): void {
-          |        ${ model.item.attributesWithLists.joinToString("") { attribute ->  """
-              |
-              |        const ${attribute.attributeName.camelCase}Length = form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].controls.length
-              |        if(${attribute.attributeName.camelCase}Length < ${model.item.itemName.camelCase}.${attribute.attributeName.camelCase}.length) {
-              |            for (let i = ${attribute.attributeName.camelCase}Length; i < ${model.item.itemName.camelCase}.${attribute.attributeName.camelCase}.length; i++) {
-              |                const ${model.item.itemName.camelCase}Control = this.${model.item.itemName.camelCase}FormPartService.createInitial${model.item.itemName.pascalCase}Form()
-              |                const articulurInterior = ${model.item.itemName.camelCase}.${attribute.attributeName.camelCase}[i]
-              |                form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].push(${model.item.itemName.camelCase}Control)
-              |                this.${model.item.itemName.camelCase}FormPartService.patchPreparation(${model.item.itemName.camelCase}Control, articulurInterior)
-              |            }
-              |        }
-              |        
-          """ } }
-          |
-          |        ${ model.item.attributesWithItem.joinToString("") { attributeWithItem ->  """
-              |        this.${attributeWithItem.type.item.itemName.camelCase}FormPartService.patchPreparation(form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItem.attribute.attributeName.camelCase}], ${model.item.itemName.camelCase}.${attributeWithItem.attribute.attributeName.camelCase})
-              |        
-          """ } }
           |    }
           |}
           |
