@@ -200,12 +200,87 @@ export class SilvaOptionumFormPartService {
         });
     }
 
+    public patchSilvaOptionumForm(form: FormGroup<SilvaOptionumFormPartGroup>, silvaOptionum: SilvaOptionumWTO): void {
+        this.patchPreparation(form, silvaOptionum);
+
+        /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
+        form.controls[SilvaOptionumFormPartFieldName.campusTextusObligatorius].patchValue(silvaOptionum.campusTextusObligatorius);
+        /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
+        /* @tt{{{
+            @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
+
+            @replace-value-by-expression
+                [ searchValue="campusTextusOptionalis" replaceByExpression="attribute.attributeName.camelCase" ]
+
+            @rla
+        }}}@  */
+        /* @tt{{{ @rlb  @if [ conditionExpression="attribute.isNullable"] @rla }}}@ */
+        if(silvaOptionum.campusTextusOptionalis != null) {
+            form.controls[SilvaOptionumFormPartFieldName.campusTextusOptionalisIsNotNull].patchValue(true);
+            form.controls[SilvaOptionumFormPartFieldName.campusTextusOptionalis].patchValue(silvaOptionum.campusTextusOptionalis);
+        } else {
+            form.controls[SilvaOptionumFormPartFieldName.campusTextusOptionalisIsNotNull].patchValue(false);
+        }
+        /* @tt{{{ @rlb  @end-if @rla }}}@ */
+        /* @tt{{{ @rlb @end-foreach @rla }}}@ */
+        /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
+        form.controls[SilvaOptionumFormPartFieldName.articulusInteriorList].patchValue(silvaOptionum.articulusInteriorList)
+        form.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularis].patchValue(silvaOptionum.articulusInteriorSingularis);
+        if(silvaOptionum.articulusInteriorSingularisOptionalis != null) {
+            form.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalisIsNotNull].patchValue(true);
+            form.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalis].patchValue(silvaOptionum.articulusInteriorSingularisOptionalis);
+        } else {
+            form.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalisIsNotNull].patchValue(false);
+        }
+        form.controls[SilvaOptionumFormPartFieldName.campusDieiIsNotNull].patchValue(!silvaOptionum.campusDiei);
+        form.controls[SilvaOptionumFormPartFieldName.campusDiei].patchValue(silvaOptionum.campusDiei ?? null);
+        form.controls[SilvaOptionumFormPartFieldName.campusBivalens].patchValue(silvaOptionum.campusBivalens);
+        form.controls[SilvaOptionumFormPartFieldName.appellatio].patchValue(silvaOptionum.appellatio);
+        form.controls[SilvaOptionumFormPartFieldName.campusNumerorum].patchValue(silvaOptionum.campusNumerorum);
+        form.controls[SilvaOptionumFormPartFieldName.indexUnicus].patchValue(silvaOptionum.indexUnicus);
+        /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
+    }
+
+    public createSilvaOptionumWTOFromForm(form: FormGroup<SilvaOptionumFormPartGroup>): SilvaOptionumWTO {
+        return {
+            /* @tt{{{
+                @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
+
+                @replace-value-by-expression
+                    [ searchValue="campusTextusObligatorius" replaceByExpression="attribute.attributeName.camelCase" ]
+                    [ searchValue="campusTextusOptionalis" replaceByExpression="attribute.attributeName.camelCase" ]
+
+                @rla
+            }}}@  */
+            /* @tt{{{ @rlb  @if [ conditionExpression="!attribute.isNullable"] @rla }}}@ */
+            campusTextusObligatorius: form.controls[SilvaOptionumFormPartFieldName.campusTextusObligatorius].getRawValue(),
+            /* @tt{{{ @rlb  @else @rla }}}@ */
+            campusTextusOptionalis: form.controls[SilvaOptionumFormPartFieldName.campusTextusOptionalisIsNotNull].value
+                ? form.controls[SilvaOptionumFormPartFieldName.campusTextusOptionalis].getRawValue()
+                : null,
+            /* @tt{{{ @rlb  @end-if @rla }}}@ */
+            /* @tt{{{ @rlb @end-foreach @rla }}}@ */
+            /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
+            articulusInteriorSingularis: form.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularis].getRawValue(),
+            articulusInteriorList: form.controls[SilvaOptionumFormPartFieldName.articulusInteriorList].getRawValue(),
+            articulusInteriorSingularisOptionalis: form.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalis].value
+                ? form.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalis].getRawValue()
+                : null,
+            campusDiei: form.controls[SilvaOptionumFormPartFieldName.campusDieiIsNotNull].value ? form.controls[SilvaOptionumFormPartFieldName.campusDiei].getRawValue() : null,
+            campusBivalens: form.controls[SilvaOptionumFormPartFieldName.campusBivalens].getRawValue(),
+            campusNumerorum: form.controls[SilvaOptionumFormPartFieldName.campusNumerorum].getRawValue(),
+            appellatio: form.controls[SilvaOptionumFormPartFieldName.appellatio].getRawValue(),
+            indexUnicus: form.controls[SilvaOptionumFormPartFieldName.indexUnicus].getRawValue(),
+            /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
+        };
+    }
+
     /**
      * patchValue does not create missing FormGroups inside the FormArray.
      * So if your FormArray is empty (or shorter than the incoming data), nothing (or only the first N) gets patched.
      * We need to prefill the FormArray with empty values first
      */
-    public patchPreparation(form: FormGroup<SilvaOptionumFormPartGroup>, silvaOptionum: SilvaOptionumWTO): void {
+    private patchPreparation(form: FormGroup<SilvaOptionumFormPartGroup>, silvaOptionum: SilvaOptionumWTO): void {
         /* @tt{{{
             @foreach [ iteratorExpression="model.item.attributesWithLists" loopVariable="attribute" ]
             @replace-value-by-expression
@@ -237,5 +312,9 @@ export class SilvaOptionumFormPartService {
             }}}@  */
         this.articulusInteriorFormPartService.patchPreparation(form.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularis], silvaOptionum.articulusInteriorSingularis)
         /* @tt{{{ @end-foreach }}}@ */
+        /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
+        this.articulusInteriorFormPartService.patchPreparation(form.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalis], silvaOptionum.articulusInteriorSingularis)
+        /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
+
     }
 }

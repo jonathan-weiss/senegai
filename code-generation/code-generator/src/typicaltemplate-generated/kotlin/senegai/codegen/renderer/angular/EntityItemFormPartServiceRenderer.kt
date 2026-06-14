@@ -79,12 +79,38 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
           """ } }        });
           |    }
           |
+          |    public patch${model.item.itemName.pascalCase}Form(form: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>, ${model.item.itemName.camelCase}: ${model.item.itemName.pascalCase}WTO): void {
+          |        this.patchPreparation(form, ${model.item.itemName.camelCase});
+          |
+          |                ${ model.item.attributes.joinToString("") { attribute ->  """        ${ if(attribute.isNullable) { """        if(${model.item.itemName.camelCase}.${attribute.attributeName.camelCase} != null) {
+                  |            form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull].patchValue(true);
+                  |            form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].patchValue(${model.item.itemName.camelCase}.${attribute.attributeName.camelCase});
+                  |        } else {
+                  |            form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull].patchValue(false);
+                  |        }
+                  |        
+          """ } else { """
+          """ } }        
+          """ } }            }
+          |
+          |    public create${model.item.itemName.pascalCase}WTOFromForm(form: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>): ${model.item.itemName.pascalCase}WTO {
+          |        return {
+          |            ${ model.item.attributes.joinToString("") { attribute ->  """            ${ if(!attribute.isNullable) { """            ${attribute.attributeName.camelCase}: form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].getRawValue(),
+                  |            
+          """ } else { """            ${attribute.attributeName.camelCase}: form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull].value
+                  |                ? form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].getRawValue()
+                  |                : null,
+                  |            
+          """ } }            
+          """ } }                    };
+          |    }
+          |
           |    /**
           |     * patchValue does not create missing FormGroups inside the FormArray.
           |     * So if your FormArray is empty (or shorter than the incoming data), nothing (or only the first N) gets patched.
           |     * We need to prefill the FormArray with empty values first
           |     */
-          |    public patchPreparation(form: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>, ${model.item.itemName.camelCase}: ${model.item.itemName.pascalCase}WTO): void {
+          |    private patchPreparation(form: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>, ${model.item.itemName.camelCase}: ${model.item.itemName.pascalCase}WTO): void {
           |        ${ model.item.attributesWithLists.joinToString("") { attribute ->  """
               |
               |        const ${attribute.attributeName.camelCase}Length = form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].controls.length

@@ -80,14 +80,13 @@ export class OpusMagnumFormComponent implements OnInit {
 
     ngOnInit(): void {
         if (this.silvaOptionum) {
-            this.silvaOptionumFormPartService.patchPreparation(this.silvaOptionumForm, this.silvaOptionum)
-            this.silvaOptionumForm.patchValue(this.silvaOptionum);
+            this.silvaOptionumFormPartService.patchSilvaOptionumForm(this.silvaOptionumForm, this.silvaOptionum)
         }
     }
 
     onSubmit(): void {
         if (this.silvaOptionumForm.valid) {
-            const updatedSilvaOptionum: SilvaOptionumWTO = this.silvaOptionumForm.getRawValue()
+            const updatedSilvaOptionum: SilvaOptionumWTO = this.silvaOptionumFormPartService.createSilvaOptionumWTOFromForm(this.silvaOptionumForm)
             this.save.emit(updatedSilvaOptionum);
         }
     }

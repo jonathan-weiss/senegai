@@ -69,14 +69,13 @@ object EntityFormComponentTypescriptRenderer : UiEntityRenderer {
           |
           |    ngOnInit(): void {
           |        if (this.${model.entityRootItem.itemName.camelCase}) {
-          |            this.${model.entityRootItem.itemName.camelCase}FormPartService.patchPreparation(this.${model.entityRootItem.itemName.camelCase}Form, this.${model.entityRootItem.itemName.camelCase})
-          |            this.${model.entityRootItem.itemName.camelCase}Form.patchValue(this.${model.entityRootItem.itemName.camelCase});
+          |            this.${model.entityRootItem.itemName.camelCase}FormPartService.patch${model.entityRootItem.itemName.pascalCase}Form(this.${model.entityRootItem.itemName.camelCase}Form, this.${model.entityRootItem.itemName.camelCase})
           |        }
           |    }
           |
           |    onSubmit(): void {
           |        if (this.${model.entityRootItem.itemName.camelCase}Form.valid) {
-          |            const updated${model.entityRootItem.itemName.pascalCase}: ${model.entityRootItem.itemName.pascalCase}WTO = this.${model.entityRootItem.itemName.camelCase}Form.getRawValue()
+          |            const updated${model.entityRootItem.itemName.pascalCase}: ${model.entityRootItem.itemName.pascalCase}WTO = this.${model.entityRootItem.itemName.camelCase}FormPartService.create${model.entityRootItem.itemName.pascalCase}WTOFromForm(this.${model.entityRootItem.itemName.camelCase}Form)
           |            this.save.emit(updated${model.entityRootItem.itemName.pascalCase});
           |        }
           |    }
