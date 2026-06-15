@@ -69,7 +69,8 @@ object EntityItemTableComponentTypescriptRenderer : UiEntityItemRenderer {
           |    displayedColumns: string[] = [
           |        ${ model.item.attributes.joinToString("") { attribute ->  """        '${attribute.attributeName.camelCase}',
               |        
-          """ } }            ];
+          """ } }                'actions',
+          |    ];
           |    dataSource: MatTableDataSource<${model.item.itemName.pascalCase}TableRow> = new MatTableDataSource<${model.item.itemName.pascalCase}TableRow>();
           |
           |    selectedFormGroup: FormGroup | undefined = undefined;

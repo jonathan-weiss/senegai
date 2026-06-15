@@ -92,8 +92,8 @@ export class ArticulusInteriorTableComponent implements OnInit {
         /* @tt{{{ @rlb  @end-foreach @rla }}}@ */
         /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
         'year',
-        'actions',
         /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
+        'actions',
     ];
     dataSource: MatTableDataSource<ArticulusInteriorTableRow> = new MatTableDataSource<ArticulusInteriorTableRow>();
 
