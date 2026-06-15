@@ -49,7 +49,7 @@ object EntityItemFormPartBlocksComponentHtmlRenderer {
                       |                    </div>
           """ } else { """
           """ } }
-                  |                ${ if(block.attribute.isItem && (block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.LIST_ITEMS)) { """
+                  |                ${ if(block.attribute.isItem && (block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.LIST_ITEMS || block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.NULLABLE_LIST_ITEMS)) { """
                       |
                       |                <div class="form-row">
                       |                    <app-field-wrapper label="${block.attribute.attributeName.pascalCase}">

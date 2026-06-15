@@ -69,7 +69,8 @@ data class UiItemAttributeModel(
         return when (attributeCardinalityModel()) {
             AttributeCardinalityModel.NULLABLE_SINGLE_ITEM -> "$type | null"
             AttributeCardinalityModel.SINGLE_ITEM -> type
-            AttributeCardinalityModel.LIST_ITEMS -> "ReadonlyArray<$type>"
+            AttributeCardinalityModel.LIST_ITEMS -> "Array<$type>"
+            AttributeCardinalityModel.NULLABLE_LIST_ITEMS -> "Array<$type> | null"
         }
     }
 
@@ -169,13 +170,19 @@ data class UiItemAttributeModel(
         }
 
     private fun attributeCardinalityModel(): AttributeCardinalityModel {
-        if(isList) {
-            return AttributeCardinalityModel.LIST_ITEMS
-        }
-        return if (isNullable) {
-            AttributeCardinalityModel.NULLABLE_SINGLE_ITEM
+        return if(isList) {
+            if (isNullable) {
+                AttributeCardinalityModel.NULLABLE_LIST_ITEMS
+            } else {
+                AttributeCardinalityModel.LIST_ITEMS
+            }
+
         } else {
-            AttributeCardinalityModel.SINGLE_ITEM
+            if (isNullable) {
+                AttributeCardinalityModel.NULLABLE_SINGLE_ITEM
+            } else {
+                AttributeCardinalityModel.SINGLE_ITEM
+            }
         }
     }
 }

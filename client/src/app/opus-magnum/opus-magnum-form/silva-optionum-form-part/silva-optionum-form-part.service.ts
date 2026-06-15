@@ -269,11 +269,12 @@ export class SilvaOptionumFormPartService {
                     [ searchValue="ArticulusInterior" replaceByExpression="attributeWithItem.type.item.itemName.pascalCase" ]
 
             }}}@  */
-
-        const articulusInteriorListLength = form.controls[SilvaOptionumFormPartFieldName.articulusInteriorList].controls.length
-        if(articulusInteriorListLength < silvaOptionum.articulusInteriorList.length) {
-            for (let i = articulusInteriorListLength; i < silvaOptionum.articulusInteriorList.length; i++) {
-                form.controls[SilvaOptionumFormPartFieldName.articulusInteriorList].push(this.articulusInteriorFormPartService.createInitialArticulusInteriorForm())
+        if(silvaOptionum.articulusInteriorList != null) {
+            const articulusInteriorListLength = form.controls[SilvaOptionumFormPartFieldName.articulusInteriorList].controls.length
+            if (articulusInteriorListLength < silvaOptionum.articulusInteriorList.length) {
+                for (let i = articulusInteriorListLength; i < silvaOptionum.articulusInteriorList.length; i++) {
+                    form.controls[SilvaOptionumFormPartFieldName.articulusInteriorList].push(this.articulusInteriorFormPartService.createInitialArticulusInteriorForm())
+                }
             }
         }
         /* @tt{{{ @end-foreach }}}@ */
@@ -291,13 +292,15 @@ export class SilvaOptionumFormPartService {
 
             }}}@  */
 
-        const articulusInteriorListLength = form.controls[SilvaOptionumFormPartFieldName.articulusInteriorList].controls.length
-        if(articulusInteriorListLength < silvaOptionum.articulusInteriorList.length) {
-            for (let i = articulusInteriorListLength; i < silvaOptionum.articulusInteriorList.length; i++) {
-                this.articulusInteriorFormPartService.patchArticulusInteriorForm(
-                    form.controls[SilvaOptionumFormPartFieldName.articulusInteriorList].at(i),
-                    silvaOptionum.articulusInteriorList[i]
-                )
+        if(silvaOptionum.articulusInteriorList != null) {
+            const articulusInteriorListLength = form.controls[SilvaOptionumFormPartFieldName.articulusInteriorList].controls.length
+            if(articulusInteriorListLength < silvaOptionum.articulusInteriorList.length) {
+                for (let i = articulusInteriorListLength; i < silvaOptionum.articulusInteriorList.length; i++) {
+                    this.articulusInteriorFormPartService.patchArticulusInteriorForm(
+                        form.controls[SilvaOptionumFormPartFieldName.articulusInteriorList].at(i),
+                        silvaOptionum.articulusInteriorList[i]
+                    )
+                }
             }
         }
         /* @tt{{{ @end-foreach }}}@ */
