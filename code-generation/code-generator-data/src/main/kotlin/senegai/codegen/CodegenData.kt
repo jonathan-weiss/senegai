@@ -24,6 +24,7 @@ object CodegenData {
     ) : ItemId {
         CONTACT(itemName = "Contact"),
         ADDRESS(itemName = "Address"),
+        COUNTRY(itemName = "Country"),
     }
 
     enum class EnumTypes(
@@ -49,7 +50,8 @@ object CodegenData {
                 attribute(name = "lastname", type = BuiltInType.STRING)
                 attribute(name = "age", type = BuiltInType.NUMBER)
                 attribute(name = "vegetarian", type = BuiltInType.BOOLEAN)
-                attribute(name = "contactAddress", itemId = Items.ADDRESS, nullable = true)
+                //attribute(name = "contactAddress", itemId = Items.ADDRESS, nullable = true)
+                attribute(name = "otherAddresses", itemId = Items.ADDRESS, nullable = true, multiple = true)
             }
 
             item(itemId = Items.ADDRESS) {
@@ -57,6 +59,12 @@ object CodegenData {
                 attribute(name = "street", type = BuiltInType.STRING)
                 attribute(name = "postalCode", type = BuiltInType.STRING)
                 attribute(name = "town", type = BuiltInType.STRING)
+                attribute(name = "country", itemId = Items.COUNTRY)
+            }
+
+            item(itemId = Items.COUNTRY) {
+                attribute(name = "countryIsoCode", type = BuiltInType.STRING)
+                attribute(name = "countryName", type = BuiltInType.STRING)
             }
         }
     }
@@ -78,6 +86,9 @@ object CodegenData {
                                     text(text = "Nick, you have a nickname")
                                     attribute(attributeName = "lastname")
                                     text(text = "The lastname, the lastname")
+                                    section(sectionName = "Addresses")
+                                    //attribute(attributeName = "contactAddress")
+                                    attribute(attributeName = "otherAddresses")
                                 }
                             }
                             tab(tabName = "Miscellaneous") {
@@ -90,7 +101,6 @@ object CodegenData {
                                     text(text = Constants.MULTILINE_TEXT)
                                     attribute(attributeName = "age")
                                     attribute(attributeName = "vegetarian")
-                                    attribute(attributeName = "contactAddress")
                                 }
                             }
                         }
@@ -100,6 +110,13 @@ object CodegenData {
                                 attribute(attributeName = "street")
                                 attribute(attributeName = "postalCode")
                                 attribute(attributeName = "town")
+                                attribute(attributeName = "country")
+                            }
+                        }
+                        configureNestedEntityItem(itemId = Items.COUNTRY) {
+                            column {
+                                attribute(attributeName = "countryIsoCode")
+                                attribute(attributeName = "countryName")
                             }
                         }
                     }
@@ -116,7 +133,23 @@ object CodegenData {
                                     attribute(attributeName = "street")
                                     attribute(attributeName = "postalCode")
                                     attribute(attributeName = "town")
+                                    attribute(attributeName = "country")
                                 }
+                            }
+                        }
+                        configureNestedEntityItem(itemId = Items.ADDRESS) {
+                            column {
+                                attribute(attributeName = "id")
+                                attribute(attributeName = "street")
+                                attribute(attributeName = "postalCode")
+                                attribute(attributeName = "town")
+                                attribute(attributeName = "country")
+                            }
+                        }
+                        configureNestedEntityItem(itemId = Items.COUNTRY) {
+                            column {
+                                attribute(attributeName = "countryIsoCode")
+                                attribute(attributeName = "countryName")
                             }
                         }
                     }
