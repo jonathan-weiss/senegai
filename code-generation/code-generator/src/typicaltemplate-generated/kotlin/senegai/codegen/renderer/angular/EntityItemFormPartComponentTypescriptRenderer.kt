@@ -129,16 +129,16 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
               |
               |    
           """ } }    
-          |    constructor(private readonly ${model.item.itemName.camelCase}MagnumFormValidationService: ${model.item.itemName.pascalCase}FormPartValidationService,) {
+          |    constructor(private readonly ${model.item.itemName.camelCase}FormValidationService: ${model.item.itemName.pascalCase}FormPartValidationService,) {
           |    }
           |
           |    ngOnInit() {
           |        ${ model.item.attributes.joinToString("") { attribute ->  """${ if(attribute.isNullable) { """        this.${attribute.attributeName.camelCase}IsNotNullControl = this.${model.item.itemName.camelCase}Form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull]
-                  |        this.${attribute.attributeName.camelCase}IsNotNullValidatorNames = this.${model.item.itemName.camelCase}MagnumFormValidationService.validatorNames(${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull)
+                  |        this.${attribute.attributeName.camelCase}IsNotNullValidatorNames = this.${model.item.itemName.camelCase}FormValidationService.validatorNames(${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull)
                   |        
           """ } else { """
           """ } }        this.${attribute.attributeName.camelCase}Control = this.${model.item.itemName.camelCase}Form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}]
-              |        this.${attribute.attributeName.camelCase}ValidatorNames = this.${model.item.itemName.camelCase}MagnumFormValidationService.validatorNames(${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase})
+              |        this.${attribute.attributeName.camelCase}ValidatorNames = this.${model.item.itemName.camelCase}FormValidationService.validatorNames(${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase})
               |
               |        
           """ } }            }

@@ -213,17 +213,18 @@ export class SilvaOptionumFormPartService {
     public patchSilvaOptionumForm(form: FormGroup<SilvaOptionumFormPartGroup>, silvaOptionum: SilvaOptionumWTO): void {
         this.patchPreparation(form, silvaOptionum);
 
-        /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
-        form.controls[SilvaOptionumFormPartFieldName.campusTextusObligatorius].patchValue(silvaOptionum.campusTextusObligatorius);
-        /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
         /* @tt{{{
             @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
             @replace-value-by-expression
                 [ searchValue="campusTextusOptionalis" replaceByExpression="attribute.attributeName.camelCase" ]
+                [ searchValue="campusTextusObligatorius" replaceByExpression="attribute.attributeName.camelCase" ]
 
             @rla
         }}}@  */
+        /* @tt{{{ @rlb  @if [ conditionExpression="!attribute.isNullable"] @rla }}}@ */
+        form.controls[SilvaOptionumFormPartFieldName.campusTextusObligatorius].patchValue(silvaOptionum.campusTextusObligatorius);
+        /* @tt{{{ @rlb  @end-if @rla }}}@ */
         /* @tt{{{ @rlb  @if [ conditionExpression="attribute.isNullable"] @rla }}}@ */
         if(silvaOptionum.campusTextusOptionalis != null) {
             form.controls[SilvaOptionumFormPartFieldName.campusTextusOptionalisIsNotNull].patchValue(true);

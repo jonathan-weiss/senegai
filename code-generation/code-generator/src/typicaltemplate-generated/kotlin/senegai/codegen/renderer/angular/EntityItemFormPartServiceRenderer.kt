@@ -89,7 +89,10 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
           |    public patch${model.item.itemName.pascalCase}Form(form: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>, ${model.item.itemName.camelCase}: ${model.item.itemName.pascalCase}WTO): void {
           |        this.patchPreparation(form, ${model.item.itemName.camelCase});
           |
-          |                ${ model.item.attributes.joinToString("") { attribute ->  """        ${ if(attribute.isNullable) { """        if(${model.item.itemName.camelCase}.${attribute.attributeName.camelCase} != null) {
+          |        ${ model.item.attributes.joinToString("") { attribute ->  """        ${ if(!attribute.isNullable) { """        form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].patchValue(${model.item.itemName.camelCase}.${attribute.attributeName.camelCase});
+                  |        
+          """ } else { """
+          """ } }        ${ if(attribute.isNullable) { """        if(${model.item.itemName.camelCase}.${attribute.attributeName.camelCase} != null) {
                   |            form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull].patchValue(true);
                   |            form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].patchValue(${model.item.itemName.camelCase}.${attribute.attributeName.camelCase});
                   |        } else {
