@@ -120,7 +120,7 @@ export class ArticulusInteriorTableComponent implements OnInit {
                 @rla
             }}}@
              */
-            description: formGroup.controls[ArticulusInteriorFormPartFieldName.description].value,
+            description: JSON.stringify(formGroup.controls[ArticulusInteriorFormPartFieldName.description].value),
             /* @tt{{{ @rlb  @end-foreach @rla }}}@ */
             /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
 

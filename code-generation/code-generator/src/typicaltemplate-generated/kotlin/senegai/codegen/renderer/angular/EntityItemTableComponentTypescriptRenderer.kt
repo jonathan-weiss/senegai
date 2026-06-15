@@ -85,7 +85,7 @@ object EntityItemTableComponentTypescriptRenderer : UiEntityItemRenderer {
           |
           |    private toTableRow(formGroup: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>): ${model.item.itemName.pascalCase}TableRow {
           |        return {
-          |            ${ model.item.attributes.joinToString("") { attribute ->  """            ${attribute.attributeName.camelCase}: formGroup.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].value,
+          |            ${ model.item.attributes.joinToString("") { attribute ->  """            ${attribute.attributeName.camelCase}: JSON.stringify(formGroup.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].value),
               |            
           """ } }                        formGroup: formGroup,
           |        }
