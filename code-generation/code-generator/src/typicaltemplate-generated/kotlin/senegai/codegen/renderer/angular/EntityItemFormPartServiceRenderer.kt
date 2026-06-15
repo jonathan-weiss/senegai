@@ -58,9 +58,16 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
           """ } else { """
           """ } }            
           """ } }
-          |            ${ model.item.attributesWithItem.joinToString("") { attributeWithItem ->  """
+          |            ${ model.item.attributesWithItem.filter { !it.attribute.isList }.joinToString("") { attributeWithItem ->  """
               |
               |            [${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItem.attribute.attributeName.camelCase}]: this.${attributeWithItem.type.item.itemName.camelCase}FormPartService.createInitial${attributeWithItem.type.item.itemName.pascalCase}Form(),
+          """ } }            ${ model.item.attributesWithItem.filter { it.attribute.isList }.joinToString("") { attributeWithItem ->  """
+              |            [${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItem.attribute.attributeName.camelCase}]: new FormArray(
+              |                this.${model.item.itemName.camelCase}FormInitialValueService.${attributeWithItem.attribute.attributeName.camelCase}InitialValue(),
+              |                {
+              |                    validators: this.${model.item.itemName.camelCase}FormValidationService.validatorFunctions(${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItem.attribute.attributeName.camelCase})
+              |                },
+              |            ),
           """ } }            
           |            // ------------------------
           |            // All isNotNull controls
@@ -101,12 +108,12 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
           |     * We need to prefill the FormArray with empty values first
           |     */
           |    private patchPreparation(form: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>, ${model.item.itemName.camelCase}: ${model.item.itemName.pascalCase}WTO): void {
-          |        ${ model.item.attributesWithLists.joinToString("") { attribute ->  """
+          |        ${ model.item.attributesWithItem.filter { it.attribute.isList }.joinToString("") { attributeWithItem ->  """
               |
-              |        const ${attribute.attributeName.camelCase}Length = form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].controls.length
-              |        if(${attribute.attributeName.camelCase}Length < ${model.item.itemName.camelCase}.${attribute.attributeName.camelCase}.length) {
-              |            for (let i = ${attribute.attributeName.camelCase}Length; i < ${model.item.itemName.camelCase}.${attribute.attributeName.camelCase}.length; i++) {
-              |                form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].push(this.${model.item.itemName.camelCase}FormPartService.createInitial${model.item.itemName.pascalCase}Form())
+              |        const ${attributeWithItem.attribute.attributeName.camelCase}Length = form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItem.attribute.attributeName.camelCase}].controls.length
+              |        if(${attributeWithItem.attribute.attributeName.camelCase}Length < ${model.item.itemName.camelCase}.${attributeWithItem.attribute.attributeName.camelCase}.length) {
+              |            for (let i = ${attributeWithItem.attribute.attributeName.camelCase}Length; i < ${model.item.itemName.camelCase}.${attributeWithItem.attribute.attributeName.camelCase}.length; i++) {
+              |                form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItem.attribute.attributeName.camelCase}].push(this.${attributeWithItem.type.item.itemName.camelCase}FormPartService.createInitial${attributeWithItem.type.item.itemName.pascalCase}Form())
               |            }
               |        }
               |        
@@ -115,21 +122,21 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
           |
           |
           |    private patchNestedItems(form: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>, ${model.item.itemName.camelCase}: ${model.item.itemName.pascalCase}WTO): void {
-          |        ${ model.item.attributesWithLists.joinToString("") { attribute ->  """
+          |        ${ model.item.attributesWithItem.filter { it.attribute.isList }.joinToString("") { attributeWithItem ->  """
               |
-              |        const ${attribute.attributeName.camelCase}Length = form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].controls.length
-              |        if(${attribute.attributeName.camelCase}Length < ${model.item.itemName.camelCase}.${attribute.attributeName.camelCase}.length) {
-              |            for (let i = ${attribute.attributeName.camelCase}Length; i < ${model.item.itemName.camelCase}.${attribute.attributeName.camelCase}.length; i++) {
-              |                this.${model.item.itemName.camelCase}FormPartService.patch${model.item.itemName.pascalCase}Form(
-              |                    form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].at(i),
-              |                    ${model.item.itemName.camelCase}.${attribute.attributeName.camelCase}[i]
+              |        const ${attributeWithItem.attribute.attributeName.camelCase}Length = form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItem.attribute.attributeName.camelCase}].controls.length
+              |        if(${attributeWithItem.attribute.attributeName.camelCase}Length < ${model.item.itemName.camelCase}.${attributeWithItem.attribute.attributeName.camelCase}.length) {
+              |            for (let i = ${attributeWithItem.attribute.attributeName.camelCase}Length; i < ${model.item.itemName.camelCase}.${attributeWithItem.attribute.attributeName.camelCase}.length; i++) {
+              |                this.${attributeWithItem.type.item.itemName.camelCase}FormPartService.patch${attributeWithItem.type.item.itemName.pascalCase}Form(
+              |                    form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItem.attribute.attributeName.camelCase}].at(i),
+              |                    ${model.item.itemName.camelCase}.${attributeWithItem.attribute.attributeName.camelCase}[i]
               |                )
               |            }
               |        }
               |        
           """ } }
           |
-          |        ${ model.item.attributesWithItem.joinToString("") { attributeWithItem ->  """
+          |        ${ model.item.attributesWithItem.filter { !it.attribute.isList }.joinToString("") { attributeWithItem ->  """
               |        ${ if(attributeWithItem.attribute.isNullable) { """
                   |        if(${model.item.itemName.camelCase}.${attributeWithItem.attribute.attributeName.camelCase} != null) {
                   |            this.${attributeWithItem.type.item.itemName.camelCase}FormPartService.patch${attributeWithItem.type.item.itemName.pascalCase}Form(form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItem.attribute.attributeName.camelCase}], ${model.item.itemName.camelCase}.${attributeWithItem.attribute.attributeName.camelCase})

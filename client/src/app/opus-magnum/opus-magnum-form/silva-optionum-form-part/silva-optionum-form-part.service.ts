@@ -105,7 +105,7 @@ export class SilvaOptionumFormPartService {
             /* @tt{{{ @rlb @end-foreach @rla }}}@ */
 
             /* @tt{{{ @rlb
-                @foreach [ iteratorExpression="model.item.attributesWithItem" loopVariable="attributeWithItem" ]
+                @foreach [ iteratorExpression="model.item.attributesWithItem.filter { !it.attribute.isList }" loopVariable="attributeWithItem" ]
 
                 @replace-value-by-expression
                     [ searchValue="articulusInteriorSingularis" replaceByExpression="attributeWithItem.attribute.attributeName.camelCase" ]
@@ -116,13 +116,23 @@ export class SilvaOptionumFormPartService {
 
             [SilvaOptionumFormPartFieldName.articulusInteriorSingularis]: this.articulusInteriorFormPartService.createInitialArticulusInteriorForm(),
             /* @tt{{{ @rlb @end-foreach @rla }}}@ */
-            /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
+            /* @tt{{{ @rlb
+                @foreach [ iteratorExpression="model.item.attributesWithItem.filter { it.attribute.isList }" loopVariable="attributeWithItem" ]
+
+                @replace-value-by-expression
+                    [ searchValue="articulusInteriorList" replaceByExpression="attributeWithItem.attribute.attributeName.camelCase" ]
+                    [ searchValue="articulusInterior" replaceByExpression="attributeWithItem.type.item.itemName.camelCase" ]
+                    [ searchValue="ArticulusInterior" replaceByExpression="attributeWithItem.type.item.itemName.pascalCase" ]
+
+            }}}@  */
             [SilvaOptionumFormPartFieldName.articulusInteriorList]: new FormArray(
                 this.silvaOptionumFormInitialValueService.articulusInteriorListInitialValue(),
                 {
                     validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.articulusInteriorList)
                 },
             ),
+            /* @tt{{{ @rlb @end-foreach @rla }}}@ */
+            /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
             [SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalis]: this.articulusInteriorFormPartService.createInitialArticulusInteriorForm(),
             [SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalisIsNotNull]: new FormControl<boolean>(
                 false,
@@ -250,12 +260,12 @@ export class SilvaOptionumFormPartService {
      */
     private patchPreparation(form: FormGroup<SilvaOptionumFormPartGroup>, silvaOptionum: SilvaOptionumWTO): void {
         /* @tt{{{
-            @foreach [ iteratorExpression="model.item.attributesWithLists" loopVariable="attribute" ]
+            @foreach [ iteratorExpression="model.item.attributesWithItem.filter { it.attribute.isList }" loopVariable="attributeWithItem" ]
             @replace-value-by-expression
-                    [ searchValue="articulusInteriorList" replaceByExpression="attribute.attributeName.camelCase" ]
-                    [ searchValue="ArticulusInteriorList" replaceByExpression="attribute.attributeName.pascalCase" ]
-                    [ searchValue="articulusInterior" replaceByExpression="model.item.itemName.camelCase" ]
-                    [ searchValue="ArticulusInterior" replaceByExpression="model.item.itemName.pascalCase" ]
+                    [ searchValue="articulusInteriorList" replaceByExpression="attributeWithItem.attribute.attributeName.camelCase" ]
+                    [ searchValue="ArticulusInteriorList" replaceByExpression="attributeWithItem.attribute.attributeName.pascalCase" ]
+                    [ searchValue="articulusInterior" replaceByExpression="attributeWithItem.type.item.itemName.camelCase" ]
+                    [ searchValue="ArticulusInterior" replaceByExpression="attributeWithItem.type.item.itemName.pascalCase" ]
 
             }}}@  */
 
@@ -271,12 +281,12 @@ export class SilvaOptionumFormPartService {
 
     private patchNestedItems(form: FormGroup<SilvaOptionumFormPartGroup>, silvaOptionum: SilvaOptionumWTO): void {
         /* @tt{{{
-            @foreach [ iteratorExpression="model.item.attributesWithLists" loopVariable="attribute" ]
+            @foreach [ iteratorExpression="model.item.attributesWithItem.filter { it.attribute.isList }" loopVariable="attributeWithItem" ]
             @replace-value-by-expression
-                    [ searchValue="articulusInteriorList" replaceByExpression="attribute.attributeName.camelCase" ]
-                    [ searchValue="ArticulusInteriorList" replaceByExpression="attribute.attributeName.pascalCase" ]
-                    [ searchValue="articulusInterior" replaceByExpression="model.item.itemName.camelCase" ]
-                    [ searchValue="ArticulusInterior" replaceByExpression="model.item.itemName.pascalCase" ]
+                    [ searchValue="articulusInteriorList" replaceByExpression="attributeWithItem.attribute.attributeName.camelCase" ]
+                    [ searchValue="ArticulusInteriorList" replaceByExpression="attributeWithItem.attribute.attributeName.pascalCase" ]
+                    [ searchValue="articulusInterior" replaceByExpression="attributeWithItem.type.item.itemName.camelCase" ]
+                    [ searchValue="ArticulusInterior" replaceByExpression="attributeWithItem.type.item.itemName.pascalCase" ]
 
             }}}@  */
 
@@ -292,7 +302,7 @@ export class SilvaOptionumFormPartService {
         /* @tt{{{ @end-foreach }}}@ */
 
         /* @tt{{{
-            @foreach [ iteratorExpression="model.item.attributesWithItem" loopVariable="attributeWithItem" ]
+            @foreach [ iteratorExpression="model.item.attributesWithItem.filter { !it.attribute.isList }" loopVariable="attributeWithItem" ]
             @replace-value-by-expression
                     [ searchValue="articulusInteriorSingularisOptionalis" replaceByExpression="attributeWithItem.attribute.attributeName.camelCase" ]
                     [ searchValue="articulusInteriorSingularis" replaceByExpression="attributeWithItem.attribute.attributeName.camelCase" ]
