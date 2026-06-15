@@ -22,7 +22,6 @@ object EntityItemFormPartBlocksComponentHtmlRenderer {
           |
           |
           |                ${ blocks.joinToString("") { block ->  """
-              |                <!-- p>${block}</p -->
               |                ${ if(block is senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormNamedSectionSplitBlockModel) { """
                   |                <app-section-splitter label="${block.sectionName}"></app-section-splitter>
                   |                
