@@ -109,7 +109,7 @@
 
                 }}}@  -->
                     <!-- @tt{{{
-                        @if [ conditionExpression="block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.SINGLE_ITEM" ]
+                        @if [ conditionExpression="!block.attribute.isList && !block.attribute.isNullable" ]
 
                         @replace-value-by-expression
                         [ searchValue="campusTextusObligatorius" replaceByExpression="block.attribute.attributeName.camelCase" ]
@@ -131,7 +131,7 @@
                     </div>
                     <!-- @tt{{{ @rlb @end-if @rla }}}@  -->
                     <!-- @tt{{{
-                        @if [ conditionExpression="block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.NULLABLE_SINGLE_ITEM" ]
+                        @if [ conditionExpression="!block.attribute.isList && block.attribute.isNullable" ]
 
                         @replace-value-by-expression
                         [ searchValue="campusTextusOptionalis" replaceByExpression="block.attribute.attributeName.camelCase" ]
@@ -157,7 +157,7 @@
                     <!-- @tt{{{ @rlb @end-if @rla }}}@  -->
 
                 <!-- @tt{{{
-                    @if [ conditionExpression="block.attribute.isItem && (block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.LIST_ITEMS)" ]
+                    @if [ conditionExpression="block.attribute.isItem && block.attribute.isList && !block.attribute.isNullable" ]
 
                     @replace-value-by-expression
                     [ searchValue="Articulus Interior List" replaceByExpression="block.attribute.attributeName.pascalCase" ]
@@ -197,7 +197,7 @@
                 </div>
                 <!-- @tt{{{ @rlb @end-if @rla }}}@  -->
                 <!-- @tt{{{
-                    @if [ conditionExpression="block.attribute.isItem && (block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.NULLABLE_LIST_ITEMS)" ]
+                    @if [ conditionExpression="block.attribute.isItem && block.attribute.isList && block.attribute.isNullable" ]
 
                     @replace-value-by-expression
                     [ searchValue="Articulus Interior Optionalis List" replaceByExpression="block.attribute.attributeName.pascalCase" ]

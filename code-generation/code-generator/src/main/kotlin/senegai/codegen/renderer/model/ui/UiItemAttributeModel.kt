@@ -18,7 +18,6 @@ data class UiItemAttributeModel(
     val angularFormControlTypeWithCollection: String = calculateAngularFormControlType(withCollection = true)
     val angularFormInitialValue: String
         get() = determineAngularFormInitialValue()
-    val attributeCardinality: AttributeCardinalityModel = attributeCardinalityModel()
 
     val isItem: Boolean
         get() = (type is ItemUiItemAttributeTypeModel)
@@ -66,11 +65,11 @@ data class UiItemAttributeModel(
 
     private fun calculateAttributeTypeWithCardinality(): String {
         val type = calculateAttributeType()
-        return when (attributeCardinalityModel()) {
-            AttributeCardinalityModel.NULLABLE_SINGLE_ITEM -> "$type | null"
-            AttributeCardinalityModel.SINGLE_ITEM -> type
-            AttributeCardinalityModel.LIST_ITEMS -> "Array<$type>"
-            AttributeCardinalityModel.NULLABLE_LIST_ITEMS -> "Array<$type> | null"
+        return when {
+            !isList && isNullable -> "$type | null"
+            !isList && !isNullable -> type
+            isList && !isNullable -> "Array<$type>"
+            else -> "Array<$type> | null"
         }
     }
 
@@ -168,21 +167,4 @@ data class UiItemAttributeModel(
                 is ItemUiItemAttributeTypeModel -> throw RuntimeException("ItemUiItemAttributeTypeModel has no form initial value.") // should not occur
             }
         }
-
-    private fun attributeCardinalityModel(): AttributeCardinalityModel {
-        return if(isList) {
-            if (isNullable) {
-                AttributeCardinalityModel.NULLABLE_LIST_ITEMS
-            } else {
-                AttributeCardinalityModel.LIST_ITEMS
-            }
-
-        } else {
-            if (isNullable) {
-                AttributeCardinalityModel.NULLABLE_SINGLE_ITEM
-            } else {
-                AttributeCardinalityModel.SINGLE_ITEM
-            }
-        }
-    }
 }

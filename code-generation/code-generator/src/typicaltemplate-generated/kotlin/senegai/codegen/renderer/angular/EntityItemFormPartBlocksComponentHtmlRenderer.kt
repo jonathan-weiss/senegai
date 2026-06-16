@@ -29,7 +29,7 @@ object EntityItemFormPartBlocksComponentHtmlRenderer {
                   |                <app-text-block label="${block.text}" />
                   |                
           """ } else if(block is senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormItemAttributeBlockModel) { """
-                  |                    ${ if(block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.SINGLE_ITEM) { """
+                  |                    ${ if(!block.attribute.isList && !block.attribute.isNullable) { """
                       |
                       |                    <div class="form-row">
                       |                        <app-field-wrapper label="${block.attribute.attributeName.pascalCase}">
@@ -37,7 +37,7 @@ object EntityItemFormPartBlocksComponentHtmlRenderer {
                       |                        </app-field-wrapper>
                       |                    </div>
           """ } else { """
-          """ } }                    ${ if(block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.NULLABLE_SINGLE_ITEM) { """
+          """ } }                    ${ if(!block.attribute.isList && block.attribute.isNullable) { """
                       |
                       |                    <div class="form-row">
                       |                        <app-field-wrapper label="${block.attribute.attributeName.pascalCase}"
@@ -49,7 +49,7 @@ object EntityItemFormPartBlocksComponentHtmlRenderer {
                       |                    </div>
           """ } else { """
           """ } }
-                  |                ${ if(block.attribute.isItem && (block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.LIST_ITEMS)) { """
+                  |                ${ if(block.attribute.isItem && block.attribute.isList && !block.attribute.isNullable) { """
                       |
                       |                <div class="form-row">
                       |                    <app-field-wrapper label="${block.attribute.attributeName.pascalCase}">
@@ -70,7 +70,7 @@ object EntityItemFormPartBlocksComponentHtmlRenderer {
                       |
                       |                </div>
           """ } else { """
-          """ } }                ${ if(block.attribute.isItem && (block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.NULLABLE_LIST_ITEMS)) { """
+          """ } }                ${ if(block.attribute.isItem && block.attribute.isList && block.attribute.isNullable) { """
                       |
                       |                <div class="form-row">
                       |                    <app-field-wrapper label="${block.attribute.attributeName.pascalCase}"
