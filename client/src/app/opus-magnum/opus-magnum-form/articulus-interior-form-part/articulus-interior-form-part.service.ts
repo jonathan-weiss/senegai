@@ -65,13 +65,6 @@ export class ArticulusInteriorFormPartService {
 
     public patchArticulusInteriorForm(form: FormGroup<ArticulusInteriorFormPartGroup>, articulusInterior: ArticulusInteriorWTO): void {
         this.patchPreparation(form, articulusInterior);
-
-        if(form.controls[ArticulusInteriorFormPartFieldName.juryList].controls.length < articulusInterior.juryList.length) {
-            for (let i = articulusInterior.juryList.length; i < form.controls[ArticulusInteriorFormPartFieldName.juryList].controls.length; i++) {
-                form.controls[ArticulusInteriorFormPartFieldName.juryList].push(this.createInitialArticulusInteriorListJuryListForm())
-            }
-        }
-
         form.controls[ArticulusInteriorFormPartFieldName.description].patchValue(articulusInterior.description);
         form.controls[ArticulusInteriorFormPartFieldName.year].patchValue(articulusInterior.year);
         form.controls[ArticulusInteriorFormPartFieldName.juryList].patchValue(articulusInterior.juryList)
@@ -94,7 +87,9 @@ export class ArticulusInteriorFormPartService {
     }
 
     private patchNestedItems(form: FormGroup<ArticulusInteriorFormPartGroup>, articulusInterior: ArticulusInteriorWTO): void {
-
+        for (let i = 0; i < articulusInterior.juryList.length; i++) {
+            form.controls[ArticulusInteriorFormPartFieldName.juryList].at(i).patchValue(articulusInterior.juryList[i])
+        }
     }
 
     public createArticulusInteriorWTOFromForm(form: FormGroup<ArticulusInteriorFormPartGroup>): ArticulusInteriorWTO {

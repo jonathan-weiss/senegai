@@ -21,6 +21,13 @@ data class UiItemModel(
             type = it.type as ItemUiItemAttributeTypeModel,
         ) }
 
+    val attributesWithBuiltInType: List<AttributeAndBuiltInTypeDescriptionModel> = attributes
+        .filter { it.isBuiltIn }
+        .map { AttributeAndBuiltInTypeDescriptionModel(
+            attribute = it,
+            type = it.type as BuiltInTypeUiItemAttributeTypeModel,
+        ) }
+
     val attributesWithLists: List<UiItemAttributeModel> = attributes
         .filter { it.isList }
 

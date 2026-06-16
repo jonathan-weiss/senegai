@@ -139,32 +139,11 @@ export class SilvaOptionumFormPartService {
                     validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.articulusInteriorOptionalisList)
                 },
             ),
-            [SilvaOptionumFormPartFieldName.articulusInteriorOptionalisListIsNotNull]: new FormControl<boolean>(
-                false,
-                {
-                    nonNullable: true,
-                    validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.articulusInteriorOptionalisListIsNotNull)
-                },
-            ),
             [SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalis]: this.articulusInteriorFormPartService.createInitialArticulusInteriorForm(),
-            [SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalisIsNotNull]: new FormControl<boolean>(
-                false,
-                {
-                    nonNullable: true,
-                    validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalisIsNotNull)
-                },
-            ),
-            [SilvaOptionumFormPartFieldName.campusDieiIsNotNull]: new FormControl<boolean>(
-                false,
-                {
-                    nonNullable: true,
-                    validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.campusDieiIsNotNull)
-                },
-            ),
             [SilvaOptionumFormPartFieldName.campusDiei]: new FormControl<Date>(
                 this.silvaOptionumFormInitialValueService.campusDieiInitialValue(),
                 {
-                    nonNullable: false,
+                    nonNullable: true,
                     validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.campusDiei)
                 },
             ),
@@ -220,6 +199,30 @@ export class SilvaOptionumFormPartService {
             ),
             /* @tt{{{ @rlb  @end-if @rla }}}@ */
             /* @tt{{{ @rlb @end-foreach @rla }}}@ */
+            /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
+            [SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalisIsNotNull]: new FormControl<boolean>(
+                false,
+                {
+                    nonNullable: true,
+                    validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalisIsNotNull)
+                },
+            ),
+            [SilvaOptionumFormPartFieldName.articulusInteriorOptionalisListIsNotNull]: new FormControl<boolean>(
+                false,
+                {
+                    nonNullable: true,
+                    validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.articulusInteriorOptionalisListIsNotNull)
+                },
+            ),
+            [SilvaOptionumFormPartFieldName.campusDieiIsNotNull]: new FormControl<boolean>(
+                false,
+                {
+                    nonNullable: true,
+                    validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.campusDieiIsNotNull)
+                },
+            ),
+            /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
+
         });
     }
 
@@ -249,6 +252,12 @@ export class SilvaOptionumFormPartService {
         /* @tt{{{ @rlb @end-foreach @rla }}}@ */
         /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
         form.controls[SilvaOptionumFormPartFieldName.articulusInteriorList].patchValue(silvaOptionum.articulusInteriorList)
+        if(silvaOptionum.articulusInteriorOptionalisList != null) {
+            form.controls[SilvaOptionumFormPartFieldName.articulusInteriorOptionalisListIsNotNull].patchValue(true);
+            form.controls[SilvaOptionumFormPartFieldName.articulusInteriorOptionalisList].patchValue(silvaOptionum.articulusInteriorOptionalisList);
+        } else {
+            form.controls[SilvaOptionumFormPartFieldName.articulusInteriorOptionalisListIsNotNull].patchValue(false);
+        }
         form.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularis].patchValue(silvaOptionum.articulusInteriorSingularis);
         if(silvaOptionum.articulusInteriorSingularisOptionalis != null) {
             form.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalisIsNotNull].patchValue(true);
@@ -256,8 +265,12 @@ export class SilvaOptionumFormPartService {
         } else {
             form.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalisIsNotNull].patchValue(false);
         }
-        form.controls[SilvaOptionumFormPartFieldName.campusDieiIsNotNull].patchValue(!silvaOptionum.campusDiei);
-        form.controls[SilvaOptionumFormPartFieldName.campusDiei].patchValue(silvaOptionum.campusDiei ?? null);
+        if(silvaOptionum.campusDiei != null) {
+            form.controls[SilvaOptionumFormPartFieldName.campusDieiIsNotNull].patchValue(true);
+            form.controls[SilvaOptionumFormPartFieldName.campusDiei].patchValue(silvaOptionum.campusDiei);
+        } else {
+            form.controls[SilvaOptionumFormPartFieldName.campusDieiIsNotNull].patchValue(false);
+        }
         form.controls[SilvaOptionumFormPartFieldName.campusBivalens].patchValue(silvaOptionum.campusBivalens);
         form.controls[SilvaOptionumFormPartFieldName.appellatio].patchValue(silvaOptionum.appellatio);
         form.controls[SilvaOptionumFormPartFieldName.campusNumerorum].patchValue(silvaOptionum.campusNumerorum);
@@ -316,14 +329,11 @@ export class SilvaOptionumFormPartService {
             }}}@  */
 
         if(silvaOptionum.articulusInteriorList != null) {
-            const articulusInteriorListLength = form.controls[SilvaOptionumFormPartFieldName.articulusInteriorList].controls.length
-            if(articulusInteriorListLength < silvaOptionum.articulusInteriorList.length) {
-                for (let i = articulusInteriorListLength; i < silvaOptionum.articulusInteriorList.length; i++) {
-                    this.articulusInteriorFormPartService.patchArticulusInteriorForm(
-                        form.controls[SilvaOptionumFormPartFieldName.articulusInteriorList].at(i),
-                        silvaOptionum.articulusInteriorList[i]
-                    )
-                }
+            for (let i = 0; i < silvaOptionum.articulusInteriorList.length; i++) {
+                this.articulusInteriorFormPartService.patchArticulusInteriorForm(
+                    form.controls[SilvaOptionumFormPartFieldName.articulusInteriorList].at(i),
+                    silvaOptionum.articulusInteriorList[i]
+                )
             }
         }
         /* @tt{{{ @end-foreach }}}@ */
@@ -347,15 +357,11 @@ export class SilvaOptionumFormPartService {
         /* @tt{{{ @end-foreach }}}@ */
         /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
         if(silvaOptionum.articulusInteriorOptionalisList != null) {
-            const articulusInteriorListOptionalisLength = form.controls[SilvaOptionumFormPartFieldName.articulusInteriorOptionalisList].controls.length
-            if (articulusInteriorListOptionalisLength < silvaOptionum.articulusInteriorOptionalisList.length) {
-                for (let i = articulusInteriorListOptionalisLength; i < silvaOptionum.articulusInteriorOptionalisList.length; i++) {
-                    this.articulusInteriorFormPartService.patchArticulusInteriorForm(
-                        form.controls[SilvaOptionumFormPartFieldName.articulusInteriorOptionalisList].at(i),
-                        silvaOptionum.articulusInteriorOptionalisList[i]
-                    )
-
-                }
+            for (let i = 0; i < silvaOptionum.articulusInteriorOptionalisList.length; i++) {
+                this.articulusInteriorFormPartService.patchArticulusInteriorForm(
+                    form.controls[SilvaOptionumFormPartFieldName.articulusInteriorOptionalisList].at(i),
+                    silvaOptionum.articulusInteriorOptionalisList[i]
+                )
             }
         }
         /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
@@ -364,34 +370,71 @@ export class SilvaOptionumFormPartService {
     public createSilvaOptionumWTOFromForm(form: FormGroup<SilvaOptionumFormPartGroup>): SilvaOptionumWTO {
         return {
             /* @tt{{{
-                @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
-
+                @foreach [ iteratorExpression="model.item.attributesWithItem" loopVariable="attributeWithItem" ]
                 @replace-value-by-expression
-                    [ searchValue="campusTextusObligatorius" replaceByExpression="attribute.attributeName.camelCase" ]
-                    [ searchValue="campusTextusOptionalis" replaceByExpression="attribute.attributeName.camelCase" ]
+                        [ searchValue="articulusInteriorSingularisOptionalis" replaceByExpression="attributeWithItem.attribute.attributeName.camelCase" ]
+                        [ searchValue="articulusInteriorSingularis" replaceByExpression="attributeWithItem.attribute.attributeName.camelCase" ]
+                        [ searchValue="articulusInteriorOptionalisList" replaceByExpression="attributeWithItem.attribute.attributeName.camelCase" ]
+                        [ searchValue="articulusInteriorList" replaceByExpression="attributeWithItem.attribute.attributeName.camelCase" ]
+                        [ searchValue="articulusInterior" replaceByExpression="attributeWithItem.type.item.itemName.camelCase" ]
+                        [ searchValue="ArticulusInterior" replaceByExpression="attributeWithItem.type.item.itemName.pascalCase" ]
 
-                @rla
-            }}}@  */
-            /* @tt{{{ @rlb  @if [ conditionExpression="!attribute.isNullable"] @rla }}}@ */
-            campusTextusObligatorius: form.controls[SilvaOptionumFormPartFieldName.campusTextusObligatorius].getRawValue(),
-            /* @tt{{{ @rlb  @else @rla }}}@ */
-            campusTextusOptionalis: form.controls[SilvaOptionumFormPartFieldName.campusTextusOptionalisIsNotNull].value
-                ? form.controls[SilvaOptionumFormPartFieldName.campusTextusOptionalis].getRawValue()
-                : null,
-            /* @tt{{{ @rlb  @end-if @rla }}}@ */
-            /* @tt{{{ @rlb @end-foreach @rla }}}@ */
-            /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
-            articulusInteriorSingularis: this.articulusInteriorFormPartService.createArticulusInteriorWTOFromForm(form.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularis]),
-            articulusInteriorList: form.controls[SilvaOptionumFormPartFieldName.articulusInteriorList].controls.map(
-                (controlEntry) => this.articulusInteriorFormPartService.createArticulusInteriorWTOFromForm(controlEntry)
-            ),
-            articulusInteriorSingularisOptionalis: form.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalis].value
-                ? this.articulusInteriorFormPartService.createArticulusInteriorWTOFromForm(form.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalis])
-                : null,
+                }}}@  */
+            /* @tt{{{ @rlb  @if [ conditionExpression="attributeWithItem.attribute.isList"] @rla }}}@ */
+            /* @tt{{{ @rlb  @if [ conditionExpression="attributeWithItem.attribute.isNullable"] @rla }}}@ */
             articulusInteriorOptionalisList: form.controls[SilvaOptionumFormPartFieldName.articulusInteriorOptionalisListIsNotNull].value
                 ? form.controls[SilvaOptionumFormPartFieldName.articulusInteriorOptionalisList].controls.map(
                     (controlEntry) => this.articulusInteriorFormPartService.createArticulusInteriorWTOFromForm(controlEntry))
                 : null,
+            /* @tt{{{ @rlb  @else @rla }}}@ */
+            articulusInteriorList: form.controls[SilvaOptionumFormPartFieldName.articulusInteriorList].controls.map(
+                (controlEntry) => this.articulusInteriorFormPartService.createArticulusInteriorWTOFromForm(controlEntry)
+            ),
+            /* @tt{{{ @rlb  @end-if @rla }}}@ */
+            /* @tt{{{ @rlb  @else @rla }}}@ */
+            /* @tt{{{ @rlb  @if [ conditionExpression="attributeWithItem.attribute.isNullable"] @rla }}}@ */
+            articulusInteriorSingularisOptionalis: form.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalis].value
+                ? this.articulusInteriorFormPartService.createArticulusInteriorWTOFromForm(form.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalis])
+                : null,
+            /* @tt{{{ @rlb  @else @rla }}}@ */
+            articulusInteriorSingularis: this.articulusInteriorFormPartService.createArticulusInteriorWTOFromForm(form.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularis]),
+            /* @tt{{{ @rlb  @end-if @rla }}}@ */
+            /* @tt{{{ @rlb  @end-if @rla }}}@ */
+
+            /* @tt{{{ @rlb @end-foreach @rla }}}@ */
+
+            /* @tt{{{
+                @foreach [ iteratorExpression="model.item.attributesWithBuiltInType" loopVariable="attributeWithBuiltInType" ]
+            }}}@  */
+            /* @tt{{{
+                @replace-value-by-expression
+                    [ searchValue="campusTextusObligatorius" replaceByExpression="attributeWithBuiltInType.attribute.attributeName.camelCase" ]
+                    [ searchValue="campusTextusOptionalis" replaceByExpression="attributeWithBuiltInType.attribute.attributeName.camelCase" ]
+                    [ searchValue="articulusInteriorOptionalisList" replaceByExpression="attributeWithBuiltInType.attribute.attributeName.camelCase" ]
+                    [ searchValue="articulusInteriorList" replaceByExpression="attributeWithBuiltInType.attribute.attributeName.camelCase" ]
+                    [ searchValue="articulusInteriorSingularisOptionalis" replaceByExpression="attributeWithBuiltInType.attribute.attributeName.camelCase" ]
+                    [ searchValue="articulusInteriorSingularis" replaceByExpression="attributeWithBuiltInType.attribute.attributeName.camelCase" ]
+                    [ searchValue="articulusInterior" replaceByExpression="attributeWithBuiltInType.attribute.attributeName.camelCase" ]
+                    [ searchValue="ArticulusInterior" replaceByExpression="attributeWithBuiltInType.attribute.attributeName.pascalCase" ]
+                @rla
+            }}}@  */
+            /* @tt{{{ @rlb  @if [ conditionExpression="attributeWithBuiltInType.attribute.isList"] @rla }}}@ */
+                /* @tt{{{ @rlb  @if [ conditionExpression="attributeWithBuiltInType.attribute.isNullable"] @rla }}}@ */
+                // TODO list of non-item for nullable values no implemented, yet
+                /* @tt{{{ @rlb  @else @rla }}}@ */
+                // TODO list of non-item for non-nullable values no implemented, yet
+                /* @tt{{{ @rlb  @end-if @rla }}}@ */
+            /* @tt{{{ @rlb  @else @rla }}}@ */
+                /* @tt{{{ @rlb  @if [ conditionExpression="attributeWithBuiltInType.attribute.isNullable"] @rla }}}@ */
+                campusTextusOptionalis: form.controls[SilvaOptionumFormPartFieldName.campusTextusOptionalisIsNotNull].value
+                    ? form.controls[SilvaOptionumFormPartFieldName.campusTextusOptionalis].getRawValue()
+                    : null,
+                /* @tt{{{ @rlb  @else @rla }}}@ */
+                campusTextusObligatorius: form.controls[SilvaOptionumFormPartFieldName.campusTextusObligatorius].getRawValue(),
+                /* @tt{{{ @rlb  @end-if @rla }}}@ */
+            /* @tt{{{ @rlb  @end-if @rla }}}@ */
+            /* @tt{{{ @rlb @end-foreach @rla }}}@ */
+            /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
             campusDiei: form.controls[SilvaOptionumFormPartFieldName.campusDieiIsNotNull].value ? form.controls[SilvaOptionumFormPartFieldName.campusDiei].getRawValue() : null,
             campusBivalens: form.controls[SilvaOptionumFormPartFieldName.campusBivalens].getRawValue(),
             campusNumerorum: form.controls[SilvaOptionumFormPartFieldName.campusNumerorum].getRawValue(),
