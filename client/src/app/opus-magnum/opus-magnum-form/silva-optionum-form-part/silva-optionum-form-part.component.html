@@ -157,7 +157,7 @@
                     <!-- @tt{{{ @rlb @end-if @rla }}}@  -->
 
                 <!-- @tt{{{
-                    @if [ conditionExpression="block.attribute.isItem && (block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.LIST_ITEMS || block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.NULLABLE_LIST_ITEMS)" ]
+                    @if [ conditionExpression="block.attribute.isItem && (block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.LIST_ITEMS)" ]
 
                     @replace-value-by-expression
                     [ searchValue="Articulus Interior List" replaceByExpression="block.attribute.attributeName.pascalCase" ]
@@ -193,6 +193,50 @@
                             </div>
                         }
                     </app-field-wrapper>
+
+                </div>
+                <!-- @tt{{{ @rlb @end-if @rla }}}@  -->
+                <!-- @tt{{{
+                    @if [ conditionExpression="block.attribute.isItem && (block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.NULLABLE_LIST_ITEMS)" ]
+
+                    @replace-value-by-expression
+                    [ searchValue="Articulus Interior Optionalis List" replaceByExpression="block.attribute.attributeName.pascalCase" ]
+                    [ searchValue="ArticulusInteriorOptionalisList" replaceByExpression="block.attribute.attributeName.pascalCase" ]
+                    [ searchValue="articulusInteriorOptionalisList" replaceByExpression="block.attribute.attributeName.camelCase" ]
+                    [ searchValue="ArticulusInterior" replaceByExpression="block.attribute.attributeAndItem.type.item.itemName.pascalCase" ]
+                    [ searchValue="articulusInterior" replaceByExpression="block.attribute.attributeAndItem.type.item.itemName.camelCase" ]
+                    [ searchValue="articulus-interior" replaceByExpression="block.attribute.attributeAndItem.type.item.itemName.kebabCase" ]
+
+                }}}@  -->
+
+                <div class="form-row">
+                    <app-field-wrapper label="Articulus Interior Optionalis List"
+                                       [nullabilityCheckboxFormControl]="articulusInteriorOptionalisListIsNotNullControl"
+                                       [formGroupToDisableIfNullField]="articulusInteriorOptionalisListControl"
+                    >
+                        <app-articulus-interior-table
+                                [articulusInteriorFormArray]="articulusInteriorOptionalisListControl"
+                                (editArticulusInteriorFormGroup)="onArticulusInteriorOptionalisListFormGroupEdit($event)"
+                                (deleteArticulusInteriorFormGroup)="onArticulusInteriorOptionalisListFormGroupDelete($event)"
+                        />
+                        @if (articulusInteriorOptionalisListFormGroupUnderEdit) {
+                            <div class="edit-area">
+                                <button mat-icon-button color="primary" (click)="closeArticulusInteriorOptionalisListFormGroupUnderEdit()">
+                                    <mat-icon>edit_off</mat-icon>
+                                </button>
+                                <!-- @tt{{{
+                                    @render-template
+                                        [ templateRendererClassName="SingleFormInputHtmlTagRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" ]
+                                        [ modelName="attributeModel" modelExpression="block.attribute" ]
+                                        [ modelName="isList" modelExpression="true" ]
+                                    @ignore-text
+                                }}}@  -->
+                                <app-articulus-interior-form-part [articulusInteriorForm]="articulusInteriorOptionalisListFormGroupUnderEdit!"  />
+                                <!-- @tt{{{ @end-ignore-text }}}@  -->
+                            </div>
+                        }
+                    </app-field-wrapper>
+
                 </div>
                 <!-- @tt{{{ @rlb @end-if @rla }}}@  -->
 

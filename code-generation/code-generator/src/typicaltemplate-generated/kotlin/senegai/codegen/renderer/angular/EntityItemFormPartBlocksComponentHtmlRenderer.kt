@@ -49,7 +49,7 @@ object EntityItemFormPartBlocksComponentHtmlRenderer {
                       |                    </div>
           """ } else { """
           """ } }
-                  |                ${ if(block.attribute.isItem && (block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.LIST_ITEMS || block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.NULLABLE_LIST_ITEMS)) { """
+                  |                ${ if(block.attribute.isItem && (block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.LIST_ITEMS)) { """
                       |
                       |                <div class="form-row">
                       |                    <app-field-wrapper label="${block.attribute.attributeName.pascalCase}">
@@ -67,6 +67,31 @@ object EntityItemFormPartBlocksComponentHtmlRenderer {
                       |                            </div>
                       |                        }
                       |                    </app-field-wrapper>
+                      |
+                      |                </div>
+          """ } else { """
+          """ } }                ${ if(block.attribute.isItem && (block.attribute.attributeCardinality == senegai.codegen.renderer.model.ui.AttributeCardinalityModel.NULLABLE_LIST_ITEMS)) { """
+                      |
+                      |                <div class="form-row">
+                      |                    <app-field-wrapper label="${block.attribute.attributeName.pascalCase}"
+                      |                                       [nullabilityCheckboxFormControl]="${block.attribute.attributeName.camelCase}IsNotNullControl"
+                      |                                       [formGroupToDisableIfNullField]="${block.attribute.attributeName.camelCase}Control"
+                      |                    >
+                      |                        <app-${block.attribute.attributeAndItem.type.item.itemName.kebabCase}-table
+                      |                                [${block.attribute.attributeAndItem.type.item.itemName.camelCase}FormArray]="${block.attribute.attributeName.camelCase}Control"
+                      |                                (edit${block.attribute.attributeAndItem.type.item.itemName.pascalCase}FormGroup)="on${block.attribute.attributeName.pascalCase}FormGroupEdit(${"$"}event)"
+                      |                                (delete${block.attribute.attributeAndItem.type.item.itemName.pascalCase}FormGroup)="on${block.attribute.attributeName.pascalCase}FormGroupDelete(${"$"}event)"
+                      |                        />
+                      |                        @if (${block.attribute.attributeName.camelCase}FormGroupUnderEdit) {
+                      |                            <div class="edit-area">
+                      |                                <button mat-icon-button color="primary" (click)="close${block.attribute.attributeName.pascalCase}FormGroupUnderEdit()">
+                      |                                    <mat-icon>edit_off</mat-icon>
+                      |                                </button>
+                      |                                ${SingleFormInputHtmlTagRenderer.renderTemplate(attributeModel = block.attribute, isList = true)}
+                      |                            </div>
+                      |                        }
+                      |                    </app-field-wrapper>
+                      |
                       |                </div>
           """ } else { """
           """ } }

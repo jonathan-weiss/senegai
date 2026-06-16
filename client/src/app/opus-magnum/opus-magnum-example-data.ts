@@ -103,6 +103,13 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
                 juryList: ["Peter Booker"]
             }
         ],
+        articulusInteriorOptionalisList: [
+            {
+                description: "Qwert keyboard.",
+                year: 1968,
+                juryList: ["Helene Qerty"]
+            },
+        ],
         articulusInteriorSingularisOptionalis: {
             description: "Truth an right.",
             year: 1981,
@@ -135,6 +142,7 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
                 juryList: ["Elisabeth Smith", "Aaron Glasgow", "James Duroldi"]
             }
         ],
+        articulusInteriorOptionalisList: [],
         articulusInteriorSingularisOptionalis: null,
         campusDiei: null,
         campusBivalens: false,
@@ -152,6 +160,7 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
         },
         articulusInteriorList: [],
         articulusInteriorSingularisOptionalis: null,
+        articulusInteriorOptionalisList: null,
         campusDiei: new Date(1963, 11, 31),
         campusBivalens: true,
         campusNumerorum: 7544,
@@ -183,6 +192,7 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
             year: 2021,
             juryList: ["Isaac Hamilton"]
         },
+        articulusInteriorOptionalisList: null,
         campusDiei: new Date(1954, 8, 3),
         campusBivalens: false,
         appellatio: AppellatioEnum.MATRONA,

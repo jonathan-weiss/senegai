@@ -69,6 +69,8 @@ export interface SilvaOptionumFormPartGroup {
     [SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalis]: FormGroup<ArticulusInteriorFormPartGroup>,
     [SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalisIsNotNull]: FormControl<boolean>,
     [SilvaOptionumFormPartFieldName.articulusInteriorList]: FormArray<FormGroup<ArticulusInteriorFormPartGroup>>,
+    [SilvaOptionumFormPartFieldName.articulusInteriorOptionalisList]: FormArray<FormGroup<ArticulusInteriorFormPartGroup>>,
+    [SilvaOptionumFormPartFieldName.articulusInteriorOptionalisListIsNotNull]: FormControl<boolean>,
     [SilvaOptionumFormPartFieldName.campusDieiIsNotNull]: FormControl<boolean>,
     [SilvaOptionumFormPartFieldName.campusDiei]: FormControl<Date | null>,
     [SilvaOptionumFormPartFieldName.campusBivalens]: FormControl<boolean>,

@@ -133,6 +133,19 @@ export class SilvaOptionumFormPartService {
             ),
             /* @tt{{{ @rlb @end-foreach @rla }}}@ */
             /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
+            [SilvaOptionumFormPartFieldName.articulusInteriorOptionalisList]: new FormArray(
+                this.silvaOptionumFormInitialValueService.articulusInteriorOptionalisListInitialValue(),
+                {
+                    validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.articulusInteriorOptionalisList)
+                },
+            ),
+            [SilvaOptionumFormPartFieldName.articulusInteriorOptionalisListIsNotNull]: new FormControl<boolean>(
+                false,
+                {
+                    nonNullable: true,
+                    validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.articulusInteriorOptionalisListIsNotNull)
+                },
+            ),
             [SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalis]: this.articulusInteriorFormPartService.createInitialArticulusInteriorForm(),
             [SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalisIsNotNull]: new FormControl<boolean>(
                 false,
@@ -278,6 +291,16 @@ export class SilvaOptionumFormPartService {
             }
         }
         /* @tt{{{ @end-foreach }}}@ */
+        /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
+        if(silvaOptionum.articulusInteriorOptionalisList != null) {
+            const articulusInteriorListOptionalisLength = form.controls[SilvaOptionumFormPartFieldName.articulusInteriorOptionalisList].controls.length
+            if (articulusInteriorListOptionalisLength < silvaOptionum.articulusInteriorOptionalisList.length) {
+                for (let i = articulusInteriorListOptionalisLength; i < silvaOptionum.articulusInteriorOptionalisList.length; i++) {
+                    form.controls[SilvaOptionumFormPartFieldName.articulusInteriorOptionalisList].push(this.articulusInteriorFormPartService.createInitialArticulusInteriorForm())
+                }
+            }
+        }
+        /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
     }
 
 
@@ -323,6 +346,18 @@ export class SilvaOptionumFormPartService {
         /* @tt{{{ @end-if }}}@ */
         /* @tt{{{ @end-foreach }}}@ */
         /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
+        if(silvaOptionum.articulusInteriorOptionalisList != null) {
+            const articulusInteriorListOptionalisLength = form.controls[SilvaOptionumFormPartFieldName.articulusInteriorOptionalisList].controls.length
+            if (articulusInteriorListOptionalisLength < silvaOptionum.articulusInteriorOptionalisList.length) {
+                for (let i = articulusInteriorListOptionalisLength; i < silvaOptionum.articulusInteriorOptionalisList.length; i++) {
+                    this.articulusInteriorFormPartService.patchArticulusInteriorForm(
+                        form.controls[SilvaOptionumFormPartFieldName.articulusInteriorOptionalisList].at(i),
+                        silvaOptionum.articulusInteriorOptionalisList[i]
+                    )
+
+                }
+            }
+        }
         /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
     }
 
@@ -352,6 +387,10 @@ export class SilvaOptionumFormPartService {
             ),
             articulusInteriorSingularisOptionalis: form.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalis].value
                 ? this.articulusInteriorFormPartService.createArticulusInteriorWTOFromForm(form.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalis])
+                : null,
+            articulusInteriorOptionalisList: form.controls[SilvaOptionumFormPartFieldName.articulusInteriorOptionalisListIsNotNull].value
+                ? form.controls[SilvaOptionumFormPartFieldName.articulusInteriorOptionalisList].controls.map(
+                    (controlEntry) => this.articulusInteriorFormPartService.createArticulusInteriorWTOFromForm(controlEntry))
                 : null,
             campusDiei: form.controls[SilvaOptionumFormPartFieldName.campusDieiIsNotNull].value ? form.controls[SilvaOptionumFormPartFieldName.campusDiei].getRawValue() : null,
             campusBivalens: form.controls[SilvaOptionumFormPartFieldName.campusBivalens].getRawValue(),

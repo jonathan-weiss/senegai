@@ -204,6 +204,7 @@ export class SilvaOptionumFormPartComponent implements OnInit {
 
     }}}@  */
     articulusInteriorListFormGroupUnderEdit: FormGroup<ArticulusInteriorFormPartGroup> | undefined = undefined;
+    articulusInteriorOptionalisListFormGroupUnderEdit: FormGroup<ArticulusInteriorFormPartGroup> | undefined = undefined;
     /* @tt{{{ @rlb  @end-foreach @rla }}}@ */
 
 
@@ -232,6 +233,10 @@ export class SilvaOptionumFormPartComponent implements OnInit {
 
     protected articulusInteriorListControl!: FormArray<FormGroup<ArticulusInteriorFormPartGroup>>
     protected articulusInteriorListValidatorNames!: ReadonlyArray<ValidatorTranslation>
+    protected articulusInteriorOptionalisListControl!: FormArray<FormGroup<ArticulusInteriorFormPartGroup>>
+    protected articulusInteriorOptionalisListValidatorNames!: ReadonlyArray<ValidatorTranslation>
+    protected articulusInteriorOptionalisListIsNotNullControl!: FormControl<boolean>
+    protected articulusInteriorOptionalisListIsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected campusDieiIsNotNullControl!: FormControl<boolean>
     protected campusDieiIsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected campusDieiControl!: FormControl<Date | null>
@@ -278,6 +283,10 @@ export class SilvaOptionumFormPartComponent implements OnInit {
         /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
         this.articulusInteriorListControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.articulusInteriorList]
         this.articulusInteriorListValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.articulusInteriorList)
+        this.articulusInteriorOptionalisListControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.articulusInteriorOptionalisList]
+        this.articulusInteriorOptionalisListValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.articulusInteriorOptionalisList)
+        this.articulusInteriorOptionalisListIsNotNullControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.articulusInteriorOptionalisListIsNotNull]
+        this.articulusInteriorOptionalisListIsNotNullValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.articulusInteriorOptionalisListIsNotNull)
         this.campusDieiIsNotNullControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.campusDieiIsNotNull]
         this.campusDieiIsNotNullValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.campusDieiIsNotNull)
         this.campusDieiControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.campusDiei]
@@ -324,4 +333,21 @@ export class SilvaOptionumFormPartComponent implements OnInit {
     }
 
     /* @tt{{{ @rlb  @end-foreach @rla }}}@ */
+
+    /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
+    onArticulusInteriorOptionalisListFormGroupEdit(formGroup: FormGroup<ArticulusInteriorFormPartGroup>): void {
+        this.articulusInteriorOptionalisListFormGroupUnderEdit = formGroup;
+    }
+
+    onArticulusInteriorOptionalisListFormGroupDelete(formGroup: FormGroup<ArticulusInteriorFormPartGroup>): void {
+        if(this.articulusInteriorOptionalisListFormGroupUnderEdit == formGroup) {
+            this.articulusInteriorOptionalisListFormGroupUnderEdit = undefined
+        }
+        FormUtil.removeControl(this.articulusInteriorOptionalisListControl, formGroup)
+    }
+
+    closeArticulusInteriorOptionalisListFormGroupUnderEdit(): void {
+        this.articulusInteriorOptionalisListFormGroupUnderEdit = undefined;
+    }
+    /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
 }

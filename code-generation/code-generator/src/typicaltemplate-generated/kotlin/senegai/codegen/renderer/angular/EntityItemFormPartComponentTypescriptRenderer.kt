@@ -118,6 +118,7 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
           |    @Input({ required: true }) ${model.item.itemName.camelCase}Form!: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>;
           |${ model.item.attributesWithItem.joinToString("") { attributeWithItem ->  """
               |    ${attributeWithItem.attribute.attributeName.camelCase}FormGroupUnderEdit: ${attributeWithItem.attribute.angularFormControlType} | undefined = undefined;
+              |    articulusInteriorOptionalisListFormGroupUnderEdit: ${attributeWithItem.attribute.angularFormControlType} | undefined = undefined;
           """ } }
           |
           |        ${ model.item.attributes.joinToString("") { attribute ->  """    ${ if(attribute.isNullable) { """    protected ${attribute.attributeName.camelCase}IsNotNullControl!: FormControl<boolean>
@@ -160,7 +161,8 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
               |        this.${attribute.attributeName.camelCase}FormGroupUnderEdit = undefined;
               |    }
               |
-          """ } }}
+          """ } }
+          |    }
           |
         """.trimMargin(marginPrefix = "|")
     }

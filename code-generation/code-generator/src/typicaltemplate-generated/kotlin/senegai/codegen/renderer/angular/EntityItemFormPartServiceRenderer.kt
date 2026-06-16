@@ -121,8 +121,7 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
               |            }
               |        }
               |        
-          """ } }
-          |    }
+          """ } }    }
           |
           |
           |    private patchNestedItems(form: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>, ${model.item.itemName.camelCase}: ${model.item.itemName.pascalCase}WTO): void {

@@ -51,6 +51,8 @@ export enum SilvaOptionumFormPartFieldName {
     articulusInteriorSingularisOptionalis = "articulusInteriorSingularisOptionalis",
     articulusInteriorSingularisOptionalisIsNotNull = "articulusInteriorSingularisOptionalisIsNotNull",
     articulusInteriorList = "articulusInteriorList",
+    articulusInteriorOptionalisList = "articulusInteriorOptionalisList",
+    articulusInteriorOptionalisListIsNotNull = "articulusInteriorOptionalisListIsNotNull",
     campusDieiIsNotNull = "campusDieiIsNotNull",
     campusDiei = "campusDiei",
     campusBivalens = "campusBivalens",
