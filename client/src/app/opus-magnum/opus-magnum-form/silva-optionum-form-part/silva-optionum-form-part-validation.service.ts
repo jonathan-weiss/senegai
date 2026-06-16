@@ -71,11 +71,11 @@ export class SilvaOptionumFormPartValidationService {
                     validatorFunction: Validators.required,
                     validatorTranslationKey: "validator.required",
                 },
-                {
-                    validatorName: "minlength",
-                    validatorFunction: Validators.minLength(2),
-                    validatorTranslationKey: "validator.minlength",
-                },
+                // {
+                //     validatorName: "minlength",
+                //     validatorFunction: Validators.minLength(2),
+                //     validatorTranslationKey: "validator.minlength",
+                // },
             ]
             /* @tt{{{ @rlb @end-foreach @rla }}}@ */
             /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
@@ -85,11 +85,11 @@ export class SilvaOptionumFormPartValidationService {
                     validatorFunction: Validators.required,
                     validatorTranslationKey: "validator.required",
                 },
-                {
-                    validatorName: "minlength",
-                    validatorFunction: Validators.minLength(3),
-                    validatorTranslationKey: "validator.minlength",
-                },
+                // {
+                //     validatorName: "minlength",
+                //     validatorFunction: Validators.minLength(3),
+                //     validatorTranslationKey: "validator.minlength",
+                // },
             ]
             /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
             default: return []

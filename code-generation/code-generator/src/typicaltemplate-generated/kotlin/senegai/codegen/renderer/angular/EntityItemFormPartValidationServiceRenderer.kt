@@ -52,11 +52,11 @@ object EntityItemFormPartValidationServiceRenderer : UiEntityItemRenderer {
               |                    validatorFunction: Validators.required,
               |                    validatorTranslationKey: "validator.required",
               |                },
-              |                {
-              |                    validatorName: "minlength",
-              |                    validatorFunction: Validators.minLength(2),
-              |                    validatorTranslationKey: "validator.minlength",
-              |                },
+              |                // {
+              |                //     validatorName: "minlength",
+              |                //     validatorFunction: Validators.minLength(2),
+              |                //     validatorTranslationKey: "validator.minlength",
+              |                // },
               |            ]
           """ } }                        default: return []
           |        }
