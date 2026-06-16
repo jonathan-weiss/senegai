@@ -50,7 +50,7 @@ object CodegenData {
                 attribute(name = "lastname", type = BuiltInType.STRING)
                 attribute(name = "age", type = BuiltInType.NUMBER)
                 attribute(name = "vegetarian", type = BuiltInType.BOOLEAN)
-                //attribute(name = "contactAddress", itemId = Items.ADDRESS, nullable = true)
+                attribute(name = "contactAddress", itemId = Items.ADDRESS, nullable = true)
                 attribute(name = "otherAddresses", itemId = Items.ADDRESS, nullable = true, multiple = true)
             }
 
@@ -87,7 +87,7 @@ object CodegenData {
                                     attribute(attributeName = "lastname")
                                     text(text = "The lastname, the lastname")
                                     section(sectionName = "Addresses")
-                                    //attribute(attributeName = "contactAddress")
+                                    attribute(attributeName = "contactAddress")
                                     attribute(attributeName = "otherAddresses")
                                 }
                             }

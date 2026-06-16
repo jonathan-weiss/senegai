@@ -393,7 +393,7 @@ export class SilvaOptionumFormPartService {
             /* @tt{{{ @rlb  @end-if @rla }}}@ */
             /* @tt{{{ @rlb  @else @rla }}}@ */
             /* @tt{{{ @rlb  @if [ conditionExpression="attributeWithItem.attribute.isNullable"] @rla }}}@ */
-            articulusInteriorSingularisOptionalis: form.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalis].value
+            articulusInteriorSingularisOptionalis: form.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalisIsNotNull].value
                 ? this.articulusInteriorFormPartService.createArticulusInteriorWTOFromForm(form.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalis])
                 : null,
             /* @tt{{{ @rlb  @else @rla }}}@ */

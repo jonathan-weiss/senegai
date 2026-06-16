@@ -197,18 +197,18 @@ export class SilvaOptionumFormPartComponent implements OnInit {
     @Input({ required: true }) silvaOptionumForm!: FormGroup<SilvaOptionumFormPartGroup>;
 
     /* @tt{{{ @rlb
-        @foreach [ iteratorExpression="model.item.attributesWithItem" loopVariable="attributeWithItem" ]
+        @foreach [ iteratorExpression="model.item.attributesWithItem.filter { it.attribute.isList }" loopVariable="attributeWithItem" ]
         @replace-value-by-expression
             [ searchValue="articulusInteriorList" replaceByExpression="attributeWithItem.attribute.attributeName.camelCase" ]
             [ searchValue="FormGroup<ArticulusInteriorFormPartGroup>" replaceByExpression="attributeWithItem.attribute.angularFormControlType" ]
 
     }}}@  */
     articulusInteriorListFormGroupUnderEdit: FormGroup<ArticulusInteriorFormPartGroup> | undefined = undefined;
-    articulusInteriorOptionalisListFormGroupUnderEdit: FormGroup<ArticulusInteriorFormPartGroup> | undefined = undefined;
     /* @tt{{{ @rlb  @end-foreach @rla }}}@ */
 
-
     /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
+    articulusInteriorOptionalisListFormGroupUnderEdit: FormGroup<ArticulusInteriorFormPartGroup> | undefined = undefined;
+
     protected campusTextusObligatoriusControl!: FormControl<string>
     protected campusTextusObligatoriusValidatorNames!: ReadonlyArray<ValidatorTranslation>
     /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */

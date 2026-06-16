@@ -116,11 +116,9 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
           |})
           |export class ${model.item.itemName.pascalCase}FormPartComponent implements OnInit {
           |    @Input({ required: true }) ${model.item.itemName.camelCase}Form!: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>;
-          |${ model.item.attributesWithItem.joinToString("") { attributeWithItem ->  """
+          |${ model.item.attributesWithItem.filter { it.attribute.isList }.joinToString("") { attributeWithItem ->  """
               |    ${attributeWithItem.attribute.attributeName.camelCase}FormGroupUnderEdit: ${attributeWithItem.attribute.angularFormControlType} | undefined = undefined;
-              |    articulusInteriorOptionalisListFormGroupUnderEdit: ${attributeWithItem.attribute.angularFormControlType} | undefined = undefined;
           """ } }
-          |
           |        ${ model.item.attributes.joinToString("") { attribute ->  """    ${ if(attribute.isNullable) { """    protected ${attribute.attributeName.camelCase}IsNotNullControl!: FormControl<boolean>
                   |    protected ${attribute.attributeName.camelCase}IsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
                   |    

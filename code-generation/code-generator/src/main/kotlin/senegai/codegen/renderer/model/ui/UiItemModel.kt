@@ -35,6 +35,7 @@ data class UiItemModel(
         .map { it.type }
         .filterIsInstance<ItemUiItemAttributeTypeModel>()
         .map { it.item }
+        .distinct()
 
     val containsTextAttributes: Boolean = attributesOfType(BuiltInType.STRING).isNotEmpty()
     val containsBooleanAttributes: Boolean = attributesOfType(BuiltInType.BOOLEAN).isNotEmpty()

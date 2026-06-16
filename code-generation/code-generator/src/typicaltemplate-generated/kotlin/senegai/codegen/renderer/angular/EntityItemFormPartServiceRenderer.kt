@@ -164,7 +164,7 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
                       |            ),
                       |            
           """ } }            
-          """ } else { """            ${ if(attributeWithItem.attribute.isNullable) { """            ${attributeWithItem.attribute.attributeName.camelCase}: form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItem.attribute.attributeName.camelCase}].value
+          """ } else { """            ${ if(attributeWithItem.attribute.isNullable) { """            ${attributeWithItem.attribute.attributeName.camelCase}: form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItem.attribute.attributeName.camelCase}IsNotNull].value
                       |                ? this.${attributeWithItem.type.item.itemName.camelCase}FormPartService.create${attributeWithItem.type.item.itemName.pascalCase}WTOFromForm(form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItem.attribute.attributeName.camelCase}])
                       |                : null,
                       |            
