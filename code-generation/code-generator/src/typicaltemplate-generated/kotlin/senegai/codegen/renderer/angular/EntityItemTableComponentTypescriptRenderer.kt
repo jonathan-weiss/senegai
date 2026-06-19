@@ -16,6 +16,7 @@ object EntityItemTableComponentTypescriptRenderer : UiEntityItemRenderer {
 
     override fun renderTemplate(model: UiEntityFormViewItemModel): String {
         return """
+          |
           |import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
           |import {MatTableDataSource, MatTableModule} from '@angular/material/table';
           |import {FormArray, FormGroup, ReactiveFormsModule} from "@angular/forms";
@@ -67,9 +68,12 @@ object EntityItemTableComponentTypescriptRenderer : UiEntityItemRenderer {
           |    @Output() delete${model.item.itemName.pascalCase}FormGroup = new EventEmitter<FormGroup<${model.item.itemName.pascalCase}FormPartGroup>>();
           |
           |    displayedColumns: string[] = [
-          |        ${ model.item.attributes.joinToString("") { attribute ->  """        '${attribute.attributeName.camelCase}',
+          |        ${ model.item.attributes.joinToString("") { attribute ->  """
+              |        '${attribute.attributeName.camelCase}',
               |        
-          """ } }                'actions',
+          """ } }
+          |        
+          |        'actions',
           |    ];
           |    dataSource: MatTableDataSource<${model.item.itemName.pascalCase}TableRow> = new MatTableDataSource<${model.item.itemName.pascalCase}TableRow>();
           |
@@ -85,9 +89,12 @@ object EntityItemTableComponentTypescriptRenderer : UiEntityItemRenderer {
           |
           |    private toTableRow(formGroup: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>): ${model.item.itemName.pascalCase}TableRow {
           |        return {
-          |            ${ model.item.attributes.joinToString("") { attribute ->  """            ${attribute.attributeName.camelCase}: JSON.stringify(formGroup.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].value),
+          |            ${ model.item.attributes.joinToString("") { attribute ->  """
+              |            ${attribute.attributeName.camelCase}: JSON.stringify(formGroup.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].value),
               |            
-          """ } }                        formGroup: formGroup,
+          """ } }
+          |            
+          |            formGroup: formGroup,
           |        }
           |    }
           |

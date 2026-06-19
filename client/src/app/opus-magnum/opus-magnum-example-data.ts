@@ -1,5 +1,5 @@
 /* @tt{{{
-    @rlb
+    
 
     @move-comment-backward
     @template-renderer [
@@ -24,26 +24,26 @@
 
     @modify-provided-filename-by-replacements
 
-    @rla
+    
 
 }}}@ */
 import {SilvaOptionumWTO} from "@app/wto/silva-optionum.wto";
-/* @tt{{{ @rlb  @ignore-text @rla }}}@ */
+/* @tt{{{   @ignore-text  }}}@ */
 import {AppellatioEnum} from "@app/wto/appellatio.enum";
-/* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
+/* @tt{{{   @end-ignore-text  }}}@ */
 
 export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
     /* @tt{{{
-    @rlb
+    
     @render-template
         [ templateRendererClassName="ItemExampleDataRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" ]
         [ modelName="itemModel" modelExpression="model.entityRootItem" ]
         [ modelName="entityModel" modelExpression="model" ]
-    @rla
+    
     }}}@ */
 
-    /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
-    /* @tt{{{ @rlb
+    /* @tt{{{   @ignore-text  }}}@ */
+    /* @tt{{{ 
         @template-renderer [
             templateRendererClassName="ItemExampleDataRenderer"
             templateRendererPackageName="senegai.codegen.renderer.angular"
@@ -66,7 +66,7 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
 
             @replace-value-by-expression
                 [ searchValue="campusTextusOptionalis" replaceByExpression="attribute.attributeName.camelCase" ]
-            @rla
+            
         }}}@  */
         /* @tt{{{
             @move-comment-forward [ afterFirstOccurrenceOf="campusTextusOptionalis: " ]
@@ -78,9 +78,9 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
         }}}@  */
         campusTextusOptionalis: 'Johnny'/* @tt{{{@end-ignore-text}}}@  */,
         /* @tt{{{
-            @rlb
+            
             @ignore-text
-            @rla
+            
         }}}@ */
         campusBivalens: false,
         campusDiei: new Date(1979, 3, 23),
@@ -117,8 +117,8 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
         },
         campusNumerorum: 42,
         indexUnicus: '828cf29b-a7fb-4b07-bf13-9a313a9967f6',
-        /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
-        /* @tt{{{ @rlb @end-foreach @rla }}}@ */
+        /* @tt{{{   @end-ignore-text  }}}@ */
+        /* @tt{{{  @end-foreach  }}}@ */
 
     }/* @tt{{{ @end-template-renderer}}}@  */,
     {
@@ -198,5 +198,5 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
         appellatio: AppellatioEnum.MATRONA,
         campusNumerorum: 687358,
     }
-    /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
+    /* @tt{{{   @end-ignore-text  }}}@ */
 ];

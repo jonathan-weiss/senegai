@@ -16,6 +16,7 @@ object EntityBoardComponentScssRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
+          |
           |.${model.entityName.kebabCase}-container {
           |  padding: 20px;
           |

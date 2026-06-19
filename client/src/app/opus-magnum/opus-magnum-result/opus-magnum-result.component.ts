@@ -1,6 +1,6 @@
 /* @tt{{{
 
-    @rlb
+    
 
     @move-comment-backward
     @template-renderer [
@@ -24,7 +24,7 @@
 
     @modify-provided-filename-by-replacements
 
-    @rla
+    
 
 }}}@ */
 import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
@@ -71,9 +71,9 @@ export class OpusMagnumResultComponent implements OnChanges {
     @Output() createOpusMagnum = new EventEmitter<void>();
 
     displayedColumns: string[] = [
-        /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
+        /* @tt{{{   @ignore-text  }}}@ */
         'indexUnicus',
-        /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
+        /* @tt{{{   @end-ignore-text  }}}@ */
         /* @tt{{{
             @foreach [ iteratorExpression="model.searchResultAttributes" loopVariable="attribute" ]
 
@@ -82,7 +82,7 @@ export class OpusMagnumResultComponent implements OnChanges {
 
         }}}@  */
         'title',
-    /* @tt{{{ @rlb @end-foreach @rla }}}@ */
+    /* @tt{{{  @end-foreach  }}}@ */
         'actions'
     ];
     dataSource: MatTableDataSource<SilvaOptionumWTO> = new MatTableDataSource<SilvaOptionumWTO>();

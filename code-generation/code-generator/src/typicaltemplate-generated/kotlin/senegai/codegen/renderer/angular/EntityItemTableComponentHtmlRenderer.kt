@@ -16,6 +16,7 @@ object EntityItemTableComponentHtmlRenderer : UiEntityItemRenderer {
 
     override fun renderTemplate(model: UiEntityFormViewItemModel): String {
         return """
+          |
           |<div class="table-container">
           |    <div class="action-bar">
           |        <button mat-button color="primary" (click)="onAdd()" type="button">
@@ -33,7 +34,10 @@ object EntityItemTableComponentHtmlRenderer : UiEntityItemRenderer {
               |                {{ tableRow.${attribute.attributeName.camelCase} }}
               |            </td>
               |        </ng-container>
-          """ } }        
+              |        
+          """ } }
+          |        
+          |
           |
           |        <!-- Actions Column -->
           |        <ng-container matColumnDef="actions">

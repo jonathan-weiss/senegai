@@ -17,6 +17,7 @@ object EntityItemFormPartComponentHtmlRenderer : UiEntityItemRenderer {
 
     override fun renderTemplate(model: UiEntityFormViewItemModel): String {
         return """
+          |
           |<div [formGroup]="${model.item.itemName.camelCase}Form">
           |${ if(model.tabs.isNotEmpty()) { """
               |<mat-tab-group dynamicHeight>
@@ -29,12 +30,17 @@ object EntityItemFormPartComponentHtmlRenderer : UiEntityItemRenderer {
                       |            <div class="column">
                       |                ${EntityItemFormPartBlocksComponentHtmlRenderer.renderTemplate(blocks = column.blocks, item = model.item, entity = model.entity)}
                       |
-                      |                            </div>
+                      |                
+                      |            </div>
                       |            
-          """ } }                    </div>
+          """ } }
+                  |            
+                  |        </div>
                   |    </mat-tab>
                   |    
-          """ } }    </mat-tab-group>
+          """ } }
+              |    
+              |</mat-tab-group>
               |
           """ } else { """
           """ } }

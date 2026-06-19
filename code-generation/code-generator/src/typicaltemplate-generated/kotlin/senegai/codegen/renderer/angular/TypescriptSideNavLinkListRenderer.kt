@@ -23,10 +23,13 @@ object TypescriptSideNavLinkListRenderer : UiEntitiesRenderer {
           |import {SideNavLink} from "@app/side-nav/side-nav-list/side-nav-link.model";
           |
           |export const GENERATED_SIDE_NAVIGATION_LINKS: ReadonlyArray<SideNavLink> = [
-          |    ${ models.joinToString("") { entity ->  """    {routeLink: '/${entity.entityName.kebabCase}-board', name: "${entity.entityName.pascalCase}", icon: "people"},
+          |    ${ models.joinToString("") { entity ->  """
+              |    {routeLink: '/${entity.entityName.kebabCase}-board', name: "${entity.entityName.pascalCase}", icon: "people"},
               |    {routeLink: '/${entity.entityName.kebabCase}-edit/example', name: "Edit ${entity.entityName.pascalCase}", icon: "edit"},
               |
-          """ } }]
+          """ } }
+          |]
+          |
           |
           |
           |

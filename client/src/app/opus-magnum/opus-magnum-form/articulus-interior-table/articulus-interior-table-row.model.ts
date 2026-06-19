@@ -1,6 +1,6 @@
 /* @tt{{{
 
-    @rlb
+    
 
     @move-comment-backward
     @template-renderer [
@@ -24,7 +24,7 @@
 
     @modify-provided-filename-by-replacements
 
-    @rla
+    
 
 }}}@ */
 
@@ -36,19 +36,19 @@ import {
 export interface ArticulusInteriorTableRow {
     /*
     @tt{{{
-        @rlb
+        
         @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
         @replace-value-by-expression
         [ searchValue="description" replaceByExpression="attribute.attributeName.camelCase" ]
         [ searchValue="Description" replaceByExpression="attribute.attributeName.pascalCase" ]
-        @rla
+        
     }}}@
      */
     description: string
-    /* @tt{{{ @rlb  @end-foreach @rla }}}@ */
-    /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
+    /* @tt{{{   @end-foreach  }}}@ */
+    /* @tt{{{   @ignore-text  }}}@ */
     year: number
-    /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
+    /* @tt{{{   @end-ignore-text  }}}@ */
     formGroup: FormGroup<ArticulusInteriorFormPartGroup>
 }

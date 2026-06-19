@@ -16,6 +16,7 @@ object EntitySearchComponentScssRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
+          |
           |.search-fields {
           |  display: flex;
           |  gap: 16px;

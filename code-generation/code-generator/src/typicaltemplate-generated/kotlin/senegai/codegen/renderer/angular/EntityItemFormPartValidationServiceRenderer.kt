@@ -17,11 +17,13 @@ object EntityItemFormPartValidationServiceRenderer : UiEntityItemRenderer {
     override fun renderTemplate(model: UiEntityFormViewItemModel): String {
         return """
           |
+          |
           |import {Injectable} from '@angular/core';
           |import {ValidatorFn, Validators} from "@angular/forms";
           |import {${model.item.itemName.pascalCase}FormPartFieldName} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-field-name";
           |import {NamedValidator} from "@app/shared/form-controls/named-validator";
           |import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
+          |
           |
           |
           |@Injectable({providedIn: 'root'})
@@ -58,7 +60,10 @@ object EntityItemFormPartValidationServiceRenderer : UiEntityItemRenderer {
               |                //     validatorTranslationKey: "validator.minlength",
               |                // },
               |            ]
-          """ } }                        default: return []
+              |            
+          """ } }
+          |            
+          |            default: return []
           |        }
           |    };
           |} 

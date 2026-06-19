@@ -1,6 +1,6 @@
 /* @tt{{{
 
-    @rlb
+    
 
     @move-comment-backward
     @template-renderer [
@@ -24,7 +24,7 @@
 
     @modify-provided-filename-by-replacements
 
-    @rla
+    
 
 }}}@ */
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
@@ -80,19 +80,19 @@ export class ArticulusInteriorTableComponent implements OnInit {
     displayedColumns: string[] = [
         /*
         @tt{{{
-            @rlb
+            
             @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
             @replace-value-by-expression
             [ searchValue="description" replaceByExpression="attribute.attributeName.camelCase" ]
-            @rla
+            
         }}}@
          */
         'description',
-        /* @tt{{{ @rlb  @end-foreach @rla }}}@ */
-        /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
+        /* @tt{{{   @end-foreach  }}}@ */
+        /* @tt{{{   @ignore-text  }}}@ */
         'year',
-        /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
+        /* @tt{{{   @end-ignore-text  }}}@ */
         'actions',
     ];
     dataSource: MatTableDataSource<ArticulusInteriorTableRow> = new MatTableDataSource<ArticulusInteriorTableRow>();
@@ -111,21 +111,21 @@ export class ArticulusInteriorTableComponent implements OnInit {
         return {
             /*
             @tt{{{
-                @rlb
+                
                 @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
                 @replace-value-by-expression
                 [ searchValue="description" replaceByExpression="attribute.attributeName.camelCase" ]
                 [ searchValue="Description" replaceByExpression="attribute.attributeName.pascalCase" ]
-                @rla
+                
             }}}@
              */
             description: JSON.stringify(formGroup.controls[ArticulusInteriorFormPartFieldName.description].value),
-            /* @tt{{{ @rlb  @end-foreach @rla }}}@ */
-            /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
+            /* @tt{{{   @end-foreach  }}}@ */
+            /* @tt{{{   @ignore-text  }}}@ */
 
             year: formGroup.controls[ArticulusInteriorFormPartFieldName.year].value,
-            /* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
+            /* @tt{{{   @end-ignore-text  }}}@ */
             formGroup: formGroup,
         }
     }

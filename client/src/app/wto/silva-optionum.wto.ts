@@ -1,5 +1,5 @@
 /* @tt{{{
-    @rlb
+    
 
     @move-comment-backward
     @template-renderer [
@@ -20,7 +20,7 @@
 
     @modify-provided-filename-by-replacements
 
-    @rla
+    
 
 }}}@ */
 
@@ -32,10 +32,10 @@
         [ searchValue="articulus-interior" replaceByExpression="nestedItem.itemName.kebabCase" ]
 }}}@  */
 import {ArticulusInteriorWTO} from "@app/wto/articulus-interior.wto";
-/* @tt{{{ @rlb  @end-foreach @rla }}}@ */
-/* @tt{{{ @rlb  @ignore-text @rla }}}@ */
+/* @tt{{{   @end-foreach  }}}@ */
+/* @tt{{{   @ignore-text  }}}@ */
 import {AppellatioEnum} from "@app/wto/appellatio.enum";
-/* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
+/* @tt{{{   @end-ignore-text  }}}@ */
 
 /**
  * The Silva Optionum WTO (Web Transfer Object) class.
@@ -51,11 +51,11 @@ export interface SilvaOptionumWTO {
     }}}@  */
     campusTextusObligatorius: string;
     /* @tt{{{
-        @rlb
+        
         @end-foreach
-        @rla
+        
     }}}@ */
-    /* @tt{{{ @rlb  @ignore-text @rla }}}@ */
+    /* @tt{{{   @ignore-text  }}}@ */
     campusTextusOptionalis: string | null;
     appellatio: AppellatioEnum;
     articulusInteriorSingularis: ArticulusInteriorWTO;
@@ -66,5 +66,5 @@ export interface SilvaOptionumWTO {
     campusBivalens: boolean;
     campusNumerorum: number;
     indexUnicus: string;
-    /* @tt{{{ @rlb  @end-ignore-text }}}@ */
+    /* @tt{{{   @end-ignore-text }}}@ */
 }

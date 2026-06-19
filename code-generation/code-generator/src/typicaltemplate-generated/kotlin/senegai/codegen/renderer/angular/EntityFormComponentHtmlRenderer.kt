@@ -16,6 +16,7 @@ object EntityFormComponentHtmlRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
+          |
           |<div class="edit-form-container">
           |    <mat-card>
           |        <mat-card-header>

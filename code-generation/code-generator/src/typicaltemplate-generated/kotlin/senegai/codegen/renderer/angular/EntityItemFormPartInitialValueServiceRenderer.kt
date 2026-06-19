@@ -17,6 +17,7 @@ object EntityItemFormPartInitialValueServiceRenderer : UiEntityItemRenderer {
     override fun renderTemplate(model: UiEntityFormViewItemModel): String {
         return """
           |
+          |
           |import {Injectable} from '@angular/core';
           |import {FormGroup} from "@angular/forms";
           |
@@ -25,7 +26,10 @@ object EntityItemFormPartInitialValueServiceRenderer : UiEntityItemRenderer {
               |import {
               |    ${directlyNestedItem.itemName.pascalCase}FormPartGroup
               |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${directlyNestedItem.itemName.kebabCase}-form-part/${directlyNestedItem.itemName.kebabCase}-form-part-group";
+              |
           """ } }
+          |
+          |
           |
           |
           |@Injectable({providedIn: 'root'})
@@ -34,7 +38,9 @@ object EntityItemFormPartInitialValueServiceRenderer : UiEntityItemRenderer {
               |    ${attribute.attributeName.camelCase}InitialValue(): ${attribute.angularInitialValueFormType} {
               |        return ${attribute.angularFormInitialValue}
               |    }
-          """ } }    
+              |    
+          """ } }
+          |    
           |}
           |
         """.trimMargin(marginPrefix = "|")

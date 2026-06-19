@@ -21,6 +21,8 @@ object EntityItemFormPartBlocksComponentHtmlRenderer {
         return """
           |
           |
+          |                
+          |
           |                ${ blocks.joinToString("") { block ->  """
               |                ${ if(block is senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormNamedSectionSplitBlockModel) { """
                   |                <app-section-splitter label="${block.sectionName}"></app-section-splitter>
@@ -36,8 +38,10 @@ object EntityItemFormPartBlocksComponentHtmlRenderer {
                       |                            ${SingleFormInputHtmlTagRenderer.renderTemplate(attributeModel = block.attribute)}
                       |                        </app-field-wrapper>
                       |                    </div>
+                      |                    
           """ } else { """
-          """ } }                    ${ if(!block.attribute.isList && block.attribute.isNullable) { """
+          """ } }
+                  |                    ${ if(!block.attribute.isList && block.attribute.isNullable) { """
                       |
                       |                    <div class="form-row">
                       |                        <app-field-wrapper label="${block.attribute.attributeName.pascalCase}"
@@ -47,8 +51,10 @@ object EntityItemFormPartBlocksComponentHtmlRenderer {
                       |                            ${SingleFormInputHtmlTagRenderer.renderTemplate(attributeModel = block.attribute)}
                       |                        </app-field-wrapper>
                       |                    </div>
+                      |                    
           """ } else { """
           """ } }
+                  |
                   |                ${ if(block.attribute.isItem && block.attribute.isList && !block.attribute.isNullable) { """
                       |
                       |                <div class="form-row">
@@ -69,8 +75,10 @@ object EntityItemFormPartBlocksComponentHtmlRenderer {
                       |                    </app-field-wrapper>
                       |
                       |                </div>
+                      |                
           """ } else { """
-          """ } }                ${ if(block.attribute.isItem && block.attribute.isList && block.attribute.isNullable) { """
+          """ } }
+                  |                ${ if(block.attribute.isItem && block.attribute.isList && block.attribute.isNullable) { """
                       |
                       |                <div class="form-row">
                       |                    <app-field-wrapper label="${block.attribute.attributeName.pascalCase}"
@@ -93,12 +101,15 @@ object EntityItemFormPartBlocksComponentHtmlRenderer {
                       |                    </app-field-wrapper>
                       |
                       |                </div>
+                      |                
           """ } else { """
           """ } }
+                  |
                   |                
           """ } else { """
           """ } }
-          """ } }                
+          """ } }
+          |                
         """.trimMargin(marginPrefix = "|")
     }
 

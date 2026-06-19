@@ -16,6 +16,7 @@ object EntityResultComponentHtmlRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
+          |
           |<div class="${model.entityName.kebabCase}-table-container">
           |    <div class="${model.entityName.kebabCase}-result-actions">
           |        <button mat-raised-button color="primary" (click)="onCreate()">
@@ -25,13 +26,16 @@ object EntityResultComponentHtmlRenderer : UiEntityRenderer {
           |    </div>
           |    <table mat-table [dataSource]="dataSource">
           |        
+          |
           |        ${ model.searchResultAttributes.joinToString("") { attribute ->  """
               |        <!-- ${attribute.attributeName.pascalCase} Column -->
               |        <ng-container matColumnDef="${attribute.attributeName.camelCase}">
               |            <th mat-header-cell *matHeaderCellDef>${attribute.attributeName.pascalCase}</th>
               |            <td mat-cell *matCellDef="let ${model.entityName.camelCase}">{{ ${model.entityName.camelCase}.${attribute.attributeName.camelCase} }}</td>
               |        </ng-container>
+              |        
           """ } }
+          |
           |        <!-- Actions Column -->
           |        <ng-container matColumnDef="actions">
           |            <th mat-header-cell *matHeaderCellDef>Actions</th>

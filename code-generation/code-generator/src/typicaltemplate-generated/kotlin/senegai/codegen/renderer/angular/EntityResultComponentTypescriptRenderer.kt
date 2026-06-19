@@ -16,6 +16,7 @@ object EntityResultComponentTypescriptRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
+          |
           |import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
           |import {MatTableDataSource, MatTableModule} from '@angular/material/table';
           |import {${model.entityName.pascalCase}SearchCriteria} from '@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}-search/${model.entityName.kebabCase}-search.component';
@@ -60,9 +61,12 @@ object EntityResultComponentTypescriptRenderer : UiEntityRenderer {
           |    @Output() create${model.entityName.pascalCase} = new EventEmitter<void>();
           |
           |    displayedColumns: string[] = [
-          |                ${ model.searchResultAttributes.joinToString("") { attribute ->  """
+          |        
+          |        ${ model.searchResultAttributes.joinToString("") { attribute ->  """
               |        '${attribute.attributeName.camelCase}',
-          """ } }        'actions'
+              |    
+          """ } }
+          |        'actions'
           |    ];
           |    dataSource: MatTableDataSource<${model.entityRootItem.itemName.pascalCase}WTO> = new MatTableDataSource<${model.entityRootItem.itemName.pascalCase}WTO>();
           |    private all${model.entityName.pascalCase}s: ${model.entityRootItem.itemName.pascalCase}WTO[] = [];

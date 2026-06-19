@@ -1,5 +1,5 @@
 /* @tt{{{
-    @rlb
+    
 
     @move-comment-backward
     @template-renderer [
@@ -23,16 +23,16 @@
 
     @modify-provided-filename-by-replacements
 
-    @rla
+    
 
 }}}@ */
 
-/* @tt{{{ @rlb  @ignore-text @rla }}}@ */
+/* @tt{{{   @ignore-text  }}}@ */
 import {AppellatioEnum} from "@app/wto/appellatio.enum";
-/* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
+/* @tt{{{   @end-ignore-text  }}}@ */
 
 export enum SilvaOptionumFormPartFieldName {
-    /* @tt{{{ @rlb
+    /* @tt{{{ 
         @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
         @replace-value-by-expression
@@ -41,11 +41,11 @@ export enum SilvaOptionumFormPartFieldName {
 
     }}}@  */
     campusTextusOptionalis = "campusTextusOptionalis",
-    /* @tt{{{ @rlb  @if [ conditionExpression="attribute.isNullable"] @rla }}}@ */
+    /* @tt{{{   @if [ conditionExpression="attribute.isNullable"]  }}}@ */
     campusTextusOptionalisIsNotNull = "campusTextusOptionalisIsNotNull",
-    /* @tt{{{ @rlb  @end-if @rla }}}@ */
-/* @tt{{{ @rlb @end-foreach @rla }}}@ */
-/* @tt{{{ @rlb  @ignore-text @rla }}}@ */
+    /* @tt{{{   @end-if  }}}@ */
+/* @tt{{{  @end-foreach  }}}@ */
+/* @tt{{{   @ignore-text  }}}@ */
     campusTextusObligatorius = "campusTextusObligatorius",
     articulusInteriorSingularis = "articulusInteriorSingularis",
     articulusInteriorSingularisOptionalis = "articulusInteriorSingularisOptionalis",
@@ -59,6 +59,6 @@ export enum SilvaOptionumFormPartFieldName {
     appellatio = "appellatio",
     campusNumerorum = "campusNumerorum",
     indexUnicus = "indexUnicus",
-/* @tt{{{ @rlb  @end-ignore-text @rla }}}@ */
+/* @tt{{{   @end-ignore-text  }}}@ */
 }
 

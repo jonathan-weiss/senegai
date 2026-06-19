@@ -23,7 +23,7 @@
 
 import {Routes} from '@angular/router';
 /* @tt{{{
-    @rlb
+    
     @foreach [ iteratorExpression="models" loopVariable="entity" ]
     @replace-value-by-expression
         [ searchValue="opus-magnum" replaceByExpression="entity.entityName.kebabCase" ]
@@ -37,9 +37,9 @@ import {
     OpusMagnumRoutableEditComponent
 } from "@app/opus-magnum/opus-magnum-routable-edit/opus-magnum-routable-edit.component";
 /* @tt{{{
-    @rlb
+    
     @end-foreach
-    @rla
+    
 }}}@ */
 
 /* @tt{{{
@@ -50,7 +50,7 @@ import {
 
 export const OPUS_MAGNUM_ROUTES: Routes = [
 /* @tt{{{
-    @rlb
+    
     @foreach [ iteratorExpression="models" loopVariable="entity" ]
     @replace-value-by-expression
         [ searchValue="opus-magnum" replaceByExpression="entity.entityName.kebabCase" ]
@@ -63,9 +63,9 @@ export const OPUS_MAGNUM_ROUTES: Routes = [
     {path: 'opus-magnum-board', component: OpusMagnumBoardComponent},
     {path: 'opus-magnum-edit/:indexUnicus', component: OpusMagnumRoutableEditComponent},
 /* @tt{{{
-    @rlb
+    
     @end-foreach
-    @rla
+    
 }}}@ */
 ];
 

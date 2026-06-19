@@ -1,5 +1,5 @@
 <!-- @tt{{{
-    @rlb
+
 
     @move-comment-backward
     @template-renderer [
@@ -23,7 +23,7 @@
 
     @modify-provided-filename-by-replacements
 
-    @rla
+
 
 }}}@ -->
 <div class="opus-magnum-table-container">
@@ -34,13 +34,13 @@
         </button>
     </div>
     <table mat-table [dataSource]="dataSource">
-        <!-- @tt{{{ @rlb  @ignore-text @rla }}}@ -->
+        <!-- @tt{{{   @ignore-text  }}}@ -->
         <!-- IndexUnicus Column -->
         <ng-container matColumnDef="indexUnicus">
             <th mat-header-cell *matHeaderCellDef>IndexUnicus</th>
             <td mat-cell *matCellDef="let opusMagnum">{{ opusMagnum.indexUnicus }}</td>
         </ng-container>
-        <!-- @tt{{{ @rlb  @end-ignore-text @rla }}}@ -->
+        <!-- @tt{{{   @end-ignore-text  }}}@ -->
 
         <!-- @tt{{{
             @foreach [ iteratorExpression="model.searchResultAttributes" loopVariable="attribute" ]
@@ -56,7 +56,7 @@
             <th mat-header-cell *matHeaderCellDef>Title</th>
             <td mat-cell *matCellDef="let opusMagnum">{{ opusMagnum.title }}</td>
         </ng-container>
-        <!-- @tt{{{ @rlb @end-foreach @rla }}}@ -->
+        <!-- @tt{{{  @end-foreach  }}}@ -->
 
         <!-- Actions Column -->
         <ng-container matColumnDef="actions">
