@@ -16,7 +16,6 @@ object EntitySearchComponentHtmlRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
-          |
           |        <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
           |            <div class="search-fields">
           |                <mat-form-field>

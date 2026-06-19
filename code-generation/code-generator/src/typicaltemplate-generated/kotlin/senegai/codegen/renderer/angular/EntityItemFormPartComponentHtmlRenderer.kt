@@ -17,47 +17,24 @@ object EntityItemFormPartComponentHtmlRenderer : UiEntityItemRenderer {
 
     override fun renderTemplate(model: UiEntityFormViewItemModel): String {
         return """
-          |
           |<div [formGroup]="${model.item.itemName.camelCase}Form">
-          |${ if(model.tabs.isNotEmpty()) { """
-              |<mat-tab-group dynamicHeight>
+          |${ if(model.tabs.isNotEmpty()) { """<mat-tab-group dynamicHeight>
               |${ model.tabs.joinToString("") { tab ->  """
-                  |
                   |    <mat-tab label="${tab.tabName}">
                   |        <div class="column-layout">
-                  |            ${ tab.columns.joinToString("") { column ->  """
-                      |
+                  |${ tab.columns.joinToString("") { column ->  """
                       |            <div class="column">
-                      |                ${EntityItemFormPartBlocksComponentHtmlRenderer.renderTemplate(blocks = column.blocks, item = model.item, entity = model.entity)}
-                      |
-                      |                
+                      |${EntityItemFormPartBlocksComponentHtmlRenderer.renderTemplate(blocks = column.blocks, item = model.item, entity = model.entity)}
                       |            </div>
-                      |            
-          """ } }
-                  |            
-                  |        </div>
+                      |""" } }        </div>
                   |    </mat-tab>
-                  |    
-          """ } }
-              |    
-              |</mat-tab-group>
-              |
-          """ } else { """
-          """ } }
-          |
-          |${ if(model.noTab.isNotEmpty()) { """
-              |<div class="column-layout">
-              |    ${ model.noTab.joinToString("") { column ->  """
-                  |    <div class="column">
-                  |            ${EntityItemFormPartBlocksComponentHtmlRenderer.renderTemplate(blocks = column.blocks, item = model.item, entity = model.entity)}
-                  |    </div>
-                  |    
-          """ } }
-              |</div>
-              |
-          """ } else { """
-          """ } }
-          |</div>
+                  |""" } }</mat-tab-group>
+              |""" } else { """""" } }
+          |${ if(model.noTab.isNotEmpty()) { """<div class="column-layout">
+              |${ model.noTab.joinToString("") { column ->  """    <div class="column">
+                  |${EntityItemFormPartBlocksComponentHtmlRenderer.renderTemplate(blocks = column.blocks, item = model.item, entity = model.entity)}    </div>
+                  |""" } }</div>
+              |""" } else { """""" } }</div>
           |
         """.trimMargin(marginPrefix = "|")
     }

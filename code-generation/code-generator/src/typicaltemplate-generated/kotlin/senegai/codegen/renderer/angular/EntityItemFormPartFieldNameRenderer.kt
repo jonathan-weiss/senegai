@@ -18,20 +18,10 @@ object EntityItemFormPartFieldNameRenderer : UiEntityItemRenderer {
         return """
           |
           |
-          |
-          |
           |export enum ${model.item.itemName.pascalCase}FormPartFieldName {
-          |    ${ model.item.attributes.joinToString("") { attribute ->  """
-              |    ${attribute.attributeName.camelCase} = "${attribute.attributeName.camelCase}",
-              |    ${ if(attribute.isNullable) { """
-                  |    ${attribute.attributeName.camelCase}IsNotNull = "${attribute.attributeName.camelCase}IsNotNull",
-                  |    
-          """ } else { """
-          """ } }
-              |
-          """ } }
-          |
-          |}
+          |${ model.item.attributes.joinToString("") { attribute ->  """    ${attribute.attributeName.camelCase} = "${attribute.attributeName.camelCase}",
+              |${ if(attribute.isNullable) { """    ${attribute.attributeName.camelCase}IsNotNull = "${attribute.attributeName.camelCase}IsNotNull",
+                  |""" } else { """""" } }""" } }}
           |
           |
         """.trimMargin(marginPrefix = "|")

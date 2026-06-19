@@ -17,14 +17,10 @@ object EntityExampleDataRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
-          |
           |import {${model.entityRootItem.itemName.pascalCase}WTO} from "@app/wto/${model.entityRootItem.itemName.kebabCase}.wto";
           |
-          |
           |export const ${model.entityRootItem.itemName.screamingSnakeCase}_EXAMPLE_DATA: ${model.entityRootItem.itemName.pascalCase}WTO[] = [
-          |    ${ItemExampleDataRenderer.renderTemplate(itemModel = model.entityRootItem, entityModel = model)}
-          |
-          |    
+          |${ItemExampleDataRenderer.renderTemplate(itemModel = model.entityRootItem, entityModel = model)}
           |];
           |
         """.trimMargin(marginPrefix = "|")

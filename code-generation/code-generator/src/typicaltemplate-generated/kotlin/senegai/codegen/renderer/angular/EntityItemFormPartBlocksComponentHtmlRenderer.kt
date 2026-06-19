@@ -21,42 +21,23 @@ object EntityItemFormPartBlocksComponentHtmlRenderer {
         return """
           |
           |
-          |                
-          |
-          |                ${ blocks.joinToString("") { block ->  """
-              |                ${ if(block is senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormNamedSectionSplitBlockModel) { """
-                  |                <app-section-splitter label="${block.sectionName}"></app-section-splitter>
-                  |                
-          """ } else if(block is senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormTextBlockModel) { """
-                  |                <app-text-block label="${block.text}" />
-                  |                
-          """ } else if(block is senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormItemAttributeBlockModel) { """
-                  |                    ${ if(!block.attribute.isList && !block.attribute.isNullable) { """
-                      |
+          |${ blocks.joinToString("") { block ->  """${ if(block is senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormNamedSectionSplitBlockModel) { """                <app-section-splitter label="${block.sectionName}"></app-section-splitter>
+                  |""" } else if(block is senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormTextBlockModel) { """                <app-text-block label="${block.text}" />
+                  |""" } else if(block is senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormItemAttributeBlockModel) { """${ if(!block.attribute.isList && !block.attribute.isNullable) { """
                       |                    <div class="form-row">
                       |                        <app-field-wrapper label="${block.attribute.attributeName.pascalCase}">
-                      |                            ${SingleFormInputHtmlTagRenderer.renderTemplate(attributeModel = block.attribute)}
-                      |                        </app-field-wrapper>
+                      |${SingleFormInputHtmlTagRenderer.renderTemplate(attributeModel = block.attribute)}                        </app-field-wrapper>
                       |                    </div>
-                      |                    
-          """ } else { """
-          """ } }
-                  |                    ${ if(!block.attribute.isList && block.attribute.isNullable) { """
-                      |
+                      |""" } else { """""" } }${ if(!block.attribute.isList && block.attribute.isNullable) { """
                       |                    <div class="form-row">
                       |                        <app-field-wrapper label="${block.attribute.attributeName.pascalCase}"
                       |                                            [nullabilityCheckboxFormControl]="${block.attribute.attributeName.camelCase}IsNotNullControl"
                       |                                            [formGroupToDisableIfNullField]="${block.attribute.attributeName.camelCase}Control"
                       |                         >
-                      |                            ${SingleFormInputHtmlTagRenderer.renderTemplate(attributeModel = block.attribute)}
-                      |                        </app-field-wrapper>
+                      |${SingleFormInputHtmlTagRenderer.renderTemplate(attributeModel = block.attribute)}                        </app-field-wrapper>
                       |                    </div>
-                      |                    
-          """ } else { """
-          """ } }
-                  |
-                  |                ${ if(block.attribute.isItem && block.attribute.isList && !block.attribute.isNullable) { """
-                      |
+                      |""" } else { """""" } }
+                  |${ if(block.attribute.isItem && block.attribute.isList && !block.attribute.isNullable) { """
                       |                <div class="form-row">
                       |                    <app-field-wrapper label="${block.attribute.attributeName.pascalCase}">
                       |                        <app-${block.attribute.attributeAndItem.type.item.itemName.kebabCase}-table
@@ -69,17 +50,12 @@ object EntityItemFormPartBlocksComponentHtmlRenderer {
                       |                                <button mat-icon-button color="primary" (click)="close${block.attribute.attributeName.pascalCase}FormGroupUnderEdit()">
                       |                                    <mat-icon>edit_off</mat-icon>
                       |                                </button>
-                      |                                ${SingleFormInputHtmlTagRenderer.renderTemplate(attributeModel = block.attribute, isList = true)}
-                      |                            </div>
+                      |${SingleFormInputHtmlTagRenderer.renderTemplate(attributeModel = block.attribute, isList = true)}                            </div>
                       |                        }
                       |                    </app-field-wrapper>
                       |
                       |                </div>
-                      |                
-          """ } else { """
-          """ } }
-                  |                ${ if(block.attribute.isItem && block.attribute.isList && block.attribute.isNullable) { """
-                      |
+                      |""" } else { """""" } }${ if(block.attribute.isItem && block.attribute.isList && block.attribute.isNullable) { """
                       |                <div class="form-row">
                       |                    <app-field-wrapper label="${block.attribute.attributeName.pascalCase}"
                       |                                       [nullabilityCheckboxFormControl]="${block.attribute.attributeName.camelCase}IsNotNullControl"
@@ -95,21 +71,13 @@ object EntityItemFormPartBlocksComponentHtmlRenderer {
                       |                                <button mat-icon-button color="primary" (click)="close${block.attribute.attributeName.pascalCase}FormGroupUnderEdit()">
                       |                                    <mat-icon>edit_off</mat-icon>
                       |                                </button>
-                      |                                ${SingleFormInputHtmlTagRenderer.renderTemplate(attributeModel = block.attribute, isList = true)}
-                      |                            </div>
+                      |${SingleFormInputHtmlTagRenderer.renderTemplate(attributeModel = block.attribute, isList = true)}                            </div>
                       |                        }
                       |                    </app-field-wrapper>
                       |
                       |                </div>
-                      |                
-          """ } else { """
-          """ } }
-                  |
-                  |                
-          """ } else { """
-          """ } }
-          """ } }
-          |                
+                      |""" } else { """""" } }
+                  |""" } else { """""" } }""" } }
         """.trimMargin(marginPrefix = "|")
     }
 

@@ -17,31 +17,22 @@ object EntityItemFormPartInitialValueServiceRenderer : UiEntityItemRenderer {
     override fun renderTemplate(model: UiEntityFormViewItemModel): String {
         return """
           |
-          |
           |import {Injectable} from '@angular/core';
           |import {FormGroup} from "@angular/forms";
           |
           |${ model.item.directlyNestedItems.joinToString("") { directlyNestedItem ->  """
-              |
               |import {
               |    ${directlyNestedItem.itemName.pascalCase}FormPartGroup
               |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${directlyNestedItem.itemName.kebabCase}-form-part/${directlyNestedItem.itemName.kebabCase}-form-part-group";
-              |
-          """ } }
-          |
-          |
+              |""" } }
           |
           |
           |@Injectable({providedIn: 'root'})
           |export class ${model.item.itemName.pascalCase}FormPartInitialValueService {
-          |    ${ model.item.attributesWithAngularFormInitialValues.joinToString("") { attribute ->  """
-              |    ${attribute.attributeName.camelCase}InitialValue(): ${attribute.angularInitialValueFormType} {
+          |${ model.item.attributesWithAngularFormInitialValues.joinToString("") { attribute ->  """    ${attribute.attributeName.camelCase}InitialValue(): ${attribute.angularInitialValueFormType} {
               |        return ${attribute.angularFormInitialValue}
               |    }
-              |    
-          """ } }
-          |    
-          |}
+              |""" } }}
           |
         """.trimMargin(marginPrefix = "|")
     }

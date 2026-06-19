@@ -16,7 +16,6 @@ object EntityConfirmDeleteDialogComponentHtmlRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
-          |
           |<h2 mat-dialog-title>Delete ${model.entityName.pascalCase}</h2>
           |<mat-dialog-content><ng-container>Are you sure you want to delete this entity?</ng-container> <br />
           |    <b>

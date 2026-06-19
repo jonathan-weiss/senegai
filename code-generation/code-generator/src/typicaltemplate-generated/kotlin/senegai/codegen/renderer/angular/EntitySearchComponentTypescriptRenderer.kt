@@ -16,7 +16,6 @@ object EntitySearchComponentTypescriptRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
-          |
           |import {Component, EventEmitter, Output} from '@angular/core';
           |import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
           |import {MatButtonModule} from "@angular/material/button";

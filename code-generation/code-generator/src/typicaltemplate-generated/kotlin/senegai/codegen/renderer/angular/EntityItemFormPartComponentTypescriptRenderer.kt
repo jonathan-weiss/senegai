@@ -16,7 +16,6 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
 
     override fun renderTemplate(model: UiEntityFormViewItemModel): String {
         return """
-          |
           |import {Component, Input, OnInit} from '@angular/core';
           |import {FormArray, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
           |import {MatButtonModule} from "@angular/material/button";
@@ -36,40 +35,18 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
           |    ${model.item.itemName.pascalCase}FormPartValidationService
           |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-validation.service";
           |import {${model.item.itemName.pascalCase}FormPartFieldName,} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-field-name";
-          |${ if(model.item.containsTextAttributes) { """
-              |import {TextInputComponent} from "@app/shared/form-controls/text-input/text-input.component";
-              |
-          """ } else { """
-          """ } }
-          |${ if(model.item.containsBooleanAttributes) { """
-              |import {BooleanInputComponent} from "@app/shared/form-controls/boolean-input/boolean-input.component";
-              |
-          """ } else { """
-          """ } }
-          |${ if(model.item.containsNumberAttributes) { """
-              |import {NumberInputComponent} from "@app/shared/form-controls/number-input/number-input.component";
-              |
-          """ } else { """
-          """ } }
-          |import {DatepickerInputComponent} from "@app/shared/form-controls/datepicker-input/datepicker-input.component";
+          |${ if(model.item.containsTextAttributes) { """import {TextInputComponent} from "@app/shared/form-controls/text-input/text-input.component";
+              |""" } else { """""" } }${ if(model.item.containsBooleanAttributes) { """import {BooleanInputComponent} from "@app/shared/form-controls/boolean-input/boolean-input.component";
+              |""" } else { """""" } }${ if(model.item.containsNumberAttributes) { """import {NumberInputComponent} from "@app/shared/form-controls/number-input/number-input.component";
+              |""" } else { """""" } }import {DatepickerInputComponent} from "@app/shared/form-controls/datepicker-input/datepicker-input.component";
           |import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
           |import {MatTab, MatTabGroup} from "@angular/material/tabs";
           |import {${model.item.itemName.pascalCase}FormPartGroup} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-group";
-          |${ if(model.containsNamedSectionSplitBlocks()) { """
-              |import {SectionSplitterComponent} from "@app/shared/blocks/section-splitter/section-splitter.component";
-              |
-          """ } else { """
-          """ } }
-          |${ if(model.containsTextBlocks()) { """
-              |import {TextBlockComponent} from "@app/shared/blocks/text-block/text-block.component";
-              |
-          """ } else { """
-          """ } }
+          |${ if(model.containsNamedSectionSplitBlocks()) { """import {SectionSplitterComponent} from "@app/shared/blocks/section-splitter/section-splitter.component";
+              |""" } else { """""" } }${ if(model.containsTextBlocks()) { """import {TextBlockComponent} from "@app/shared/blocks/text-block/text-block.component";
+              |""" } else { """""" } }
           |
-          |
-          |
-          |${ model.item.directlyNestedItems.joinToString("") { nestedItem ->  """
-              |import {
+          |${ model.item.directlyNestedItems.joinToString("") { nestedItem ->  """import {
               |    ${nestedItem.itemName.pascalCase}TableComponent
               |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${nestedItem.itemName.kebabCase}-table/${nestedItem.itemName.kebabCase}-table.component";
               |import {
@@ -78,9 +55,7 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
               |import {
               |    ${nestedItem.itemName.pascalCase}FormPartGroup
               |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${nestedItem.itemName.kebabCase}-form-part/${nestedItem.itemName.kebabCase}-form-part-group";
-              |
-          """ } }
-          |
+              |""" } }
           |@Component({
           |    selector: 'app-${model.item.itemName.kebabCase}-form-part',
           |    templateUrl: './${model.item.itemName.kebabCase}-form-part.component.html',
@@ -99,96 +74,42 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
           |        MatListModule,
           |        MatDialogModule,
           |        FieldWrapperComponent,
-          |        ${ if(model.tabs.isNotEmpty()) { """
-              |        MatTabGroup,
+          |${ if(model.tabs.isNotEmpty()) { """        MatTabGroup,
               |        MatTab,
-              |        
-          """ } else { """
-          """ } }
-          |        ${ if(model.containsNamedSectionSplitBlocks()) { """
-              |        SectionSplitterComponent,
-              |        
-          """ } else { """
-          """ } }
-          |        ${ if(model.containsTextBlocks()) { """
-              |        TextBlockComponent,
-              |        
-          """ } else { """
-          """ } }
-          |        ${ model.item.attributesWithItem.joinToString("") { attributeWithItem ->  """
-              |
-              |        ${ if(attributeWithItem.attribute.isList) { """
-                  |        ${attributeWithItem.type.item.itemName.pascalCase}TableComponent,
-                  |        
-          """ } else { """
-          """ } }
-              |        ${attributeWithItem.type.item.itemName.pascalCase}FormPartComponent,
-              |        
-          """ } }
-          |        ${ if(model.item.containsTextAttributes) { """
-              |        TextInputComponent,
-              |        
-          """ } else { """
-          """ } }
-          |        ${ if(model.item.containsBooleanAttributes) { """
-              |        BooleanInputComponent,
-              |        
-          """ } else { """
-          """ } }
-          |        ${ if(model.item.containsNumberAttributes) { """
-              |        NumberInputComponent,
-              |        
-          """ } else { """
-          """ } }
-          |        
-          |    ]
+              |""" } else { """""" } }${ if(model.containsNamedSectionSplitBlocks()) { """        SectionSplitterComponent,
+              |""" } else { """""" } }${ if(model.containsTextBlocks()) { """        TextBlockComponent,
+              |""" } else { """""" } }${ model.item.attributesWithItem.joinToString("") { attributeWithItem ->  """
+              |${ if(attributeWithItem.attribute.isList) { """        ${attributeWithItem.type.item.itemName.pascalCase}TableComponent,
+                  |""" } else { """""" } }        ${attributeWithItem.type.item.itemName.pascalCase}FormPartComponent,
+              |""" } }${ if(model.item.containsTextAttributes) { """        TextInputComponent,
+              |""" } else { """""" } }${ if(model.item.containsBooleanAttributes) { """        BooleanInputComponent,
+              |""" } else { """""" } }${ if(model.item.containsNumberAttributes) { """        NumberInputComponent,
+              |""" } else { """""" } }    ]
           |})
           |export class ${model.item.itemName.pascalCase}FormPartComponent implements OnInit {
           |    @Input({ required: true }) ${model.item.itemName.camelCase}Form!: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>;
           |
-          |    ${ model.item.attributesWithItem.filter { it.attribute.isList }.joinToString("") { attributeWithItem ->  """
-              |    ${attributeWithItem.attribute.attributeName.camelCase}FormGroupUnderEdit: ${attributeWithItem.attribute.angularFormControlType} | undefined = undefined;
-              |    
-          """ } }
-          |
-          |    
-          |    ${ model.item.attributes.joinToString("") { attribute ->  """
-              |    ${ if(attribute.isNullable) { """
-                  |    protected ${attribute.attributeName.camelCase}IsNotNullControl!: FormControl<boolean>
+          |${ model.item.attributesWithItem.filter { it.attribute.isList }.joinToString("") { attributeWithItem ->  """    ${attributeWithItem.attribute.attributeName.camelCase}FormGroupUnderEdit: ${attributeWithItem.attribute.angularFormControlType} | undefined = undefined;
+              |""" } }
+          |${ model.item.attributes.joinToString("") { attribute ->  """${ if(attribute.isNullable) { """    protected ${attribute.attributeName.camelCase}IsNotNullControl!: FormControl<boolean>
                   |    protected ${attribute.attributeName.camelCase}IsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
-                  |    
-          """ } else { """
-          """ } }
-              |    protected ${attribute.attributeName.camelCase}Control!: ${attribute.angularFormControlTypeWithCollection}
+                  |""" } else { """""" } }    protected ${attribute.attributeName.camelCase}Control!: ${attribute.angularFormControlTypeWithCollection}
               |    protected ${attribute.attributeName.camelCase}ValidatorNames!: ReadonlyArray<ValidatorTranslation>
               |
-              |    
-          """ } }
-          |    
-          |
+              |""" } }
           |    constructor(private readonly ${model.item.itemName.camelCase}FormValidationService: ${model.item.itemName.pascalCase}FormPartValidationService,) {
           |    }
           |
           |    ngOnInit() {
-          |        
-          |        ${ model.item.attributes.joinToString("") { attribute ->  """
-              |        ${ if(attribute.isNullable) { """
-                  |        this.${attribute.attributeName.camelCase}IsNotNullControl = this.${model.item.itemName.camelCase}Form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull]
+          |${ model.item.attributes.joinToString("") { attribute ->  """${ if(attribute.isNullable) { """        this.${attribute.attributeName.camelCase}IsNotNullControl = this.${model.item.itemName.camelCase}Form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull]
                   |        this.${attribute.attributeName.camelCase}IsNotNullValidatorNames = this.${model.item.itemName.camelCase}FormValidationService.validatorNames(${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull)
-                  |        
-          """ } else { """
-          """ } }
-              |        this.${attribute.attributeName.camelCase}Control = this.${model.item.itemName.camelCase}Form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}]
+                  |""" } else { """""" } }        this.${attribute.attributeName.camelCase}Control = this.${model.item.itemName.camelCase}Form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}]
               |        this.${attribute.attributeName.camelCase}ValidatorNames = this.${model.item.itemName.camelCase}FormValidationService.validatorNames(${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase})
               |
-              |        
-          """ } }
-          |        
-          |    }
+              |""" } }    }
           |
           |
-          |    ${ model.item.attributesWithLists.joinToString("") { attribute ->  """
-              |    on${attribute.attributeName.pascalCase}FormGroupEdit(formGroup: ${attribute.angularFormControlType}): void {
+          |${ model.item.attributesWithLists.joinToString("") { attribute ->  """    on${attribute.attributeName.pascalCase}FormGroupEdit(formGroup: ${attribute.angularFormControlType}): void {
               |        this.${attribute.attributeName.camelCase}FormGroupUnderEdit = formGroup;
               |    }
               |
@@ -203,10 +124,7 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
               |        this.${attribute.attributeName.camelCase}FormGroupUnderEdit = undefined;
               |    }
               |
-              |    
-          """ } }
-          |
-          |    
+              |""" } }
           |}
           |
         """.trimMargin(marginPrefix = "|")
