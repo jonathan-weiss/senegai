@@ -11,6 +11,7 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {MatDialogModule} from "@angular/material/dialog";
+import {TextInputComponent} from "@app/shared/form-controls/text-input/text-input.component";
 
 @Component({
     selector: 'app-tabula-simplex',
@@ -29,6 +30,7 @@ import {MatDialogModule} from "@angular/material/dialog";
         MatSidenavModule,
         MatListModule,
         MatDialogModule,
+        TextInputComponent,
     ]
 })
 export class TabulaSimplexComponent implements OnInit {
