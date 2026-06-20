@@ -59,6 +59,7 @@ export enum SilvaOptionumFormPartFieldName {
     appellatio = "appellatio",
     campusNumerorum = "campusNumerorum",
     indexUnicus = "indexUnicus",
+    iteratioSimpliciumTextuum = "iteratioSimpliciumTextuum",
 /* @tt{{{   @end-ignore-text  }}}@ */
 }
 

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormArray, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from "@angular/material/button";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatTableModule} from "@angular/material/table";
@@ -13,9 +13,6 @@ import {MatListModule} from "@angular/material/list";
 import {MatDialogModule} from "@angular/material/dialog";
 import {FieldWrapperComponent} from "@app/shared/form-controls/field-wrapper/field-wrapper.component";
 import {FormUtil} from "@app/shared/form-controls/form.util";
-import {
-    TabulaSimplexComponent
-} from "@app/opus-magnum/opus-magnum-form/tabula-simplex/tabula-simplex.component";
 import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
 import {TextInputComponent} from "@app/shared/form-controls/text-input/text-input.component";
 import {NumberInputComponent} from "@app/shared/form-controls/number-input/number-input.component";
@@ -49,7 +46,6 @@ import {
         FieldWrapperComponent,
         TextInputComponent,
         NumberInputComponent,
-        TabulaSimplexComponent,
     ]
 })
 export class ArticulusInteriorFormPartComponent implements OnInit {
@@ -62,15 +58,11 @@ export class ArticulusInteriorFormPartComponent implements OnInit {
     protected articulusInteriorDescriptionValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected articulusInteriorYearControl!: FormControl<number>
     protected articulusInteriorYearValidatorNames!: ReadonlyArray<ValidatorTranslation>
-    protected articulusInteriorJuryListFormArray!: FormArray<FormControl<string>>
-    protected articulusInteriorJuryListValidatorNames!: ReadonlyArray<ValidatorTranslation>
 
     ngOnInit() {
         this.articulusInteriorDescriptionControl = this.articulusInteriorForm.controls[ArticulusInteriorFormPartFieldName.description]
         this.articulusInteriorDescriptionValidatorNames = this.articulusInteriorFormPartValidationService.validatorNames(ArticulusInteriorFormPartFieldName.description)
         this.articulusInteriorYearControl = this.articulusInteriorForm.controls[ArticulusInteriorFormPartFieldName.year]
         this.articulusInteriorYearValidatorNames = this.articulusInteriorFormPartValidationService.validatorNames(ArticulusInteriorFormPartFieldName.year)
-        this.articulusInteriorJuryListFormArray = this.articulusInteriorForm.controls[ArticulusInteriorFormPartFieldName.juryList]
-        this.articulusInteriorJuryListValidatorNames = this.articulusInteriorFormPartValidationService.validatorNames(ArticulusInteriorFormPartFieldName.juryList)
     }
 }

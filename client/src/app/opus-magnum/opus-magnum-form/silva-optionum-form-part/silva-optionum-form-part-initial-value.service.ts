@@ -90,5 +90,8 @@ export class SilvaOptionumFormPartInitialValueService {
     indexUnicusInitialValue(): string {
         return crypto.randomUUID()
     }
+    iteratioSimpliciumTextuumInitialValue(): string {
+        return ''
+    }
     /* @tt{{{   @end-ignore-text }}}@ */
 }

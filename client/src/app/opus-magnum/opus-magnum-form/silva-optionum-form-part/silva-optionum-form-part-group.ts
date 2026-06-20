@@ -77,5 +77,6 @@ export interface SilvaOptionumFormPartGroup {
     [SilvaOptionumFormPartFieldName.appellatio]: FormControl<AppellatioEnum>,
     [SilvaOptionumFormPartFieldName.campusNumerorum]: FormControl<number>,
     [SilvaOptionumFormPartFieldName.indexUnicus]: FormControl<string>,
+    [SilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum]: FormArray<FormControl<string>>,
     /* @tt{{{   @end-ignore-text  }}}@ */
 }

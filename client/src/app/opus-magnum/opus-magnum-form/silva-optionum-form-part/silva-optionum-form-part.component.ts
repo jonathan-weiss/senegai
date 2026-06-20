@@ -86,6 +86,9 @@ import {TextBlockComponent} from "@app/shared/blocks/text-block/text-block.compo
 /* @tt{{{   @ignore-text  }}}@ */
 import {AppellatioEnum} from "@app/wto/appellatio.enum";
 import {AppellatioSelectorComponent} from "@app/enum/appellatio-input-selection/appellatio-selector.component";
+import {
+    TabulaSimplexComponent
+} from "@app/opus-magnum/opus-magnum-form/tabula-simplex/tabula-simplex.component";
 
 /* @tt{{{   @end-ignore-text  }}}@ */
 
@@ -190,6 +193,7 @@ import {
         /* @tt{{{   @ignore-text }}}@ */
         DatepickerInputComponent,
         AppellatioSelectorComponent,
+        TabulaSimplexComponent,
         /* @tt{{{   @end-ignore-text }}}@ */
     ]
 })
@@ -255,6 +259,8 @@ export class SilvaOptionumFormPartComponent implements OnInit {
     protected indexUnicusValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected campusNumerorumControl!: FormControl<number>
     protected campusNumerorumValidatorNames!: ReadonlyArray<ValidatorTranslation>
+    protected iteratioSimpliciumTextuumFormArray!: FormArray<FormControl<string>>
+    protected iteratioSimpliciumTextuumValidatorNames!: ReadonlyArray<ValidatorTranslation>
     /* @tt{{{   @end-ignore-text  }}}@ */
 
     constructor(private readonly silvaOptionumFormValidationService: SilvaOptionumFormPartValidationService,) {
@@ -305,6 +311,8 @@ export class SilvaOptionumFormPartComponent implements OnInit {
         this.articulusInteriorSingularisOptionalisValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalis)
         this.articulusInteriorSingularisOptionalisIsNotNullControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalisIsNotNull]
         this.articulusInteriorSingularisOptionalisIsNotNullValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalisIsNotNull)
+        this.iteratioSimpliciumTextuumFormArray = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum]
+        this.iteratioSimpliciumTextuumValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum)
         /* @tt{{{   @end-ignore-text  }}}@ */
     }
 

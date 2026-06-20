@@ -11,8 +11,4 @@ export class ArticulusInteriorFormPartInitialValueService {
     articulusInteriorListYearInitialValue(): number {
         return 2025
     }
-
-    articulusInteriorListJuryListInitialValue(): string {
-        return ''
-    }
 }

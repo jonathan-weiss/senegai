@@ -77,6 +77,7 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
           |        });
           |    }
           |
+          |
           |    public patch${model.item.itemName.pascalCase}Form(form: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>, ${model.item.itemName.camelCase}: ${model.item.itemName.pascalCase}WTO): void {
           |        this.patchPreparation(form, ${model.item.itemName.camelCase});
           |

@@ -1,5 +1,5 @@
 /* @tt{{{
-    
+
 
     @move-comment-backward
     @template-renderer [
@@ -24,7 +24,7 @@
 
     @modify-provided-filename-by-replacements
 
-    
+
 
 }}}@ */
 import {SilvaOptionumWTO} from "@app/wto/silva-optionum.wto";
@@ -34,16 +34,16 @@ import {AppellatioEnum} from "@app/wto/appellatio.enum";
 
 export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
     /* @tt{{{
-    
+
     @render-template
         [ templateRendererClassName="ItemExampleDataRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" ]
         [ modelName="itemModel" modelExpression="model.entityRootItem" ]
         [ modelName="entityModel" modelExpression="model" ]
-    
+
     }}}@ */
 
     /* @tt{{{   @ignore-text  }}}@ */
-    /* @tt{{{ 
+    /* @tt{{{
         @template-renderer [
             templateRendererClassName="ItemExampleDataRenderer"
             templateRendererPackageName="senegai.codegen.renderer.angular"
@@ -66,7 +66,7 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
 
             @replace-value-by-expression
                 [ searchValue="campusTextusOptionalis" replaceByExpression="attribute.attributeName.camelCase" ]
-            
+
         }}}@  */
         /* @tt{{{
             @move-comment-forward [ afterFirstOccurrenceOf="campusTextusOptionalis: " ]
@@ -78,9 +78,9 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
         }}}@  */
         campusTextusOptionalis: 'Johnny'/* @tt{{{@end-ignore-text}}}@  */,
         /* @tt{{{
-            
+
             @ignore-text
-            
+
         }}}@ */
         campusBivalens: false,
         campusDiei: new Date(1979, 3, 23),
@@ -88,35 +88,31 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
         campusTextusObligatorius: 'Doe',
         articulusInteriorSingularis: {
             description: "ALA Medal of Excellence.",
-            year: 1956,
-            juryList: ["Elisabeth Smith", "Aaron Glasgow", "James Duroldi"]
+            year: 1956
         },
         articulusInteriorList: [
             {
                 description: "ALA Medal of Excellence.",
-                year: 1956,
-                juryList: ["Elisabeth Smith", "Aaron Glasgow", "James Duroldi"]
+                year: 1956
             },
             {
                 description: "Joseph W. Lippincott Award",
-                year: 1989,
-                juryList: ["Peter Booker"]
+                year: 1989
             }
         ],
         articulusInteriorOptionalisList: [
             {
                 description: "Qwert keyboard.",
-                year: 1968,
-                juryList: ["Helene Qerty"]
+                year: 1968
             },
         ],
         articulusInteriorSingularisOptionalis: {
             description: "Truth an right.",
-            year: 1981,
-            juryList: ["Jonathan Wright"]
+            year: 1981
         },
         campusNumerorum: 42,
         indexUnicus: '828cf29b-a7fb-4b07-bf13-9a313a9967f6',
+        iteratioSimpliciumTextuum: ["Elisabeth Smith", "Aaron Glasgow", "James Duroldi"],
         /* @tt{{{   @end-ignore-text  }}}@ */
         /* @tt{{{  @end-foreach  }}}@ */
 
@@ -127,19 +123,16 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
         campusTextusOptionalis: 'Jane',
         articulusInteriorSingularis: {
             description: "ALA Medal of Excellence.",
-            year: 1956,
-            juryList: ["Elisabeth Smith", "Aaron Glasgow", "James Duroldi"]
+            year: 1956
         },
         articulusInteriorList: [
             {
                 description: "James Madison Award ",
-                year: 1956,
-                juryList: ["Elisabeth Smith", "Aaron Glasgow", "James Duroldi"]
+                year: 1956
             },
             {
                 description: "John Sessions Memorial Award",
-                year: 1998,
-                juryList: ["Elisabeth Smith", "Aaron Glasgow", "James Duroldi"]
+                year: 1998
             }
         ],
         articulusInteriorOptionalisList: [],
@@ -148,6 +141,7 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
         campusBivalens: false,
         appellatio: AppellatioEnum.MATRONA,
         campusNumerorum: -2,
+        iteratioSimpliciumTextuum: ["Peter Booker"],
     },
     {
         indexUnicus: 'd4076f05-50ac-4ceb-b54d-06f5c77874e4',
@@ -155,8 +149,7 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
         campusTextusOptionalis: null,
         articulusInteriorSingularis: {
             description: "ALA Medal of Excellence.",
-            year: 1956,
-            juryList: ["Elisabeth Smith", "Aaron Glasgow", "James Duroldi"]
+            year: 1956
         },
         articulusInteriorList: [],
         articulusInteriorSingularisOptionalis: null,
@@ -165,6 +158,7 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
         campusBivalens: true,
         campusNumerorum: 7544,
         appellatio: AppellatioEnum.SENIOR,
+        iteratioSimpliciumTextuum: [],
     },
     {
         indexUnicus: 'example',
@@ -172,31 +166,28 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
         campusTextusOptionalis: 'Molly',
         articulusInteriorSingularis: {
             description: "ALA Medal of Excellence.",
-            year: 1956,
-            juryList: ["Elisabeth Smith", "Aaron Glasgow", "James Duroldi"]
+            year: 1956
         },
         articulusInteriorList: [
             {
                 description: "Jean E. Coleman Library Outreach Lecture",
-                year: 1956,
-                juryList: ["W.Y. Boyd", "Beta Phi", "Joseph Lippincott"]
+                year: 1956
             },
             {
                 description: "John Sessions Memorial Award",
-                year: 1998,
-                juryList: ["Justin Windsor", "Edward Swandson", "May Hill"]
+                year: 1998
             }
         ],
         articulusInteriorSingularisOptionalis: {
             description: "A bright shining day",
-            year: 2021,
-            juryList: ["Isaac Hamilton"]
+            year: 2021
         },
         articulusInteriorOptionalisList: null,
         campusDiei: new Date(1954, 8, 3),
         campusBivalens: false,
         appellatio: AppellatioEnum.MATRONA,
         campusNumerorum: 687358,
+        iteratioSimpliciumTextuum: ["W.Y. Boyd", "Beta Phi", "Joseph Lippincott"],
     }
     /* @tt{{{   @end-ignore-text  }}}@ */
 ];

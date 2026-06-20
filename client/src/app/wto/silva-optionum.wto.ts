@@ -66,5 +66,6 @@ export interface SilvaOptionumWTO {
     campusBivalens: boolean;
     campusNumerorum: number;
     indexUnicus: string;
+    iteratioSimpliciumTextuum: Array<string>;
     /* @tt{{{   @end-ignore-text }}}@ */
 }

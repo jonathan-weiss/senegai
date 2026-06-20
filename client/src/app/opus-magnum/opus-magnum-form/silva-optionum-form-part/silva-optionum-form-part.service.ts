@@ -175,6 +175,12 @@ export class SilvaOptionumFormPartService {
                     validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.indexUnicus)
                 },
             ),
+            [SilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum]: new FormArray<FormControl<string>>(
+                [] as Array<FormControl<string>>,
+                {
+                    validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum)
+                },
+            ),
             /* @tt{{{   @end-ignore-text  }}}@ */
 
             // ------------------------
@@ -226,6 +232,18 @@ export class SilvaOptionumFormPartService {
         });
     }
 
+    /* @tt{{{   @ignore-text  }}}@ */
+    public createInitialIteratioSimpliciumTextuumForm(): FormControl<string> {
+        return new FormControl<string>(
+            this.silvaOptionumFormInitialValueService.iteratioSimpliciumTextuumInitialValue(),
+            {
+                nonNullable: true,
+                validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum)
+            },
+        )
+    }
+    /* @tt{{{   @end-ignore-text  }}}@ */
+
     public patchSilvaOptionumForm(form: FormGroup<SilvaOptionumFormPartGroup>, silvaOptionum: SilvaOptionumWTO): void {
         this.patchPreparation(form, silvaOptionum);
 
@@ -275,6 +293,7 @@ export class SilvaOptionumFormPartService {
         form.controls[SilvaOptionumFormPartFieldName.appellatio].patchValue(silvaOptionum.appellatio);
         form.controls[SilvaOptionumFormPartFieldName.campusNumerorum].patchValue(silvaOptionum.campusNumerorum);
         form.controls[SilvaOptionumFormPartFieldName.indexUnicus].patchValue(silvaOptionum.indexUnicus);
+        form.controls[SilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum].patchValue(silvaOptionum.iteratioSimpliciumTextuum);
         /* @tt{{{   @end-ignore-text  }}}@ */
 
         this.patchNestedItems(form, silvaOptionum);
@@ -311,6 +330,12 @@ export class SilvaOptionumFormPartService {
                 for (let i = articulusInteriorListOptionalisLength; i < silvaOptionum.articulusInteriorOptionalisList.length; i++) {
                     form.controls[SilvaOptionumFormPartFieldName.articulusInteriorOptionalisList].push(this.articulusInteriorFormPartService.createInitialArticulusInteriorForm())
                 }
+            }
+        }
+        const iteratioSimpliciumTextuumLength = form.controls[SilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum].controls.length
+        if (iteratioSimpliciumTextuumLength < silvaOptionum.iteratioSimpliciumTextuum.length) {
+            for (let i = iteratioSimpliciumTextuumLength; i < silvaOptionum.iteratioSimpliciumTextuum.length; i++) {
+                form.controls[SilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum].push(this.createInitialIteratioSimpliciumTextuumForm())
             }
         }
         /* @tt{{{   @end-ignore-text  }}}@ */
@@ -440,6 +465,7 @@ export class SilvaOptionumFormPartService {
             campusNumerorum: form.controls[SilvaOptionumFormPartFieldName.campusNumerorum].getRawValue(),
             appellatio: form.controls[SilvaOptionumFormPartFieldName.appellatio].getRawValue(),
             indexUnicus: form.controls[SilvaOptionumFormPartFieldName.indexUnicus].getRawValue(),
+            iteratioSimpliciumTextuum: form.controls[SilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum].getRawValue(),
             /* @tt{{{   @end-ignore-text  }}}@ */
         };
     }
