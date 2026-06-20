@@ -31,14 +31,14 @@ export class ArticulusInteriorFormPartService {
     public createInitialArticulusInteriorForm(): FormGroup<ArticulusInteriorFormPartGroup> {
         return new FormGroup({
             [ArticulusInteriorFormPartFieldName.scriptumTriviale]: new FormControl<string>(
-                this.articulusInteriorFormInitialValueService.articulusInteriorListScriptumTrivialeInitialValue(),
+                this.articulusInteriorFormInitialValueService.scriptumTrivialeInitialValue(),
                 {
                     nonNullable: true,
                     validators: this.articulusInteriorFormValidationService.validatorFunctions(ArticulusInteriorFormPartFieldName.scriptumTriviale)
                 },
             ),
             [ArticulusInteriorFormPartFieldName.numerusStupidus]: new FormControl<number>(
-                this.articulusInteriorFormInitialValueService.articulusInteriorListNumerusStupidusInitialValue(),
+                this.articulusInteriorFormInitialValueService.numerusStupidusInitialValue(),
                 {
                     nonNullable: true,
                     validators: this.articulusInteriorFormValidationService.validatorFunctions(ArticulusInteriorFormPartFieldName.numerusStupidus)
