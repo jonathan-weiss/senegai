@@ -60,14 +60,14 @@ object SingleFormInputHtmlTagRenderer {
 
 
     /**
-     *  ` <app-articulus-interior-form-part [articulusInteriorForm]="articulusInteriorListFormGroupUnderEdit!"  />`
+     *  ` <app-articulus-interior-form-part [articulusInteriorForm]="articulusInteriorListEditState.formGroupUnderEdit!"  />`
      *  ` <app-articulus-interior-form-part [articulusInteriorForm]="articulusInteriorSingularisControl"  />`
      */
     private fun createItemInput(itemName: NameCase, attributeName: NameCase, isList: Boolean): String {
         val attributeNameCamelCase = attributeName.camelCase
         val itemNameKebabCase = itemName.kebabCase
         val itemNameCamelCase = itemName.camelCase
-        val controlName = if(isList) "${attributeNameCamelCase}FormGroupUnderEdit!" else "${attributeNameCamelCase}Control"
+        val controlName = if(isList) "${attributeNameCamelCase}EditState.formGroupUnderEdit!" else "${attributeNameCamelCase}Control"
         return """<app-${itemNameKebabCase}-form-part [${itemNameCamelCase}Form]="$controlName"  />"""
     }
 

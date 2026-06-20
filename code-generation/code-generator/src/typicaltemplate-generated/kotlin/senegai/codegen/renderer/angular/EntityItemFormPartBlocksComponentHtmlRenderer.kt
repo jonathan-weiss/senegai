@@ -42,12 +42,12 @@ object EntityItemFormPartBlocksComponentHtmlRenderer {
                       |                    <app-field-wrapper label="${block.attribute.attributeName.pascalCase}">
                       |                        <app-${block.attribute.attributeAndItem.type.item.itemName.kebabCase}-table
                       |                                [${block.attribute.attributeAndItem.type.item.itemName.camelCase}FormArray]="${block.attribute.attributeName.camelCase}Control"
-                      |                                (edit${block.attribute.attributeAndItem.type.item.itemName.pascalCase}FormGroup)="on${block.attribute.attributeName.pascalCase}FormGroupEdit(${"$"}event)"
-                      |                                (delete${block.attribute.attributeAndItem.type.item.itemName.pascalCase}FormGroup)="on${block.attribute.attributeName.pascalCase}FormGroupDelete(${"$"}event)"
+                      |                                (edit${block.attribute.attributeAndItem.type.item.itemName.pascalCase}FormGroup)="${block.attribute.attributeName.camelCase}EditState.onEdit(${"$"}event)"
+                      |                                (delete${block.attribute.attributeAndItem.type.item.itemName.pascalCase}FormGroup)="${block.attribute.attributeName.camelCase}EditState.onDelete(${"$"}event)"
                       |                        />
-                      |                        @if (${block.attribute.attributeName.camelCase}FormGroupUnderEdit) {
+                      |                        @if (${block.attribute.attributeName.camelCase}EditState.formGroupUnderEdit) {
                       |                            <div class="edit-area">
-                      |                                <button mat-icon-button color="primary" (click)="close${block.attribute.attributeName.pascalCase}FormGroupUnderEdit()">
+                      |                                <button mat-icon-button color="primary" (click)="${block.attribute.attributeName.camelCase}EditState.close()">
                       |                                    <mat-icon>edit_off</mat-icon>
                       |                                </button>
                       |${SingleFormInputHtmlTagRenderer.renderTemplate(attributeModel = block.attribute, isList = true)}                            </div>
@@ -63,12 +63,12 @@ object EntityItemFormPartBlocksComponentHtmlRenderer {
                       |                    >
                       |                        <app-${block.attribute.attributeAndItem.type.item.itemName.kebabCase}-table
                       |                                [${block.attribute.attributeAndItem.type.item.itemName.camelCase}FormArray]="${block.attribute.attributeName.camelCase}Control"
-                      |                                (edit${block.attribute.attributeAndItem.type.item.itemName.pascalCase}FormGroup)="on${block.attribute.attributeName.pascalCase}FormGroupEdit(${"$"}event)"
-                      |                                (delete${block.attribute.attributeAndItem.type.item.itemName.pascalCase}FormGroup)="on${block.attribute.attributeName.pascalCase}FormGroupDelete(${"$"}event)"
+                      |                                (edit${block.attribute.attributeAndItem.type.item.itemName.pascalCase}FormGroup)="${block.attribute.attributeName.camelCase}EditState.onEdit(${"$"}event)"
+                      |                                (delete${block.attribute.attributeAndItem.type.item.itemName.pascalCase}FormGroup)="${block.attribute.attributeName.camelCase}EditState.onDelete(${"$"}event)"
                       |                        />
-                      |                        @if (${block.attribute.attributeName.camelCase}FormGroupUnderEdit) {
+                      |                        @if (${block.attribute.attributeName.camelCase}EditState.formGroupUnderEdit) {
                       |                            <div class="edit-area">
-                      |                                <button mat-icon-button color="primary" (click)="close${block.attribute.attributeName.pascalCase}FormGroupUnderEdit()">
+                      |                                <button mat-icon-button color="primary" (click)="${block.attribute.attributeName.camelCase}EditState.close()">
                       |                                    <mat-icon>edit_off</mat-icon>
                       |                                </button>
                       |${SingleFormInputHtmlTagRenderer.renderTemplate(attributeModel = block.attribute, isList = true)}                            </div>

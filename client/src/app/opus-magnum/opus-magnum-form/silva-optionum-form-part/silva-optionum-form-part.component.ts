@@ -40,7 +40,7 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {MatDialogModule} from "@angular/material/dialog";
-import {FormUtil} from "@app/shared/form-controls/form.util";
+import {FormArrayEditState} from "@app/shared/form-controls/form-array-edit-state";
 import {FieldWrapperComponent} from "@app/shared/form-controls/field-wrapper/field-wrapper.component";
 import {
     SilvaOptionumFormPartValidationService
@@ -200,18 +200,22 @@ import {
 export class SilvaOptionumFormPartComponent implements OnInit {
     @Input({ required: true }) silvaOptionumForm!: FormGroup<SilvaOptionumFormPartGroup>;
 
-    /* @tt{{{ 
+    /* @tt{{{
         @foreach [ iteratorExpression="model.item.attributesWithItem.filter { it.attribute.isList }" loopVariable="attributeWithItem" ]
         @replace-value-by-expression
             [ searchValue="articulusInteriorIteratus" replaceByExpression="attributeWithItem.attribute.attributeName.camelCase" ]
             [ searchValue="FormGroup<ArticulusInteriorFormPartGroup>" replaceByExpression="attributeWithItem.attribute.angularFormControlType" ]
 
     }}}@  */
-    articulusInteriorIteratusFormGroupUnderEdit: FormGroup<ArticulusInteriorFormPartGroup> | undefined = undefined;
+    readonly articulusInteriorIteratusEditState = new FormArrayEditState<FormGroup<ArticulusInteriorFormPartGroup>>(
+        () => this.articulusInteriorIteratusControl
+    );
     /* @tt{{{   @end-foreach  }}}@ */
 
     /* @tt{{{   @ignore-text  }}}@ */
-    articulusInteriorOptionalisIteratusFormGroupUnderEdit: FormGroup<ArticulusInteriorFormPartGroup> | undefined = undefined;
+    readonly articulusInteriorOptionalisIteratusEditState = new FormArrayEditState<FormGroup<ArticulusInteriorFormPartGroup>>(
+        () => this.articulusInteriorOptionalisIteratusControl
+    );
 
     protected campusTextusObligatoriusControl!: FormControl<string>
     protected campusTextusObligatoriusValidatorNames!: ReadonlyArray<ValidatorTranslation>
@@ -315,47 +319,4 @@ export class SilvaOptionumFormPartComponent implements OnInit {
         this.iteratioSimpliciumTextuumValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum)
         /* @tt{{{   @end-ignore-text  }}}@ */
     }
-
-
-    /* @tt{{{ 
-    @foreach [ iteratorExpression="model.item.attributesWithLists" loopVariable="attribute" ]
-    @replace-value-by-expression
-        [ searchValue="articulusInteriorIteratus" replaceByExpression="attribute.attributeName.camelCase" ]
-        [ searchValue="ArticulusInteriorIteratus" replaceByExpression="attribute.attributeName.pascalCase" ]
-        [ searchValue="FormGroup<ArticulusInteriorFormPartGroup>" replaceByExpression="attribute.angularFormControlType" ]
-
-    }}}@  */
-    onArticulusInteriorIteratusFormGroupEdit(formGroup: FormGroup<ArticulusInteriorFormPartGroup>): void {
-        this.articulusInteriorIteratusFormGroupUnderEdit = formGroup;
-    }
-
-    onArticulusInteriorIteratusFormGroupDelete(formGroup: FormGroup<ArticulusInteriorFormPartGroup>): void {
-        if(this.articulusInteriorIteratusFormGroupUnderEdit == formGroup) {
-            this.articulusInteriorIteratusFormGroupUnderEdit = undefined
-        }
-        FormUtil.removeControl(this.articulusInteriorIteratusControl, formGroup)
-    }
-
-    closeArticulusInteriorIteratusFormGroupUnderEdit(): void {
-        this.articulusInteriorIteratusFormGroupUnderEdit = undefined;
-    }
-
-    /* @tt{{{   @end-foreach  }}}@ */
-
-    /* @tt{{{   @ignore-text  }}}@ */
-    onArticulusInteriorOptionalisIteratusFormGroupEdit(formGroup: FormGroup<ArticulusInteriorFormPartGroup>): void {
-        this.articulusInteriorOptionalisIteratusFormGroupUnderEdit = formGroup;
-    }
-
-    onArticulusInteriorOptionalisIteratusFormGroupDelete(formGroup: FormGroup<ArticulusInteriorFormPartGroup>): void {
-        if(this.articulusInteriorOptionalisIteratusFormGroupUnderEdit == formGroup) {
-            this.articulusInteriorOptionalisIteratusFormGroupUnderEdit = undefined
-        }
-        FormUtil.removeControl(this.articulusInteriorOptionalisIteratusControl, formGroup)
-    }
-
-    closeArticulusInteriorOptionalisIteratusFormGroupUnderEdit(): void {
-        this.articulusInteriorOptionalisIteratusFormGroupUnderEdit = undefined;
-    }
-    /* @tt{{{   @end-ignore-text  }}}@ */
 }

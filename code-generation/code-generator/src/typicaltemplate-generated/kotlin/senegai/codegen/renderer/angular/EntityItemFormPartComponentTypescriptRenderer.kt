@@ -29,7 +29,7 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
           |import {MatSidenavModule} from "@angular/material/sidenav";
           |import {MatListModule} from "@angular/material/list";
           |import {MatDialogModule} from "@angular/material/dialog";
-          |import {FormUtil} from "@app/shared/form-controls/form.util";
+          |import {FormArrayEditState} from "@app/shared/form-controls/form-array-edit-state";
           |import {FieldWrapperComponent} from "@app/shared/form-controls/field-wrapper/field-wrapper.component";
           |import {
           |    ${model.item.itemName.pascalCase}FormPartValidationService
@@ -89,7 +89,9 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
           |export class ${model.item.itemName.pascalCase}FormPartComponent implements OnInit {
           |    @Input({ required: true }) ${model.item.itemName.camelCase}Form!: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>;
           |
-          |${ model.item.attributesWithItem.filter { it.attribute.isList }.joinToString("") { attributeWithItem ->  """    ${attributeWithItem.attribute.attributeName.camelCase}FormGroupUnderEdit: ${attributeWithItem.attribute.angularFormControlType} | undefined = undefined;
+          |${ model.item.attributesWithItem.filter { it.attribute.isList }.joinToString("") { attributeWithItem ->  """    readonly ${attributeWithItem.attribute.attributeName.camelCase}EditState = new FormArrayEditState<${attributeWithItem.attribute.angularFormControlType}>(
+              |        () => this.${attributeWithItem.attribute.attributeName.camelCase}Control
+              |    );
               |""" } }
           |${ model.item.attributes.joinToString("") { attribute ->  """${ if(attribute.isNullable) { """    protected ${attribute.attributeName.camelCase}IsNotNullControl!: FormControl<boolean>
                   |    protected ${attribute.attributeName.camelCase}IsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
@@ -107,24 +109,6 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
               |        this.${attribute.attributeName.camelCase}ValidatorNames = this.${model.item.itemName.camelCase}FormValidationService.validatorNames(${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase})
               |
               |""" } }    }
-          |
-          |
-          |${ model.item.attributesWithLists.joinToString("") { attribute ->  """    on${attribute.attributeName.pascalCase}FormGroupEdit(formGroup: ${attribute.angularFormControlType}): void {
-              |        this.${attribute.attributeName.camelCase}FormGroupUnderEdit = formGroup;
-              |    }
-              |
-              |    on${attribute.attributeName.pascalCase}FormGroupDelete(formGroup: ${attribute.angularFormControlType}): void {
-              |        if(this.${attribute.attributeName.camelCase}FormGroupUnderEdit == formGroup) {
-              |            this.${attribute.attributeName.camelCase}FormGroupUnderEdit = undefined
-              |        }
-              |        FormUtil.removeControl(this.${attribute.attributeName.camelCase}Control, formGroup)
-              |    }
-              |
-              |    close${attribute.attributeName.pascalCase}FormGroupUnderEdit(): void {
-              |        this.${attribute.attributeName.camelCase}FormGroupUnderEdit = undefined;
-              |    }
-              |
-              |""" } }
           |}
           |
         """.trimMargin(marginPrefix = "|")

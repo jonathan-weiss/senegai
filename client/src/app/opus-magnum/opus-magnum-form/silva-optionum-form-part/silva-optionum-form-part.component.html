@@ -173,12 +173,12 @@
                     <app-field-wrapper label="Articulus Interior List">
                         <app-articulus-interior-table
                                 [articulusInteriorFormArray]="articulusInteriorIteratusControl"
-                                (editArticulusInteriorFormGroup)="onArticulusInteriorIteratusFormGroupEdit($event)"
-                                (deleteArticulusInteriorFormGroup)="onArticulusInteriorIteratusFormGroupDelete($event)"
+                                (editArticulusInteriorFormGroup)="articulusInteriorIteratusEditState.onEdit($event)"
+                                (deleteArticulusInteriorFormGroup)="articulusInteriorIteratusEditState.onDelete($event)"
                         />
-                        @if (articulusInteriorIteratusFormGroupUnderEdit) {
+                        @if (articulusInteriorIteratusEditState.formGroupUnderEdit) {
                             <div class="edit-area">
-                                <button mat-icon-button color="primary" (click)="closeArticulusInteriorIteratusFormGroupUnderEdit()">
+                                <button mat-icon-button color="primary" (click)="articulusInteriorIteratusEditState.close()">
                                     <mat-icon>edit_off</mat-icon>
                                 </button>
                                 <!-- @tt{{{
@@ -188,7 +188,7 @@
                                         [ modelName="isList" modelExpression="true" ]
                                     @ignore-text
                                 }}}@  -->
-                                <app-articulus-interior-form-part [articulusInteriorForm]="articulusInteriorIteratusFormGroupUnderEdit!"  />
+                                <app-articulus-interior-form-part [articulusInteriorForm]="articulusInteriorIteratusEditState.formGroupUnderEdit!"  />
                                 <!-- @tt{{{ @end-ignore-text }}}@  -->
                             </div>
                         }
@@ -216,12 +216,12 @@
                     >
                         <app-articulus-interior-table
                                 [articulusInteriorFormArray]="articulusInteriorOptionalisIteratusControl"
-                                (editArticulusInteriorFormGroup)="onArticulusInteriorOptionalisIteratusFormGroupEdit($event)"
-                                (deleteArticulusInteriorFormGroup)="onArticulusInteriorOptionalisIteratusFormGroupDelete($event)"
+                                (editArticulusInteriorFormGroup)="articulusInteriorOptionalisIteratusEditState.onEdit($event)"
+                                (deleteArticulusInteriorFormGroup)="articulusInteriorOptionalisIteratusEditState.onDelete($event)"
                         />
-                        @if (articulusInteriorOptionalisIteratusFormGroupUnderEdit) {
+                        @if (articulusInteriorOptionalisIteratusEditState.formGroupUnderEdit) {
                             <div class="edit-area">
-                                <button mat-icon-button color="primary" (click)="closeArticulusInteriorOptionalisIteratusFormGroupUnderEdit()">
+                                <button mat-icon-button color="primary" (click)="articulusInteriorOptionalisIteratusEditState.close()">
                                     <mat-icon>edit_off</mat-icon>
                                 </button>
                                 <!-- @tt{{{
@@ -231,7 +231,7 @@
                                         [ modelName="isList" modelExpression="true" ]
                                     @ignore-text
                                 }}}@  -->
-                                <app-articulus-interior-form-part [articulusInteriorForm]="articulusInteriorOptionalisIteratusFormGroupUnderEdit!"  />
+                                <app-articulus-interior-form-part [articulusInteriorForm]="articulusInteriorOptionalisIteratusEditState.formGroupUnderEdit!"  />
                                 <!-- @tt{{{ @end-ignore-text }}}@  -->
                             </div>
                         }
