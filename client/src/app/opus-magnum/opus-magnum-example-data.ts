@@ -90,7 +90,7 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
             scriptumTriviale: "ALA Medal of Excellence.",
             numerusStupidus: 1956
         },
-        articulusInteriorList: [
+        articulusInteriorIteratus: [
             {
                 scriptumTriviale: "ALA Medal of Excellence.",
                 numerusStupidus: 1956
@@ -100,7 +100,7 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
                 numerusStupidus: 1989
             }
         ],
-        articulusInteriorOptionalisList: [
+        articulusInteriorOptionalisIteratus: [
             {
                 scriptumTriviale: "Qwert keyboard.",
                 numerusStupidus: 1968
@@ -125,7 +125,7 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
             scriptumTriviale: "ALA Medal of Excellence.",
             numerusStupidus: 1956
         },
-        articulusInteriorList: [
+        articulusInteriorIteratus: [
             {
                 scriptumTriviale: "James Madison Award ",
                 numerusStupidus: 1956
@@ -135,7 +135,7 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
                 numerusStupidus: 1998
             }
         ],
-        articulusInteriorOptionalisList: [],
+        articulusInteriorOptionalisIteratus: [],
         articulusInteriorSingularisOptionalis: null,
         campusDiei: null,
         campusBivalens: false,
@@ -151,9 +151,9 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
             scriptumTriviale: "ALA Medal of Excellence.",
             numerusStupidus: 1956
         },
-        articulusInteriorList: [],
+        articulusInteriorIteratus: [],
         articulusInteriorSingularisOptionalis: null,
-        articulusInteriorOptionalisList: null,
+        articulusInteriorOptionalisIteratus: null,
         campusDiei: new Date(1963, 11, 31),
         campusBivalens: true,
         campusNumerorum: 7544,
@@ -168,7 +168,7 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
             scriptumTriviale: "ALA Medal of Excellence.",
             numerusStupidus: 1956
         },
-        articulusInteriorList: [
+        articulusInteriorIteratus: [
             {
                 scriptumTriviale: "Jean E. Coleman Library Outreach Lecture",
                 numerusStupidus: 1956
@@ -182,7 +182,7 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
             scriptumTriviale: "A bright shining day",
             numerusStupidus: 2021
         },
-        articulusInteriorOptionalisList: null,
+        articulusInteriorOptionalisIteratus: null,
         campusDiei: new Date(1954, 8, 3),
         campusBivalens: false,
         appellatio: AppellatioEnum.MATRONA,

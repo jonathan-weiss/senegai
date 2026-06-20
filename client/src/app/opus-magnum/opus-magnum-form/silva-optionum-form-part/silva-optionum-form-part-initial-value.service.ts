@@ -69,10 +69,10 @@ export class SilvaOptionumFormPartInitialValueService {
     campusTextusOptionalisInitialValue(): string {
         return ''
     }
-    articulusInteriorListInitialValue(): Array<FormGroup<ArticulusInteriorFormPartGroup>> {
+    articulusInteriorIteratusInitialValue(): Array<FormGroup<ArticulusInteriorFormPartGroup>> {
         return []
     }
-    articulusInteriorOptionalisListInitialValue(): Array<FormGroup<ArticulusInteriorFormPartGroup>> {
+    articulusInteriorOptionalisIteratusInitialValue(): Array<FormGroup<ArticulusInteriorFormPartGroup>> {
         return []
     }
     campusDieiInitialValue(): Date {

@@ -203,15 +203,15 @@ export class SilvaOptionumFormPartComponent implements OnInit {
     /* @tt{{{ 
         @foreach [ iteratorExpression="model.item.attributesWithItem.filter { it.attribute.isList }" loopVariable="attributeWithItem" ]
         @replace-value-by-expression
-            [ searchValue="articulusInteriorList" replaceByExpression="attributeWithItem.attribute.attributeName.camelCase" ]
+            [ searchValue="articulusInteriorIteratus" replaceByExpression="attributeWithItem.attribute.attributeName.camelCase" ]
             [ searchValue="FormGroup<ArticulusInteriorFormPartGroup>" replaceByExpression="attributeWithItem.attribute.angularFormControlType" ]
 
     }}}@  */
-    articulusInteriorListFormGroupUnderEdit: FormGroup<ArticulusInteriorFormPartGroup> | undefined = undefined;
+    articulusInteriorIteratusFormGroupUnderEdit: FormGroup<ArticulusInteriorFormPartGroup> | undefined = undefined;
     /* @tt{{{   @end-foreach  }}}@ */
 
     /* @tt{{{   @ignore-text  }}}@ */
-    articulusInteriorOptionalisListFormGroupUnderEdit: FormGroup<ArticulusInteriorFormPartGroup> | undefined = undefined;
+    articulusInteriorOptionalisIteratusFormGroupUnderEdit: FormGroup<ArticulusInteriorFormPartGroup> | undefined = undefined;
 
     protected campusTextusObligatoriusControl!: FormControl<string>
     protected campusTextusObligatoriusValidatorNames!: ReadonlyArray<ValidatorTranslation>
@@ -235,12 +235,12 @@ export class SilvaOptionumFormPartComponent implements OnInit {
     /* @tt{{{  @end-foreach  }}}@ */
     /* @tt{{{   @ignore-text  }}}@ */
 
-    protected articulusInteriorListControl!: FormArray<FormGroup<ArticulusInteriorFormPartGroup>>
-    protected articulusInteriorListValidatorNames!: ReadonlyArray<ValidatorTranslation>
-    protected articulusInteriorOptionalisListControl!: FormArray<FormGroup<ArticulusInteriorFormPartGroup>>
-    protected articulusInteriorOptionalisListValidatorNames!: ReadonlyArray<ValidatorTranslation>
-    protected articulusInteriorOptionalisListIsNotNullControl!: FormControl<boolean>
-    protected articulusInteriorOptionalisListIsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
+    protected articulusInteriorIteratusControl!: FormArray<FormGroup<ArticulusInteriorFormPartGroup>>
+    protected articulusInteriorIteratusValidatorNames!: ReadonlyArray<ValidatorTranslation>
+    protected articulusInteriorOptionalisIteratusControl!: FormArray<FormGroup<ArticulusInteriorFormPartGroup>>
+    protected articulusInteriorOptionalisIteratusValidatorNames!: ReadonlyArray<ValidatorTranslation>
+    protected articulusInteriorOptionalisIteratusIsNotNullControl!: FormControl<boolean>
+    protected articulusInteriorOptionalisIteratusIsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected campusDieiIsNotNullControl!: FormControl<boolean>
     protected campusDieiIsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected campusDieiControl!: FormControl<Date | null>
@@ -287,12 +287,12 @@ export class SilvaOptionumFormPartComponent implements OnInit {
 
         /* @tt{{{  @end-foreach  }}}@ */
         /* @tt{{{   @ignore-text  }}}@ */
-        this.articulusInteriorListControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.articulusInteriorList]
-        this.articulusInteriorListValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.articulusInteriorList)
-        this.articulusInteriorOptionalisListControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.articulusInteriorOptionalisList]
-        this.articulusInteriorOptionalisListValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.articulusInteriorOptionalisList)
-        this.articulusInteriorOptionalisListIsNotNullControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.articulusInteriorOptionalisListIsNotNull]
-        this.articulusInteriorOptionalisListIsNotNullValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.articulusInteriorOptionalisListIsNotNull)
+        this.articulusInteriorIteratusControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.articulusInteriorIteratus]
+        this.articulusInteriorIteratusValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.articulusInteriorIteratus)
+        this.articulusInteriorOptionalisIteratusControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.articulusInteriorOptionalisIteratus]
+        this.articulusInteriorOptionalisIteratusValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.articulusInteriorOptionalisIteratus)
+        this.articulusInteriorOptionalisIteratusIsNotNullControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.articulusInteriorOptionalisIteratusIsNotNull]
+        this.articulusInteriorOptionalisIteratusIsNotNullValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.articulusInteriorOptionalisIteratusIsNotNull)
         this.campusDieiIsNotNullControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.campusDieiIsNotNull]
         this.campusDieiIsNotNullValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.campusDieiIsNotNull)
         this.campusDieiControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.campusDiei]
@@ -320,42 +320,42 @@ export class SilvaOptionumFormPartComponent implements OnInit {
     /* @tt{{{ 
     @foreach [ iteratorExpression="model.item.attributesWithLists" loopVariable="attribute" ]
     @replace-value-by-expression
-        [ searchValue="articulusInteriorList" replaceByExpression="attribute.attributeName.camelCase" ]
-        [ searchValue="ArticulusInteriorList" replaceByExpression="attribute.attributeName.pascalCase" ]
+        [ searchValue="articulusInteriorIteratus" replaceByExpression="attribute.attributeName.camelCase" ]
+        [ searchValue="ArticulusInteriorIteratus" replaceByExpression="attribute.attributeName.pascalCase" ]
         [ searchValue="FormGroup<ArticulusInteriorFormPartGroup>" replaceByExpression="attribute.angularFormControlType" ]
 
     }}}@  */
-    onArticulusInteriorListFormGroupEdit(formGroup: FormGroup<ArticulusInteriorFormPartGroup>): void {
-        this.articulusInteriorListFormGroupUnderEdit = formGroup;
+    onArticulusInteriorIteratusFormGroupEdit(formGroup: FormGroup<ArticulusInteriorFormPartGroup>): void {
+        this.articulusInteriorIteratusFormGroupUnderEdit = formGroup;
     }
 
-    onArticulusInteriorListFormGroupDelete(formGroup: FormGroup<ArticulusInteriorFormPartGroup>): void {
-        if(this.articulusInteriorListFormGroupUnderEdit == formGroup) {
-            this.articulusInteriorListFormGroupUnderEdit = undefined
+    onArticulusInteriorIteratusFormGroupDelete(formGroup: FormGroup<ArticulusInteriorFormPartGroup>): void {
+        if(this.articulusInteriorIteratusFormGroupUnderEdit == formGroup) {
+            this.articulusInteriorIteratusFormGroupUnderEdit = undefined
         }
-        FormUtil.removeControl(this.articulusInteriorListControl, formGroup)
+        FormUtil.removeControl(this.articulusInteriorIteratusControl, formGroup)
     }
 
-    closeArticulusInteriorListFormGroupUnderEdit(): void {
-        this.articulusInteriorListFormGroupUnderEdit = undefined;
+    closeArticulusInteriorIteratusFormGroupUnderEdit(): void {
+        this.articulusInteriorIteratusFormGroupUnderEdit = undefined;
     }
 
     /* @tt{{{   @end-foreach  }}}@ */
 
     /* @tt{{{   @ignore-text  }}}@ */
-    onArticulusInteriorOptionalisListFormGroupEdit(formGroup: FormGroup<ArticulusInteriorFormPartGroup>): void {
-        this.articulusInteriorOptionalisListFormGroupUnderEdit = formGroup;
+    onArticulusInteriorOptionalisIteratusFormGroupEdit(formGroup: FormGroup<ArticulusInteriorFormPartGroup>): void {
+        this.articulusInteriorOptionalisIteratusFormGroupUnderEdit = formGroup;
     }
 
-    onArticulusInteriorOptionalisListFormGroupDelete(formGroup: FormGroup<ArticulusInteriorFormPartGroup>): void {
-        if(this.articulusInteriorOptionalisListFormGroupUnderEdit == formGroup) {
-            this.articulusInteriorOptionalisListFormGroupUnderEdit = undefined
+    onArticulusInteriorOptionalisIteratusFormGroupDelete(formGroup: FormGroup<ArticulusInteriorFormPartGroup>): void {
+        if(this.articulusInteriorOptionalisIteratusFormGroupUnderEdit == formGroup) {
+            this.articulusInteriorOptionalisIteratusFormGroupUnderEdit = undefined
         }
-        FormUtil.removeControl(this.articulusInteriorOptionalisListControl, formGroup)
+        FormUtil.removeControl(this.articulusInteriorOptionalisIteratusControl, formGroup)
     }
 
-    closeArticulusInteriorOptionalisListFormGroupUnderEdit(): void {
-        this.articulusInteriorOptionalisListFormGroupUnderEdit = undefined;
+    closeArticulusInteriorOptionalisIteratusFormGroupUnderEdit(): void {
+        this.articulusInteriorOptionalisIteratusFormGroupUnderEdit = undefined;
     }
     /* @tt{{{   @end-ignore-text  }}}@ */
 }

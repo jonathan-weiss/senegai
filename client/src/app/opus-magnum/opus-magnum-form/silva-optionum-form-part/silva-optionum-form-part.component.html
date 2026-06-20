@@ -161,8 +161,8 @@
 
                     @replace-value-by-expression
                     [ searchValue="Articulus Interior List" replaceByExpression="block.attribute.attributeName.pascalCase" ]
-                    [ searchValue="ArticulusInteriorList" replaceByExpression="block.attribute.attributeName.pascalCase" ]
-                    [ searchValue="articulusInteriorList" replaceByExpression="block.attribute.attributeName.camelCase" ]
+                    [ searchValue="ArticulusInteriorIteratus" replaceByExpression="block.attribute.attributeName.pascalCase" ]
+                    [ searchValue="articulusInteriorIteratus" replaceByExpression="block.attribute.attributeName.camelCase" ]
                     [ searchValue="ArticulusInterior" replaceByExpression="block.attribute.attributeAndItem.type.item.itemName.pascalCase" ]
                     [ searchValue="articulusInterior" replaceByExpression="block.attribute.attributeAndItem.type.item.itemName.camelCase" ]
                     [ searchValue="articulus-interior" replaceByExpression="block.attribute.attributeAndItem.type.item.itemName.kebabCase" ]
@@ -172,13 +172,13 @@
                 <div class="form-row">
                     <app-field-wrapper label="Articulus Interior List">
                         <app-articulus-interior-table
-                                [articulusInteriorFormArray]="articulusInteriorListControl"
-                                (editArticulusInteriorFormGroup)="onArticulusInteriorListFormGroupEdit($event)"
-                                (deleteArticulusInteriorFormGroup)="onArticulusInteriorListFormGroupDelete($event)"
+                                [articulusInteriorFormArray]="articulusInteriorIteratusControl"
+                                (editArticulusInteriorFormGroup)="onArticulusInteriorIteratusFormGroupEdit($event)"
+                                (deleteArticulusInteriorFormGroup)="onArticulusInteriorIteratusFormGroupDelete($event)"
                         />
-                        @if (articulusInteriorListFormGroupUnderEdit) {
+                        @if (articulusInteriorIteratusFormGroupUnderEdit) {
                             <div class="edit-area">
-                                <button mat-icon-button color="primary" (click)="closeArticulusInteriorListFormGroupUnderEdit()">
+                                <button mat-icon-button color="primary" (click)="closeArticulusInteriorIteratusFormGroupUnderEdit()">
                                     <mat-icon>edit_off</mat-icon>
                                 </button>
                                 <!-- @tt{{{
@@ -188,7 +188,7 @@
                                         [ modelName="isList" modelExpression="true" ]
                                     @ignore-text
                                 }}}@  -->
-                                <app-articulus-interior-form-part [articulusInteriorForm]="articulusInteriorListFormGroupUnderEdit!"  />
+                                <app-articulus-interior-form-part [articulusInteriorForm]="articulusInteriorIteratusFormGroupUnderEdit!"  />
                                 <!-- @tt{{{ @end-ignore-text }}}@  -->
                             </div>
                         }
@@ -201,8 +201,8 @@
 
                     @replace-value-by-expression
                     [ searchValue="Articulus Interior Optionalis List" replaceByExpression="block.attribute.attributeName.pascalCase" ]
-                    [ searchValue="ArticulusInteriorOptionalisList" replaceByExpression="block.attribute.attributeName.pascalCase" ]
-                    [ searchValue="articulusInteriorOptionalisList" replaceByExpression="block.attribute.attributeName.camelCase" ]
+                    [ searchValue="ArticulusInteriorOptionalisIteratus" replaceByExpression="block.attribute.attributeName.pascalCase" ]
+                    [ searchValue="articulusInteriorOptionalisIteratus" replaceByExpression="block.attribute.attributeName.camelCase" ]
                     [ searchValue="ArticulusInterior" replaceByExpression="block.attribute.attributeAndItem.type.item.itemName.pascalCase" ]
                     [ searchValue="articulusInterior" replaceByExpression="block.attribute.attributeAndItem.type.item.itemName.camelCase" ]
                     [ searchValue="articulus-interior" replaceByExpression="block.attribute.attributeAndItem.type.item.itemName.kebabCase" ]
@@ -211,17 +211,17 @@
 
                 <div class="form-row">
                     <app-field-wrapper label="Articulus Interior Optionalis List"
-                                       [nullabilityCheckboxFormControl]="articulusInteriorOptionalisListIsNotNullControl"
-                                       [formGroupToDisableIfNullField]="articulusInteriorOptionalisListControl"
+                                       [nullabilityCheckboxFormControl]="articulusInteriorOptionalisIteratusIsNotNullControl"
+                                       [formGroupToDisableIfNullField]="articulusInteriorOptionalisIteratusControl"
                     >
                         <app-articulus-interior-table
-                                [articulusInteriorFormArray]="articulusInteriorOptionalisListControl"
-                                (editArticulusInteriorFormGroup)="onArticulusInteriorOptionalisListFormGroupEdit($event)"
-                                (deleteArticulusInteriorFormGroup)="onArticulusInteriorOptionalisListFormGroupDelete($event)"
+                                [articulusInteriorFormArray]="articulusInteriorOptionalisIteratusControl"
+                                (editArticulusInteriorFormGroup)="onArticulusInteriorOptionalisIteratusFormGroupEdit($event)"
+                                (deleteArticulusInteriorFormGroup)="onArticulusInteriorOptionalisIteratusFormGroupDelete($event)"
                         />
-                        @if (articulusInteriorOptionalisListFormGroupUnderEdit) {
+                        @if (articulusInteriorOptionalisIteratusFormGroupUnderEdit) {
                             <div class="edit-area">
-                                <button mat-icon-button color="primary" (click)="closeArticulusInteriorOptionalisListFormGroupUnderEdit()">
+                                <button mat-icon-button color="primary" (click)="closeArticulusInteriorOptionalisIteratusFormGroupUnderEdit()">
                                     <mat-icon>edit_off</mat-icon>
                                 </button>
                                 <!-- @tt{{{
@@ -231,7 +231,7 @@
                                         [ modelName="isList" modelExpression="true" ]
                                     @ignore-text
                                 }}}@  -->
-                                <app-articulus-interior-form-part [articulusInteriorForm]="articulusInteriorOptionalisListFormGroupUnderEdit!"  />
+                                <app-articulus-interior-form-part [articulusInteriorForm]="articulusInteriorOptionalisIteratusFormGroupUnderEdit!"  />
                                 <!-- @tt{{{ @end-ignore-text }}}@  -->
                             </div>
                         }
