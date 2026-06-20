@@ -87,8 +87,8 @@ import {TextBlockComponent} from "@app/shared/blocks/text-block/text-block.compo
 import {AppellatioEnum} from "@app/wto/appellatio.enum";
 import {AppellatioSelectorComponent} from "@app/enum/appellatio-input-selection/appellatio-selector.component";
 import {
-    TabulaSimplexComponent
-} from "@app/opus-magnum/opus-magnum-form/tabula-simplex/tabula-simplex.component";
+    SingleTextFormFieldTableComponent
+} from "@app/shared/form-controls/single-text-form-field-table/single-text-form-field-table.component";
 
 /* @tt{{{   @end-ignore-text  }}}@ */
 
@@ -193,7 +193,7 @@ import {
         /* @tt{{{   @ignore-text }}}@ */
         DatepickerInputComponent,
         AppellatioSelectorComponent,
-        TabulaSimplexComponent,
+        SingleTextFormFieldTableComponent,
         /* @tt{{{   @end-ignore-text }}}@ */
     ]
 })
