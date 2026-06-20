@@ -4,11 +4,11 @@ import {Injectable} from '@angular/core';
 @Injectable({providedIn: 'root'})
 export class ArticulusInteriorFormPartInitialValueService {
 
-    articulusInteriorListDescriptionInitialValue(): string {
+    articulusInteriorListScriptumTrivialeInitialValue(): string {
         return ''
     }
 
-    articulusInteriorListYearInitialValue(): number {
+    articulusInteriorListNumerusStupidusInitialValue(): number {
         return 2025
     }
 }

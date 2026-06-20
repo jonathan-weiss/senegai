@@ -1,5 +1,5 @@
 export enum ArticulusInteriorFormPartFieldName {
-    description = "description",
-    year = "year",
+    scriptumTriviale = "scriptumTriviale",
+    numerusStupidus = "numerusStupidus",
 }
 

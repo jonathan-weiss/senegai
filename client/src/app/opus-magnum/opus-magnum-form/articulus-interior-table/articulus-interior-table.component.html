@@ -38,27 +38,27 @@
             @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
             @replace-value-by-expression
-            [ searchValue="description" replaceByExpression="attribute.attributeName.camelCase" ]
-            [ searchValue="Description" replaceByExpression="attribute.attributeName.pascalCase" ]
+            [ searchValue="scriptumTriviale" replaceByExpression="attribute.attributeName.camelCase" ]
+            [ searchValue="ScriptumTriviale" replaceByExpression="attribute.attributeName.pascalCase" ]
 
 
         }}}@  -->
 
-        <!-- Description Column -->
-        <ng-container matColumnDef="description">
-            <th mat-header-cell *matHeaderCellDef>Description</th>
+        <!-- ScriptumTriviale Column -->
+        <ng-container matColumnDef="scriptumTriviale">
+            <th mat-header-cell *matHeaderCellDef>ScriptumTriviale</th>
             <td mat-cell *matCellDef="let tableRow" (click)="onSelect(tableRow.formGroup)">
-                {{ tableRow.description }}
+                {{ tableRow.scriptumTriviale }}
             </td>
         </ng-container>
         <!-- @tt{{{  @end-foreach  }}}@  -->
         <!-- @tt{{{ @ignore-text  }}}@ -->
 
-        <!-- Year Column -->
-        <ng-container matColumnDef="year">
-            <th mat-header-cell *matHeaderCellDef>Year</th>
+        <!-- NumerusStupidus Column -->
+        <ng-container matColumnDef="numerusStupidus">
+            <th mat-header-cell *matHeaderCellDef>NumerusStupidus</th>
             <td mat-cell *matCellDef="let tableRow" (click)="onSelect(tableRow.formGroup)">
-                {{ tableRow.year }}
+                {{ tableRow.numerusStupidus }}
             </td>
         </ng-container>
         <!-- @tt{{{ @end-ignore-text  }}}@ -->

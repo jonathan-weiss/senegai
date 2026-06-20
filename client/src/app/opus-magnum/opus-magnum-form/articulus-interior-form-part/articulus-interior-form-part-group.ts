@@ -5,6 +5,6 @@ import {
 
 
 export interface ArticulusInteriorFormPartGroup {
-    [ArticulusInteriorFormPartFieldName.description]: FormControl<string>,
-    [ArticulusInteriorFormPartFieldName.year]: FormControl<number>,
+    [ArticulusInteriorFormPartFieldName.scriptumTriviale]: FormControl<string>,
+    [ArticulusInteriorFormPartFieldName.numerusStupidus]: FormControl<number>,
 }

@@ -40,15 +40,15 @@ export interface ArticulusInteriorTableRow {
         @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
         @replace-value-by-expression
-        [ searchValue="description" replaceByExpression="attribute.attributeName.camelCase" ]
-        [ searchValue="Description" replaceByExpression="attribute.attributeName.pascalCase" ]
+        [ searchValue="scriptumTriviale" replaceByExpression="attribute.attributeName.camelCase" ]
+        [ searchValue="ScriptumTriviale" replaceByExpression="attribute.attributeName.pascalCase" ]
         
     }}}@
      */
-    description: string
+    scriptumTriviale: string
     /* @tt{{{   @end-foreach  }}}@ */
     /* @tt{{{   @ignore-text  }}}@ */
-    year: number
+    numerusStupidus: number
     /* @tt{{{   @end-ignore-text  }}}@ */
     formGroup: FormGroup<ArticulusInteriorFormPartGroup>
 }

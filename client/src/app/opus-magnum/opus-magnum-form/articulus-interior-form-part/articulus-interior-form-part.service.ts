@@ -30,32 +30,32 @@ export class ArticulusInteriorFormPartService {
 
     public createInitialArticulusInteriorForm(): FormGroup<ArticulusInteriorFormPartGroup> {
         return new FormGroup({
-            [ArticulusInteriorFormPartFieldName.description]: new FormControl<string>(
-                this.articulusInteriorFormInitialValueService.articulusInteriorListDescriptionInitialValue(),
+            [ArticulusInteriorFormPartFieldName.scriptumTriviale]: new FormControl<string>(
+                this.articulusInteriorFormInitialValueService.articulusInteriorListScriptumTrivialeInitialValue(),
                 {
                     nonNullable: true,
-                    validators: this.articulusInteriorFormValidationService.validatorFunctions(ArticulusInteriorFormPartFieldName.description)
+                    validators: this.articulusInteriorFormValidationService.validatorFunctions(ArticulusInteriorFormPartFieldName.scriptumTriviale)
                 },
             ),
-            [ArticulusInteriorFormPartFieldName.year]: new FormControl<number>(
-                this.articulusInteriorFormInitialValueService.articulusInteriorListYearInitialValue(),
+            [ArticulusInteriorFormPartFieldName.numerusStupidus]: new FormControl<number>(
+                this.articulusInteriorFormInitialValueService.articulusInteriorListNumerusStupidusInitialValue(),
                 {
                     nonNullable: true,
-                    validators: this.articulusInteriorFormValidationService.validatorFunctions(ArticulusInteriorFormPartFieldName.year)
+                    validators: this.articulusInteriorFormValidationService.validatorFunctions(ArticulusInteriorFormPartFieldName.numerusStupidus)
                 },
             ),
         });
     }
 
     public patchArticulusInteriorForm(form: FormGroup<ArticulusInteriorFormPartGroup>, articulusInterior: ArticulusInteriorWTO): void {
-        form.controls[ArticulusInteriorFormPartFieldName.description].patchValue(articulusInterior.description);
-        form.controls[ArticulusInteriorFormPartFieldName.year].patchValue(articulusInterior.year);
+        form.controls[ArticulusInteriorFormPartFieldName.scriptumTriviale].patchValue(articulusInterior.scriptumTriviale);
+        form.controls[ArticulusInteriorFormPartFieldName.numerusStupidus].patchValue(articulusInterior.numerusStupidus);
     }
 
     public createArticulusInteriorWTOFromForm(form: FormGroup<ArticulusInteriorFormPartGroup>): ArticulusInteriorWTO {
         return {
-            description: form.controls[ArticulusInteriorFormPartFieldName.description].getRawValue(),
-            year: form.controls[ArticulusInteriorFormPartFieldName.year].getRawValue(),
+            scriptumTriviale: form.controls[ArticulusInteriorFormPartFieldName.scriptumTriviale].getRawValue(),
+            numerusStupidus: form.controls[ArticulusInteriorFormPartFieldName.numerusStupidus].getRawValue(),
         };
     }
 }

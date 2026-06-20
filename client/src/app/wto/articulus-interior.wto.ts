@@ -1,5 +1,5 @@
 
 export interface ArticulusInteriorWTO {
-    description: string;
-    year: number;
+    scriptumTriviale: string;
+    numerusStupidus: number;
 }

@@ -84,14 +84,14 @@ export class ArticulusInteriorTableComponent implements OnInit {
             @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
             @replace-value-by-expression
-            [ searchValue="description" replaceByExpression="attribute.attributeName.camelCase" ]
+            [ searchValue="scriptumTriviale" replaceByExpression="attribute.attributeName.camelCase" ]
             
         }}}@
          */
-        'description',
+        'scriptumTriviale',
         /* @tt{{{   @end-foreach  }}}@ */
         /* @tt{{{   @ignore-text  }}}@ */
-        'year',
+        'numerusStupidus',
         /* @tt{{{   @end-ignore-text  }}}@ */
         'actions',
     ];
@@ -115,16 +115,16 @@ export class ArticulusInteriorTableComponent implements OnInit {
                 @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
                 @replace-value-by-expression
-                [ searchValue="description" replaceByExpression="attribute.attributeName.camelCase" ]
-                [ searchValue="Description" replaceByExpression="attribute.attributeName.pascalCase" ]
+                [ searchValue="scriptumTriviale" replaceByExpression="attribute.attributeName.camelCase" ]
+                [ searchValue="ScriptumTriviale" replaceByExpression="attribute.attributeName.pascalCase" ]
                 
             }}}@
              */
-            description: JSON.stringify(formGroup.controls[ArticulusInteriorFormPartFieldName.description].value),
+            scriptumTriviale: JSON.stringify(formGroup.controls[ArticulusInteriorFormPartFieldName.scriptumTriviale].value),
             /* @tt{{{   @end-foreach  }}}@ */
             /* @tt{{{   @ignore-text  }}}@ */
 
-            year: formGroup.controls[ArticulusInteriorFormPartFieldName.year].value,
+            numerusStupidus: formGroup.controls[ArticulusInteriorFormPartFieldName.numerusStupidus].value,
             /* @tt{{{   @end-ignore-text  }}}@ */
             formGroup: formGroup,
         }

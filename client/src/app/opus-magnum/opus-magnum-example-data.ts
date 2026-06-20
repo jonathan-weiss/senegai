@@ -87,28 +87,28 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
         appellatio: AppellatioEnum.SENIOR,
         campusTextusObligatorius: 'Doe',
         articulusInteriorSingularis: {
-            description: "ALA Medal of Excellence.",
-            year: 1956
+            scriptumTriviale: "ALA Medal of Excellence.",
+            numerusStupidus: 1956
         },
         articulusInteriorList: [
             {
-                description: "ALA Medal of Excellence.",
-                year: 1956
+                scriptumTriviale: "ALA Medal of Excellence.",
+                numerusStupidus: 1956
             },
             {
-                description: "Joseph W. Lippincott Award",
-                year: 1989
+                scriptumTriviale: "Joseph W. Lippincott Award",
+                numerusStupidus: 1989
             }
         ],
         articulusInteriorOptionalisList: [
             {
-                description: "Qwert keyboard.",
-                year: 1968
+                scriptumTriviale: "Qwert keyboard.",
+                numerusStupidus: 1968
             },
         ],
         articulusInteriorSingularisOptionalis: {
-            description: "Truth an right.",
-            year: 1981
+            scriptumTriviale: "Truth an right.",
+            numerusStupidus: 1981
         },
         campusNumerorum: 42,
         indexUnicus: '828cf29b-a7fb-4b07-bf13-9a313a9967f6',
@@ -122,17 +122,17 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
         campusTextusObligatorius: 'Smith',
         campusTextusOptionalis: 'Jane',
         articulusInteriorSingularis: {
-            description: "ALA Medal of Excellence.",
-            year: 1956
+            scriptumTriviale: "ALA Medal of Excellence.",
+            numerusStupidus: 1956
         },
         articulusInteriorList: [
             {
-                description: "James Madison Award ",
-                year: 1956
+                scriptumTriviale: "James Madison Award ",
+                numerusStupidus: 1956
             },
             {
-                description: "John Sessions Memorial Award",
-                year: 1998
+                scriptumTriviale: "John Sessions Memorial Award",
+                numerusStupidus: 1998
             }
         ],
         articulusInteriorOptionalisList: [],
@@ -148,8 +148,8 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
         campusTextusObligatorius: 'Johnson',
         campusTextusOptionalis: null,
         articulusInteriorSingularis: {
-            description: "ALA Medal of Excellence.",
-            year: 1956
+            scriptumTriviale: "ALA Medal of Excellence.",
+            numerusStupidus: 1956
         },
         articulusInteriorList: [],
         articulusInteriorSingularisOptionalis: null,
@@ -165,22 +165,22 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
         campusTextusObligatorius: 'Williams',
         campusTextusOptionalis: 'Molly',
         articulusInteriorSingularis: {
-            description: "ALA Medal of Excellence.",
-            year: 1956
+            scriptumTriviale: "ALA Medal of Excellence.",
+            numerusStupidus: 1956
         },
         articulusInteriorList: [
             {
-                description: "Jean E. Coleman Library Outreach Lecture",
-                year: 1956
+                scriptumTriviale: "Jean E. Coleman Library Outreach Lecture",
+                numerusStupidus: 1956
             },
             {
-                description: "John Sessions Memorial Award",
-                year: 1998
+                scriptumTriviale: "John Sessions Memorial Award",
+                numerusStupidus: 1998
             }
         ],
         articulusInteriorSingularisOptionalis: {
-            description: "A bright shining day",
-            year: 2021
+            scriptumTriviale: "A bright shining day",
+            numerusStupidus: 2021
         },
         articulusInteriorOptionalisList: null,
         campusDiei: new Date(1954, 8, 3),

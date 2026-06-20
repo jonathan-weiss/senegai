@@ -54,15 +54,15 @@ export class ArticulusInteriorFormPartComponent implements OnInit {
     constructor(private readonly articulusInteriorFormPartValidationService: ArticulusInteriorFormPartValidationService,) {
     }
 
-    protected articulusInteriorDescriptionControl!: FormControl<string>
-    protected articulusInteriorDescriptionValidatorNames!: ReadonlyArray<ValidatorTranslation>
-    protected articulusInteriorYearControl!: FormControl<number>
-    protected articulusInteriorYearValidatorNames!: ReadonlyArray<ValidatorTranslation>
+    protected articulusInteriorScriptumTrivialeControl!: FormControl<string>
+    protected articulusInteriorScriptumTrivialeValidatorNames!: ReadonlyArray<ValidatorTranslation>
+    protected articulusInteriorNumerusStupidusControl!: FormControl<number>
+    protected articulusInteriorNumerusStupidusValidatorNames!: ReadonlyArray<ValidatorTranslation>
 
     ngOnInit() {
-        this.articulusInteriorDescriptionControl = this.articulusInteriorForm.controls[ArticulusInteriorFormPartFieldName.description]
-        this.articulusInteriorDescriptionValidatorNames = this.articulusInteriorFormPartValidationService.validatorNames(ArticulusInteriorFormPartFieldName.description)
-        this.articulusInteriorYearControl = this.articulusInteriorForm.controls[ArticulusInteriorFormPartFieldName.year]
-        this.articulusInteriorYearValidatorNames = this.articulusInteriorFormPartValidationService.validatorNames(ArticulusInteriorFormPartFieldName.year)
+        this.articulusInteriorScriptumTrivialeControl = this.articulusInteriorForm.controls[ArticulusInteriorFormPartFieldName.scriptumTriviale]
+        this.articulusInteriorScriptumTrivialeValidatorNames = this.articulusInteriorFormPartValidationService.validatorNames(ArticulusInteriorFormPartFieldName.scriptumTriviale)
+        this.articulusInteriorNumerusStupidusControl = this.articulusInteriorForm.controls[ArticulusInteriorFormPartFieldName.numerusStupidus]
+        this.articulusInteriorNumerusStupidusValidatorNames = this.articulusInteriorFormPartValidationService.validatorNames(ArticulusInteriorFormPartFieldName.numerusStupidus)
     }
 }
