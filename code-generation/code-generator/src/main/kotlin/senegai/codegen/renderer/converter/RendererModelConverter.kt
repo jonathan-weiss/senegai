@@ -57,13 +57,13 @@ object RendererModelConverter {
     }
 
     private fun SchemaData.allUiItemModels(): List<UiItemModel> {
-        return items.map { item -> mapUiItemModel(item) }
+        return items.map { item -> mapUiItemModel(item, enums) }
     }
 
-    private fun mapUiItemModel(item: Item): UiItemModel {
+    private fun mapUiItemModel(item: Item, enums: List<EnumType>): UiItemModel {
         return UiItemModel(
             itemDescription = toUiItemDescriptionModel(item.itemId),
-            attributes = item.attributes.map { mapUiItemAttribute(it) }
+            attributes = item.attributes.map { mapUiItemAttribute(it, enums) }
         )
     }
 
@@ -74,20 +74,24 @@ object RendererModelConverter {
         )
     }
 
-    private fun mapUiItemAttribute(itemAttribute: ItemAttribute): UiItemAttributeModel {
+    private fun mapUiItemAttribute(itemAttribute: ItemAttribute, enums: List<EnumType>): UiItemAttributeModel {
         return UiItemAttributeModel(
             attributeName = NameCase(itemAttribute.attributeName),
             isNullable = itemAttribute.isNullable,
             isList = itemAttribute.isMultiple,
-            type = mapUiItemAttributeType(itemAttribute.type),
+            type = mapUiItemAttributeType(itemAttribute.type, enums),
         )
     }
 
-    private fun mapUiItemAttributeType(itemAttributeType: ItemAttributeType): UiItemAttributeTypeModel {
+    private fun mapUiItemAttributeType(itemAttributeType: ItemAttributeType, enums: List<EnumType>): UiItemAttributeTypeModel {
         return when (itemAttributeType) {
             is BuiltInType -> BuiltInTypeUiItemAttributeTypeModel(itemAttributeType)
             is EntityId -> throw NotSupportedInTemplateException("EntityId as attribute type is not supported in $itemAttributeType")
-            is EnumId -> EnumUiItemAttributeTypeModel(itemAttributeType)
+            is EnumId -> {
+                val enumType = enums.singleOrNull { it.enumId == itemAttributeType }
+                    ?: throw NoSuchElementException("EnumType ${itemAttributeType.enumName} not found in schema enums")
+                EnumUiItemAttributeTypeModel(itemAttributeType, enumType.enumValues)
+            }
             is ItemId -> ItemUiItemAttributeTypeModel(toUiItemDescriptionModel(itemAttributeType))
         }
     }
