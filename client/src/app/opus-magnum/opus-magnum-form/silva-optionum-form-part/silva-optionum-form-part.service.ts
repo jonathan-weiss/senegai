@@ -471,23 +471,16 @@ export class SilvaOptionumFormPartService {
                     [ searchValue="ArticulusInterior" replaceByExpression="attributeWithBuiltInType.attribute.attributeName.pascalCase" ]
                 
             }}}@  */
-            /* @tt{{{   @if [ conditionExpression="attributeWithBuiltInType.attribute.isList"]  }}}@ */
-                /* @tt{{{   @if [ conditionExpression="attributeWithBuiltInType.attribute.isNullable"]  }}}@ */
-                // TODO nullable list of built-in types is not implemented yet
-                /* @tt{{{   @else  }}}@ */
-                iteratioSimpliciumTextuum: form.controls[SilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum].getRawValue(),
-                /* @tt{{{   @end-if  }}}@ */
+            /* @tt{{{   @if [ conditionExpression="attributeWithBuiltInType.attribute.isNullable"]  }}}@ */
+            campusTextusOptionalis: form.controls[SilvaOptionumFormPartFieldName.campusTextusOptionalisIsNotNull].value
+                ? form.controls[SilvaOptionumFormPartFieldName.campusTextusOptionalis].getRawValue()
+                : null,
             /* @tt{{{   @else  }}}@ */
-                /* @tt{{{   @if [ conditionExpression="attributeWithBuiltInType.attribute.isNullable"]  }}}@ */
-                campusTextusOptionalis: form.controls[SilvaOptionumFormPartFieldName.campusTextusOptionalisIsNotNull].value
-                    ? form.controls[SilvaOptionumFormPartFieldName.campusTextusOptionalis].getRawValue()
-                    : null,
-                /* @tt{{{   @else  }}}@ */
-                campusTextusObligatorius: form.controls[SilvaOptionumFormPartFieldName.campusTextusObligatorius].getRawValue(),
-                /* @tt{{{   @end-if  }}}@ */
+            campusTextusObligatorius: form.controls[SilvaOptionumFormPartFieldName.campusTextusObligatorius].getRawValue(),
             /* @tt{{{   @end-if  }}}@ */
             /* @tt{{{  @end-foreach  }}}@ */
             /* @tt{{{   @ignore-text  }}}@ */
+            iteratioSimpliciumTextuum: form.controls[SilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum].getRawValue(),
             campusDiei: form.controls[SilvaOptionumFormPartFieldName.campusDieiIsNotNull].value ? form.controls[SilvaOptionumFormPartFieldName.campusDiei].getRawValue() : null,
             campusBivalens: form.controls[SilvaOptionumFormPartFieldName.campusBivalens].getRawValue(),
             campusNumerorum: form.controls[SilvaOptionumFormPartFieldName.campusNumerorum].getRawValue(),

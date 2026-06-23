@@ -55,7 +55,7 @@ object CodegenData {
                 attribute(name = "contactAddress", itemId = Items.ADDRESS, nullable = true)
                 attribute(name = "mandatoryAddresses", itemId = Items.ADDRESS, nullable = false, multiple = true)
                 attribute(name = "otherAddresses", itemId = Items.ADDRESS, nullable = true, multiple = true)
-                //attribute(name = "allKnownPinNumbers", type = BuiltInType.NUMBER, nullable = true, multiple = true)
+                attribute(name = "allKnownPinNumbers", type = BuiltInType.NUMBER, nullable = true, multiple = true)
             }
 
             item(itemId = Items.ADDRESS) {
@@ -96,7 +96,7 @@ object CodegenData {
                                     attribute(attributeName = "mandatoryAddresses")
                                     attribute(attributeName = "otherAddresses")
                                     attribute(attributeName = "contactAddress")
-                                    //attribute(attributeName = "allKnownPinNumbers")
+                                    attribute(attributeName = "allKnownPinNumbers")
                                 }
                             }
                             tab(tabName = "Miscellaneous") {

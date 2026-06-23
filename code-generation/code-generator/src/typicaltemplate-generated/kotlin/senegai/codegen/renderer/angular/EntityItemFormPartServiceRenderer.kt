@@ -164,13 +164,11 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
                       |""" } else { """            ${attributeWithItem.attribute.attributeName.camelCase}: this.${attributeWithItem.type.item.itemName.camelCase}FormPartService.create${attributeWithItem.type.item.itemName.pascalCase}WTOFromForm(form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItem.attribute.attributeName.camelCase}]),
                       |""" } }""" } }
               |""" } }
-          |${ model.item.attributesWithBuiltInType.joinToString("") { attributeWithBuiltInType ->  """${ if(attributeWithBuiltInType.attribute.isList) { """${ if(attributeWithBuiltInType.attribute.isNullable) { """                // TODO nullable list of built-in types is not implemented yet
-                      |""" } else { """                ${attributeWithBuiltInType.attribute.attributeName.camelCase}: form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithBuiltInType.attribute.attributeName.camelCase}].getRawValue(),
-                      |""" } }""" } else { """${ if(attributeWithBuiltInType.attribute.isNullable) { """                ${attributeWithBuiltInType.attribute.attributeName.camelCase}: form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithBuiltInType.attribute.attributeName.camelCase}IsNotNull].value
-                      |                    ? form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithBuiltInType.attribute.attributeName.camelCase}].getRawValue()
-                      |                    : null,
-                      |""" } else { """                ${attributeWithBuiltInType.attribute.attributeName.camelCase}: form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithBuiltInType.attribute.attributeName.camelCase}].getRawValue(),
-                      |""" } }""" } }""" } }        };
+          |${ model.item.attributesWithBuiltInType.joinToString("") { attributeWithBuiltInType ->  """${ if(attributeWithBuiltInType.attribute.isNullable) { """            ${attributeWithBuiltInType.attribute.attributeName.camelCase}: form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithBuiltInType.attribute.attributeName.camelCase}IsNotNull].value
+                  |                ? form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithBuiltInType.attribute.attributeName.camelCase}].getRawValue()
+                  |                : null,
+                  |""" } else { """            ${attributeWithBuiltInType.attribute.attributeName.camelCase}: form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithBuiltInType.attribute.attributeName.camelCase}].getRawValue(),
+                  |""" } }""" } }        };
           |    }
           |}
           |
