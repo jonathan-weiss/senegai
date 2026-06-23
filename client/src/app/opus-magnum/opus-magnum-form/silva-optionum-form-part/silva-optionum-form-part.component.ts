@@ -83,12 +83,24 @@ import {TextBlockComponent} from "@app/shared/blocks/text-block/text-block.compo
     @end-if 
 }}}@
  */
-/* @tt{{{   @ignore-text  }}}@ */
-import {AppellatioEnum} from "@app/wto/appellatio.enum";
-import {AppellatioSelectorComponent} from "@app/enum/appellatio-input-selection/appellatio-selector.component";
+/* @tt{{{   @if [ conditionExpression="model.item.containsTextListAttributes"] }}}@ */
 import {
     SingleTextFormFieldTableComponent
 } from "@app/shared/form-controls/single-text-form-field-table/single-text-form-field-table.component";
+/* @tt{{{   @end-if  }}}@ */
+/* @tt{{{   @if [ conditionExpression="model.item.containsNumberListAttributes"] }}}@ */
+import {
+    SingleNumberFormFieldTableComponent
+} from "@app/shared/form-controls/single-number-form-field-table/single-number-form-field-table.component";
+/* @tt{{{   @end-if  }}}@ */
+/* @tt{{{   @if [ conditionExpression="model.item.containsBooleanListAttributes"] }}}@ */
+import {
+    SingleBooleanFormFieldTableComponent
+} from "@app/shared/form-controls/single-boolean-form-field-table/single-boolean-form-field-table.component";
+/* @tt{{{   @end-if  }}}@ */
+/* @tt{{{   @ignore-text  }}}@ */
+import {AppellatioEnum} from "@app/wto/appellatio.enum";
+import {AppellatioSelectorComponent} from "@app/enum/appellatio-input-selection/appellatio-selector.component";
 
 /* @tt{{{   @end-ignore-text  }}}@ */
 
@@ -190,10 +202,20 @@ import {
         /* @tt{{{   @if [ conditionExpression="model.item.containsNumberAttributes"] }}}@ */
         NumberInputComponent,
         /* @tt{{{   @end-if }}}@ */
+        /* @tt{{{   @if [ conditionExpression="model.item.containsTextListAttributes"] }}}@ */
+        SingleTextFormFieldTableComponent,
+        /* @tt{{{   @end-if }}}@ */
+        /* @tt{{{
+        @if [ conditionExpression="model.item.containsNumberListAttributes"]
+        @print-text [ text="        SingleNumberFormFieldTableComponent,"]
+        @end-if
+        @if [ conditionExpression="model.item.containsBooleanListAttributes"]
+        @print-text [ text="        SingleBooleanFormFieldTableComponent,"]
+        @end-if
+        }}}@ */
         /* @tt{{{   @ignore-text }}}@ */
         DatepickerInputComponent,
         AppellatioSelectorComponent,
-        SingleTextFormFieldTableComponent,
         /* @tt{{{   @end-ignore-text }}}@ */
     ]
 })
@@ -263,7 +285,7 @@ export class SilvaOptionumFormPartComponent implements OnInit {
     protected indexUnicusValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected campusNumerorumControl!: FormControl<number>
     protected campusNumerorumValidatorNames!: ReadonlyArray<ValidatorTranslation>
-    protected iteratioSimpliciumTextuumFormArray!: FormArray<FormControl<string>>
+    protected iteratioSimpliciumTextuumControl!: FormArray<FormControl<string>>
     protected iteratioSimpliciumTextuumValidatorNames!: ReadonlyArray<ValidatorTranslation>
     /* @tt{{{   @end-ignore-text  }}}@ */
 
@@ -315,7 +337,7 @@ export class SilvaOptionumFormPartComponent implements OnInit {
         this.articulusInteriorSingularisOptionalisValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalis)
         this.articulusInteriorSingularisOptionalisIsNotNullControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalisIsNotNull]
         this.articulusInteriorSingularisOptionalisIsNotNullValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalisIsNotNull)
-        this.iteratioSimpliciumTextuumFormArray = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum]
+        this.iteratioSimpliciumTextuumControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum]
         this.iteratioSimpliciumTextuumValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum)
         /* @tt{{{   @end-ignore-text  }}}@ */
     }

@@ -93,7 +93,7 @@ export class SilvaOptionumFormPartService {
 
 
             }}}@  */
-            /* @tt{{{   @if [ conditionExpression="!attribute.isItem"]  }}}@ */
+            /* @tt{{{   @if [ conditionExpression="!attribute.isItem && !attribute.isList"]  }}}@ */
             [SilvaOptionumFormPartFieldName.campusTextusOptionalis]: new FormControl<string>(
                 this.silvaOptionumFormInitialValueService.campusTextusOptionalisInitialValue(),
                 {
@@ -129,6 +129,21 @@ export class SilvaOptionumFormPartService {
                 this.silvaOptionumFormInitialValueService.articulusInteriorIteratusInitialValue(),
                 {
                     validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.articulusInteriorIteratus)
+                },
+            ),
+            /* @tt{{{  @end-foreach  }}}@ */
+            /* @tt{{{
+                @foreach [ iteratorExpression="model.item.attributesWithBuiltInType.filter { it.attribute.isList }" loopVariable="attributeWithBuiltInType" ]
+
+                @replace-value-by-expression
+                    [ searchValue="iteratioSimpliciumTextuum" replaceByExpression="attributeWithBuiltInType.attribute.attributeName.camelCase" ]
+                    [ searchValue="FormArray<FormControl<string>>" replaceByExpression="attributeWithBuiltInType.attribute.angularFormControlTypeWithCollection" ]
+
+            }}}@  */
+            [SilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum]: new FormArray<FormControl<string>>(
+                [],
+                {
+                    validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum)
                 },
             ),
             /* @tt{{{  @end-foreach  }}}@ */
@@ -173,12 +188,6 @@ export class SilvaOptionumFormPartService {
                 {
                     nonNullable: true,
                     validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.indexUnicus)
-                },
-            ),
-            [SilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum]: new FormArray<FormControl<string>>(
-                [] as Array<FormControl<string>>,
-                {
-                    validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum)
                 },
             ),
             /* @tt{{{   @end-ignore-text  }}}@ */
@@ -232,7 +241,15 @@ export class SilvaOptionumFormPartService {
         });
     }
 
-    /* @tt{{{   @ignore-text  }}}@ */
+    /* @tt{{{
+        @foreach [ iteratorExpression="model.item.attributesWithBuiltInType.filter { it.attribute.isList }" loopVariable="attributeWithBuiltInType" ]
+
+        @replace-value-by-expression
+            [ searchValue="iteratioSimpliciumTextuum" replaceByExpression="attributeWithBuiltInType.attribute.attributeName.camelCase" ]
+            [ searchValue="IteratioSimpliciumTextuum" replaceByExpression="attributeWithBuiltInType.attribute.attributeName.pascalCase" ]
+            [ searchValue="FormControl<string>" replaceByExpression="attributeWithBuiltInType.attribute.angularFormControlType" ]
+
+    }}}@  */
     public createInitialIteratioSimpliciumTextuumForm(): FormControl<string> {
         return new FormControl<string>(
             this.silvaOptionumFormInitialValueService.iteratioSimpliciumTextuumInitialValue(),
@@ -242,7 +259,7 @@ export class SilvaOptionumFormPartService {
             },
         )
     }
-    /* @tt{{{   @end-ignore-text  }}}@ */
+    /* @tt{{{   @end-foreach  }}}@ */
 
     public patchSilvaOptionumForm(form: FormGroup<SilvaOptionumFormPartGroup>, silvaOptionum: SilvaOptionumWTO): void {
         this.patchPreparation(form, silvaOptionum);
@@ -323,6 +340,22 @@ export class SilvaOptionumFormPartService {
             }
         }
         /* @tt{{{ @end-foreach }}}@ */
+        /* @tt{{{
+            @foreach [ iteratorExpression="model.item.attributesWithBuiltInType.filter { it.attribute.isList }" loopVariable="attributeWithBuiltInType" ]
+            @replace-value-by-expression
+                    [ searchValue="iteratioSimpliciumTextuum" replaceByExpression="attributeWithBuiltInType.attribute.attributeName.camelCase" ]
+                    [ searchValue="IteratioSimpliciumTextuum" replaceByExpression="attributeWithBuiltInType.attribute.attributeName.pascalCase" ]
+
+        }}}@  */
+        if(silvaOptionum.iteratioSimpliciumTextuum != null) {
+            const iteratioSimpliciumTextuumLength = form.controls[SilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum].controls.length
+            if (iteratioSimpliciumTextuumLength < silvaOptionum.iteratioSimpliciumTextuum.length) {
+                for (let i = iteratioSimpliciumTextuumLength; i < silvaOptionum.iteratioSimpliciumTextuum.length; i++) {
+                    form.controls[SilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum].push(this.createInitialIteratioSimpliciumTextuumForm())
+                }
+            }
+        }
+        /* @tt{{{ @end-foreach }}}@ */
         /* @tt{{{   @ignore-text  }}}@ */
         if(silvaOptionum.articulusInteriorOptionalisIteratus != null) {
             const articulusInteriorIteratusOptionalisLength = form.controls[SilvaOptionumFormPartFieldName.articulusInteriorOptionalisIteratus].controls.length
@@ -330,12 +363,6 @@ export class SilvaOptionumFormPartService {
                 for (let i = articulusInteriorIteratusOptionalisLength; i < silvaOptionum.articulusInteriorOptionalisIteratus.length; i++) {
                     form.controls[SilvaOptionumFormPartFieldName.articulusInteriorOptionalisIteratus].push(this.articulusInteriorFormPartService.createInitialArticulusInteriorForm())
                 }
-            }
-        }
-        const iteratioSimpliciumTextuumLength = form.controls[SilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum].controls.length
-        if (iteratioSimpliciumTextuumLength < silvaOptionum.iteratioSimpliciumTextuum.length) {
-            for (let i = iteratioSimpliciumTextuumLength; i < silvaOptionum.iteratioSimpliciumTextuum.length; i++) {
-                form.controls[SilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum].push(this.createInitialIteratioSimpliciumTextuumForm())
             }
         }
         /* @tt{{{   @end-ignore-text  }}}@ */
@@ -433,6 +460,7 @@ export class SilvaOptionumFormPartService {
             }}}@  */
             /* @tt{{{
                 @replace-value-by-expression
+                    [ searchValue="iteratioSimpliciumTextuum" replaceByExpression="attributeWithBuiltInType.attribute.attributeName.camelCase" ]
                     [ searchValue="campusTextusObligatorius" replaceByExpression="attributeWithBuiltInType.attribute.attributeName.camelCase" ]
                     [ searchValue="campusTextusOptionalis" replaceByExpression="attributeWithBuiltInType.attribute.attributeName.camelCase" ]
                     [ searchValue="articulusInteriorOptionalisIteratus" replaceByExpression="attributeWithBuiltInType.attribute.attributeName.camelCase" ]
@@ -445,9 +473,9 @@ export class SilvaOptionumFormPartService {
             }}}@  */
             /* @tt{{{   @if [ conditionExpression="attributeWithBuiltInType.attribute.isList"]  }}}@ */
                 /* @tt{{{   @if [ conditionExpression="attributeWithBuiltInType.attribute.isNullable"]  }}}@ */
-                // TODO list of non-item for nullable values no implemented, yet
+                // TODO nullable list of built-in types is not implemented yet
                 /* @tt{{{   @else  }}}@ */
-                // TODO list of non-item for non-nullable values no implemented, yet
+                iteratioSimpliciumTextuum: form.controls[SilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum].getRawValue(),
                 /* @tt{{{   @end-if  }}}@ */
             /* @tt{{{   @else  }}}@ */
                 /* @tt{{{   @if [ conditionExpression="attributeWithBuiltInType.attribute.isNullable"]  }}}@ */
@@ -465,7 +493,6 @@ export class SilvaOptionumFormPartService {
             campusNumerorum: form.controls[SilvaOptionumFormPartFieldName.campusNumerorum].getRawValue(),
             appellatio: form.controls[SilvaOptionumFormPartFieldName.appellatio].getRawValue(),
             indexUnicus: form.controls[SilvaOptionumFormPartFieldName.indexUnicus].getRawValue(),
-            iteratioSimpliciumTextuum: form.controls[SilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum].getRawValue(),
             /* @tt{{{   @end-ignore-text  }}}@ */
         };
     }

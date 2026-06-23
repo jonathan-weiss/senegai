@@ -44,6 +44,15 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
           |import {${model.item.itemName.pascalCase}FormPartGroup} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-group";
           |${ if(model.containsNamedSectionSplitBlocks()) { """import {SectionSplitterComponent} from "@app/shared/blocks/section-splitter/section-splitter.component";
               |""" } else { """""" } }${ if(model.containsTextBlocks()) { """import {TextBlockComponent} from "@app/shared/blocks/text-block/text-block.component";
+              |""" } else { """""" } }${ if(model.item.containsTextListAttributes) { """import {
+              |    SingleTextFormFieldTableComponent
+              |} from "@app/shared/form-controls/single-text-form-field-table/single-text-form-field-table.component";
+              |""" } else { """""" } }${ if(model.item.containsNumberListAttributes) { """import {
+              |    SingleNumberFormFieldTableComponent
+              |} from "@app/shared/form-controls/single-number-form-field-table/single-number-form-field-table.component";
+              |""" } else { """""" } }${ if(model.item.containsBooleanListAttributes) { """import {
+              |    SingleBooleanFormFieldTableComponent
+              |} from "@app/shared/form-controls/single-boolean-form-field-table/single-boolean-form-field-table.component";
               |""" } else { """""" } }
           |
           |${ model.item.directlyNestedItems.joinToString("") { nestedItem ->  """import {
@@ -84,7 +93,8 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
               |""" } }${ if(model.item.containsTextAttributes) { """        TextInputComponent,
               |""" } else { """""" } }${ if(model.item.containsBooleanAttributes) { """        BooleanInputComponent,
               |""" } else { """""" } }${ if(model.item.containsNumberAttributes) { """        NumberInputComponent,
-              |""" } else { """""" } }    ]
+              |""" } else { """""" } }${ if(model.item.containsTextListAttributes) { """        SingleTextFormFieldTableComponent,
+              |""" } else { """""" } }${ if(model.item.containsNumberListAttributes) { """        SingleNumberFormFieldTableComponent,""" } else { """""" } }${ if(model.item.containsBooleanListAttributes) { """        SingleBooleanFormFieldTableComponent,""" } else { """""" } }    ]
           |})
           |export class ${model.item.itemName.pascalCase}FormPartComponent implements OnInit {
           |    @Input({ required: true }) ${model.item.itemName.camelCase}Form!: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>;

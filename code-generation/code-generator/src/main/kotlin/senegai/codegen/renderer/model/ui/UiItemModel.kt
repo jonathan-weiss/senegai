@@ -37,11 +37,15 @@ data class UiItemModel(
         .map { it.item }
         .distinct()
 
-    val containsTextAttributes: Boolean = attributesOfType(BuiltInType.STRING).isNotEmpty()
-    val containsBooleanAttributes: Boolean = attributesOfType(BuiltInType.BOOLEAN).isNotEmpty()
-    val containsNumberAttributes: Boolean = attributesOfType(BuiltInType.NUMBER).isNotEmpty()
+    val containsTextAttributes: Boolean = attributesOfType(BuiltInType.STRING, isList = false).any()
+    val containsBooleanAttributes: Boolean = attributesOfType(BuiltInType.BOOLEAN, isList = false).any()
+    val containsNumberAttributes: Boolean = attributesOfType(BuiltInType.NUMBER, isList = false).any()
 
-    private fun attributesOfType(filterBuiltInType: BuiltInType): List<UiItemAttributeModel> {
-        return attributes.filter { it.type is BuiltInTypeUiItemAttributeTypeModel && it.type.builtInType == filterBuiltInType }
+    val containsTextListAttributes: Boolean = attributesOfType(BuiltInType.STRING, isList = true).any()
+    val containsBooleanListAttributes: Boolean = attributesOfType(BuiltInType.BOOLEAN, isList = true).any()
+    val containsNumberListAttributes: Boolean = attributesOfType(BuiltInType.NUMBER, isList = true).any()
+
+    private fun attributesOfType(filterBuiltInType: BuiltInType, isList: Boolean): List<UiItemAttributeModel> {
+        return attributes.filter { it.type is BuiltInTypeUiItemAttributeTypeModel && it.type.builtInType == filterBuiltInType && it.isList == isList }
     }
 }

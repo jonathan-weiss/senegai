@@ -28,7 +28,7 @@ object SingleFormInputHtmlTagRenderer {
         isList: Boolean = false,
     ): String {
         val inputTag = when (attributeModel.type) {
-            is BuiltInTypeUiItemAttributeTypeModel -> createBuiltInInput(attributeModel.attributeName, attributeModel.type.builtInType)
+            is BuiltInTypeUiItemAttributeTypeModel -> createBuiltInInput(attributeModel.attributeName, attributeModel.type.builtInType, attributeModel.isList)
             is EnumUiItemAttributeTypeModel -> createEnumInput(NameCase(attributeModel.type.enumId.enumName), attributeModel.attributeName)
             is ItemUiItemAttributeTypeModel -> createItemInput(attributeModel.type.item.itemName, attributeModel.attributeName, isList)
         }
@@ -41,11 +41,16 @@ object SingleFormInputHtmlTagRenderer {
     /**
      *  ` <app-text-input [textFormControl]="campusTextusObligatoriusControl" label="campusTextusObligatorius" placeholder="Enter Campus Textus Obligatorius" [validatorTranslations]="campusTextusObligatoriusValidatorNames" />`
      *  ` <app-text-input [textFormControl]="campusTextusOptionalisControl" label="campusTextusOptionalis" placeholder="Enter campusTextusOptionalis" [validatorTranslations]="campusTextusOptionalisValidatorNames" />`
+     *  ` <app-single-text-form-field-table [formArray]="iteratioSimpliciumTextuumControl" columnHeader="Iteratio Simplicium Textuum" placeholder="Iteratio Simplicium Textuum" />`
      */
-    private fun createBuiltInInput(attributeName: NameCase, builtInType: BuiltInType): String {
+    private fun createBuiltInInput(attributeName: NameCase, builtInType: BuiltInType, isList: Boolean): String {
         val infix = determineFormComponentTypeInfix(builtInType)
         val attributeNameCamelCase = attributeName.camelCase
-        return """<app-${infix}-input [${infix}FormControl]="${attributeNameCamelCase}Control" label="$attributeNameCamelCase" placeholder="Enter $attributeNameCamelCase" [validatorTranslations]="${attributeNameCamelCase}ValidatorNames" />"""
+        if(isList) {
+            return """<app-single-${infix}-form-field-table [formArray]="${attributeNameCamelCase}Control" columnHeader="$attributeNameCamelCase" placeholder="Enter $attributeNameCamelCase" [validatorTranslations]="${attributeNameCamelCase}ValidatorNames" />"""
+        } else {
+            return """<app-${infix}-input [${infix}FormControl]="${attributeNameCamelCase}Control" label="$attributeNameCamelCase" placeholder="Enter $attributeNameCamelCase" [validatorTranslations]="${attributeNameCamelCase}ValidatorNames" />"""
+        }
     }
 
     /**

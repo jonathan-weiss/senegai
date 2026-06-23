@@ -109,7 +109,7 @@
 
                 }}}@  -->
                     <!-- @tt{{{
-                        @if [ conditionExpression="!block.attribute.isList && !block.attribute.isNullable" ]
+                        @if [ conditionExpression="(block.attribute.isBuiltIn || !block.attribute.isList) && !block.attribute.isNullable" ]
 
                         @replace-value-by-expression
                         [ searchValue="campusTextusObligatorius" replaceByExpression="block.attribute.attributeName.camelCase" ]
@@ -131,7 +131,7 @@
                     </div>
                     <!-- @tt{{{  @end-if  }}}@  -->
                     <!-- @tt{{{
-                        @if [ conditionExpression="!block.attribute.isList && block.attribute.isNullable" ]
+                        @if [ conditionExpression="(block.attribute.isBuiltIn || !block.attribute.isList) && block.attribute.isNullable" ]
 
                         @replace-value-by-expression
                         [ searchValue="campusTextusOptionalis" replaceByExpression="block.attribute.attributeName.camelCase" ]
@@ -241,12 +241,17 @@
                 <!-- @tt{{{  @end-if  }}}@  -->
 
                 <!-- @tt{{{
-
                  @end-if
                  @end-foreach
-
                 }}}@  -->
                 <!-- @tt{{{   @end-template-renderer  }}}@ -->
+                <!-- @tt{{{   @ignore-text  }}}@ -->
+                <div class="form-row">
+                    <app-field-wrapper label="Iteratio Simplicium Textuum">
+                        <app-single-text-form-field-table [formArray]="iteratioSimpliciumTextuumControl" columnHeader="Iteratio Simplicium Textuum" placeholder="Iteratio Simplicium Textuum" />
+                    </app-field-wrapper>
+                </div>
+                <!-- @tt{{{   @end-ignore-text  }}}@ -->
             </div>
             <!-- @tt{{{  @end-foreach  }}}@ -->
             <!-- @tt{{{   @ignore-text  }}}@ -->
@@ -280,7 +285,7 @@
 
                 <div class="form-row">
                     <app-field-wrapper label="Iteratio Simplicium Textuum">
-                        <app-single-text-form-field-table [formArray]="iteratioSimpliciumTextuumFormArray" columnHeader="Iteratio Simplicium Textuum" placeholder="Description" />
+                        <app-single-text-form-field-table [formArray]="iteratioSimpliciumTextuumControl" columnHeader="Iteratio Simplicium Textuum" placeholder="Description" />
                     </app-field-wrapper>
                 </div>
             </div>

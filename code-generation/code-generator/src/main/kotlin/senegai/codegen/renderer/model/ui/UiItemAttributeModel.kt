@@ -91,7 +91,11 @@ data class UiItemAttributeModel(
         // TODO form values are never null, as the initial value is used for
         //val singleTypeWithNullability =  withAngularFormNullability(singleType)
 
-        return if(isList) {
+        // Built-in type lists store their elements directly in a `FormArray<FormControl<...>>`.
+        // The initial value provided by the form-part service is the value of a single element
+        // (e.g. `string`), not the whole array (which is created empty). Only item lists need the
+        // `Array<...>` wrapping, because their FormArray is seeded from the initial value service.
+        return if(isList && type !is BuiltInTypeUiItemAttributeTypeModel) {
             "Array<$singleType>"
         } else {
             singleType
@@ -154,7 +158,7 @@ data class UiItemAttributeModel(
     }
 
     private fun determineAngularFormInitialValue(): String =
-        if (isList) {
+        if (isList && type !is BuiltInTypeUiItemAttributeTypeModel) {
             "[]"
         } else {
             when (type) {

@@ -48,13 +48,14 @@ object CodegenData {
                 attribute(name = "firstname", type = BuiltInType.STRING)
                 attribute(name = "nickname", type = BuiltInType.STRING, nullable = true)
                 attribute(name = "lastname", type = BuiltInType.STRING)
-                //attribute(name = "allKnownNicknames", type = BuiltInType.STRING, multiple = true)
+                attribute(name = "allKnownNicknames", type = BuiltInType.STRING, multiple = true)
                 attribute(name = "age", type = BuiltInType.NUMBER)
                 attribute(name = "vegetarian", type = BuiltInType.BOOLEAN)
                 attribute(name = "homeAddress", itemId = Items.ADDRESS, nullable = false)
                 attribute(name = "contactAddress", itemId = Items.ADDRESS, nullable = true)
                 attribute(name = "mandatoryAddresses", itemId = Items.ADDRESS, nullable = false, multiple = true)
                 attribute(name = "otherAddresses", itemId = Items.ADDRESS, nullable = true, multiple = true)
+                //attribute(name = "allKnownPinNumbers", type = BuiltInType.NUMBER, nullable = true, multiple = true)
             }
 
             item(itemId = Items.ADDRESS) {
@@ -86,7 +87,7 @@ object CodegenData {
                                     attribute(attributeName = "firstname")
                                     text(text = "First things first")
                                     attribute(attributeName = "nickname")
-                                    //attribute(attributeName = "allKnownNicknames")
+                                    attribute(attributeName = "allKnownNicknames")
                                     text(text = "Nick, you have a nickname")
                                     attribute(attributeName = "lastname")
                                     text(text = "The lastname, the lastname")
@@ -95,6 +96,7 @@ object CodegenData {
                                     attribute(attributeName = "mandatoryAddresses")
                                     attribute(attributeName = "otherAddresses")
                                     attribute(attributeName = "contactAddress")
+                                    //attribute(attributeName = "allKnownPinNumbers")
                                 }
                             }
                             tab(tabName = "Miscellaneous") {
