@@ -18,7 +18,7 @@ object EntityItemTableComponentHtmlRenderer : UiEntityItemRenderer {
         return """
           |<div class="table-container">
           |    <div class="action-bar">
-          |        <button mat-button color="primary" (click)="onAdd()" type="button">
+          |        <button mat-button color="primary" (click)="onAdd()" type="button" [disabled]="${model.item.itemName.camelCase}FormArray.disabled">
           |            <mat-icon>add</mat-icon> Add ${model.item.itemName.pascalCase}...
           |        </button>
           |
@@ -38,10 +38,10 @@ object EntityItemTableComponentHtmlRenderer : UiEntityItemRenderer {
           |        <ng-container matColumnDef="actions">
           |            <th mat-header-cell *matHeaderCellDef>Actions</th>
           |            <td mat-cell *matCellDef="let tableRow">
-          |                <button mat-icon-button color="primary" (click)="onEdit(tableRow.formGroup)" type="button">
+          |                <button mat-icon-button color="primary" (click)="onEdit(tableRow.formGroup)" type="button" [disabled]="${model.item.itemName.camelCase}FormArray.disabled">
           |                    <mat-icon>edit</mat-icon>
           |                </button>
-          |                <button mat-icon-button color="warn" (click)="onDelete(tableRow.formGroup)" type="button">
+          |                <button mat-icon-button color="warn" (click)="onDelete(tableRow.formGroup)" type="button" [disabled]="${model.item.itemName.camelCase}FormArray.disabled">
           |                    <mat-icon>delete</mat-icon>
           |                </button>
           |            </td>
