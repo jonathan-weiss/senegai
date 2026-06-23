@@ -8,4 +8,5 @@ data class UiModel(
 ) {
     val uiEntities: List<UiEntityModel> = uiEntitiesViews.map { it.uiEntity }
     val uiItems: List<UiItemModel> = uiEntitiesViews.flatMap { it.uiEntity.entityItemModels }.distinct()
+    val uiEnums: List<UiEnumModel> = uiEntitiesViews.flatMap { it.uiEntity.entityEnumTypes }.distinct()
 }

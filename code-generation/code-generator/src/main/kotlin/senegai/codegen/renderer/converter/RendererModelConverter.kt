@@ -12,6 +12,7 @@ import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewColumnModel
 import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewTabModel
 import senegai.codegen.renderer.model.ui.UiEntityModel
 import senegai.codegen.renderer.model.ui.UiEntityViewsModel
+import senegai.codegen.renderer.model.ui.UiEnumModel
 import senegai.codegen.renderer.model.ui.UiItemAttributeTypeModel
 import senegai.codegen.renderer.model.ui.UiItemDescriptionModel
 import senegai.codegen.renderer.model.ui.UiItemModel
@@ -90,7 +91,7 @@ object RendererModelConverter {
             is EnumId -> {
                 val enumType = enums.singleOrNull { it.enumId == itemAttributeType }
                     ?: throw NoSuchElementException("EnumType ${itemAttributeType.enumName} not found in schema enums")
-                EnumUiItemAttributeTypeModel(itemAttributeType, enumType.enumValues)
+                EnumUiItemAttributeTypeModel(UiEnumModel(enumType))
             }
             is ItemId -> ItemUiItemAttributeTypeModel(toUiItemDescriptionModel(itemAttributeType))
         }
@@ -101,7 +102,7 @@ object RendererModelConverter {
             entityName = NameCase(uiEntity.entity.entityName),
             entityRootItem = allUiItemModels.single { it.itemId == uiEntity.entity.item.itemId },
             entityItemModels = allUiItemModels.filter { it.itemId in entityItemModelIds },
-            entityEnumTypes = allEnumTypes, // TODO filter for only the enums used in this entity
+            entityEnumTypes = allEnumTypes.map { UiEnumModel(it) }, // TODO filter for only the enums used in this entity
         )
 
         val uiEntityItems =uiEntity.editorView.itemConfiguration.map { itemConfiguration ->

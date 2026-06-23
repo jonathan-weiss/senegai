@@ -15,6 +15,7 @@ data class ItemUiItemAttributeTypeModel(
 ) : UiItemAttributeTypeModel
 
 data class EnumUiItemAttributeTypeModel(
-    val enumId: EnumId,
-    val enumValues: List<String>,
-) : UiItemAttributeTypeModel
+    val enumModel: UiEnumModel,
+) : UiItemAttributeTypeModel {
+    val enumId: EnumId = enumModel.enumId
+}

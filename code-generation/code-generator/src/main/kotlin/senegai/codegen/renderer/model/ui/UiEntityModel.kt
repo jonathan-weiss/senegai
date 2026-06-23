@@ -8,7 +8,7 @@ data class UiEntityModel(
     val entityName: NameCase,
     val entityRootItem: UiItemModel,
     val entityItemModels: List<UiItemModel>,
-    val entityEnumTypes: List<EnumType>,
+    val entityEnumTypes: List<UiEnumModel>,
 ) {
     val searchResultAttributes: List<UiItemAttributeModel> = entityRootItem.attributes
     val searchCriteriaAttributes: List<UiItemAttributeModel> = entityRootItem.attributes
