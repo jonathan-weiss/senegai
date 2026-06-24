@@ -166,12 +166,13 @@
                     [ searchValue="ArticulusInterior" replaceByExpression="block.attribute.attributeAndItem.type.item.itemName.pascalCase" ]
                     [ searchValue="articulusInterior" replaceByExpression="block.attribute.attributeAndItem.type.item.itemName.camelCase" ]
                     [ searchValue="articulus-interior" replaceByExpression="block.attribute.attributeAndItem.type.item.itemName.kebabCase" ]
+                    [ searchValue="opus-magnum" replaceByExpression="block.attribute.attributeAndItem.type.entity.entityName.kebabCase" ]
 
                 }}}@  -->
 
                 <div class="form-row">
                     <app-field-wrapper label="Articulus Interior List">
-                        <app-articulus-interior-table
+                        <app-opus-magnum-articulus-interior-table
                                 [articulusInteriorFormArray]="articulusInteriorIteratusControl"
                                 (editArticulusInteriorFormGroup)="articulusInteriorIteratusEditState.onEdit($event)"
                                 (deleteArticulusInteriorFormGroup)="articulusInteriorIteratusEditState.onDelete($event)"
@@ -188,7 +189,7 @@
                                         [ modelName="isList" modelExpression="true" ]
                                     @ignore-text
                                 }}}@  -->
-                                <app-articulus-interior-form-part [articulusInteriorForm]="articulusInteriorIteratusEditState.formGroupUnderEdit!"  />
+                                <app-opus-magnum-articulus-interior-form-part [articulusInteriorForm]="articulusInteriorIteratusEditState.formGroupUnderEdit!"  />
                                 <!-- @tt{{{ @end-ignore-text }}}@  -->
                             </div>
                         }
@@ -206,6 +207,7 @@
                     [ searchValue="ArticulusInterior" replaceByExpression="block.attribute.attributeAndItem.type.item.itemName.pascalCase" ]
                     [ searchValue="articulusInterior" replaceByExpression="block.attribute.attributeAndItem.type.item.itemName.camelCase" ]
                     [ searchValue="articulus-interior" replaceByExpression="block.attribute.attributeAndItem.type.item.itemName.kebabCase" ]
+                    [ searchValue="opus-magnum" replaceByExpression="block.attribute.attributeAndItem.type.entity.entityName.kebabCase" ]
 
                 }}}@  -->
 
@@ -214,7 +216,7 @@
                                        [nullabilityCheckboxFormControl]="articulusInteriorOptionalisIteratusIsNotNullControl"
                                        [formGroupToDisableIfNullField]="articulusInteriorOptionalisIteratusControl"
                     >
-                        <app-articulus-interior-table
+                        <app-opus-magnum-articulus-interior-table
                                 [articulusInteriorFormArray]="articulusInteriorOptionalisIteratusControl"
                                 (editArticulusInteriorFormGroup)="articulusInteriorOptionalisIteratusEditState.onEdit($event)"
                                 (deleteArticulusInteriorFormGroup)="articulusInteriorOptionalisIteratusEditState.onDelete($event)"
@@ -231,7 +233,7 @@
                                         [ modelName="isList" modelExpression="true" ]
                                     @ignore-text
                                 }}}@  -->
-                                <app-articulus-interior-form-part [articulusInteriorForm]="articulusInteriorOptionalisIteratusEditState.formGroupUnderEdit!"  />
+                                <app-opus-magnum-articulus-interior-form-part [articulusInteriorForm]="articulusInteriorOptionalisIteratusEditState.formGroupUnderEdit!"  />
                                 <!-- @tt{{{ @end-ignore-text }}}@  -->
                             </div>
                         }
@@ -258,7 +260,7 @@
             <div class="column">
                 <div class="form-row">
                     <app-field-wrapper label="Articulus Interior Singularis">
-                        <app-articulus-interior-form-part [articulusInteriorForm]="articulusInteriorSingularisControl"  />
+                        <app-opus-magnum-articulus-interior-form-part [articulusInteriorForm]="articulusInteriorSingularisControl"  />
                     </app-field-wrapper>
                 </div>
 
@@ -279,7 +281,7 @@
                                        [nullabilityCheckboxFormControl]="articulusInteriorSingularisOptionalisIsNotNullControl"
                                        [formGroupToDisableIfNullField]="articulusInteriorSingularisOptionalisControl"
                     >
-                        <app-articulus-interior-form-part [articulusInteriorForm]="articulusInteriorSingularisOptionalisControl"  />
+                        <app-opus-magnum-articulus-interior-form-part [articulusInteriorForm]="articulusInteriorSingularisOptionalisControl"  />
                     </app-field-wrapper>
                 </div>
 

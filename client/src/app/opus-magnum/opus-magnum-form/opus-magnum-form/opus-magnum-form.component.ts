@@ -41,11 +41,11 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {MatDialogModule} from "@angular/material/dialog";
 import {SilvaOptionumWTO} from "@app/wto/silva-optionum.wto";
-import {SilvaOptionumFormPartService} from "@app/opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part.service";
-import {SilvaOptionumFormPartComponent} from "@app/opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part.component";
+import {OpusMagnumSilvaOptionumFormPartService} from "@app/opus-magnum/opus-magnum-form/opus-magnum-silva-optionum-form-part/opus-magnum-silva-optionum-form-part.service";
+import {OpusMagnumSilvaOptionumFormPartComponent} from "@app/opus-magnum/opus-magnum-form/opus-magnum-silva-optionum-form-part/opus-magnum-silva-optionum-form-part.component";
 import {
-    SilvaOptionumFormPartGroup
-} from "@app/opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part-group";
+    OpusMagnumSilvaOptionumFormPartGroup
+} from "@app/opus-magnum/opus-magnum-form/opus-magnum-silva-optionum-form-part/opus-magnum-silva-optionum-form-part-group";
 
 @Component({
     selector: 'app-opus-magnum-form',
@@ -64,7 +64,7 @@ import {
         MatSidenavModule,
         MatListModule,
         MatDialogModule,
-        SilvaOptionumFormPartComponent,
+        OpusMagnumSilvaOptionumFormPartComponent,
     ]
 })
 export class OpusMagnumFormComponent implements OnInit {
@@ -72,9 +72,9 @@ export class OpusMagnumFormComponent implements OnInit {
     @Output() save = new EventEmitter<SilvaOptionumWTO>();
     @Output() cancel = new EventEmitter<void>();
 
-    silvaOptionumForm: FormGroup<SilvaOptionumFormPartGroup>;
+    silvaOptionumForm: FormGroup<OpusMagnumSilvaOptionumFormPartGroup>;
 
-    constructor(private silvaOptionumFormPartService: SilvaOptionumFormPartService) {
+    constructor(private silvaOptionumFormPartService: OpusMagnumSilvaOptionumFormPartService) {
         this.silvaOptionumForm = silvaOptionumFormPartService.createInitialSilvaOptionumForm();
     }
 

@@ -31,7 +31,7 @@
 import {AppellatioComisEnum} from "@app/wto/appellatio-comis.enum";
 /* @tt{{{   @end-ignore-text  }}}@ */
 
-export enum SilvaOptionumFormPartFieldName {
+export enum OpusMagnumSilvaOptionumFormPartFieldName {
     /* @tt{{{ 
         @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 

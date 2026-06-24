@@ -40,8 +40,8 @@ import {FormGroup} from "@angular/forms";
 }}}@  */
 
 import {
-    ArticulusInteriorFormPartGroup
-} from "@app/opus-magnum/opus-magnum-form/articulus-interior-form-part/articulus-interior-form-part-group";
+    OpusMagnumArticulusInteriorFormPartGroup
+} from "@app/opus-magnum/opus-magnum-form/opus-magnum-articulus-interior-form-part/opus-magnum-articulus-interior-form-part-group";
 /* @tt{{{  @end-foreach  }}}@ */
 
 /* @tt{{{   @ignore-text  }}}@ */
@@ -51,7 +51,7 @@ import {AppellatioComisEnum} from "@app/wto/appellatio-comis.enum";
 
 
 @Injectable({providedIn: 'root'})
-export class SilvaOptionumFormPartInitialValueService {
+export class OpusMagnumSilvaOptionumFormPartInitialValueService {
     /* @tt{{{ 
         @foreach [ iteratorExpression="model.item.attributesWithAngularFormInitialValues" loopVariable="attribute" ]
         @replace-value-by-expression
@@ -69,10 +69,10 @@ export class SilvaOptionumFormPartInitialValueService {
     campusTextusOptionalisInitialValue(): string {
         return ''
     }
-    articulusInteriorIteratusInitialValue(): Array<FormGroup<ArticulusInteriorFormPartGroup>> {
+    articulusInteriorIteratusInitialValue(): Array<FormGroup<OpusMagnumArticulusInteriorFormPartGroup>> {
         return []
     }
-    articulusInteriorOptionalisIteratusInitialValue(): Array<FormGroup<ArticulusInteriorFormPartGroup>> {
+    articulusInteriorOptionalisIteratusInitialValue(): Array<FormGroup<OpusMagnumArticulusInteriorFormPartGroup>> {
         return []
     }
     campusDieiInitialValue(): Date {

@@ -30,10 +30,10 @@
 
 import {FormGroup} from "@angular/forms";
 import {
-    ArticulusInteriorFormPartGroup
-} from "@app/opus-magnum/opus-magnum-form/articulus-interior-form-part/articulus-interior-form-part-group";
+    OpusMagnumArticulusInteriorFormPartGroup
+} from "@app/opus-magnum/opus-magnum-form/opus-magnum-articulus-interior-form-part/opus-magnum-articulus-interior-form-part-group";
 
-export interface ArticulusInteriorTableRow {
+export interface OpusMagnumArticulusInteriorTableRow {
     /*
     @tt{{{
         
@@ -50,5 +50,5 @@ export interface ArticulusInteriorTableRow {
     /* @tt{{{   @ignore-text  }}}@ */
     numerusStupidus: number
     /* @tt{{{   @end-ignore-text  }}}@ */
-    formGroup: FormGroup<ArticulusInteriorFormPartGroup>
+    formGroup: FormGroup<OpusMagnumArticulusInteriorFormPartGroup>
 }

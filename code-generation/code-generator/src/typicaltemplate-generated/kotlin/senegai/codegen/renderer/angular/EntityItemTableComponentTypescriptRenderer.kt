@@ -9,8 +9,8 @@ import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewItemModel
  * Generate the content for the template `EntityItemTableComponentTypescriptRenderer`.
  *
  * This template renderer was generated from the template:
- * - file: `articulus-interior-table.component.ts`
- * - path: `opus-magnum/opus-magnum-form/articulus-interior-table/articulus-interior-table.component.ts`
+ * - file: `opus-magnum-articulus-interior-table.component.ts`
+ * - path: `opus-magnum/opus-magnum-form/opus-magnum-articulus-interior-table/opus-magnum-articulus-interior-table.component.ts`
  */
 object EntityItemTableComponentTypescriptRenderer : UiEntityItemRenderer {
 
@@ -30,22 +30,22 @@ object EntityItemTableComponentTypescriptRenderer : UiEntityItemRenderer {
           |import {MatListModule} from "@angular/material/list";
           |import {MatDialogModule} from "@angular/material/dialog";
           |import {
-          |    ${model.item.itemName.pascalCase}TableRow
-          |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-table/${model.item.itemName.kebabCase}-table-row.model";
+          |    ${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}TableRow
+          |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-table/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-table-row.model";
           |import {
-          |    ${model.item.itemName.pascalCase}FormPartFieldName
-          |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-field-name";
+          |    ${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName
+          |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part-field-name";
           |import {
-          |    ${model.item.itemName.pascalCase}FormPartService
-          |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part.service";
+          |    ${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartService
+          |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part.service";
           |import {
-          |    ${model.item.itemName.pascalCase}FormPartGroup
-          |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-group";
+          |    ${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartGroup
+          |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part-group";
           |
           |@Component({
-          |    selector: 'app-${model.item.itemName.kebabCase}-table',
-          |    templateUrl: './${model.item.itemName.kebabCase}-table.component.html',
-          |    styleUrls: ['./${model.item.itemName.kebabCase}-table.component.scss'],
+          |    selector: 'app-${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-table',
+          |    templateUrl: './${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-table.component.html',
+          |    styleUrls: ['./${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-table.component.scss'],
           |    imports: [
           |        ReactiveFormsModule,
           |        MatButtonModule,
@@ -61,20 +61,20 @@ object EntityItemTableComponentTypescriptRenderer : UiEntityItemRenderer {
           |        MatDialogModule,
           |    ]
           |})
-          |export class ${model.item.itemName.pascalCase}TableComponent implements OnInit {
-          |    @Input({ required: true }) ${model.item.itemName.camelCase}FormArray!: FormArray<FormGroup<${model.item.itemName.pascalCase}FormPartGroup>>;
-          |    @Output() edit${model.item.itemName.pascalCase}FormGroup = new EventEmitter<FormGroup<${model.item.itemName.pascalCase}FormPartGroup>>();
-          |    @Output() delete${model.item.itemName.pascalCase}FormGroup = new EventEmitter<FormGroup<${model.item.itemName.pascalCase}FormPartGroup>>();
+          |export class ${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}TableComponent implements OnInit {
+          |    @Input({ required: true }) ${model.item.itemName.camelCase}FormArray!: FormArray<FormGroup<${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartGroup>>;
+          |    @Output() edit${model.item.itemName.pascalCase}FormGroup = new EventEmitter<FormGroup<${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartGroup>>();
+          |    @Output() delete${model.item.itemName.pascalCase}FormGroup = new EventEmitter<FormGroup<${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartGroup>>();
           |
           |    displayedColumns: string[] = [
           |${ model.item.attributes.joinToString("") { attribute ->  """        '${attribute.attributeName.camelCase}',
               |""" } }        'actions',
           |    ];
-          |    dataSource: MatTableDataSource<${model.item.itemName.pascalCase}TableRow> = new MatTableDataSource<${model.item.itemName.pascalCase}TableRow>();
+          |    dataSource: MatTableDataSource<${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}TableRow> = new MatTableDataSource<${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}TableRow>();
           |
           |    selectedFormGroup: FormGroup | undefined = undefined;
           |
-          |    constructor(private readonly ${model.item.itemName.camelCase}FormService: ${model.item.itemName.pascalCase}FormPartService) {
+          |    constructor(private readonly ${model.item.itemName.camelCase}FormService: ${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartService) {
           |    }
           |
           |    ngOnInit(): void {
@@ -82,9 +82,9 @@ object EntityItemTableComponentTypescriptRenderer : UiEntityItemRenderer {
           |        this.${model.item.itemName.camelCase}FormArray.valueChanges.subscribe(() => this.updateFormData())
           |    }
           |
-          |    private toTableRow(formGroup: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>): ${model.item.itemName.pascalCase}TableRow {
+          |    private toTableRow(formGroup: FormGroup<${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartGroup>): ${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}TableRow {
           |        return {
-          |${ model.item.attributes.joinToString("") { attribute ->  """            ${attribute.attributeName.camelCase}: JSON.stringify(formGroup.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].value),
+          |${ model.item.attributes.joinToString("") { attribute ->  """            ${attribute.attributeName.camelCase}: JSON.stringify(formGroup.controls[${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].value),
               |""" } }            formGroup: formGroup,
           |        }
           |    }
@@ -125,6 +125,6 @@ object EntityItemTableComponentTypescriptRenderer : UiEntityItemRenderer {
     }
 
     override fun filePath(model: UiEntityFormViewItemModel): String {
-      return "${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-table/${model.item.itemName.kebabCase}-table.component.ts"
+      return "${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-table/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-table.component.ts"
     }
 }

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 
 
 @Injectable({providedIn: 'root'})
-export class ArticulusInteriorFormPartInitialValueService {
+export class OpusMagnumArticulusInteriorFormPartInitialValueService {
 
     scriptumTrivialeInitialValue(): string {
         return ''

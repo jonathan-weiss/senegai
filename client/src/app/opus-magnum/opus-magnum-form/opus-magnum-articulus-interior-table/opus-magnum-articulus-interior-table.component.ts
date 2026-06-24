@@ -41,22 +41,22 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {MatDialogModule} from "@angular/material/dialog";
 import {
-    ArticulusInteriorTableRow
-} from "@app/opus-magnum/opus-magnum-form/articulus-interior-table/articulus-interior-table-row.model";
+    OpusMagnumArticulusInteriorTableRow
+} from "@app/opus-magnum/opus-magnum-form/opus-magnum-articulus-interior-table/opus-magnum-articulus-interior-table-row.model";
 import {
-    ArticulusInteriorFormPartFieldName
-} from "@app/opus-magnum/opus-magnum-form/articulus-interior-form-part/articulus-interior-form-part-field-name";
+    OpusMagnumArticulusInteriorFormPartFieldName
+} from "@app/opus-magnum/opus-magnum-form/opus-magnum-articulus-interior-form-part/opus-magnum-articulus-interior-form-part-field-name";
 import {
-    ArticulusInteriorFormPartService
-} from "@app/opus-magnum/opus-magnum-form/articulus-interior-form-part/articulus-interior-form-part.service";
+    OpusMagnumArticulusInteriorFormPartService
+} from "@app/opus-magnum/opus-magnum-form/opus-magnum-articulus-interior-form-part/opus-magnum-articulus-interior-form-part.service";
 import {
-    ArticulusInteriorFormPartGroup
-} from "@app/opus-magnum/opus-magnum-form/articulus-interior-form-part/articulus-interior-form-part-group";
+    OpusMagnumArticulusInteriorFormPartGroup
+} from "@app/opus-magnum/opus-magnum-form/opus-magnum-articulus-interior-form-part/opus-magnum-articulus-interior-form-part-group";
 
 @Component({
-    selector: 'app-articulus-interior-table',
-    templateUrl: './articulus-interior-table.component.html',
-    styleUrls: ['./articulus-interior-table.component.scss'],
+    selector: 'app-opus-magnum-articulus-interior-table',
+    templateUrl: './opus-magnum-articulus-interior-table.component.html',
+    styleUrls: ['./opus-magnum-articulus-interior-table.component.scss'],
     imports: [
         ReactiveFormsModule,
         MatButtonModule,
@@ -72,10 +72,10 @@ import {
         MatDialogModule,
     ]
 })
-export class ArticulusInteriorTableComponent implements OnInit {
-    @Input({ required: true }) articulusInteriorFormArray!: FormArray<FormGroup<ArticulusInteriorFormPartGroup>>;
-    @Output() editArticulusInteriorFormGroup = new EventEmitter<FormGroup<ArticulusInteriorFormPartGroup>>();
-    @Output() deleteArticulusInteriorFormGroup = new EventEmitter<FormGroup<ArticulusInteriorFormPartGroup>>();
+export class OpusMagnumArticulusInteriorTableComponent implements OnInit {
+    @Input({ required: true }) articulusInteriorFormArray!: FormArray<FormGroup<OpusMagnumArticulusInteriorFormPartGroup>>;
+    @Output() editArticulusInteriorFormGroup = new EventEmitter<FormGroup<OpusMagnumArticulusInteriorFormPartGroup>>();
+    @Output() deleteArticulusInteriorFormGroup = new EventEmitter<FormGroup<OpusMagnumArticulusInteriorFormPartGroup>>();
 
     displayedColumns: string[] = [
         /*
@@ -95,11 +95,11 @@ export class ArticulusInteriorTableComponent implements OnInit {
         /* @tt{{{   @end-ignore-text  }}}@ */
         'actions',
     ];
-    dataSource: MatTableDataSource<ArticulusInteriorTableRow> = new MatTableDataSource<ArticulusInteriorTableRow>();
+    dataSource: MatTableDataSource<OpusMagnumArticulusInteriorTableRow> = new MatTableDataSource<OpusMagnumArticulusInteriorTableRow>();
 
     selectedFormGroup: FormGroup | undefined = undefined;
 
-    constructor(private readonly articulusInteriorFormService: ArticulusInteriorFormPartService) {
+    constructor(private readonly articulusInteriorFormService: OpusMagnumArticulusInteriorFormPartService) {
     }
 
     ngOnInit(): void {
@@ -107,7 +107,7 @@ export class ArticulusInteriorTableComponent implements OnInit {
         this.articulusInteriorFormArray.valueChanges.subscribe(() => this.updateFormData())
     }
 
-    private toTableRow(formGroup: FormGroup<ArticulusInteriorFormPartGroup>): ArticulusInteriorTableRow {
+    private toTableRow(formGroup: FormGroup<OpusMagnumArticulusInteriorFormPartGroup>): OpusMagnumArticulusInteriorTableRow {
         return {
             /*
             @tt{{{
@@ -120,11 +120,11 @@ export class ArticulusInteriorTableComponent implements OnInit {
                 
             }}}@
              */
-            scriptumTriviale: JSON.stringify(formGroup.controls[ArticulusInteriorFormPartFieldName.scriptumTriviale].value),
+            scriptumTriviale: JSON.stringify(formGroup.controls[OpusMagnumArticulusInteriorFormPartFieldName.scriptumTriviale].value),
             /* @tt{{{   @end-foreach  }}}@ */
             /* @tt{{{   @ignore-text  }}}@ */
 
-            numerusStupidus: formGroup.controls[ArticulusInteriorFormPartFieldName.numerusStupidus].value,
+            numerusStupidus: formGroup.controls[OpusMagnumArticulusInteriorFormPartFieldName.numerusStupidus].value,
             /* @tt{{{   @end-ignore-text  }}}@ */
             formGroup: formGroup,
         }

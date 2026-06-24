@@ -3,17 +3,17 @@ import {ValidatorFn, Validators} from "@angular/forms";
 import {NamedValidator} from "@app/shared/form-controls/named-validator";
 import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
 import {
-    ArticulusInteriorFormPartFieldName
-} from "@app/opus-magnum/opus-magnum-form/articulus-interior-form-part/articulus-interior-form-part-field-name";
+    OpusMagnumArticulusInteriorFormPartFieldName
+} from "@app/opus-magnum/opus-magnum-form/opus-magnum-articulus-interior-form-part/opus-magnum-articulus-interior-form-part-field-name";
 
 @Injectable({providedIn: 'root'})
-export class ArticulusInteriorFormPartValidationService {
+export class OpusMagnumArticulusInteriorFormPartValidationService {
 
-    validatorFunctions(field: ArticulusInteriorFormPartFieldName): Array<ValidatorFn> {
+    validatorFunctions(field: OpusMagnumArticulusInteriorFormPartFieldName): Array<ValidatorFn> {
         return this.namedValidators(field).map(namedValidator => namedValidator.validatorFunction)
     }
 
-    validatorNames(field: ArticulusInteriorFormPartFieldName): Array<ValidatorTranslation> {
+    validatorNames(field: OpusMagnumArticulusInteriorFormPartFieldName): Array<ValidatorTranslation> {
         return this.namedValidators(field)
             .map(namedValidator => this.toValidatorTranslation(namedValidator))
     }
@@ -25,7 +25,7 @@ export class ArticulusInteriorFormPartValidationService {
         }
     }
 
-    namedValidators(field: ArticulusInteriorFormPartFieldName): ReadonlyArray<NamedValidator> {
+    namedValidators(field: OpusMagnumArticulusInteriorFormPartFieldName): ReadonlyArray<NamedValidator> {
         switch (field) {
             default:
                 return []

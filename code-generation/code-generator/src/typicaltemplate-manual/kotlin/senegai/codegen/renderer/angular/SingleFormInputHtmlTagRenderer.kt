@@ -30,7 +30,7 @@ object SingleFormInputHtmlTagRenderer {
         val inputTag = when (attributeModel.type) {
             is BuiltInTypeUiItemAttributeTypeModel -> createBuiltInInput(attributeModel.attributeName, attributeModel.type.builtInType, attributeModel.isList)
             is EnumUiItemAttributeTypeModel -> createEnumInput(NameCase(attributeModel.type.enumId.enumName), attributeModel.attributeName)
-            is ItemUiItemAttributeTypeModel -> createItemInput(attributeModel.type.item.itemName, attributeModel.attributeName, isList)
+            is ItemUiItemAttributeTypeModel -> createItemInput(attributeModel.entity.entityName, attributeModel.type.item.itemName, attributeModel.attributeName, isList)
         }
         
         return """
@@ -68,12 +68,18 @@ object SingleFormInputHtmlTagRenderer {
      *  ` <app-articulus-interior-form-part [articulusInteriorForm]="articulusInteriorListEditState.formGroupUnderEdit!"  />`
      *  ` <app-articulus-interior-form-part [articulusInteriorForm]="articulusInteriorSingularisControl"  />`
      */
-    private fun createItemInput(itemName: NameCase, attributeName: NameCase, isList: Boolean): String {
+    private fun createItemInput(
+        entityName: NameCase,
+        itemName: NameCase,
+        attributeName: NameCase,
+        isList: Boolean
+    ): String {
         val attributeNameCamelCase = attributeName.camelCase
+        val entityNameKebabCase = entityName.kebabCase
         val itemNameKebabCase = itemName.kebabCase
         val itemNameCamelCase = itemName.camelCase
         val controlName = if(isList) "${attributeNameCamelCase}EditState.formGroupUnderEdit!" else "${attributeNameCamelCase}Control"
-        return """<app-${itemNameKebabCase}-form-part [${itemNameCamelCase}Form]="$controlName"  />"""
+        return """<app-${entityNameKebabCase}-${itemNameKebabCase}-form-part [${itemNameCamelCase}Form]="$controlName"  />"""
     }
 
     /**

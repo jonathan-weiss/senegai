@@ -28,7 +28,7 @@
 }}}@ */
 
 import {FormArray, FormControl, FormGroup} from "@angular/forms";
-import {SilvaOptionumFormPartFieldName} from "@app/opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part-field-name";
+import {OpusMagnumSilvaOptionumFormPartFieldName} from "@app/opus-magnum/opus-magnum-form/opus-magnum-silva-optionum-form-part/opus-magnum-silva-optionum-form-part-field-name";
 /* @tt{{{   @ignore-text  }}}@ */
 import {AppellatioComisEnum} from "@app/wto/appellatio-comis.enum";
 /* @tt{{{   @end-ignore-text  }}}@ */
@@ -43,13 +43,13 @@ import {AppellatioComisEnum} from "@app/wto/appellatio-comis.enum";
 }}}@  */
 
 import {
-    ArticulusInteriorFormPartGroup
-} from "@app/opus-magnum/opus-magnum-form/articulus-interior-form-part/articulus-interior-form-part-group";
+    OpusMagnumArticulusInteriorFormPartGroup
+} from "@app/opus-magnum/opus-magnum-form/opus-magnum-articulus-interior-form-part/opus-magnum-articulus-interior-form-part-group";
 /* @tt{{{  @end-foreach  }}}@ */
 
 
 
-export interface SilvaOptionumFormPartGroup {
+export interface OpusMagnumSilvaOptionumFormPartGroup {
     /* @tt{{{ 
         @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
@@ -58,25 +58,25 @@ export interface SilvaOptionumFormPartGroup {
             [ searchValue="FormControl<string>" replaceByExpression="attribute.angularFormControlTypeWithCollection" ]
 
     }}}@  */
-    [SilvaOptionumFormPartFieldName.campusTextusOptionalis]: FormControl<string>,
+    [OpusMagnumSilvaOptionumFormPartFieldName.campusTextusOptionalis]: FormControl<string>,
     /* @tt{{{   @if [ conditionExpression="attribute.isNullable"] }}}@ */
-    [SilvaOptionumFormPartFieldName.campusTextusOptionalisIsNotNull]: FormControl<boolean>,
+    [OpusMagnumSilvaOptionumFormPartFieldName.campusTextusOptionalisIsNotNull]: FormControl<boolean>,
     /* @tt{{{   @end-if }}}@ */
     /* @tt{{{  @end-foreach  }}}@ */
     /* @tt{{{   @ignore-text  }}}@ */
-    [SilvaOptionumFormPartFieldName.campusTextusObligatorius]: FormControl<string>,
-    [SilvaOptionumFormPartFieldName.articulusInteriorSingularis]: FormGroup<ArticulusInteriorFormPartGroup>,
-    [SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalis]: FormGroup<ArticulusInteriorFormPartGroup>,
-    [SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalisIsNotNull]: FormControl<boolean>,
-    [SilvaOptionumFormPartFieldName.articulusInteriorIteratus]: FormArray<FormGroup<ArticulusInteriorFormPartGroup>>,
-    [SilvaOptionumFormPartFieldName.articulusInteriorOptionalisIteratus]: FormArray<FormGroup<ArticulusInteriorFormPartGroup>>,
-    [SilvaOptionumFormPartFieldName.articulusInteriorOptionalisIteratusIsNotNull]: FormControl<boolean>,
-    [SilvaOptionumFormPartFieldName.campusDieiIsNotNull]: FormControl<boolean>,
-    [SilvaOptionumFormPartFieldName.campusDiei]: FormControl<Date>,
-    [SilvaOptionumFormPartFieldName.campusBivalens]: FormControl<boolean>,
-    [SilvaOptionumFormPartFieldName.appellatio]: FormControl<AppellatioComisEnum>,
-    [SilvaOptionumFormPartFieldName.campusNumerorum]: FormControl<number>,
-    [SilvaOptionumFormPartFieldName.indexUnicus]: FormControl<string>,
-    [SilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum]: FormArray<FormControl<string>>,
+    [OpusMagnumSilvaOptionumFormPartFieldName.campusTextusObligatorius]: FormControl<string>,
+    [OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorSingularis]: FormGroup<OpusMagnumArticulusInteriorFormPartGroup>,
+    [OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalis]: FormGroup<OpusMagnumArticulusInteriorFormPartGroup>,
+    [OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalisIsNotNull]: FormControl<boolean>,
+    [OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorIteratus]: FormArray<FormGroup<OpusMagnumArticulusInteriorFormPartGroup>>,
+    [OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorOptionalisIteratus]: FormArray<FormGroup<OpusMagnumArticulusInteriorFormPartGroup>>,
+    [OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorOptionalisIteratusIsNotNull]: FormControl<boolean>,
+    [OpusMagnumSilvaOptionumFormPartFieldName.campusDieiIsNotNull]: FormControl<boolean>,
+    [OpusMagnumSilvaOptionumFormPartFieldName.campusDiei]: FormControl<Date>,
+    [OpusMagnumSilvaOptionumFormPartFieldName.campusBivalens]: FormControl<boolean>,
+    [OpusMagnumSilvaOptionumFormPartFieldName.appellatio]: FormControl<AppellatioComisEnum>,
+    [OpusMagnumSilvaOptionumFormPartFieldName.campusNumerorum]: FormControl<number>,
+    [OpusMagnumSilvaOptionumFormPartFieldName.indexUnicus]: FormControl<string>,
+    [OpusMagnumSilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum]: FormArray<FormControl<string>>,
     /* @tt{{{   @end-ignore-text  }}}@ */
 }

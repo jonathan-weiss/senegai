@@ -6,6 +6,7 @@ import senegai.codegen.renderer.model.ui.entityform.AttributeAndBuiltInTypeDescr
 import senegai.codegen.schema.BuiltInType
 
 data class UiItemAttributeModel(
+    val entity: UiEntityDescriptionModel,
     val attributeName: NameCase,
     val isNullable: Boolean,
     val isList: Boolean,
@@ -53,6 +54,7 @@ data class UiItemAttributeModel(
         }
 
     private fun ItemUiItemAttributeTypeModel.itemTypeAsString(): String = this.item.itemName.pascalCase
+    private fun ItemUiItemAttributeTypeModel.entityAndItemTypeAsString(): String = "${entity.entityName.pascalCase}${this.item.itemName.pascalCase}"
 
     private fun EnumUiItemAttributeTypeModel.enumTypeAsString(): String = this.enumId.enumName
 
@@ -85,7 +87,7 @@ data class UiItemAttributeModel(
         val singleType = when (type) {
             is BuiltInTypeUiItemAttributeTypeModel -> typescriptBuildInType(type.builtInType)
             is EnumUiItemAttributeTypeModel -> type.enumTypeAsString()
-            is ItemUiItemAttributeTypeModel -> "FormGroup<${type.itemTypeAsString()}FormPartGroup>"
+            is ItemUiItemAttributeTypeModel -> "FormGroup<${type.entityAndItemTypeAsString()}FormPartGroup>"
         }
 
         // TODO form values are never null, as the initial value is used for
@@ -115,7 +117,7 @@ data class UiItemAttributeModel(
         val singleType = when (type) {
             is BuiltInTypeUiItemAttributeTypeModel -> typescriptBuildInType(type.builtInType)
             is EnumUiItemAttributeTypeModel -> type.enumTypeAsString()
-            is ItemUiItemAttributeTypeModel -> "${type.itemTypeAsString()}FormPartGroup"
+            is ItemUiItemAttributeTypeModel -> "${type.entityAndItemTypeAsString()}FormPartGroup"
         }
         // TODO form values are never null, as the initial value is used for
 //        val singleTypeWithNullability =  withAngularFormNullability(singleType)

@@ -9,8 +9,8 @@ import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewItemModel
  * Generate the content for the template `EntityItemFormPartInitialValueServiceRenderer`.
  *
  * This template renderer was generated from the template:
- * - file: `silva-optionum-form-part-initial-value.service.ts`
- * - path: `opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part-initial-value.service.ts`
+ * - file: `opus-magnum-silva-optionum-form-part-initial-value.service.ts`
+ * - path: `opus-magnum/opus-magnum-form/opus-magnum-silva-optionum-form-part/opus-magnum-silva-optionum-form-part-initial-value.service.ts`
  */
 object EntityItemFormPartInitialValueServiceRenderer : UiEntityItemRenderer {
 
@@ -22,13 +22,13 @@ object EntityItemFormPartInitialValueServiceRenderer : UiEntityItemRenderer {
           |
           |${ model.item.directlyNestedItems.joinToString("") { directlyNestedItem ->  """
               |import {
-              |    ${directlyNestedItem.itemName.pascalCase}FormPartGroup
-              |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${directlyNestedItem.itemName.kebabCase}-form-part/${directlyNestedItem.itemName.kebabCase}-form-part-group";
+              |    ${model.entity.entityName.pascalCase}${directlyNestedItem.itemName.pascalCase}FormPartGroup
+              |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-${directlyNestedItem.itemName.kebabCase}-form-part/${model.entity.entityName.kebabCase}-${directlyNestedItem.itemName.kebabCase}-form-part-group";
               |""" } }
           |
           |
           |@Injectable({providedIn: 'root'})
-          |export class ${model.item.itemName.pascalCase}FormPartInitialValueService {
+          |export class ${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartInitialValueService {
           |${ model.item.attributesWithAngularFormInitialValues.joinToString("") { attribute ->  """    ${attribute.attributeName.camelCase}InitialValue(): ${attribute.angularInitialValueFormType} {
               |        return ${attribute.angularFormInitialValue}
               |    }
@@ -38,6 +38,6 @@ object EntityItemFormPartInitialValueServiceRenderer : UiEntityItemRenderer {
     }
 
     override fun filePath(model: UiEntityFormViewItemModel): String {
-      return "${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-initial-value.service.ts"
+      return "${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part-initial-value.service.ts"
     }
 }

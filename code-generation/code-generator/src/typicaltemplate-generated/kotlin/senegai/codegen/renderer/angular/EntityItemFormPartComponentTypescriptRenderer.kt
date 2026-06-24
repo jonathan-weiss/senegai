@@ -9,8 +9,8 @@ import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewItemModel
  * Generate the content for the template `EntityItemFormPartComponentTypescriptRenderer`.
  *
  * This template renderer was generated from the template:
- * - file: `silva-optionum-form-part.component.ts`
- * - path: `opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part.component.ts`
+ * - file: `opus-magnum-silva-optionum-form-part.component.ts`
+ * - path: `opus-magnum/opus-magnum-form/opus-magnum-silva-optionum-form-part/opus-magnum-silva-optionum-form-part.component.ts`
  */
 object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
 
@@ -32,16 +32,16 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
           |import {FormArrayEditState} from "@app/shared/form-controls/form-array-edit-state";
           |import {FieldWrapperComponent} from "@app/shared/form-controls/field-wrapper/field-wrapper.component";
           |import {
-          |    ${model.item.itemName.pascalCase}FormPartValidationService
-          |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-validation.service";
-          |import {${model.item.itemName.pascalCase}FormPartFieldName,} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-field-name";
+          |    ${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartValidationService
+          |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part-validation.service";
+          |import {${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName,} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part-field-name";
           |${ if(model.item.containsTextAttributes) { """import {TextInputComponent} from "@app/shared/form-controls/text-input/text-input.component";
               |""" } else { """""" } }${ if(model.item.containsBooleanAttributes) { """import {BooleanInputComponent} from "@app/shared/form-controls/boolean-input/boolean-input.component";
               |""" } else { """""" } }${ if(model.item.containsNumberAttributes) { """import {NumberInputComponent} from "@app/shared/form-controls/number-input/number-input.component";
               |""" } else { """""" } }import {DatepickerInputComponent} from "@app/shared/form-controls/datepicker-input/datepicker-input.component";
           |import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
           |import {MatTab, MatTabGroup} from "@angular/material/tabs";
-          |import {${model.item.itemName.pascalCase}FormPartGroup} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-group";
+          |import {${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartGroup} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part-group";
           |${ if(model.containsNamedSectionSplitBlocks()) { """import {SectionSplitterComponent} from "@app/shared/blocks/section-splitter/section-splitter.component";
               |""" } else { """""" } }${ if(model.containsTextBlocks()) { """import {TextBlockComponent} from "@app/shared/blocks/text-block/text-block.component";
               |""" } else { """""" } }${ if(model.item.containsTextListAttributes) { """import {
@@ -56,19 +56,19 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
               |""" } else { """""" } }
           |
           |${ model.item.directlyNestedItems.joinToString("") { nestedItem ->  """import {
-              |    ${nestedItem.itemName.pascalCase}TableComponent
-              |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${nestedItem.itemName.kebabCase}-table/${nestedItem.itemName.kebabCase}-table.component";
+              |    ${model.entity.entityName.pascalCase}${nestedItem.itemName.pascalCase}TableComponent
+              |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-${nestedItem.itemName.kebabCase}-table/${model.entity.entityName.kebabCase}-${nestedItem.itemName.kebabCase}-table.component";
               |import {
-              |    ${nestedItem.itemName.pascalCase}FormPartComponent
-              |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${nestedItem.itemName.kebabCase}-form-part/${nestedItem.itemName.kebabCase}-form-part.component";
+              |    ${model.entity.entityName.pascalCase}${nestedItem.itemName.pascalCase}FormPartComponent
+              |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-${nestedItem.itemName.kebabCase}-form-part/${model.entity.entityName.kebabCase}-${nestedItem.itemName.kebabCase}-form-part.component";
               |import {
-              |    ${nestedItem.itemName.pascalCase}FormPartGroup
-              |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${nestedItem.itemName.kebabCase}-form-part/${nestedItem.itemName.kebabCase}-form-part-group";
+              |    ${model.entity.entityName.pascalCase}${nestedItem.itemName.pascalCase}FormPartGroup
+              |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-${nestedItem.itemName.kebabCase}-form-part/${model.entity.entityName.kebabCase}-${nestedItem.itemName.kebabCase}-form-part-group";
               |""" } }
           |@Component({
-          |    selector: 'app-${model.item.itemName.kebabCase}-form-part',
-          |    templateUrl: './${model.item.itemName.kebabCase}-form-part.component.html',
-          |    styleUrls: ['./${model.item.itemName.kebabCase}-form-part.component.scss'],
+          |    selector: 'app-${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part',
+          |    templateUrl: './${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part.component.html',
+          |    styleUrls: ['./${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part.component.scss'],
           |    imports: [
           |        ReactiveFormsModule,
           |        MatButtonModule,
@@ -88,16 +88,16 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
               |""" } else { """""" } }${ if(model.containsNamedSectionSplitBlocks()) { """        SectionSplitterComponent,
               |""" } else { """""" } }${ if(model.containsTextBlocks()) { """        TextBlockComponent,
               |""" } else { """""" } }${ model.item.attributesWithItem.joinToString("") { attributeWithItem ->  """
-              |${ if(attributeWithItem.attribute.isList) { """        ${attributeWithItem.type.item.itemName.pascalCase}TableComponent,
-                  |""" } else { """""" } }        ${attributeWithItem.type.item.itemName.pascalCase}FormPartComponent,
+              |${ if(attributeWithItem.attribute.isList) { """        ${model.entity.entityName.pascalCase}${attributeWithItem.type.item.itemName.pascalCase}TableComponent,
+                  |""" } else { """""" } }        ${model.entity.entityName.pascalCase}${attributeWithItem.type.item.itemName.pascalCase}FormPartComponent,
               |""" } }${ if(model.item.containsTextAttributes) { """        TextInputComponent,
               |""" } else { """""" } }${ if(model.item.containsBooleanAttributes) { """        BooleanInputComponent,
               |""" } else { """""" } }${ if(model.item.containsNumberAttributes) { """        NumberInputComponent,
               |""" } else { """""" } }${ if(model.item.containsTextListAttributes) { """        SingleTextFormFieldTableComponent,
               |""" } else { """""" } }${ if(model.item.containsNumberListAttributes) { """        SingleNumberFormFieldTableComponent,""" } else { """""" } }${ if(model.item.containsBooleanListAttributes) { """        SingleBooleanFormFieldTableComponent,""" } else { """""" } }    ]
           |})
-          |export class ${model.item.itemName.pascalCase}FormPartComponent implements OnInit {
-          |    @Input({ required: true }) ${model.item.itemName.camelCase}Form!: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>;
+          |export class ${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartComponent implements OnInit {
+          |    @Input({ required: true }) ${model.item.itemName.camelCase}Form!: FormGroup<${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartGroup>;
           |
           |${ model.item.attributesWithItem.filter { it.attribute.isList }.joinToString("") { attributeWithItem ->  """    readonly ${attributeWithItem.attribute.attributeName.camelCase}EditState = new FormArrayEditState<${attributeWithItem.attribute.angularFormControlType}>(
               |        () => this.${attributeWithItem.attribute.attributeName.camelCase}Control
@@ -109,14 +109,14 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
               |    protected ${attribute.attributeName.camelCase}ValidatorNames!: ReadonlyArray<ValidatorTranslation>
               |
               |""" } }
-          |    constructor(private readonly ${model.item.itemName.camelCase}FormValidationService: ${model.item.itemName.pascalCase}FormPartValidationService,) {
+          |    constructor(private readonly ${model.item.itemName.camelCase}FormValidationService: ${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartValidationService,) {
           |    }
           |
           |    ngOnInit() {
-          |${ model.item.attributes.joinToString("") { attribute ->  """${ if(attribute.isNullable) { """        this.${attribute.attributeName.camelCase}IsNotNullControl = this.${model.item.itemName.camelCase}Form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull]
-                  |        this.${attribute.attributeName.camelCase}IsNotNullValidatorNames = this.${model.item.itemName.camelCase}FormValidationService.validatorNames(${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull)
-                  |""" } else { """""" } }        this.${attribute.attributeName.camelCase}Control = this.${model.item.itemName.camelCase}Form.controls[${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}]
-              |        this.${attribute.attributeName.camelCase}ValidatorNames = this.${model.item.itemName.camelCase}FormValidationService.validatorNames(${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase})
+          |${ model.item.attributes.joinToString("") { attribute ->  """${ if(attribute.isNullable) { """        this.${attribute.attributeName.camelCase}IsNotNullControl = this.${model.item.itemName.camelCase}Form.controls[${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull]
+                  |        this.${attribute.attributeName.camelCase}IsNotNullValidatorNames = this.${model.item.itemName.camelCase}FormValidationService.validatorNames(${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull)
+                  |""" } else { """""" } }        this.${attribute.attributeName.camelCase}Control = this.${model.item.itemName.camelCase}Form.controls[${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}]
+              |        this.${attribute.attributeName.camelCase}ValidatorNames = this.${model.item.itemName.camelCase}FormValidationService.validatorNames(${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase})
               |
               |""" } }    }
           |}
@@ -125,6 +125,6 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
     }
 
     override fun filePath(model: UiEntityFormViewItemModel): String {
-      return "${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part.component.ts"
+      return "${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part.component.ts"
     }
 }

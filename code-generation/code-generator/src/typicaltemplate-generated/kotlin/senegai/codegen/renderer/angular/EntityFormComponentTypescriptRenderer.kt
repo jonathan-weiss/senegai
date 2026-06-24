@@ -30,11 +30,11 @@ object EntityFormComponentTypescriptRenderer : UiEntityRenderer {
           |import {MatListModule} from "@angular/material/list";
           |import {MatDialogModule} from "@angular/material/dialog";
           |import {${model.entityRootItem.itemName.pascalCase}WTO} from "@app/wto/${model.entityRootItem.itemName.kebabCase}.wto";
-          |import {${model.entityRootItem.itemName.pascalCase}FormPartService} from "@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}-form/${model.entityRootItem.itemName.kebabCase}-form-part/${model.entityRootItem.itemName.kebabCase}-form-part.service";
-          |import {${model.entityRootItem.itemName.pascalCase}FormPartComponent} from "@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}-form/${model.entityRootItem.itemName.kebabCase}-form-part/${model.entityRootItem.itemName.kebabCase}-form-part.component";
+          |import {${model.entityName.pascalCase}${model.entityRootItem.itemName.pascalCase}FormPartService} from "@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}-form/${model.entityName.kebabCase}-${model.entityRootItem.itemName.kebabCase}-form-part/${model.entityName.kebabCase}-${model.entityRootItem.itemName.kebabCase}-form-part.service";
+          |import {${model.entityName.pascalCase}${model.entityRootItem.itemName.pascalCase}FormPartComponent} from "@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}-form/${model.entityName.kebabCase}-${model.entityRootItem.itemName.kebabCase}-form-part/${model.entityName.kebabCase}-${model.entityRootItem.itemName.kebabCase}-form-part.component";
           |import {
-          |    ${model.entityRootItem.itemName.pascalCase}FormPartGroup
-          |} from "@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}-form/${model.entityRootItem.itemName.kebabCase}-form-part/${model.entityRootItem.itemName.kebabCase}-form-part-group";
+          |    ${model.entityName.pascalCase}${model.entityRootItem.itemName.pascalCase}FormPartGroup
+          |} from "@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}-form/${model.entityName.kebabCase}-${model.entityRootItem.itemName.kebabCase}-form-part/${model.entityName.kebabCase}-${model.entityRootItem.itemName.kebabCase}-form-part-group";
           |
           |@Component({
           |    selector: 'app-${model.entityName.kebabCase}-form',
@@ -53,7 +53,7 @@ object EntityFormComponentTypescriptRenderer : UiEntityRenderer {
           |        MatSidenavModule,
           |        MatListModule,
           |        MatDialogModule,
-          |        ${model.entityRootItem.itemName.pascalCase}FormPartComponent,
+          |        ${model.entityName.pascalCase}${model.entityRootItem.itemName.pascalCase}FormPartComponent,
           |    ]
           |})
           |export class ${model.entityName.pascalCase}FormComponent implements OnInit {
@@ -61,9 +61,9 @@ object EntityFormComponentTypescriptRenderer : UiEntityRenderer {
           |    @Output() save = new EventEmitter<${model.entityRootItem.itemName.pascalCase}WTO>();
           |    @Output() cancel = new EventEmitter<void>();
           |
-          |    ${model.entityRootItem.itemName.camelCase}Form: FormGroup<${model.entityRootItem.itemName.pascalCase}FormPartGroup>;
+          |    ${model.entityRootItem.itemName.camelCase}Form: FormGroup<${model.entityName.pascalCase}${model.entityRootItem.itemName.pascalCase}FormPartGroup>;
           |
-          |    constructor(private ${model.entityRootItem.itemName.camelCase}FormPartService: ${model.entityRootItem.itemName.pascalCase}FormPartService) {
+          |    constructor(private ${model.entityRootItem.itemName.camelCase}FormPartService: ${model.entityName.pascalCase}${model.entityRootItem.itemName.pascalCase}FormPartService) {
           |        this.${model.entityRootItem.itemName.camelCase}Form = ${model.entityRootItem.itemName.camelCase}FormPartService.createInitial${model.entityRootItem.itemName.pascalCase}Form();
           |    }
           |

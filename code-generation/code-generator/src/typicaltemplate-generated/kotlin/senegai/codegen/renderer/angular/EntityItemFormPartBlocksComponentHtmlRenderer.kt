@@ -12,8 +12,8 @@ import senegai.codegen.renderer.angular.SingleFormInputHtmlTagRenderer
  * Generate the content for the template `EntityItemFormPartBlocksComponentHtmlRenderer`.
  *
  * This template renderer was generated from the template:
- * - file: `silva-optionum-form-part.component.html`
- * - path: `opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part.component.html`
+ * - file: `opus-magnum-silva-optionum-form-part.component.html`
+ * - path: `opus-magnum/opus-magnum-form/opus-magnum-silva-optionum-form-part/opus-magnum-silva-optionum-form-part.component.html`
  */
 object EntityItemFormPartBlocksComponentHtmlRenderer {
 
@@ -40,7 +40,7 @@ object EntityItemFormPartBlocksComponentHtmlRenderer {
                   |${ if(block.attribute.isItem && block.attribute.isList && !block.attribute.isNullable) { """
                       |                <div class="form-row">
                       |                    <app-field-wrapper label="${block.attribute.attributeName.pascalCase}">
-                      |                        <app-${block.attribute.attributeAndItem.type.item.itemName.kebabCase}-table
+                      |                        <app-${block.attribute.attributeAndItem.type.entity.entityName.kebabCase}-${block.attribute.attributeAndItem.type.item.itemName.kebabCase}-table
                       |                                [${block.attribute.attributeAndItem.type.item.itemName.camelCase}FormArray]="${block.attribute.attributeName.camelCase}Control"
                       |                                (edit${block.attribute.attributeAndItem.type.item.itemName.pascalCase}FormGroup)="${block.attribute.attributeName.camelCase}EditState.onEdit(${"$"}event)"
                       |                                (delete${block.attribute.attributeAndItem.type.item.itemName.pascalCase}FormGroup)="${block.attribute.attributeName.camelCase}EditState.onDelete(${"$"}event)"
@@ -61,7 +61,7 @@ object EntityItemFormPartBlocksComponentHtmlRenderer {
                       |                                       [nullabilityCheckboxFormControl]="${block.attribute.attributeName.camelCase}IsNotNullControl"
                       |                                       [formGroupToDisableIfNullField]="${block.attribute.attributeName.camelCase}Control"
                       |                    >
-                      |                        <app-${block.attribute.attributeAndItem.type.item.itemName.kebabCase}-table
+                      |                        <app-${block.attribute.attributeAndItem.type.entity.entityName.kebabCase}-${block.attribute.attributeAndItem.type.item.itemName.kebabCase}-table
                       |                                [${block.attribute.attributeAndItem.type.item.itemName.camelCase}FormArray]="${block.attribute.attributeName.camelCase}Control"
                       |                                (edit${block.attribute.attributeAndItem.type.item.itemName.pascalCase}FormGroup)="${block.attribute.attributeName.camelCase}EditState.onEdit(${"$"}event)"
                       |                                (delete${block.attribute.attributeAndItem.type.item.itemName.pascalCase}FormGroup)="${block.attribute.attributeName.camelCase}EditState.onDelete(${"$"}event)"
@@ -82,6 +82,6 @@ object EntityItemFormPartBlocksComponentHtmlRenderer {
     }
 
     fun filePath(blocks: List<UiEntityFormBlockModel>, item: UiItemModel, entity: UiEntityModel): String {
-      return "opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part.component.html"
+      return "opus-magnum/opus-magnum-form/opus-magnum-silva-optionum-form-part/opus-magnum-silva-optionum-form-part.component.html"
     }
 }

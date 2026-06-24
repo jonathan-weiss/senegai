@@ -1,4 +1,4 @@
-export enum ArticulusInteriorFormPartFieldName {
+export enum OpusMagnumArticulusInteriorFormPartFieldName {
     scriptumTriviale = "scriptumTriviale",
     numerusStupidus = "numerusStupidus",
 }

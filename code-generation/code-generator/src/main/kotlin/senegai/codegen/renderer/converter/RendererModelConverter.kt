@@ -6,6 +6,7 @@ import senegai.codegen.renderer.model.SchemaModel
 import senegai.codegen.renderer.model.ui.BuiltInTypeUiItemAttributeTypeModel
 import senegai.codegen.renderer.model.ui.EnumUiItemAttributeTypeModel
 import senegai.codegen.renderer.model.ui.ItemUiItemAttributeTypeModel
+import senegai.codegen.renderer.model.ui.UiEntityDescriptionModel
 import senegai.codegen.renderer.model.ui.UiItemAttributeModel
 import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewModel
 import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewColumnModel
@@ -22,8 +23,8 @@ import senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormBlockMode
 import senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormItemAttributeBlockModel
 import senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormNamedSectionSplitBlockModel
 import senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormTextBlockModel
-import senegai.codegen.renderer.model.ui.entityform.blocks.UiFormAttributeType
 import senegai.codegen.schema.BuiltInType
+import senegai.codegen.schema.Entity
 import senegai.codegen.schema.EntityId
 import senegai.codegen.schema.EnumId
 import senegai.codegen.schema.EnumType
@@ -51,20 +52,24 @@ object RendererModelConverter {
                     .map {
                         val entity = schemaData.entities.single { entity -> it.entity.entityId == entity.entityId }
                         val allNestedItemIds = HierarchicalItemSearch.findAllItemNames(entity.item, schemaData.items)
-                        mapUiEntityViewsModel(it, allNestedItemIds, schemaData.allUiItemModels(), schemaData.enums)
+                        mapUiEntityViewsModel(it, allNestedItemIds, schemaData.allUiItemModels(entity.toUiEntityDescriptionModel()), schemaData.enums)
                     }
             )
         )
     }
 
-    private fun SchemaData.allUiItemModels(): List<UiItemModel> {
-        return items.map { item -> mapUiItemModel(item, enums) }
+    private fun Entity.toUiEntityDescriptionModel(): UiEntityDescriptionModel {
+        return UiEntityDescriptionModel(entityId, NameCase(entityName))
     }
 
-    private fun mapUiItemModel(item: Item, enums: List<EnumType>): UiItemModel {
+    private fun SchemaData.allUiItemModels(entity: UiEntityDescriptionModel): List<UiItemModel> {
+        return items.map { item -> mapUiItemModel(entity, item, enums) }
+    }
+
+    private fun mapUiItemModel(entity: UiEntityDescriptionModel, item: Item, enums: List<EnumType>): UiItemModel {
         return UiItemModel(
             itemDescription = toUiItemDescriptionModel(item.itemId),
-            attributes = item.attributes.map { mapUiItemAttribute(it, enums) }
+            attributes = item.attributes.map { mapUiItemAttribute(entity, it, enums) }
         )
     }
 
@@ -75,16 +80,25 @@ object RendererModelConverter {
         )
     }
 
-    private fun mapUiItemAttribute(itemAttribute: ItemAttribute, enums: List<EnumType>): UiItemAttributeModel {
+    private fun mapUiItemAttribute(
+        entity: UiEntityDescriptionModel,
+        itemAttribute: ItemAttribute,
+        enums: List<EnumType>
+    ): UiItemAttributeModel {
         return UiItemAttributeModel(
+            entity = entity,
             attributeName = NameCase(itemAttribute.attributeName),
             isNullable = itemAttribute.isNullable,
             isList = itemAttribute.isMultiple,
-            type = mapUiItemAttributeType(itemAttribute.type, enums),
+            type = mapUiItemAttributeType(entity,itemAttribute.type, enums),
         )
     }
 
-    private fun mapUiItemAttributeType(itemAttributeType: ItemAttributeType, enums: List<EnumType>): UiItemAttributeTypeModel {
+    private fun mapUiItemAttributeType(
+        entity: UiEntityDescriptionModel,
+        itemAttributeType: ItemAttributeType,
+        enums: List<EnumType>
+    ): UiItemAttributeTypeModel {
         return when (itemAttributeType) {
             is BuiltInType -> BuiltInTypeUiItemAttributeTypeModel(itemAttributeType)
             is EntityId -> throw NotSupportedInTemplateException("EntityId as attribute type is not supported in $itemAttributeType")
@@ -93,7 +107,7 @@ object RendererModelConverter {
                     ?: throw NoSuchElementException("EnumType ${itemAttributeType.enumName} not found in schema enums")
                 EnumUiItemAttributeTypeModel(UiEnumModel(enumType))
             }
-            is ItemId -> ItemUiItemAttributeTypeModel(toUiItemDescriptionModel(itemAttributeType))
+            is ItemId -> ItemUiItemAttributeTypeModel( entity,toUiItemDescriptionModel(itemAttributeType))
         }
     }
 

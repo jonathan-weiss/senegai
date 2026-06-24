@@ -43,9 +43,9 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {FormArrayEditState} from "@app/shared/form-controls/form-array-edit-state";
 import {FieldWrapperComponent} from "@app/shared/form-controls/field-wrapper/field-wrapper.component";
 import {
-    SilvaOptionumFormPartValidationService
-} from "@app/opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part-validation.service";
-import {SilvaOptionumFormPartFieldName,} from "@app/opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part-field-name";
+    OpusMagnumSilvaOptionumFormPartValidationService
+} from "@app/opus-magnum/opus-magnum-form/opus-magnum-silva-optionum-form-part/opus-magnum-silva-optionum-form-part-validation.service";
+import {OpusMagnumSilvaOptionumFormPartFieldName,} from "@app/opus-magnum/opus-magnum-form/opus-magnum-silva-optionum-form-part/opus-magnum-silva-optionum-form-part-field-name";
 /* @tt{{{   @if [ conditionExpression="model.item.containsTextAttributes"]   }}}@ */
 import {TextInputComponent} from "@app/shared/form-controls/text-input/text-input.component";
 /* @tt{{{   @end-if  }}}@ */
@@ -58,7 +58,7 @@ import {NumberInputComponent} from "@app/shared/form-controls/number-input/numbe
 import {DatepickerInputComponent} from "@app/shared/form-controls/datepicker-input/datepicker-input.component";
 import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
-import {SilvaOptionumFormPartGroup} from "@app/opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part-group";
+import {OpusMagnumSilvaOptionumFormPartGroup} from "@app/opus-magnum/opus-magnum-form/opus-magnum-silva-optionum-form-part/opus-magnum-silva-optionum-form-part-group";
 /*
 @tt{{{
     @if [ conditionExpression="model.containsNamedSectionSplitBlocks()" ]
@@ -114,20 +114,20 @@ import {AppellatioComisSelectorComponent} from "@app/enum/appellatio-comis-input
 
 }}}@  */
 import {
-    ArticulusInteriorTableComponent
-} from "@app/opus-magnum/opus-magnum-form/articulus-interior-table/articulus-interior-table.component";
+    OpusMagnumArticulusInteriorTableComponent
+} from "@app/opus-magnum/opus-magnum-form/opus-magnum-articulus-interior-table/opus-magnum-articulus-interior-table.component";
 import {
-    ArticulusInteriorFormPartComponent
-} from "@app/opus-magnum/opus-magnum-form/articulus-interior-form-part/articulus-interior-form-part.component";
+    OpusMagnumArticulusInteriorFormPartComponent
+} from "@app/opus-magnum/opus-magnum-form/opus-magnum-articulus-interior-form-part/opus-magnum-articulus-interior-form-part.component";
 import {
-    ArticulusInteriorFormPartGroup
-} from "@app/opus-magnum/opus-magnum-form/articulus-interior-form-part/articulus-interior-form-part-group";
+    OpusMagnumArticulusInteriorFormPartGroup
+} from "@app/opus-magnum/opus-magnum-form/opus-magnum-articulus-interior-form-part/opus-magnum-articulus-interior-form-part-group";
 /* @tt{{{   @end-foreach  }}}@ */
 
 @Component({
-    selector: 'app-silva-optionum-form-part',
-    templateUrl: './silva-optionum-form-part.component.html',
-    styleUrls: ['./silva-optionum-form-part.component.scss'],
+    selector: 'app-opus-magnum-silva-optionum-form-part',
+    templateUrl: './opus-magnum-silva-optionum-form-part.component.html',
+    styleUrls: ['./opus-magnum-silva-optionum-form-part.component.scss'],
     imports: [
         ReactiveFormsModule,
         MatButtonModule,
@@ -189,9 +189,9 @@ import {
         }}}@  */
 
         /* @tt{{{   @if [ conditionExpression="attributeWithItem.attribute.isList"] }}}@ */
-        ArticulusInteriorTableComponent,
+        OpusMagnumArticulusInteriorTableComponent,
         /* @tt{{{   @end-if }}}@ */
-        ArticulusInteriorFormPartComponent,
+        OpusMagnumArticulusInteriorFormPartComponent,
         /* @tt{{{   @end-foreach  }}}@ */
         /* @tt{{{   @if [ conditionExpression="model.item.containsTextAttributes"] }}}@ */
         TextInputComponent,
@@ -219,23 +219,23 @@ import {
         /* @tt{{{   @end-ignore-text }}}@ */
     ]
 })
-export class SilvaOptionumFormPartComponent implements OnInit {
-    @Input({ required: true }) silvaOptionumForm!: FormGroup<SilvaOptionumFormPartGroup>;
+export class OpusMagnumSilvaOptionumFormPartComponent implements OnInit {
+    @Input({ required: true }) silvaOptionumForm!: FormGroup<OpusMagnumSilvaOptionumFormPartGroup>;
 
     /* @tt{{{
         @foreach [ iteratorExpression="model.item.attributesWithItem.filter { it.attribute.isList }" loopVariable="attributeWithItem" ]
         @replace-value-by-expression
             [ searchValue="articulusInteriorIteratus" replaceByExpression="attributeWithItem.attribute.attributeName.camelCase" ]
-            [ searchValue="FormGroup<ArticulusInteriorFormPartGroup>" replaceByExpression="attributeWithItem.attribute.angularFormControlType" ]
+            [ searchValue="FormGroup<OpusMagnumArticulusInteriorFormPartGroup>" replaceByExpression="attributeWithItem.attribute.angularFormControlType" ]
 
     }}}@  */
-    readonly articulusInteriorIteratusEditState = new FormArrayEditState<FormGroup<ArticulusInteriorFormPartGroup>>(
+    readonly articulusInteriorIteratusEditState = new FormArrayEditState<FormGroup<OpusMagnumArticulusInteriorFormPartGroup>>(
         () => this.articulusInteriorIteratusControl
     );
     /* @tt{{{   @end-foreach  }}}@ */
 
     /* @tt{{{   @ignore-text  }}}@ */
-    readonly articulusInteriorOptionalisIteratusEditState = new FormArrayEditState<FormGroup<ArticulusInteriorFormPartGroup>>(
+    readonly articulusInteriorOptionalisIteratusEditState = new FormArrayEditState<FormGroup<OpusMagnumArticulusInteriorFormPartGroup>>(
         () => this.articulusInteriorOptionalisIteratusControl
     );
 
@@ -261,9 +261,9 @@ export class SilvaOptionumFormPartComponent implements OnInit {
     /* @tt{{{  @end-foreach  }}}@ */
     /* @tt{{{   @ignore-text  }}}@ */
 
-    protected articulusInteriorIteratusControl!: FormArray<FormGroup<ArticulusInteriorFormPartGroup>>
+    protected articulusInteriorIteratusControl!: FormArray<FormGroup<OpusMagnumArticulusInteriorFormPartGroup>>
     protected articulusInteriorIteratusValidatorNames!: ReadonlyArray<ValidatorTranslation>
-    protected articulusInteriorOptionalisIteratusControl!: FormArray<FormGroup<ArticulusInteriorFormPartGroup>>
+    protected articulusInteriorOptionalisIteratusControl!: FormArray<FormGroup<OpusMagnumArticulusInteriorFormPartGroup>>
     protected articulusInteriorOptionalisIteratusValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected articulusInteriorOptionalisIteratusIsNotNullControl!: FormControl<boolean>
     protected articulusInteriorOptionalisIteratusIsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
@@ -275,9 +275,9 @@ export class SilvaOptionumFormPartComponent implements OnInit {
     protected campusBivalensValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected appellatioControl!: FormControl<AppellatioComisEnum>
     protected appellatioValidatorNames!: ReadonlyArray<ValidatorTranslation>
-    protected articulusInteriorSingularisControl!: FormGroup<ArticulusInteriorFormPartGroup>
+    protected articulusInteriorSingularisControl!: FormGroup<OpusMagnumArticulusInteriorFormPartGroup>
     protected articulusInteriorSingularisValidatorNames!: ReadonlyArray<ValidatorTranslation>
-    protected articulusInteriorSingularisOptionalisControl!: FormGroup<ArticulusInteriorFormPartGroup>
+    protected articulusInteriorSingularisOptionalisControl!: FormGroup<OpusMagnumArticulusInteriorFormPartGroup>
     protected articulusInteriorSingularisOptionalisValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected articulusInteriorSingularisOptionalisIsNotNullControl!: FormControl<boolean>
     protected articulusInteriorSingularisOptionalisIsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
@@ -289,13 +289,13 @@ export class SilvaOptionumFormPartComponent implements OnInit {
     protected iteratioSimpliciumTextuumValidatorNames!: ReadonlyArray<ValidatorTranslation>
     /* @tt{{{   @end-ignore-text  }}}@ */
 
-    constructor(private readonly silvaOptionumFormValidationService: SilvaOptionumFormPartValidationService,) {
+    constructor(private readonly silvaOptionumFormValidationService: OpusMagnumSilvaOptionumFormPartValidationService,) {
     }
 
     ngOnInit() {
         /* @tt{{{ @ignore-text  }}}@ */
-        this.campusTextusObligatoriusControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.campusTextusObligatorius]
-        this.campusTextusObligatoriusValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.campusTextusObligatorius)
+        this.campusTextusObligatoriusControl = this.silvaOptionumForm.controls[OpusMagnumSilvaOptionumFormPartFieldName.campusTextusObligatorius]
+        this.campusTextusObligatoriusValidatorNames = this.silvaOptionumFormValidationService.validatorNames(OpusMagnumSilvaOptionumFormPartFieldName.campusTextusObligatorius)
         /* @tt{{{   @end-ignore-text }}}@ */
         /* @tt{{{ 
         @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
@@ -305,40 +305,40 @@ export class SilvaOptionumFormPartComponent implements OnInit {
 
         }}}@  */
         /* @tt{{{   @if [ conditionExpression="attribute.isNullable"]  }}}@ */
-        this.campusTextusOptionalisIsNotNullControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.campusTextusOptionalisIsNotNull]
-        this.campusTextusOptionalisIsNotNullValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.campusTextusOptionalisIsNotNull)
+        this.campusTextusOptionalisIsNotNullControl = this.silvaOptionumForm.controls[OpusMagnumSilvaOptionumFormPartFieldName.campusTextusOptionalisIsNotNull]
+        this.campusTextusOptionalisIsNotNullValidatorNames = this.silvaOptionumFormValidationService.validatorNames(OpusMagnumSilvaOptionumFormPartFieldName.campusTextusOptionalisIsNotNull)
         /* @tt{{{   @end-if  }}}@ */
-        this.campusTextusOptionalisControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.campusTextusOptionalis]
-        this.campusTextusOptionalisValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.campusTextusOptionalis)
+        this.campusTextusOptionalisControl = this.silvaOptionumForm.controls[OpusMagnumSilvaOptionumFormPartFieldName.campusTextusOptionalis]
+        this.campusTextusOptionalisValidatorNames = this.silvaOptionumFormValidationService.validatorNames(OpusMagnumSilvaOptionumFormPartFieldName.campusTextusOptionalis)
 
         /* @tt{{{  @end-foreach  }}}@ */
         /* @tt{{{   @ignore-text  }}}@ */
-        this.articulusInteriorIteratusControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.articulusInteriorIteratus]
-        this.articulusInteriorIteratusValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.articulusInteriorIteratus)
-        this.articulusInteriorOptionalisIteratusControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.articulusInteriorOptionalisIteratus]
-        this.articulusInteriorOptionalisIteratusValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.articulusInteriorOptionalisIteratus)
-        this.articulusInteriorOptionalisIteratusIsNotNullControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.articulusInteriorOptionalisIteratusIsNotNull]
-        this.articulusInteriorOptionalisIteratusIsNotNullValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.articulusInteriorOptionalisIteratusIsNotNull)
-        this.campusDieiIsNotNullControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.campusDieiIsNotNull]
-        this.campusDieiIsNotNullValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.campusDieiIsNotNull)
-        this.campusDieiControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.campusDiei]
-        this.campusDieiValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.campusDiei)
-        this.campusBivalensControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.campusBivalens]
-        this.campusBivalensValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.campusBivalens)
-        this.appellatioControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.appellatio]
-        this.appellatioValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.appellatio)
-        this.articulusInteriorSingularisControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularis]
-        this.articulusInteriorSingularisValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.articulusInteriorSingularis)
-        this.indexUnicusControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.indexUnicus]
-        this.indexUnicusValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.indexUnicus)
-        this.campusNumerorumControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.campusNumerorum]
-        this.campusNumerorumValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.campusNumerorum)
-        this.articulusInteriorSingularisOptionalisControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalis]
-        this.articulusInteriorSingularisOptionalisValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalis)
-        this.articulusInteriorSingularisOptionalisIsNotNullControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalisIsNotNull]
-        this.articulusInteriorSingularisOptionalisIsNotNullValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalisIsNotNull)
-        this.iteratioSimpliciumTextuumControl = this.silvaOptionumForm.controls[SilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum]
-        this.iteratioSimpliciumTextuumValidatorNames = this.silvaOptionumFormValidationService.validatorNames(SilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum)
+        this.articulusInteriorIteratusControl = this.silvaOptionumForm.controls[OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorIteratus]
+        this.articulusInteriorIteratusValidatorNames = this.silvaOptionumFormValidationService.validatorNames(OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorIteratus)
+        this.articulusInteriorOptionalisIteratusControl = this.silvaOptionumForm.controls[OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorOptionalisIteratus]
+        this.articulusInteriorOptionalisIteratusValidatorNames = this.silvaOptionumFormValidationService.validatorNames(OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorOptionalisIteratus)
+        this.articulusInteriorOptionalisIteratusIsNotNullControl = this.silvaOptionumForm.controls[OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorOptionalisIteratusIsNotNull]
+        this.articulusInteriorOptionalisIteratusIsNotNullValidatorNames = this.silvaOptionumFormValidationService.validatorNames(OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorOptionalisIteratusIsNotNull)
+        this.campusDieiIsNotNullControl = this.silvaOptionumForm.controls[OpusMagnumSilvaOptionumFormPartFieldName.campusDieiIsNotNull]
+        this.campusDieiIsNotNullValidatorNames = this.silvaOptionumFormValidationService.validatorNames(OpusMagnumSilvaOptionumFormPartFieldName.campusDieiIsNotNull)
+        this.campusDieiControl = this.silvaOptionumForm.controls[OpusMagnumSilvaOptionumFormPartFieldName.campusDiei]
+        this.campusDieiValidatorNames = this.silvaOptionumFormValidationService.validatorNames(OpusMagnumSilvaOptionumFormPartFieldName.campusDiei)
+        this.campusBivalensControl = this.silvaOptionumForm.controls[OpusMagnumSilvaOptionumFormPartFieldName.campusBivalens]
+        this.campusBivalensValidatorNames = this.silvaOptionumFormValidationService.validatorNames(OpusMagnumSilvaOptionumFormPartFieldName.campusBivalens)
+        this.appellatioControl = this.silvaOptionumForm.controls[OpusMagnumSilvaOptionumFormPartFieldName.appellatio]
+        this.appellatioValidatorNames = this.silvaOptionumFormValidationService.validatorNames(OpusMagnumSilvaOptionumFormPartFieldName.appellatio)
+        this.articulusInteriorSingularisControl = this.silvaOptionumForm.controls[OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorSingularis]
+        this.articulusInteriorSingularisValidatorNames = this.silvaOptionumFormValidationService.validatorNames(OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorSingularis)
+        this.indexUnicusControl = this.silvaOptionumForm.controls[OpusMagnumSilvaOptionumFormPartFieldName.indexUnicus]
+        this.indexUnicusValidatorNames = this.silvaOptionumFormValidationService.validatorNames(OpusMagnumSilvaOptionumFormPartFieldName.indexUnicus)
+        this.campusNumerorumControl = this.silvaOptionumForm.controls[OpusMagnumSilvaOptionumFormPartFieldName.campusNumerorum]
+        this.campusNumerorumValidatorNames = this.silvaOptionumFormValidationService.validatorNames(OpusMagnumSilvaOptionumFormPartFieldName.campusNumerorum)
+        this.articulusInteriorSingularisOptionalisControl = this.silvaOptionumForm.controls[OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalis]
+        this.articulusInteriorSingularisOptionalisValidatorNames = this.silvaOptionumFormValidationService.validatorNames(OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalis)
+        this.articulusInteriorSingularisOptionalisIsNotNullControl = this.silvaOptionumForm.controls[OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalisIsNotNull]
+        this.articulusInteriorSingularisOptionalisIsNotNullValidatorNames = this.silvaOptionumFormValidationService.validatorNames(OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalisIsNotNull)
+        this.iteratioSimpliciumTextuumControl = this.silvaOptionumForm.controls[OpusMagnumSilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum]
+        this.iteratioSimpliciumTextuumValidatorNames = this.silvaOptionumFormValidationService.validatorNames(OpusMagnumSilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum)
         /* @tt{{{   @end-ignore-text  }}}@ */
     }
 }

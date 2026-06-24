@@ -9,8 +9,8 @@ import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewItemModel
  * Generate the content for the template `EntityItemTableRowComponentTypescriptRenderer`.
  *
  * This template renderer was generated from the template:
- * - file: `articulus-interior-table-row.model.ts`
- * - path: `opus-magnum/opus-magnum-form/articulus-interior-table/articulus-interior-table-row.model.ts`
+ * - file: `opus-magnum-articulus-interior-table-row.model.ts`
+ * - path: `opus-magnum/opus-magnum-form/opus-magnum-articulus-interior-table/opus-magnum-articulus-interior-table-row.model.ts`
  */
 object EntityItemTableRowComponentTypescriptRenderer : UiEntityItemRenderer {
 
@@ -19,18 +19,18 @@ object EntityItemTableRowComponentTypescriptRenderer : UiEntityItemRenderer {
           |
           |import {FormGroup} from "@angular/forms";
           |import {
-          |    ${model.item.itemName.pascalCase}FormPartGroup
-          |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part-group";
+          |    ${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartGroup
+          |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part-group";
           |
-          |export interface ${model.item.itemName.pascalCase}TableRow {
+          |export interface ${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}TableRow {
           |${ model.item.attributes.joinToString("") { attribute ->  """    ${attribute.attributeName.camelCase}: string
-              |""" } }    formGroup: FormGroup<${model.item.itemName.pascalCase}FormPartGroup>
+              |""" } }    formGroup: FormGroup<${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartGroup>
           |}
           |
         """.trimMargin(marginPrefix = "|")
     }
 
     override fun filePath(model: UiEntityFormViewItemModel): String {
-      return "${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-table/${model.item.itemName.kebabCase}-table-row.model.ts"
+      return "${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-table/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-table-row.model.ts"
     }
 }

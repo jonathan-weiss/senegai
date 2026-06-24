@@ -9,8 +9,8 @@ import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewItemModel
  * Generate the content for the template `EntityItemTableComponentScssRenderer`.
  *
  * This template renderer was generated from the template:
- * - file: `articulus-interior-table.component.scss`
- * - path: `opus-magnum/opus-magnum-form/articulus-interior-table/articulus-interior-table.component.scss`
+ * - file: `opus-magnum-articulus-interior-table.component.scss`
+ * - path: `opus-magnum/opus-magnum-form/opus-magnum-articulus-interior-table/opus-magnum-articulus-interior-table.component.scss`
  */
 object EntityItemTableComponentScssRenderer : UiEntityItemRenderer {
 
@@ -43,6 +43,6 @@ object EntityItemTableComponentScssRenderer : UiEntityItemRenderer {
     }
 
     override fun filePath(model: UiEntityFormViewItemModel): String {
-      return "${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-table/${model.item.itemName.kebabCase}-table.component.scss"
+      return "${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-table/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-table.component.scss"
     }
 }

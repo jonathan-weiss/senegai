@@ -10,8 +10,8 @@ import senegai.codegen.renderer.angular.EntityItemFormPartBlocksComponentHtmlRen
  * Generate the content for the template `EntityItemFormPartComponentHtmlRenderer`.
  *
  * This template renderer was generated from the template:
- * - file: `silva-optionum-form-part.component.html`
- * - path: `opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part.component.html`
+ * - file: `opus-magnum-silva-optionum-form-part.component.html`
+ * - path: `opus-magnum/opus-magnum-form/opus-magnum-silva-optionum-form-part/opus-magnum-silva-optionum-form-part.component.html`
  */
 object EntityItemFormPartComponentHtmlRenderer : UiEntityItemRenderer {
 
@@ -40,6 +40,6 @@ object EntityItemFormPartComponentHtmlRenderer : UiEntityItemRenderer {
     }
 
     override fun filePath(model: UiEntityFormViewItemModel): String {
-      return "${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.item.itemName.kebabCase}-form-part/${model.item.itemName.kebabCase}-form-part.component.html"
+      return "${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part.component.html"
     }
 }

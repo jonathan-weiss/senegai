@@ -11,6 +11,7 @@ data class BuiltInTypeUiItemAttributeTypeModel(
 ) : UiItemAttributeTypeModel
 
 data class ItemUiItemAttributeTypeModel(
+    val entity: UiEntityDescriptionModel,
     val item: UiItemDescriptionModel,
 ) : UiItemAttributeTypeModel
 

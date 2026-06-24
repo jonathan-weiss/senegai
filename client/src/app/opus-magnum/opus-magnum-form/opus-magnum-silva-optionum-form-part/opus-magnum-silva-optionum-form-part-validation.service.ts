@@ -29,7 +29,7 @@
 
 import {Injectable} from '@angular/core';
 import {ValidatorFn, Validators} from "@angular/forms";
-import {SilvaOptionumFormPartFieldName} from "@app/opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part-field-name";
+import {OpusMagnumSilvaOptionumFormPartFieldName} from "@app/opus-magnum/opus-magnum-form/opus-magnum-silva-optionum-form-part/opus-magnum-silva-optionum-form-part-field-name";
 import {NamedValidator} from "@app/shared/form-controls/named-validator";
 import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
 /* @tt{{{   @ignore-text  }}}@ */
@@ -38,13 +38,13 @@ import {ValidatorTranslation} from "@app/shared/form-controls/validator-translat
 
 
 @Injectable({providedIn: 'root'})
-export class SilvaOptionumFormPartValidationService {
+export class OpusMagnumSilvaOptionumFormPartValidationService {
 
-    validatorFunctions(field: SilvaOptionumFormPartFieldName): Array<ValidatorFn> {
+    validatorFunctions(field: OpusMagnumSilvaOptionumFormPartFieldName): Array<ValidatorFn> {
         return this.namedValidators(field).map(namedValidator => namedValidator.validatorFunction)
     }
 
-    validatorNames(field: SilvaOptionumFormPartFieldName): Array<ValidatorTranslation> {
+    validatorNames(field: OpusMagnumSilvaOptionumFormPartFieldName): Array<ValidatorTranslation> {
         return this.namedValidators(field)
             .map(namedValidator => this.toValidatorTranslation(namedValidator))
     }
@@ -56,7 +56,7 @@ export class SilvaOptionumFormPartValidationService {
         }
     }
 
-    namedValidators(field: SilvaOptionumFormPartFieldName): ReadonlyArray<NamedValidator> {
+    namedValidators(field: OpusMagnumSilvaOptionumFormPartFieldName): ReadonlyArray<NamedValidator> {
         switch(field) {
             /* @tt{{{ 
                 @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
@@ -65,7 +65,7 @@ export class SilvaOptionumFormPartValidationService {
                     [ searchValue="campusTextusObligatorius" replaceByExpression="attribute.attributeName.camelCase" ]
 
             }}}@  */
-            case SilvaOptionumFormPartFieldName.campusTextusObligatorius: return [
+            case OpusMagnumSilvaOptionumFormPartFieldName.campusTextusObligatorius: return [
                 {
                     validatorName: "required",
                     validatorFunction: Validators.required,
@@ -79,7 +79,7 @@ export class SilvaOptionumFormPartValidationService {
             ]
             /* @tt{{{  @end-foreach  }}}@ */
             /* @tt{{{   @ignore-text  }}}@ */
-            case SilvaOptionumFormPartFieldName.campusTextusOptionalis: return [
+            case OpusMagnumSilvaOptionumFormPartFieldName.campusTextusOptionalis: return [
                 {
                     validatorName: "required",
                     validatorFunction: Validators.required,

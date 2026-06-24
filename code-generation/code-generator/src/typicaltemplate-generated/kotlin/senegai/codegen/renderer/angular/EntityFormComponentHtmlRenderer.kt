@@ -24,7 +24,7 @@ object EntityFormComponentHtmlRenderer : UiEntityRenderer {
           |
           |        <mat-card-content>
           |            <form [formGroup]="${model.entityRootItem.itemName.camelCase}Form" (ngSubmit)="onSubmit()">
-          |                <app-${model.entityRootItem.itemName.kebabCase}-form-part [${model.entityRootItem.itemName.camelCase}Form]="${model.entityRootItem.itemName.camelCase}Form" />
+          |                <app-${model.entityName.kebabCase}-${model.entityRootItem.itemName.kebabCase}-form-part [${model.entityRootItem.itemName.camelCase}Form]="${model.entityRootItem.itemName.camelCase}Form" />
           |
           |                <div class="form-actions">
           |                    <button mat-button type="button" (click)="onCancel()">

@@ -12,24 +12,23 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {MatDialogModule} from "@angular/material/dialog";
 import {FieldWrapperComponent} from "@app/shared/form-controls/field-wrapper/field-wrapper.component";
-import {FormUtil} from "@app/shared/form-controls/form.util";
 import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
 import {TextInputComponent} from "@app/shared/form-controls/text-input/text-input.component";
 import {NumberInputComponent} from "@app/shared/form-controls/number-input/number-input.component";
 import {
-    ArticulusInteriorFormPartFieldName
-} from "@app/opus-magnum/opus-magnum-form/articulus-interior-form-part/articulus-interior-form-part-field-name";
+    OpusMagnumArticulusInteriorFormPartFieldName
+} from "@app/opus-magnum/opus-magnum-form/opus-magnum-articulus-interior-form-part/opus-magnum-articulus-interior-form-part-field-name";
 import {
-    ArticulusInteriorFormPartGroup
-} from "@app/opus-magnum/opus-magnum-form/articulus-interior-form-part/articulus-interior-form-part-group";
+    OpusMagnumArticulusInteriorFormPartGroup
+} from "@app/opus-magnum/opus-magnum-form/opus-magnum-articulus-interior-form-part/opus-magnum-articulus-interior-form-part-group";
 import {
-    ArticulusInteriorFormPartValidationService
-} from "@app/opus-magnum/opus-magnum-form/articulus-interior-form-part/articulus-interior-form-part-validation.service";
+    OpusMagnumArticulusInteriorFormPartValidationService
+} from "@app/opus-magnum/opus-magnum-form/opus-magnum-articulus-interior-form-part/opus-magnum-articulus-interior-form-part-validation.service";
 
 @Component({
-    selector: 'app-articulus-interior-form-part',
-    templateUrl: './articulus-interior-form-part.component.html',
-    styleUrls: ['./articulus-interior-form-part.component.scss'],
+    selector: 'app-opus-magnum-articulus-interior-form-part',
+    templateUrl: './opus-magnum-articulus-interior-form-part.component.html',
+    styleUrls: ['./opus-magnum-articulus-interior-form-part.component.scss'],
     imports: [
         ReactiveFormsModule,
         MatButtonModule,
@@ -48,10 +47,10 @@ import {
         NumberInputComponent,
     ]
 })
-export class ArticulusInteriorFormPartComponent implements OnInit {
-    @Input({required: true}) articulusInteriorForm!: FormGroup<ArticulusInteriorFormPartGroup>;
+export class OpusMagnumArticulusInteriorFormPartComponent implements OnInit {
+    @Input({required: true}) articulusInteriorForm!: FormGroup<OpusMagnumArticulusInteriorFormPartGroup>;
 
-    constructor(private readonly articulusInteriorFormPartValidationService: ArticulusInteriorFormPartValidationService,) {
+    constructor(private readonly articulusInteriorFormPartValidationService: OpusMagnumArticulusInteriorFormPartValidationService,) {
     }
 
     protected articulusInteriorScriptumTrivialeControl!: FormControl<string>
@@ -60,9 +59,9 @@ export class ArticulusInteriorFormPartComponent implements OnInit {
     protected articulusInteriorNumerusStupidusValidatorNames!: ReadonlyArray<ValidatorTranslation>
 
     ngOnInit() {
-        this.articulusInteriorScriptumTrivialeControl = this.articulusInteriorForm.controls[ArticulusInteriorFormPartFieldName.scriptumTriviale]
-        this.articulusInteriorScriptumTrivialeValidatorNames = this.articulusInteriorFormPartValidationService.validatorNames(ArticulusInteriorFormPartFieldName.scriptumTriviale)
-        this.articulusInteriorNumerusStupidusControl = this.articulusInteriorForm.controls[ArticulusInteriorFormPartFieldName.numerusStupidus]
-        this.articulusInteriorNumerusStupidusValidatorNames = this.articulusInteriorFormPartValidationService.validatorNames(ArticulusInteriorFormPartFieldName.numerusStupidus)
+        this.articulusInteriorScriptumTrivialeControl = this.articulusInteriorForm.controls[OpusMagnumArticulusInteriorFormPartFieldName.scriptumTriviale]
+        this.articulusInteriorScriptumTrivialeValidatorNames = this.articulusInteriorFormPartValidationService.validatorNames(OpusMagnumArticulusInteriorFormPartFieldName.scriptumTriviale)
+        this.articulusInteriorNumerusStupidusControl = this.articulusInteriorForm.controls[OpusMagnumArticulusInteriorFormPartFieldName.numerusStupidus]
+        this.articulusInteriorNumerusStupidusValidatorNames = this.articulusInteriorFormPartValidationService.validatorNames(OpusMagnumArticulusInteriorFormPartFieldName.numerusStupidus)
     }
 }
