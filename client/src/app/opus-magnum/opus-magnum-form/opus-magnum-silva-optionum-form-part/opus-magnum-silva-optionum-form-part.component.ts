@@ -107,7 +107,7 @@ import {
 }}}@  */
 import {AppellatioComisEnum} from "@app/wto/appellatio-comis.enum";
 /* @tt{{{   @if [ conditionExpression="attributeWithEnum.attribute.isList"] }}}@ */
-import {SingleAppellatioComisFormFieldTableComponent} from "@app/enum/appellatio-comis-input-selection/single-appellatio-comis-form-field-table.component";
+import {AppellatioComisInputTableComponent} from "@app/enum/appellatio-comis-input-table/appellatio-comis-input-table.component";
 /* @tt{{{   @else  }}}@ */
 import {AppellatioComisSelectorComponent} from "@app/enum/appellatio-comis-input-selection/appellatio-comis-selector.component";
 /* @tt{{{   @end-if  }}}@ */
@@ -230,7 +230,7 @@ import {
                 [ searchValue="AppellatioComis" replaceByExpression="attributeWithEnum.type.enum.enumName.pascalCase" ]
         }}}@ */
         /* @tt{{{   @if [ conditionExpression="attributeWithEnum.attribute.isList"] }}}@ */
-        SingleAppellatioComisFormFieldTableComponent,
+        AppellatioComisInputTableComponent,
         /* @tt{{{   @else }}}@ */
         AppellatioComisSelectorComponent,
         /* @tt{{{   @end-if }}}@ */

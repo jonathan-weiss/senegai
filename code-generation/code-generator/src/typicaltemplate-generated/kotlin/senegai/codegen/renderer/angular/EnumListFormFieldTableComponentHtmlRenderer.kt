@@ -9,8 +9,8 @@ import senegai.codegen.renderer.model.ui.UiEnumModel
  * Generate the content for the template `EnumListFormFieldTableComponentHtmlRenderer`.
  *
  * This template renderer was generated from the template:
- * - file: `single-appellatio-comis-form-field-table.component.html`
- * - path: `enum/appellatio-comis-input-selection/single-appellatio-comis-form-field-table.component.html`
+ * - file: `appellatio-comis-input-table.component.html`
+ * - path: `enum/appellatio-comis-input-table/appellatio-comis-input-table.component.html`
  */
 object EnumListFormFieldTableComponentHtmlRenderer : UiEnumRenderer {
 
@@ -26,6 +26,6 @@ object EnumListFormFieldTableComponentHtmlRenderer : UiEnumRenderer {
     }
 
     override fun filePath(model: UiEnumModel): String {
-      return "enum/${model.enumName.kebabCase}-input-selection/single-${model.enumName.kebabCase}-form-field-table.component.html"
+      return "enum/${model.enumName.kebabCase}-input-table/${model.enumName.kebabCase}-input-table.component.html"
     }
 }

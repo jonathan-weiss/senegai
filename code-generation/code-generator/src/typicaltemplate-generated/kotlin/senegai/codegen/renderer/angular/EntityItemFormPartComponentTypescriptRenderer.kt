@@ -54,7 +54,7 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
               |    SingleBooleanFormFieldTableComponent
               |} from "@app/shared/form-controls/single-boolean-form-field-table/single-boolean-form-field-table.component";
               |""" } else { """""" } }${ model.item.attributesWithEnumType.joinToString("") { attributeWithEnum ->  """import {${attributeWithEnum.type.enum.enumName.pascalCase}Enum} from "@app/wto/${attributeWithEnum.type.enum.enumName.kebabCase}.enum";
-              |${ if(attributeWithEnum.attribute.isList) { """import {Single${attributeWithEnum.type.enum.enumName.pascalCase}FormFieldTableComponent} from "@app/enum/${attributeWithEnum.type.enum.enumName.kebabCase}-input-selection/single-${attributeWithEnum.type.enum.enumName.kebabCase}-form-field-table.component";
+              |${ if(attributeWithEnum.attribute.isList) { """import {${attributeWithEnum.type.enum.enumName.pascalCase}InputTableComponent} from "@app/enum/${attributeWithEnum.type.enum.enumName.kebabCase}-input-table/${attributeWithEnum.type.enum.enumName.kebabCase}-input-table.component";
                   |""" } else { """import {${attributeWithEnum.type.enum.enumName.pascalCase}SelectorComponent} from "@app/enum/${attributeWithEnum.type.enum.enumName.kebabCase}-input-selection/${attributeWithEnum.type.enum.enumName.kebabCase}-selector.component";
                   |""" } }""" } }
           |
@@ -96,7 +96,7 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
               |""" } else { """""" } }${ if(model.item.containsBooleanAttributes) { """        BooleanInputComponent,
               |""" } else { """""" } }${ if(model.item.containsNumberAttributes) { """        NumberInputComponent,
               |""" } else { """""" } }${ if(model.item.containsTextListAttributes) { """        SingleTextFormFieldTableComponent,
-              |""" } else { """""" } }${ if(model.item.containsNumberListAttributes) { """        SingleNumberFormFieldTableComponent,""" } else { """""" } }${ if(model.item.containsBooleanListAttributes) { """        SingleBooleanFormFieldTableComponent,""" } else { """""" } }${ model.item.attributesWithEnumType.joinToString("") { attributeWithEnum ->  """${ if(attributeWithEnum.attribute.isList) { """        Single${attributeWithEnum.type.enum.enumName.pascalCase}FormFieldTableComponent,
+              |""" } else { """""" } }${ if(model.item.containsNumberListAttributes) { """        SingleNumberFormFieldTableComponent,""" } else { """""" } }${ if(model.item.containsBooleanListAttributes) { """        SingleBooleanFormFieldTableComponent,""" } else { """""" } }${ model.item.attributesWithEnumType.joinToString("") { attributeWithEnum ->  """${ if(attributeWithEnum.attribute.isList) { """        ${attributeWithEnum.type.enum.enumName.pascalCase}InputTableComponent,
                   |""" } else { """        ${attributeWithEnum.type.enum.enumName.pascalCase}SelectorComponent,
                   |""" } }""" } }    ]
           |})
