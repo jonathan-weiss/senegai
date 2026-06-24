@@ -33,9 +33,15 @@
 }}}@  */
 import {ArticulusInteriorWTO} from "@app/wto/articulus-interior.wto";
 /* @tt{{{   @end-foreach  }}}@ */
-/* @tt{{{   @ignore-text  }}}@ */
+/* @tt{{{
+    @foreach [ iteratorExpression="model.usedEnums" loopVariable="usedEnum" ]
+
+    @replace-value-by-expression
+        [ searchValue="AppellatioComis" replaceByExpression="usedEnum.enumName.pascalCase" ]
+        [ searchValue="appellatio-comis" replaceByExpression="usedEnum.enumName.kebabCase" ]
+}}}@  */
 import {AppellatioComisEnum} from "@app/wto/appellatio-comis.enum";
-/* @tt{{{   @end-ignore-text  }}}@ */
+/* @tt{{{   @end-foreach  }}}@ */
 
 /**
  * The Silva Optionum WTO (Web Transfer Object) class.

@@ -83,12 +83,12 @@ object SingleFormInputHtmlTagRenderer {
     }
 
     /**
-     *  ` <app-appellatio-selector [enumFormControl]="appellatioControl" [validatorTranslations]="appellatioValidatorNames" />`
+     *  ` <app-appellatio-comis-selector [enumFormControl]="appellatioControl" [validatorTranslations]="appellatioValidatorNames" />`
      */
     private fun createEnumInput(enumName: NameCase, attributeName: NameCase): String {
         val attributeNameCamelCase = attributeName.camelCase
         val enumNameKebabCase = enumName.kebabCase
-        return """<app-${enumNameKebabCase}-selector [${attributeNameCamelCase}Control]="${attributeNameCamelCase}Control"  />"""
+        return """<app-${enumNameKebabCase}-selector [enumFormControl]="${attributeNameCamelCase}Control" [validatorTranslations]="${attributeNameCamelCase}ValidatorNames" />"""
     }
 
 }

@@ -29,7 +29,8 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
           |import {${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartGroup} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part-group";
           |import {${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part-field-name";
           |
-          |
+          |${ model.item.usedEnums.joinToString("") { usedEnum ->  """import {${usedEnum.enumName.pascalCase}Enum} from "@app/wto/${usedEnum.enumName.kebabCase}.enum";
+              |""" } }
           |${ model.item.directlyNestedItems.joinToString("") { nestedItem ->  """import {
               |    ${model.entity.entityName.pascalCase}${nestedItem.itemName.pascalCase}FormPartService
               |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-${nestedItem.itemName.kebabCase}-form-part/${model.entity.entityName.kebabCase}-${nestedItem.itemName.kebabCase}-form-part.service";
@@ -156,10 +157,10 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
                       |""" } else { """            ${attributeWithItem.attribute.attributeName.camelCase}: this.${attributeWithItem.type.item.itemName.camelCase}FormPartService.create${attributeWithItem.type.item.itemName.pascalCase}WTOFromForm(form.controls[${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItem.attribute.attributeName.camelCase}]),
                       |""" } }""" } }
               |""" } }
-          |${ model.item.attributesWithBuiltInType.joinToString("") { attributeWithBuiltInType ->  """${ if(attributeWithBuiltInType.attribute.isNullable) { """            ${attributeWithBuiltInType.attribute.attributeName.camelCase}: form.controls[${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithBuiltInType.attribute.attributeName.camelCase}IsNotNull].value
-                  |                ? form.controls[${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithBuiltInType.attribute.attributeName.camelCase}].getRawValue()
+          |${ model.item.builtInTypeAndEnumAttributes.joinToString("") { attribute ->  """${ if(attribute.isNullable) { """            ${attribute.attributeName.camelCase}: form.controls[${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull].value
+                  |                ? form.controls[${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].getRawValue()
                   |                : null,
-                  |""" } else { """            ${attributeWithBuiltInType.attribute.attributeName.camelCase}: form.controls[${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithBuiltInType.attribute.attributeName.camelCase}].getRawValue(),
+                  |""" } else { """            ${attribute.attributeName.camelCase}: form.controls[${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].getRawValue(),
                   |""" } }""" } }        };
           |    }
           |}

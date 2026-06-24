@@ -1,6 +1,5 @@
 package senegai.codegen.renderer.model.ui
 
-import senegai.codegen.renderer.NotSupportedInTemplateException
 import senegai.codegen.renderer.model.NameCase
 import senegai.codegen.renderer.model.ui.entityform.AttributeAndBuiltInTypeDescriptionModel
 import senegai.codegen.schema.BuiltInType
@@ -27,8 +26,11 @@ data class UiItemAttributeModel(
 
     val isHideFormControlWithNullValues: Boolean = (type is BuiltInTypeUiItemAttributeTypeModel)
     val isBuiltIn: Boolean = (type is BuiltInTypeUiItemAttributeTypeModel)
+    val isEnum: Boolean = (type is EnumUiItemAttributeTypeModel)
     val attributeAndBuiltInType: AttributeAndBuiltInTypeDescriptionModel
         get() = createAttributeAndBuiltInType()
+    val enumModel: UiEnumModel
+        get() = createEnumModel()
 
     private fun createAttributeAndItem(): AttributeAndItemDescriptionModel {
         return if(type is ItemUiItemAttributeTypeModel) {
@@ -46,17 +48,25 @@ data class UiItemAttributeModel(
         }
     }
 
+    private fun createEnumModel(): UiEnumModel {
+        return if(type is EnumUiItemAttributeTypeModel) {
+            type.enumModel
+        } else {
+            throw RuntimeException("Attribute $attributeName is not an enum type")
+        }
+    }
+
     private fun calculateAttributeType(): String =
         when (type) {
             is BuiltInTypeUiItemAttributeTypeModel -> type.builtInTypeAsString()
-            is EnumUiItemAttributeTypeModel -> throw NotSupportedInTemplateException("EnumUiItemAttributeTypeModel is not supported.")
+            is EnumUiItemAttributeTypeModel -> type.enumTypeAsString()
             is ItemUiItemAttributeTypeModel -> "${type.itemTypeAsString()}WTO"
         }
 
     private fun ItemUiItemAttributeTypeModel.itemTypeAsString(): String = this.item.itemName.pascalCase
     private fun ItemUiItemAttributeTypeModel.entityAndItemTypeAsString(): String = "${entity.entityName.pascalCase}${this.item.itemName.pascalCase}"
 
-    private fun EnumUiItemAttributeTypeModel.enumTypeAsString(): String = this.enumId.enumName
+    private fun EnumUiItemAttributeTypeModel.enumTypeAsString(): String = this.enumModel.enumClassName
 
     private fun BuiltInTypeUiItemAttributeTypeModel.builtInTypeAsString(): String =
         when (this.builtInType) {
@@ -169,7 +179,7 @@ data class UiItemAttributeModel(
                     BuiltInType.NUMBER -> "0"
                     BuiltInType.BOOLEAN -> "false"
                 }
-                is EnumUiItemAttributeTypeModel -> throw RuntimeException("EnumUiItemAttributeTypeModel has no form initial value.") // should not occur
+                is EnumUiItemAttributeTypeModel -> type.enumModel.angularFormInitialValue
                 is ItemUiItemAttributeTypeModel -> throw RuntimeException("ItemUiItemAttributeTypeModel has no form initial value.") // should not occur
             }
         }

@@ -29,9 +29,15 @@
 
 import {FormArray, FormControl, FormGroup} from "@angular/forms";
 import {OpusMagnumSilvaOptionumFormPartFieldName} from "@app/opus-magnum/opus-magnum-form/opus-magnum-silva-optionum-form-part/opus-magnum-silva-optionum-form-part-field-name";
-/* @tt{{{   @ignore-text  }}}@ */
+/* @tt{{{
+    @foreach [ iteratorExpression="model.item.usedEnums" loopVariable="usedEnum" ]
+
+    @replace-value-by-expression
+        [ searchValue="AppellatioComis" replaceByExpression="usedEnum.enumName.pascalCase" ]
+        [ searchValue="appellatio-comis" replaceByExpression="usedEnum.enumName.kebabCase" ]
+}}}@  */
 import {AppellatioComisEnum} from "@app/wto/appellatio-comis.enum";
-/* @tt{{{   @end-ignore-text  }}}@ */
+/* @tt{{{   @end-foreach  }}}@ */
 
 /* @tt{{{ 
     @foreach [ iteratorExpression="model.item.directlyNestedItems" loopVariable="directlyNestedItem" ]

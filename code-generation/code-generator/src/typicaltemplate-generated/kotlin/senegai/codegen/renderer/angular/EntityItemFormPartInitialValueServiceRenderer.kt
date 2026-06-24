@@ -24,6 +24,7 @@ object EntityItemFormPartInitialValueServiceRenderer : UiEntityItemRenderer {
               |import {
               |    ${model.entity.entityName.pascalCase}${directlyNestedItem.itemName.pascalCase}FormPartGroup
               |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-${directlyNestedItem.itemName.kebabCase}-form-part/${model.entity.entityName.kebabCase}-${directlyNestedItem.itemName.kebabCase}-form-part-group";
+              |""" } }${ model.item.usedEnums.joinToString("") { usedEnum ->  """import {${usedEnum.enumName.pascalCase}Enum} from "@app/wto/${usedEnum.enumName.kebabCase}.enum";
               |""" } }
           |@Injectable({providedIn: 'root'})
           |export class ${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartInitialValueService {

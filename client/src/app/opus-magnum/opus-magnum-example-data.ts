@@ -29,8 +29,18 @@
 }}}@ */
 import {SilvaOptionumWTO} from "@app/wto/silva-optionum.wto";
 /* @tt{{{   @ignore-text  }}}@ */
-import {AppellatioComisEnum} from "@app/wto/appellatio-comis.enum";
 /* @tt{{{   @end-ignore-text  }}}@ */
+
+/* @tt{{{
+    @foreach [ iteratorExpression="model.entityEnumTypes" loopVariable="usedEnum" ]
+
+    @replace-value-by-expression
+        [ searchValue="AppellatioComis" replaceByExpression="usedEnum.enumName.pascalCase" ]
+        [ searchValue="appellatio-comis" replaceByExpression="usedEnum.enumName.kebabCase" ]
+}}}@  */
+import {AppellatioComisEnum} from "@app/wto/appellatio-comis.enum";
+/* @tt{{{   @end-foreach  }}}@ */
+
 
 export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
     /* @tt{{{

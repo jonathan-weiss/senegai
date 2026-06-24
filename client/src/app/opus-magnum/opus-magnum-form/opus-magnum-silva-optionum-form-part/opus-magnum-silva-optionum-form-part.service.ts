@@ -39,9 +39,15 @@ import {
 import {OpusMagnumSilvaOptionumFormPartGroup} from "@app/opus-magnum/opus-magnum-form/opus-magnum-silva-optionum-form-part/opus-magnum-silva-optionum-form-part-group";
 import {OpusMagnumSilvaOptionumFormPartFieldName} from "@app/opus-magnum/opus-magnum-form/opus-magnum-silva-optionum-form-part/opus-magnum-silva-optionum-form-part-field-name";
 
-/* @tt{{{   @ignore-text  }}}@ */
+/* @tt{{{
+    @foreach [ iteratorExpression="model.item.usedEnums" loopVariable="usedEnum" ]
+
+    @replace-value-by-expression
+        [ searchValue="AppellatioComis" replaceByExpression="usedEnum.enumName.pascalCase" ]
+        [ searchValue="appellatio-comis" replaceByExpression="usedEnum.enumName.kebabCase" ]
+}}}@  */
 import {AppellatioComisEnum} from "@app/wto/appellatio-comis.enum";
-/* @tt{{{   @end-ignore-text  }}}@ */
+/* @tt{{{   @end-foreach  }}}@ */
 
 /* @tt{{{ 
     @foreach [ iteratorExpression="model.item.directlyNestedItems" loopVariable="nestedItem" ]
@@ -448,22 +454,22 @@ export class OpusMagnumSilvaOptionumFormPartService {
             /* @tt{{{  @end-foreach  }}}@ */
 
             /* @tt{{{
-                @foreach [ iteratorExpression="model.item.attributesWithBuiltInType" loopVariable="attributeWithBuiltInType" ]
+                @foreach [ iteratorExpression="model.item.builtInTypeAndEnumAttributes" loopVariable="attribute" ]
             }}}@  */
             /* @tt{{{
                 @replace-value-by-expression
-                    [ searchValue="iteratioSimpliciumTextuum" replaceByExpression="attributeWithBuiltInType.attribute.attributeName.camelCase" ]
-                    [ searchValue="campusTextusObligatorius" replaceByExpression="attributeWithBuiltInType.attribute.attributeName.camelCase" ]
-                    [ searchValue="campusTextusOptionalis" replaceByExpression="attributeWithBuiltInType.attribute.attributeName.camelCase" ]
-                    [ searchValue="articulusInteriorOptionalisIteratus" replaceByExpression="attributeWithBuiltInType.attribute.attributeName.camelCase" ]
-                    [ searchValue="articulusInteriorIteratus" replaceByExpression="attributeWithBuiltInType.attribute.attributeName.camelCase" ]
-                    [ searchValue="articulusInteriorSingularisOptionalis" replaceByExpression="attributeWithBuiltInType.attribute.attributeName.camelCase" ]
-                    [ searchValue="articulusInteriorSingularis" replaceByExpression="attributeWithBuiltInType.attribute.attributeName.camelCase" ]
-                    [ searchValue="articulusInterior" replaceByExpression="attributeWithBuiltInType.attribute.attributeName.camelCase" ]
-                    [ searchValue="ArticulusInterior" replaceByExpression="attributeWithBuiltInType.attribute.attributeName.pascalCase" ]
+                    [ searchValue="iteratioSimpliciumTextuum" replaceByExpression="attribute.attributeName.camelCase" ]
+                    [ searchValue="campusTextusObligatorius" replaceByExpression="attribute.attributeName.camelCase" ]
+                    [ searchValue="campusTextusOptionalis" replaceByExpression="attribute.attributeName.camelCase" ]
+                    [ searchValue="articulusInteriorOptionalisIteratus" replaceByExpression="attribute.attributeName.camelCase" ]
+                    [ searchValue="articulusInteriorIteratus" replaceByExpression="attribute.attributeName.camelCase" ]
+                    [ searchValue="articulusInteriorSingularisOptionalis" replaceByExpression="attribute.attributeName.camelCase" ]
+                    [ searchValue="articulusInteriorSingularis" replaceByExpression="attribute.attributeName.camelCase" ]
+                    [ searchValue="articulusInterior" replaceByExpression="attribute.attributeName.camelCase" ]
+                    [ searchValue="ArticulusInterior" replaceByExpression="attribute.attributeName.pascalCase" ]
                 
             }}}@  */
-            /* @tt{{{   @if [ conditionExpression="attributeWithBuiltInType.attribute.isNullable"]  }}}@ */
+            /* @tt{{{   @if [ conditionExpression="attribute.isNullable"]  }}}@ */
             campusTextusOptionalis: form.controls[OpusMagnumSilvaOptionumFormPartFieldName.campusTextusOptionalisIsNotNull].value
                 ? form.controls[OpusMagnumSilvaOptionumFormPartFieldName.campusTextusOptionalis].getRawValue()
                 : null,

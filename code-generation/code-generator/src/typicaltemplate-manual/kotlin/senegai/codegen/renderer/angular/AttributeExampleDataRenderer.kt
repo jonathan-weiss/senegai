@@ -92,8 +92,9 @@ object AttributeExampleDataRenderer {
                 "EnumType ${attributeType.enumId.enumName} not found. " +
                         "Available enum types: ${entityModel.entityEnumTypes.map { it.enumId.enumName }}",
             )
-        val enumValue = enumType.enumValues.first()
-        return "'$enumValue'"
+        val enumName = enumType.enumName.pascalCase
+        val enumValue = enumType.enumValues.first().screamingSnakeCase
+        return "${enumName}Enum.$enumValue"
     }
 
 

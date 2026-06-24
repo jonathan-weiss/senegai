@@ -62,6 +62,7 @@ object CodegenData {
 
             item(itemId = Items.CONTACT) {
                 attribute(name = "contactId", type = BuiltInType.STRING)
+                attribute(name = "contactSalutation", enumId = EnumTypes.SALUTATION)
                 attribute(name = "firstname", type = BuiltInType.STRING)
                 attribute(name = "nickname", type = BuiltInType.STRING, nullable = true)
                 attribute(name = "lastname", type = BuiltInType.STRING)
@@ -99,6 +100,7 @@ object CodegenData {
                             tab(tabName = "Common") {
                                 column {
                                     attribute(attributeName = "contactId")
+                                    attribute(attributeName = "contactSalutation")
                                     section(sectionName = "Names")
                                     text(text = "Lorem ipsum dolor sit amet")
                                     attribute(attributeName = "firstname")

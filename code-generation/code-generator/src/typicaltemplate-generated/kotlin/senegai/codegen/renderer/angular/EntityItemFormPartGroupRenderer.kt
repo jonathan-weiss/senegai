@@ -19,7 +19,8 @@ object EntityItemFormPartGroupRenderer : UiEntityItemRenderer {
           |
           |import {FormArray, FormControl, FormGroup} from "@angular/forms";
           |import {${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part-field-name";
-          |
+          |${ model.item.usedEnums.joinToString("") { usedEnum ->  """import {${usedEnum.enumName.pascalCase}Enum} from "@app/wto/${usedEnum.enumName.kebabCase}.enum";
+              |""" } }
           |${ model.item.directlyNestedItems.joinToString("") { directlyNestedItem ->  """
               |import {
               |    ${model.entity.entityName.pascalCase}${directlyNestedItem.itemName.pascalCase}FormPartGroup

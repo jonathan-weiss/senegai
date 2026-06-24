@@ -98,11 +98,16 @@ import {
     SingleBooleanFormFieldTableComponent
 } from "@app/shared/form-controls/single-boolean-form-field-table/single-boolean-form-field-table.component";
 /* @tt{{{   @end-if  }}}@ */
-/* @tt{{{   @ignore-text  }}}@ */
+/* @tt{{{
+    @foreach [ iteratorExpression="model.item.usedEnums" loopVariable="usedEnum" ]
+
+    @replace-value-by-expression
+        [ searchValue="AppellatioComis" replaceByExpression="usedEnum.enumName.pascalCase" ]
+        [ searchValue="appellatio-comis" replaceByExpression="usedEnum.enumName.kebabCase" ]
+}}}@  */
 import {AppellatioComisEnum} from "@app/wto/appellatio-comis.enum";
 import {AppellatioComisSelectorComponent} from "@app/enum/appellatio-comis-input-selection/appellatio-comis-selector.component";
-
-/* @tt{{{   @end-ignore-text  }}}@ */
+/* @tt{{{   @end-foreach  }}}@ */
 
 
 /* @tt{{{ 
@@ -214,8 +219,14 @@ import {
         }}}@ */
         /* @tt{{{   @ignore-text }}}@ */
         DatepickerInputComponent,
-        AppellatioComisSelectorComponent,
         /* @tt{{{   @end-ignore-text }}}@ */
+        /* @tt{{{
+            @foreach [ iteratorExpression="model.item.usedEnums" loopVariable="usedEnum" ]
+            @replace-value-by-expression
+                [ searchValue="AppellatioComis" replaceByExpression="usedEnum.enumName.pascalCase" ]
+        }}}@ */
+        AppellatioComisSelectorComponent,
+        /* @tt{{{   @end-foreach }}}@ */
     ]
 })
 export class OpusMagnumSilvaOptionumFormPartComponent implements OnInit {

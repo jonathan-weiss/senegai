@@ -43,10 +43,15 @@ import {
     OpusMagnumArticulusInteriorFormPartGroup
 } from "@app/opus-magnum/opus-magnum-form/opus-magnum-articulus-interior-form-part/opus-magnum-articulus-interior-form-part-group";
 /* @tt{{{  @end-foreach  }}}@ */
-/* @tt{{{   @ignore-text  }}}@ */
-// imports here that are ignored
+/* @tt{{{
+    @foreach [ iteratorExpression="model.item.usedEnums" loopVariable="usedEnum" ]
+
+    @replace-value-by-expression
+        [ searchValue="AppellatioComis" replaceByExpression="usedEnum.enumName.pascalCase" ]
+        [ searchValue="appellatio-comis" replaceByExpression="usedEnum.enumName.kebabCase" ]
+}}}@  */
 import {AppellatioComisEnum} from "@app/wto/appellatio-comis.enum";
-/* @tt{{{   @end-ignore-text  }}}@ */
+/* @tt{{{   @end-foreach  }}}@ */
 
 @Injectable({providedIn: 'root'})
 export class OpusMagnumSilvaOptionumFormPartInitialValueService {

@@ -18,6 +18,7 @@ object ItemWTOInterfaceRenderer : UiItemRenderer {
         return """
           |
           |${ model.directlyNestedItems.joinToString("") { nestedItem ->  """import {${nestedItem.itemName.pascalCase}WTO} from "@app/wto/${nestedItem.itemName.kebabCase}.wto";
+              |""" } }${ model.usedEnums.joinToString("") { usedEnum ->  """import {${usedEnum.enumName.pascalCase}Enum} from "@app/wto/${usedEnum.enumName.kebabCase}.enum";
               |""" } }
           |/**
           | * The Silva Optionum WTO (Web Transfer Object) class.

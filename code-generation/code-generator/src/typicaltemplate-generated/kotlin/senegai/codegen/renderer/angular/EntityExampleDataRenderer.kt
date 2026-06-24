@@ -19,6 +19,9 @@ object EntityExampleDataRenderer : UiEntityRenderer {
         return """
           |import {${model.entityRootItem.itemName.pascalCase}WTO} from "@app/wto/${model.entityRootItem.itemName.kebabCase}.wto";
           |
+          |${ model.entityEnumTypes.joinToString("") { usedEnum ->  """import {${usedEnum.enumName.pascalCase}Enum} from "@app/wto/${usedEnum.enumName.kebabCase}.enum";
+              |""" } }
+          |
           |export const ${model.entityRootItem.itemName.screamingSnakeCase}_EXAMPLE_DATA: ${model.entityRootItem.itemName.pascalCase}WTO[] = [
           |${ItemExampleDataRenderer.renderTemplate(itemModel = model.entityRootItem, entityModel = model)}
           |];
