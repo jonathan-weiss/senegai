@@ -16,6 +16,8 @@
   "opusMagnum.board.title": "Meisterwerk",
   "enum.appellatioComis.VIR_HONORATUS": "Sehr geehrter Herr",
   "enum.appellatioComis.FEMINA_HONESTA": "Sehr geehrte Frau",
+  "validator.required": "Dieses Feld ist zwingend",
+  "validator.minlength": "Dieses Feld hat eine minimale Zeichenlänge",
   "contact.board.title": "Kontakte",
   "silvaOptionum.board.title": "Eine Vielfalt von Optionen"
 }

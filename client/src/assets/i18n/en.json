@@ -16,6 +16,8 @@
   "opusMagnum.board.title": "Opus Magnum Masterpiece",
   "enum.appellatioComis.VIR_HONORATUS": "Gentleman",
   "enum.appellatioComis.FEMINA_HONESTA": "Lady",
+  "validator.required": "This field is required",
+  "validator.minlength": "This field has a minimal length",
   "contact.board.title": "Contacts",
   "silvaOptionum.board.title": "A variety of options"
 }

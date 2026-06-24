@@ -42,6 +42,10 @@ object EntityItemFormPartValidationServiceRenderer : UiEntityItemRenderer {
           |        }
           |    }
           |
+          |    /**
+          |     * t(validator.required)
+          |     * t(validator.minlength)
+          |     */
           |    namedValidators(field: ${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName): ReadonlyArray<NamedValidator> {
           |        switch(field) {
           |${ model.item.attributes.joinToString("") { attribute ->  """            case ${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}: return [
