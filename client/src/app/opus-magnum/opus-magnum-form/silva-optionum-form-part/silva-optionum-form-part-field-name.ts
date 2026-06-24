@@ -28,7 +28,7 @@
 }}}@ */
 
 /* @tt{{{   @ignore-text  }}}@ */
-import {AppellatioEnum} from "@app/wto/appellatio.enum";
+import {AppellatioComisEnum} from "@app/wto/appellatio-comis.enum";
 /* @tt{{{   @end-ignore-text  }}}@ */
 
 export enum SilvaOptionumFormPartFieldName {

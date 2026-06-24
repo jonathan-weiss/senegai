@@ -30,7 +30,7 @@
 import {FormArray, FormControl, FormGroup} from "@angular/forms";
 import {SilvaOptionumFormPartFieldName} from "@app/opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part-field-name";
 /* @tt{{{   @ignore-text  }}}@ */
-import {AppellatioEnum} from "@app/wto/appellatio.enum";
+import {AppellatioComisEnum} from "@app/wto/appellatio-comis.enum";
 /* @tt{{{   @end-ignore-text  }}}@ */
 
 /* @tt{{{ 
@@ -74,7 +74,7 @@ export interface SilvaOptionumFormPartGroup {
     [SilvaOptionumFormPartFieldName.campusDieiIsNotNull]: FormControl<boolean>,
     [SilvaOptionumFormPartFieldName.campusDiei]: FormControl<Date>,
     [SilvaOptionumFormPartFieldName.campusBivalens]: FormControl<boolean>,
-    [SilvaOptionumFormPartFieldName.appellatio]: FormControl<AppellatioEnum>,
+    [SilvaOptionumFormPartFieldName.appellatio]: FormControl<AppellatioComisEnum>,
     [SilvaOptionumFormPartFieldName.campusNumerorum]: FormControl<number>,
     [SilvaOptionumFormPartFieldName.indexUnicus]: FormControl<string>,
     [SilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum]: FormArray<FormControl<string>>,

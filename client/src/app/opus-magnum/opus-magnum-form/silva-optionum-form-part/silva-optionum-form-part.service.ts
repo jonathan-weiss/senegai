@@ -40,7 +40,7 @@ import {SilvaOptionumFormPartGroup} from "@app/opus-magnum/opus-magnum-form/silv
 import {SilvaOptionumFormPartFieldName} from "@app/opus-magnum/opus-magnum-form/silva-optionum-form-part/silva-optionum-form-part-field-name";
 
 /* @tt{{{   @ignore-text  }}}@ */
-import {AppellatioEnum} from "@app/wto/appellatio.enum";
+import {AppellatioComisEnum} from "@app/wto/appellatio-comis.enum";
 /* @tt{{{   @end-ignore-text  }}}@ */
 
 /* @tt{{{ 
@@ -169,7 +169,7 @@ export class SilvaOptionumFormPartService {
                     validators: this.silvaOptionumFormValidationService.validatorFunctions(SilvaOptionumFormPartFieldName.campusBivalens)
                 },
             ),
-            [SilvaOptionumFormPartFieldName.appellatio]: new FormControl<AppellatioEnum>(
+            [SilvaOptionumFormPartFieldName.appellatio]: new FormControl<AppellatioComisEnum>(
                 this.silvaOptionumFormInitialValueService.appellatioInitialValue(),
                 {
                     nonNullable: true,

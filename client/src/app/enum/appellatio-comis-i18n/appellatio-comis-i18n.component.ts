@@ -14,22 +14,23 @@
     ]
 
     @replace-value-by-expression
-        [ searchValue="Appellatio" replaceByExpression="model.enumName.pascalCase" ]
-        [ searchValue="appellatio" replaceByExpression="model.enumName.camelCase" ]
+        [ searchValue="AppellatioComis" replaceByExpression="model.enumName.pascalCase" ]
+        [ searchValue="appellatioComis" replaceByExpression="model.enumName.camelCase" ]
+        [ searchValue="appellatio-comis" replaceByExpression="model.enumName.kebabCase" ]
 
     @modify-provided-filename-by-replacements
 
 
 }}}@ */
 import {Component, Input} from '@angular/core';
-import {AppellatioEnum} from "@app/wto/appellatio.enum";
+import {AppellatioComisEnum} from "@app/wto/appellatio-comis.enum";
 
 @Component({
-    selector: 'app-appellatio-i18n',
-    templateUrl: './appellatio-i18n.component.html',
-    styleUrls: ['./appellatio-i18n.component.scss'],
+    selector: 'app-appellatio-comis-i18n',
+    templateUrl: './appellatio-comis-i18n.component.html',
+    styleUrls: ['./appellatio-comis-i18n.component.scss'],
     standalone: true,
 })
-export class AppellatioI18nComponent {
-    @Input({ required: true }) enumValue!: AppellatioEnum;
+export class AppellatioComisI18nComponent {
+    @Input({ required: true }) enumValue!: AppellatioComisEnum;
 }

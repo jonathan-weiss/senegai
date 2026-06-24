@@ -99,8 +99,8 @@ import {
 } from "@app/shared/form-controls/single-boolean-form-field-table/single-boolean-form-field-table.component";
 /* @tt{{{   @end-if  }}}@ */
 /* @tt{{{   @ignore-text  }}}@ */
-import {AppellatioEnum} from "@app/wto/appellatio.enum";
-import {AppellatioSelectorComponent} from "@app/enum/appellatio-input-selection/appellatio-selector.component";
+import {AppellatioComisEnum} from "@app/wto/appellatio-comis.enum";
+import {AppellatioComisSelectorComponent} from "@app/enum/appellatio-comis-input-selection/appellatio-comis-selector.component";
 
 /* @tt{{{   @end-ignore-text  }}}@ */
 
@@ -215,7 +215,7 @@ import {
         }}}@ */
         /* @tt{{{   @ignore-text }}}@ */
         DatepickerInputComponent,
-        AppellatioSelectorComponent,
+        AppellatioComisSelectorComponent,
         /* @tt{{{   @end-ignore-text }}}@ */
     ]
 })
@@ -273,7 +273,7 @@ export class SilvaOptionumFormPartComponent implements OnInit {
     protected campusDieiValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected campusBivalensControl!: FormControl<boolean>
     protected campusBivalensValidatorNames!: ReadonlyArray<ValidatorTranslation>
-    protected appellatioControl!: FormControl<AppellatioEnum>
+    protected appellatioControl!: FormControl<AppellatioComisEnum>
     protected appellatioValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected articulusInteriorSingularisControl!: FormGroup<ArticulusInteriorFormPartGroup>
     protected articulusInteriorSingularisValidatorNames!: ReadonlyArray<ValidatorTranslation>

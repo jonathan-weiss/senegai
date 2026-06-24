@@ -3,7 +3,7 @@
 
     @move-comment-backward
     @template-renderer [
-        templateRendererClassName="EnumI18nComponentScssRenderer"
+        templateRendererClassName="EnumSelectorComponentScssRenderer"
         templateRendererPackageName="senegai.codegen.renderer.angular"
         templateRendererInterfaceName="UiEnumRenderer"
         templateRendererInterfacePackageName="senegai.codegen.renderer.angular"
@@ -14,10 +14,14 @@
     ]
 
     @replace-value-by-expression
-        [ searchValue="Appellatio" replaceByExpression="model.enumName.pascalCase" ]
-        [ searchValue="appellatio" replaceByExpression="model.enumName.camelCase" ]
+        [ searchValue="AppellatioComis" replaceByExpression="model.enumName.pascalCase" ]
+        [ searchValue="appellatioComis" replaceByExpression="model.enumName.camelCase" ]
+        [ searchValue="appellatio-comis" replaceByExpression="model.enumName.kebabCase" ]
 
     @modify-provided-filename-by-replacements
 
 
 }}}@ */
+:host {
+    display: block;
+}

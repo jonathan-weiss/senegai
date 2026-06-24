@@ -82,6 +82,7 @@ object Rendering {
                 EnumI18nComponentHtmlRenderer,
                 EnumI18nComponentScssRenderer,
                 EnumI18nComponentTypescriptRenderer,
+                EnumI18nComponentSpecTypescriptRenderer,
                 EnumSelectorComponentHtmlRenderer,
                 EnumSelectorComponentScssRenderer,
                 EnumSelectorComponentTypescriptRenderer,

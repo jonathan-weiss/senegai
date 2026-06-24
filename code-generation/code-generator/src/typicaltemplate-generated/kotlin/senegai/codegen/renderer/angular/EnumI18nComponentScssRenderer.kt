@@ -9,8 +9,8 @@ import senegai.codegen.renderer.model.ui.UiEnumModel
  * Generate the content for the template `EnumI18nComponentScssRenderer`.
  *
  * This template renderer was generated from the template:
- * - file: `appellatio-i18n.component.scss`
- * - path: `enum/appellatio-i18n/appellatio-i18n.component.scss`
+ * - file: `appellatio-comis-i18n.component.scss`
+ * - path: `enum/appellatio-comis-i18n/appellatio-comis-i18n.component.scss`
  */
 object EnumI18nComponentScssRenderer : UiEnumRenderer {
 
@@ -21,6 +21,6 @@ object EnumI18nComponentScssRenderer : UiEnumRenderer {
     }
 
     override fun filePath(model: UiEnumModel): String {
-      return "enum/${model.enumName.camelCase}-i18n/${model.enumName.camelCase}-i18n.component.scss"
+      return "enum/${model.enumName.kebabCase}-i18n/${model.enumName.kebabCase}-i18n.component.scss"
     }
 }

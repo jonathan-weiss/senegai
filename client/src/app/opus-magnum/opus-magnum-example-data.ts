@@ -29,7 +29,7 @@
 }}}@ */
 import {SilvaOptionumWTO} from "@app/wto/silva-optionum.wto";
 /* @tt{{{   @ignore-text  }}}@ */
-import {AppellatioEnum} from "@app/wto/appellatio.enum";
+import {AppellatioComisEnum} from "@app/wto/appellatio-comis.enum";
 /* @tt{{{   @end-ignore-text  }}}@ */
 
 export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
@@ -84,7 +84,7 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
         }}}@ */
         campusBivalens: false,
         campusDiei: new Date(1979, 3, 23),
-        appellatio: AppellatioEnum.SENIOR,
+        appellatio: AppellatioComisEnum.VIR_HONORATUS,
         campusTextusObligatorius: 'Doe',
         articulusInteriorSingularis: {
             scriptumTriviale: "ALA Medal of Excellence.",
@@ -139,7 +139,7 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
         articulusInteriorSingularisOptionalis: null,
         campusDiei: null,
         campusBivalens: false,
-        appellatio: AppellatioEnum.MATRONA,
+        appellatio: AppellatioComisEnum.FEMINA_HONESTA,
         campusNumerorum: -2,
         iteratioSimpliciumTextuum: ["Peter Booker"],
     },
@@ -157,7 +157,7 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
         campusDiei: new Date(1963, 11, 31),
         campusBivalens: true,
         campusNumerorum: 7544,
-        appellatio: AppellatioEnum.SENIOR,
+        appellatio: AppellatioComisEnum.VIR_HONORATUS,
         iteratioSimpliciumTextuum: [],
     },
     {
@@ -185,7 +185,7 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
         articulusInteriorOptionalisIteratus: null,
         campusDiei: new Date(1954, 8, 3),
         campusBivalens: false,
-        appellatio: AppellatioEnum.MATRONA,
+        appellatio: AppellatioComisEnum.FEMINA_HONESTA,
         campusNumerorum: 687358,
         iteratioSimpliciumTextuum: ["W.Y. Boyd", "Beta Phi", "Joseph Lippincott"],
     }

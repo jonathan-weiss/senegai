@@ -46,7 +46,7 @@ import {
 
 /* @tt{{{   @ignore-text  }}}@ */
 // imports here that are ignored
-import {AppellatioEnum} from "@app/wto/appellatio.enum";
+import {AppellatioComisEnum} from "@app/wto/appellatio-comis.enum";
 /* @tt{{{   @end-ignore-text  }}}@ */
 
 
@@ -84,8 +84,8 @@ export class SilvaOptionumFormPartInitialValueService {
     campusNumerorumInitialValue(): number {
         return 0;
     }
-    appellatioInitialValue(): AppellatioEnum {
-        return AppellatioEnum.MATRONA;
+    appellatioInitialValue(): AppellatioComisEnum {
+        return AppellatioComisEnum.FEMINA_HONESTA;
     }
     indexUnicusInitialValue(): string {
         return crypto.randomUUID()

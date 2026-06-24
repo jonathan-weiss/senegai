@@ -14,8 +14,9 @@
     ]
 
     @replace-value-by-expression
-        [ searchValue="Appellatio" replaceByExpression="model.enumName.pascalCase" ]
-        [ searchValue="appellatio" replaceByExpression="model.enumName.camelCase" ]
+        [ searchValue="AppellatioComis" replaceByExpression="model.enumName.pascalCase" ]
+        [ searchValue="appellatioComis" replaceByExpression="model.enumName.camelCase" ]
+        [ searchValue="appellatio-comis" replaceByExpression="model.enumName.kebabCase" ]
 
     @modify-provided-filename-by-replacements
 
@@ -28,15 +29,15 @@ import {CommonModule} from '@angular/common';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
 import {TranslocoPipe} from "@jsverse/transloco";
-import {AppellatioI18nComponent} from "@app/enum/appellatio-i18n/appellatio-i18n.component";
+import {AppellatioComisI18nComponent} from "@app/enum/appellatio-comis-i18n/appellatio-comis-i18n.component";
 import {MatOption} from "@angular/material/core";
 import {MatSelect} from "@angular/material/select";
-import {AppellatioEnumValues} from "@app/wto/appellatio.enum";
+import {AppellatioComisEnumValues} from "@app/wto/appellatio-comis.enum";
 
 @Component({
-    selector: 'app-appellatio-selector',
-    templateUrl: './appellatio-selector.component.html',
-    styleUrls: ['./appellatio-selector.component.scss'],
+    selector: 'app-appellatio-comis-selector',
+    templateUrl: './appellatio-comis-selector.component.html',
+    styleUrls: ['./appellatio-comis-selector.component.scss'],
     standalone: true,
     imports: [
         CommonModule,
@@ -44,12 +45,12 @@ import {AppellatioEnumValues} from "@app/wto/appellatio.enum";
         MatFormFieldModule,
         MatInputModule,
         TranslocoPipe,
-        AppellatioI18nComponent,
+        AppellatioComisI18nComponent,
         MatOption,
         MatSelect,
     ]
 })
-export class AppellatioSelectorComponent {
+export class AppellatioComisSelectorComponent {
     @Input() label: string = '';
     @Input({required: true}) enumFormControl!: FormControl;
     @Input() validatorTranslations: ReadonlyArray<ValidatorTranslation> = [];
@@ -59,5 +60,5 @@ export class AppellatioSelectorComponent {
     }
 
 
-    protected readonly appellatioList = AppellatioEnumValues;
+    protected readonly appellatioComisList = AppellatioComisEnumValues;
 }

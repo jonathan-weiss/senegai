@@ -14,39 +14,40 @@
     ]
 
     @replace-value-by-expression
-        [ searchValue="Appellatio" replaceByExpression="model.enumName.pascalCase" ]
-        [ searchValue="appellatio" replaceByExpression="model.enumName.camelCase" ]
+        [ searchValue="AppellatioComis" replaceByExpression="model.enumName.pascalCase" ]
+        [ searchValue="appellatioComis" replaceByExpression="model.enumName.camelCase" ]
+        [ searchValue="appellatio-comis" replaceByExpression="model.enumName.kebabCase" ]
 
     @modify-provided-filename-by-replacements
 
 
 }}}@ */
-export enum AppellatioEnum {
+export enum AppellatioComisEnum {
     /* @tt{{{
         @foreach [ iteratorExpression="model.enumValues" loopVariable="enumValue" ]
 
         @replace-value-by-expression
-            [ searchValue="SENIOR" replaceByExpression="enumValue.screamingSnakeCase" ]
+            [ searchValue="VIR_HONORATUS" replaceByExpression="enumValue.screamingSnakeCase" ]
 
     }}}@  */
-    SENIOR = 'SENIOR',
+    VIR_HONORATUS = 'VIR_HONORATUS',
     /* @tt{{{   @end-foreach  }}}@ */
     /* @tt{{{   @ignore-text  }}}@ */
-    MATRONA = 'MATRONA',
+    FEMINA_HONESTA = 'FEMINA_HONESTA',
     /* @tt{{{   @end-ignore-text  }}}@ */
 }
 
-export const AppellatioEnumValues: ReadonlyArray<AppellatioEnum> = [
+export const AppellatioComisEnumValues: ReadonlyArray<AppellatioComisEnum> = [
     /* @tt{{{
         @foreach [ iteratorExpression="model.enumValues" loopVariable="enumValue" ]
 
         @replace-value-by-expression
-            [ searchValue="SENIOR" replaceByExpression="enumValue.screamingSnakeCase" ]
+            [ searchValue="VIR_HONORATUS" replaceByExpression="enumValue.screamingSnakeCase" ]
 
     }}}@  */
-    AppellatioEnum.SENIOR,
+    AppellatioComisEnum.VIR_HONORATUS,
     /* @tt{{{   @end-foreach  }}}@ */
     /* @tt{{{   @ignore-text  }}}@ */
-    AppellatioEnum.MATRONA,
+    AppellatioComisEnum.FEMINA_HONESTA,
     /* @tt{{{   @end-ignore-text  }}}@ */
 ]

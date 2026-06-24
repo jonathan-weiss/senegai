@@ -31,7 +31,6 @@ object CodegenData {
         override val enumName: String,
     ) : EnumId {
         SALUTATION(enumName = "Gender"),
-        BLOOD_TYPE(enumName = "BloodType"),
         MARITAL_STATUS(enumName = "MaritalStatus"),
         CONTACT_TYPE(enumName = "ContactType"),
     }
@@ -61,17 +60,6 @@ object CodegenData {
                 enumValue(name = "phone")
                 enumValue(name = "sms")
                 enumValue(name = "post")
-            }
-
-            enumType(enumId = EnumTypes.BLOOD_TYPE) {
-                enumValue(name = "A+")
-                enumValue(name = "A-")
-                enumValue(name = "B+")
-                enumValue(name = "B-")
-                enumValue(name = "AB+")
-                enumValue(name = "AB-")
-                enumValue(name = "O+")
-                enumValue(name = "O-")
             }
 
             item(itemId = Items.CONTACT) {

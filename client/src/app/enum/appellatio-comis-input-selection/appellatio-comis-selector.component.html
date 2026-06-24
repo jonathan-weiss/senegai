@@ -14,8 +14,9 @@
     ]
 
     @replace-value-by-expression
-        [ searchValue="Appellatio" replaceByExpression="model.enumName.pascalCase" ]
-        [ searchValue="appellatio" replaceByExpression="model.enumName.camelCase" ]
+        [ searchValue="AppellatioComis" replaceByExpression="model.enumName.pascalCase" ]
+        [ searchValue="appellatioComis" replaceByExpression="model.enumName.camelCase" ]
+        [ searchValue="appellatio-comis" replaceByExpression="model.enumName.kebabCase" ]
 
     @modify-provided-filename-by-replacements
 
@@ -26,9 +27,9 @@
         <mat-label>{{ label }}</mat-label>
     }
     <mat-select [formControl]="enumFormControl">
-        @for (appellatio of appellatioList; track appellatio) {
-            <mat-option [value]="appellatio">
-                <app-appellatio-i18n [enumValue]="appellatio" />
+        @for (appellatioComis of appellatioComisList; track appellatioComis) {
+            <mat-option [value]="appellatioComis">
+                <app-appellatio-comis-i18n [enumValue]="appellatioComis" />
             </mat-option>
         }
     </mat-select>

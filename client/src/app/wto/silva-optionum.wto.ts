@@ -34,7 +34,7 @@
 import {ArticulusInteriorWTO} from "@app/wto/articulus-interior.wto";
 /* @tt{{{   @end-foreach  }}}@ */
 /* @tt{{{   @ignore-text  }}}@ */
-import {AppellatioEnum} from "@app/wto/appellatio.enum";
+import {AppellatioComisEnum} from "@app/wto/appellatio-comis.enum";
 /* @tt{{{   @end-ignore-text  }}}@ */
 
 /**
@@ -57,7 +57,7 @@ export interface SilvaOptionumWTO {
     }}}@ */
     /* @tt{{{   @ignore-text  }}}@ */
     campusTextusOptionalis: string | null;
-    appellatio: AppellatioEnum;
+    appellatio: AppellatioComisEnum;
     articulusInteriorSingularis: ArticulusInteriorWTO;
     articulusInteriorIteratus: Array<ArticulusInteriorWTO>;
     articulusInteriorSingularisOptionalis: ArticulusInteriorWTO | null;

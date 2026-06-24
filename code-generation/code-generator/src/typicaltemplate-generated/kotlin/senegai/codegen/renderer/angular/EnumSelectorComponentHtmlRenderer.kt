@@ -9,8 +9,8 @@ import senegai.codegen.renderer.model.ui.UiEnumModel
  * Generate the content for the template `EnumSelectorComponentHtmlRenderer`.
  *
  * This template renderer was generated from the template:
- * - file: `appellatio-selector.component.html`
- * - path: `enum/appellatio-input-selection/appellatio-selector.component.html`
+ * - file: `appellatio-comis-selector.component.html`
+ * - path: `enum/appellatio-comis-input-selection/appellatio-comis-selector.component.html`
  */
 object EnumSelectorComponentHtmlRenderer : UiEnumRenderer {
 
@@ -23,7 +23,7 @@ object EnumSelectorComponentHtmlRenderer : UiEnumRenderer {
           |    <mat-select [formControl]="enumFormControl">
           |        @for (${model.enumName.camelCase} of ${model.enumName.camelCase}List; track ${model.enumName.camelCase}) {
           |            <mat-option [value]="${model.enumName.camelCase}">
-          |                <app-${model.enumName.camelCase}-i18n [enumValue]="${model.enumName.camelCase}" />
+          |                <app-${model.enumName.kebabCase}-i18n [enumValue]="${model.enumName.camelCase}" />
           |            </mat-option>
           |        }
           |    </mat-select>
@@ -39,6 +39,6 @@ object EnumSelectorComponentHtmlRenderer : UiEnumRenderer {
     }
 
     override fun filePath(model: UiEnumModel): String {
-      return "enum/${model.enumName.camelCase}-input-selection/${model.enumName.camelCase}-selector.component.html"
+      return "enum/${model.enumName.kebabCase}-input-selection/${model.enumName.kebabCase}-selector.component.html"
     }
 }

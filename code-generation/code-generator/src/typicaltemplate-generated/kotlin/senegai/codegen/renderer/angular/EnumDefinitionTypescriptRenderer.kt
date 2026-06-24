@@ -9,8 +9,8 @@ import senegai.codegen.renderer.model.ui.UiEnumModel
  * Generate the content for the template `EnumDefinitionTypescriptRenderer`.
  *
  * This template renderer was generated from the template:
- * - file: `appellatio.enum.ts`
- * - path: `wto/appellatio.enum.ts`
+ * - file: `appellatio-comis.enum.ts`
+ * - path: `wto/appellatio-comis.enum.ts`
  */
 object EnumDefinitionTypescriptRenderer : UiEnumRenderer {
 
@@ -28,6 +28,6 @@ object EnumDefinitionTypescriptRenderer : UiEnumRenderer {
     }
 
     override fun filePath(model: UiEnumModel): String {
-      return "wto/${model.enumName.camelCase}.enum.ts"
+      return "wto/${model.enumName.kebabCase}.enum.ts"
     }
 }
