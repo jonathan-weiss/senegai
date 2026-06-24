@@ -30,7 +30,10 @@ object CodegenData {
     enum class EnumTypes(
         override val enumName: String,
     ) : EnumId {
-        APPELLATIO(enumName = "Appellatio"),
+        SALUTATION(enumName = "Gender"),
+        BLOOD_TYPE(enumName = "BloodType"),
+        MARITAL_STATUS(enumName = "MaritalStatus"),
+        CONTACT_TYPE(enumName = "ContactType"),
     }
 
     private fun RootDsl.collectEntityData() {
@@ -38,9 +41,37 @@ object CodegenData {
             entity(entityId = Entities.EMPLOYEE, entityRootItemId = Items.CONTACT)
             entity(entityId = Entities.EMPLOYEE_ADDRESS, entityRootItemId = Items.ADDRESS)
 
-            enumType(enumId = EnumTypes.APPELLATIO) {
-                enumValue(name = "Male")
-                enumValue(name = "Female")
+            enumType(enumId = EnumTypes.SALUTATION) {
+                enumValue(name = "Mr")
+                enumValue(name = "Ms")
+                enumValue(name = "Mrs")
+                enumValue(name = "Dr")
+                enumValue(name = "Mx")
+            }
+
+            enumType(enumId = EnumTypes.MARITAL_STATUS) {
+                enumValue(name = "single")
+                enumValue(name = "married")
+                enumValue(name = "divorced")
+                enumValue(name = "widowed")
+            }
+
+            enumType(enumId = EnumTypes.CONTACT_TYPE) {
+                enumValue(name = "email")
+                enumValue(name = "phone")
+                enumValue(name = "sms")
+                enumValue(name = "post")
+            }
+
+            enumType(enumId = EnumTypes.BLOOD_TYPE) {
+                enumValue(name = "A+")
+                enumValue(name = "A-")
+                enumValue(name = "B+")
+                enumValue(name = "B-")
+                enumValue(name = "AB+")
+                enumValue(name = "AB-")
+                enumValue(name = "O+")
+                enumValue(name = "O-")
             }
 
             item(itemId = Items.CONTACT) {

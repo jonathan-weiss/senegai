@@ -1,6 +1,7 @@
 package senegai.codegen.renderer
 
 import senegai.codegen.renderer.angular.*
+import senegai.codegen.renderer.model.ui.UiEnumModel
 import senegai.codegen.renderer.model.ui.UiEntityModel
 import senegai.codegen.renderer.model.ui.UiEntityViewsModel
 import senegai.codegen.renderer.model.ui.UiItemModel
@@ -28,6 +29,10 @@ object Rendering {
             renderNavigation(uiEntities)
             uiModel.uiItems.forEach { uiItemModel ->
                 renderWTO(uiItemModel)
+            }
+
+            uiModel.uiEnums.forEach { uiEnumModel ->
+                renderEnum(uiEnumModel)
             }
 
 
@@ -67,6 +72,25 @@ object Rendering {
                 writeFile(
                     filePath = pathToGeneratedAngularFiles.resolve(renderer.filePath(uiItemModel)),
                     content = renderer.renderTemplate(uiItemModel),
+                )
+            }
+        }
+
+        private fun renderEnum(uiEnumModel: UiEnumModel) {
+            val enumRenderer: List<UiEnumRenderer> = listOf(
+                EnumDefinitionTypescriptRenderer,
+                EnumI18nComponentHtmlRenderer,
+                EnumI18nComponentScssRenderer,
+                EnumI18nComponentTypescriptRenderer,
+                EnumSelectorComponentHtmlRenderer,
+                EnumSelectorComponentScssRenderer,
+                EnumSelectorComponentTypescriptRenderer,
+            )
+
+            enumRenderer.forEach { renderer ->
+                writeFile(
+                    filePath = pathToGeneratedAngularFiles.resolve(renderer.filePath(uiEnumModel)),
+                    content = renderer.renderTemplate(uiEnumModel),
                 )
             }
         }

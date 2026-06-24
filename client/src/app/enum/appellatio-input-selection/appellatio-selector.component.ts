@@ -1,3 +1,26 @@
+/* @tt{{{
+
+
+    @move-comment-backward
+    @template-renderer [
+        templateRendererClassName="EnumSelectorComponentTypescriptRenderer"
+        templateRendererPackageName="senegai.codegen.renderer.angular"
+        templateRendererInterfaceName="UiEnumRenderer"
+        templateRendererInterfacePackageName="senegai.codegen.renderer.angular"
+    ] [
+        modelClassName="UiEnumModel"
+        modelPackageName="senegai.codegen.renderer.model.ui"
+        modelName="model"
+    ]
+
+    @replace-value-by-expression
+        [ searchValue="Appellatio" replaceByExpression="model.enumName.pascalCase" ]
+        [ searchValue="appellatio" replaceByExpression="model.enumName.camelCase" ]
+
+    @modify-provided-filename-by-replacements
+
+
+}}}@ */
 import {Component, Input} from '@angular/core';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
