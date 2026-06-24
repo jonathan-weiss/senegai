@@ -1,3 +1,27 @@
+/* @tt{{{
+
+
+    @move-comment-backward
+    @template-renderer [
+        templateRendererClassName="EnumListFormFieldTableComponentTypescriptRenderer"
+        templateRendererPackageName="senegai.codegen.renderer.angular"
+        templateRendererInterfaceName="UiEnumRenderer"
+        templateRendererInterfacePackageName="senegai.codegen.renderer.angular"
+    ] [
+        modelClassName="UiEnumModel"
+        modelPackageName="senegai.codegen.renderer.model.ui"
+        modelName="model"
+    ]
+
+    @replace-value-by-expression
+        [ searchValue="AppellatioComis" replaceByExpression="model.enumName.pascalCase" ]
+        [ searchValue="appellatioComis" replaceByExpression="model.enumName.camelCase" ]
+        [ searchValue="appellatio-comis" replaceByExpression="model.enumName.kebabCase" ]
+
+    @modify-provided-filename-by-replacements
+
+
+}}}@ */
 import {Component, Input} from '@angular/core';
 import {FormArray, FormControl} from "@angular/forms";
 import {SingleFormFieldTableComponent} from "@app/shared/form-controls/single-form-field-table/single-form-field-table.component";

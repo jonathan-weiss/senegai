@@ -29,7 +29,7 @@ object SingleFormInputHtmlTagRenderer {
     ): String {
         val inputTag = when (attributeModel.type) {
             is BuiltInTypeUiItemAttributeTypeModel -> createBuiltInInput(attributeModel.attributeName, attributeModel.type.builtInType, attributeModel.isList)
-            is EnumUiItemAttributeTypeModel -> createEnumInput(NameCase(attributeModel.type.enumId.enumName), attributeModel.attributeName)
+            is EnumUiItemAttributeTypeModel -> createEnumInput(NameCase(attributeModel.type.enumId.enumName), attributeModel.attributeName, attributeModel.isList)
             is ItemUiItemAttributeTypeModel -> createItemInput(attributeModel.entity.entityName, attributeModel.type.item.itemName, attributeModel.attributeName, isList)
         }
         
@@ -84,11 +84,16 @@ object SingleFormInputHtmlTagRenderer {
 
     /**
      *  ` <app-appellatio-comis-selector [enumFormControl]="appellatioControl" [validatorTranslations]="appellatioValidatorNames" />`
+     *  ` <app-single-appellatio-comis-form-field-table [formArray]="appellatioOptionalisIteratusControl" columnHeader="appellatioOptionalisIteratus" [validatorTranslations]="appellatioOptionalisIteratusValidatorNames" />`
      */
-    private fun createEnumInput(enumName: NameCase, attributeName: NameCase): String {
+    private fun createEnumInput(enumName: NameCase, attributeName: NameCase, isList: Boolean): String {
         val attributeNameCamelCase = attributeName.camelCase
         val enumNameKebabCase = enumName.kebabCase
-        return """<app-${enumNameKebabCase}-selector [enumFormControl]="${attributeNameCamelCase}Control" [validatorTranslations]="${attributeNameCamelCase}ValidatorNames" />"""
+        if(isList) {
+            return """<app-single-${enumNameKebabCase}-form-field-table [formArray]="${attributeNameCamelCase}Control" columnHeader="$attributeNameCamelCase" [validatorTranslations]="${attributeNameCamelCase}ValidatorNames" />"""
+        } else {
+            return """<app-${enumNameKebabCase}-selector [enumFormControl]="${attributeNameCamelCase}Control" [validatorTranslations]="${attributeNameCamelCase}ValidatorNames" />"""
+        }
     }
 
 }

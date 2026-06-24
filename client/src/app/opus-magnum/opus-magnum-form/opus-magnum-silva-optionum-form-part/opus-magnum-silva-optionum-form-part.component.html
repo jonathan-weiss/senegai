@@ -109,7 +109,7 @@
 
                 }}}@  -->
                     <!-- @tt{{{
-                        @if [ conditionExpression="(block.attribute.isBuiltIn || !block.attribute.isList) && !block.attribute.isNullable" ]
+                        @if [ conditionExpression="(block.attribute.isBuiltIn || block.attribute.isEnum || !block.attribute.isList) && !block.attribute.isNullable" ]
 
                         @replace-value-by-expression
                         [ searchValue="campusTextusObligatorius" replaceByExpression="block.attribute.attributeName.camelCase" ]
@@ -131,7 +131,7 @@
                     </div>
                     <!-- @tt{{{  @end-if  }}}@  -->
                     <!-- @tt{{{
-                        @if [ conditionExpression="(block.attribute.isBuiltIn || !block.attribute.isList) && block.attribute.isNullable" ]
+                        @if [ conditionExpression="(block.attribute.isBuiltIn || block.attribute.isEnum || !block.attribute.isList) && block.attribute.isNullable" ]
 
                         @replace-value-by-expression
                         [ searchValue="campusTextusOptionalis" replaceByExpression="block.attribute.attributeName.camelCase" ]

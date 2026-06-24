@@ -107,7 +107,7 @@ import {
 }}}@  */
 import {AppellatioComisEnum} from "@app/wto/appellatio-comis.enum";
 /* @tt{{{   @if [ conditionExpression="attributeWithEnum.attribute.isList"] }}}@ */
-// TODO add enum table import {AppellatioComisSelectorComponent} from "@app/enum/appellatio-comis-input-selection/appellatio-comis-selector.component";
+import {SingleAppellatioComisFormFieldTableComponent} from "@app/enum/appellatio-comis-input-selection/single-appellatio-comis-form-field-table.component";
 /* @tt{{{   @else  }}}@ */
 import {AppellatioComisSelectorComponent} from "@app/enum/appellatio-comis-input-selection/appellatio-comis-selector.component";
 /* @tt{{{   @end-if  }}}@ */
@@ -132,11 +132,6 @@ import {
     OpusMagnumArticulusInteriorFormPartGroup
 } from "@app/opus-magnum/opus-magnum-form/opus-magnum-articulus-interior-form-part/opus-magnum-articulus-interior-form-part-group";
 /* @tt{{{   @end-foreach  }}}@ */
-/* @tt{{{   @ignore-text }}}@ */
-import {
-    SingleAppellatioComisFormFieldTableComponent
-} from "@app/enum/appellatio-comis-input-selection/single-appellatio-comis-form-field-table.component";
-/* @tt{{{   @end-ignore-text }}}@ */
 
 @Component({
     selector: 'app-opus-magnum-silva-optionum-form-part',
@@ -228,7 +223,6 @@ import {
         }}}@ */
         /* @tt{{{   @ignore-text }}}@ */
         DatepickerInputComponent,
-        SingleAppellatioComisFormFieldTableComponent,
         /* @tt{{{   @end-ignore-text }}}@ */
         /* @tt{{{
             @foreach [ iteratorExpression="model.item.attributesWithEnumType" loopVariable="attributeWithEnum" ]
@@ -236,7 +230,7 @@ import {
                 [ searchValue="AppellatioComis" replaceByExpression="attributeWithEnum.type.enum.enumName.pascalCase" ]
         }}}@ */
         /* @tt{{{   @if [ conditionExpression="attributeWithEnum.attribute.isList"] }}}@ */
-        // TODO add list component for enum AppellatioComisSelectorComponent,
+        SingleAppellatioComisFormFieldTableComponent,
         /* @tt{{{   @else }}}@ */
         AppellatioComisSelectorComponent,
         /* @tt{{{   @end-if }}}@ */

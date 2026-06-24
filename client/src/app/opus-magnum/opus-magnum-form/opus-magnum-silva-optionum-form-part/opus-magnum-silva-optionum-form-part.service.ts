@@ -254,12 +254,12 @@ export class OpusMagnumSilvaOptionumFormPartService {
     }
 
     /* @tt{{{
-        @foreach [ iteratorExpression="model.item.attributesWithBuiltInType.filter { it.attribute.isList }" loopVariable="attributeWithBuiltInType" ]
+        @foreach [ iteratorExpression="model.item.builtInTypeAndEnumAttributes.filter { it.isList }" loopVariable="attribute" ]
 
         @replace-value-by-expression
-            [ searchValue="iteratioSimpliciumTextuum" replaceByExpression="attributeWithBuiltInType.attribute.attributeName.camelCase" ]
-            [ searchValue="IteratioSimpliciumTextuum" replaceByExpression="attributeWithBuiltInType.attribute.attributeName.pascalCase" ]
-            [ searchValue="FormControl<string>" replaceByExpression="attributeWithBuiltInType.attribute.angularFormControlType" ]
+            [ searchValue="iteratioSimpliciumTextuum" replaceByExpression="attribute.attributeName.camelCase" ]
+            [ searchValue="IteratioSimpliciumTextuum" replaceByExpression="attribute.attributeName.pascalCase" ]
+            [ searchValue="FormControl<string>" replaceByExpression="attribute.angularFormControlType" ]
 
     }}}@  */
     public createInitialIteratioSimpliciumTextuumForm(): FormControl<string> {
@@ -371,10 +371,10 @@ export class OpusMagnumSilvaOptionumFormPartService {
         }
         /* @tt{{{ @end-foreach }}}@ */
         /* @tt{{{
-            @foreach [ iteratorExpression="model.item.attributesWithBuiltInType.filter { it.attribute.isList }" loopVariable="attributeWithBuiltInType" ]
+            @foreach [ iteratorExpression="model.item.builtInTypeAndEnumAttributes.filter { it.isList }" loopVariable="attribute" ]
             @replace-value-by-expression
-                    [ searchValue="iteratioSimpliciumTextuum" replaceByExpression="attributeWithBuiltInType.attribute.attributeName.camelCase" ]
-                    [ searchValue="IteratioSimpliciumTextuum" replaceByExpression="attributeWithBuiltInType.attribute.attributeName.pascalCase" ]
+                    [ searchValue="iteratioSimpliciumTextuum" replaceByExpression="attribute.attributeName.camelCase" ]
+                    [ searchValue="IteratioSimpliciumTextuum" replaceByExpression="attribute.attributeName.pascalCase" ]
 
         }}}@  */
         if(silvaOptionum.iteratioSimpliciumTextuum != null) {

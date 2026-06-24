@@ -62,7 +62,7 @@ object CodegenData {
 
             item(itemId = Items.CONTACT) {
                 attribute(name = "contactId", type = BuiltInType.STRING)
-                attribute(name = "contactSalutation", enumId = EnumTypes.SALUTATION, multiple = true)
+                attribute(name = "contactSalutation", enumId = EnumTypes.SALUTATION)
                 attribute(name = "firstname", type = BuiltInType.STRING)
                 attribute(name = "nickname", type = BuiltInType.STRING, nullable = true)
                 attribute(name = "lastname", type = BuiltInType.STRING)
@@ -74,6 +74,7 @@ object CodegenData {
                 attribute(name = "mandatoryAddresses", itemId = Items.ADDRESS, nullable = false, multiple = true)
                 attribute(name = "otherAddresses", itemId = Items.ADDRESS, nullable = true, multiple = true)
                 attribute(name = "allKnownPinNumbers", type = BuiltInType.NUMBER, nullable = true, multiple = true)
+                attribute(name = "allContactTypes", enumId = EnumTypes.CONTACT_TYPE, nullable = true, multiple = true)
             }
 
             item(itemId = Items.ADDRESS) {
@@ -116,6 +117,7 @@ object CodegenData {
                                     attribute(attributeName = "otherAddresses")
                                     attribute(attributeName = "contactAddress")
                                     attribute(attributeName = "allKnownPinNumbers")
+                                    attribute(attributeName = "allContactTypes")
                                 }
                             }
                             tab(tabName = "Miscellaneous") {

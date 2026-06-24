@@ -86,6 +86,8 @@ object Rendering {
                 EnumSelectorComponentHtmlRenderer,
                 EnumSelectorComponentScssRenderer,
                 EnumSelectorComponentTypescriptRenderer,
+                EnumListFormFieldTableComponentHtmlRenderer,
+                EnumListFormFieldTableComponentTypescriptRenderer,
             )
 
             enumRenderer.forEach { renderer ->
