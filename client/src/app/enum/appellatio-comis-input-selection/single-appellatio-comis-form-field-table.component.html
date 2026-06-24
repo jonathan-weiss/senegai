@@ -1,0 +1,5 @@
+<app-single-form-field-table [formArray]="formArray" [columnHeader]="columnHeader" [createControl]="createControl">
+    <ng-template let-control>
+        <app-appellatio-comis-selector [enumFormControl]="control" [validatorTranslations]="validatorTranslations" />
+    </ng-template>
+</app-single-form-field-table>

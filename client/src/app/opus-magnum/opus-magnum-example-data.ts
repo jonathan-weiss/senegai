@@ -116,6 +116,7 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
                 numerusStupidus: 1968
             },
         ],
+        appellatioOptionalisIteratus: [AppellatioComisEnum.VIR_HONORATUS, AppellatioComisEnum.FEMINA_HONESTA],
         articulusInteriorSingularisOptionalis: {
             scriptumTriviale: "Truth an right.",
             numerusStupidus: 1981
@@ -146,6 +147,7 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
             }
         ],
         articulusInteriorOptionalisIteratus: [],
+        appellatioOptionalisIteratus: [],
         articulusInteriorSingularisOptionalis: null,
         campusDiei: null,
         campusBivalens: false,
@@ -164,6 +166,7 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
         articulusInteriorIteratus: [],
         articulusInteriorSingularisOptionalis: null,
         articulusInteriorOptionalisIteratus: null,
+        appellatioOptionalisIteratus: null,
         campusDiei: new Date(1963, 11, 31),
         campusBivalens: true,
         campusNumerorum: 7544,
@@ -193,6 +196,7 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
             numerusStupidus: 2021
         },
         articulusInteriorOptionalisIteratus: null,
+        appellatioOptionalisIteratus: [AppellatioComisEnum.FEMINA_HONESTA],
         campusDiei: new Date(1954, 8, 3),
         campusBivalens: false,
         appellatio: AppellatioComisEnum.FEMINA_HONESTA,

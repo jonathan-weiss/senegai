@@ -53,6 +53,8 @@ export enum OpusMagnumSilvaOptionumFormPartFieldName {
     articulusInteriorIteratus = "articulusInteriorIteratus",
     articulusInteriorOptionalisIteratus = "articulusInteriorOptionalisIteratus",
     articulusInteriorOptionalisIteratusIsNotNull = "articulusInteriorOptionalisIteratusIsNotNull",
+    appellatioOptionalisIteratus = "appellatioOptionalisIteratus",
+    appellatioOptionalisIteratusIsNotNull = "appellatioOptionalisIteratusIsNotNull",
     campusDieiIsNotNull = "campusDieiIsNotNull",
     campusDiei = "campusDiei",
     campusBivalens = "campusBivalens",

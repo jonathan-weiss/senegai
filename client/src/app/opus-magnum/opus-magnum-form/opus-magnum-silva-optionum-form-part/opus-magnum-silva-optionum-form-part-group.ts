@@ -75,6 +75,8 @@ export interface OpusMagnumSilvaOptionumFormPartGroup {
     [OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorIteratus]: FormArray<FormGroup<OpusMagnumArticulusInteriorFormPartGroup>>,
     [OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorOptionalisIteratus]: FormArray<FormGroup<OpusMagnumArticulusInteriorFormPartGroup>>,
     [OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorOptionalisIteratusIsNotNull]: FormControl<boolean>,
+    [OpusMagnumSilvaOptionumFormPartFieldName.appellatioOptionalisIteratus]: FormArray<FormControl<AppellatioComisEnum>>,
+    [OpusMagnumSilvaOptionumFormPartFieldName.appellatioOptionalisIteratusIsNotNull]: FormControl<boolean>,
     [OpusMagnumSilvaOptionumFormPartFieldName.campusDieiIsNotNull]: FormControl<boolean>,
     [OpusMagnumSilvaOptionumFormPartFieldName.campusDiei]: FormControl<Date>,
     [OpusMagnumSilvaOptionumFormPartFieldName.campusBivalens]: FormControl<boolean>,

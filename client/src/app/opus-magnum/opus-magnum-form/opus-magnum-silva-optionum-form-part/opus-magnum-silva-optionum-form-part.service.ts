@@ -158,6 +158,12 @@ export class OpusMagnumSilvaOptionumFormPartService {
                     validators: this.silvaOptionumFormValidationService.validatorFunctions(OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorOptionalisIteratus)
                 },
             ),
+            [OpusMagnumSilvaOptionumFormPartFieldName.appellatioOptionalisIteratus]: new FormArray<FormControl<AppellatioComisEnum>>(
+                [],
+                {
+                    validators: this.silvaOptionumFormValidationService.validatorFunctions(OpusMagnumSilvaOptionumFormPartFieldName.appellatioOptionalisIteratus)
+                },
+            ),
             [OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalis]: this.articulusInteriorFormPartService.createInitialArticulusInteriorForm(),
             [OpusMagnumSilvaOptionumFormPartFieldName.campusDiei]: new FormControl<Date>(
                 this.silvaOptionumFormInitialValueService.campusDieiInitialValue(),
@@ -228,6 +234,13 @@ export class OpusMagnumSilvaOptionumFormPartService {
                     validators: this.silvaOptionumFormValidationService.validatorFunctions(OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorOptionalisIteratusIsNotNull)
                 },
             ),
+            [OpusMagnumSilvaOptionumFormPartFieldName.appellatioOptionalisIteratusIsNotNull]: new FormControl<boolean>(
+                false,
+                {
+                    nonNullable: true,
+                    validators: this.silvaOptionumFormValidationService.validatorFunctions(OpusMagnumSilvaOptionumFormPartFieldName.appellatioOptionalisIteratusIsNotNull)
+                },
+            ),
             [OpusMagnumSilvaOptionumFormPartFieldName.campusDieiIsNotNull]: new FormControl<boolean>(
                 false,
                 {
@@ -260,6 +273,18 @@ export class OpusMagnumSilvaOptionumFormPartService {
     }
     /* @tt{{{   @end-foreach  }}}@ */
 
+    /* @tt{{{   @ignore-text  }}}@ */
+    public createInitialAppellatioOptionalisIteratusForm(): FormControl<AppellatioComisEnum> {
+        return new FormControl<AppellatioComisEnum>(
+            this.silvaOptionumFormInitialValueService.appellatioOptionalisIteratusInitialValue(),
+            {
+                nonNullable: true,
+                validators: this.silvaOptionumFormValidationService.validatorFunctions(OpusMagnumSilvaOptionumFormPartFieldName.appellatioOptionalisIteratus)
+            },
+        )
+    }
+    /* @tt{{{   @end-ignore-text  }}}@ */
+
     public patchSilvaOptionumForm(form: FormGroup<OpusMagnumSilvaOptionumFormPartGroup>, silvaOptionum: SilvaOptionumWTO): void {
         this.patchPreparation(form, silvaOptionum);
 
@@ -291,6 +316,12 @@ export class OpusMagnumSilvaOptionumFormPartService {
             form.controls[OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorOptionalisIteratus].patchValue(silvaOptionum.articulusInteriorOptionalisIteratus);
         } else {
             form.controls[OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorOptionalisIteratusIsNotNull].patchValue(false);
+        }
+        if(silvaOptionum.appellatioOptionalisIteratus != null) {
+            form.controls[OpusMagnumSilvaOptionumFormPartFieldName.appellatioOptionalisIteratusIsNotNull].patchValue(true);
+            form.controls[OpusMagnumSilvaOptionumFormPartFieldName.appellatioOptionalisIteratus].patchValue(silvaOptionum.appellatioOptionalisIteratus);
+        } else {
+            form.controls[OpusMagnumSilvaOptionumFormPartFieldName.appellatioOptionalisIteratusIsNotNull].patchValue(false);
         }
         form.controls[OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorSingularis].patchValue(silvaOptionum.articulusInteriorSingularis);
         if(silvaOptionum.articulusInteriorSingularisOptionalis != null) {
@@ -361,6 +392,14 @@ export class OpusMagnumSilvaOptionumFormPartService {
             if (articulusInteriorIteratusOptionalisLength < silvaOptionum.articulusInteriorOptionalisIteratus.length) {
                 for (let i = articulusInteriorIteratusOptionalisLength; i < silvaOptionum.articulusInteriorOptionalisIteratus.length; i++) {
                     form.controls[OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorOptionalisIteratus].push(this.articulusInteriorFormPartService.createInitialArticulusInteriorForm())
+                }
+            }
+        }
+        if(silvaOptionum.appellatioOptionalisIteratus != null) {
+            const appellatioOptionalisIteratusLength = form.controls[OpusMagnumSilvaOptionumFormPartFieldName.appellatioOptionalisIteratus].controls.length
+            if (appellatioOptionalisIteratusLength < silvaOptionum.appellatioOptionalisIteratus.length) {
+                for (let i = appellatioOptionalisIteratusLength; i < silvaOptionum.appellatioOptionalisIteratus.length; i++) {
+                    form.controls[OpusMagnumSilvaOptionumFormPartFieldName.appellatioOptionalisIteratus].push(this.createInitialAppellatioOptionalisIteratusForm())
                 }
             }
         }
@@ -478,6 +517,9 @@ export class OpusMagnumSilvaOptionumFormPartService {
             /* @tt{{{   @end-if  }}}@ */
             /* @tt{{{  @end-foreach  }}}@ */
             /* @tt{{{   @ignore-text  }}}@ */
+            appellatioOptionalisIteratus: form.controls[OpusMagnumSilvaOptionumFormPartFieldName.appellatioOptionalisIteratusIsNotNull].value
+                ? form.controls[OpusMagnumSilvaOptionumFormPartFieldName.appellatioOptionalisIteratus].getRawValue()
+                : null,
             iteratioSimpliciumTextuum: form.controls[OpusMagnumSilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum].getRawValue(),
             campusDiei: form.controls[OpusMagnumSilvaOptionumFormPartFieldName.campusDieiIsNotNull].value ? form.controls[OpusMagnumSilvaOptionumFormPartFieldName.campusDiei].getRawValue() : null,
             campusBivalens: form.controls[OpusMagnumSilvaOptionumFormPartFieldName.campusBivalens].getRawValue(),

@@ -132,6 +132,11 @@ import {
     OpusMagnumArticulusInteriorFormPartGroup
 } from "@app/opus-magnum/opus-magnum-form/opus-magnum-articulus-interior-form-part/opus-magnum-articulus-interior-form-part-group";
 /* @tt{{{   @end-foreach  }}}@ */
+/* @tt{{{   @ignore-text }}}@ */
+import {
+    SingleAppellatioComisFormFieldTableComponent
+} from "@app/enum/appellatio-comis-input-selection/single-appellatio-comis-form-field-table.component";
+/* @tt{{{   @end-ignore-text }}}@ */
 
 @Component({
     selector: 'app-opus-magnum-silva-optionum-form-part',
@@ -223,6 +228,7 @@ import {
         }}}@ */
         /* @tt{{{   @ignore-text }}}@ */
         DatepickerInputComponent,
+        SingleAppellatioComisFormFieldTableComponent,
         /* @tt{{{   @end-ignore-text }}}@ */
         /* @tt{{{
             @foreach [ iteratorExpression="model.item.attributesWithEnumType" loopVariable="attributeWithEnum" ]
@@ -279,6 +285,10 @@ export class OpusMagnumSilvaOptionumFormPartComponent implements OnInit {
     protected articulusInteriorOptionalisIteratusValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected articulusInteriorOptionalisIteratusIsNotNullControl!: FormControl<boolean>
     protected articulusInteriorOptionalisIteratusIsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
+    protected appellatioOptionalisIteratusControl!: FormArray<FormControl<AppellatioComisEnum>>
+    protected appellatioOptionalisIteratusValidatorNames!: ReadonlyArray<ValidatorTranslation>
+    protected appellatioOptionalisIteratusIsNotNullControl!: FormControl<boolean>
+    protected appellatioOptionalisIteratusIsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected campusDieiIsNotNullControl!: FormControl<boolean>
     protected campusDieiIsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected campusDieiControl!: FormControl<Date | null>
@@ -330,6 +340,10 @@ export class OpusMagnumSilvaOptionumFormPartComponent implements OnInit {
         this.articulusInteriorOptionalisIteratusValidatorNames = this.silvaOptionumFormValidationService.validatorNames(OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorOptionalisIteratus)
         this.articulusInteriorOptionalisIteratusIsNotNullControl = this.silvaOptionumForm.controls[OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorOptionalisIteratusIsNotNull]
         this.articulusInteriorOptionalisIteratusIsNotNullValidatorNames = this.silvaOptionumFormValidationService.validatorNames(OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorOptionalisIteratusIsNotNull)
+        this.appellatioOptionalisIteratusControl = this.silvaOptionumForm.controls[OpusMagnumSilvaOptionumFormPartFieldName.appellatioOptionalisIteratus]
+        this.appellatioOptionalisIteratusValidatorNames = this.silvaOptionumFormValidationService.validatorNames(OpusMagnumSilvaOptionumFormPartFieldName.appellatioOptionalisIteratus)
+        this.appellatioOptionalisIteratusIsNotNullControl = this.silvaOptionumForm.controls[OpusMagnumSilvaOptionumFormPartFieldName.appellatioOptionalisIteratusIsNotNull]
+        this.appellatioOptionalisIteratusIsNotNullValidatorNames = this.silvaOptionumFormValidationService.validatorNames(OpusMagnumSilvaOptionumFormPartFieldName.appellatioOptionalisIteratusIsNotNull)
         this.campusDieiIsNotNullControl = this.silvaOptionumForm.controls[OpusMagnumSilvaOptionumFormPartFieldName.campusDieiIsNotNull]
         this.campusDieiIsNotNullValidatorNames = this.silvaOptionumFormValidationService.validatorNames(OpusMagnumSilvaOptionumFormPartFieldName.campusDieiIsNotNull)
         this.campusDieiControl = this.silvaOptionumForm.controls[OpusMagnumSilvaOptionumFormPartFieldName.campusDiei]

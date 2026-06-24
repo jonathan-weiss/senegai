@@ -90,6 +90,9 @@ export class OpusMagnumSilvaOptionumFormPartInitialValueService {
     appellatioInitialValue(): AppellatioComisEnum {
         return AppellatioComisEnum.FEMINA_HONESTA;
     }
+    appellatioOptionalisIteratusInitialValue(): AppellatioComisEnum {
+        return AppellatioComisEnum.FEMINA_HONESTA;
+    }
     indexUnicusInitialValue(): string {
         return crypto.randomUUID()
     }

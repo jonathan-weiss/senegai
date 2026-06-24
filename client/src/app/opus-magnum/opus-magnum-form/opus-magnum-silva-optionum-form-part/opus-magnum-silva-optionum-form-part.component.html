@@ -290,6 +290,15 @@
                         <app-single-text-form-field-table [formArray]="iteratioSimpliciumTextuumControl" columnHeader="Iteratio Simplicium Textuum" placeholder="Description" />
                     </app-field-wrapper>
                 </div>
+
+                <div class="form-row">
+                    <app-field-wrapper label="Appellatio Optionalis Iteratus"
+                                       [nullabilityCheckboxFormControl]="appellatioOptionalisIteratusIsNotNullControl"
+                                       [formGroupToDisableIfNullField]="appellatioOptionalisIteratusControl"
+                    >
+                        <app-single-appellatio-comis-form-field-table [formArray]="appellatioOptionalisIteratusControl" columnHeader="Appellatio Optionalis Iteratus" />
+                    </app-field-wrapper>
+                </div>
             </div>
             <!-- @tt{{{   @end-ignore-text  }}}@ -->
         </div>
