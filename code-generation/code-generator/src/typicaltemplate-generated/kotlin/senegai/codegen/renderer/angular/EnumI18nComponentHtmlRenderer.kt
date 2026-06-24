@@ -16,7 +16,16 @@ object EnumI18nComponentHtmlRenderer : UiEnumRenderer {
 
     override fun renderTemplate(model: UiEnumModel): String {
         return """
-          |<ng-container>{{ enumValue }}</ng-container>
+          |<ng-container>
+          |@switch (enumValue) {
+          |${ model.enumValues.joinToString("") { enumValue ->  """    @case (${enumValue.screamingSnakeCase}) {
+              |        {{'enum.${model.enumName.camelCase}.${enumValue.screamingSnakeCase}' | transloco }}
+              |    }
+              |""" } }    @default {
+          |        {{'enum.noEnum' | transloco }}
+          |    }
+          |}
+          |</ng-container>
           |
         """.trimMargin(marginPrefix = "|")
     }

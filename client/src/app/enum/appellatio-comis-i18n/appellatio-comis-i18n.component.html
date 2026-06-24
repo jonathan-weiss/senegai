@@ -22,4 +22,25 @@
 
 
 }}}@ -->
-<ng-container>{{ enumValue }}</ng-container>
+<ng-container>
+@switch (enumValue) {
+    <!-- @tt{{{
+            @foreach [ iteratorExpression="model.enumValues" loopVariable="enumValue" ]
+
+            @replace-value-by-expression
+            [ searchValue="VIR_HONORATUS" replaceByExpression="enumValue.screamingSnakeCase" ]
+    }}}@  -->
+    @case (VIR_HONORATUS) {
+        {{'enum.appellatioComis.VIR_HONORATUS' | transloco }}
+    }
+    <!-- @tt{{{   @end-foreach  }}}@ -->
+    <!-- @tt{{{   @ignore-text  }}}@ -->
+    @case (FEMINA_HONESTA) {
+        {{'enum.appellatioComis.FEMINA_HONESTA' | transloco }}
+    }
+    <!-- @tt{{{   @end-ignore-text  }}}@ -->
+    @default {
+        {{'enum.noEnum' | transloco }}
+    }
+}
+</ng-container>

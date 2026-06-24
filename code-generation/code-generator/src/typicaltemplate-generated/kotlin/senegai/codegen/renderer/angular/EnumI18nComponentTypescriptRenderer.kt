@@ -18,16 +18,22 @@ object EnumI18nComponentTypescriptRenderer : UiEnumRenderer {
         return """
           |import {Component, Input} from '@angular/core';
           |import {${model.enumName.pascalCase}Enum} from "@app/wto/${model.enumName.kebabCase}.enum";
+          |import {TranslocoPipe} from "@jsverse/transloco";
           |
           |@Component({
           |    selector: 'app-${model.enumName.kebabCase}-i18n',
           |    templateUrl: './${model.enumName.kebabCase}-i18n.component.html',
           |    styleUrls: ['./${model.enumName.kebabCase}-i18n.component.scss'],
           |    standalone: true,
+          |    imports: [
+          |        TranslocoPipe
+          |    ]
           |})
           |export class ${model.enumName.pascalCase}I18nComponent {
           |    @Input({ required: true }) enumValue!: ${model.enumName.pascalCase}Enum;
-          |}
+          |
+          |${ model.enumValues.joinToString("") { enumValue ->  """    protected ${enumValue.screamingSnakeCase}: ${model.enumName.pascalCase}Enum = ${model.enumName.pascalCase}Enum.${enumValue.screamingSnakeCase}
+              |""" } }}
           |
         """.trimMargin(marginPrefix = "|")
     }

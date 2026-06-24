@@ -1,4 +1,21 @@
 {
+  "enum.maritalStatus.SINGLE": "Single",
+  "enum.maritalStatus.MARRIED": "Married",
+  "enum.maritalStatus.DIVORCED": "Divorced",
+  "enum.maritalStatus.WIDOWED": "Widowed",
+  "enum.noEnum": "-",
+  "enum.gender.MR": "Mr.",
+  "enum.gender.MS": "Ms.",
+  "enum.gender.MRS": "Mrs.",
+  "enum.contactType.EMAIL": "Email",
+  "enum.contactType.PHONE": "Phone",
+  "enum.contactType.SMS": "SMS",
+  "enum.contactType.POST": "Post",
+  "employeeAddress.board.title": "Employee Address",
+  "employee.board.title": "Employee",
+  "opusMagnum.board.title": "Opus Magnum Masterpiece",
+  "enum.appellatioComis.VIR_HONORATUS": "Gentleman",
+  "enum.appellatioComis.FEMINA_HONESTA": "Lady",
   "contact.board.title": "Contacts",
   "silvaOptionum.board.title": "A variety of options"
 }

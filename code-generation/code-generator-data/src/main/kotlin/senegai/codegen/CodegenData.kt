@@ -44,8 +44,6 @@ object CodegenData {
                 enumValue(name = "Mr")
                 enumValue(name = "Ms")
                 enumValue(name = "Mrs")
-                enumValue(name = "Dr")
-                enumValue(name = "Mx")
             }
 
             enumType(enumId = EnumTypes.MARITAL_STATUS) {
