@@ -47,8 +47,6 @@ import {
 } from "@app/opus-magnum/opus-magnum-form/opus-magnum-articulus-interior-form-part/opus-magnum-articulus-interior-form-part-group";
 /* @tt{{{  @end-foreach  }}}@ */
 
-
-
 export interface OpusMagnumSilvaOptionumFormPartGroup {
     /* @tt{{{ 
         @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]

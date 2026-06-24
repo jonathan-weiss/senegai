@@ -52,9 +52,7 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
                   |                    validators: this.${model.item.itemName.camelCase}FormValidationService.validatorFunctions(${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase})
                   |                },
                   |            ),
-                  |""" } else { """""" } }""" } }
-          |${ model.item.attributesWithItem.filter { !it.attribute.isList }.joinToString("") { attributeWithItem ->  """
-              |            [${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItem.attribute.attributeName.camelCase}]: this.${attributeWithItem.type.item.itemName.camelCase}FormPartService.createInitial${attributeWithItem.type.item.itemName.pascalCase}Form(),
+                  |""" } else { """""" } }""" } }${ model.item.attributesWithItem.filter { !it.attribute.isList }.joinToString("") { attributeWithItem ->  """            [${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItem.attribute.attributeName.camelCase}]: this.${attributeWithItem.type.item.itemName.camelCase}FormPartService.createInitial${attributeWithItem.type.item.itemName.pascalCase}Form(),
               |""" } }${ model.item.attributesWithItem.filter { it.attribute.isList }.joinToString("") { attributeWithItem ->  """            [${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItem.attribute.attributeName.camelCase}]: new FormArray(
               |                this.${model.item.itemName.camelCase}FormInitialValueService.${attributeWithItem.attribute.attributeName.camelCase}InitialValue(),
               |                {
@@ -67,12 +65,7 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
               |                    validators: this.${model.item.itemName.camelCase}FormValidationService.validatorFunctions(${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithBuiltInType.attribute.attributeName.camelCase})
               |                },
               |            ),
-              |""" } }
-          |            // ------------------------
-          |            // All isNotNull controls
-          |            // ------------------------
-          |
-          |${ model.item.attributes.joinToString("") { attribute ->  """${ if(attribute.isNullable) { """            [${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull]: new FormControl<boolean>(
+              |""" } }${ model.item.attributes.joinToString("") { attribute ->  """${ if(attribute.isNullable) { """            [${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull]: new FormControl<boolean>(
                   |                false,
                   |                {
                   |                    nonNullable: true,
@@ -133,8 +126,7 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
           |
           |
           |    private patchNestedItems(form: FormGroup<${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartGroup>, ${model.item.itemName.camelCase}: ${model.item.itemName.pascalCase}WTO): void {
-          |${ model.item.attributesWithItem.filter { it.attribute.isList }.joinToString("") { attributeWithItem ->  """
-              |        if(${model.item.itemName.camelCase}.${attributeWithItem.attribute.attributeName.camelCase} != null) {
+          |${ model.item.attributesWithItem.filter { it.attribute.isList }.joinToString("") { attributeWithItem ->  """        if(${model.item.itemName.camelCase}.${attributeWithItem.attribute.attributeName.camelCase} != null) {
               |            for (let i = 0; i < ${model.item.itemName.camelCase}.${attributeWithItem.attribute.attributeName.camelCase}.length; i++) {
               |                this.${attributeWithItem.type.item.itemName.camelCase}FormPartService.patch${attributeWithItem.type.item.itemName.pascalCase}Form(
               |                    form.controls[${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItem.attribute.attributeName.camelCase}].at(i),

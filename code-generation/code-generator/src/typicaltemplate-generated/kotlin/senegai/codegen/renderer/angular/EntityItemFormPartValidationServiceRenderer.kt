@@ -23,7 +23,6 @@ object EntityItemFormPartValidationServiceRenderer : UiEntityItemRenderer {
           |import {NamedValidator} from "@app/shared/form-controls/named-validator";
           |import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
           |
-          |
           |@Injectable({providedIn: 'root'})
           |export class ${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartValidationService {
           |

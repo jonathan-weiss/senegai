@@ -43,12 +43,10 @@ import {
     OpusMagnumArticulusInteriorFormPartGroup
 } from "@app/opus-magnum/opus-magnum-form/opus-magnum-articulus-interior-form-part/opus-magnum-articulus-interior-form-part-group";
 /* @tt{{{  @end-foreach  }}}@ */
-
 /* @tt{{{   @ignore-text  }}}@ */
 // imports here that are ignored
 import {AppellatioComisEnum} from "@app/wto/appellatio-comis.enum";
 /* @tt{{{   @end-ignore-text  }}}@ */
-
 
 @Injectable({providedIn: 'root'})
 export class OpusMagnumSilvaOptionumFormPartInitialValueService {

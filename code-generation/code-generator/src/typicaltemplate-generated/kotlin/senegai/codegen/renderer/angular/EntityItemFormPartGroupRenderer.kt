@@ -25,8 +25,6 @@ object EntityItemFormPartGroupRenderer : UiEntityItemRenderer {
               |    ${model.entity.entityName.pascalCase}${directlyNestedItem.itemName.pascalCase}FormPartGroup
               |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-${directlyNestedItem.itemName.kebabCase}-form-part/${model.entity.entityName.kebabCase}-${directlyNestedItem.itemName.kebabCase}-form-part-group";
               |""" } }
-          |
-          |
           |export interface ${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartGroup {
           |${ model.item.attributes.joinToString("") { attribute ->  """    [${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}]: ${attribute.angularFormControlTypeWithCollection},
               |${ if(attribute.isNullable) { """    [${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull]: FormControl<boolean>,

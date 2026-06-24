@@ -32,10 +32,6 @@ import {ValidatorFn, Validators} from "@angular/forms";
 import {OpusMagnumSilvaOptionumFormPartFieldName} from "@app/opus-magnum/opus-magnum-form/opus-magnum-silva-optionum-form-part/opus-magnum-silva-optionum-form-part-field-name";
 import {NamedValidator} from "@app/shared/form-controls/named-validator";
 import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
-/* @tt{{{   @ignore-text  }}}@ */
-
-/* @tt{{{   @end-ignore-text  }}}@ */
-
 
 @Injectable({providedIn: 'root'})
 export class OpusMagnumSilvaOptionumFormPartValidationService {

@@ -103,8 +103,7 @@ export class OpusMagnumSilvaOptionumFormPartService {
             ),
             /* @tt{{{   @end-if  }}}@ */
             /* @tt{{{  @end-foreach  }}}@ */
-
-            /* @tt{{{ 
+            /* @tt{{{
                 @foreach [ iteratorExpression="model.item.attributesWithItem.filter { !it.attribute.isList }" loopVariable="attributeWithItem" ]
 
                 @replace-value-by-expression
@@ -113,7 +112,6 @@ export class OpusMagnumSilvaOptionumFormPartService {
                     [ searchValue="ArticulusInterior" replaceByExpression="attributeWithItem.type.item.itemName.pascalCase" ]
 
             }}}@  */
-
             [OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorSingularis]: this.articulusInteriorFormPartService.createInitialArticulusInteriorForm(),
             /* @tt{{{  @end-foreach  }}}@ */
             /* @tt{{{ 
@@ -191,12 +189,7 @@ export class OpusMagnumSilvaOptionumFormPartService {
                 },
             ),
             /* @tt{{{   @end-ignore-text  }}}@ */
-
-            // ------------------------
-            // All isNotNull controls
-            // ------------------------
-
-            /* @tt{{{ 
+            /* @tt{{{
                 @foreach [ iteratorExpression="model.item.attributes" loopVariable="attribute" ]
 
                 @replace-value-by-expression
@@ -379,7 +372,6 @@ export class OpusMagnumSilvaOptionumFormPartService {
                     [ searchValue="ArticulusInterior" replaceByExpression="attributeWithItem.type.item.itemName.pascalCase" ]
 
             }}}@  */
-
         if(silvaOptionum.articulusInteriorIteratus != null) {
             for (let i = 0; i < silvaOptionum.articulusInteriorIteratus.length; i++) {
                 this.articulusInteriorFormPartService.patchArticulusInteriorForm(

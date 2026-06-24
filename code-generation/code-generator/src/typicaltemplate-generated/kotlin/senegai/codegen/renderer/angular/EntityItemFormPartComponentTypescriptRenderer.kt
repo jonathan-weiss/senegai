@@ -87,8 +87,7 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
               |        MatTab,
               |""" } else { """""" } }${ if(model.containsNamedSectionSplitBlocks()) { """        SectionSplitterComponent,
               |""" } else { """""" } }${ if(model.containsTextBlocks()) { """        TextBlockComponent,
-              |""" } else { """""" } }${ model.item.attributesWithItem.joinToString("") { attributeWithItem ->  """
-              |${ if(attributeWithItem.attribute.isList) { """        ${model.entity.entityName.pascalCase}${attributeWithItem.type.item.itemName.pascalCase}TableComponent,
+              |""" } else { """""" } }${ model.item.attributesWithItem.joinToString("") { attributeWithItem ->  """${ if(attributeWithItem.attribute.isList) { """        ${model.entity.entityName.pascalCase}${attributeWithItem.type.item.itemName.pascalCase}TableComponent,
                   |""" } else { """""" } }        ${model.entity.entityName.pascalCase}${attributeWithItem.type.item.itemName.pascalCase}FormPartComponent,
               |""" } }${ if(model.item.containsTextAttributes) { """        TextInputComponent,
               |""" } else { """""" } }${ if(model.item.containsBooleanAttributes) { """        BooleanInputComponent,
@@ -99,15 +98,12 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
           |export class ${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartComponent implements OnInit {
           |    @Input({ required: true }) ${model.item.itemName.camelCase}Form!: FormGroup<${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartGroup>;
           |
-          |${ model.item.attributesWithItem.filter { it.attribute.isList }.joinToString("") { attributeWithItem ->  """    readonly ${attributeWithItem.attribute.attributeName.camelCase}EditState = new FormArrayEditState<${attributeWithItem.attribute.angularFormControlType}>(
-              |        () => this.${attributeWithItem.attribute.attributeName.camelCase}Control
-              |    );
+          |${ model.item.attributesWithItem.filter { it.attribute.isList }.joinToString("") { attributeWithItem ->  """    readonly ${attributeWithItem.attribute.attributeName.camelCase}EditState = new FormArrayEditState<${attributeWithItem.attribute.angularFormControlType}>(() => this.${attributeWithItem.attribute.attributeName.camelCase}Control);
               |""" } }
           |${ model.item.attributes.joinToString("") { attribute ->  """${ if(attribute.isNullable) { """    protected ${attribute.attributeName.camelCase}IsNotNullControl!: FormControl<boolean>
                   |    protected ${attribute.attributeName.camelCase}IsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
                   |""" } else { """""" } }    protected ${attribute.attributeName.camelCase}Control!: ${attribute.angularFormControlTypeWithCollection}
               |    protected ${attribute.attributeName.camelCase}ValidatorNames!: ReadonlyArray<ValidatorTranslation>
-              |
               |""" } }
           |    constructor(private readonly ${model.item.itemName.camelCase}FormValidationService: ${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartValidationService,) {
           |    }
@@ -117,7 +113,6 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
                   |        this.${attribute.attributeName.camelCase}IsNotNullValidatorNames = this.${model.item.itemName.camelCase}FormValidationService.validatorNames(${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull)
                   |""" } else { """""" } }        this.${attribute.attributeName.camelCase}Control = this.${model.item.itemName.camelCase}Form.controls[${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}]
               |        this.${attribute.attributeName.camelCase}ValidatorNames = this.${model.item.itemName.camelCase}FormValidationService.validatorNames(${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase})
-              |
               |""" } }    }
           |}
           |
