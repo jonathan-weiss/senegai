@@ -50,7 +50,7 @@ data class UiItemAttributeModel(
 
     private fun createEnumModel(): UiEnumModel {
         return if(type is EnumUiItemAttributeTypeModel) {
-            type.enumModel
+            type.enum
         } else {
             throw RuntimeException("Attribute $attributeName is not an enum type")
         }
@@ -66,7 +66,7 @@ data class UiItemAttributeModel(
     private fun ItemUiItemAttributeTypeModel.itemTypeAsString(): String = this.item.itemName.pascalCase
     private fun ItemUiItemAttributeTypeModel.entityAndItemTypeAsString(): String = "${entity.entityName.pascalCase}${this.item.itemName.pascalCase}"
 
-    private fun EnumUiItemAttributeTypeModel.enumTypeAsString(): String = this.enumModel.enumClassName
+    private fun EnumUiItemAttributeTypeModel.enumTypeAsString(): String = this.enum.enumClassName
 
     private fun BuiltInTypeUiItemAttributeTypeModel.builtInTypeAsString(): String =
         when (this.builtInType) {
@@ -179,7 +179,7 @@ data class UiItemAttributeModel(
                     BuiltInType.NUMBER -> "0"
                     BuiltInType.BOOLEAN -> "false"
                 }
-                is EnumUiItemAttributeTypeModel -> type.enumModel.angularFormInitialValue
+                is EnumUiItemAttributeTypeModel -> type.enum.angularFormInitialValue
                 is ItemUiItemAttributeTypeModel -> throw RuntimeException("ItemUiItemAttributeTypeModel has no form initial value.") // should not occur
             }
         }

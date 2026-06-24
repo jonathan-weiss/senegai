@@ -2,7 +2,6 @@ package senegai.codegen.renderer.model.ui
 
 import senegai.codegen.schema.BuiltInType
 import senegai.codegen.schema.EnumId
-import senegai.codegen.schema.EnumType
 
 sealed interface UiItemAttributeTypeModel
 
@@ -16,7 +15,7 @@ data class ItemUiItemAttributeTypeModel(
 ) : UiItemAttributeTypeModel
 
 data class EnumUiItemAttributeTypeModel(
-    val enumModel: UiEnumModel,
+    val enum: UiEnumModel,
 ) : UiItemAttributeTypeModel {
-    val enumId: EnumId = enumModel.enumId
+    val enumId: EnumId = enum.enumId
 }

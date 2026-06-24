@@ -60,10 +60,10 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
               |                    validators: this.${model.item.itemName.camelCase}FormValidationService.validatorFunctions(${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItem.attribute.attributeName.camelCase})
               |                },
               |            ),
-              |""" } }${ model.item.attributesWithBuiltInType.filter { it.attribute.isList }.joinToString("") { attributeWithBuiltInType ->  """            [${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithBuiltInType.attribute.attributeName.camelCase}]: new ${attributeWithBuiltInType.attribute.angularFormControlTypeWithCollection}(
+              |""" } }${ model.item.builtInTypeAndEnumAttributes.filter { it.isList }.joinToString("") { attribute ->  """            [${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}]: new ${attribute.angularFormControlTypeWithCollection}(
               |                [],
               |                {
-              |                    validators: this.${model.item.itemName.camelCase}FormValidationService.validatorFunctions(${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithBuiltInType.attribute.attributeName.camelCase})
+              |                    validators: this.${model.item.itemName.camelCase}FormValidationService.validatorFunctions(${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase})
               |                },
               |            ),
               |""" } }${ model.item.attributes.joinToString("") { attribute ->  """${ if(attribute.isNullable) { """            [${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull]: new FormControl<boolean>(

@@ -21,7 +21,7 @@ data class UiItemModel(
     val usedEnums: List<UiEnumModel> = attributes
         .map { it.type }
         .filterIsInstance<EnumUiItemAttributeTypeModel>()
-        .map { it.enumModel }
+        .map { it.enum }
         .distinct()
 
     val containsEnumAttributes: Boolean = attributesWithEnum.isNotEmpty()
@@ -38,6 +38,13 @@ data class UiItemModel(
         .map { AttributeAndBuiltInTypeDescriptionModel(
             attribute = it,
             type = it.type as BuiltInTypeUiItemAttributeTypeModel,
+        ) }
+
+    val attributesWithEnumType: List<AttributeAndEnumTypeDescriptionModel> = attributes
+        .filter { it.isEnum }
+        .map { AttributeAndEnumTypeDescriptionModel(
+            attribute = it,
+            type = it.type as EnumUiItemAttributeTypeModel,
         ) }
 
     val builtInTypeAndEnumAttributes: List<UiItemAttributeModel> = attributes

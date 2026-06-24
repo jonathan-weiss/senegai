@@ -53,9 +53,10 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
               |""" } else { """""" } }${ if(model.item.containsBooleanListAttributes) { """import {
               |    SingleBooleanFormFieldTableComponent
               |} from "@app/shared/form-controls/single-boolean-form-field-table/single-boolean-form-field-table.component";
-              |""" } else { """""" } }${ model.item.usedEnums.joinToString("") { usedEnum ->  """import {${usedEnum.enumName.pascalCase}Enum} from "@app/wto/${usedEnum.enumName.kebabCase}.enum";
-              |import {${usedEnum.enumName.pascalCase}SelectorComponent} from "@app/enum/${usedEnum.enumName.kebabCase}-input-selection/${usedEnum.enumName.kebabCase}-selector.component";
-              |""" } }
+              |""" } else { """""" } }${ model.item.attributesWithEnumType.joinToString("") { attributeWithEnum ->  """import {${attributeWithEnum.type.enum.enumName.pascalCase}Enum} from "@app/wto/${attributeWithEnum.type.enum.enumName.kebabCase}.enum";
+              |${ if(attributeWithEnum.attribute.isList) { """// TODO add enum table import {${attributeWithEnum.type.enum.enumName.pascalCase}SelectorComponent} from "@app/enum/${attributeWithEnum.type.enum.enumName.kebabCase}-input-selection/${attributeWithEnum.type.enum.enumName.kebabCase}-selector.component";
+                  |""" } else { """import {${attributeWithEnum.type.enum.enumName.pascalCase}SelectorComponent} from "@app/enum/${attributeWithEnum.type.enum.enumName.kebabCase}-input-selection/${attributeWithEnum.type.enum.enumName.kebabCase}-selector.component";
+                  |""" } }""" } }
           |
           |${ model.item.directlyNestedItems.joinToString("") { nestedItem ->  """import {
               |    ${model.entity.entityName.pascalCase}${nestedItem.itemName.pascalCase}TableComponent
@@ -95,8 +96,9 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
               |""" } else { """""" } }${ if(model.item.containsBooleanAttributes) { """        BooleanInputComponent,
               |""" } else { """""" } }${ if(model.item.containsNumberAttributes) { """        NumberInputComponent,
               |""" } else { """""" } }${ if(model.item.containsTextListAttributes) { """        SingleTextFormFieldTableComponent,
-              |""" } else { """""" } }${ if(model.item.containsNumberListAttributes) { """        SingleNumberFormFieldTableComponent,""" } else { """""" } }${ if(model.item.containsBooleanListAttributes) { """        SingleBooleanFormFieldTableComponent,""" } else { """""" } }${ model.item.usedEnums.joinToString("") { usedEnum ->  """        ${usedEnum.enumName.pascalCase}SelectorComponent,
-              |""" } }    ]
+              |""" } else { """""" } }${ if(model.item.containsNumberListAttributes) { """        SingleNumberFormFieldTableComponent,""" } else { """""" } }${ if(model.item.containsBooleanListAttributes) { """        SingleBooleanFormFieldTableComponent,""" } else { """""" } }${ model.item.attributesWithEnumType.joinToString("") { attributeWithEnum ->  """${ if(attributeWithEnum.attribute.isList) { """        // TODO add list component for enum ${attributeWithEnum.type.enum.enumName.pascalCase}SelectorComponent,
+                  |""" } else { """        ${attributeWithEnum.type.enum.enumName.pascalCase}SelectorComponent,
+                  |""" } }""" } }    ]
           |})
           |export class ${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartComponent implements OnInit {
           |    @Input({ required: true }) ${model.item.itemName.camelCase}Form!: FormGroup<${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartGroup>;

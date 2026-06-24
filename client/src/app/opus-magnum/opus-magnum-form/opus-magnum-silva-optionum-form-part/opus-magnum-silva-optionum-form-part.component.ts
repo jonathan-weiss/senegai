@@ -99,14 +99,18 @@ import {
 } from "@app/shared/form-controls/single-boolean-form-field-table/single-boolean-form-field-table.component";
 /* @tt{{{   @end-if  }}}@ */
 /* @tt{{{
-    @foreach [ iteratorExpression="model.item.usedEnums" loopVariable="usedEnum" ]
+    @foreach [ iteratorExpression="model.item.attributesWithEnumType" loopVariable="attributeWithEnum" ]
 
     @replace-value-by-expression
-        [ searchValue="AppellatioComis" replaceByExpression="usedEnum.enumName.pascalCase" ]
-        [ searchValue="appellatio-comis" replaceByExpression="usedEnum.enumName.kebabCase" ]
+        [ searchValue="AppellatioComis" replaceByExpression="attributeWithEnum.type.enum.enumName.pascalCase" ]
+        [ searchValue="appellatio-comis" replaceByExpression="attributeWithEnum.type.enum.enumName.kebabCase" ]
 }}}@  */
 import {AppellatioComisEnum} from "@app/wto/appellatio-comis.enum";
+/* @tt{{{   @if [ conditionExpression="attributeWithEnum.attribute.isList"] }}}@ */
+// TODO add enum table import {AppellatioComisSelectorComponent} from "@app/enum/appellatio-comis-input-selection/appellatio-comis-selector.component";
+/* @tt{{{   @else  }}}@ */
 import {AppellatioComisSelectorComponent} from "@app/enum/appellatio-comis-input-selection/appellatio-comis-selector.component";
+/* @tt{{{   @end-if  }}}@ */
 /* @tt{{{   @end-foreach  }}}@ */
 
 
@@ -221,11 +225,15 @@ import {
         DatepickerInputComponent,
         /* @tt{{{   @end-ignore-text }}}@ */
         /* @tt{{{
-            @foreach [ iteratorExpression="model.item.usedEnums" loopVariable="usedEnum" ]
+            @foreach [ iteratorExpression="model.item.attributesWithEnumType" loopVariable="attributeWithEnum" ]
             @replace-value-by-expression
-                [ searchValue="AppellatioComis" replaceByExpression="usedEnum.enumName.pascalCase" ]
+                [ searchValue="AppellatioComis" replaceByExpression="attributeWithEnum.type.enum.enumName.pascalCase" ]
         }}}@ */
+        /* @tt{{{   @if [ conditionExpression="attributeWithEnum.attribute.isList"] }}}@ */
+        // TODO add list component for enum AppellatioComisSelectorComponent,
+        /* @tt{{{   @else }}}@ */
         AppellatioComisSelectorComponent,
+        /* @tt{{{   @end-if }}}@ */
         /* @tt{{{   @end-foreach }}}@ */
     ]
 })

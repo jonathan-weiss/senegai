@@ -137,11 +137,11 @@ export class OpusMagnumSilvaOptionumFormPartService {
             ),
             /* @tt{{{  @end-foreach  }}}@ */
             /* @tt{{{
-                @foreach [ iteratorExpression="model.item.attributesWithBuiltInType.filter { it.attribute.isList }" loopVariable="attributeWithBuiltInType" ]
+                @foreach [ iteratorExpression="model.item.builtInTypeAndEnumAttributes.filter { it.isList }" loopVariable="attribute" ]
 
                 @replace-value-by-expression
-                    [ searchValue="iteratioSimpliciumTextuum" replaceByExpression="attributeWithBuiltInType.attribute.attributeName.camelCase" ]
-                    [ searchValue="FormArray<FormControl<string>>" replaceByExpression="attributeWithBuiltInType.attribute.angularFormControlTypeWithCollection" ]
+                    [ searchValue="iteratioSimpliciumTextuum" replaceByExpression="attribute.attributeName.camelCase" ]
+                    [ searchValue="FormArray<FormControl<string>>" replaceByExpression="attribute.angularFormControlTypeWithCollection" ]
 
             }}}@  */
             [OpusMagnumSilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum]: new FormArray<FormControl<string>>(

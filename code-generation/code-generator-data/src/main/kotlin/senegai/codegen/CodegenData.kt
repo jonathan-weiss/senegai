@@ -62,7 +62,7 @@ object CodegenData {
 
             item(itemId = Items.CONTACT) {
                 attribute(name = "contactId", type = BuiltInType.STRING)
-                attribute(name = "contactSalutation", enumId = EnumTypes.SALUTATION)
+                attribute(name = "contactSalutation", enumId = EnumTypes.SALUTATION, multiple = true)
                 attribute(name = "firstname", type = BuiltInType.STRING)
                 attribute(name = "nickname", type = BuiltInType.STRING, nullable = true)
                 attribute(name = "lastname", type = BuiltInType.STRING)
