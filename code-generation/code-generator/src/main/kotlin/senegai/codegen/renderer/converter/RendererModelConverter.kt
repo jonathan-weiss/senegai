@@ -67,9 +67,10 @@ object RendererModelConverter {
     }
 
     private fun mapUiItemModel(entity: UiEntityDescriptionModel, item: Item, enums: List<EnumType>): UiItemModel {
+        val itemDescription = toUiItemDescriptionModel(item.itemId)
         return UiItemModel(
             itemDescription = toUiItemDescriptionModel(item.itemId),
-            attributes = item.attributes.map { mapUiItemAttribute(entity, it, enums) }
+            attributes = item.attributes.map { mapUiItemAttribute(entity, itemDescription, it, enums) }
         )
     }
 
@@ -82,11 +83,13 @@ object RendererModelConverter {
 
     private fun mapUiItemAttribute(
         entity: UiEntityDescriptionModel,
+        item: UiItemDescriptionModel,
         itemAttribute: ItemAttribute,
         enums: List<EnumType>
     ): UiItemAttributeModel {
         return UiItemAttributeModel(
             entity = entity,
+            item = item,
             attributeName = NameCase(itemAttribute.attributeName),
             isNullable = itemAttribute.isNullable,
             isList = itemAttribute.isMultiple,

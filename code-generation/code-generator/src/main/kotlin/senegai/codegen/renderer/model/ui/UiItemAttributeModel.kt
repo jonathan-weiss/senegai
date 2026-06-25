@@ -6,6 +6,7 @@ import senegai.codegen.schema.BuiltInType
 
 data class UiItemAttributeModel(
     val entity: UiEntityDescriptionModel,
+    val item: UiItemDescriptionModel,
     val attributeName: NameCase,
     val isNullable: Boolean,
     val isList: Boolean,
