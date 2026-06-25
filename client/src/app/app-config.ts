@@ -9,9 +9,11 @@ import {
     OpusMagnumSilvaOptionumCampusTextusObligatoriusNamedValidators
 } from "@app/opus-magnum/opus-magnum-form/opus-magnum-silva-optionum-form-part/opus-magnum-silva-optionum-form-part-validation.service";
 import {
-    maximumLengthNamedValidator, maximumNumberNamedValidator,
+    maximumLengthNamedValidator,
+    maximumNumberNamedValidator,
     minimumLengthNamedValidator,
-    minimumNumberNamedValidator
+    minimumNumberNamedValidator,
+    evenNumberNamedValidator,
 } from "@app/named-validators/field-validators";
 import {
     EmployeeContactAgeNamedValidators, EmployeeContactLastnameNamedValidators
@@ -56,6 +58,7 @@ export const appConfig: ApplicationConfig = {
                 [
                     minimumNumberNamedValidator(0),
                     maximumNumberNamedValidator(120),
+                    evenNumberNamedValidator(),
                 ]
         },
     ],
