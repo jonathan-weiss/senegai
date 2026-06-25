@@ -3,8 +3,11 @@ package senegai.codegen.renderer.converter
 import senegai.codegen.renderer.NotSupportedInTemplateException
 import senegai.codegen.renderer.model.NameCase
 import senegai.codegen.renderer.model.SchemaModel
+import senegai.codegen.renderer.model.ui.BuiltInTypeUiAttributeModel
 import senegai.codegen.renderer.model.ui.BuiltInTypeUiItemAttributeTypeModel
+import senegai.codegen.renderer.model.ui.EnumUiAttributeModel
 import senegai.codegen.renderer.model.ui.EnumUiItemAttributeTypeModel
+import senegai.codegen.renderer.model.ui.ItemUiIAttributeModel
 import senegai.codegen.renderer.model.ui.ItemUiItemAttributeTypeModel
 import senegai.codegen.renderer.model.ui.UiEntityDescriptionModel
 import senegai.codegen.renderer.model.ui.UiItemAttributeModel
@@ -87,14 +90,43 @@ object RendererModelConverter {
         itemAttribute: ItemAttribute,
         enums: List<EnumType>
     ): UiItemAttributeModel {
-        return UiItemAttributeModel(
-            entity = entity,
-            item = item,
-            attributeName = NameCase(itemAttribute.attributeName),
-            isNullable = itemAttribute.isNullable,
-            isList = itemAttribute.isMultiple,
-            type = mapUiItemAttributeType(entity,itemAttribute.type, enums),
-        )
+        val itemAttributeType = itemAttribute.type
+        val attributeName = NameCase(itemAttribute.attributeName)
+        val type = mapUiItemAttributeType(entity, itemAttributeType, enums)
+
+        return when (itemAttributeType) {
+            is BuiltInType -> BuiltInTypeUiAttributeModel(
+                entity = entity,
+                item = item,
+                attributeName = attributeName,
+                isNullable = itemAttribute.isNullable,
+                isList = itemAttribute.isMultiple,
+                attributeType = type,
+                builtInType = itemAttributeType,
+            )
+            is EntityId -> throw NotSupportedInTemplateException("EntityId as attribute type is not supported in $itemAttributeType")
+            is EnumId -> {
+                val enumType = enums.singleOrNull { it.enumId == itemAttributeType }
+                    ?: throw NoSuchElementException("EnumType ${itemAttributeType.enumName} not found in schema enums")
+                EnumUiAttributeModel(
+                    entity = entity,
+                    item = item,
+                    attributeName = attributeName,
+                    isNullable = itemAttribute.isNullable,
+                    isList = itemAttribute.isMultiple,
+                    attributeType = type,
+                    enum = UiEnumModel(enumType),
+                )
+            }
+            is ItemId -> ItemUiIAttributeModel(
+                entity = entity,
+                item = item,
+                attributeName = attributeName,
+                isNullable = itemAttribute.isNullable,
+                isList = itemAttribute.isMultiple,
+                attributeType = type,
+                referencedItem = toUiItemDescriptionModel(itemAttributeType))
+        }
     }
 
     private fun mapUiItemAttributeType(

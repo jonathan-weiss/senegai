@@ -3,13 +3,14 @@ package senegai.codegen.renderer.model.ui
 import senegai.codegen.renderer.model.NameCase
 import senegai.codegen.renderer.model.ui.entityform.AttributeAndBuiltInTypeDescriptionModel
 import senegai.codegen.schema.BuiltInType
+import senegai.codegen.schema.EnumId
 
-data class UiItemAttributeModel(
-    val entity: UiEntityDescriptionModel,
-    val item: UiItemDescriptionModel,
-    val attributeName: NameCase,
-    val isNullable: Boolean,
-    val isList: Boolean,
+sealed class UiItemAttributeModel(
+    open val entity: UiEntityDescriptionModel,
+    open val item: UiItemDescriptionModel,
+    open val attributeName: NameCase,
+    open val isNullable: Boolean,
+    open val isList: Boolean,
     val type: UiItemAttributeTypeModel,
 ) {
     val typescriptAttributeType: String = calculateAttributeTypeWithCardinality()
@@ -163,4 +164,58 @@ data class UiItemAttributeModel(
                 is ItemUiItemAttributeTypeModel -> throw RuntimeException("ItemUiItemAttributeTypeModel has no form initial value.") // should not occur
             }
         }
+}
+
+
+class BuiltInTypeUiAttributeModel(
+    entity: UiEntityDescriptionModel,
+    item: UiItemDescriptionModel,
+    attributeName: NameCase,
+    isNullable: Boolean,
+    isList: Boolean,
+    attributeType: UiItemAttributeTypeModel,
+    val builtInType: BuiltInType,
+) : UiItemAttributeModel(
+    entity = entity,
+    item = item,
+    attributeName = attributeName,
+    isNullable = isNullable,
+    isList = isList,
+    type = attributeType
+)
+
+class ItemUiIAttributeModel(
+    entity: UiEntityDescriptionModel,
+    item: UiItemDescriptionModel,
+    attributeName: NameCase,
+    isNullable: Boolean,
+    isList: Boolean,
+    attributeType: UiItemAttributeTypeModel,
+    val referencedItem: UiItemDescriptionModel,
+) : UiItemAttributeModel(
+    entity = entity,
+    item = item,
+    attributeName = attributeName,
+    isNullable = isNullable,
+    isList = isList,
+    type = attributeType,
+)
+
+class EnumUiAttributeModel(
+    entity: UiEntityDescriptionModel,
+    item: UiItemDescriptionModel,
+    attributeName: NameCase,
+    isNullable: Boolean,
+    isList: Boolean,
+    attributeType: UiItemAttributeTypeModel,
+    val enum: UiEnumModel,
+) : UiItemAttributeModel(
+    entity = entity,
+    item = item,
+    attributeName = attributeName,
+    isNullable = isNullable,
+    isList = isList,
+    type = attributeType,
+) {
+    val enumId: EnumId = enum.enumId
 }
