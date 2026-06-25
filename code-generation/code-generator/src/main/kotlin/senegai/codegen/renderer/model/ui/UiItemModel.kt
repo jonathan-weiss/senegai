@@ -68,6 +68,8 @@ data class UiItemModel(
     val containsNumberListAttributes: Boolean = attributesOfType(BuiltInType.NUMBER, isList = true).any()
 
     private fun attributesOfType(filterBuiltInType: BuiltInType, isList: Boolean): List<UiItemAttributeModel> {
-        return attributes.filter { it.type is BuiltInTypeUiItemAttributeTypeModel && it.type.builtInType == filterBuiltInType && it.isList == isList }
+        return attributes
+            .filterIsInstance<BuiltInTypeUiAttributeModel>()
+            .filter { it.builtInType == filterBuiltInType && it.isList == isList }
     }
 }

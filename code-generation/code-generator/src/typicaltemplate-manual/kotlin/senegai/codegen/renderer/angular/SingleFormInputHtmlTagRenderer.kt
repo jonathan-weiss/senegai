@@ -1,9 +1,8 @@
 package senegai.codegen.renderer.angular
 
-import senegai.codegen.renderer.model.NameCase
-import senegai.codegen.renderer.model.ui.BuiltInTypeUiItemAttributeTypeModel
-import senegai.codegen.renderer.model.ui.EnumUiItemAttributeTypeModel
-import senegai.codegen.renderer.model.ui.ItemUiItemAttributeTypeModel
+import senegai.codegen.renderer.model.ui.BuiltInTypeUiAttributeModel
+import senegai.codegen.renderer.model.ui.EnumUiAttributeModel
+import senegai.codegen.renderer.model.ui.ItemUiIAttributeModel
 import senegai.codegen.renderer.model.ui.UiItemAttributeModel
 import senegai.codegen.schema.BuiltInType
 
@@ -27,12 +26,12 @@ object SingleFormInputHtmlTagRenderer {
         attributeModel: UiItemAttributeModel,
         isList: Boolean = false,
     ): String {
-        val inputTag = when (attributeModel.type) {
-            is BuiltInTypeUiItemAttributeTypeModel -> createBuiltInInput(attributeModel.attributeName, attributeModel.type.builtInType, attributeModel.isList)
-            is EnumUiItemAttributeTypeModel -> createEnumInput(NameCase(attributeModel.type.enumId.enumName), attributeModel.attributeName, attributeModel.isList)
-            is ItemUiItemAttributeTypeModel -> createItemInput(attributeModel.entity.entityName, attributeModel.type.item.itemName, attributeModel.attributeName, isList)
+        val inputTag = when (attributeModel) {
+            is BuiltInTypeUiAttributeModel -> createBuiltInInput(attributeModel)
+            is EnumUiAttributeModel -> createEnumInput(attributeModel)
+            is ItemUiIAttributeModel -> createItemInput(attributeModel)
         }
-        
+
         return """
                 $inputTag        
             """.trimMargin(marginPrefix = "|")
@@ -43,13 +42,13 @@ object SingleFormInputHtmlTagRenderer {
      *  ` <app-text-input [textFormControl]="campusTextusOptionalisControl" label="campusTextusOptionalis" placeholder="Enter campusTextusOptionalis" [validatorTranslations]="campusTextusOptionalisValidatorNames" />`
      *  ` <app-single-text-form-field-table [formArray]="iteratioSimpliciumTextuumControl" columnHeader="Iteratio Simplicium Textuum" placeholder="Iteratio Simplicium Textuum" />`
      */
-    private fun createBuiltInInput(attributeName: NameCase, builtInType: BuiltInType, isList: Boolean): String {
-        val infix = determineFormComponentTypeInfix(builtInType)
-        val attributeNameCamelCase = attributeName.camelCase
-        if(isList) {
-            return """<app-single-${infix}-form-field-table [formArray]="${attributeNameCamelCase}Control" columnHeader="$attributeNameCamelCase" placeholder="Enter $attributeNameCamelCase" [validatorTranslations]="${attributeNameCamelCase}ValidatorNames" />"""
+    private fun createBuiltInInput(attributeModel: BuiltInTypeUiAttributeModel): String {
+        val infix = determineFormComponentTypeInfix(attributeModel.builtInType)
+        val attributeNameCamelCase = attributeModel.attributeName.camelCase
+        return if(attributeModel.isList) {
+            """<app-single-${infix}-form-field-table [formArray]="${attributeNameCamelCase}Control" columnHeader="$attributeNameCamelCase" placeholder="Enter $attributeNameCamelCase" [validatorTranslations]="${attributeNameCamelCase}ValidatorNames" />"""
         } else {
-            return """<app-${infix}-input [${infix}FormControl]="${attributeNameCamelCase}Control" label="$attributeNameCamelCase" placeholder="Enter $attributeNameCamelCase" [validatorTranslations]="${attributeNameCamelCase}ValidatorNames" />"""
+            """<app-${infix}-input [${infix}FormControl]="${attributeNameCamelCase}Control" label="$attributeNameCamelCase" placeholder="Enter $attributeNameCamelCase" [validatorTranslations]="${attributeNameCamelCase}ValidatorNames" />"""
         }
     }
 
@@ -68,17 +67,12 @@ object SingleFormInputHtmlTagRenderer {
      *  ` <app-articulus-interior-form-part [articulusInteriorForm]="articulusInteriorListEditState.formGroupUnderEdit!"  />`
      *  ` <app-articulus-interior-form-part [articulusInteriorForm]="articulusInteriorSingularisControl"  />`
      */
-    private fun createItemInput(
-        entityName: NameCase,
-        itemName: NameCase,
-        attributeName: NameCase,
-        isList: Boolean
-    ): String {
-        val attributeNameCamelCase = attributeName.camelCase
-        val entityNameKebabCase = entityName.kebabCase
-        val itemNameKebabCase = itemName.kebabCase
-        val itemNameCamelCase = itemName.camelCase
-        val controlName = if(isList) "${attributeNameCamelCase}EditState.formGroupUnderEdit!" else "${attributeNameCamelCase}Control"
+    private fun createItemInput(attributeModel: ItemUiIAttributeModel): String {
+        val attributeNameCamelCase = attributeModel.attributeName.camelCase
+        val entityNameKebabCase = attributeModel.entity.entityName.kebabCase
+        val itemNameKebabCase = attributeModel.referencedItem.itemName.kebabCase
+        val itemNameCamelCase = attributeModel.referencedItem.itemName.camelCase
+        val controlName = if(attributeModel.isList) "${attributeNameCamelCase}EditState.formGroupUnderEdit!" else "${attributeNameCamelCase}Control"
         return """<app-${entityNameKebabCase}-${itemNameKebabCase}-form-part [${itemNameCamelCase}Form]="$controlName"  />"""
     }
 
@@ -86,13 +80,13 @@ object SingleFormInputHtmlTagRenderer {
      *  ` <app-appellatio-comis-selector [enumFormControl]="appellatioControl" [validatorTranslations]="appellatioValidatorNames" />`
      *  ` <app-single-appellatio-comis-form-field-table [formArray]="appellatioOptionalisIteratusControl" columnHeader="appellatioOptionalisIteratus" [validatorTranslations]="appellatioOptionalisIteratusValidatorNames" />`
      */
-    private fun createEnumInput(enumName: NameCase, attributeName: NameCase, isList: Boolean): String {
-        val attributeNameCamelCase = attributeName.camelCase
-        val enumNameKebabCase = enumName.kebabCase
-        if(isList) {
-            return """<app-single-${enumNameKebabCase}-form-field-table [formArray]="${attributeNameCamelCase}Control" columnHeader="$attributeNameCamelCase" [validatorTranslations]="${attributeNameCamelCase}ValidatorNames" />"""
+    private fun createEnumInput(attributeModel: EnumUiAttributeModel): String {
+        val attributeNameCamelCase = attributeModel.attributeName.camelCase
+        val enumNameKebabCase = attributeModel.enum.enumName.kebabCase
+        return if(attributeModel.isList) {
+            """<app-single-${enumNameKebabCase}-form-field-table [formArray]="${attributeNameCamelCase}Control" columnHeader="$attributeNameCamelCase" [validatorTranslations]="${attributeNameCamelCase}ValidatorNames" />"""
         } else {
-            return """<app-${enumNameKebabCase}-selector [enumFormControl]="${attributeNameCamelCase}Control" [validatorTranslations]="${attributeNameCamelCase}ValidatorNames" />"""
+            """<app-${enumNameKebabCase}-selector [enumFormControl]="${attributeNameCamelCase}Control" [validatorTranslations]="${attributeNameCamelCase}ValidatorNames" />"""
         }
     }
 

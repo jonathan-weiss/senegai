@@ -1,7 +1,6 @@
 package senegai.codegen.renderer.model.ui
 
 import senegai.codegen.renderer.model.NameCase
-import senegai.codegen.renderer.model.ui.entityform.AttributeAndBuiltInTypeDescriptionModel
 import senegai.codegen.schema.BuiltInType
 import senegai.codegen.schema.EnumId
 
@@ -13,21 +12,24 @@ sealed class UiItemAttributeModel(
     open val isList: Boolean,
     val type: UiItemAttributeTypeModel,
 ) {
-    val typescriptAttributeType: String = calculateAttributeTypeWithCardinality()
+    abstract val isItem: Boolean
+    abstract val isBuiltIn: Boolean
+    abstract val isEnum: Boolean
 
-    val angularInitialValueFormType: String = calculateAngularInitialValueFormType()
-    val angularFormControlType: String = calculateAngularFormControlType(withCollection = false)
-    val angularFormControlTypeWithCollection: String = calculateAngularFormControlType(withCollection = true)
+    val typescriptAttributeType: String
+        get() = calculateAttributeTypeWithCardinality()
+
+    val angularInitialValueFormType: String
+        get() = calculateAngularInitialValueFormType()
+    val angularFormControlType: String
+        get() = calculateAngularFormControlType(withCollection = false)
+    val angularFormControlTypeWithCollection: String
+        get() = calculateAngularFormControlType(withCollection = true)
     val angularFormInitialValue: String
         get() = determineAngularFormInitialValue()
 
-    val isItem: Boolean
-        get() = (type is ItemUiItemAttributeTypeModel)
     val attributeAndItem: AttributeAndItemDescriptionModel
         get() = createAttributeAndItem()
-
-    val isBuiltIn: Boolean = (type is BuiltInTypeUiItemAttributeTypeModel)
-    val isEnum: Boolean = (type is EnumUiItemAttributeTypeModel)
 
     private fun createAttributeAndItem(): AttributeAndItemDescriptionModel {
         return if(type is ItemUiItemAttributeTypeModel) {
@@ -37,27 +39,11 @@ sealed class UiItemAttributeModel(
         }
     }
 
-    private fun calculateAttributeType(): String =
-        when (type) {
-            is BuiltInTypeUiItemAttributeTypeModel -> type.builtInTypeAsString()
-            is EnumUiItemAttributeTypeModel -> type.enumTypeAsString()
-            is ItemUiItemAttributeTypeModel -> "${type.itemTypeAsString()}WTO"
-        }
+    protected abstract fun attributeTypeAsString(): String
 
-    private fun ItemUiItemAttributeTypeModel.itemTypeAsString(): String = this.item.itemName.pascalCase
-    private fun ItemUiItemAttributeTypeModel.entityAndItemTypeAsString(): String = "${entity.entityName.pascalCase}${this.item.itemName.pascalCase}"
-
-    private fun EnumUiItemAttributeTypeModel.enumTypeAsString(): String = this.enum.enumClassName
-
-    private fun BuiltInTypeUiItemAttributeTypeModel.builtInTypeAsString(): String =
-        when (this.builtInType) {
-            BuiltInType.STRING -> "string"
-            BuiltInType.NUMBER -> "number"
-            BuiltInType.BOOLEAN -> "boolean"
-        }
 
     private fun calculateAttributeTypeWithCardinality(): String {
-        val type = calculateAttributeType()
+        val type = attributeTypeAsString()
         return when {
             !isList && isNullable -> "$type | null"
             !isList && !isNullable -> type
@@ -75,11 +61,7 @@ sealed class UiItemAttributeModel(
      * Form values are always `null`based, not `undefined`.
      */
     private fun calculateAngularInitialValueFormType(): String {
-        val singleType = when (type) {
-            is BuiltInTypeUiItemAttributeTypeModel -> typescriptBuildInType(type.builtInType)
-            is EnumUiItemAttributeTypeModel -> type.enumTypeAsString()
-            is ItemUiItemAttributeTypeModel -> "FormGroup<${type.entityAndItemTypeAsString()}FormPartGroup>"
-        }
+        val singleType = calculateAngularInitialValueFormSingleType()
 
         // TODO form values are never null, as the initial value is used for
         //val singleTypeWithNullability =  withAngularFormNullability(singleType)
@@ -95,6 +77,9 @@ sealed class UiItemAttributeModel(
         }
     }
 
+    protected abstract fun calculateAngularInitialValueFormSingleType(): String
+
+
     /**
      * Something like:
      * - `FormControl<string>`
@@ -105,24 +90,7 @@ sealed class UiItemAttributeModel(
      * Form values are always `null`based, not `undefined`.
      */
     private fun calculateAngularFormControlType(withCollection: Boolean): String {
-        val singleType = when (type) {
-            is BuiltInTypeUiItemAttributeTypeModel -> typescriptBuildInType(type.builtInType)
-            is EnumUiItemAttributeTypeModel -> type.enumTypeAsString()
-            is ItemUiItemAttributeTypeModel -> "${type.entityAndItemTypeAsString()}FormPartGroup"
-        }
-        // TODO form values are never null, as the initial value is used for
-//        val singleTypeWithNullability =  withAngularFormNullability(singleType)
-        val singleFormType = if(isItem) {
-            "FormGroup<$singleType>"
-        } else {
-            "FormControl<$singleType>"
-        }
-//
-//        if(this.attributeName.camelCase == "contactAddress") {
-//            println("!! contactAddress($isItem, ${(type is ItemUiItemAttributeTypeModel)}, $type): $singleType -> $singleFormType ($this)")
-//
-//        }
-//
+        val singleFormType = calculateAngularFormControlSingleType()
 
         return if(isList && withCollection) {
             "FormArray<$singleFormType>"
@@ -131,24 +99,7 @@ sealed class UiItemAttributeModel(
         }
     }
 
-    private fun typescriptBuildInType(builtInType: BuiltInType): String {
-        return when (builtInType) {
-            BuiltInType.STRING -> "string"
-            BuiltInType.NUMBER -> "number"
-            BuiltInType.BOOLEAN -> "boolean"
-        }
-    }
-
-    /**
-     * Form values are always `null`based, not `undefined`.
-     */
-    private fun withAngularFormNullability(singleType: String): String {
-        return if (isNullable) {
-            "$singleType | null"
-        } else {
-            singleType
-        }
-    }
+    protected abstract fun calculateAngularFormControlSingleType(): String
 
     private fun determineAngularFormInitialValue(): String =
         if (isList && isItem) {
@@ -182,7 +133,52 @@ class BuiltInTypeUiAttributeModel(
     isNullable = isNullable,
     isList = isList,
     type = attributeType
-)
+) {
+    override val isItem: Boolean
+        get() = false
+    override val isBuiltIn: Boolean
+        get() = true
+    override val isEnum: Boolean
+        get() = false
+
+    override fun attributeTypeAsString(): String {
+        return builtInTypeAsString()
+    }
+
+    private fun builtInTypeAsString(): String =
+        when (builtInType) {
+            BuiltInType.STRING -> "string"
+            BuiltInType.NUMBER -> "number"
+            BuiltInType.BOOLEAN -> "boolean"
+        }
+
+
+    override fun calculateAngularInitialValueFormSingleType(): String {
+        return typescriptBuildInType(builtInType)
+    }
+
+    private fun typescriptBuildInType(builtInType: BuiltInType): String {
+        return when (builtInType) {
+            BuiltInType.STRING -> "string"
+            BuiltInType.NUMBER -> "number"
+            BuiltInType.BOOLEAN -> "boolean"
+        }
+    }
+
+    /**
+     * Something like:
+     * - `FormControl<string>`
+     * - `FormControl<string | null>`
+     * - `FormControl<AppellatioEnum>`
+     * - `FormGroup<ArticulusInteriorFormPartGroup>`
+     * - `FormArray<FormGroup<ArticulusInteriorFormPartGroup>>`
+     * Form values are always `null`based, not `undefined`.
+     */
+    override fun calculateAngularFormControlSingleType(): String {
+        return "FormControl<${typescriptBuildInType(builtInType)}>"
+    }
+
+}
 
 class ItemUiIAttributeModel(
     entity: UiEntityDescriptionModel,
@@ -199,7 +195,42 @@ class ItemUiIAttributeModel(
     isNullable = isNullable,
     isList = isList,
     type = attributeType,
-)
+) {
+    override val isItem: Boolean
+        get() = true
+    override val isBuiltIn: Boolean
+        get() = false
+    override val isEnum: Boolean
+        get() = false
+
+    override fun attributeTypeAsString(): String {
+        return "${referencedItemTypeAsString()}WTO"
+    }
+
+    private fun referencedItemTypeAsString(): String = this.referencedItem.itemName.pascalCase
+
+
+    override fun calculateAngularInitialValueFormSingleType(): String {
+        return "FormGroup<${entityAndReferencedItemTypeAsString()}FormPartGroup>"
+    }
+
+    /**
+     * Something like:
+     * - `FormControl<string>`
+     * - `FormControl<string | null>`
+     * - `FormControl<AppellatioEnum>`
+     * - `FormGroup<ArticulusInteriorFormPartGroup>`
+     * - `FormArray<FormGroup<ArticulusInteriorFormPartGroup>>`
+     * Form values are always `null`based, not `undefined`.
+     */
+    override fun calculateAngularFormControlSingleType(): String {
+        return "FormGroup<${entityAndReferencedItemTypeAsString()}FormPartGroup>"
+    }
+
+    private fun entityAndReferencedItemTypeAsString(): String = "${entity.entityName.pascalCase}${referencedItem.itemName.pascalCase}"
+
+
+}
 
 class EnumUiAttributeModel(
     entity: UiEntityDescriptionModel,
@@ -218,4 +249,34 @@ class EnumUiAttributeModel(
     type = attributeType,
 ) {
     val enumId: EnumId = enum.enumId
+
+    override val isItem: Boolean
+        get() = false
+    override val isBuiltIn: Boolean
+        get() = false
+    override val isEnum: Boolean
+        get() = true
+
+    override fun attributeTypeAsString(): String {
+        return enumTypeAsString()
+    }
+
+    private fun enumTypeAsString(): String = this.enum.enumClassName
+
+    override fun calculateAngularInitialValueFormSingleType(): String {
+        return enumTypeAsString()
+    }
+
+    /**
+     * Something like:
+     * - `FormControl<string>`
+     * - `FormControl<string | null>`
+     * - `FormControl<AppellatioEnum>`
+     * - `FormGroup<ArticulusInteriorFormPartGroup>`
+     * Form values are always `null`based, not `undefined`.
+     */
+    override fun calculateAngularFormControlSingleType(): String {
+        return "FormControl<${enumTypeAsString()}>"
+    }
+
 }

@@ -11,9 +11,5 @@ data class UiEntityModel(
     val entityEnumTypes: List<UiEnumModel>,
 ) {
     val searchResultAttributes: List<UiItemAttributeModel> = entityRootItem.attributes
-    val searchCriteriaAttributes: List<UiItemAttributeModel> = entityRootItem.attributes
-    val summaryAttributes: List<UiItemAttributeModel> = entityRootItem.attributes
-        .filter { !it.isList && it.type is BuiltInTypeUiItemAttributeTypeModel }
-    val allAttributes: List<UiItemAttributeModel> = entityRootItem.attributes
     val idAttribute: UiItemAttributeModel = entityRootItem.attributes.first() // TODO make configurable
 }

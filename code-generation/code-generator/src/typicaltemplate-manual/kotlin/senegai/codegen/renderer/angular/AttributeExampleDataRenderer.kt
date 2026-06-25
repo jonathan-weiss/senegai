@@ -1,7 +1,10 @@
 package senegai.codegen.renderer.angular
 
+import senegai.codegen.renderer.model.ui.BuiltInTypeUiAttributeModel
 import senegai.codegen.renderer.model.ui.BuiltInTypeUiItemAttributeTypeModel
+import senegai.codegen.renderer.model.ui.EnumUiAttributeModel
 import senegai.codegen.renderer.model.ui.EnumUiItemAttributeTypeModel
+import senegai.codegen.renderer.model.ui.ItemUiIAttributeModel
 import senegai.codegen.renderer.model.ui.ItemUiItemAttributeTypeModel
 import senegai.codegen.renderer.model.ui.UiEntityModel
 import senegai.codegen.renderer.model.ui.UiItemAttributeModel
@@ -58,10 +61,10 @@ object AttributeExampleDataRenderer {
     }
 
     private fun createSingleValue(attributeContext: AttributeContext): String {
-        val value = when (val attributeType = attributeContext.attributeModel.type) {
-            is BuiltInTypeUiItemAttributeTypeModel -> createBuiltInExampleData(attributeType)
-            is EnumUiItemAttributeTypeModel -> createEnumExampleData(attributeType, attributeContext.entityModel)
-            is ItemUiItemAttributeTypeModel ->  createItemExampleData(attributeType, attributeContext.entityModel)
+        val value = when (val attributeModel = attributeContext.attributeModel) {
+            is BuiltInTypeUiAttributeModel -> createBuiltInExampleData(attributeModel)
+            is EnumUiAttributeModel -> createEnumExampleData(attributeModel, attributeContext.entityModel)
+            is ItemUiIAttributeModel ->  createItemExampleData(attributeModel, attributeContext.entityModel)
         }
         return if(attributeContext.attributeModel.isNullable) diceNullability(value) else value
     }
@@ -71,9 +74,9 @@ object AttributeExampleDataRenderer {
     }
 
     private fun createBuiltInExampleData(
-        attributeType: BuiltInTypeUiItemAttributeTypeModel,
+        attribute: BuiltInTypeUiAttributeModel,
     ): String {
-        return when(attributeType.builtInType) {
+        return when(attribute.builtInType) {
             BuiltInType.STRING -> "'example'"
             BuiltInType.NUMBER -> "42"
             BuiltInType.BOOLEAN -> "true"
@@ -82,14 +85,14 @@ object AttributeExampleDataRenderer {
 
 
     private fun createEnumExampleData(
-        attributeType: EnumUiItemAttributeTypeModel,
+        attributeModel: EnumUiAttributeModel,
         entityModel: UiEntityModel,
     ): String {
         val enumType =
         entityModel.entityEnumTypes
-            .firstOrNull { it.enumId == attributeType.enumId }
+            .firstOrNull { it.enumId == attributeModel.enumId }
             ?: throw NoSuchElementException(
-                "EnumType ${attributeType.enumId.enumName} not found. " +
+                "EnumType ${attributeModel.enumId.enumName} not found. " +
                         "Available enum types: ${entityModel.entityEnumTypes.map { it.enumId.enumName }}",
             )
         val enumName = enumType.enumName.pascalCase
@@ -99,14 +102,14 @@ object AttributeExampleDataRenderer {
 
 
         private fun createItemExampleData(
-        attributeType: ItemUiItemAttributeTypeModel,
-        entityModel: UiEntityModel,
+            attributeModel: ItemUiIAttributeModel,
+            entityModel: UiEntityModel,
     ): String {
         val uiItemModel =
             entityModel.entityItemModels
-                .firstOrNull { it.itemId == attributeType.item.itemId }
+                .firstOrNull { it.itemId == attributeModel.referencedItem.itemId }
                 ?: throw NoSuchElementException(
-                    "UiItemModel ${attributeType.item.itemId} not found. " +
+                    "UiItemModel ${attributeModel.referencedItem.itemId} not found. " +
                             "Available items: ${entityModel.entityItemModels}",
                 )
 
