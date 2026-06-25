@@ -17,7 +17,10 @@
   "enum.appellatioComis.VIR_HONORATUS": "Gentleman",
   "enum.appellatioComis.FEMINA_HONESTA": "Lady",
   "validator.required": "This field is required",
-  "validator.minlength": "This field has a minimal length",
+  "validator.minlength": "This field has a minimum length",
+  "validator.maxlength": "This field has a maximum length",
+  "validator.minNumber": "This field has a minimum number",
+  "validator.maxNumber": "This field has a maximum number",
   "contact.board.title": "Contacts",
   "silvaOptionum.board.title": "A variety of options"
 }

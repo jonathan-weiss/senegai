@@ -40,7 +40,7 @@ import {ValidatorTranslation} from "@app/shared/form-controls/validator-translat
         [ searchValue="CampusTextusObligatorius" replaceByExpression="attributeWithCustomValidation.attributeName.pascalCase" ]
 
 }}}@  */
-export const CampusTextusObligatoriusNamedValidator = new InjectionToken<NamedValidator>('CampusTextusObligatoriusNamedValidator');
+export const OpusMagnumSilvaOptionumCampusTextusObligatoriusNamedValidators = new InjectionToken<NamedValidator>('OpusMagnumSilvaOptionumCampusTextusObligatoriusNamedValidators');
 /* @tt{{{   @end-foreach  }}}@ */
 
 
@@ -56,7 +56,7 @@ export class OpusMagnumSilvaOptionumFormPartValidationService {
                 [ searchValue="CampusTextusObligatorius" replaceByExpression="attributeWithCustomValidation.attributeName.pascalCase" ]
 
         }}}@  */
-        @Inject(CampusTextusObligatoriusNamedValidator) private campusTextusObligatoriusNamedValidator: NamedValidator,
+        @Inject(OpusMagnumSilvaOptionumCampusTextusObligatoriusNamedValidators) private campusTextusObligatoriusNamedValidators: ReadonlyArray<NamedValidator>,
         /* @tt{{{   @end-foreach  }}}@ */
     ) {}
     /* @tt{{{   @end-if  }}}@ */
@@ -96,7 +96,7 @@ export class OpusMagnumSilvaOptionumFormPartValidationService {
                     validatorTranslationKey: "validator.required",
                 },
                 /* @tt{{{ @if [ conditionExpression="attribute.hasCustomValidation" ] }}}@  */
-                this.campusTextusObligatoriusNamedValidator,
+                ...this.campusTextusObligatoriusNamedValidators,
                 /* @tt{{{   @end-if  }}}@ */
             ]
             /* @tt{{{  @end-foreach  }}}@ */

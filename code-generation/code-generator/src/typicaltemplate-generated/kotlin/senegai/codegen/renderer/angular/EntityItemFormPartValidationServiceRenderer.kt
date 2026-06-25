@@ -23,14 +23,14 @@ object EntityItemFormPartValidationServiceRenderer : UiEntityItemRenderer {
           |import {NamedValidator} from "@app/shared/form-controls/named-validator";
           |import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
           |
-          |${ model.item.attributesWithCustomValidation.joinToString("") { attributeWithCustomValidation ->  """export const ${attributeWithCustomValidation.attributeName.pascalCase}NamedValidator = new InjectionToken<NamedValidator>('${attributeWithCustomValidation.attributeName.pascalCase}NamedValidator');
+          |${ model.item.attributesWithCustomValidation.joinToString("") { attributeWithCustomValidation ->  """export const ${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}${attributeWithCustomValidation.attributeName.pascalCase}NamedValidators = new InjectionToken<NamedValidator>('${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}${attributeWithCustomValidation.attributeName.pascalCase}NamedValidators');
               |""" } }
           |
           |@Injectable({providedIn: 'root'})
           |export class ${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartValidationService {
           |
           |${ if(model.item.attributesWithCustomValidation.isNotEmpty()) { """    constructor(
-              |${ model.item.attributesWithCustomValidation.joinToString("") { attributeWithCustomValidation ->  """        @Inject(${attributeWithCustomValidation.attributeName.pascalCase}NamedValidator) private ${attributeWithCustomValidation.attributeName.camelCase}NamedValidator: NamedValidator,
+              |${ model.item.attributesWithCustomValidation.joinToString("") { attributeWithCustomValidation ->  """        @Inject(${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}${attributeWithCustomValidation.attributeName.pascalCase}NamedValidators) private ${attributeWithCustomValidation.attributeName.camelCase}NamedValidators: ReadonlyArray<NamedValidator>,
                   |""" } }    ) {}
               |""" } else { """""" } }
           |    validatorFunctions(field: ${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName): Array<ValidatorFn> {
@@ -60,7 +60,7 @@ object EntityItemFormPartValidationServiceRenderer : UiEntityItemRenderer {
               |                    validatorFunction: Validators.required,
               |                    validatorTranslationKey: "validator.required",
               |                },
-              |${ if(attribute.hasCustomValidation) { """                this.${attribute.attributeName.camelCase}NamedValidator,
+              |${ if(attribute.hasCustomValidation) { """                ...this.${attribute.attributeName.camelCase}NamedValidators,
                   |""" } else { """""" } }            ]
               |""" } }            default: return []
           |        }

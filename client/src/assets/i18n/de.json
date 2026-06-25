@@ -18,6 +18,9 @@
   "enum.appellatioComis.FEMINA_HONESTA": "Sehr geehrte Frau",
   "validator.required": "Dieses Feld ist zwingend",
   "validator.minlength": "Dieses Feld hat eine minimale Zeichenlänge",
+  "validator.maxlength": "Dieses Feld hat eine maximale Zeichenlänge",
+  "validator.minNumber": "Dieses Feld hat eine minimale Zahl",
+  "validator.maxNumber": "Dieses Feld hat eine maximale Zahl",
   "contact.board.title": "Kontakte",
   "silvaOptionum.board.title": "Eine Vielfalt von Optionen"
 }
