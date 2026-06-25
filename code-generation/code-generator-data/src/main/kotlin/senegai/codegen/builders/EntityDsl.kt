@@ -16,6 +16,7 @@ interface ItemDsl {
         type: BuiltInType,
         nullable: Boolean = false,
         multiple: Boolean = false,
+        customValidation: Boolean = false,
     )
 
     fun attribute(
@@ -23,6 +24,7 @@ interface ItemDsl {
         itemId: ItemId,
         nullable: Boolean = false,
         multiple: Boolean = false,
+        customValidation: Boolean = false,
     )
 
     fun attribute(
@@ -30,5 +32,6 @@ interface ItemDsl {
         enumId: EnumId,
         nullable: Boolean = false,
         multiple: Boolean = false,
+        customValidation: Boolean = false,
     )
 }

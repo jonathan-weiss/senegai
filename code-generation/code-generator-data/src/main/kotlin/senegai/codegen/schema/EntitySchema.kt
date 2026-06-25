@@ -83,5 +83,6 @@ data class ItemAttribute(
     val isNullable: Boolean,
     val isMultiple: Boolean,
     val type: ItemAttributeType,
+    val customValidation: Boolean = false,
 )
 

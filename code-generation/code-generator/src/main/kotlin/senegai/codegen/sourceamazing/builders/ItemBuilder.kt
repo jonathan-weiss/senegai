@@ -19,6 +19,8 @@ interface ItemBuilder: senegai.codegen.builders.ItemDsl {
         nullable: Boolean,
         @SetAsValue(alias = "itemAttribute", clazzProperty = "isMultiple")
         multiple: Boolean,
+        @SetAsValue(alias = "itemAttribute", clazzProperty = "customValidation")
+        customValidation: Boolean,
     )
 
     @BuilderMethod
@@ -33,6 +35,8 @@ interface ItemBuilder: senegai.codegen.builders.ItemDsl {
         nullable: Boolean,
         @SetAsValue(alias = "itemAttribute", clazzProperty = "isMultiple")
         multiple: Boolean,
+        @SetAsValue(alias = "itemAttribute", clazzProperty = "customValidation")
+        customValidation: Boolean,
     )
 
     @BuilderMethod
@@ -47,6 +51,8 @@ interface ItemBuilder: senegai.codegen.builders.ItemDsl {
         nullable: Boolean,
         @SetAsValue(alias = "itemAttribute", clazzProperty = "isMultiple")
         multiple: Boolean,
+        @SetAsValue(alias = "itemAttribute", clazzProperty = "customValidation")
+        customValidation: Boolean,
     )
 }
 

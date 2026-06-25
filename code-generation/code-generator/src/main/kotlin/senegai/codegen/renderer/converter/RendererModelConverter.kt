@@ -95,6 +95,7 @@ object RendererModelConverter {
                 attributeName = attributeName,
                 isNullable = itemAttribute.isNullable,
                 isList = itemAttribute.isMultiple,
+                customValidation = itemAttribute.customValidation,
                 builtInType = itemAttributeType,
             )
             is EntityId -> throw NotSupportedInTemplateException("EntityId as attribute type is not supported in $itemAttributeType")
@@ -107,6 +108,7 @@ object RendererModelConverter {
                     attributeName = attributeName,
                     isNullable = itemAttribute.isNullable,
                     isList = itemAttribute.isMultiple,
+                    customValidation = itemAttribute.customValidation,
                     enum = UiEnumModel(enumType),
                 )
             }
@@ -116,6 +118,7 @@ object RendererModelConverter {
                 attributeName = attributeName,
                 isNullable = itemAttribute.isNullable,
                 isList = itemAttribute.isMultiple,
+                customValidation = itemAttribute.customValidation,
                 referencedItem = toUiItemDescriptionModel(itemAttributeType))
         }
     }

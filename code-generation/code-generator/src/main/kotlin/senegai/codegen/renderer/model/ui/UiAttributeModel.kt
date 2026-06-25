@@ -5,11 +5,12 @@ import senegai.codegen.schema.BuiltInType
 import senegai.codegen.schema.EnumId
 
 sealed class UiAttributeModel(
-    open val entity: UiEntityDescriptionModel,
-    open val item: UiItemDescriptionModel,
-    open val attributeName: NameCase,
-    open val isNullable: Boolean,
-    open val isList: Boolean,
+    val entity: UiEntityDescriptionModel,
+    val item: UiItemDescriptionModel,
+    val attributeName: NameCase,
+    val isNullable: Boolean,
+    val isList: Boolean,
+    val customValidation: Boolean,
 ) {
     abstract val isItem: Boolean
     abstract val isBuiltIn: Boolean
@@ -96,6 +97,7 @@ class BuiltInTypeUiAttributeModel(
     attributeName: NameCase,
     isNullable: Boolean,
     isList: Boolean,
+    customValidation: Boolean,
     val builtInType: BuiltInType,
 ) : UiAttributeModel(
     entity = entity,
@@ -103,6 +105,7 @@ class BuiltInTypeUiAttributeModel(
     attributeName = attributeName,
     isNullable = isNullable,
     isList = isList,
+    customValidation = customValidation,
 ) {
     override val isItem: Boolean
         get() = false
@@ -164,6 +167,7 @@ class ItemUiIAttributeModel(
     attributeName: NameCase,
     isNullable: Boolean,
     isList: Boolean,
+    customValidation: Boolean,
     val referencedItem: UiItemDescriptionModel,
 ) : UiAttributeModel(
     entity = entity,
@@ -171,6 +175,7 @@ class ItemUiIAttributeModel(
     attributeName = attributeName,
     isNullable = isNullable,
     isList = isList,
+    customValidation = customValidation,
 ) {
     // it is always the same entity as the parent entity, as references can only exist within entities
     val referencedEntity: UiEntityDescriptionModel = entity
@@ -225,6 +230,7 @@ class EnumUiAttributeModel(
     attributeName: NameCase,
     isNullable: Boolean,
     isList: Boolean,
+    customValidation: Boolean,
     val enum: UiEnumModel,
 ) : UiAttributeModel(
     entity = entity,
@@ -232,6 +238,7 @@ class EnumUiAttributeModel(
     attributeName = attributeName,
     isNullable = isNullable,
     isList = isList,
+    customValidation = customValidation,
 ) {
     val enumId: EnumId = enum.enumId
 
