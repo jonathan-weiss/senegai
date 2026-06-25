@@ -27,14 +27,39 @@
 
 }}}@ */
 
-import {Injectable} from '@angular/core';
+import {Inject, Injectable, InjectionToken} from '@angular/core';
 import {ValidatorFn, Validators} from "@angular/forms";
 import {OpusMagnumSilvaOptionumFormPartFieldName} from "@app/opus-magnum/opus-magnum-form/opus-magnum-silva-optionum-form-part/opus-magnum-silva-optionum-form-part-field-name";
 import {NamedValidator} from "@app/shared/form-controls/named-validator";
 import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
 
+/* @tt{{{
+    @foreach [ iteratorExpression="model.item.attributesWithCustomValidation" loopVariable="attributeWithCustomValidation" ]
+    @replace-value-by-expression
+        [ searchValue="campusTextusObligatorius" replaceByExpression="attributeWithCustomValidation.attributeName.camelCase" ]
+        [ searchValue="CampusTextusObligatorius" replaceByExpression="attributeWithCustomValidation.attributeName.pascalCase" ]
+
+}}}@  */
+export const CampusTextusObligatoriusNamedValidator = new InjectionToken<NamedValidator>('CampusTextusObligatoriusNamedValidator');
+/* @tt{{{   @end-foreach  }}}@ */
+
+
 @Injectable({providedIn: 'root'})
 export class OpusMagnumSilvaOptionumFormPartValidationService {
+
+    /* @tt{{{   @if [conditionExpression="model.item.attributesWithCustomValidation.isNotEmpty()"]  }}}@ */
+    constructor(
+        /* @tt{{{
+            @foreach [ iteratorExpression="model.item.attributesWithCustomValidation" loopVariable="attributeWithCustomValidation" ]
+            @replace-value-by-expression
+                [ searchValue="campusTextusObligatorius" replaceByExpression="attributeWithCustomValidation.attributeName.camelCase" ]
+                [ searchValue="CampusTextusObligatorius" replaceByExpression="attributeWithCustomValidation.attributeName.pascalCase" ]
+
+        }}}@  */
+        @Inject(CampusTextusObligatoriusNamedValidator) private campusTextusObligatoriusNamedValidator: NamedValidator,
+        /* @tt{{{   @end-foreach  }}}@ */
+    ) {}
+    /* @tt{{{   @end-if  }}}@ */
 
     validatorFunctions(field: OpusMagnumSilvaOptionumFormPartFieldName): Array<ValidatorFn> {
         return this.namedValidators(field).map(namedValidator => namedValidator.validatorFunction)
@@ -54,7 +79,6 @@ export class OpusMagnumSilvaOptionumFormPartValidationService {
 
     /**
      * t(validator.required)
-     * t(validator.minlength)
      */
     namedValidators(field: OpusMagnumSilvaOptionumFormPartFieldName): ReadonlyArray<NamedValidator> {
         switch(field) {
@@ -71,11 +95,9 @@ export class OpusMagnumSilvaOptionumFormPartValidationService {
                     validatorFunction: Validators.required,
                     validatorTranslationKey: "validator.required",
                 },
-                // {
-                //     validatorName: "minlength",
-                //     validatorFunction: Validators.minLength(2),
-                //     validatorTranslationKey: "validator.minlength",
-                // },
+                /* @tt{{{ @if [ conditionExpression="attribute.hasCustomValidation" ] }}}@  */
+                this.campusTextusObligatoriusNamedValidator,
+                /* @tt{{{   @end-if  }}}@ */
             ]
             /* @tt{{{  @end-foreach  }}}@ */
             /* @tt{{{   @ignore-text  }}}@ */
@@ -85,11 +107,6 @@ export class OpusMagnumSilvaOptionumFormPartValidationService {
                     validatorFunction: Validators.required,
                     validatorTranslationKey: "validator.required",
                 },
-                // {
-                //     validatorName: "minlength",
-                //     validatorFunction: Validators.minLength(3),
-                //     validatorTranslationKey: "validator.minlength",
-                // },
             ]
             /* @tt{{{   @end-ignore-text  }}}@ */
             default: return []

@@ -17,15 +17,22 @@ object EntityItemFormPartValidationServiceRenderer : UiEntityItemRenderer {
     override fun renderTemplate(model: UiEntityFormViewItemModel): String {
         return """
           |
-          |import {Injectable} from '@angular/core';
+          |import {Inject, Injectable, InjectionToken} from '@angular/core';
           |import {ValidatorFn, Validators} from "@angular/forms";
           |import {${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part-field-name";
           |import {NamedValidator} from "@app/shared/form-controls/named-validator";
           |import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
           |
+          |${ model.item.attributesWithCustomValidation.joinToString("") { attributeWithCustomValidation ->  """export const ${attributeWithCustomValidation.attributeName.pascalCase}NamedValidator = new InjectionToken<NamedValidator>('${attributeWithCustomValidation.attributeName.pascalCase}NamedValidator');
+              |""" } }
+          |
           |@Injectable({providedIn: 'root'})
           |export class ${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartValidationService {
           |
+          |${ if(model.item.attributesWithCustomValidation.isNotEmpty()) { """    constructor(
+              |${ model.item.attributesWithCustomValidation.joinToString("") { attributeWithCustomValidation ->  """        @Inject(${attributeWithCustomValidation.attributeName.pascalCase}NamedValidator) private ${attributeWithCustomValidation.attributeName.camelCase}NamedValidator: NamedValidator,
+                  |""" } }    ) {}
+              |""" } else { """""" } }
           |    validatorFunctions(field: ${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName): Array<ValidatorFn> {
           |        return this.namedValidators(field).map(namedValidator => namedValidator.validatorFunction)
           |    }
@@ -44,7 +51,6 @@ object EntityItemFormPartValidationServiceRenderer : UiEntityItemRenderer {
           |
           |    /**
           |     * t(validator.required)
-          |     * t(validator.minlength)
           |     */
           |    namedValidators(field: ${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName): ReadonlyArray<NamedValidator> {
           |        switch(field) {
@@ -54,12 +60,8 @@ object EntityItemFormPartValidationServiceRenderer : UiEntityItemRenderer {
               |                    validatorFunction: Validators.required,
               |                    validatorTranslationKey: "validator.required",
               |                },
-              |                // {
-              |                //     validatorName: "minlength",
-              |                //     validatorFunction: Validators.minLength(2),
-              |                //     validatorTranslationKey: "validator.minlength",
-              |                // },
-              |            ]
+              |${ if(attribute.hasCustomValidation) { """                this.${attribute.attributeName.camelCase}NamedValidator,
+                  |""" } else { """""" } }            ]
               |""" } }            default: return []
           |        }
           |    };

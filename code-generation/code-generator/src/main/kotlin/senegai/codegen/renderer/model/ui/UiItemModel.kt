@@ -14,6 +14,9 @@ data class UiItemModel(
     val attributesWithAngularFormInitialValues: List<UiAttributeModel> = attributes
         .filter { it is BuiltInTypeUiAttributeModel || it.isList || it.isEnum }
 
+    val attributesWithCustomValidation: List<UiAttributeModel> = attributes
+        .filter { it.hasCustomValidation }
+
     val usedEnums: List<UiEnumModel> = attributes
         .filterIsInstance<EnumUiAttributeModel>()
         .map { it.enum }

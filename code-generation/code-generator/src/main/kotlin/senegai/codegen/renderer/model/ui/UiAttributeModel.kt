@@ -10,7 +10,7 @@ sealed class UiAttributeModel(
     val attributeName: NameCase,
     val isNullable: Boolean,
     val isList: Boolean,
-    val customValidation: Boolean,
+    val hasCustomValidation: Boolean,
 ) {
     abstract val isItem: Boolean
     abstract val isBuiltIn: Boolean
@@ -105,7 +105,7 @@ class BuiltInTypeUiAttributeModel(
     attributeName = attributeName,
     isNullable = isNullable,
     isList = isList,
-    customValidation = customValidation,
+    hasCustomValidation = customValidation,
 ) {
     override val isItem: Boolean
         get() = false
@@ -175,7 +175,7 @@ class ItemUiIAttributeModel(
     attributeName = attributeName,
     isNullable = isNullable,
     isList = isList,
-    customValidation = customValidation,
+    hasCustomValidation = customValidation,
 ) {
     // it is always the same entity as the parent entity, as references can only exist within entities
     val referencedEntity: UiEntityDescriptionModel = entity
@@ -238,7 +238,7 @@ class EnumUiAttributeModel(
     attributeName = attributeName,
     isNullable = isNullable,
     isList = isList,
-    customValidation = customValidation,
+    hasCustomValidation = customValidation,
 ) {
     val enumId: EnumId = enum.enumId
 
