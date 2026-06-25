@@ -4,7 +4,7 @@ import {MatInputModule} from '@angular/material/input';
 import {CommonModule} from '@angular/common';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
-import {TranslocoPipe} from "@jsverse/transloco";
+import {FieldErrorMessagesComponent} from "@app/shared/form-controls/field-error-messages/field-error-messages.component";
 
 @Component({
     selector: 'app-text-input',
@@ -16,7 +16,7 @@ import {TranslocoPipe} from "@jsverse/transloco";
         ReactiveFormsModule,
         MatFormFieldModule,
         MatInputModule,
-        TranslocoPipe,
+        FieldErrorMessagesComponent,
     ]
 })
 export class TextInputComponent {
@@ -24,10 +24,4 @@ export class TextInputComponent {
     @Input() placeholder: string = '';
     @Input({required: true}) textFormControl!: FormControl;
     @Input() validatorTranslations: ReadonlyArray<ValidatorTranslation> = [];
-
-    hasError(errorName: string): boolean {
-        return this.textFormControl.hasError(errorName) && this.textFormControl.touched;
-    }
-
-
 }

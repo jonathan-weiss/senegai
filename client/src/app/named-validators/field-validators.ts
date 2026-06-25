@@ -62,7 +62,13 @@ export function evenNumberNamedValidator(): NamedValidator {
             if (value === null || value === undefined || value === "") {
                 return null;
             }
-            return Number(value) % 2 === 0 ? null : {even: true};
+            const num = Number(value);
+            if (Number.isNaN(num) || num % 2 === 0) {
+                return null;
+            }
+            // Expose the next even number in the error payload so the
+            // validation message can suggest it (read dynamically in the template).
+            return {even: {nextEven: Math.ceil(num / 2) * 2}};
         },
         validatorTranslationKey: "validator.even",
     }

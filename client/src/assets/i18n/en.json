@@ -21,7 +21,7 @@
   "validator.maxlength": "This field allows at most {{ maximalLength }} characters",
   "validator.minNumber": "This field must be at least {{ min }}",
   "validator.maxNumber": "This field must be at most {{ max }}",
-  "validator.even": "This field must be an even number",
+  "validator.even": "This field must be an even number, e.g. {{ nextEven }}",
   "contact.board.title": "Contacts",
   "silvaOptionum.board.title": "A variety of options"
 }

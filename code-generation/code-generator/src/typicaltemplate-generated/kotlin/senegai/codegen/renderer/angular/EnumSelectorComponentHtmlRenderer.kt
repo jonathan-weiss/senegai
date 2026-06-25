@@ -28,11 +28,7 @@ object EnumSelectorComponentHtmlRenderer : UiEnumRenderer {
           |        }
           |    </mat-select>
           |
-          |    @for (validatorTranslation of validatorTranslations; track validatorTranslation) {
-          |        @if (hasError(validatorTranslation.validatorName)) {
-          |            <mat-error>{{ validatorTranslation.validatorTranslationKey | transloco: validatorTranslation.validatorTranslationParams }}</mat-error>
-          |        }
-          |    }
+          |    <app-field-error-messages [control]="enumFormControl" [validatorTranslations]="validatorTranslations" />
           |</mat-form-field>
           |
         """.trimMargin(marginPrefix = "|")

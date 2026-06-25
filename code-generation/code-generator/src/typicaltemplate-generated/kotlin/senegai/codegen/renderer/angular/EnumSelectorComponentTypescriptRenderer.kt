@@ -22,11 +22,11 @@ object EnumSelectorComponentTypescriptRenderer : UiEnumRenderer {
           |import {CommonModule} from '@angular/common';
           |import {FormControl, ReactiveFormsModule} from '@angular/forms';
           |import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
-          |import {TranslocoPipe} from "@jsverse/transloco";
           |import {${model.enumName.pascalCase}I18nComponent} from "@app/enum/${model.enumName.kebabCase}-i18n/${model.enumName.kebabCase}-i18n.component";
           |import {MatOption} from "@angular/material/core";
           |import {MatSelect} from "@angular/material/select";
           |import {${model.enumName.pascalCase}EnumValues} from "@app/wto/${model.enumName.kebabCase}.enum";
+          |import {FieldErrorMessagesComponent} from "@app/shared/form-controls/field-error-messages/field-error-messages.component";
           |
           |@Component({
           |    selector: 'app-${model.enumName.kebabCase}-selector',
@@ -38,21 +38,16 @@ object EnumSelectorComponentTypescriptRenderer : UiEnumRenderer {
           |        ReactiveFormsModule,
           |        MatFormFieldModule,
           |        MatInputModule,
-          |        TranslocoPipe,
           |        ${model.enumName.pascalCase}I18nComponent,
           |        MatOption,
           |        MatSelect,
+          |        FieldErrorMessagesComponent,
           |    ]
           |})
           |export class ${model.enumName.pascalCase}SelectorComponent {
           |    @Input() label: string = '';
           |    @Input({required: true}) enumFormControl!: FormControl;
           |    @Input() validatorTranslations: ReadonlyArray<ValidatorTranslation> = [];
-          |
-          |    hasError(errorName: string): boolean {
-          |        return this.enumFormControl.hasError(errorName) && this.enumFormControl.touched;
-          |    }
-          |
           |
           |    protected readonly ${model.enumName.camelCase}List = ${model.enumName.pascalCase}EnumValues;
           |}

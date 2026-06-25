@@ -5,9 +5,5 @@
     <input matInput [matDatepicker]="theDatePicker" [placeholder]="placeholder" [formControl]="datepickerFormControl">
     <mat-datepicker-toggle matSuffix [for]="theDatePicker"></mat-datepicker-toggle>
     <mat-datepicker #theDatePicker></mat-datepicker>
-    @for (validatorTranslation of validatorTranslations; track validatorTranslation) {
-        @if (hasError(validatorTranslation.validatorName)) {
-            <mat-error>{{ validatorTranslation.validatorTranslationKey | transloco: validatorTranslation.validatorTranslationParams }}</mat-error>
-        }
-    }
+    <app-field-error-messages [control]="datepickerFormControl" [validatorTranslations]="validatorTranslations" />
 </mat-form-field>

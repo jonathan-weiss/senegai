@@ -28,11 +28,11 @@ import {MatInputModule} from '@angular/material/input';
 import {CommonModule} from '@angular/common';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
-import {TranslocoPipe} from "@jsverse/transloco";
 import {AppellatioComisI18nComponent} from "@app/enum/appellatio-comis-i18n/appellatio-comis-i18n.component";
 import {MatOption} from "@angular/material/core";
 import {MatSelect} from "@angular/material/select";
 import {AppellatioComisEnumValues} from "@app/wto/appellatio-comis.enum";
+import {FieldErrorMessagesComponent} from "@app/shared/form-controls/field-error-messages/field-error-messages.component";
 
 @Component({
     selector: 'app-appellatio-comis-selector',
@@ -44,21 +44,16 @@ import {AppellatioComisEnumValues} from "@app/wto/appellatio-comis.enum";
         ReactiveFormsModule,
         MatFormFieldModule,
         MatInputModule,
-        TranslocoPipe,
         AppellatioComisI18nComponent,
         MatOption,
         MatSelect,
+        FieldErrorMessagesComponent,
     ]
 })
 export class AppellatioComisSelectorComponent {
     @Input() label: string = '';
     @Input({required: true}) enumFormControl!: FormControl;
     @Input() validatorTranslations: ReadonlyArray<ValidatorTranslation> = [];
-
-    hasError(errorName: string): boolean {
-        return this.enumFormControl.hasError(errorName) && this.enumFormControl.touched;
-    }
-
 
     protected readonly appellatioComisList = AppellatioComisEnumValues;
 }

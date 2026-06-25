@@ -3,9 +3,5 @@
         <mat-label>{{ label }}</mat-label>
     }
     <input matInput [formControl]="numberFormControl" [placeholder]="placeholder">
-    @for (validatorTranslation of validatorTranslations; track validatorTranslation) {
-        @if (hasError(validatorTranslation.validatorName)) {
-            <mat-error>{{ validatorTranslation.validatorTranslationKey | transloco: validatorTranslation.validatorTranslationParams }}</mat-error>
-        }
-    }
+    <app-field-error-messages [control]="numberFormControl" [validatorTranslations]="validatorTranslations" />
 </mat-form-field>
