@@ -3,7 +3,7 @@ package senegai.codegen.renderer.angular
 import senegai.codegen.renderer.model.ui.BuiltInTypeUiAttributeModel
 import senegai.codegen.renderer.model.ui.EnumUiAttributeModel
 import senegai.codegen.renderer.model.ui.ItemUiIAttributeModel
-import senegai.codegen.renderer.model.ui.UiItemAttributeModel
+import senegai.codegen.renderer.model.ui.UiAttributeModel
 import senegai.codegen.schema.BuiltInType
 
 /**
@@ -23,7 +23,7 @@ object SingleFormInputHtmlTagRenderer {
      *  ` <app-appellatio-selector [enumFormControl]="appellatioControl" [validatorTranslations]="appellatioValidatorNames" />`
      */
     fun renderTemplate(
-        attributeModel: UiItemAttributeModel,
+        attributeModel: UiAttributeModel,
         isList: Boolean = false,
     ): String {
         val inputTag = when (attributeModel) {

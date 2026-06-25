@@ -7,7 +7,7 @@ import senegai.codegen.renderer.model.ui.BuiltInTypeUiAttributeModel
 import senegai.codegen.renderer.model.ui.EnumUiAttributeModel
 import senegai.codegen.renderer.model.ui.ItemUiIAttributeModel
 import senegai.codegen.renderer.model.ui.UiEntityDescriptionModel
-import senegai.codegen.renderer.model.ui.UiItemAttributeModel
+import senegai.codegen.renderer.model.ui.UiAttributeModel
 import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewModel
 import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewColumnModel
 import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewTabModel
@@ -84,7 +84,7 @@ object RendererModelConverter {
         item: UiItemDescriptionModel,
         itemAttribute: ItemAttribute,
         enums: List<EnumType>
-    ): UiItemAttributeModel {
+    ): UiAttributeModel {
         val itemAttributeType = itemAttribute.type
         val attributeName = NameCase(itemAttribute.attributeName)
 

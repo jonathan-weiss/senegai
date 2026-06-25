@@ -4,7 +4,7 @@ import senegai.codegen.renderer.model.NameCase
 import senegai.codegen.schema.BuiltInType
 import senegai.codegen.schema.EnumId
 
-sealed class UiItemAttributeModel(
+sealed class UiAttributeModel(
     open val entity: UiEntityDescriptionModel,
     open val item: UiItemDescriptionModel,
     open val attributeName: NameCase,
@@ -97,7 +97,7 @@ class BuiltInTypeUiAttributeModel(
     isNullable: Boolean,
     isList: Boolean,
     val builtInType: BuiltInType,
-) : UiItemAttributeModel(
+) : UiAttributeModel(
     entity = entity,
     item = item,
     attributeName = attributeName,
@@ -165,7 +165,7 @@ class ItemUiIAttributeModel(
     isNullable: Boolean,
     isList: Boolean,
     val referencedItem: UiItemDescriptionModel,
-) : UiItemAttributeModel(
+) : UiAttributeModel(
     entity = entity,
     item = item,
     attributeName = attributeName,
@@ -226,7 +226,7 @@ class EnumUiAttributeModel(
     isNullable: Boolean,
     isList: Boolean,
     val enum: UiEnumModel,
-) : UiItemAttributeModel(
+) : UiAttributeModel(
     entity = entity,
     item = item,
     attributeName = attributeName,

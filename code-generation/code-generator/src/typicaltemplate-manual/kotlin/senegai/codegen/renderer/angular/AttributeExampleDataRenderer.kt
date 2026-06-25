@@ -4,7 +4,7 @@ import senegai.codegen.renderer.model.ui.BuiltInTypeUiAttributeModel
 import senegai.codegen.renderer.model.ui.EnumUiAttributeModel
 import senegai.codegen.renderer.model.ui.ItemUiIAttributeModel
 import senegai.codegen.renderer.model.ui.UiEntityModel
-import senegai.codegen.renderer.model.ui.UiItemAttributeModel
+import senegai.codegen.renderer.model.ui.UiAttributeModel
 import senegai.codegen.schema.BuiltInType
 
 /**
@@ -17,7 +17,7 @@ import senegai.codegen.schema.BuiltInType
 object AttributeExampleDataRenderer {
 
     data class AttributeContext(
-        val attributeModel: UiItemAttributeModel,
+        val attributeModel: UiAttributeModel,
         val entityModel: UiEntityModel,
         val seed: Int,
     ) {
@@ -27,7 +27,7 @@ object AttributeExampleDataRenderer {
     }
 
     fun renderTemplate(
-        attributeModel: UiItemAttributeModel,
+        attributeModel: UiAttributeModel,
         entityModel: UiEntityModel,
     ): String {
         val seed = 0 // TODO dice seed with entityModel and attributeModel

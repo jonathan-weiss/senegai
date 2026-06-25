@@ -1,8 +1,6 @@
 package senegai.codegen.renderer.model.ui
 
 import senegai.codegen.renderer.model.NameCase
-import senegai.codegen.schema.BuiltInType
-import senegai.codegen.schema.EnumType
 
 data class UiEntityModel(
     val entityName: NameCase,
@@ -10,6 +8,6 @@ data class UiEntityModel(
     val entityItemModels: List<UiItemModel>,
     val entityEnumTypes: List<UiEnumModel>,
 ) {
-    val searchResultAttributes: List<UiItemAttributeModel> = entityRootItem.attributes
-    val idAttribute: UiItemAttributeModel = entityRootItem.attributes.first() // TODO make configurable
+    val searchResultAttributes: List<UiAttributeModel> = entityRootItem.attributes
+    val idAttribute: UiAttributeModel = entityRootItem.attributes.first() // TODO make configurable
 }

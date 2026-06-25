@@ -6,12 +6,12 @@ import senegai.codegen.schema.ItemId
 
 data class UiItemModel(
     val itemDescription: UiItemDescriptionModel,
-    val attributes: List<UiItemAttributeModel>,
+    val attributes: List<UiAttributeModel>,
 ) {
     val itemId: ItemId = itemDescription.itemId
     val itemName: NameCase = itemDescription.itemName
 
-    val attributesWithAngularFormInitialValues: List<UiItemAttributeModel> = attributes
+    val attributesWithAngularFormInitialValues: List<UiAttributeModel> = attributes
         .filter { it is BuiltInTypeUiAttributeModel || it.isList || it.isEnum }
 
     val usedEnums: List<UiEnumModel> = attributes
@@ -25,7 +25,7 @@ data class UiItemModel(
     val attributesWithEnumType: List<EnumUiAttributeModel> = attributes
         .filterIsInstance<EnumUiAttributeModel>()
 
-    val builtInTypeAndEnumAttributes: List<UiItemAttributeModel> = attributes
+    val builtInTypeAndEnumAttributes: List<UiAttributeModel> = attributes
         .filter { it.isBuiltIn || it.isEnum }
 
     val directlyNestedItems: List<UiItemDescriptionModel> = attributes
@@ -41,7 +41,7 @@ data class UiItemModel(
     val containsBooleanListAttributes: Boolean = attributesOfType(BuiltInType.BOOLEAN, isList = true).any()
     val containsNumberListAttributes: Boolean = attributesOfType(BuiltInType.NUMBER, isList = true).any()
 
-    private fun attributesOfType(filterBuiltInType: BuiltInType, isList: Boolean): List<UiItemAttributeModel> {
+    private fun attributesOfType(filterBuiltInType: BuiltInType, isList: Boolean): List<UiAttributeModel> {
         return attributes
             .filterIsInstance<BuiltInTypeUiAttributeModel>()
             .filter { it.builtInType == filterBuiltInType && it.isList == isList }
