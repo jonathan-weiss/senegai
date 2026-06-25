@@ -4,11 +4,8 @@ import senegai.codegen.renderer.NotSupportedInTemplateException
 import senegai.codegen.renderer.model.NameCase
 import senegai.codegen.renderer.model.SchemaModel
 import senegai.codegen.renderer.model.ui.BuiltInTypeUiAttributeModel
-import senegai.codegen.renderer.model.ui.BuiltInTypeUiItemAttributeTypeModel
 import senegai.codegen.renderer.model.ui.EnumUiAttributeModel
-import senegai.codegen.renderer.model.ui.EnumUiItemAttributeTypeModel
 import senegai.codegen.renderer.model.ui.ItemUiIAttributeModel
-import senegai.codegen.renderer.model.ui.ItemUiItemAttributeTypeModel
 import senegai.codegen.renderer.model.ui.UiEntityDescriptionModel
 import senegai.codegen.renderer.model.ui.UiItemAttributeModel
 import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewModel
@@ -17,7 +14,6 @@ import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewTabModel
 import senegai.codegen.renderer.model.ui.UiEntityModel
 import senegai.codegen.renderer.model.ui.UiEntityViewsModel
 import senegai.codegen.renderer.model.ui.UiEnumModel
-import senegai.codegen.renderer.model.ui.UiItemAttributeTypeModel
 import senegai.codegen.renderer.model.ui.UiItemDescriptionModel
 import senegai.codegen.renderer.model.ui.UiItemModel
 import senegai.codegen.renderer.model.ui.UiModel
@@ -33,7 +29,6 @@ import senegai.codegen.schema.EnumId
 import senegai.codegen.schema.EnumType
 import senegai.codegen.schema.Item
 import senegai.codegen.schema.ItemAttribute
-import senegai.codegen.schema.ItemAttributeType
 import senegai.codegen.schema.ItemId
 import senegai.codegen.schema.SchemaData
 import senegai.codegen.schema.UiEntity
@@ -92,7 +87,6 @@ object RendererModelConverter {
     ): UiItemAttributeModel {
         val itemAttributeType = itemAttribute.type
         val attributeName = NameCase(itemAttribute.attributeName)
-        val type = mapUiItemAttributeType(entity, itemAttributeType, enums)
 
         return when (itemAttributeType) {
             is BuiltInType -> BuiltInTypeUiAttributeModel(
@@ -101,7 +95,6 @@ object RendererModelConverter {
                 attributeName = attributeName,
                 isNullable = itemAttribute.isNullable,
                 isList = itemAttribute.isMultiple,
-                attributeType = type,
                 builtInType = itemAttributeType,
             )
             is EntityId -> throw NotSupportedInTemplateException("EntityId as attribute type is not supported in $itemAttributeType")
@@ -114,7 +107,6 @@ object RendererModelConverter {
                     attributeName = attributeName,
                     isNullable = itemAttribute.isNullable,
                     isList = itemAttribute.isMultiple,
-                    attributeType = type,
                     enum = UiEnumModel(enumType),
                 )
             }
@@ -124,25 +116,7 @@ object RendererModelConverter {
                 attributeName = attributeName,
                 isNullable = itemAttribute.isNullable,
                 isList = itemAttribute.isMultiple,
-                attributeType = type,
                 referencedItem = toUiItemDescriptionModel(itemAttributeType))
-        }
-    }
-
-    private fun mapUiItemAttributeType(
-        entity: UiEntityDescriptionModel,
-        itemAttributeType: ItemAttributeType,
-        enums: List<EnumType>
-    ): UiItemAttributeTypeModel {
-        return when (itemAttributeType) {
-            is BuiltInType -> BuiltInTypeUiItemAttributeTypeModel(itemAttributeType)
-            is EntityId -> throw NotSupportedInTemplateException("EntityId as attribute type is not supported in $itemAttributeType")
-            is EnumId -> {
-                val enumType = enums.singleOrNull { it.enumId == itemAttributeType }
-                    ?: throw NoSuchElementException("EnumType ${itemAttributeType.enumName} not found in schema enums")
-                EnumUiItemAttributeTypeModel(UiEnumModel(enumType))
-            }
-            is ItemId -> ItemUiItemAttributeTypeModel( entity,toUiItemDescriptionModel(itemAttributeType))
         }
     }
 

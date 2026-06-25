@@ -1,11 +1,8 @@
 package senegai.codegen.renderer.angular
 
 import senegai.codegen.renderer.model.ui.BuiltInTypeUiAttributeModel
-import senegai.codegen.renderer.model.ui.BuiltInTypeUiItemAttributeTypeModel
 import senegai.codegen.renderer.model.ui.EnumUiAttributeModel
-import senegai.codegen.renderer.model.ui.EnumUiItemAttributeTypeModel
 import senegai.codegen.renderer.model.ui.ItemUiIAttributeModel
-import senegai.codegen.renderer.model.ui.ItemUiItemAttributeTypeModel
 import senegai.codegen.renderer.model.ui.UiEntityModel
 import senegai.codegen.renderer.model.ui.UiItemAttributeModel
 import senegai.codegen.schema.BuiltInType

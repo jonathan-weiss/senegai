@@ -10,7 +10,6 @@ sealed class UiItemAttributeModel(
     open val attributeName: NameCase,
     open val isNullable: Boolean,
     open val isList: Boolean,
-    val type: UiItemAttributeTypeModel,
 ) {
     abstract val isItem: Boolean
     abstract val isBuiltIn: Boolean
@@ -52,14 +51,11 @@ sealed class UiItemAttributeModel(
     private fun calculateAngularInitialValueFormType(): String {
         val singleType = calculateAngularInitialValueFormSingleType()
 
-        // TODO form values are never null, as the initial value is used for
-        //val singleTypeWithNullability =  withAngularFormNullability(singleType)
-
         // Built-in type and enum lists store their elements directly in a `FormArray<FormControl<...>>`.
         // The initial value provided by the form-part service is the value of a single element
         // (e.g. `string` or an enum value), not the whole array (which is created empty). Only item
         // lists need the `Array<...>` wrapping, because their FormArray is seeded from the initial value service.
-        return if(isList && isItem) {
+        return if (isList && isItem) {
             "Array<$singleType>"
         } else {
             singleType
@@ -81,7 +77,7 @@ sealed class UiItemAttributeModel(
     private fun calculateAngularFormControlType(withCollection: Boolean): String {
         val singleFormType = calculateAngularFormControlSingleType()
 
-        return if(isList && withCollection) {
+        return if (isList && withCollection) {
             "FormArray<$singleFormType>"
         } else {
             singleFormType
@@ -100,7 +96,6 @@ class BuiltInTypeUiAttributeModel(
     attributeName: NameCase,
     isNullable: Boolean,
     isList: Boolean,
-    attributeType: UiItemAttributeTypeModel,
     val builtInType: BuiltInType,
 ) : UiItemAttributeModel(
     entity = entity,
@@ -108,7 +103,6 @@ class BuiltInTypeUiAttributeModel(
     attributeName = attributeName,
     isNullable = isNullable,
     isList = isList,
-    type = attributeType
 ) {
     override val isItem: Boolean
         get() = false
@@ -170,7 +164,6 @@ class ItemUiIAttributeModel(
     attributeName: NameCase,
     isNullable: Boolean,
     isList: Boolean,
-    attributeType: UiItemAttributeTypeModel,
     val referencedItem: UiItemDescriptionModel,
 ) : UiItemAttributeModel(
     entity = entity,
@@ -178,7 +171,6 @@ class ItemUiIAttributeModel(
     attributeName = attributeName,
     isNullable = isNullable,
     isList = isList,
-    type = attributeType,
 ) {
     // it is always the same entity as the parent entity, as references can only exist within entities
     val referencedEntity: UiEntityDescriptionModel = entity
@@ -214,7 +206,8 @@ class ItemUiIAttributeModel(
         return "FormGroup<${entityAndReferencedItemTypeAsString()}FormPartGroup>"
     }
 
-    private fun entityAndReferencedItemTypeAsString(): String = "${entity.entityName.pascalCase}${referencedItem.itemName.pascalCase}"
+    private fun entityAndReferencedItemTypeAsString(): String =
+        "${entity.entityName.pascalCase}${referencedItem.itemName.pascalCase}"
 
     override fun determineAngularFormInitialValue(): String {
         return if (isList) {
@@ -232,7 +225,6 @@ class EnumUiAttributeModel(
     attributeName: NameCase,
     isNullable: Boolean,
     isList: Boolean,
-    attributeType: UiItemAttributeTypeModel,
     val enum: UiEnumModel,
 ) : UiItemAttributeModel(
     entity = entity,
@@ -240,7 +232,6 @@ class EnumUiAttributeModel(
     attributeName = attributeName,
     isNullable = isNullable,
     isList = isList,
-    type = attributeType,
 ) {
     val enumId: EnumId = enum.enumId
 
