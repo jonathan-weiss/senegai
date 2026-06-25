@@ -157,16 +157,16 @@
                     <!-- @tt{{{  @end-if  }}}@  -->
 
                 <!-- @tt{{{
-                    @if [ conditionExpression="block.attribute.isItem && block.attribute.isList && !block.attribute.isNullable" ]
+                    @if [ conditionExpression="block.attribute is senegai.codegen.renderer.model.ui.ItemUiIAttributeModel && block.attribute.isList && !block.attribute.isNullable" ]
 
                     @replace-value-by-expression
                     [ searchValue="Articulus Interior List" replaceByExpression="block.attribute.attributeName.pascalCase" ]
                     [ searchValue="ArticulusInteriorIteratus" replaceByExpression="block.attribute.attributeName.pascalCase" ]
                     [ searchValue="articulusInteriorIteratus" replaceByExpression="block.attribute.attributeName.camelCase" ]
-                    [ searchValue="ArticulusInterior" replaceByExpression="block.attribute.attributeAndItem.type.item.itemName.pascalCase" ]
-                    [ searchValue="articulusInterior" replaceByExpression="block.attribute.attributeAndItem.type.item.itemName.camelCase" ]
-                    [ searchValue="articulus-interior" replaceByExpression="block.attribute.attributeAndItem.type.item.itemName.kebabCase" ]
-                    [ searchValue="opus-magnum" replaceByExpression="block.attribute.attributeAndItem.type.entity.entityName.kebabCase" ]
+                    [ searchValue="ArticulusInterior" replaceByExpression="block.attribute.referencedItem.itemName.pascalCase" ]
+                    [ searchValue="articulusInterior" replaceByExpression="block.attribute.referencedItem.itemName.camelCase" ]
+                    [ searchValue="articulus-interior" replaceByExpression="block.attribute.referencedItem.itemName.kebabCase" ]
+                    [ searchValue="opus-magnum" replaceByExpression="block.attribute.referencedEntity.entityName.kebabCase" ]
 
                 }}}@  -->
 
@@ -198,16 +198,16 @@
                 </div>
                 <!-- @tt{{{  @end-if  }}}@  -->
                 <!-- @tt{{{
-                    @if [ conditionExpression="block.attribute.isItem && block.attribute.isList && block.attribute.isNullable" ]
+                    @if [ conditionExpression="block.attribute is senegai.codegen.renderer.model.ui.ItemUiIAttributeModel && block.attribute.isList && block.attribute.isNullable" ]
 
                     @replace-value-by-expression
                     [ searchValue="Articulus Interior Optionalis List" replaceByExpression="block.attribute.attributeName.pascalCase" ]
                     [ searchValue="ArticulusInteriorOptionalisIteratus" replaceByExpression="block.attribute.attributeName.pascalCase" ]
                     [ searchValue="articulusInteriorOptionalisIteratus" replaceByExpression="block.attribute.attributeName.camelCase" ]
-                    [ searchValue="ArticulusInterior" replaceByExpression="block.attribute.attributeAndItem.type.item.itemName.pascalCase" ]
-                    [ searchValue="articulusInterior" replaceByExpression="block.attribute.attributeAndItem.type.item.itemName.camelCase" ]
-                    [ searchValue="articulus-interior" replaceByExpression="block.attribute.attributeAndItem.type.item.itemName.kebabCase" ]
-                    [ searchValue="opus-magnum" replaceByExpression="block.attribute.attributeAndItem.type.entity.entityName.kebabCase" ]
+                    [ searchValue="ArticulusInterior" replaceByExpression="block.attribute.referencedItem.itemName.pascalCase" ]
+                    [ searchValue="articulusInterior" replaceByExpression="block.attribute.referencedItem.itemName.camelCase" ]
+                    [ searchValue="articulus-interior" replaceByExpression="block.attribute.referencedItem.itemName.kebabCase" ]
+                    [ searchValue="opus-magnum" replaceByExpression="block.attribute.referencedEntity.entityName.kebabCase" ]
 
                 }}}@  -->
 

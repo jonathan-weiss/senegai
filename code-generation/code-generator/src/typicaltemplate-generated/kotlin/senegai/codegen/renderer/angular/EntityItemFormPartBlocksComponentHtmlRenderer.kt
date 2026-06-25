@@ -37,13 +37,13 @@ object EntityItemFormPartBlocksComponentHtmlRenderer {
                       |${SingleFormInputHtmlTagRenderer.renderTemplate(attributeModel = block.attribute)}                        </app-field-wrapper>
                       |                    </div>
                       |""" } else { """""" } }
-                  |${ if(block.attribute.isItem && block.attribute.isList && !block.attribute.isNullable) { """
+                  |${ if(block.attribute is senegai.codegen.renderer.model.ui.ItemUiIAttributeModel && block.attribute.isList && !block.attribute.isNullable) { """
                       |                <div class="form-row">
                       |                    <app-field-wrapper label="${block.attribute.attributeName.pascalCase}">
-                      |                        <app-${block.attribute.attributeAndItem.type.entity.entityName.kebabCase}-${block.attribute.attributeAndItem.type.item.itemName.kebabCase}-table
-                      |                                [${block.attribute.attributeAndItem.type.item.itemName.camelCase}FormArray]="${block.attribute.attributeName.camelCase}Control"
-                      |                                (edit${block.attribute.attributeAndItem.type.item.itemName.pascalCase}FormGroup)="${block.attribute.attributeName.camelCase}EditState.onEdit(${"$"}event)"
-                      |                                (delete${block.attribute.attributeAndItem.type.item.itemName.pascalCase}FormGroup)="${block.attribute.attributeName.camelCase}EditState.onDelete(${"$"}event)"
+                      |                        <app-${block.attribute.referencedEntity.entityName.kebabCase}-${block.attribute.referencedItem.itemName.kebabCase}-table
+                      |                                [${block.attribute.referencedItem.itemName.camelCase}FormArray]="${block.attribute.attributeName.camelCase}Control"
+                      |                                (edit${block.attribute.referencedItem.itemName.pascalCase}FormGroup)="${block.attribute.attributeName.camelCase}EditState.onEdit(${"$"}event)"
+                      |                                (delete${block.attribute.referencedItem.itemName.pascalCase}FormGroup)="${block.attribute.attributeName.camelCase}EditState.onDelete(${"$"}event)"
                       |                        />
                       |                        @if (${block.attribute.attributeName.camelCase}EditState.formGroupUnderEdit) {
                       |                            <div class="edit-area">
@@ -55,16 +55,16 @@ object EntityItemFormPartBlocksComponentHtmlRenderer {
                       |                    </app-field-wrapper>
                       |
                       |                </div>
-                      |""" } else { """""" } }${ if(block.attribute.isItem && block.attribute.isList && block.attribute.isNullable) { """
+                      |""" } else { """""" } }${ if(block.attribute is senegai.codegen.renderer.model.ui.ItemUiIAttributeModel && block.attribute.isList && block.attribute.isNullable) { """
                       |                <div class="form-row">
                       |                    <app-field-wrapper label="${block.attribute.attributeName.pascalCase}"
                       |                                       [nullabilityCheckboxFormControl]="${block.attribute.attributeName.camelCase}IsNotNullControl"
                       |                                       [formGroupToDisableIfNullField]="${block.attribute.attributeName.camelCase}Control"
                       |                    >
-                      |                        <app-${block.attribute.attributeAndItem.type.entity.entityName.kebabCase}-${block.attribute.attributeAndItem.type.item.itemName.kebabCase}-table
-                      |                                [${block.attribute.attributeAndItem.type.item.itemName.camelCase}FormArray]="${block.attribute.attributeName.camelCase}Control"
-                      |                                (edit${block.attribute.attributeAndItem.type.item.itemName.pascalCase}FormGroup)="${block.attribute.attributeName.camelCase}EditState.onEdit(${"$"}event)"
-                      |                                (delete${block.attribute.attributeAndItem.type.item.itemName.pascalCase}FormGroup)="${block.attribute.attributeName.camelCase}EditState.onDelete(${"$"}event)"
+                      |                        <app-${block.attribute.referencedEntity.entityName.kebabCase}-${block.attribute.referencedItem.itemName.kebabCase}-table
+                      |                                [${block.attribute.referencedItem.itemName.camelCase}FormArray]="${block.attribute.attributeName.camelCase}Control"
+                      |                                (edit${block.attribute.referencedItem.itemName.pascalCase}FormGroup)="${block.attribute.attributeName.camelCase}EditState.onEdit(${"$"}event)"
+                      |                                (delete${block.attribute.referencedItem.itemName.pascalCase}FormGroup)="${block.attribute.attributeName.camelCase}EditState.onDelete(${"$"}event)"
                       |                        />
                       |                        @if (${block.attribute.attributeName.camelCase}EditState.formGroupUnderEdit) {
                       |                            <div class="edit-area">

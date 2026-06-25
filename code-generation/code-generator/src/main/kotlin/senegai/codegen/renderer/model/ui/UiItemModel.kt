@@ -14,9 +14,6 @@ data class UiItemModel(
     val attributesWithAngularFormInitialValues: List<UiItemAttributeModel> = attributes
         .filter { it.type is BuiltInTypeUiItemAttributeTypeModel || it.isList || it.isEnum }
 
-    val attributesWithEnum: List<UiItemAttributeModel> = attributes
-        .filter { it.isEnum }
-
     /** The distinct enums referenced by this item's attributes, used to generate imports. */
     val usedEnums: List<UiEnumModel> = attributes
         .map { it.type }
@@ -24,20 +21,11 @@ data class UiItemModel(
         .map { it.enum }
         .distinct()
 
-    val containsEnumAttributes: Boolean = attributesWithEnum.isNotEmpty()
-
     val attributesWithItem: List<AttributeAndItemDescriptionModel> = attributes
         .filter { it.isItem }
         .map { AttributeAndItemDescriptionModel(
             attribute = it,
             type = it.type as ItemUiItemAttributeTypeModel,
-        ) }
-
-    val attributesWithBuiltInType: List<AttributeAndBuiltInTypeDescriptionModel> = attributes
-        .filter { it.isBuiltIn }
-        .map { AttributeAndBuiltInTypeDescriptionModel(
-            attribute = it,
-            type = it.type as BuiltInTypeUiItemAttributeTypeModel,
         ) }
 
     val attributesWithEnumType: List<AttributeAndEnumTypeDescriptionModel> = attributes
@@ -49,9 +37,6 @@ data class UiItemModel(
 
     val builtInTypeAndEnumAttributes: List<UiItemAttributeModel> = attributes
         .filter { it.isBuiltIn || it.isEnum }
-
-    val attributesWithLists: List<UiItemAttributeModel> = attributes
-        .filter { it.isList }
 
     val directlyNestedItems: List<UiItemDescriptionModel> = attributes
         .map { it.type }

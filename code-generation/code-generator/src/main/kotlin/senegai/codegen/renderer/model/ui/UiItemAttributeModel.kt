@@ -28,17 +28,6 @@ sealed class UiItemAttributeModel(
     val angularFormInitialValue: String
         get() = determineAngularFormInitialValue()
 
-    val attributeAndItem: AttributeAndItemDescriptionModel
-        get() = createAttributeAndItem()
-
-    private fun createAttributeAndItem(): AttributeAndItemDescriptionModel {
-        return if(type is ItemUiItemAttributeTypeModel) {
-            AttributeAndItemDescriptionModel(this, type)
-        } else {
-            throw RuntimeException("Attribute $attributeName is not an item type")
-        }
-    }
-
     protected abstract fun attributeTypeAsString(): String
 
 
@@ -101,20 +90,7 @@ sealed class UiItemAttributeModel(
 
     protected abstract fun calculateAngularFormControlSingleType(): String
 
-    private fun determineAngularFormInitialValue(): String =
-        if (isList && isItem) {
-            "[]"
-        } else {
-            when (type) {
-                is BuiltInTypeUiItemAttributeTypeModel -> when (type.builtInType) {
-                    BuiltInType.STRING -> "''"
-                    BuiltInType.NUMBER -> "0"
-                    BuiltInType.BOOLEAN -> "false"
-                }
-                is EnumUiItemAttributeTypeModel -> type.enum.angularFormInitialValue
-                is ItemUiItemAttributeTypeModel -> throw RuntimeException("ItemUiItemAttributeTypeModel has no form initial value.") // should not occur
-            }
-        }
+    protected abstract fun determineAngularFormInitialValue(): String
 }
 
 
@@ -178,6 +154,14 @@ class BuiltInTypeUiAttributeModel(
         return "FormControl<${typescriptBuildInType(builtInType)}>"
     }
 
+    override fun determineAngularFormInitialValue(): String {
+        return when (builtInType) {
+            BuiltInType.STRING -> "''"
+            BuiltInType.NUMBER -> "0"
+            BuiltInType.BOOLEAN -> "false"
+        }
+    }
+
 }
 
 class ItemUiIAttributeModel(
@@ -196,6 +180,9 @@ class ItemUiIAttributeModel(
     isList = isList,
     type = attributeType,
 ) {
+    // it is always the same entity as the parent entity, as references can only exist within entities
+    val referencedEntity: UiEntityDescriptionModel = entity
+
     override val isItem: Boolean
         get() = true
     override val isBuiltIn: Boolean
@@ -229,6 +216,13 @@ class ItemUiIAttributeModel(
 
     private fun entityAndReferencedItemTypeAsString(): String = "${entity.entityName.pascalCase}${referencedItem.itemName.pascalCase}"
 
+    override fun determineAngularFormInitialValue(): String {
+        return if (isList) {
+            "[]"
+        } else {
+            throw RuntimeException("ItemUiItemAttributeTypeModel has no form initial value.") // should not occur
+        }
+    }
 
 }
 
@@ -277,6 +271,10 @@ class EnumUiAttributeModel(
      */
     override fun calculateAngularFormControlSingleType(): String {
         return "FormControl<${enumTypeAsString()}>"
+    }
+
+    override fun determineAngularFormInitialValue(): String {
+        return enum.angularFormInitialValue
     }
 
 }
