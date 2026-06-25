@@ -25,35 +25,14 @@ data class UiItemAttributeModel(
     val attributeAndItem: AttributeAndItemDescriptionModel
         get() = createAttributeAndItem()
 
-    val isHideFormControlWithNullValues: Boolean = (type is BuiltInTypeUiItemAttributeTypeModel)
     val isBuiltIn: Boolean = (type is BuiltInTypeUiItemAttributeTypeModel)
     val isEnum: Boolean = (type is EnumUiItemAttributeTypeModel)
-    val attributeAndBuiltInType: AttributeAndBuiltInTypeDescriptionModel
-        get() = createAttributeAndBuiltInType()
-    val enumModel: UiEnumModel
-        get() = createEnumModel()
 
     private fun createAttributeAndItem(): AttributeAndItemDescriptionModel {
         return if(type is ItemUiItemAttributeTypeModel) {
             AttributeAndItemDescriptionModel(this, type)
         } else {
             throw RuntimeException("Attribute $attributeName is not an item type")
-        }
-    }
-
-    private fun createAttributeAndBuiltInType(): AttributeAndBuiltInTypeDescriptionModel {
-        return if(type is BuiltInTypeUiItemAttributeTypeModel) {
-            AttributeAndBuiltInTypeDescriptionModel(this, type)
-        } else {
-            throw RuntimeException("Attribute $attributeName is not a builtInType type")
-        }
-    }
-
-    private fun createEnumModel(): UiEnumModel {
-        return if(type is EnumUiItemAttributeTypeModel) {
-            type.enum
-        } else {
-            throw RuntimeException("Attribute $attributeName is not an enum type")
         }
     }
 
