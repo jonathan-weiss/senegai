@@ -12,36 +12,25 @@ data class UiItemModel(
     val itemName: NameCase = itemDescription.itemName
 
     val attributesWithAngularFormInitialValues: List<UiItemAttributeModel> = attributes
-        .filter { it.type is BuiltInTypeUiItemAttributeTypeModel || it.isList || it.isEnum }
+        .filter { it is BuiltInTypeUiAttributeModel || it.isList || it.isEnum }
 
-    /** The distinct enums referenced by this item's attributes, used to generate imports. */
     val usedEnums: List<UiEnumModel> = attributes
-        .map { it.type }
-        .filterIsInstance<EnumUiItemAttributeTypeModel>()
+        .filterIsInstance<EnumUiAttributeModel>()
         .map { it.enum }
         .distinct()
 
-    val attributesWithItem: List<AttributeAndItemDescriptionModel> = attributes
-        .filter { it.isItem }
-        .map { AttributeAndItemDescriptionModel(
-            attribute = it,
-            type = it.type as ItemUiItemAttributeTypeModel,
-        ) }
+    val attributesWithItemType: List<ItemUiIAttributeModel> = attributes
+        .filterIsInstance<ItemUiIAttributeModel>()
 
-    val attributesWithEnumType: List<AttributeAndEnumTypeDescriptionModel> = attributes
-        .filter { it.isEnum }
-        .map { AttributeAndEnumTypeDescriptionModel(
-            attribute = it,
-            type = it.type as EnumUiItemAttributeTypeModel,
-        ) }
+    val attributesWithEnumType: List<EnumUiAttributeModel> = attributes
+        .filterIsInstance<EnumUiAttributeModel>()
 
     val builtInTypeAndEnumAttributes: List<UiItemAttributeModel> = attributes
         .filter { it.isBuiltIn || it.isEnum }
 
     val directlyNestedItems: List<UiItemDescriptionModel> = attributes
-        .map { it.type }
-        .filterIsInstance<ItemUiItemAttributeTypeModel>()
-        .map { it.item }
+        .filterIsInstance<ItemUiIAttributeModel>()
+        .map { it.referencedItem }
         .distinct()
 
     val containsTextAttributes: Boolean = attributesOfType(BuiltInType.STRING, isList = false).any()

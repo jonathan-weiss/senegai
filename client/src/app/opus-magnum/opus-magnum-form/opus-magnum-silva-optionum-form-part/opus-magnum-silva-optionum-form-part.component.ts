@@ -99,14 +99,14 @@ import {
 } from "@app/shared/form-controls/single-boolean-form-field-table/single-boolean-form-field-table.component";
 /* @tt{{{   @end-if  }}}@ */
 /* @tt{{{
-    @foreach [ iteratorExpression="model.item.attributesWithEnumType" loopVariable="attributeWithEnum" ]
+    @foreach [ iteratorExpression="model.item.attributesWithEnumType" loopVariable="attributeWithEnumType" ]
 
     @replace-value-by-expression
-        [ searchValue="AppellatioComis" replaceByExpression="attributeWithEnum.type.enum.enumName.pascalCase" ]
-        [ searchValue="appellatio-comis" replaceByExpression="attributeWithEnum.type.enum.enumName.kebabCase" ]
+        [ searchValue="AppellatioComis" replaceByExpression="attributeWithEnumType.enum.enumName.pascalCase" ]
+        [ searchValue="appellatio-comis" replaceByExpression="attributeWithEnumType.enum.enumName.kebabCase" ]
 }}}@  */
 import {AppellatioComisEnum} from "@app/wto/appellatio-comis.enum";
-/* @tt{{{   @if [ conditionExpression="attributeWithEnum.attribute.isList"] }}}@ */
+/* @tt{{{   @if [ conditionExpression="attributeWithEnumType.isList"] }}}@ */
 import {AppellatioComisInputTableComponent} from "@app/enum/appellatio-comis-input-table/appellatio-comis-input-table.component";
 /* @tt{{{   @else  }}}@ */
 import {AppellatioComisSelectorComponent} from "@app/enum/appellatio-comis-input-selection/appellatio-comis-selector.component";
@@ -189,14 +189,14 @@ import {
         }}}@
          */
         /* @tt{{{ 
-            @foreach [ iteratorExpression="model.item.attributesWithItem" loopVariable="attributeWithItem" ]
+            @foreach [ iteratorExpression="model.item.attributesWithItemType" loopVariable="attributeWithItemType" ]
             @replace-value-by-expression
-                [ searchValue="articulus-interior" replaceByExpression="attributeWithItem.type.item.itemName.kebabCase" ]
-                [ searchValue="articulusInterior" replaceByExpression="attributeWithItem.type.item.itemName.camelCase" ]
-                [ searchValue="ArticulusInterior" replaceByExpression="attributeWithItem.type.item.itemName.pascalCase" ]
+                [ searchValue="articulus-interior" replaceByExpression="attributeWithItemType.referencedItem.itemName.kebabCase" ]
+                [ searchValue="articulusInterior" replaceByExpression="attributeWithItemType.referencedItem.itemName.camelCase" ]
+                [ searchValue="ArticulusInterior" replaceByExpression="attributeWithItemType.referencedItem.itemName.pascalCase" ]
 
         }}}@  */
-        /* @tt{{{   @if [ conditionExpression="attributeWithItem.attribute.isList"] }}}@ */
+        /* @tt{{{   @if [ conditionExpression="attributeWithItemType.isList"] }}}@ */
         OpusMagnumArticulusInteriorTableComponent,
         /* @tt{{{   @end-if }}}@ */
         OpusMagnumArticulusInteriorFormPartComponent,
@@ -225,11 +225,11 @@ import {
         DatepickerInputComponent,
         /* @tt{{{   @end-ignore-text }}}@ */
         /* @tt{{{
-            @foreach [ iteratorExpression="model.item.attributesWithEnumType" loopVariable="attributeWithEnum" ]
+            @foreach [ iteratorExpression="model.item.attributesWithEnumType" loopVariable="attributeWithEnumType" ]
             @replace-value-by-expression
-                [ searchValue="AppellatioComis" replaceByExpression="attributeWithEnum.type.enum.enumName.pascalCase" ]
+                [ searchValue="AppellatioComis" replaceByExpression="attributeWithEnumType.enum.enumName.pascalCase" ]
         }}}@ */
-        /* @tt{{{   @if [ conditionExpression="attributeWithEnum.attribute.isList"] }}}@ */
+        /* @tt{{{   @if [ conditionExpression="attributeWithEnumType.isList"] }}}@ */
         AppellatioComisInputTableComponent,
         /* @tt{{{   @else }}}@ */
         AppellatioComisSelectorComponent,
@@ -241,10 +241,10 @@ export class OpusMagnumSilvaOptionumFormPartComponent implements OnInit {
     @Input({ required: true }) silvaOptionumForm!: FormGroup<OpusMagnumSilvaOptionumFormPartGroup>;
 
     /* @tt{{{
-        @foreach [ iteratorExpression="model.item.attributesWithItem.filter { it.attribute.isList }" loopVariable="attributeWithItem" ]
+        @foreach [ iteratorExpression="model.item.attributesWithItemType.filter { it.isList }" loopVariable="attributeWithItemType" ]
         @replace-value-by-expression
-            [ searchValue="articulusInteriorIteratus" replaceByExpression="attributeWithItem.attribute.attributeName.camelCase" ]
-            [ searchValue="FormGroup<OpusMagnumArticulusInteriorFormPartGroup>" replaceByExpression="attributeWithItem.attribute.angularFormControlType" ]
+            [ searchValue="articulusInteriorIteratus" replaceByExpression="attributeWithItemType.attributeName.camelCase" ]
+            [ searchValue="FormGroup<OpusMagnumArticulusInteriorFormPartGroup>" replaceByExpression="attributeWithItemType.angularFormControlType" ]
 
     }}}@  */
     readonly articulusInteriorIteratusEditState = new FormArrayEditState<FormGroup<OpusMagnumArticulusInteriorFormPartGroup>>(() => this.articulusInteriorIteratusControl);

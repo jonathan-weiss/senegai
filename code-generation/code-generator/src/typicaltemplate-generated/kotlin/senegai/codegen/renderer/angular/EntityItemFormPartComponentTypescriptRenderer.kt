@@ -53,9 +53,9 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
               |""" } else { """""" } }${ if(model.item.containsBooleanListAttributes) { """import {
               |    SingleBooleanFormFieldTableComponent
               |} from "@app/shared/form-controls/single-boolean-form-field-table/single-boolean-form-field-table.component";
-              |""" } else { """""" } }${ model.item.attributesWithEnumType.joinToString("") { attributeWithEnum ->  """import {${attributeWithEnum.type.enum.enumName.pascalCase}Enum} from "@app/wto/${attributeWithEnum.type.enum.enumName.kebabCase}.enum";
-              |${ if(attributeWithEnum.attribute.isList) { """import {${attributeWithEnum.type.enum.enumName.pascalCase}InputTableComponent} from "@app/enum/${attributeWithEnum.type.enum.enumName.kebabCase}-input-table/${attributeWithEnum.type.enum.enumName.kebabCase}-input-table.component";
-                  |""" } else { """import {${attributeWithEnum.type.enum.enumName.pascalCase}SelectorComponent} from "@app/enum/${attributeWithEnum.type.enum.enumName.kebabCase}-input-selection/${attributeWithEnum.type.enum.enumName.kebabCase}-selector.component";
+              |""" } else { """""" } }${ model.item.attributesWithEnumType.joinToString("") { attributeWithEnumType ->  """import {${attributeWithEnumType.enum.enumName.pascalCase}Enum} from "@app/wto/${attributeWithEnumType.enum.enumName.kebabCase}.enum";
+              |${ if(attributeWithEnumType.isList) { """import {${attributeWithEnumType.enum.enumName.pascalCase}InputTableComponent} from "@app/enum/${attributeWithEnumType.enum.enumName.kebabCase}-input-table/${attributeWithEnumType.enum.enumName.kebabCase}-input-table.component";
+                  |""" } else { """import {${attributeWithEnumType.enum.enumName.pascalCase}SelectorComponent} from "@app/enum/${attributeWithEnumType.enum.enumName.kebabCase}-input-selection/${attributeWithEnumType.enum.enumName.kebabCase}-selector.component";
                   |""" } }""" } }
           |
           |${ model.item.directlyNestedItems.joinToString("") { nestedItem ->  """import {
@@ -90,20 +90,20 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
               |        MatTab,
               |""" } else { """""" } }${ if(model.containsNamedSectionSplitBlocks()) { """        SectionSplitterComponent,
               |""" } else { """""" } }${ if(model.containsTextBlocks()) { """        TextBlockComponent,
-              |""" } else { """""" } }${ model.item.attributesWithItem.joinToString("") { attributeWithItem ->  """${ if(attributeWithItem.attribute.isList) { """        ${model.entity.entityName.pascalCase}${attributeWithItem.type.item.itemName.pascalCase}TableComponent,
-                  |""" } else { """""" } }        ${model.entity.entityName.pascalCase}${attributeWithItem.type.item.itemName.pascalCase}FormPartComponent,
+              |""" } else { """""" } }${ model.item.attributesWithItemType.joinToString("") { attributeWithItemType ->  """${ if(attributeWithItemType.isList) { """        ${model.entity.entityName.pascalCase}${attributeWithItemType.referencedItem.itemName.pascalCase}TableComponent,
+                  |""" } else { """""" } }        ${model.entity.entityName.pascalCase}${attributeWithItemType.referencedItem.itemName.pascalCase}FormPartComponent,
               |""" } }${ if(model.item.containsTextAttributes) { """        TextInputComponent,
               |""" } else { """""" } }${ if(model.item.containsBooleanAttributes) { """        BooleanInputComponent,
               |""" } else { """""" } }${ if(model.item.containsNumberAttributes) { """        NumberInputComponent,
               |""" } else { """""" } }${ if(model.item.containsTextListAttributes) { """        SingleTextFormFieldTableComponent,
-              |""" } else { """""" } }${ if(model.item.containsNumberListAttributes) { """        SingleNumberFormFieldTableComponent,""" } else { """""" } }${ if(model.item.containsBooleanListAttributes) { """        SingleBooleanFormFieldTableComponent,""" } else { """""" } }${ model.item.attributesWithEnumType.joinToString("") { attributeWithEnum ->  """${ if(attributeWithEnum.attribute.isList) { """        ${attributeWithEnum.type.enum.enumName.pascalCase}InputTableComponent,
-                  |""" } else { """        ${attributeWithEnum.type.enum.enumName.pascalCase}SelectorComponent,
+              |""" } else { """""" } }${ if(model.item.containsNumberListAttributes) { """        SingleNumberFormFieldTableComponent,""" } else { """""" } }${ if(model.item.containsBooleanListAttributes) { """        SingleBooleanFormFieldTableComponent,""" } else { """""" } }${ model.item.attributesWithEnumType.joinToString("") { attributeWithEnumType ->  """${ if(attributeWithEnumType.isList) { """        ${attributeWithEnumType.enum.enumName.pascalCase}InputTableComponent,
+                  |""" } else { """        ${attributeWithEnumType.enum.enumName.pascalCase}SelectorComponent,
                   |""" } }""" } }    ]
           |})
           |export class ${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartComponent implements OnInit {
           |    @Input({ required: true }) ${model.item.itemName.camelCase}Form!: FormGroup<${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartGroup>;
           |
-          |${ model.item.attributesWithItem.filter { it.attribute.isList }.joinToString("") { attributeWithItem ->  """    readonly ${attributeWithItem.attribute.attributeName.camelCase}EditState = new FormArrayEditState<${attributeWithItem.attribute.angularFormControlType}>(() => this.${attributeWithItem.attribute.attributeName.camelCase}Control);
+          |${ model.item.attributesWithItemType.filter { it.isList }.joinToString("") { attributeWithItemType ->  """    readonly ${attributeWithItemType.attributeName.camelCase}EditState = new FormArrayEditState<${attributeWithItemType.angularFormControlType}>(() => this.${attributeWithItemType.attributeName.camelCase}Control);
               |""" } }
           |${ model.item.attributes.joinToString("") { attribute ->  """${ if(attribute.isNullable) { """    protected ${attribute.attributeName.camelCase}IsNotNullControl!: FormControl<boolean>
                   |    protected ${attribute.attributeName.camelCase}IsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>

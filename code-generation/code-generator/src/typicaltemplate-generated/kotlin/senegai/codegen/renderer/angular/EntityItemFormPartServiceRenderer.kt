@@ -53,11 +53,11 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
                   |                    validators: this.${model.item.itemName.camelCase}FormValidationService.validatorFunctions(${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase})
                   |                },
                   |            ),
-                  |""" } else { """""" } }""" } }${ model.item.attributesWithItem.filter { !it.attribute.isList }.joinToString("") { attributeWithItem ->  """            [${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItem.attribute.attributeName.camelCase}]: this.${attributeWithItem.type.item.itemName.camelCase}FormPartService.createInitial${attributeWithItem.type.item.itemName.pascalCase}Form(),
-              |""" } }${ model.item.attributesWithItem.filter { it.attribute.isList }.joinToString("") { attributeWithItem ->  """            [${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItem.attribute.attributeName.camelCase}]: new FormArray(
-              |                this.${model.item.itemName.camelCase}FormInitialValueService.${attributeWithItem.attribute.attributeName.camelCase}InitialValue(),
+                  |""" } else { """""" } }""" } }${ model.item.attributesWithItemType.filter { !it.isList }.joinToString("") { attributeWithItemType ->  """            [${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItemType.attributeName.camelCase}]: this.${attributeWithItemType.referencedItem.itemName.camelCase}FormPartService.createInitial${attributeWithItemType.referencedItem.itemName.pascalCase}Form(),
+              |""" } }${ model.item.attributesWithItemType.filter { it.isList }.joinToString("") { attributeWithItemType ->  """            [${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItemType.attributeName.camelCase}]: new FormArray(
+              |                this.${model.item.itemName.camelCase}FormInitialValueService.${attributeWithItemType.attributeName.camelCase}InitialValue(),
               |                {
-              |                    validators: this.${model.item.itemName.camelCase}FormValidationService.validatorFunctions(${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItem.attribute.attributeName.camelCase})
+              |                    validators: this.${model.item.itemName.camelCase}FormValidationService.validatorFunctions(${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItemType.attributeName.camelCase})
               |                },
               |            ),
               |""" } }${ model.item.builtInTypeAndEnumAttributes.filter { it.isList }.joinToString("") { attribute ->  """            [${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}]: new ${attribute.angularFormControlTypeWithCollection}(
@@ -108,11 +108,11 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
           |     * We need to prefill the FormArray with empty values first
           |     */
           |    private patchPreparation(form: FormGroup<${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartGroup>, ${model.item.itemName.camelCase}: ${model.item.itemName.pascalCase}WTO): void {
-          |${ model.item.attributesWithItem.filter { it.attribute.isList }.joinToString("") { attributeWithItem ->  """        if(${model.item.itemName.camelCase}.${attributeWithItem.attribute.attributeName.camelCase} != null) {
-              |            const ${attributeWithItem.attribute.attributeName.camelCase}Length = form.controls[${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItem.attribute.attributeName.camelCase}].controls.length
-              |            if (${attributeWithItem.attribute.attributeName.camelCase}Length < ${model.item.itemName.camelCase}.${attributeWithItem.attribute.attributeName.camelCase}.length) {
-              |                for (let i = ${attributeWithItem.attribute.attributeName.camelCase}Length; i < ${model.item.itemName.camelCase}.${attributeWithItem.attribute.attributeName.camelCase}.length; i++) {
-              |                    form.controls[${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItem.attribute.attributeName.camelCase}].push(this.${attributeWithItem.type.item.itemName.camelCase}FormPartService.createInitial${attributeWithItem.type.item.itemName.pascalCase}Form())
+          |${ model.item.attributesWithItemType.filter { it.isList }.joinToString("") { attributeWithItemType ->  """        if(${model.item.itemName.camelCase}.${attributeWithItemType.attributeName.camelCase} != null) {
+              |            const ${attributeWithItemType.attributeName.camelCase}Length = form.controls[${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItemType.attributeName.camelCase}].controls.length
+              |            if (${attributeWithItemType.attributeName.camelCase}Length < ${model.item.itemName.camelCase}.${attributeWithItemType.attributeName.camelCase}.length) {
+              |                for (let i = ${attributeWithItemType.attributeName.camelCase}Length; i < ${model.item.itemName.camelCase}.${attributeWithItemType.attributeName.camelCase}.length; i++) {
+              |                    form.controls[${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItemType.attributeName.camelCase}].push(this.${attributeWithItemType.referencedItem.itemName.camelCase}FormPartService.createInitial${attributeWithItemType.referencedItem.itemName.pascalCase}Form())
               |                }
               |            }
               |        }
@@ -128,34 +128,34 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
           |
           |
           |    private patchNestedItems(form: FormGroup<${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartGroup>, ${model.item.itemName.camelCase}: ${model.item.itemName.pascalCase}WTO): void {
-          |${ model.item.attributesWithItem.filter { it.attribute.isList }.joinToString("") { attributeWithItem ->  """        if(${model.item.itemName.camelCase}.${attributeWithItem.attribute.attributeName.camelCase} != null) {
-              |            for (let i = 0; i < ${model.item.itemName.camelCase}.${attributeWithItem.attribute.attributeName.camelCase}.length; i++) {
-              |                this.${attributeWithItem.type.item.itemName.camelCase}FormPartService.patch${attributeWithItem.type.item.itemName.pascalCase}Form(
-              |                    form.controls[${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItem.attribute.attributeName.camelCase}].at(i),
-              |                    ${model.item.itemName.camelCase}.${attributeWithItem.attribute.attributeName.camelCase}[i]
+          |${ model.item.attributesWithItemType.filter { it.isList }.joinToString("") { attributeWithItemType ->  """        if(${model.item.itemName.camelCase}.${attributeWithItemType.attributeName.camelCase} != null) {
+              |            for (let i = 0; i < ${model.item.itemName.camelCase}.${attributeWithItemType.attributeName.camelCase}.length; i++) {
+              |                this.${attributeWithItemType.referencedItem.itemName.camelCase}FormPartService.patch${attributeWithItemType.referencedItem.itemName.pascalCase}Form(
+              |                    form.controls[${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItemType.attributeName.camelCase}].at(i),
+              |                    ${model.item.itemName.camelCase}.${attributeWithItemType.attributeName.camelCase}[i]
               |                )
               |            }
               |        }
               |""" } }
-          |${ model.item.attributesWithItem.filter { !it.attribute.isList }.joinToString("") { attributeWithItem ->  """${ if(attributeWithItem.attribute.isNullable) { """        if(${model.item.itemName.camelCase}.${attributeWithItem.attribute.attributeName.camelCase} != null) {
-                  |            this.${attributeWithItem.type.item.itemName.camelCase}FormPartService.patch${attributeWithItem.type.item.itemName.pascalCase}Form(form.controls[${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItem.attribute.attributeName.camelCase}], ${model.item.itemName.camelCase}.${attributeWithItem.attribute.attributeName.camelCase})
+          |${ model.item.attributesWithItemType.filter { !it.isList }.joinToString("") { attributeWithItemType ->  """${ if(attributeWithItemType.isNullable) { """        if(${model.item.itemName.camelCase}.${attributeWithItemType.attributeName.camelCase} != null) {
+                  |            this.${attributeWithItemType.referencedItem.itemName.camelCase}FormPartService.patch${attributeWithItemType.referencedItem.itemName.pascalCase}Form(form.controls[${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItemType.attributeName.camelCase}], ${model.item.itemName.camelCase}.${attributeWithItemType.attributeName.camelCase})
                   |        }
-                  |""" } else { """        this.${attributeWithItem.type.item.itemName.camelCase}FormPartService.patch${attributeWithItem.type.item.itemName.pascalCase}Form(form.controls[${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItem.attribute.attributeName.camelCase}], ${model.item.itemName.camelCase}.${attributeWithItem.attribute.attributeName.camelCase})
+                  |""" } else { """        this.${attributeWithItemType.referencedItem.itemName.camelCase}FormPartService.patch${attributeWithItemType.referencedItem.itemName.pascalCase}Form(form.controls[${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItemType.attributeName.camelCase}], ${model.item.itemName.camelCase}.${attributeWithItemType.attributeName.camelCase})
                   |""" } }""" } }    }
           |
           |    public create${model.item.itemName.pascalCase}WTOFromForm(form: FormGroup<${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartGroup>): ${model.item.itemName.pascalCase}WTO {
           |        return {
-          |${ model.item.attributesWithItem.joinToString("") { attributeWithItem ->  """${ if(attributeWithItem.attribute.isList) { """${ if(attributeWithItem.attribute.isNullable) { """            ${attributeWithItem.attribute.attributeName.camelCase}: form.controls[${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItem.attribute.attributeName.camelCase}IsNotNull].value
-                      |                ? form.controls[${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItem.attribute.attributeName.camelCase}].controls.map(
-                      |                    (controlEntry) => this.${attributeWithItem.type.item.itemName.camelCase}FormPartService.create${attributeWithItem.type.item.itemName.pascalCase}WTOFromForm(controlEntry))
+          |${ model.item.attributesWithItemType.joinToString("") { attributeWithItemType ->  """${ if(attributeWithItemType.isList) { """${ if(attributeWithItemType.isNullable) { """            ${attributeWithItemType.attributeName.camelCase}: form.controls[${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItemType.attributeName.camelCase}IsNotNull].value
+                      |                ? form.controls[${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItemType.attributeName.camelCase}].controls.map(
+                      |                    (controlEntry) => this.${attributeWithItemType.referencedItem.itemName.camelCase}FormPartService.create${attributeWithItemType.referencedItem.itemName.pascalCase}WTOFromForm(controlEntry))
                       |                : null,
-                      |""" } else { """            ${attributeWithItem.attribute.attributeName.camelCase}: form.controls[${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItem.attribute.attributeName.camelCase}].controls.map(
-                      |                (controlEntry) => this.${attributeWithItem.type.item.itemName.camelCase}FormPartService.create${attributeWithItem.type.item.itemName.pascalCase}WTOFromForm(controlEntry)
+                      |""" } else { """            ${attributeWithItemType.attributeName.camelCase}: form.controls[${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItemType.attributeName.camelCase}].controls.map(
+                      |                (controlEntry) => this.${attributeWithItemType.referencedItem.itemName.camelCase}FormPartService.create${attributeWithItemType.referencedItem.itemName.pascalCase}WTOFromForm(controlEntry)
                       |            ),
-                      |""" } }""" } else { """${ if(attributeWithItem.attribute.isNullable) { """            ${attributeWithItem.attribute.attributeName.camelCase}: form.controls[${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItem.attribute.attributeName.camelCase}IsNotNull].value
-                      |                ? this.${attributeWithItem.type.item.itemName.camelCase}FormPartService.create${attributeWithItem.type.item.itemName.pascalCase}WTOFromForm(form.controls[${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItem.attribute.attributeName.camelCase}])
+                      |""" } }""" } else { """${ if(attributeWithItemType.isNullable) { """            ${attributeWithItemType.attributeName.camelCase}: form.controls[${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItemType.attributeName.camelCase}IsNotNull].value
+                      |                ? this.${attributeWithItemType.referencedItem.itemName.camelCase}FormPartService.create${attributeWithItemType.referencedItem.itemName.pascalCase}WTOFromForm(form.controls[${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItemType.attributeName.camelCase}])
                       |                : null,
-                      |""" } else { """            ${attributeWithItem.attribute.attributeName.camelCase}: this.${attributeWithItem.type.item.itemName.camelCase}FormPartService.create${attributeWithItem.type.item.itemName.pascalCase}WTOFromForm(form.controls[${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItem.attribute.attributeName.camelCase}]),
+                      |""" } else { """            ${attributeWithItemType.attributeName.camelCase}: this.${attributeWithItemType.referencedItem.itemName.camelCase}FormPartService.create${attributeWithItemType.referencedItem.itemName.pascalCase}WTOFromForm(form.controls[${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItemType.attributeName.camelCase}]),
                       |""" } }""" } }
               |""" } }
           |${ model.item.builtInTypeAndEnumAttributes.joinToString("") { attribute ->  """${ if(attribute.isNullable) { """            ${attribute.attributeName.camelCase}: form.controls[${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull].value

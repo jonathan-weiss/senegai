@@ -110,23 +110,23 @@ export class OpusMagnumSilvaOptionumFormPartService {
             /* @tt{{{   @end-if  }}}@ */
             /* @tt{{{  @end-foreach  }}}@ */
             /* @tt{{{
-                @foreach [ iteratorExpression="model.item.attributesWithItem.filter { !it.attribute.isList }" loopVariable="attributeWithItem" ]
+                @foreach [ iteratorExpression="model.item.attributesWithItemType.filter { !it.isList }" loopVariable="attributeWithItemType" ]
 
                 @replace-value-by-expression
-                    [ searchValue="articulusInteriorSingularis" replaceByExpression="attributeWithItem.attribute.attributeName.camelCase" ]
-                    [ searchValue="articulusInterior" replaceByExpression="attributeWithItem.type.item.itemName.camelCase" ]
-                    [ searchValue="ArticulusInterior" replaceByExpression="attributeWithItem.type.item.itemName.pascalCase" ]
+                    [ searchValue="articulusInteriorSingularis" replaceByExpression="attributeWithItemType.attributeName.camelCase" ]
+                    [ searchValue="articulusInterior" replaceByExpression="attributeWithItemType.referencedItem.itemName.camelCase" ]
+                    [ searchValue="ArticulusInterior" replaceByExpression="attributeWithItemType.referencedItem.itemName.pascalCase" ]
 
             }}}@  */
             [OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorSingularis]: this.articulusInteriorFormPartService.createInitialArticulusInteriorForm(),
             /* @tt{{{  @end-foreach  }}}@ */
             /* @tt{{{ 
-                @foreach [ iteratorExpression="model.item.attributesWithItem.filter { it.attribute.isList }" loopVariable="attributeWithItem" ]
+                @foreach [ iteratorExpression="model.item.attributesWithItemType.filter { it.isList }" loopVariable="attributeWithItemType" ]
 
                 @replace-value-by-expression
-                    [ searchValue="articulusInteriorIteratus" replaceByExpression="attributeWithItem.attribute.attributeName.camelCase" ]
-                    [ searchValue="articulusInterior" replaceByExpression="attributeWithItem.type.item.itemName.camelCase" ]
-                    [ searchValue="ArticulusInterior" replaceByExpression="attributeWithItem.type.item.itemName.pascalCase" ]
+                    [ searchValue="articulusInteriorIteratus" replaceByExpression="attributeWithItemType.attributeName.camelCase" ]
+                    [ searchValue="articulusInterior" replaceByExpression="attributeWithItemType.referencedItem.itemName.camelCase" ]
+                    [ searchValue="ArticulusInterior" replaceByExpression="attributeWithItemType.referencedItem.itemName.pascalCase" ]
 
             }}}@  */
             [OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorIteratus]: new FormArray(
@@ -353,12 +353,12 @@ export class OpusMagnumSilvaOptionumFormPartService {
      */
     private patchPreparation(form: FormGroup<OpusMagnumSilvaOptionumFormPartGroup>, silvaOptionum: SilvaOptionumWTO): void {
         /* @tt{{{
-            @foreach [ iteratorExpression="model.item.attributesWithItem.filter { it.attribute.isList }" loopVariable="attributeWithItem" ]
+            @foreach [ iteratorExpression="model.item.attributesWithItemType.filter { it.isList }" loopVariable="attributeWithItemType" ]
             @replace-value-by-expression
-                    [ searchValue="articulusInteriorIteratus" replaceByExpression="attributeWithItem.attribute.attributeName.camelCase" ]
-                    [ searchValue="ArticulusInteriorIteratus" replaceByExpression="attributeWithItem.attribute.attributeName.pascalCase" ]
-                    [ searchValue="articulusInterior" replaceByExpression="attributeWithItem.type.item.itemName.camelCase" ]
-                    [ searchValue="ArticulusInterior" replaceByExpression="attributeWithItem.type.item.itemName.pascalCase" ]
+                    [ searchValue="articulusInteriorIteratus" replaceByExpression="attributeWithItemType.attributeName.camelCase" ]
+                    [ searchValue="ArticulusInteriorIteratus" replaceByExpression="attributeWithItemType.attributeName.pascalCase" ]
+                    [ searchValue="articulusInterior" replaceByExpression="attributeWithItemType.referencedItem.itemName.camelCase" ]
+                    [ searchValue="ArticulusInterior" replaceByExpression="attributeWithItemType.referencedItem.itemName.pascalCase" ]
 
             }}}@  */
         if(silvaOptionum.articulusInteriorIteratus != null) {
@@ -409,12 +409,12 @@ export class OpusMagnumSilvaOptionumFormPartService {
 
     private patchNestedItems(form: FormGroup<OpusMagnumSilvaOptionumFormPartGroup>, silvaOptionum: SilvaOptionumWTO): void {
         /* @tt{{{
-            @foreach [ iteratorExpression="model.item.attributesWithItem.filter { it.attribute.isList }" loopVariable="attributeWithItem" ]
+            @foreach [ iteratorExpression="model.item.attributesWithItemType.filter { it.isList }" loopVariable="attributeWithItemType" ]
             @replace-value-by-expression
-                    [ searchValue="articulusInteriorIteratus" replaceByExpression="attributeWithItem.attribute.attributeName.camelCase" ]
-                    [ searchValue="ArticulusInteriorIteratus" replaceByExpression="attributeWithItem.attribute.attributeName.pascalCase" ]
-                    [ searchValue="articulusInterior" replaceByExpression="attributeWithItem.type.item.itemName.camelCase" ]
-                    [ searchValue="ArticulusInterior" replaceByExpression="attributeWithItem.type.item.itemName.pascalCase" ]
+                    [ searchValue="articulusInteriorIteratus" replaceByExpression="attributeWithItemType.attributeName.camelCase" ]
+                    [ searchValue="ArticulusInteriorIteratus" replaceByExpression="attributeWithItemType.attributeName.pascalCase" ]
+                    [ searchValue="articulusInterior" replaceByExpression="attributeWithItemType.referencedItem.itemName.camelCase" ]
+                    [ searchValue="ArticulusInterior" replaceByExpression="attributeWithItemType.referencedItem.itemName.pascalCase" ]
 
             }}}@  */
         if(silvaOptionum.articulusInteriorIteratus != null) {
@@ -428,15 +428,15 @@ export class OpusMagnumSilvaOptionumFormPartService {
         /* @tt{{{ @end-foreach }}}@ */
 
         /* @tt{{{
-            @foreach [ iteratorExpression="model.item.attributesWithItem.filter { !it.attribute.isList }" loopVariable="attributeWithItem" ]
+            @foreach [ iteratorExpression="model.item.attributesWithItemType.filter { !it.isList }" loopVariable="attributeWithItemType" ]
             @replace-value-by-expression
-                    [ searchValue="articulusInteriorSingularisOptionalis" replaceByExpression="attributeWithItem.attribute.attributeName.camelCase" ]
-                    [ searchValue="articulusInteriorSingularis" replaceByExpression="attributeWithItem.attribute.attributeName.camelCase" ]
-                    [ searchValue="articulusInterior" replaceByExpression="attributeWithItem.type.item.itemName.camelCase" ]
-                    [ searchValue="ArticulusInterior" replaceByExpression="attributeWithItem.type.item.itemName.pascalCase" ]
+                    [ searchValue="articulusInteriorSingularisOptionalis" replaceByExpression="attributeWithItemType.attributeName.camelCase" ]
+                    [ searchValue="articulusInteriorSingularis" replaceByExpression="attributeWithItemType.attributeName.camelCase" ]
+                    [ searchValue="articulusInterior" replaceByExpression="attributeWithItemType.referencedItem.itemName.camelCase" ]
+                    [ searchValue="ArticulusInterior" replaceByExpression="attributeWithItemType.referencedItem.itemName.pascalCase" ]
 
             }}}@  */
-        /* @tt{{{ @if [conditionExpression="attributeWithItem.attribute.isNullable"] }}}@ */
+        /* @tt{{{ @if [conditionExpression="attributeWithItemType.isNullable"] }}}@ */
         if(silvaOptionum.articulusInteriorSingularisOptionalis != null) {
             this.articulusInteriorFormPartService.patchArticulusInteriorForm(form.controls[OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalis], silvaOptionum.articulusInteriorSingularisOptionalis)
         }
@@ -459,18 +459,18 @@ export class OpusMagnumSilvaOptionumFormPartService {
     public createSilvaOptionumWTOFromForm(form: FormGroup<OpusMagnumSilvaOptionumFormPartGroup>): SilvaOptionumWTO {
         return {
             /* @tt{{{
-                @foreach [ iteratorExpression="model.item.attributesWithItem" loopVariable="attributeWithItem" ]
+                @foreach [ iteratorExpression="model.item.attributesWithItemType" loopVariable="attributeWithItemType" ]
                 @replace-value-by-expression
-                        [ searchValue="articulusInteriorSingularisOptionalis" replaceByExpression="attributeWithItem.attribute.attributeName.camelCase" ]
-                        [ searchValue="articulusInteriorSingularis" replaceByExpression="attributeWithItem.attribute.attributeName.camelCase" ]
-                        [ searchValue="articulusInteriorOptionalisIteratus" replaceByExpression="attributeWithItem.attribute.attributeName.camelCase" ]
-                        [ searchValue="articulusInteriorIteratus" replaceByExpression="attributeWithItem.attribute.attributeName.camelCase" ]
-                        [ searchValue="articulusInterior" replaceByExpression="attributeWithItem.type.item.itemName.camelCase" ]
-                        [ searchValue="ArticulusInterior" replaceByExpression="attributeWithItem.type.item.itemName.pascalCase" ]
+                        [ searchValue="articulusInteriorSingularisOptionalis" replaceByExpression="attributeWithItemType.attributeName.camelCase" ]
+                        [ searchValue="articulusInteriorSingularis" replaceByExpression="attributeWithItemType.attributeName.camelCase" ]
+                        [ searchValue="articulusInteriorOptionalisIteratus" replaceByExpression="attributeWithItemType.attributeName.camelCase" ]
+                        [ searchValue="articulusInteriorIteratus" replaceByExpression="attributeWithItemType.attributeName.camelCase" ]
+                        [ searchValue="articulusInterior" replaceByExpression="attributeWithItemType.referencedItem.itemName.camelCase" ]
+                        [ searchValue="ArticulusInterior" replaceByExpression="attributeWithItemType.referencedItem.itemName.pascalCase" ]
 
                 }}}@  */
-            /* @tt{{{   @if [ conditionExpression="attributeWithItem.attribute.isList"]  }}}@ */
-            /* @tt{{{   @if [ conditionExpression="attributeWithItem.attribute.isNullable"]  }}}@ */
+            /* @tt{{{   @if [ conditionExpression="attributeWithItemType.isList"]  }}}@ */
+            /* @tt{{{   @if [ conditionExpression="attributeWithItemType.isNullable"]  }}}@ */
             articulusInteriorOptionalisIteratus: form.controls[OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorOptionalisIteratusIsNotNull].value
                 ? form.controls[OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorOptionalisIteratus].controls.map(
                     (controlEntry) => this.articulusInteriorFormPartService.createArticulusInteriorWTOFromForm(controlEntry))
@@ -481,7 +481,7 @@ export class OpusMagnumSilvaOptionumFormPartService {
             ),
             /* @tt{{{   @end-if  }}}@ */
             /* @tt{{{   @else  }}}@ */
-            /* @tt{{{   @if [ conditionExpression="attributeWithItem.attribute.isNullable"]  }}}@ */
+            /* @tt{{{   @if [ conditionExpression="attributeWithItemType.isNullable"]  }}}@ */
             articulusInteriorSingularisOptionalis: form.controls[OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalisIsNotNull].value
                 ? this.articulusInteriorFormPartService.createArticulusInteriorWTOFromForm(form.controls[OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalis])
                 : null,
