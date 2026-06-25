@@ -30,7 +30,7 @@ object EnumSelectorComponentHtmlRenderer : UiEnumRenderer {
           |
           |    @for (validatorTranslation of validatorTranslations; track validatorTranslation) {
           |        @if (hasError(validatorTranslation.validatorName)) {
-          |            <mat-error>{{ validatorTranslation.validatorTranslationKey | transloco }}</mat-error>
+          |            <mat-error>{{ validatorTranslation.validatorTranslationKey | transloco: validatorTranslation.validatorTranslationParams }}</mat-error>
           |        }
           |    }
           |</mat-form-field>

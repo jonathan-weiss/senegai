@@ -22,6 +22,7 @@ export class OpusMagnumArticulusInteriorFormPartValidationService {
         return {
             validatorName: namedValidator.validatorName,
             validatorTranslationKey: namedValidator.validatorTranslationKey,
+            validatorTranslationParams: namedValidator.validatorTranslationParams,
         }
     }
 

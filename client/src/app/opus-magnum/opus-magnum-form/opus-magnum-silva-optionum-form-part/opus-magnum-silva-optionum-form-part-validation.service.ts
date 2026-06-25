@@ -74,6 +74,7 @@ export class OpusMagnumSilvaOptionumFormPartValidationService {
         return {
             validatorName: namedValidator.validatorName,
             validatorTranslationKey: namedValidator.validatorTranslationKey,
+            validatorTranslationParams: namedValidator.validatorTranslationParams,
         }
     }
 

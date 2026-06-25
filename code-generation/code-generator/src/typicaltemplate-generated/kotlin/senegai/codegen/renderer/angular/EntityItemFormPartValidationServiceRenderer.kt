@@ -46,6 +46,7 @@ object EntityItemFormPartValidationServiceRenderer : UiEntityItemRenderer {
           |        return {
           |            validatorName: namedValidator.validatorName,
           |            validatorTranslationKey: namedValidator.validatorTranslationKey,
+          |            validatorTranslationParams: namedValidator.validatorTranslationParams,
           |        }
           |    }
           |

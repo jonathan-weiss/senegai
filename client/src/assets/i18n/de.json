@@ -17,10 +17,10 @@
   "enum.appellatioComis.VIR_HONORATUS": "Sehr geehrter Herr",
   "enum.appellatioComis.FEMINA_HONESTA": "Sehr geehrte Frau",
   "validator.required": "Dieses Feld ist zwingend",
-  "validator.minlength": "Dieses Feld hat eine minimale Zeichenlänge",
-  "validator.maxlength": "Dieses Feld hat eine maximale Zeichenlänge",
-  "validator.minNumber": "Dieses Feld hat eine minimale Zahl",
-  "validator.maxNumber": "Dieses Feld hat eine maximale Zahl",
+  "validator.minlength": "Dieses Feld benötigt mindestens {{ minimalLength }} Zeichen",
+  "validator.maxlength": "Dieses Feld erlaubt höchstens {{ maximalLength }} Zeichen",
+  "validator.minNumber": "Dieses Feld muss mindestens {{ min }} sein",
+  "validator.maxNumber": "Dieses Feld darf höchstens {{ max }} sein",
   "contact.board.title": "Kontakte",
   "silvaOptionum.board.title": "Eine Vielfalt von Optionen"
 }

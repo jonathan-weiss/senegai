@@ -10,6 +10,7 @@ export function minimumLengthNamedValidator(minimalLength: number): NamedValidat
         validatorName: "minlength",
         validatorFunction: Validators.minLength(minimalLength),
         validatorTranslationKey: "validator.minlength",
+        validatorTranslationParams: {minimalLength},
     }
 }
 
@@ -21,6 +22,7 @@ export function maximumLengthNamedValidator(maximalLength: number): NamedValidat
         validatorName: "maxlength",
         validatorFunction: Validators.maxLength(maximalLength),
         validatorTranslationKey: "validator.maxlength",
+        validatorTranslationParams: {maximalLength},
     }
 }
 
@@ -32,6 +34,7 @@ export function minimumNumberNamedValidator(min: number): NamedValidator {
         validatorName: "min",
         validatorFunction: Validators.min(min),
         validatorTranslationKey: "validator.minNumber",
+        validatorTranslationParams: {min},
     }
 }
 
@@ -43,5 +46,6 @@ export function maximumNumberNamedValidator(max: number): NamedValidator {
         validatorName: "max",
         validatorFunction: Validators.max(max),
         validatorTranslationKey: "validator.maxNumber",
+        validatorTranslationParams: {max},
     }
 }
