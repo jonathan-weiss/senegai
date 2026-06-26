@@ -5,24 +5,16 @@ import org.codeblessing.typicaltemplate.TemplateRendererConfiguration
 import org.codeblessing.typicaltemplate.TemplatingConfiguration
 import org.codeblessing.typicaltemplate.TypicalTemplateApi
 import java.nio.file.Path
-import java.nio.file.Paths
 import kotlin.system.exitProcess
 
 private const val PRINT_CREATED_TEMPLATE_RENDERERS = true
 
 fun main(args: Array<String>) {
-    if(args.size != 2) {
-        println("Wrong arguments!")
-        println("Use <path to angular source> <path to target template renderers base dir>")
-        exitProcess(1)
-    }
+    val cliArgs = createCommandLineArguments(args) ?: exitProcess(0)
 
     println("Generating template renderer with typical template")
-    val config = gatherTemplatingConfigurations(
-        pathToAngularSourceTemplates = Paths.get(args[0]),
-        pathToTargetTemplateRenderersBaseDir = Paths.get(args[1])
-    )
-    val createdTemplateRenderers = TypicalTemplateApi.runTypicalTemplate(config)
+    val configs = gatherTemplatingConfigurations(cliArgs)
+    val createdTemplateRenderers = TypicalTemplateApi.runTypicalTemplate(configs)
 
     if(PRINT_CREATED_TEMPLATE_RENDERERS) {
         printCreatedTemplateRenders(createdTemplateRenderers)
@@ -39,26 +31,41 @@ private fun printCreatedTemplateRenders(createdTemplateRenderers: Map<Templating
 }
 
 private fun gatherTemplatingConfigurations(
-    pathToAngularSourceTemplates: Path,
-    pathToTargetTemplateRenderersBaseDir: Path,
+    cliArgs: CommandLineArguments,
 ): List<TemplatingConfiguration> {
     val rootDirectoriesToSearch = listOf(
         FileSearchLocation(
-            rootDirectoryToSearch = pathToAngularSourceTemplates,
+            rootDirectoryToSearch = cliArgs.directoryForAngularSource,
             filenameMatchingPattern = Regex(".*\\.html"),
         ),
         FileSearchLocation(
-            rootDirectoryToSearch = pathToAngularSourceTemplates,
+            rootDirectoryToSearch = cliArgs.directoryForAngularSource,
             filenameMatchingPattern = Regex(".*\\.scss"),
         ),
         FileSearchLocation(
-            rootDirectoryToSearch = pathToAngularSourceTemplates,
+            rootDirectoryToSearch = cliArgs.directoryForAngularSource,
             filenameMatchingPattern = Regex(".*\\.ts"),
+        ),
+        FileSearchLocation(
+            rootDirectoryToSearch = cliArgs.directoryForRestSource,
+            filenameMatchingPattern = Regex(".*\\.kt"),
+        ),
+        FileSearchLocation(
+            rootDirectoryToSearch = cliArgs.directoryForServiceSource,
+            filenameMatchingPattern = Regex(".*\\.kt"),
+        ),
+        FileSearchLocation(
+            rootDirectoryToSearch = cliArgs.directoryForPersistenceSource,
+            filenameMatchingPattern = Regex(".*\\.kt"),
+        ),
+        FileSearchLocation(
+            rootDirectoryToSearch = cliArgs.directoryForExampleDataSource,
+            filenameMatchingPattern = Regex(".*\\.kt"),
         ),
     )
 
     val templateRendererConfiguration = TemplateRendererConfiguration(
-        templateRendererTargetSourceBasePath = pathToTargetTemplateRenderersBaseDir,
+        templateRendererTargetSourceBasePath = cliArgs.generatedTemplateRenderersBaseDir,
     )
     val configuration = TemplatingConfiguration(
         fileSearchLocations = rootDirectoriesToSearch,

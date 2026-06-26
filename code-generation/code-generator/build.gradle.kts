@@ -21,11 +21,18 @@ tasks.test {
 val directoryForGeneratedTemplateRenderer = "src/typicaltemplate-generated/kotlin"
 val directoryForManualTemplateRenderer = "src/typicaltemplate-manual/kotlin"
 
-val directoryForAngularGeneratedSource = project(":client").projectDir.resolve("src/app-generated")
-val directoryForExampleDataGeneratedSource = project(":server:example-data").projectDir.resolve("src/generated/kotlin")
-val directoryForPersistenceGeneratedSource = project(":server:persistence").projectDir.resolve("src/generated/kotlin")
-val directoryForRestGeneratedSource = project(":server:rest").projectDir.resolve("src/generated/kotlin")
-val directoryForServiceGeneratedSource = project(":server:service").projectDir.resolve("src/generated/kotlin")
+val angularClientProjectPath = project(":client").projectDir
+val serverRestProjectPath = project(":server:rest").projectDir
+val serverServiceProjectPath = project(":server:service").projectDir
+val serverPersistenceProjectPath = project(":server:persistence").projectDir
+val serverExampleDataProjectPath = project(":server:example-data").projectDir
+
+
+val directoryForAngularGeneratedSource = angularClientProjectPath.resolve("src/app-generated")
+val directoryForRestGeneratedSource = serverRestProjectPath.resolve("src/generated/kotlin")
+val directoryForServiceGeneratedSource = serverServiceProjectPath.resolve("src/generated/kotlin")
+val directoryForPersistenceGeneratedSource = serverPersistenceProjectPath.resolve("src/generated/kotlin")
+val directoryForExampleDataGeneratedSource = serverExampleDataProjectPath.resolve("src/generated/kotlin")
 
 kotlin {
     sourceSets["main"].kotlin.srcDir(directoryForGeneratedTemplateRenderer)
@@ -38,8 +45,8 @@ tasks.register<JavaExec>("codegen") {
 
     args(
         directoryForAngularGeneratedSource,
-        directoryForServiceGeneratedSource,
         directoryForRestGeneratedSource,
+        directoryForServiceGeneratedSource,
         directoryForPersistenceGeneratedSource,
         directoryForExampleDataGeneratedSource,
     )

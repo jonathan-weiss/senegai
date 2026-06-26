@@ -8,18 +8,25 @@ dependencies {
     runtimeOnly(libs.typicaltemplate)
 }
 
-val codeGenerationProjectPath = project(":code-generation:code-generator").projectDir
-val targetDirectoryForTemplateRenderer = codeGenerationProjectPath.resolve("src/typicaltemplate-generated/kotlin")
+val targetDirectoryForTemplateRenderer = project(":code-generation:code-generator").projectDir.resolve("src/typicaltemplate-generated/kotlin")
 
 tasks.register<JavaExec>("createTypicalTemplateRenderers") {
     val angularClientProjectPath = project(":client").projectDir
+    val serverServiceProjectPath = project(":server:service").projectDir
+    val serverRestProjectPath = project(":server:rest").projectDir
+    val serverPersistenceProjectPath = project(":server:persistence").projectDir
+    val serverExampleDataProjectPath = project(":server:example-data").projectDir
 
     classpath = sourceSets.main.get().runtimeClasspath
     mainClass.set("senegai.codegen.renderercreator.TypicalTemplateRendererCreatorKt")
 
     args(
-        angularClientProjectPath.resolve("src/app").absolutePath, // First argument: Path to the directory within the angular files with tt comments are searched
-        targetDirectoryForTemplateRenderer.absolutePath  // Second argument: Path to the base directory where the template renderers are written to
+        targetDirectoryForTemplateRenderer.absolutePath,
+        angularClientProjectPath.resolve("src/app").absolutePath,
+        serverRestProjectPath.resolve("src/main/kotlin").absolutePath,
+        serverServiceProjectPath.resolve("src/main/kotlin").absolutePath,
+        serverPersistenceProjectPath.resolve("src/main/kotlin").absolutePath,
+        serverExampleDataProjectPath.resolve("src/main/kotlin").absolutePath,
     )
 
     dependsOn("cleanRenderers")
