@@ -16,6 +16,13 @@ sealed class BeAttributeModel(
     abstract val isBuiltIn: Boolean
     abstract val isEnum: Boolean
 
+    /**
+     * The example-data creator call to obtain a value for this attribute, respecting its cardinality:
+     * `createList()` for list attributes, `create()` otherwise.
+     */
+    val exampleDataCreatorCall: String
+        get() = if (isList) "createList()" else "create()"
+
     val typescriptAttributeType: String
         get() = calculateAttributeTypeWithCardinality()
 
@@ -60,6 +67,20 @@ class BuiltInTypeBeAttributeModel(
     override fun attributeTypeAsString(): String {
         return builtInTypeAsString()
     }
+
+    /**
+     * A representative Kotlin example value literal for this attribute, respecting its cardinality.
+     * For example `"exemplum"`, `42`, `true` or, for list attributes, `listOf("exemplum")`.
+     */
+    val kotlinExampleValue: String
+        get() = if (isList) "listOf(${singleKotlinExampleValue()})" else singleKotlinExampleValue()
+
+    private fun singleKotlinExampleValue(): String =
+        when (builtInType) {
+            BuiltInType.STRING -> "\"exemplum\""
+            BuiltInType.NUMBER -> "42"
+            BuiltInType.BOOLEAN -> "true"
+        }
 
     private fun builtInTypeAsString(): String =
         when (builtInType) {

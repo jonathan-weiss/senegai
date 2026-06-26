@@ -1,3 +1,27 @@
+/* @tt{{{
+
+    @move-comment-backward
+    @template-renderer [
+        templateRendererClassName="EntityExampleDataCreatorRenderer"
+        templateRendererPackageName="senegai.codegen.renderer.be"
+        templateRendererInterfaceName="BeEntityRenderer"
+        templateRendererInterfacePackageName="senegai.codegen.renderer.be"
+    ] [
+        modelClassName="BeEntityModel"
+        modelPackageName="senegai.codegen.renderer.model.be"
+        modelName="model"
+    ]
+
+    @replace-value-by-expression
+        [ searchValue="OpusMagnum" replaceByExpression="model.entityName.pascalCase" ]
+        [ searchValue="opusMagnum" replaceByExpression="model.entityName.camelCase" ]
+        [ searchValue="SilvaOptionum" replaceByExpression="model.entityRootItem.itemName.pascalCase" ]
+        [ searchValue="silvaOptionum" replaceByExpression="model.entityRootItem.itemName.camelCase" ]
+        [ searchValue="opusmagnum" replaceByExpression="model.entityName.lowerCase" ]
+
+    @modify-provided-filename-by-replacements
+
+}}}@ */
 package senegai.server.exampledata.opusmagnum
 
 import org.springframework.stereotype.Component

@@ -151,6 +151,7 @@ object RendererModelConverter {
     private fun mapBeItemModel(entity: BeEntityDescriptionModel, item: Item, enums: List<EnumType>): BeItemModel {
         val itemDescription = toBeItemDescriptionModel(item.itemId)
         return BeItemModel(
+            entityName = entity.entityName,
             itemDescription = itemDescription,
             attributes = item.attributes.map { mapBeItemAttribute(entity, itemDescription, it, enums) }
         )
@@ -193,7 +194,7 @@ object RendererModelConverter {
                     isNullable = itemAttribute.isNullable,
                     isList = itemAttribute.isMultiple,
                     customValidation = itemAttribute.customValidation,
-                    enum = BeEnumModel(enumType),
+                    enum = BeEnumModel(entity.entityName, enumType),
                 )
             }
             is ItemId -> ItemBeIAttributeModel(
@@ -212,7 +213,7 @@ object RendererModelConverter {
             entityName = NameCase(entity.entityName),
             entityRootItem = allBeItemModels.single { it.itemId == entity.item.itemId },
             entityItemModels = allBeItemModels.filter { it.itemId in entityItemModelIds },
-            entityEnumTypes = allEnumTypes.map { BeEnumModel(it) }, // TODO filter for only the enums used in this entity
+            entityEnumTypes = allEnumTypes.map { BeEnumModel(NameCase(entity.entityName), it) }, // TODO filter for only the enums used in this entity
         )
     }
 

@@ -5,6 +5,7 @@ import senegai.codegen.schema.EnumId
 import senegai.codegen.schema.EnumType
 
 data class BeEnumModel(
+    val entityName: NameCase,
     private val enumType: EnumType,
 ) {
     val enumId: EnumId = enumType.enumId

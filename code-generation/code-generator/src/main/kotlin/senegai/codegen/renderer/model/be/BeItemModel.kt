@@ -5,6 +5,7 @@ import senegai.codegen.schema.BuiltInType
 import senegai.codegen.schema.ItemId
 
 data class BeItemModel(
+    val entityName: NameCase,
     val itemDescription: BeItemDescriptionModel,
     val attributes: List<BeAttributeModel>,
 ) {
@@ -21,6 +22,9 @@ data class BeItemModel(
 
     val attributesWithEnumType: List<EnumBeAttributeModel> = attributes
         .filterIsInstance<EnumBeAttributeModel>()
+
+    val builtInAttributes: List<BuiltInTypeBeAttributeModel> = attributes
+        .filterIsInstance<BuiltInTypeBeAttributeModel>()
 
     val builtInTypeAndEnumAttributes: List<BeAttributeModel> = attributes
         .filter { it.isBuiltIn || it.isEnum }
