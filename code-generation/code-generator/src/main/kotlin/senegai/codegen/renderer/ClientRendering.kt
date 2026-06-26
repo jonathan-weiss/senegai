@@ -3,7 +3,6 @@ package senegai.codegen.renderer
 import senegai.codegen.renderer.angular.*
 import senegai.codegen.renderer.model.ui.UiEnumModel
 import senegai.codegen.renderer.model.ui.UiEntityModel
-import senegai.codegen.renderer.model.ui.UiEntityViewsModel
 import senegai.codegen.renderer.model.ui.UiItemModel
 import senegai.codegen.renderer.model.ui.UiModel
 import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewItemModel
@@ -12,7 +11,7 @@ import kotlin.io.path.createDirectories
 import kotlin.io.path.isDirectory
 import kotlin.io.path.writeText
 
-object Rendering {
+object ClientRendering {
 
     fun renderClientFiles(pathToGeneratedAngularFiles: Path, uiModel: UiModel) {
         val worker = RenderingWorker(pathToGeneratedAngularFiles)
