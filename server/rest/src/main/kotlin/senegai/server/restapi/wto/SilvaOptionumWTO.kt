@@ -1,4 +1,4 @@
-package senegai.server.restapi.opusmagnum.wto
+package senegai.server.restapi.wto
 
 import java.time.LocalDate
 

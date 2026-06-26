@@ -1,12 +1,12 @@
-package senegai.server.restapi
+package senegai.server.restapi.greeting
 
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
-import senegai.server.service.GreetingService
+import senegai.server.service.greeting.GreetingService
 
 /**
- * Example REST endpoint that delegates to the [GreetingService] in the service module.
+ * Example REST endpoint that delegates to the [senegai.server.service.greeting.GreetingService] in the service module.
  */
 @RestController
 class GreetingController(

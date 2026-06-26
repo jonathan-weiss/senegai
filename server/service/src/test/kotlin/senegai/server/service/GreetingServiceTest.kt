@@ -1,11 +1,13 @@
 package senegai.server.service
 
+import senegai.server.service.greeting.GreetingRepository
+import senegai.server.service.greeting.GreetingService
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class GreetingServiceTest {
 
-    /** Lightweight in-memory fake of the [GreetingRepository] port. */
+    /** Lightweight in-memory fake of the [senegai.server.service.greeting.GreetingRepository] port. */
     private class FakeGreetingRepository : GreetingRepository {
         val saved = mutableListOf<String>()
         override fun save(greeting: String) {

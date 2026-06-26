@@ -25,8 +25,9 @@
 package senegai.server.exampledata.opusmagnum
 
 import org.springframework.stereotype.Component
+import senegai.server.exampledata.bo.SilvaOptionumExampleDataCreator
 import senegai.server.service.opusmagnum.OpusMagnumRepository
-import senegai.server.service.opusmagnum.bo.SilvaOptionumBO
+import senegai.server.service.bo.SilvaOptionumBO
 
 /**
  * Orchestrates the creation of OpusMagnum example data.

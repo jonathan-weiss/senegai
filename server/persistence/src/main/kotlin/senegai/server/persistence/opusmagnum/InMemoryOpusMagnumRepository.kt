@@ -2,7 +2,7 @@ package senegai.server.persistence.opusmagnum
 
 import org.springframework.stereotype.Repository
 import senegai.server.service.opusmagnum.OpusMagnumRepository
-import senegai.server.service.opusmagnum.bo.SilvaOptionumBO
+import senegai.server.service.bo.SilvaOptionumBO
 import java.util.concurrent.ConcurrentHashMap
 
 /**

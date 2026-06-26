@@ -1,4 +1,4 @@
-package senegai.server.service.opusmagnum.bo
+package senegai.server.service.bo
 
 import java.time.LocalDate
 

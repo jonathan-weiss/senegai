@@ -1,4 +1,4 @@
-package senegai.server.service.opusmagnum.bo
+package senegai.server.service.bo
 
 /**
  * Business enum for the OpusMagnum context. Pure business representation,

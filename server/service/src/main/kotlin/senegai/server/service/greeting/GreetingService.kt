@@ -1,4 +1,4 @@
-package senegai.server.service
+package senegai.server.service.greeting
 
 import org.springframework.stereotype.Service
 

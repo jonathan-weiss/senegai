@@ -19,10 +19,10 @@
     @modify-provided-filename-by-replacements
 
 }}}@ */
-package senegai.server.exampledata.opusmagnum
+package senegai.server.exampledata.bo
 
 import org.springframework.stereotype.Component
-import senegai.server.service.opusmagnum.bo.SilvaOptionumBO
+import senegai.server.service.bo.SilvaOptionumBO
 
 /**
  * Creates example data for the business object [SilvaOptionumBO].

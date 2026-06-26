@@ -1,4 +1,4 @@
-package senegai.server.service
+package senegai.server.service.greeting
 
 /**
  * Port for persisting greetings. The implementation lives in the persistence module,

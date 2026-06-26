@@ -1,4 +1,4 @@
-package senegai.server.restapi.opusmagnum.wto
+package senegai.server.restapi.wto
 
 /**
  * WTO (Web Transfer Object) mirroring the Angular `ArticulusInteriorWTO` interface.

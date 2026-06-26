@@ -1,7 +1,7 @@
 package senegai.server.service.opusmagnum
 
 import org.springframework.stereotype.Service
-import senegai.server.service.opusmagnum.bo.SilvaOptionumBO
+import senegai.server.service.bo.SilvaOptionumBO
 import java.util.UUID
 
 /**

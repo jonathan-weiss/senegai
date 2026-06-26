@@ -20,10 +20,10 @@
     @modify-provided-filename-by-replacements
 
 }}}@ */
-package senegai.server.exampledata.opusmagnum
+package senegai.server.exampledata.bo
 
 import org.springframework.stereotype.Component
-import senegai.server.service.opusmagnum.bo.AppellatioComis
+import senegai.server.service.bo.AppellatioComis
 
 /**
  * Creates example data for the [AppellatioComis] business enum.

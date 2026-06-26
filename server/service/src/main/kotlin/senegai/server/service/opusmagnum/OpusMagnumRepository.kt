@@ -1,6 +1,6 @@
 package senegai.server.service.opusmagnum
 
-import senegai.server.service.opusmagnum.bo.SilvaOptionumBO
+import senegai.server.service.bo.SilvaOptionumBO
 
 /**
  * Port for persisting the OpusMagnum root object [SilvaOptionumBO]. The implementation
