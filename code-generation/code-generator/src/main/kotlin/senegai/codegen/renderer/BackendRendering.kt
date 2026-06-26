@@ -9,8 +9,12 @@ import senegai.codegen.renderer.be.EntityRepositoryRenderer
 import senegai.codegen.renderer.be.EntityServiceRenderer
 import senegai.codegen.renderer.be.EnumBORenderer
 import senegai.codegen.renderer.be.EnumExampleDataCreatorRenderer
+import senegai.codegen.renderer.be.EnumMapperRenderer
+import senegai.codegen.renderer.be.EnumWTORenderer
 import senegai.codegen.renderer.be.ItemBORenderer
 import senegai.codegen.renderer.be.ItemExampleDataCreatorRenderer
+import senegai.codegen.renderer.be.ItemMapperRenderer
+import senegai.codegen.renderer.be.ItemWTORenderer
 import senegai.codegen.renderer.model.be.BeEntityModel
 import senegai.codegen.renderer.model.be.BeEnumModel
 import senegai.codegen.renderer.model.be.BeItemModel
@@ -80,6 +84,8 @@ object BackendRendering {
             val itemRenderer: List<Pair<BeItemRenderer, Path>> = listOf(
                 ItemExampleDataCreatorRenderer to pathToGeneratedBackendExampleDataFiles,
                 ItemBORenderer to pathToGeneratedBackendServiceFiles,
+                ItemMapperRenderer to pathToGeneratedBackendRestFiles,
+                ItemWTORenderer to pathToGeneratedBackendRestFiles,
             )
 
             itemRenderer.forEach { (renderer, basePath) ->
@@ -94,6 +100,8 @@ object BackendRendering {
             val enumRenderer: List<Pair<BeEnumRenderer, Path>> = listOf(
                 EnumExampleDataCreatorRenderer to pathToGeneratedBackendExampleDataFiles,
                 EnumBORenderer to pathToGeneratedBackendServiceFiles,
+                EnumMapperRenderer to pathToGeneratedBackendRestFiles,
+                EnumWTORenderer to pathToGeneratedBackendRestFiles,
             )
 
             enumRenderer.forEach { (renderer, basePath) ->

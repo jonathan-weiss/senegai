@@ -31,12 +31,41 @@ sealed class BeAttributeModel(
      * e.g. `String`, `Int?`, `List<ArticulusInteriorBO>` or `List<AppellatioComis>?`.
      */
     val kotlinAttributeType: String
-        get() = calculateKotlinTypeWithCardinality()
+        get() = withKotlinCardinality(kotlinAttributeTypeAsString())
+
+    /**
+     * The Kotlin type of this attribute as used in the WTOs (transport layer), respecting its
+     * cardinality, e.g. `String`, `Int?`, `List<ArticulusInteriorWTO>` or `List<AppellatioComisEnum>?`.
+     */
+    val wtoAttributeType: String
+        get() = withKotlinCardinality(wtoAttributeTypeAsString())
+
+    /**
+     * The suffix that maps this attribute's WTO value to its BO value, respecting cardinality and
+     * nullability: e.g. `` (built-ins, identity), `.toBo()`, `?.toBo()`, `.map { it.toBo() }` or
+     * `?.map { it.toBo() }`.
+     */
+    val toBoMappingSuffix: String
+        get() = mappingSuffix("toBo")
+
+    /** The counterpart of [toBoMappingSuffix] mapping a BO value to its WTO value (`toWto`). */
+    val toWtoMappingSuffix: String
+        get() = mappingSuffix("toWto")
 
     protected abstract fun attributeTypeAsString(): String
 
     protected abstract fun kotlinAttributeTypeAsString(): String
 
+    protected abstract fun wtoAttributeTypeAsString(): String
+
+
+    private fun mappingSuffix(conversion: String): String = when {
+        isBuiltIn -> "" // built-in types are transported as-is, no conversion needed
+        !isList && !isNullable -> ".$conversion()"
+        !isList && isNullable -> "?.$conversion()"
+        isList && !isNullable -> ".map { it.$conversion() }"
+        else -> "?.map { it.$conversion() }"
+    }
 
     private fun calculateAttributeTypeWithCardinality(): String {
         val type = attributeTypeAsString()
@@ -48,14 +77,11 @@ sealed class BeAttributeModel(
         }
     }
 
-    private fun calculateKotlinTypeWithCardinality(): String {
-        val type = kotlinAttributeTypeAsString()
-        return when {
-            !isList && isNullable -> "$type?"
-            !isList && !isNullable -> type
-            isList && !isNullable -> "List<$type>"
-            else -> "List<$type>?"
-        }
+    private fun withKotlinCardinality(type: String): String = when {
+        !isList && isNullable -> "$type?"
+        !isList && !isNullable -> type
+        isList && !isNullable -> "List<$type>"
+        else -> "List<$type>?"
     }
 }
 
@@ -93,6 +119,9 @@ class BuiltInTypeBeAttributeModel(
             BuiltInType.NUMBER -> "Int"
             BuiltInType.BOOLEAN -> "Boolean"
         }
+
+    // built-in types are identical in the BO and WTO layers
+    override fun wtoAttributeTypeAsString(): String = kotlinAttributeTypeAsString()
 
     /**
      * A representative Kotlin example value literal for this attribute, respecting its cardinality.
@@ -157,6 +186,8 @@ class ItemBeIAttributeModel(
 
     override fun kotlinAttributeTypeAsString(): String = "${referencedItemTypeAsString()}BO"
 
+    override fun wtoAttributeTypeAsString(): String = "${referencedItemTypeAsString()}WTO"
+
     private fun referencedItemTypeAsString(): String = this.referencedItem.itemName.pascalCase
 }
 
@@ -190,6 +221,8 @@ class EnumBeAttributeModel(
     }
 
     override fun kotlinAttributeTypeAsString(): String = enumTypeAsString()
+
+    override fun wtoAttributeTypeAsString(): String = "${enumTypeAsString()}Enum"
 
     private fun enumTypeAsString(): String = this.enum.enumName.pascalCase
 
