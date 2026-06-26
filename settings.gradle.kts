@@ -46,9 +46,9 @@ dependencyResolutionManagement {
 }
 
 include("client")
-include("application")
+include("server:app")
 include("server:service")
-include("server:rest-api")
+include("server:rest")
 include("server:persistence")
 include("code-generation:renderer-creator")
 include("code-generation:code-generator")

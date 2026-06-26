@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":server:rest-api"))
+    implementation(project(":server:rest"))
     implementation(project(":server:persistence"))
 
     implementation("org.springframework.boot:spring-boot-starter-web")
