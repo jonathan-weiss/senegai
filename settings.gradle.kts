@@ -41,6 +41,7 @@ dependencyResolutionManagement {
 }
 
 include("client")
+include("server")
 include("code-generation:renderer-creator")
 include("code-generation:code-generator")
 include("code-generation:code-generator-data")
