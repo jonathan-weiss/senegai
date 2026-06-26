@@ -8,6 +8,11 @@ dependencyResolutionManagement {
             library("kotlin-stdlib", "org.jetbrains.kotlin", "kotlin-stdlib").versionRef(kotlinVersion)
             library("kotlin-reflect", "org.jetbrains.kotlin", "kotlin-reflect").versionRef(kotlinVersion)
             plugin("kotlin-jvm", "org.jetbrains.kotlin.jvm").versionRef(kotlinVersion)
+            plugin("kotlin-spring", "org.jetbrains.kotlin.plugin.spring").versionRef(kotlinVersion)
+
+            val springBootVersion = version("springBoot", "3.5.3")
+            plugin("spring-boot", "org.springframework.boot").versionRef(springBootVersion)
+            plugin("spring-dependency-management", "io.spring.dependency-management").version("1.1.7")
 
             val typicalTemplateVersion = version("typicalTemplate", "0.0.16")
             library("typicaltemplate-api", "org.codeblessing.typicaltemplate", "typical-template-api").versionRef(typicalTemplateVersion)
