@@ -50,7 +50,7 @@ object Rendering {
         }
 
         private fun renderNavigation(uiEntities: List<UiEntityModel>) {
-            val entityListRenderer = listOf(
+            val entityListRenderer: List<UiEntitiesRenderer> = listOf(
                 TypescriptItemsRoutingListRenderer,
                 TypescriptSideNavLinkListRenderer,
             )
