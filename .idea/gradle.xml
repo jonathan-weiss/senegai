@@ -27,6 +27,10 @@
             <option value="$PROJECT_DIR$/code-generation/code-generator-data" />
             <option value="$PROJECT_DIR$/code-generation/renderer-creator" />
             <option value="$PROJECT_DIR$/server" />
+            <option value="$PROJECT_DIR$/server/app" />
+            <option value="$PROJECT_DIR$/server/persistence" />
+            <option value="$PROJECT_DIR$/server/rest" />
+            <option value="$PROJECT_DIR$/server/service" />
           </set>
         </option>
       </GradleProjectSettings>

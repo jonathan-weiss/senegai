@@ -3,14 +3,14 @@ rootProject.name = "senegai"
 dependencyResolutionManagement {
     versionCatalogs {
         create("libs") {
-            val kotlinVersion = version("kotlin", "2.2.0")
+            val kotlinVersion = version("kotlin", "2.3.21")
 
             library("kotlin-stdlib", "org.jetbrains.kotlin", "kotlin-stdlib").versionRef(kotlinVersion)
             library("kotlin-reflect", "org.jetbrains.kotlin", "kotlin-reflect").versionRef(kotlinVersion)
             plugin("kotlin-jvm", "org.jetbrains.kotlin.jvm").versionRef(kotlinVersion)
             plugin("kotlin-spring", "org.jetbrains.kotlin.plugin.spring").versionRef(kotlinVersion)
 
-            val springBootVersion = version("springBoot", "3.5.3")
+            val springBootVersion = version("springBoot", "4.1.0")
             plugin("spring-boot", "org.springframework.boot").versionRef(springBootVersion)
             plugin("spring-dependency-management", "io.spring.dependency-management").version("1.1.7")
 
