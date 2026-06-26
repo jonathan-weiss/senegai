@@ -18,6 +18,6 @@ class ExampleDataInitializer(
     override fun run(vararg args: String) {
         logger.info("Created and persisted example data...")
         exampleDataCreator.createExampleData()
-        logger.info("Created and persisted example data.")
+        logger.info("Created and persisted example data. Done")
     }
 }
