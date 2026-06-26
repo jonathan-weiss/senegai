@@ -62,7 +62,7 @@ object BackendRendering {
 
         private fun renderEntity(beEntityModel: BeEntityModel) {
             val entityRenderer: List<Pair<BeEntityRenderer, Path>> = listOf(
-                //EntityExampleDataCreatorRenderer to pathToGeneratedBackendExampleDataFiles,
+                EntityExampleDataCreatorRenderer to pathToGeneratedBackendExampleDataFiles,
                 EntityRepositoryRenderer to pathToGeneratedBackendServiceFiles,
                 EntityServiceRenderer to pathToGeneratedBackendServiceFiles,
                 EntityInMemoryRepositoryRenderer to pathToGeneratedBackendPersistenceFiles,
@@ -78,7 +78,7 @@ object BackendRendering {
 
         private fun renderItem(beItemModel: BeItemModel) {
             val itemRenderer: List<Pair<BeItemRenderer, Path>> = listOf(
-                //ItemExampleDataCreatorRenderer to pathToGeneratedBackendExampleDataFiles,
+                ItemExampleDataCreatorRenderer to pathToGeneratedBackendExampleDataFiles,
                 ItemBORenderer to pathToGeneratedBackendServiceFiles,
             )
 
@@ -92,7 +92,7 @@ object BackendRendering {
 
         private fun renderEnum(beEnumModel: BeEnumModel) {
             val enumRenderer: List<Pair<BeEnumRenderer, Path>> = listOf(
-                //EnumExampleDataCreatorRenderer to pathToGeneratedBackendExampleDataFiles,
+                EnumExampleDataCreatorRenderer to pathToGeneratedBackendExampleDataFiles,
                 EnumBORenderer to pathToGeneratedBackendServiceFiles,
             )
 

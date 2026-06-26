@@ -19,9 +19,10 @@ object EntityExampleDataCreatorRenderer : BeEntityRenderer {
           |package senegai.server.exampledata.${model.entityName.lowerCase}
           |
           |import org.springframework.stereotype.Component
+          |import senegai.server.exampledata.ExampleDataCreator
           |import senegai.server.exampledata.bo.${model.entityRootItem.itemName.pascalCase}ExampleDataCreator
-          |import senegai.server.service.${model.entityName.lowerCase}.${model.entityName.pascalCase}Repository
           |import senegai.server.service.bo.${model.entityRootItem.itemName.pascalCase}BO
+          |import senegai.server.service.${model.entityName.lowerCase}.${model.entityName.pascalCase}Repository
           |
           |/**
           | * Orchestrates the creation of ${model.entityName.pascalCase} example data.
@@ -33,15 +34,16 @@ object EntityExampleDataCreatorRenderer : BeEntityRenderer {
           |class ${model.entityName.pascalCase}ExampleDataCreator(
           |    private val ${model.entityRootItem.itemName.camelCase}ExampleDataCreator: ${model.entityRootItem.itemName.pascalCase}ExampleDataCreator,
           |    private val ${model.entityName.camelCase}Repository: ${model.entityName.pascalCase}Repository,
-          |) {
+          |): ExampleDataCreator {
           |
           |    /**
           |     * Creates the example [${model.entityRootItem.itemName.pascalCase}BO] aggregates, writes each of them to the
           |     * persistence via the [${model.entityName.pascalCase}Repository] and returns the persisted list.
           |     */
-          |    fun createExampleData(): List<${model.entityRootItem.itemName.pascalCase}BO> =
+          |    override fun createExampleData() {
           |        ${model.entityRootItem.itemName.camelCase}ExampleDataCreator.createList()
-          |            .map { ${model.entityName.camelCase}Repository.save(it) }
+          |            .forEach { ${model.entityName.camelCase}Repository.save(it) }
+          |    }
           |}
           |
         """.trimMargin(marginPrefix = "|")
