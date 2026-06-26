@@ -19,8 +19,9 @@ object EntityExampleDataCreatorRenderer : BeEntityRenderer {
           |package senegai.server.exampledata.${model.entityName.lowerCase}
           |
           |import org.springframework.stereotype.Component
+          |import senegai.server.exampledata.bo.${model.entityRootItem.itemName.pascalCase}ExampleDataCreator
           |import senegai.server.service.${model.entityName.lowerCase}.${model.entityName.pascalCase}Repository
-          |import senegai.server.service.${model.entityName.lowerCase}.bo.${model.entityRootItem.itemName.pascalCase}BO
+          |import senegai.server.service.bo.${model.entityRootItem.itemName.pascalCase}BO
           |
           |/**
           | * Orchestrates the creation of ${model.entityName.pascalCase} example data.

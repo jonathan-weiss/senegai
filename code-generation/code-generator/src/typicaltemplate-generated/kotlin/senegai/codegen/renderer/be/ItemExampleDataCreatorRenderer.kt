@@ -10,16 +10,16 @@ import senegai.codegen.renderer.model.be.BeItemModel
  *
  * This template renderer was generated from the template:
  * - file: `SilvaOptionumExampleDataCreator.kt`
- * - path: `senegai/server/exampledata/opusmagnum/SilvaOptionumExampleDataCreator.kt`
+ * - path: `senegai/server/exampledata/bo/SilvaOptionumExampleDataCreator.kt`
  */
 object ItemExampleDataCreatorRenderer : BeItemRenderer {
 
     override fun renderTemplate(model: BeItemModel): String {
         return """
-          |package senegai.server.exampledata.${model.entityName.lowerCase}
+          |package senegai.server.exampledata.bo
           |
           |import org.springframework.stereotype.Component
-          |import senegai.server.service.${model.entityName.lowerCase}.bo.${model.itemName.pascalCase}BO
+          |import senegai.server.service.bo.${model.itemName.pascalCase}BO
           |
           |/**
           | * Creates example data for the business object [${model.itemName.pascalCase}BO].
@@ -52,6 +52,6 @@ object ItemExampleDataCreatorRenderer : BeItemRenderer {
     }
 
     override fun filePath(model: BeItemModel): String {
-      return "senegai/server/exampledata/${model.entityName.lowerCase}/${model.itemName.pascalCase}ExampleDataCreator.kt"
+      return "senegai/server/exampledata/bo/${model.itemName.pascalCase}ExampleDataCreator.kt"
     }
 }

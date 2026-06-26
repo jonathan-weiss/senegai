@@ -10,16 +10,16 @@ import senegai.codegen.renderer.model.be.BeEnumModel
  *
  * This template renderer was generated from the template:
  * - file: `AppellatioComisExampleDataCreator.kt`
- * - path: `senegai/server/exampledata/opusmagnum/AppellatioComisExampleDataCreator.kt`
+ * - path: `senegai/server/exampledata/bo/AppellatioComisExampleDataCreator.kt`
  */
 object EnumExampleDataCreatorRenderer : BeEnumRenderer {
 
     override fun renderTemplate(model: BeEnumModel): String {
         return """
-          |package senegai.server.exampledata.${model.entityName.lowerCase}
+          |package senegai.server.exampledata.bo
           |
           |import org.springframework.stereotype.Component
-          |import senegai.server.service.${model.entityName.lowerCase}.bo.${model.enumName.pascalCase}
+          |import senegai.server.service.bo.${model.enumName.pascalCase}
           |
           |/**
           | * Creates example data for the [${model.enumName.pascalCase}] business enum.
@@ -38,6 +38,6 @@ object EnumExampleDataCreatorRenderer : BeEnumRenderer {
     }
 
     override fun filePath(model: BeEnumModel): String {
-      return "senegai/server/exampledata/${model.entityName.lowerCase}/${model.enumName.pascalCase}ExampleDataCreator.kt"
+      return "senegai/server/exampledata/bo/${model.enumName.pascalCase}ExampleDataCreator.kt"
     }
 }

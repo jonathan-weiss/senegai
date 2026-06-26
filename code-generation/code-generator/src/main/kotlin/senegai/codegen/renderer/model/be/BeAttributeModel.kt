@@ -26,7 +26,16 @@ sealed class BeAttributeModel(
     val typescriptAttributeType: String
         get() = calculateAttributeTypeWithCardinality()
 
+    /**
+     * The Kotlin type of this attribute as used in the business objects, respecting its cardinality,
+     * e.g. `String`, `Int?`, `List<ArticulusInteriorBO>` or `List<AppellatioComis>?`.
+     */
+    val kotlinAttributeType: String
+        get() = calculateKotlinTypeWithCardinality()
+
     protected abstract fun attributeTypeAsString(): String
+
+    protected abstract fun kotlinAttributeTypeAsString(): String
 
 
     private fun calculateAttributeTypeWithCardinality(): String {
@@ -36,6 +45,16 @@ sealed class BeAttributeModel(
             !isList && !isNullable -> type
             isList && !isNullable -> "Array<$type>"
             else -> "Array<$type> | null"
+        }
+    }
+
+    private fun calculateKotlinTypeWithCardinality(): String {
+        val type = kotlinAttributeTypeAsString()
+        return when {
+            !isList && isNullable -> "$type?"
+            !isList && !isNullable -> type
+            isList && !isNullable -> "List<$type>"
+            else -> "List<$type>?"
         }
     }
 }
@@ -67,6 +86,13 @@ class BuiltInTypeBeAttributeModel(
     override fun attributeTypeAsString(): String {
         return builtInTypeAsString()
     }
+
+    override fun kotlinAttributeTypeAsString(): String =
+        when (builtInType) {
+            BuiltInType.STRING -> "String"
+            BuiltInType.NUMBER -> "Int"
+            BuiltInType.BOOLEAN -> "Boolean"
+        }
 
     /**
      * A representative Kotlin example value literal for this attribute, respecting its cardinality.
@@ -129,6 +155,8 @@ class ItemBeIAttributeModel(
         return "${referencedItemTypeAsString()}WTO"
     }
 
+    override fun kotlinAttributeTypeAsString(): String = "${referencedItemTypeAsString()}BO"
+
     private fun referencedItemTypeAsString(): String = this.referencedItem.itemName.pascalCase
 }
 
@@ -160,6 +188,8 @@ class EnumBeAttributeModel(
     override fun attributeTypeAsString(): String {
         return enumTypeAsString()
     }
+
+    override fun kotlinAttributeTypeAsString(): String = enumTypeAsString()
 
     private fun enumTypeAsString(): String = this.enum.enumName.pascalCase
 
