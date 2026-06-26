@@ -3,6 +3,13 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="21" />
   </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="senegai.server" options="-parameters" />
+      <module name="senegai.server.main" options="-parameters" />
+      <module name="senegai.server.test" options="-parameters" />
+    </option>
+  </component>
   <component name="TypeScriptCompiler">
     <option name="memoryLimit" value="5120" />
     <option name="useTypesFromServer" value="true" />
