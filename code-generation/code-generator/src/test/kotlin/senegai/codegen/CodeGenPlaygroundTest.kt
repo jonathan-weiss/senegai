@@ -19,6 +19,13 @@ class CodeGenPlaygroundTest {
         val schemaData = fetchSchemaData()
         val schemaModel = convertToSchemaModel(schemaData)
         assertTrue(schemaModel.uiModel.uiEntities.isNotEmpty())
+        assertTrue(schemaModel.uiModel.uiEnums.isNotEmpty())
+        assertTrue(schemaModel.uiModel.uiItems.isNotEmpty())
+        assertTrue(schemaModel.uiModel.uiEntitiesViews.isNotEmpty())
+
+        assertTrue(schemaModel.beModel.entities.isNotEmpty())
+        assertTrue(schemaModel.beModel.items.isNotEmpty())
+        assertTrue(schemaModel.beModel.enums.isNotEmpty())
     }
 
 }
