@@ -4,6 +4,7 @@ import senegai.codegen.renderer.be.BeEntityRenderer
 import senegai.codegen.renderer.be.BeEnumRenderer
 import senegai.codegen.renderer.be.BeItemRenderer
 import senegai.codegen.renderer.be.EntityExampleDataCreatorRenderer
+import senegai.codegen.renderer.be.EntityInMemoryRepositoryRenderer
 import senegai.codegen.renderer.be.EntityRepositoryRenderer
 import senegai.codegen.renderer.be.EntityServiceRenderer
 import senegai.codegen.renderer.be.EnumBORenderer
@@ -64,6 +65,7 @@ object BackendRendering {
                 //EntityExampleDataCreatorRenderer to pathToGeneratedBackendExampleDataFiles,
                 EntityRepositoryRenderer to pathToGeneratedBackendServiceFiles,
                 EntityServiceRenderer to pathToGeneratedBackendServiceFiles,
+                EntityInMemoryRepositoryRenderer to pathToGeneratedBackendPersistenceFiles,
             )
 
             entityRenderer.forEach { (renderer, basePath) ->
