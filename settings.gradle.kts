@@ -48,6 +48,7 @@ dependencyResolutionManagement {
 include("client")
 include("server:app")
 include("server:service")
+include("server:example-data")
 include("server:rest")
 include("server:persistence")
 include("code-generation:renderer-creator")

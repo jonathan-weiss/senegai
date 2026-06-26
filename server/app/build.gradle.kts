@@ -15,6 +15,8 @@ java {
 dependencies {
     implementation(project(":server:rest"))
     implementation(project(":server:persistence"))
+    implementation(project(":server:example-data"))
+    implementation(project(":server:service"))
 
     implementation("org.springframework.boot:spring-boot-starter-webmvc")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
