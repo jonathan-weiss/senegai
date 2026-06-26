@@ -46,7 +46,7 @@ dependencyResolutionManagement {
 }
 
 include("client")
-include("server")
+include("application")
 include("server:service")
 include("server:rest-api")
 include("server:persistence")
