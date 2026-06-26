@@ -4,6 +4,8 @@ import senegai.codegen.renderer.be.BeEntityRenderer
 import senegai.codegen.renderer.be.BeEnumRenderer
 import senegai.codegen.renderer.be.BeItemRenderer
 import senegai.codegen.renderer.be.EntityExampleDataCreatorRenderer
+import senegai.codegen.renderer.be.EntityRepositoryRenderer
+import senegai.codegen.renderer.be.EntityServiceRenderer
 import senegai.codegen.renderer.be.EnumBORenderer
 import senegai.codegen.renderer.be.EnumExampleDataCreatorRenderer
 import senegai.codegen.renderer.be.ItemBORenderer
@@ -60,6 +62,8 @@ object BackendRendering {
         private fun renderEntity(beEntityModel: BeEntityModel) {
             val entityRenderer: List<Pair<BeEntityRenderer, Path>> = listOf(
                 //EntityExampleDataCreatorRenderer to pathToGeneratedBackendExampleDataFiles,
+                EntityRepositoryRenderer to pathToGeneratedBackendServiceFiles,
+                EntityServiceRenderer to pathToGeneratedBackendServiceFiles,
             )
 
             entityRenderer.forEach { (renderer, basePath) ->

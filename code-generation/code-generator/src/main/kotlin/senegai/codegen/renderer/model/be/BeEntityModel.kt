@@ -7,4 +7,6 @@ data class BeEntityModel(
     val entityRootItem: BeItemModel,
     val entityItemModels: List<BeItemModel>,
     val entityEnumTypes: List<BeEnumModel>,
-)
+) {
+    val idAttribute: BeAttributeModel = entityRootItem.attributes.first() // TODO make configurable
+}
