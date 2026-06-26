@@ -2,3 +2,4 @@
 build
 **/build
 *.todo.txt
+COMMAND-REFERENCE.md

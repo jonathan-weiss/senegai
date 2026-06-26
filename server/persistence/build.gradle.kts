@@ -13,6 +13,12 @@ dependencyManagement {
     }
 }
 
+val directoryForGeneratedSource = "src/generated/kotlin"
+
+kotlin {
+    sourceSets["main"].kotlin.srcDir(directoryForGeneratedSource)
+}
+
 dependencies {
     implementation(project(":server:service"))
 
