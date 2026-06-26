@@ -20,8 +20,12 @@ tasks.test {
 
 val directoryForGeneratedTemplateRenderer = "src/typicaltemplate-generated/kotlin"
 val directoryForManualTemplateRenderer = "src/typicaltemplate-manual/kotlin"
-val pathToAngularProject: File = project(":client").projectDir
-val directoryForAngularGeneratedSource = pathToAngularProject.resolve("src/app-generated")
+
+val directoryForAngularGeneratedSource = project(":client").projectDir.resolve("src/app-generated")
+val directoryForExampleDataGeneratedSource = project(":server:example-data").projectDir.resolve("src/generated/kotlin")
+val directoryForPersistenceGeneratedSource = project(":server:persistence").projectDir.resolve("src/generated/kotlin")
+val directoryForRestGeneratedSource = project(":server:rest").projectDir.resolve("src/generated/kotlin")
+val directoryForServiceGeneratedSource = project(":server:service").projectDir.resolve("src/generated/kotlin")
 
 kotlin {
     sourceSets["main"].kotlin.srcDir(directoryForGeneratedTemplateRenderer)
@@ -34,11 +38,21 @@ tasks.register<JavaExec>("codegen") {
 
     args(
         directoryForAngularGeneratedSource,
+        directoryForServiceGeneratedSource,
+        directoryForRestGeneratedSource,
+        directoryForPersistenceGeneratedSource,
+        directoryForExampleDataGeneratedSource,
     )
 
     dependsOn("cleanCodegen")
 }
 
 tasks.register<Delete>("cleanCodegen") {
-    delete(directoryForAngularGeneratedSource)
+    delete(
+        directoryForAngularGeneratedSource,
+        directoryForExampleDataGeneratedSource,
+        directoryForPersistenceGeneratedSource,
+        directoryForRestGeneratedSource,
+        directoryForServiceGeneratedSource,
+    )
 }
