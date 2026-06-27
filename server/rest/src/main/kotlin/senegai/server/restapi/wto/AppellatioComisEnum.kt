@@ -15,7 +15,7 @@
     @replace-value-by-expression
         [ searchValue="AppellatioComis" replaceByExpression="model.enumName.pascalCase" ]
 
-    @modify-provided-filename-by-replacements
+    @modify-provided-filepath-by-replacements
 
 }}}@ */
 package senegai.server.restapi.wto

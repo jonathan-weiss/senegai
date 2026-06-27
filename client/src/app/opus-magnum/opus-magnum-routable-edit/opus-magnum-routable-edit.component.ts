@@ -25,7 +25,7 @@
     @replace-value-by-expression
         [ searchValue="indexUnicus" replaceByExpression="model.idAttribute.attributeName.camelCase" ]
 
-    @modify-provided-filename-by-replacements
+    @modify-provided-filepath-by-replacements
 
     
 

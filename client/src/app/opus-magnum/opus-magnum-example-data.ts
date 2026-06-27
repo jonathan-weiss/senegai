@@ -22,7 +22,7 @@
         [ searchValue="silva-optionum" replaceByExpression="model.entityRootItem.itemName.kebabCase" ]
         [ searchValue="SILVA_OTIONUM" replaceByExpression="model.entityRootItem.itemName.screamingSnakeCase" ]
 
-    @modify-provided-filename-by-replacements
+    @modify-provided-filepath-by-replacements
 
 
 
@@ -67,7 +67,7 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
             modelName="entityModel"
         ]
         @print-text [text="        "]
-        @modify-provided-filename-by-replacements
+        @modify-provided-filepath-by-replacements
 
     }}}@  */
     {

@@ -19,7 +19,7 @@
         [ searchValue="silvaOptionum" replaceByExpression="model.entityRootItem.itemName.camelCase" ]
         [ searchValue="opusmagnum" replaceByExpression="model.entityName.lowerCase" ]
 
-    @modify-provided-filename-by-replacements
+    @modify-provided-filepath-by-replacements
 
 }}}@ */
 package senegai.server.exampledata.opusmagnum

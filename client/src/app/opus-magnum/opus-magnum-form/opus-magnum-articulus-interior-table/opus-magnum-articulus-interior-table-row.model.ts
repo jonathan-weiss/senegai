@@ -22,7 +22,7 @@
         [ searchValue="OpusMagnum" replaceByExpression="model.entity.entityName.pascalCase" ]
         [ searchValue="opusMagnum" replaceByExpression="model.entity.entityName.camelCase" ]
 
-    @modify-provided-filename-by-replacements
+    @modify-provided-filepath-by-replacements
 
     
 

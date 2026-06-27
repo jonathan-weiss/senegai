@@ -17,7 +17,7 @@
 /* @tt{{{
     @replace-value-by-value
         [ searchValue="app-opus-magnum-routing.ts" replaceByValue="generated-routes.ts" ]
-    @modify-provided-filename-by-replacements
+    @modify-provided-filepath-by-replacements
     @end-replace-value-by-value
 }}}@  */
 

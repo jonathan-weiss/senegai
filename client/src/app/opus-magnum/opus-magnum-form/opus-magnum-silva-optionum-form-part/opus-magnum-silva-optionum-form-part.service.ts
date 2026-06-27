@@ -21,7 +21,7 @@
         [ searchValue="SilvaOptionum" replaceByExpression="model.item.itemName.pascalCase" ]
         [ searchValue="silvaOptionum" replaceByExpression="model.item.itemName.camelCase" ]
 
-    @modify-provided-filename-by-replacements
+    @modify-provided-filepath-by-replacements
 
     
 

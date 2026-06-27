@@ -14,7 +14,7 @@ dependencyResolutionManagement {
             plugin("spring-boot", "org.springframework.boot").versionRef(springBootVersion)
             plugin("spring-dependency-management", "io.spring.dependency-management").version("1.1.7")
 
-            val typicalTemplateVersion = version("typicalTemplate", "0.0.16")
+            val typicalTemplateVersion = version("typicalTemplate", "0.0.17")
             library("typicaltemplate-api", "org.codeblessing.typicaltemplate", "typical-template-api").versionRef(typicalTemplateVersion)
             library("typicaltemplate", "org.codeblessing.typicaltemplate", "typical-template").versionRef(typicalTemplateVersion)
 

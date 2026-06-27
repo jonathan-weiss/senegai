@@ -16,7 +16,7 @@
         [ searchValue="SilvaOptionum" replaceByExpression="model.itemName.pascalCase" ]
         [ searchValue="opusmagnum" replaceByExpression="model.entityName.lowerCase" ]
 
-    @modify-provided-filename-by-replacements
+    @modify-provided-filepath-by-replacements
 
 }}}@ */
 package senegai.server.exampledata.bo

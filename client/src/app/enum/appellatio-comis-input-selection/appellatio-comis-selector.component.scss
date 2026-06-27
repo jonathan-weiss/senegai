@@ -18,7 +18,7 @@
         [ searchValue="appellatioComis" replaceByExpression="model.enumName.camelCase" ]
         [ searchValue="appellatio-comis" replaceByExpression="model.enumName.kebabCase" ]
 
-    @modify-provided-filename-by-replacements
+    @modify-provided-filepath-by-replacements
 
 
 }}}@ */
