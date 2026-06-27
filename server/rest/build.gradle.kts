@@ -26,4 +26,6 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     // Required so Jackson can (de)serialize the Kotlin data class WTOs from request bodies.
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.3")
 }
