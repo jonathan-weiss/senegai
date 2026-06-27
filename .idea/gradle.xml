@@ -28,6 +28,7 @@
             <option value="$PROJECT_DIR$/code-generation/renderer-creator" />
             <option value="$PROJECT_DIR$/server" />
             <option value="$PROJECT_DIR$/server/app" />
+            <option value="$PROJECT_DIR$/server/example-data" />
             <option value="$PROJECT_DIR$/server/persistence" />
             <option value="$PROJECT_DIR$/server/rest" />
             <option value="$PROJECT_DIR$/server/service" />
