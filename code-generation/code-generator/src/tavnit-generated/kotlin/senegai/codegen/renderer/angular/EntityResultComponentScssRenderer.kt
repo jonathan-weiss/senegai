@@ -1,0 +1,54 @@
+/*
+ * This file is generated using tavnit.
+ */
+package senegai.codegen.renderer.angular
+
+import senegai.codegen.renderer.model.ui.UiEntityModel
+
+/**
+ * Generate the content for the template `EntityResultComponentScssRenderer`.
+ *
+ * This template renderer was generated from the template:
+ * - file: `opus-magnum-result.component.scss`
+ * - path: `opus-magnum/opus-magnum-result/opus-magnum-result.component.scss`
+ */
+object EntityResultComponentScssRenderer : UiEntityRenderer {
+
+    override fun renderTemplate(model: UiEntityModel): String {
+        return """
+          |.${model.entityName.kebabCase}-table-container {
+          |  padding: 20px;
+          |
+          |  .${model.entityName.kebabCase}-result-actions {
+          |    display: flex;
+          |    justify-content: flex-end;
+          |    margin-bottom: 16px;
+          |
+          |    mat-icon {
+          |      margin-right: 8px;
+          |    }
+          |  }
+          |
+          |  table {
+          |    width: 100%;
+          |  }
+          |
+          |  th.mat-header-cell {
+          |    font-weight: bold;
+          |    color: rgba(0, 0, 0, 0.87);
+          |  }
+          |
+          |  .mat-elevation-z8 {
+          |    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2),
+          |    0 8px 10px 1px rgba(0, 0, 0, .14),
+          |    0 3px 14px 2px rgba(0, 0, 0, .12);
+          |  }
+          |} 
+          |
+        """.trimMargin(marginPrefix = "|")
+    }
+
+    override fun filePath(model: UiEntityModel): String {
+      return "${model.entityName.kebabCase}/${model.entityName.kebabCase}-result/${model.entityName.kebabCase}-result.component.scss"
+    }
+}

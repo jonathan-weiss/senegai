@@ -1,0 +1,36 @@
+/*
+ * This file is generated using tavnit.
+ */
+package senegai.codegen.renderer.angular
+
+import senegai.codegen.renderer.model.ui.UiEntityModel
+
+/**
+ * Generate the content for the template `EntityConfirmDeleteDialogComponentHtmlRenderer`.
+ *
+ * This template renderer was generated from the template:
+ * - file: `opus-magnum-confirm-delete-dialog.component.html`
+ * - path: `opus-magnum/opus-magnum-confirm-delete-dialog/opus-magnum-confirm-delete-dialog.component.html`
+ */
+object EntityConfirmDeleteDialogComponentHtmlRenderer : UiEntityRenderer {
+
+    override fun renderTemplate(model: UiEntityModel): String {
+        return """
+          |<h2 mat-dialog-title>Delete ${model.entityName.pascalCase}</h2>
+          |<mat-dialog-content><ng-container>Are you sure you want to delete this entity?</ng-container> <br />
+          |    <b>
+          |    {{ data.entity | json }}
+          |    </b>
+          |</mat-dialog-content>
+          |<mat-dialog-actions align="end">
+          |    <button mat-button (click)="onCancel()">Cancel</button>
+          |    <button mat-raised-button color="warn" (click)="onConfirm()">OK</button>
+          |</mat-dialog-actions>
+          |
+        """.trimMargin(marginPrefix = "|")
+    }
+
+    override fun filePath(model: UiEntityModel): String {
+      return "${model.entityName.kebabCase}/${model.entityName.kebabCase}-confirm-delete-dialog/${model.entityName.kebabCase}-confirm-delete-dialog.component.html"
+    }
+}

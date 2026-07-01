@@ -18,8 +18,8 @@ tasks.test {
     useJUnitPlatform()
 }
 
-val directoryForGeneratedTemplateRenderer = "src/typicaltemplate-generated/kotlin"
-val directoryForManualTemplateRenderer = "src/typicaltemplate-manual/kotlin"
+val directoryForGeneratedTemplateRenderer = "src/tavnit-generated/kotlin"
+val directoryForManualTemplateRenderer = "src/tavnit-manual/kotlin"
 
 val angularClientProjectPath = project(":client").projectDir
 val serverRestProjectPath = project(":server:rest").projectDir

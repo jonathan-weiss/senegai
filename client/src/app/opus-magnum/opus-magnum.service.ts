@@ -47,7 +47,7 @@ export class OpusMagnumService {
      * {@link SILVA_OTIONUM_EXAMPLE_DATA} constant; when `false` it calls the Spring Boot
      * REST API at {@link baseUrl}. Flip to `false` to consume the real backend.
      */
-    private readonly useExampleData = false;
+    private readonly useExampleData = true;
     private readonly baseUrl = 'http://localhost:8080/api/opus-magnum';
 
     private silvaOptionumList: SilvaOptionumWTO[] = []

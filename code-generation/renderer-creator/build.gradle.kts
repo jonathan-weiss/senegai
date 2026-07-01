@@ -4,13 +4,13 @@ plugins {
 }
 
 dependencies {
-    implementation(libs.typicaltemplate.api)
-    runtimeOnly(libs.typicaltemplate)
+    implementation(libs.tavnit.api)
+    runtimeOnly(libs.tavnit)
 }
 
-val targetDirectoryForTemplateRenderer = project(":code-generation:code-generator").projectDir.resolve("src/typicaltemplate-generated/kotlin")
+val targetDirectoryForTemplateRenderer = project(":code-generation:code-generator").projectDir.resolve("src/tavnit-generated/kotlin")
 
-tasks.register<JavaExec>("createTypicalTemplateRenderers") {
+tasks.register<JavaExec>("createTavnitRenderers") {
     val angularClientProjectPath = project(":client").projectDir
     val serverServiceProjectPath = project(":server:service").projectDir
     val serverRestProjectPath = project(":server:rest").projectDir
@@ -18,7 +18,7 @@ tasks.register<JavaExec>("createTypicalTemplateRenderers") {
     val serverExampleDataProjectPath = project(":server:example-data").projectDir
 
     classpath = sourceSets.main.get().runtimeClasspath
-    mainClass.set("senegai.codegen.renderercreator.TypicalTemplateRendererCreatorKt")
+    mainClass.set("senegai.codegen.renderercreator.TavnitRendererCreatorKt")
 
     args(
         targetDirectoryForTemplateRenderer.absolutePath,
