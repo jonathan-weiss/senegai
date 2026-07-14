@@ -14,7 +14,7 @@ dependencyResolutionManagement {
             plugin("spring-boot", "org.springframework.boot").versionRef(springBootVersion)
             plugin("spring-dependency-management", "io.spring.dependency-management").version("1.1.7")
 
-            val tavnitVersion = version("tavnit", "0.0.19")
+            val tavnitVersion = version("tavnit", "1.0.0")
             library("tavnit-api", "org.codeblessing.tavnit", "tavnit-api").versionRef(tavnitVersion)
             library("tavnit", "org.codeblessing.tavnit", "tavnit").versionRef(tavnitVersion)
 
