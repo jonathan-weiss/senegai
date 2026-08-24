@@ -1,4 +1,4 @@
-package senegai.server.exampledata.datafaker
+package senegai.server.exampledata.framework.datafaker
 
 import net.datafaker.Faker
 import org.springframework.stereotype.Service

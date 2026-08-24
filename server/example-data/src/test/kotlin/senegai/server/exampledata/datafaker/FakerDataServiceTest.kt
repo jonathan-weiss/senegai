@@ -2,8 +2,8 @@ package senegai.server.exampledata
 
 import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Test
-import senegai.server.exampledata.datafaker.FakerDataService
-import senegai.server.exampledata.datafaker.TextFakeDataCategory
+import senegai.server.exampledata.framework.datafaker.FakerDataService
+import senegai.server.exampledata.framework.datafaker.TextFakeDataCategory
 
 class FakerDataServiceTest {
 

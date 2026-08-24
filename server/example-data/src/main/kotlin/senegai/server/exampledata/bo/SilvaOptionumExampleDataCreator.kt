@@ -22,7 +22,9 @@
 package senegai.server.exampledata.bo
 
 import org.springframework.stereotype.Component
-import senegai.server.exampledata.datagenerator.* // let this be a star import to support further data generators
+import senegai.server.exampledata.framework.datagenerator.RandomBooleanDataGenerator
+import senegai.server.exampledata.framework.datagenerator.RandomNumberDataGenerator
+import senegai.server.exampledata.framework.datagenerator.RandomStringDataGenerator
 import senegai.server.service.bo.SilvaOptionumBO
 
 /**

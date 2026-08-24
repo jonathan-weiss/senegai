@@ -1,4 +1,4 @@
-package senegai.server.exampledata.datafaker
+package senegai.server.exampledata.framework.datafaker
 
 enum class NumberFakeDataCategory {
     POSITIVE_NUMBER,

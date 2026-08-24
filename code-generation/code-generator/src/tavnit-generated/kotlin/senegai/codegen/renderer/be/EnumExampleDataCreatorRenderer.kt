@@ -19,7 +19,7 @@ object EnumExampleDataCreatorRenderer : BeEnumRenderer {
           |package senegai.server.exampledata.bo
           |
           |import org.springframework.stereotype.Component
-          |import senegai.server.exampledata.datagenerator.RandomEnumValueDataGenerator
+          |import senegai.server.exampledata.framework.datagenerator.RandomEnumValueDataGenerator
           |import senegai.server.service.bo.${model.enumName.pascalCase}
           |
           |/**

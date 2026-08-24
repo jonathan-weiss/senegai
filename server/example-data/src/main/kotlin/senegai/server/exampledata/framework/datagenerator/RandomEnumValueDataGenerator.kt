@@ -1,4 +1,4 @@
-package senegai.server.exampledata.datagenerator
+package senegai.server.exampledata.framework.datagenerator
 
 import org.springframework.stereotype.Component
 import kotlin.reflect.KClass

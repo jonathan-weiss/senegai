@@ -9,7 +9,7 @@ data class BeExampleDataGeneratorConfig(
 
     val exampleDataGeneratorClassName: String = "${generatorNamePrefix.capitalize()}DataGenerator"
 
-    val exampleDataGeneratorPackageName: String = "senegai.server.exampledata.datagenerator"
+    val exampleDataGeneratorPackageName: String = "senegai.server.exampledata.framework.datagenerator"
 
     val fullQualifiedName: String = "${exampleDataGeneratorPackageName}.${exampleDataGeneratorClassName}"
 
