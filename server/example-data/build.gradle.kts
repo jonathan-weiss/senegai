@@ -23,6 +23,7 @@ dependencies {
     implementation(project(":server:service"))
 
     implementation("org.springframework:spring-context")
+    implementation(libs.datafaker)
 
     testImplementation(kotlin("test"))
 }

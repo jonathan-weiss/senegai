@@ -7,6 +7,7 @@ dependencyResolutionManagement {
             val springBootVersion = version("springBoot", "4.1.0")
             val tavnitVersion = version("tavnit", "1.0.0")
             val sourceAmazingVersion = version("sourceAmazing", "4.0.0")
+            val datafakerVersion = version("datafaker", "2.7.0")
 
             library("kotlin-stdlib", "org.jetbrains.kotlin", "kotlin-stdlib").versionRef(kotlinVersion)
             library("kotlin-reflect", "org.jetbrains.kotlin", "kotlin-reflect").versionRef(kotlinVersion)
@@ -41,6 +42,8 @@ dependencyResolutionManagement {
                 "org.codeblessing.sourceamazing",
                 "sourceamazing-xml-schema",
             ).versionRef(sourceAmazingVersion)
+
+            library("datafaker", "net.datafaker", "datafaker").versionRef(datafakerVersion)
         }
     }
 }
