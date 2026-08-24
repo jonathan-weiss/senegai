@@ -19,19 +19,22 @@ object EnumExampleDataCreatorRenderer : BeEnumRenderer {
           |package senegai.server.exampledata.bo
           |
           |import org.springframework.stereotype.Component
+          |import senegai.server.exampledata.datagenerator.RandomEnumValueDataGenerator
           |import senegai.server.service.bo.${model.enumName.pascalCase}
           |
           |/**
           | * Creates example data for the [${model.enumName.pascalCase}] business enum.
           | */
           |@Component
-          |class ${model.enumName.pascalCase}ExampleDataCreator {
+          |class ${model.enumName.pascalCase}ExampleDataCreator(
+          |    private val randomEnumValueDataGenerator: RandomEnumValueDataGenerator,
+          |) {
           |
           |    /** A single representative example value. */
-          |    fun create(): ${model.enumName.pascalCase} = ${model.enumName.pascalCase}.${model.enumValues.first().screamingSnakeCase}
+          |    fun create(): ${model.enumName.pascalCase} = randomEnumValueDataGenerator.generateData(${model.enumName.pascalCase}::class)
           |
           |    /** All enum values as example data. */
-          |    fun createList(): List<${model.enumName.pascalCase}> = ${model.enumName.pascalCase}.entries.toList()
+          |    fun createList(): List<${model.enumName.pascalCase}> = randomEnumValueDataGenerator.generateDataList(${model.enumName.pascalCase}::class)
           |}
           |
         """.trimMargin(marginPrefix = "|")

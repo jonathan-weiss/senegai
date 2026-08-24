@@ -14,7 +14,6 @@
 
     @replace-value-by-expression
         [ searchValue="AppellatioComis" replaceByExpression="model.enumName.pascalCase" ]
-        [ searchValue="VIR_HONORATUS" replaceByExpression="model.enumValues.first().screamingSnakeCase" ]
         [ searchValue="opusmagnum" replaceByExpression="model.entityName.lowerCase" ]
 
     @modify-provided-filepath-by-replacements
@@ -23,17 +22,20 @@
 package senegai.server.exampledata.bo
 
 import org.springframework.stereotype.Component
+import senegai.server.exampledata.datagenerator.RandomEnumValueDataGenerator
 import senegai.server.service.bo.AppellatioComis
 
 /**
  * Creates example data for the [AppellatioComis] business enum.
  */
 @Component
-class AppellatioComisExampleDataCreator {
+class AppellatioComisExampleDataCreator(
+    private val randomEnumValueDataGenerator: RandomEnumValueDataGenerator,
+) {
 
     /** A single representative example value. */
-    fun create(): AppellatioComis = AppellatioComis.VIR_HONORATUS
+    fun create(): AppellatioComis = randomEnumValueDataGenerator.generateData(AppellatioComis::class)
 
     /** All enum values as example data. */
-    fun createList(): List<AppellatioComis> = AppellatioComis.entries.toList()
+    fun createList(): List<AppellatioComis> = randomEnumValueDataGenerator.generateDataList(AppellatioComis::class)
 }
