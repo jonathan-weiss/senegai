@@ -52,6 +52,12 @@ enum class BuiltInType : ItemAttributeType {
     BOOLEAN,
 }
 
+enum class ExampleDataCategory(val generatorPrefixName: String, val supportedBuiltInType: BuiltInType) {
+    RANDOM_TEXT("RandomString", BuiltInType.STRING),
+    RANDOM_NUMBER("RandomNumber",BuiltInType.NUMBER),
+    RANDOM_BOOLEAN("RandomBoolean",BuiltInType.BOOLEAN),
+}
+
 /**
  * An [ItemId] is only used to wire the
  * different items and entities together.
@@ -84,5 +90,6 @@ data class ItemAttribute(
     val isMultiple: Boolean,
     val type: ItemAttributeType,
     val customValidation: Boolean = false,
+    val exampleDataCategory: ExampleDataCategory?
 )
 

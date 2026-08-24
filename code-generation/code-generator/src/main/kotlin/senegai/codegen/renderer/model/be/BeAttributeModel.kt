@@ -94,6 +94,7 @@ class BuiltInTypeBeAttributeModel(
     isList: Boolean,
     customValidation: Boolean,
     val builtInType: BuiltInType,
+    val exampleDataGeneratorConfig: BeExampleDataGeneratorConfig
 ) : BeAttributeModel(
     entity = entity,
     item = item,

@@ -4,6 +4,7 @@ import senegai.codegen.builders.RootDsl
 import senegai.codegen.schema.BuiltInType
 import senegai.codegen.schema.EntityId
 import senegai.codegen.schema.EnumId
+import senegai.codegen.schema.ExampleDataCategory
 import senegai.codegen.schema.ItemId
 
 object CodegenData {
@@ -63,7 +64,7 @@ object CodegenData {
             item(itemId = Items.CONTACT) {
                 attribute(name = "contactId", type = BuiltInType.STRING)
                 attribute(name = "contactSalutation", enumId = EnumTypes.SALUTATION)
-                attribute(name = "firstname", type = BuiltInType.STRING)
+                attribute(name = "firstname", type = BuiltInType.STRING, exampleDataCategory = ExampleDataCategory.RANDOM_TEXT)
                 attribute(name = "nickname", type = BuiltInType.STRING, nullable = true)
                 attribute(name = "lastname", type = BuiltInType.STRING, customValidation = true)
                 attribute(name = "allKnownNicknames", type = BuiltInType.STRING, multiple = true)

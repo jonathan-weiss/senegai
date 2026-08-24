@@ -7,6 +7,7 @@ import senegai.codegen.renderer.model.be.BeAttributeModel
 import senegai.codegen.renderer.model.be.BeEntityDescriptionModel
 import senegai.codegen.renderer.model.be.BeEntityModel
 import senegai.codegen.renderer.model.be.BeEnumModel
+import senegai.codegen.renderer.model.be.BeExampleDataGeneratorConfig
 import senegai.codegen.renderer.model.be.BeItemDescriptionModel
 import senegai.codegen.renderer.model.be.BeItemModel
 import senegai.codegen.renderer.model.be.BeModel
@@ -37,6 +38,7 @@ import senegai.codegen.schema.Entity
 import senegai.codegen.schema.EntityId
 import senegai.codegen.schema.EnumId
 import senegai.codegen.schema.EnumType
+import senegai.codegen.schema.ExampleDataCategory
 import senegai.codegen.schema.Item
 import senegai.codegen.schema.ItemAttribute
 import senegai.codegen.schema.ItemId
@@ -182,6 +184,7 @@ object RendererModelConverter {
                 isList = itemAttribute.isMultiple,
                 customValidation = itemAttribute.customValidation,
                 builtInType = itemAttributeType,
+                exampleDataGeneratorConfig = toExampleDataGeneratorConfig(item, itemAttribute)
             )
             is EntityId -> throw NotSupportedInTemplateException("EntityId as attribute type is not supported in $itemAttributeType")
             is EnumId -> {
@@ -205,6 +208,35 @@ object RendererModelConverter {
                 isList = itemAttribute.isMultiple,
                 customValidation = itemAttribute.customValidation,
                 referencedItem = toBeItemDescriptionModel(itemAttributeType))
+        }
+    }
+
+    private fun toExampleDataGeneratorConfig(item: BeItemDescriptionModel, itemAttribute: ItemAttribute): BeExampleDataGeneratorConfig {
+        val exampleDataCategory = itemAttribute.exampleDataCategory ?: defaultExampleDataCategory(itemAttribute)
+        if(exampleDataCategory.supportedBuiltInType != itemAttribute.type) {
+            throw IllegalArgumentException(
+                "The attribute '${item.itemId.itemName}.${itemAttribute.attributeName}' has the built-in type ${itemAttribute.type} " +
+                        "but the exampleDataCategory is only compatible to ${exampleDataCategory.supportedBuiltInType}"
+            )
+        }
+
+        return BeExampleDataGeneratorConfig(
+            generatorNamePrefix = exampleDataCategory.generatorPrefixName,
+            isNullable = itemAttribute.isNullable,
+            isMultiple = itemAttribute.isMultiple,
+        )
+    }
+
+    private fun defaultExampleDataCategory(itemAttribute: ItemAttribute): ExampleDataCategory {
+        val type = itemAttribute.type
+        if(type is BuiltInType) {
+            return when(type) {
+                BuiltInType.STRING -> ExampleDataCategory.RANDOM_TEXT
+                BuiltInType.NUMBER -> ExampleDataCategory.RANDOM_NUMBER
+                BuiltInType.BOOLEAN -> ExampleDataCategory.RANDOM_BOOLEAN
+            }
+        } else {
+            throw IllegalStateException("ExampleDataCategory must be built-in type here")
         }
     }
 

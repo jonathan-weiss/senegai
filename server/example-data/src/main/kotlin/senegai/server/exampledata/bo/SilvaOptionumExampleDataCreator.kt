@@ -22,6 +22,7 @@
 package senegai.server.exampledata.bo
 
 import org.springframework.stereotype.Component
+import senegai.server.exampledata.datagenerator.* // let this be a star import to support further data generators
 import senegai.server.service.bo.SilvaOptionumBO
 
 /**
@@ -48,6 +49,18 @@ class SilvaOptionumExampleDataCreator(
     }}}@ */
     private val appellatioComisExampleDataCreator: AppellatioComisExampleDataCreator,
     /* @tt{{{   @end-foreach  }}}@ */
+    /* @tt{{{
+        @foreach [ iteratorExpression="model.exampleDataGeneratorConfigs" loopVariable="exampleDataGeneratorConfig" ]
+        @replace-value-by-expression
+            [ searchValue="RandomStringDataGenerator" replaceByExpression="exampleDataGeneratorConfig.exampleDataGeneratorClassName" ]
+            [ searchValue="randomStringDataGenerator" replaceByExpression="exampleDataGeneratorConfig.exampleDataGeneratorVariableName" ]
+    }}}@ */
+    private val randomStringDataGenerator: RandomStringDataGenerator,
+    /* @tt{{{   @end-foreach  }}}@ */
+    /* @tt{{{   @ignore-text  }}}@ */
+    private val randomNumberDataGenerator: RandomNumberDataGenerator,
+    private val randomBooleanDataGenerator: RandomBooleanDataGenerator,
+    /* @tt{{{   @end-ignore-text  }}}@ */
 ) {
 
     /** A single fully populated example aggregate. */
@@ -56,7 +69,7 @@ class SilvaOptionumExampleDataCreator(
             @foreach [ iteratorExpression="model.builtInAttributes" loopVariable="builtInAttribute" ]
             @replace-value-by-expression
                 [ searchValue="campusNumerorum" replaceByExpression="builtInAttribute.attributeName.camelCase" ]
-                [ searchValue="42" replaceByExpression="builtInAttribute.kotlinExampleValue" ]
+                [ searchValue="42" replaceByExpression="builtInAttribute.exampleDataGeneratorConfig.exampleDataGeneratorCallExpression" ]
         }}}@ */
         campusNumerorum = 42,
         /* @tt{{{   @end-foreach  }}}@ */

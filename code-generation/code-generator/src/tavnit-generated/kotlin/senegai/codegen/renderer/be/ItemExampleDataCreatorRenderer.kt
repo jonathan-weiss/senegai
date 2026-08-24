@@ -19,6 +19,7 @@ object ItemExampleDataCreatorRenderer : BeItemRenderer {
           |package senegai.server.exampledata.bo
           |
           |import org.springframework.stereotype.Component
+          |import senegai.server.exampledata.datagenerator.* // let this be a star import to support further data generators
           |import senegai.server.service.bo.${model.itemName.pascalCase}BO
           |
           |/**
@@ -31,11 +32,12 @@ object ItemExampleDataCreatorRenderer : BeItemRenderer {
           |class ${model.itemName.pascalCase}ExampleDataCreator(
           |${ model.directlyNestedItems.joinToString("") { nestedItem ->  """    private val ${nestedItem.itemName.camelCase}ExampleDataCreator: ${nestedItem.itemName.pascalCase}ExampleDataCreator,
               |""" } }${ model.usedEnums.joinToString("") { usedEnum ->  """    private val ${usedEnum.enumName.camelCase}ExampleDataCreator: ${usedEnum.enumName.pascalCase}ExampleDataCreator,
+              |""" } }${ model.exampleDataGeneratorConfigs.joinToString("") { exampleDataGeneratorConfig ->  """    private val ${exampleDataGeneratorConfig.exampleDataGeneratorVariableName}: ${exampleDataGeneratorConfig.exampleDataGeneratorClassName},
               |""" } }) {
           |
           |    /** A single fully populated example aggregate. */
           |    fun create(): ${model.itemName.pascalCase}BO = ${model.itemName.pascalCase}BO(
-          |${ model.builtInAttributes.joinToString("") { builtInAttribute ->  """        ${builtInAttribute.attributeName.camelCase} = ${builtInAttribute.kotlinExampleValue},
+          |${ model.builtInAttributes.joinToString("") { builtInAttribute ->  """        ${builtInAttribute.attributeName.camelCase} = ${builtInAttribute.exampleDataGeneratorConfig.exampleDataGeneratorCallExpression},
               |""" } }${ model.attributesWithItemType.joinToString("") { itemAttribute ->  """        ${itemAttribute.attributeName.camelCase} = ${itemAttribute.referencedItem.itemName.camelCase}ExampleDataCreator.${itemAttribute.exampleDataCreatorCall},
               |""" } }${ model.attributesWithEnumType.joinToString("") { enumAttribute ->  """        ${enumAttribute.attributeName.camelCase} = ${enumAttribute.enum.enumName.camelCase}ExampleDataCreator.${enumAttribute.exampleDataCreatorCall},
               |""" } }    )

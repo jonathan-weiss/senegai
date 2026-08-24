@@ -21,6 +21,9 @@ interface ItemBuilder: senegai.codegen.builders.ItemDsl {
         multiple: Boolean,
         @SetAsValue(alias = "itemAttribute", clazzProperty = "customValidation")
         customValidation: Boolean,
+        @SetAsValue(alias = "itemAttribute", clazzProperty = "exampleDataCategory")
+        @IgnoreNullValue
+        exampleDataCategory: ExampleDataCategory?,
     )
 
     @BuilderMethod

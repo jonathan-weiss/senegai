@@ -340,6 +340,7 @@ internal class HierarchicalItemSearchTest {
             isNullable = false,
             isMultiple = false,
             type = type,
+            exampleDataCategory = null,
         )
     }
 }

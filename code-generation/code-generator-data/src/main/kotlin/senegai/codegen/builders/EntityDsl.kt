@@ -2,6 +2,7 @@ package senegai.codegen.builders
 
 import senegai.codegen.schema.BuiltInType
 import senegai.codegen.schema.EnumId
+import senegai.codegen.schema.ExampleDataCategory
 import senegai.codegen.schema.ItemId
 
 @MainDslMarker
@@ -17,6 +18,7 @@ interface ItemDsl {
         nullable: Boolean = false,
         multiple: Boolean = false,
         customValidation: Boolean = false,
+        exampleDataCategory: ExampleDataCategory? = null,
     )
 
     fun attribute(

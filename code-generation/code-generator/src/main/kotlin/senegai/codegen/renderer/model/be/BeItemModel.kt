@@ -34,6 +34,11 @@ data class BeItemModel(
         .map { it.referencedItem }
         .distinct()
 
+    val exampleDataGeneratorConfigs: List<BeExampleDataGeneratorConfig> = attributes
+        .filterIsInstance<BuiltInTypeBeAttributeModel>()
+        .map { it.exampleDataGeneratorConfig }
+        .distinctBy { it.fullQualifiedName }
+
     val containsTextAttributes: Boolean = attributesOfType(BuiltInType.STRING, isList = false).any()
     val containsBooleanAttributes: Boolean = attributesOfType(BuiltInType.BOOLEAN, isList = false).any()
     val containsNumberAttributes: Boolean = attributesOfType(BuiltInType.NUMBER, isList = false).any()
