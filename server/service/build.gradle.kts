@@ -32,3 +32,7 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
+
+tasks.named("compileKotlin") {
+    dependsOn( ":code-generation:code-generator:codegen")
+}

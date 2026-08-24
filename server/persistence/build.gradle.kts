@@ -30,3 +30,7 @@ dependencies {
     // No persistence framework on purpose — to be added later.
     implementation("org.springframework:spring-context")
 }
+
+tasks.named("compileKotlin") {
+    dependsOn( ":code-generation:code-generator:codegen")
+}
