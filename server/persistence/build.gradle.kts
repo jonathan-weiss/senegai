@@ -4,7 +4,11 @@ plugins {
     kotlin("jvm")
     kotlin("plugin.spring")
     id("io.spring.dependency-management")
-    `maven-dependency-repository`
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
 }
 
 dependencyManagement {

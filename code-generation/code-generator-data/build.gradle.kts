@@ -1,6 +1,10 @@
 plugins {
     kotlin("jvm")
-    `maven-dependency-repository`
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
 }
 
 dependencies {
