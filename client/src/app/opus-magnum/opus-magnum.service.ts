@@ -47,7 +47,7 @@ export class OpusMagnumService {
      * {@link SILVA_OTIONUM_EXAMPLE_DATA} constant; when `false` it calls the Spring Boot
      * REST API at {@link baseUrl}. Flip to `false` to consume the real backend.
      */
-    private readonly useExampleData = true;
+    private readonly useClientOnlyExampleData = false;
     private readonly baseUrl = 'http://localhost:8080/api/opus-magnum';
 
     private silvaOptionumList: SilvaOptionumWTO[] = []
@@ -57,7 +57,7 @@ export class OpusMagnumService {
     }
 
     getSilvaOptionumList(): Observable<SilvaOptionumWTO[]> {
-        if (!this.useExampleData) {
+        if (!this.useClientOnlyExampleData) {
             return this.http.get<SilvaOptionumWTO[]>(this.baseUrl);
         }
         // Simulate HTTP delay
@@ -65,7 +65,7 @@ export class OpusMagnumService {
     }
 
     getSilvaOptionumById(indexUnicus: string): Observable<SilvaOptionumWTO | null> {
-        if (!this.useExampleData) {
+        if (!this.useClientOnlyExampleData) {
             return this.http.get<SilvaOptionumWTO | null>(`${this.baseUrl}/${indexUnicus}`);
         }
         const found = this.silvaOptionumList.find(a => a.indexUnicus === indexUnicus) || null;
@@ -73,7 +73,7 @@ export class OpusMagnumService {
     }
 
     deleteSilvaOptionum(indexUnicus: string): Observable<void> {
-        if (!this.useExampleData) {
+        if (!this.useClientOnlyExampleData) {
             return this.http.delete<void>(`${this.baseUrl}/${indexUnicus}`);
         }
         this.silvaOptionumList = this.silvaOptionumList.filter(a => a.indexUnicus !== indexUnicus);
@@ -81,7 +81,7 @@ export class OpusMagnumService {
     }
 
     updateSilvaOptionum(silvaOptionum: SilvaOptionumWTO): Observable<SilvaOptionumWTO> {
-        if (!this.useExampleData) {
+        if (!this.useClientOnlyExampleData) {
             return this.http.put<SilvaOptionumWTO>(`${this.baseUrl}/${silvaOptionum.indexUnicus}`, silvaOptionum);
         }
         const idx = this.silvaOptionumList.findIndex(a => a.indexUnicus === silvaOptionum.indexUnicus);
@@ -92,7 +92,7 @@ export class OpusMagnumService {
     }
 
     createSilvaOptionum(opusMagnum: SilvaOptionumWTO): Observable<SilvaOptionumWTO> {
-        if (!this.useExampleData) {
+        if (!this.useClientOnlyExampleData) {
             return this.http.post<SilvaOptionumWTO>(this.baseUrl, opusMagnum);
         }
         const created: SilvaOptionumWTO = {...opusMagnum, indexUnicus: crypto.randomUUID()};
