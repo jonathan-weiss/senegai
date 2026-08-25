@@ -1,6 +1,8 @@
 package senegai.server.exampledata.bo
 
 import org.springframework.stereotype.Component
+import senegai.server.exampledata.DataContext
+import senegai.server.exampledata.framework.datafaker.FakerHelper
 import senegai.server.service.bo.ArticulusInteriorBO
 
 /**
@@ -13,16 +15,11 @@ import senegai.server.service.bo.ArticulusInteriorBO
 @Component
 class ArticulusInteriorExampleDataCreator {
 
-    /** A single fully populated example aggregate. */
-    fun create(): ArticulusInteriorBO = ArticulusInteriorBO(
-        scriptumTriviale = "exemplum",
-        numerusStupidus = 42,
+    fun create(dataContext: DataContext): ArticulusInteriorBO = ArticulusInteriorBO(
+        scriptumTriviale = FakerHelper.randomString(dataContext),
+        numerusStupidus = FakerHelper.randomInt(dataContext),
     )
 
-    /** A list of distinct example aggregates. */
-    fun createList(): List<ArticulusInteriorBO> = listOf(
-        create(),
-        create(),
-        create(),
-    )
+    fun createList(dataContext: DataContext, size: Int): List<ArticulusInteriorBO> =
+        List( size = size) { create(dataContext) }
 }

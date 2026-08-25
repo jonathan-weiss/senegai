@@ -1,24 +1,27 @@
 package senegai.codegen.renderer.model.be
 
+import senegai.codegen.renderer.model.NameCase
 import java.util.Locale.getDefault
 
 data class BeExampleDataGeneratorConfig(
-    val generatorNamePrefix: String,
+    val generatorNamePrefix: NameCase,
     val isNullable: Boolean,
-    val isMultiple: Boolean
+    val numberOfEntries: Int
 ) {
-    val exampleDataGeneratorVariableName: String = "${decapitalize(generatorNamePrefix)}DataGenerator"
+    val isMultiple: Boolean = numberOfEntries > 1
 
-    val exampleDataGeneratorClassName: String = "${capitalize(generatorNamePrefix)}DataGenerator"
+    val exampleDataGeneratorVariableName: String = "${generatorNamePrefix.camelCase}DataGenerator"
+
+    val exampleDataGeneratorClassName: String = "${generatorNamePrefix.pascalCase}DataGenerator"
 
     val exampleDataGeneratorPackageName: String = "senegai.server.exampledata.framework.datagenerator"
 
     val fullQualifiedName: String = "${exampleDataGeneratorPackageName}.${exampleDataGeneratorClassName}"
 
     val exampleDataGeneratorCallExpression: String = if(isMultiple) {
-        "${exampleDataGeneratorVariableName}.generateDataList()"
+        "${exampleDataGeneratorVariableName}.generateDataList(dataContext)"
     } else {
-        "${exampleDataGeneratorVariableName}.generateData()"
+        "${exampleDataGeneratorVariableName}.generateData(dataContext)"
     }
 
     private fun decapitalize(value: String): String =

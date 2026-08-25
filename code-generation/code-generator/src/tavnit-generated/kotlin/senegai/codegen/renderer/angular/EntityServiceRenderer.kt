@@ -32,7 +32,7 @@ object EntityServiceRenderer : UiEntityRenderer {
           |     * {@link ${model.entityRootItem.itemName.screamingSnakeCase}_EXAMPLE_DATA} constant; when `false` it calls the Spring Boot
           |     * REST API at {@link baseUrl}. Flip to `false` to consume the real backend.
           |     */
-          |    private readonly useExampleData = true;
+          |    private readonly useExampleData = false;
           |    private readonly baseUrl = 'http://localhost:8080/api/${model.entityName.kebabCase}';
           |
           |    private ${model.entityRootItem.itemName.camelCase}List: ${model.entityRootItem.itemName.pascalCase}WTO[] = []

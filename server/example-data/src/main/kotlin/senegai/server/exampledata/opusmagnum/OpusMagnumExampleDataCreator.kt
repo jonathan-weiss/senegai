@@ -25,8 +25,10 @@
 package senegai.server.exampledata.opusmagnum
 
 import org.springframework.stereotype.Component
+import senegai.server.exampledata.DataContext
 import senegai.server.exampledata.ExampleDataCreator
 import senegai.server.exampledata.bo.SilvaOptionumExampleDataCreator
+import senegai.server.exampledata.framework.datafaker.FakerHelper
 import senegai.server.service.bo.SilvaOptionumBO
 import senegai.server.service.opusmagnum.OpusMagnumRepository
 
@@ -46,8 +48,8 @@ class OpusMagnumExampleDataCreator(
      * Creates the example [SilvaOptionumBO] aggregates, writes each of them to the
      * persistence via the [OpusMagnumRepository] and returns the persisted list.
      */
-    override fun createExampleData() {
-        silvaOptionumExampleDataCreator.createList()
+    override fun createExampleData(dataContext: DataContext) {
+        silvaOptionumExampleDataCreator.createList(dataContext, FakerHelper.entityListRandomSize(dataContext))
             .forEach { opusMagnumRepository.save(it) }
     }
 }

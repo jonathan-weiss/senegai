@@ -19,6 +19,8 @@ object EnumExampleDataCreatorRenderer : BeEnumRenderer {
           |package senegai.server.exampledata.bo
           |
           |import org.springframework.stereotype.Component
+          |import senegai.server.exampledata.DataContext
+          |import senegai.server.exampledata.framework.datafaker.FakerHelper
           |import senegai.server.exampledata.framework.datagenerator.RandomEnumValueDataGenerator
           |import senegai.server.service.bo.${model.enumName.pascalCase}
           |
@@ -30,11 +32,18 @@ object EnumExampleDataCreatorRenderer : BeEnumRenderer {
           |    private val randomEnumValueDataGenerator: RandomEnumValueDataGenerator,
           |) {
           |
-          |    /** A single representative example value. */
-          |    fun create(): ${model.enumName.pascalCase} = randomEnumValueDataGenerator.generateData(${model.enumName.pascalCase}::class)
+          |    fun create(dataContext: DataContext): ${model.enumName.pascalCase} =
+          |        randomEnumValueDataGenerator.generateData(
+          |            dataContext = dataContext,
+          |            enumClass = ${model.enumName.pascalCase}::class,
+          |        )
           |
-          |    /** All enum values as example data. */
-          |    fun createList(): List<${model.enumName.pascalCase}> = randomEnumValueDataGenerator.generateDataList(${model.enumName.pascalCase}::class)
+          |    fun createList(dataContext: DataContext, size: Int): List<${model.enumName.pascalCase}> =
+          |        randomEnumValueDataGenerator.generateDataList(
+          |            dataContext = dataContext,
+          |            enumClass = ${model.enumName.pascalCase}::class,
+          |            size = size,
+          |        )
           |}
           |
         """.trimMargin(marginPrefix = "|")

@@ -22,6 +22,8 @@
 package senegai.server.exampledata.bo
 
 import org.springframework.stereotype.Component
+import senegai.server.exampledata.DataContext
+import senegai.server.exampledata.framework.datafaker.FakerHelper
 import senegai.server.exampledata.framework.datagenerator.RandomEnumValueDataGenerator
 import senegai.server.service.bo.AppellatioComis
 
@@ -33,9 +35,16 @@ class AppellatioComisExampleDataCreator(
     private val randomEnumValueDataGenerator: RandomEnumValueDataGenerator,
 ) {
 
-    /** A single representative example value. */
-    fun create(): AppellatioComis = randomEnumValueDataGenerator.generateData(AppellatioComis::class)
+    fun create(dataContext: DataContext): AppellatioComis =
+        randomEnumValueDataGenerator.generateData(
+            dataContext = dataContext,
+            enumClass = AppellatioComis::class,
+        )
 
-    /** All enum values as example data. */
-    fun createList(): List<AppellatioComis> = randomEnumValueDataGenerator.generateDataList(AppellatioComis::class)
+    fun createList(dataContext: DataContext, size: Int): List<AppellatioComis> =
+        randomEnumValueDataGenerator.generateDataList(
+            dataContext = dataContext,
+            enumClass = AppellatioComis::class,
+            size = size,
+        )
 }

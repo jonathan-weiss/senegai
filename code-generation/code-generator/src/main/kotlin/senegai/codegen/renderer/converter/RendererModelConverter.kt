@@ -221,9 +221,9 @@ object RendererModelConverter {
         }
 
         return BeExampleDataGeneratorConfig(
-            generatorNamePrefix = exampleDataCategory.generatorPrefixName,
+            generatorNamePrefix = NameCase(exampleDataCategory.generatorPrefixName),
             isNullable = itemAttribute.isNullable,
-            isMultiple = itemAttribute.isMultiple,
+            numberOfEntries = if(itemAttribute.isMultiple) 3 else 1,
         )
     }
 

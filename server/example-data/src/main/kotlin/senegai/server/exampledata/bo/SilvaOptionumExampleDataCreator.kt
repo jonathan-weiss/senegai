@@ -22,6 +22,8 @@
 package senegai.server.exampledata.bo
 
 import org.springframework.stereotype.Component
+import senegai.server.exampledata.DataContext
+import senegai.server.exampledata.framework.datafaker.FakerHelper
 import senegai.server.exampledata.framework.datagenerator.RandomBooleanDataGenerator
 import senegai.server.exampledata.framework.datagenerator.RandomNumberDataGenerator
 import senegai.server.exampledata.framework.datagenerator.RandomStringDataGenerator
@@ -54,8 +56,8 @@ class SilvaOptionumExampleDataCreator(
     /* @tt{{{
         @foreach [ iteratorExpression="model.exampleDataGeneratorConfigs" loopVariable="exampleDataGeneratorConfig" ]
         @replace-value-by-expression
-            [ searchValue="RandomStringDataGenerator" replaceByExpression="exampleDataGeneratorConfig.exampleDataGeneratorClassName" ]
-            [ searchValue="randomStringDataGenerator" replaceByExpression="exampleDataGeneratorConfig.exampleDataGeneratorVariableName" ]
+            [ searchValue="RandomString" replaceByExpression="exampleDataGeneratorConfig.generatorNamePrefix.pascalCase" ]
+            [ searchValue="randomString" replaceByExpression="exampleDataGeneratorConfig.generatorNamePrefix.camelCase" ]
     }}}@ */
     private val randomStringDataGenerator: RandomStringDataGenerator,
     /* @tt{{{   @end-foreach  }}}@ */
@@ -65,52 +67,58 @@ class SilvaOptionumExampleDataCreator(
     /* @tt{{{   @end-ignore-text  }}}@ */
 ) {
 
-    /** A single fully populated example aggregate. */
-    fun create(): SilvaOptionumBO = SilvaOptionumBO(
+    fun create(dataContext: DataContext): SilvaOptionumBO = SilvaOptionumBO(
         /* @tt{{{
             @foreach [ iteratorExpression="model.builtInAttributes" loopVariable="builtInAttribute" ]
             @replace-value-by-expression
-                [ searchValue="campusNumerorum" replaceByExpression="builtInAttribute.attributeName.camelCase" ]
-                [ searchValue="42" replaceByExpression="builtInAttribute.exampleDataGeneratorConfig.exampleDataGeneratorCallExpression" ]
+                [ searchValue="iteratioSimpliciumTextuum" replaceByExpression="builtInAttribute.attributeName.camelCase" ]
+                [ searchValue="campusTextusObligatorius" replaceByExpression="builtInAttribute.attributeName.camelCase" ]
+                [ searchValue="randomString" replaceByExpression="builtInAttribute.exampleDataGeneratorConfig.generatorNamePrefix.camelCase" ]
         }}}@ */
-        campusNumerorum = 42,
+        /* @tt{{{   @if [ conditionExpression="builtInAttribute.isList"]  }}}@ */
+        iteratioSimpliciumTextuum = randomStringDataGenerator.generateDataList(dataContext, size = FakerHelper.innerListRandomSize(dataContext)),
+        /* @tt{{{   @else }}}@ */
+        campusTextusObligatorius = randomStringDataGenerator.generateData(dataContext),
+        /* @tt{{{   @end-if  }}}@ */
         /* @tt{{{   @end-foreach  }}}@ */
         /* @tt{{{
             @foreach [ iteratorExpression="model.attributesWithItemType" loopVariable="itemAttribute" ]
             @replace-value-by-expression
                 [ searchValue="articulusInteriorSingularis" replaceByExpression="itemAttribute.attributeName.camelCase" ]
+                [ searchValue="articulusInteriorIteratus" replaceByExpression="itemAttribute.attributeName.camelCase" ]
                 [ searchValue="articulusInterior" replaceByExpression="itemAttribute.referencedItem.itemName.camelCase" ]
-                [ searchValue="create()" replaceByExpression="itemAttribute.exampleDataCreatorCall" ]
         }}}@ */
-        articulusInteriorSingularis = articulusInteriorExampleDataCreator.create(),
+        /* @tt{{{   @if [ conditionExpression="itemAttribute.isList"]  }}}@ */
+        articulusInteriorIteratus = articulusInteriorExampleDataCreator.createList(dataContext, FakerHelper.innerListRandomSize(dataContext)),
+        /* @tt{{{   @else }}}@ */
+        articulusInteriorSingularis = articulusInteriorExampleDataCreator.create(dataContext),
+        /* @tt{{{   @end-if  }}}@ */
+
         /* @tt{{{   @end-foreach  }}}@ */
         /* @tt{{{
             @foreach [ iteratorExpression="model.attributesWithEnumType" loopVariable="enumAttribute" ]
             @replace-value-by-expression
+                [ searchValue="appellatioOptionalisIteratus" replaceByExpression="enumAttribute.attributeName.camelCase" ]
                 [ searchValue="appellatioComis" replaceByExpression="enumAttribute.enum.enumName.camelCase" ]
                 [ searchValue="appellatio" replaceByExpression="enumAttribute.attributeName.camelCase" ]
-                [ searchValue="create()" replaceByExpression="enumAttribute.exampleDataCreatorCall" ]
         }}}@ */
-        appellatio = appellatioComisExampleDataCreator.create(),
+        /* @tt{{{   @if [ conditionExpression="enumAttribute.isList"]  }}}@ */
+        appellatioOptionalisIteratus = appellatioComisExampleDataCreator.createList(dataContext, FakerHelper.innerListRandomSize(dataContext)),
+        /* @tt{{{   @else }}}@ */
+        appellatio = appellatioComisExampleDataCreator.create(dataContext),
+        /* @tt{{{   @end-if  }}}@ */
         /* @tt{{{   @end-foreach  }}}@ */
         /* @tt{{{   @ignore-text  }}}@ */
         indexUnicus = "exemplum",
-        campusTextusObligatorius = "exemplum",
-        campusTextusOptionalis = "exemplum",
-        articulusInteriorIteratus = articulusInteriorExampleDataCreator.createList(),
-        articulusInteriorSingularisOptionalis = articulusInteriorExampleDataCreator.create(),
-        articulusInteriorOptionalisIteratus = articulusInteriorExampleDataCreator.createList(),
-        appellatioOptionalisIteratus = appellatioComisExampleDataCreator.createList(),
+        campusNumerorum = randomNumberDataGenerator.generateData(dataContext),
+        campusTextusOptionalis = randomStringDataGenerator.generateData(dataContext),
+        articulusInteriorSingularisOptionalis = articulusInteriorExampleDataCreator.create(dataContext),
+        articulusInteriorOptionalisIteratus = articulusInteriorExampleDataCreator.createList(dataContext, FakerHelper.innerListRandomSize(dataContext)),
         campusDiei = null,
-        campusBivalens = true,
-        iteratioSimpliciumTextuum = listOf("exemplum"),
+        campusBivalens = randomBooleanDataGenerator.generateData(dataContext),
         /* @tt{{{   @end-ignore-text  }}}@ */
     )
 
-    /** A list of distinct example aggregates. */
-    fun createList(): List<SilvaOptionumBO> = listOf(
-        create(),
-        create(),
-        create(),
-    )
+    fun createList(dataContext: DataContext, size: Int): List<SilvaOptionumBO> =
+        List( size = size) { create(dataContext) }
 }

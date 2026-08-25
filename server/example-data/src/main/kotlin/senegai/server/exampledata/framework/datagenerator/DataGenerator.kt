@@ -1,8 +1,11 @@
 package senegai.server.exampledata.framework.datagenerator
 
+import senegai.server.exampledata.DataContext
+
 interface DataGenerator<T> {
 
-    fun generateData(): T
+    fun generateData(dataContext: DataContext): T
 
-    fun generateDataList(): List<T> = listOf(generateData(), generateData(), generateData())
+    fun generateDataList(dataContext: DataContext, size: Int): List<T> =
+        List( size =size) { generateData(dataContext) }
 }

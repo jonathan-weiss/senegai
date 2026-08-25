@@ -19,6 +19,8 @@ object ItemExampleDataCreatorRenderer : BeItemRenderer {
           |package senegai.server.exampledata.bo
           |
           |import org.springframework.stereotype.Component
+          |import senegai.server.exampledata.DataContext
+          |import senegai.server.exampledata.framework.datafaker.FakerHelper
           |import senegai.server.exampledata.framework.datagenerator.RandomBooleanDataGenerator
           |import senegai.server.exampledata.framework.datagenerator.RandomNumberDataGenerator
           |import senegai.server.exampledata.framework.datagenerator.RandomStringDataGenerator
@@ -34,22 +36,21 @@ object ItemExampleDataCreatorRenderer : BeItemRenderer {
           |class ${model.itemName.pascalCase}ExampleDataCreator(
           |${ model.directlyNestedItems.joinToString("") { nestedItem ->  """    private val ${nestedItem.itemName.camelCase}ExampleDataCreator: ${nestedItem.itemName.pascalCase}ExampleDataCreator,
               |""" } }${ model.usedEnums.joinToString("") { usedEnum ->  """    private val ${usedEnum.enumName.camelCase}ExampleDataCreator: ${usedEnum.enumName.pascalCase}ExampleDataCreator,
-              |""" } }${ model.exampleDataGeneratorConfigs.joinToString("") { exampleDataGeneratorConfig ->  """    private val ${exampleDataGeneratorConfig.exampleDataGeneratorVariableName}: ${exampleDataGeneratorConfig.exampleDataGeneratorClassName},
+              |""" } }${ model.exampleDataGeneratorConfigs.joinToString("") { exampleDataGeneratorConfig ->  """    private val ${exampleDataGeneratorConfig.generatorNamePrefix.camelCase}DataGenerator: ${exampleDataGeneratorConfig.generatorNamePrefix.pascalCase}DataGenerator,
               |""" } }) {
           |
-          |    /** A single fully populated example aggregate. */
-          |    fun create(): ${model.itemName.pascalCase}BO = ${model.itemName.pascalCase}BO(
-          |${ model.builtInAttributes.joinToString("") { builtInAttribute ->  """        ${builtInAttribute.attributeName.camelCase} = ${builtInAttribute.exampleDataGeneratorConfig.exampleDataGeneratorCallExpression},
-              |""" } }${ model.attributesWithItemType.joinToString("") { itemAttribute ->  """        ${itemAttribute.attributeName.camelCase} = ${itemAttribute.referencedItem.itemName.camelCase}ExampleDataCreator.${itemAttribute.exampleDataCreatorCall},
-              |""" } }${ model.attributesWithEnumType.joinToString("") { enumAttribute ->  """        ${enumAttribute.attributeName.camelCase} = ${enumAttribute.enum.enumName.camelCase}ExampleDataCreator.${enumAttribute.exampleDataCreatorCall},
-              |""" } }    )
+          |    fun create(dataContext: DataContext): ${model.itemName.pascalCase}BO = ${model.itemName.pascalCase}BO(
+          |${ model.builtInAttributes.joinToString("") { builtInAttribute ->  """${ if(builtInAttribute.isList) { """        ${builtInAttribute.attributeName.camelCase} = ${builtInAttribute.exampleDataGeneratorConfig.generatorNamePrefix.camelCase}DataGenerator.generateDataList(dataContext, size = FakerHelper.innerListRandomSize(dataContext)),
+                  |""" } else { """        ${builtInAttribute.attributeName.camelCase} = ${builtInAttribute.exampleDataGeneratorConfig.generatorNamePrefix.camelCase}DataGenerator.generateData(dataContext),
+                  |""" } }""" } }${ model.attributesWithItemType.joinToString("") { itemAttribute ->  """${ if(itemAttribute.isList) { """        ${itemAttribute.attributeName.camelCase} = ${itemAttribute.referencedItem.itemName.camelCase}ExampleDataCreator.createList(dataContext, FakerHelper.innerListRandomSize(dataContext)),
+                  |""" } else { """        ${itemAttribute.attributeName.camelCase} = ${itemAttribute.referencedItem.itemName.camelCase}ExampleDataCreator.create(dataContext),
+                  |""" } }
+              |""" } }${ model.attributesWithEnumType.joinToString("") { enumAttribute ->  """${ if(enumAttribute.isList) { """        ${enumAttribute.attributeName.camelCase} = ${enumAttribute.enum.enumName.camelCase}ExampleDataCreator.createList(dataContext, FakerHelper.innerListRandomSize(dataContext)),
+                  |""" } else { """        ${enumAttribute.attributeName.camelCase} = ${enumAttribute.enum.enumName.camelCase}ExampleDataCreator.create(dataContext),
+                  |""" } }""" } }    )
           |
-          |    /** A list of distinct example aggregates. */
-          |    fun createList(): List<${model.itemName.pascalCase}BO> = listOf(
-          |        create(),
-          |        create(),
-          |        create(),
-          |    )
+          |    fun createList(dataContext: DataContext, size: Int): List<${model.itemName.pascalCase}BO> =
+          |        List( size = size) { create(dataContext) }
           |}
           |
         """.trimMargin(marginPrefix = "|")

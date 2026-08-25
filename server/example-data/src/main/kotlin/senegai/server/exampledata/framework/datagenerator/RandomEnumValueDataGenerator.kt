@@ -1,15 +1,16 @@
 package senegai.server.exampledata.framework.datagenerator
 
 import org.springframework.stereotype.Component
+import senegai.server.exampledata.DataContext
+import senegai.server.exampledata.framework.datafaker.FakerHelper
 import kotlin.reflect.KClass
 
 @Component
 class RandomEnumValueDataGenerator {
-    fun <T> generateData(enumClass: KClass<T>): T where T : Enum<T> {
-        val enumConstants = enumClass.java.enumConstants
-        return enumConstants.random()
+    fun <T> generateData(dataContext: DataContext, enumClass: KClass<T>): T where T : Enum<T> {
+        return FakerHelper.oneRandomOf(dataContext, enumClass.java.enumConstants)
     }
 
-    fun <T> generateDataList(enumClass: KClass<T>): List<T> where T : Enum<T>
-            = listOf(generateData(enumClass), generateData(enumClass), generateData(enumClass))
+    fun <T> generateDataList(dataContext: DataContext, enumClass: KClass<T>, size: Int): List<T> where T : Enum<T> =
+        List( size = size) { generateData(dataContext, enumClass) }
 }

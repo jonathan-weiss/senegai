@@ -3,6 +3,8 @@ package senegai.server.exampledata
 import org.springframework.stereotype.Component
 import senegai.server.exampledata.employee.EmployeeExampleDataCreator
 import senegai.server.exampledata.employeeaddress.EmployeeAddressExampleDataCreator
+import senegai.server.exampledata.framework.datafaker.DataFakerDataContext
+import senegai.server.exampledata.framework.datafaker.DataFakerDataContextFactoryService
 import senegai.server.exampledata.opusmagnum.OpusMagnumExampleDataCreator
 import senegai.server.service.opusmagnum.OpusMagnumRepository
 import senegai.server.service.bo.SilvaOptionumBO
@@ -15,6 +17,7 @@ class ExampleDataCreatorsRunner(
     private val opusMagnumExampleDataCreator: OpusMagnumExampleDataCreator,
     private val employeeExampleDataCreator: EmployeeExampleDataCreator,
     private val employeeAddressExampleDataCreator: EmployeeAddressExampleDataCreator,
+    private val dataContextFactoryService: DataFakerDataContextFactoryService,
 ) {
 
     /**
@@ -22,8 +25,9 @@ class ExampleDataCreatorsRunner(
      * persistence via the [OpusMagnumRepository] and returns the persisted list.
      */
     fun createExampleData() {
-        opusMagnumExampleDataCreator.createExampleData()
-        employeeExampleDataCreator.createExampleData()
-        employeeAddressExampleDataCreator.createExampleData()
+        val dataContext = dataContextFactoryService.createContext()
+        opusMagnumExampleDataCreator.createExampleData(dataContext)
+        employeeExampleDataCreator.createExampleData(dataContext)
+        employeeAddressExampleDataCreator.createExampleData(dataContext)
     }
 }

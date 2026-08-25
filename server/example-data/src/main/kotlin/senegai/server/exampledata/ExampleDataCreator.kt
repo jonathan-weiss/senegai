@@ -2,5 +2,5 @@ package senegai.server.exampledata
 
 interface ExampleDataCreator {
 
-    fun createExampleData()
+    fun createExampleData(dataContext: DataContext)
 }

@@ -19,8 +19,10 @@ object EntityExampleDataCreatorRenderer : BeEntityRenderer {
           |package senegai.server.exampledata.${model.entityName.lowerCase}
           |
           |import org.springframework.stereotype.Component
+          |import senegai.server.exampledata.DataContext
           |import senegai.server.exampledata.ExampleDataCreator
           |import senegai.server.exampledata.bo.${model.entityRootItem.itemName.pascalCase}ExampleDataCreator
+          |import senegai.server.exampledata.framework.datafaker.FakerHelper
           |import senegai.server.service.bo.${model.entityRootItem.itemName.pascalCase}BO
           |import senegai.server.service.${model.entityName.lowerCase}.${model.entityName.pascalCase}Repository
           |
@@ -40,8 +42,8 @@ object EntityExampleDataCreatorRenderer : BeEntityRenderer {
           |     * Creates the example [${model.entityRootItem.itemName.pascalCase}BO] aggregates, writes each of them to the
           |     * persistence via the [${model.entityName.pascalCase}Repository] and returns the persisted list.
           |     */
-          |    override fun createExampleData() {
-          |        ${model.entityRootItem.itemName.camelCase}ExampleDataCreator.createList()
+          |    override fun createExampleData(dataContext: DataContext) {
+          |        ${model.entityRootItem.itemName.camelCase}ExampleDataCreator.createList(dataContext, FakerHelper.entityListRandomSize(dataContext))
           |            .forEach { ${model.entityName.camelCase}Repository.save(it) }
           |    }
           |}
