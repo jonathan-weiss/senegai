@@ -48,7 +48,7 @@ export class OpusMagnumService {
      * REST API at {@link baseUrl}. Flip to `false` to consume the real backend.
      */
     private readonly useClientOnlyExampleData = false;
-    private readonly baseUrl = 'http://localhost:8080/api/opus-magnum';
+    private readonly baseUrl = 'http://localhost:8081/api/opus-magnum';
 
     private silvaOptionumList: SilvaOptionumWTO[] = []
 

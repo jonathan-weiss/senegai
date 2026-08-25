@@ -33,7 +33,7 @@ object EntityServiceRenderer : UiEntityRenderer {
           |     * REST API at {@link baseUrl}. Flip to `false` to consume the real backend.
           |     */
           |    private readonly useClientOnlyExampleData = false;
-          |    private readonly baseUrl = 'http://localhost:8080/api/${model.entityName.kebabCase}';
+          |    private readonly baseUrl = 'http://localhost:8081/api/${model.entityName.kebabCase}';
           |
           |    private ${model.entityRootItem.itemName.camelCase}List: ${model.entityRootItem.itemName.pascalCase}WTO[] = []
           |
