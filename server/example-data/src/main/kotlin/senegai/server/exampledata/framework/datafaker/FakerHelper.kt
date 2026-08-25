@@ -17,6 +17,39 @@ object FakerHelper {
         return dataContext.toFaker().number().randomNumber().toInt()
     }
 
+    fun firstname(dataContext: DataContext): String {
+        return dataContext.toFaker().name().firstName()
+    }
+
+    fun lastname(dataContext: DataContext): String {
+        return dataContext.toFaker().name().lastName()
+    }
+
+    fun street(dataContext: DataContext): String {
+        return dataContext.toFaker().address().streetAddress()
+    }
+
+    fun postcode(dataContext: DataContext): String {
+        return dataContext.toFaker().address().postcode()
+    }
+
+    fun city(dataContext: DataContext): String {
+        return dataContext.toFaker().address().city()
+    }
+
+    fun countryIsoCode(dataContext: DataContext): String {
+        return dataContext.toFaker().country().currencyCode()
+    }
+
+    fun countryName(dataContext: DataContext): String {
+        return dataContext.toFaker().country().name()
+    }
+
+    fun age(dataContext: DataContext): Int {
+        return dataContext.toFaker().number().numberBetween(1, 99)
+    }
+
+
     fun <T> oneRandomOf(dataContext: DataContext, array: Array<T>): T {
         val index = dataContext.toFaker().number().numberBetween(0, array.size - 1)
         return array[index]

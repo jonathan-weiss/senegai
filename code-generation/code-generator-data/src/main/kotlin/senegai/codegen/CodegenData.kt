@@ -64,11 +64,11 @@ object CodegenData {
             item(itemId = Items.CONTACT) {
                 attribute(name = "contactId", type = BuiltInType.STRING)
                 attribute(name = "contactSalutation", enumId = EnumTypes.SALUTATION)
-                attribute(name = "firstname", type = BuiltInType.STRING, exampleDataCategory = ExampleDataCategory.RANDOM_TEXT)
-                attribute(name = "nickname", type = BuiltInType.STRING, nullable = true)
-                attribute(name = "lastname", type = BuiltInType.STRING, customValidation = true)
-                attribute(name = "allKnownNicknames", type = BuiltInType.STRING, multiple = true)
-                attribute(name = "age", type = BuiltInType.NUMBER, customValidation = true)
+                attribute(name = "firstname", type = BuiltInType.STRING, exampleDataCategory = ExampleDataCategory.FIRSTNAME)
+                attribute(name = "nickname", type = BuiltInType.STRING, nullable = true, exampleDataCategory = ExampleDataCategory.FIRSTNAME)
+                attribute(name = "lastname", type = BuiltInType.STRING, customValidation = true , exampleDataCategory = ExampleDataCategory.LASTNAME)
+                attribute(name = "allKnownNicknames", type = BuiltInType.STRING, multiple = true, exampleDataCategory = ExampleDataCategory.FIRSTNAME)
+                attribute(name = "age", type = BuiltInType.NUMBER, customValidation = true, exampleDataCategory = ExampleDataCategory.AGE)
                 attribute(name = "vegetarian", type = BuiltInType.BOOLEAN)
                 attribute(name = "homeAddress", itemId = Items.ADDRESS, nullable = false)
                 attribute(name = "contactAddress", itemId = Items.ADDRESS, nullable = true)
@@ -80,15 +80,15 @@ object CodegenData {
 
             item(itemId = Items.ADDRESS) {
                 attribute(name = "id", type = BuiltInType.STRING)
-                attribute(name = "street", type = BuiltInType.STRING)
-                attribute(name = "postalCode", type = BuiltInType.STRING)
-                attribute(name = "town", type = BuiltInType.STRING)
+                attribute(name = "street", type = BuiltInType.STRING, exampleDataCategory = ExampleDataCategory.STREET)
+                attribute(name = "postalCode", type = BuiltInType.STRING, exampleDataCategory = ExampleDataCategory.POSTCODE)
+                attribute(name = "town", type = BuiltInType.STRING, exampleDataCategory = ExampleDataCategory.CITY)
                 attribute(name = "country", itemId = Items.COUNTRY)
             }
 
             item(itemId = Items.COUNTRY) {
-                attribute(name = "countryIsoCode", type = BuiltInType.STRING)
-                attribute(name = "countryName", type = BuiltInType.STRING)
+                attribute(name = "countryIsoCode", type = BuiltInType.STRING, exampleDataCategory = ExampleDataCategory.COUNTRY_ISO)
+                attribute(name = "countryName", type = BuiltInType.STRING, exampleDataCategory = ExampleDataCategory.COUNTRY_NAME)
             }
         }
     }

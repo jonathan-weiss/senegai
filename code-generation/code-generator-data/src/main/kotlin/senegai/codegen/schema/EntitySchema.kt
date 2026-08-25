@@ -56,6 +56,14 @@ enum class ExampleDataCategory(val generatorPrefixName: String, val supportedBui
     RANDOM_TEXT("RandomString", BuiltInType.STRING),
     RANDOM_NUMBER("RandomNumber",BuiltInType.NUMBER),
     RANDOM_BOOLEAN("RandomBoolean",BuiltInType.BOOLEAN),
+    FIRSTNAME("FirstnameString",BuiltInType.STRING),
+    LASTNAME("LastnameString",BuiltInType.STRING),
+    AGE("AgeNumber",BuiltInType.NUMBER),
+    STREET("StreetAndNumberString",BuiltInType.STRING),
+    POSTCODE("PostcodeString",BuiltInType.STRING),
+    CITY("CityString",BuiltInType.STRING),
+    COUNTRY_ISO("CountryIsoCodeString",BuiltInType.STRING),
+    COUNTRY_NAME("CountryNameString",BuiltInType.STRING),
 }
 
 /**

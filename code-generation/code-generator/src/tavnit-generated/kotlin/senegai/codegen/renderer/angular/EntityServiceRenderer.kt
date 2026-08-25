@@ -32,7 +32,7 @@ object EntityServiceRenderer : UiEntityRenderer {
           |     * {@link ${model.entityRootItem.itemName.screamingSnakeCase}_EXAMPLE_DATA} constant; when `false` it calls the Spring Boot
           |     * REST API at {@link baseUrl}. Flip to `false` to consume the real backend.
           |     */
-          |    private readonly useExampleData = false;
+          |    private readonly useClientOnlyExampleData = false;
           |    private readonly baseUrl = 'http://localhost:8080/api/${model.entityName.kebabCase}';
           |
           |    private ${model.entityRootItem.itemName.camelCase}List: ${model.entityRootItem.itemName.pascalCase}WTO[] = []
@@ -42,7 +42,7 @@ object EntityServiceRenderer : UiEntityRenderer {
           |    }
           |
           |    get${model.entityRootItem.itemName.pascalCase}List(): Observable<${model.entityRootItem.itemName.pascalCase}WTO[]> {
-          |        if (!this.useExampleData) {
+          |        if (!this.useClientOnlyExampleData) {
           |            return this.http.get<${model.entityRootItem.itemName.pascalCase}WTO[]>(this.baseUrl);
           |        }
           |        // Simulate HTTP delay
@@ -50,7 +50,7 @@ object EntityServiceRenderer : UiEntityRenderer {
           |    }
           |
           |    get${model.entityRootItem.itemName.pascalCase}ById(${model.idAttribute.attributeName.camelCase}: string): Observable<${model.entityRootItem.itemName.pascalCase}WTO | null> {
-          |        if (!this.useExampleData) {
+          |        if (!this.useClientOnlyExampleData) {
           |            return this.http.get<${model.entityRootItem.itemName.pascalCase}WTO | null>(`${"$"}{this.baseUrl}/${"$"}{${model.idAttribute.attributeName.camelCase}}`);
           |        }
           |        const found = this.${model.entityRootItem.itemName.camelCase}List.find(a => a.${model.idAttribute.attributeName.camelCase} === ${model.idAttribute.attributeName.camelCase}) || null;
@@ -58,7 +58,7 @@ object EntityServiceRenderer : UiEntityRenderer {
           |    }
           |
           |    delete${model.entityRootItem.itemName.pascalCase}(${model.idAttribute.attributeName.camelCase}: string): Observable<void> {
-          |        if (!this.useExampleData) {
+          |        if (!this.useClientOnlyExampleData) {
           |            return this.http.delete<void>(`${"$"}{this.baseUrl}/${"$"}{${model.idAttribute.attributeName.camelCase}}`);
           |        }
           |        this.${model.entityRootItem.itemName.camelCase}List = this.${model.entityRootItem.itemName.camelCase}List.filter(a => a.${model.idAttribute.attributeName.camelCase} !== ${model.idAttribute.attributeName.camelCase});
@@ -66,7 +66,7 @@ object EntityServiceRenderer : UiEntityRenderer {
           |    }
           |
           |    update${model.entityRootItem.itemName.pascalCase}(${model.entityRootItem.itemName.camelCase}: ${model.entityRootItem.itemName.pascalCase}WTO): Observable<${model.entityRootItem.itemName.pascalCase}WTO> {
-          |        if (!this.useExampleData) {
+          |        if (!this.useClientOnlyExampleData) {
           |            return this.http.put<${model.entityRootItem.itemName.pascalCase}WTO>(`${"$"}{this.baseUrl}/${"$"}{${model.entityRootItem.itemName.camelCase}.${model.idAttribute.attributeName.camelCase}}`, ${model.entityRootItem.itemName.camelCase});
           |        }
           |        const idx = this.${model.entityRootItem.itemName.camelCase}List.findIndex(a => a.${model.idAttribute.attributeName.camelCase} === ${model.entityRootItem.itemName.camelCase}.${model.idAttribute.attributeName.camelCase});
@@ -77,7 +77,7 @@ object EntityServiceRenderer : UiEntityRenderer {
           |    }
           |
           |    create${model.entityRootItem.itemName.pascalCase}(${model.entityName.camelCase}: ${model.entityRootItem.itemName.pascalCase}WTO): Observable<${model.entityRootItem.itemName.pascalCase}WTO> {
-          |        if (!this.useExampleData) {
+          |        if (!this.useClientOnlyExampleData) {
           |            return this.http.post<${model.entityRootItem.itemName.pascalCase}WTO>(this.baseUrl, ${model.entityName.camelCase});
           |        }
           |        const created: ${model.entityRootItem.itemName.pascalCase}WTO = {...${model.entityName.camelCase}, ${model.idAttribute.attributeName.camelCase}: crypto.randomUUID()};

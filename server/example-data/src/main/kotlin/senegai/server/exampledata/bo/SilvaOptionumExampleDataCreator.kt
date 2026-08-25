@@ -24,10 +24,21 @@ package senegai.server.exampledata.bo
 import org.springframework.stereotype.Component
 import senegai.server.exampledata.DataContext
 import senegai.server.exampledata.framework.datafaker.FakerHelper
+import senegai.server.service.bo.SilvaOptionumBO
+/* @tt{{{
+    @foreach [ iteratorExpression="model.exampleDataGeneratorConfigs" loopVariable="exampleDataGeneratorConfig" ]
+    @replace-value-by-expression
+        [ searchValue="RandomString" replaceByExpression="exampleDataGeneratorConfig.generatorNamePrefix.pascalCase" ]
+        [ searchValue="randomString" replaceByExpression="exampleDataGeneratorConfig.generatorNamePrefix.camelCase" ]
+}}}@ */
+import senegai.server.exampledata.framework.datagenerator.RandomStringDataGenerator
+/* @tt{{{   @end-foreach  }}}@ */
+/* @tt{{{   @ignore-text  }}}@ */
 import senegai.server.exampledata.framework.datagenerator.RandomBooleanDataGenerator
 import senegai.server.exampledata.framework.datagenerator.RandomNumberDataGenerator
-import senegai.server.exampledata.framework.datagenerator.RandomStringDataGenerator
-import senegai.server.service.bo.SilvaOptionumBO
+/* @tt{{{   @end-ignore-text  }}}@ */
+
+
 
 /**
  * Creates example data for the business object [SilvaOptionumBO].

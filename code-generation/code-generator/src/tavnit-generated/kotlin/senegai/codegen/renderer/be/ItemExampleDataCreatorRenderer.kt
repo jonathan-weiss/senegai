@@ -21,10 +21,10 @@ object ItemExampleDataCreatorRenderer : BeItemRenderer {
           |import org.springframework.stereotype.Component
           |import senegai.server.exampledata.DataContext
           |import senegai.server.exampledata.framework.datafaker.FakerHelper
-          |import senegai.server.exampledata.framework.datagenerator.RandomBooleanDataGenerator
-          |import senegai.server.exampledata.framework.datagenerator.RandomNumberDataGenerator
-          |import senegai.server.exampledata.framework.datagenerator.RandomStringDataGenerator
           |import senegai.server.service.bo.${model.itemName.pascalCase}BO
+          |${ model.exampleDataGeneratorConfigs.joinToString("") { exampleDataGeneratorConfig ->  """import senegai.server.exampledata.framework.datagenerator.${exampleDataGeneratorConfig.generatorNamePrefix.pascalCase}DataGenerator
+              |""" } }
+          |
           |
           |/**
           | * Creates example data for the business object [${model.itemName.pascalCase}BO].
