@@ -39,3 +39,7 @@ tasks.register<JavaExec>("createTavnitRenderers") {
 tasks.register<Delete>("cleanRenderers") {
     delete(targetDirectoryForTemplateRenderer)
 }
+
+tasks.named("clean") {
+    dependsOn("cleanRenderers")
+}

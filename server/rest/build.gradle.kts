@@ -37,3 +37,11 @@ dependencies {
 tasks.named("compileKotlin") {
     dependsOn( ":code-generation:code-generator:codegen")
 }
+
+tasks.register<Delete>("cleanGeneratedSources") {
+    delete(projectDir.resolve(directoryForGeneratedSource))
+}
+
+tasks.named("clean") {
+    dependsOn("cleanGeneratedSources")
+}

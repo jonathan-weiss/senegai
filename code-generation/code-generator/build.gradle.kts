@@ -67,3 +67,11 @@ tasks.register<Delete>("cleanCodegen") {
         directoryForServiceGeneratedSource,
     )
 }
+
+tasks.named("clean") {
+    dependsOn("cleanCodegen")
+}
+
+tasks.named("compileKotlin") {
+    dependsOn(":code-generation:renderer-creator:createTavnitRenderers")
+}
