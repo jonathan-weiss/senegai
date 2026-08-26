@@ -5,9 +5,10 @@ import senegai.codegen.renderer.model.NameCase
 data class UiEntityModel(
     val entityName: NameCase,
     val entityRootItem: UiItemModel,
+    /** The attribute of the [entityRootItem] that identifies the entity. */
+    val idAttribute: UiAttributeModel,
     val entityItemModels: List<UiItemModel>,
     val entityEnumTypes: List<UiEnumModel>,
 ) {
     val searchResultAttributes: List<UiAttributeModel> = entityRootItem.attributes
-    val idAttribute: UiAttributeModel = entityRootItem.attributes.first() // TODO make configurable
 }

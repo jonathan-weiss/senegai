@@ -241,18 +241,22 @@ object RendererModelConverter {
     }
 
     private fun mapBeEntityModel(entity: Entity, entityItemModelIds: Set<ItemId>, allBeItemModels: List<BeItemModel>, allEnumTypes: List<EnumType>): BeEntityModel {
+        val entityRootItem = allBeItemModels.single { it.itemId == entity.item.itemId }
         return BeEntityModel(
             entityName = NameCase(entity.entityName),
-            entityRootItem = allBeItemModels.single { it.itemId == entity.item.itemId },
+            entityRootItem = entityRootItem,
+            idAttribute = entityRootItem.attributes.single { it.attributeName.isEqual(entity.idAttributeName) },
             entityItemModels = allBeItemModels.filter { it.itemId in entityItemModelIds },
             entityEnumTypes = allEnumTypes.map { BeEnumModel(NameCase(entity.entityName), it) }, // TODO filter for only the enums used in this entity
         )
     }
 
     private fun mapUiEntityViewsModel(uiEntity: UiEntity, entityItemModelIds: Set<ItemId>, allUiItemModels: List<UiItemModel>, allEnumTypes: List<EnumType>): UiEntityViewsModel {
+        val entityRootItem = allUiItemModels.single { it.itemId == uiEntity.entity.item.itemId }
         val uiEntityModel = UiEntityModel(
             entityName = NameCase(uiEntity.entity.entityName),
-            entityRootItem = allUiItemModels.single { it.itemId == uiEntity.entity.item.itemId },
+            entityRootItem = entityRootItem,
+            idAttribute = entityRootItem.attributes.single { it.attributeName.isEqual(uiEntity.entity.idAttributeName) },
             entityItemModels = allUiItemModels.filter { it.itemId in entityItemModelIds },
             entityEnumTypes = allEnumTypes.map { UiEnumModel(it) }, // TODO filter for only the enums used in this entity
         )

@@ -14,6 +14,7 @@ interface SchemaDsl {
     fun entity(
         entityId: EntityId,
         entityRootItemId: ItemId,
+        entityIdAttributeName: String,
     )
 
     fun enumType(

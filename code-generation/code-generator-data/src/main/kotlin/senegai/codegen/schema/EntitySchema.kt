@@ -24,8 +24,21 @@ interface EntityId : ItemAttributeType {
 data class Entity(
     val entityId: EntityId,
     val item: Item,
+    val idAttributeName: String,
 ) {
     val entityName: String = entityId.entityName
+
+    /**
+     * The attribute of the root [item] that identifies
+     * this entity (like a primary key in the database).
+     */
+    val idAttribute: ItemAttribute = item.attributes
+        .singleOrNull { it.attributeName == idAttributeName }
+        ?: throw IllegalArgumentException(
+            "The entity '$entityName' declares '$idAttributeName' as its identifying attribute, " +
+                    "but the entity root item '${item.itemName}' has no such attribute. " +
+                    "Available attributes are ${item.attributes.map { it.attributeName }}."
+        )
 }
 
 /**

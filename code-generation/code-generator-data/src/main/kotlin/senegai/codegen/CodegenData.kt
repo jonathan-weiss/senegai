@@ -38,8 +38,8 @@ object CodegenData {
 
     private fun RootDsl.collectEntityData() {
         schema {
-            entity(entityId = Entities.EMPLOYEE, entityRootItemId = Items.CONTACT)
-            entity(entityId = Entities.EMPLOYEE_ADDRESS, entityRootItemId = Items.ADDRESS)
+            entity(entityId = Entities.EMPLOYEE, entityRootItemId = Items.CONTACT, entityIdAttributeName = "contactId")
+            entity(entityId = Entities.EMPLOYEE_ADDRESS, entityRootItemId = Items.ADDRESS, entityIdAttributeName = "id")
 
             enumType(enumId = EnumTypes.SALUTATION) {
                 enumValue(name = "Mr")

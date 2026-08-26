@@ -21,6 +21,8 @@ interface SchemaBuilder: senegai.codegen.builders.SchemaDsl {
         entityId: EntityId,
         @SetClazzModelOfId(alias = "entity", clazzProperty = "item")
         entityRootItemId: ItemId,
+        @SetAsValue(alias = "entity", clazzProperty = "idAttributeName")
+        entityIdAttributeName: String,
     )
 
     // **************
