@@ -38,8 +38,9 @@ export const SIDE_NAVIGATION_LINKS: ReadonlyArray<SideNavLink> = [
         
       }}}@  */
     {routeLink: '/opus-magnum-board', name: "Opera Magna", icon: "people"},
-    {routeLink: '/opus-magnum-edit/example', name: "Edit Opera Magna", icon: "edit"},
-/* @tt{{{   @end-replace-value-by-expression @end-foreach   }}}@ */
+    {routeLink: '/opus-magnum-edit-first-entry', name: "Edit First Opera Magna", icon: "code"},
+
+    /* @tt{{{   @end-replace-value-by-expression @end-foreach   }}}@ */
 ]
 /* @tt{{{   @end-replace-value-by-value  }}}@ */
 

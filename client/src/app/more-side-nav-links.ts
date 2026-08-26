@@ -1,8 +1,6 @@
 import {SideNavLink} from "./side-nav/side-nav-list/side-nav-link.model";
 
-export const OTHER_SIDE_NAVIGATION_LINKS: ReadonlyArray<SideNavLink> = [
-    {routeLink: '/opus-magnum-routable-edit/828cf29b-a7fb-4b07-bf13-9a313a9967f6', name: "Edit Opus 828cf29b", icon: "code"},
-]
+export const OTHER_SIDE_NAVIGATION_LINKS: ReadonlyArray<SideNavLink> = []
 export const MORE_SIDE_NAVIGATION_LINKS: ReadonlyArray<SideNavLink> = [
     {routeLink: '/code', name: "Code", icon: "code"},
     {routeLink: '/help', name: "Help", icon: "help"},

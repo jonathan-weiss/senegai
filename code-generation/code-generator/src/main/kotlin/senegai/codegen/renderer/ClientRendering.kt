@@ -116,6 +116,7 @@ object ClientRendering {
                 EntitySearchComponentTypescriptRenderer,
                 EntityServiceRenderer,
                 EntityExampleDataRenderer,
+                EntityFirstEntryGuardRenderer,
             )
 
             entityRenderer.forEach { renderer ->

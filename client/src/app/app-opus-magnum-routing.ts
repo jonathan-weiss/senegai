@@ -19,23 +19,25 @@
         [ searchValue="app-opus-magnum-routing.ts" replaceByValue="generated-routes.ts" ]
     @modify-provided-filepath-by-replacements
     @end-replace-value-by-value
+
+    @replace-value-by-expression
+        [ searchValue="opus-magnum" replaceByExpression="entity.entityName.kebabCase" ]
+        [ searchValue="OpusMagnum" replaceByExpression="entity.entityName.pascalCase" ]
+        [ searchValue="opusMagnum" replaceByExpression="entity.entityName.camelCase" ]
 }}}@  */
 
 import {Routes} from '@angular/router';
 /* @tt{{{
-    
+
     @foreach [ iteratorExpression="models" loopVariable="entity" ]
-    @replace-value-by-expression
-        [ searchValue="opus-magnum" replaceByExpression="entity.entityName.kebabCase" ]
-        [ searchValue="OpusMagnum" replaceByExpression="entity.entityName.pascalCase" ]
 
 }}}@  */
 
 import {OpusMagnumBoardComponent} from '@app/opus-magnum/opus-magnum-board/opus-magnum-board.component';
-import {OpusMagnumFormComponent} from '@app/opus-magnum/opus-magnum-form/opus-magnum-form/opus-magnum-form.component';
 import {
     OpusMagnumRoutableEditComponent
 } from "@app/opus-magnum/opus-magnum-routable-edit/opus-magnum-routable-edit.component";
+import {opusMagnumFirstEntryEditGuard} from "@app/opus-magnum/opus-magnum-first-entry-edit.guard";
 /* @tt{{{
     
     @end-foreach
@@ -45,22 +47,20 @@ import {
 /* @tt{{{
     @replace-value-by-value
         [ searchValue="OPUS_MAGNUM_ROUTES" replaceByValue="GENERATED_ITEMS_ROUTES" ]
-
 }}}@  */
 
 export const OPUS_MAGNUM_ROUTES: Routes = [
+/* @tt{{{ @end-replace-value-by-value }}}@  */
 /* @tt{{{
-    
-    @foreach [ iteratorExpression="models" loopVariable="entity" ]
-    @replace-value-by-expression
-        [ searchValue="opus-magnum" replaceByExpression="entity.entityName.kebabCase" ]
-        [ searchValue="OpusMagnum" replaceByExpression="entity.entityName.pascalCase" ]
 
+    @foreach [ iteratorExpression="models" loopVariable="entity" ]
     @replace-value-by-expression
         [ searchValue="indexUnicus" replaceByExpression="entity.idAttribute.attributeName.camelCase" ]
 
 }}}@  */
     {path: 'opus-magnum-board', component: OpusMagnumBoardComponent},
+    {path: 'opus-magnum-edit-first-entry', canActivate: [opusMagnumFirstEntryEditGuard], children: []},
+    {path: 'opus-magnum-routable-edit/:indexUnicus', component: OpusMagnumRoutableEditComponent},
     {path: 'opus-magnum-edit/:indexUnicus', component: OpusMagnumRoutableEditComponent},
 /* @tt{{{
     
