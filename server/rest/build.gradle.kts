@@ -29,7 +29,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webmvc")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     // Required so Jackson can (de)serialize the Kotlin data class WTOs from request bodies.
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    // Must be the Jackson 3 (`tools.jackson`) module: Spring Boot 4 binds request bodies with
+    // Jackson 3, so the `com.fasterxml.jackson` (Jackson 2) module is never registered there.
+    implementation("tools.jackson.module:jackson-module-kotlin")
 
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.3")
 }
