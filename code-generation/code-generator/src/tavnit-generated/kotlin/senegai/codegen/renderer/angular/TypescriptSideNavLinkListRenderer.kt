@@ -9,8 +9,8 @@ import senegai.codegen.renderer.model.ui.UiEntityModel
  * Generate the content for the template `TypescriptSideNavLinkListRenderer`.
  *
  * This template renderer was generated from the template:
- * - file: `side-nav-links.ts`
- * - path: `side-nav-links.ts`
+ * - file: `entity-side-nav-links.ts`
+ * - path: `entity-side-nav-links.ts`
  */
 object TypescriptSideNavLinkListRenderer : UiEntitiesRenderer {
 
@@ -19,11 +19,10 @@ object TypescriptSideNavLinkListRenderer : UiEntitiesRenderer {
           |
           |
           |import {SideNavLink} from "@app/side-nav/side-nav-list/side-nav-link.model";
-          |
-          |export const GENERATED_SIDE_NAVIGATION_LINKS: ReadonlyArray<SideNavLink> = [
-          |${ models.joinToString("") { entity ->  """    {routeLink: '/${entity.entityName.kebabCase}-board', name: "${entity.entityName.pascalCase}", icon: "people"},
-              |    {routeLink: '/${entity.entityName.kebabCase}-edit-first-entry', name: "Edit First ${entity.entityName.pascalCase}", icon: "code"},
-              |
+          |${ models.joinToString("") { entity ->  """import {${entity.entityName.screamingSnakeCase}_SIDE_NAVIGATION_LINKS} from "@app/${entity.entityName.kebabCase}/${entity.entityName.kebabCase}-routing";
+              |""" } }
+          |export const GENERATED_ENTITY_SIDE_NAVIGATION_LINKS: ReadonlyArray<SideNavLink> = [
+          |${ models.joinToString("") { entity ->  """    ...${entity.entityName.screamingSnakeCase}_SIDE_NAVIGATION_LINKS,
               |""" } }]
           |
           |
@@ -32,6 +31,6 @@ object TypescriptSideNavLinkListRenderer : UiEntitiesRenderer {
     }
 
     override fun filePath(models: List<UiEntityModel>): String {
-      return "generated-side-nav-links.ts"
+      return "generated-entity-side-nav-links.ts"
     }
 }

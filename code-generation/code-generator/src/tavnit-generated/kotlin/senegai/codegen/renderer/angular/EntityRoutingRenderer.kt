@@ -23,6 +23,7 @@ object EntityRoutingRenderer : UiEntityRenderer {
           |    ${model.entityName.pascalCase}RoutableEditComponent
           |} from "@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}-routable-edit/${model.entityName.kebabCase}-routable-edit.component";
           |import {${model.entityName.camelCase}FirstEntryEditGuard} from "@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}-first-entry-edit.guard";
+          |import {SideNavLink} from "@app/side-nav/side-nav-list/side-nav-link.model";
           |
           |export const ${model.entityName.screamingSnakeCase}_ROUTES: Routes = [
           |    {path: '${model.entityName.kebabCase}-board', component: ${model.entityName.pascalCase}BoardComponent},
@@ -31,6 +32,10 @@ object EntityRoutingRenderer : UiEntityRenderer {
           |    {path: '${model.entityName.kebabCase}-edit/:${model.idAttribute.attributeName.camelCase}', component: ${model.entityName.pascalCase}RoutableEditComponent},
           |];
           |
+          |export const ${model.entityName.screamingSnakeCase}_SIDE_NAVIGATION_LINKS: ReadonlyArray<SideNavLink> = [
+          |    {routeLink: '/${model.entityName.kebabCase}-board', name: "${model.entityName.pascalCase}", icon: "people"},
+          |    {routeLink: '/${model.entityName.kebabCase}-edit-first-entry', name: "Edit First ${model.entityName.pascalCase}", icon: "code"},
+          |]
           |
         """.trimMargin(marginPrefix = "|")
     }

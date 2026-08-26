@@ -15,9 +15,9 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MatMenuModule} from "@angular/material/menu";
 import {RouterOutlet} from "@angular/router";
 import {SideNavLinkListComponent} from "./side-nav/side-nav-list/side-nav-link-list.component";
-import {SIDE_NAVIGATION_LINKS} from "./side-nav-links";
-import {MORE_SIDE_NAVIGATION_LINKS, OTHER_SIDE_NAVIGATION_LINKS} from "./more-side-nav-links";
-import {GENERATED_SIDE_NAVIGATION_LINKS} from "../app-generated/generated-side-nav-links";
+import {ENTITY_SIDE_NAVIGATION_LINKS} from "./entity-side-nav-links";
+import {OTHER_SIDE_NAVIGATION_LINKS} from "./more-side-nav-links";
+import { GENERATED_ENTITY_SIDE_NAVIGATION_LINKS } from "@app/generated-entity-side-nav-links";
 import {TranslocoService} from "@jsverse/transloco";
 
 @Component({
@@ -47,8 +47,8 @@ export class AppComponent {
     sidenavOpened = true;
     activeLang: string;
 
-    sideNavLinks = SIDE_NAVIGATION_LINKS
-    generatedSideNavLinks = GENERATED_SIDE_NAVIGATION_LINKS
+    sideNavLinks = ENTITY_SIDE_NAVIGATION_LINKS
+    generatedSideNavLinks = GENERATED_ENTITY_SIDE_NAVIGATION_LINKS
     otherSideNavLinks = OTHER_SIDE_NAVIGATION_LINKS
 
     constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, private transloco: TranslocoService) {
