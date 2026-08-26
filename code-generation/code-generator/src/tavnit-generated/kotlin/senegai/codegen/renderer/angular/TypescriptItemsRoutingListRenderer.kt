@@ -9,8 +9,8 @@ import senegai.codegen.renderer.model.ui.UiEntityModel
  * Generate the content for the template `TypescriptItemsRoutingListRenderer`.
  *
  * This template renderer was generated from the template:
- * - file: `app-opus-magnum-routing.ts`
- * - path: `app-opus-magnum-routing.ts`
+ * - file: `app-routing-template.ts`
+ * - path: `app-routing-template.ts`
  */
 object TypescriptItemsRoutingListRenderer : UiEntitiesRenderer {
 
@@ -18,19 +18,11 @@ object TypescriptItemsRoutingListRenderer : UiEntitiesRenderer {
         return """
           |
           |import {Routes} from '@angular/router';
-          |${ models.joinToString("") { entity ->  """
-              |import {${entity.entityName.pascalCase}BoardComponent} from '@app/${entity.entityName.kebabCase}/${entity.entityName.kebabCase}-board/${entity.entityName.kebabCase}-board.component';
-              |import {
-              |    ${entity.entityName.pascalCase}RoutableEditComponent
-              |} from "@app/${entity.entityName.kebabCase}/${entity.entityName.kebabCase}-routable-edit/${entity.entityName.kebabCase}-routable-edit.component";
-              |import {${entity.entityName.camelCase}FirstEntryEditGuard} from "@app/${entity.entityName.kebabCase}/${entity.entityName.kebabCase}-first-entry-edit.guard";
+          |${ models.joinToString("") { entity ->  """import {${entity.entityName.screamingSnakeCase}_ROUTES} from "@app/${entity.entityName.kebabCase}/${entity.entityName.kebabCase}-routing";
               |""" } }
           |
           |export const GENERATED_ITEMS_ROUTES: Routes = [
-          |${ models.joinToString("") { entity ->  """    {path: '${entity.entityName.kebabCase}-board', component: ${entity.entityName.pascalCase}BoardComponent},
-              |    {path: '${entity.entityName.kebabCase}-edit-first-entry', canActivate: [${entity.entityName.camelCase}FirstEntryEditGuard], children: []},
-              |    {path: '${entity.entityName.kebabCase}-routable-edit/:${entity.idAttribute.attributeName.camelCase}', component: ${entity.entityName.pascalCase}RoutableEditComponent},
-              |    {path: '${entity.entityName.kebabCase}-edit/:${entity.idAttribute.attributeName.camelCase}', component: ${entity.entityName.pascalCase}RoutableEditComponent},
+          |${ models.joinToString("") { entity ->  """    ...${entity.entityName.screamingSnakeCase}_ROUTES,
               |""" } }];
           |
           |

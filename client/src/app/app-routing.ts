@@ -1,6 +1,6 @@
 import {Routes} from '@angular/router';
-import {OPUS_MAGNUM_ROUTES} from "@app/app-opus-magnum-routing";
 import {GENERATED_ITEMS_ROUTES} from "@app/generated-routes";
+import {OPUS_MAGNUM_ROUTES} from "@app/opus-magnum/opus-magnum-routing";
 
 export const ROUTES: Routes = [
     ...OPUS_MAGNUM_ROUTES,

@@ -117,6 +117,7 @@ object ClientRendering {
                 EntityServiceRenderer,
                 EntityExampleDataRenderer,
                 EntityFirstEntryGuardRenderer,
+                EntityRoutingRenderer,
             )
 
             entityRenderer.forEach { renderer ->
