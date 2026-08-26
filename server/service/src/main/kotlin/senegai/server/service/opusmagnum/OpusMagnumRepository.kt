@@ -27,6 +27,7 @@
 package senegai.server.service.opusmagnum
 
 import senegai.server.service.bo.SilvaOptionumBO
+import java.util.UUID
 
 /**
  * Port for persisting the OpusMagnum root object [SilvaOptionumBO]. The implementation
@@ -39,10 +40,10 @@ interface OpusMagnumRepository {
 
     fun findAll(): List<SilvaOptionumBO>
 
-    fun findById(indexUnicus: String): SilvaOptionumBO?
+    fun findById(indexUnicus: UUID): SilvaOptionumBO?
 
     /** Inserts or replaces the given [silvaOptionum] (matched by [SilvaOptionumBO.indexUnicus]). */
     fun save(silvaOptionum: SilvaOptionumBO): SilvaOptionumBO
 
-    fun deleteById(indexUnicus: String)
+    fun deleteById(indexUnicus: UUID)
 }

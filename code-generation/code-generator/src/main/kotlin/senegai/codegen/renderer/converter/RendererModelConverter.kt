@@ -234,6 +234,7 @@ object RendererModelConverter {
                 BuiltInType.STRING -> ExampleDataCategory.RANDOM_TEXT
                 BuiltInType.NUMBER -> ExampleDataCategory.RANDOM_NUMBER
                 BuiltInType.BOOLEAN -> ExampleDataCategory.RANDOM_BOOLEAN
+                BuiltInType.UUID -> ExampleDataCategory.RANDOM_UUID
             }
         } else {
             throw IllegalStateException("ExampleDataCategory must be built-in type here")

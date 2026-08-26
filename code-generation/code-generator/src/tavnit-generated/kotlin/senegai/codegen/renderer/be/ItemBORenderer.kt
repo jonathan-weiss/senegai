@@ -18,7 +18,8 @@ object ItemBORenderer : BeItemRenderer {
         return """
           |package senegai.server.service.bo
           |
-          |
+          |${ if(model.containsUuidAttributes) { """import java.util.UUID
+              |""" } else { """""" } }
           |/**
           | * Business object for the [${model.itemName.pascalCase}BO] item.
           | */

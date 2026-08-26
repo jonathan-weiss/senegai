@@ -19,7 +19,8 @@ object EntityItemFormPartInitialValueServiceRenderer : UiEntityItemRenderer {
           |
           |import {Injectable} from '@angular/core';
           |import {FormGroup} from "@angular/forms";
-          |
+          |${ if(model.item.containsUuidAttributes) { """import {UUID} from "@app/shared/uuid";
+              |""" } else { """""" } }
           |${ model.item.directlyNestedItems.joinToString("") { directlyNestedItem ->  """
               |import {
               |    ${model.entity.entityName.pascalCase}${directlyNestedItem.itemName.pascalCase}FormPartGroup

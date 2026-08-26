@@ -29,6 +29,9 @@
 
 import {Injectable} from '@angular/core';
 import {FormGroup} from "@angular/forms";
+/* @tt{{{   @if [ conditionExpression="model.item.containsUuidAttributes"]  }}}@ */
+import {UUID} from "@app/shared/uuid";
+/* @tt{{{   @end-if  }}}@ */
 
 /* @tt{{{ 
     @foreach [ iteratorExpression="model.item.directlyNestedItems" loopVariable="directlyNestedItem" ]
@@ -93,7 +96,7 @@ export class OpusMagnumSilvaOptionumFormPartInitialValueService {
     appellatioOptionalisIteratusInitialValue(): AppellatioComisEnum {
         return AppellatioComisEnum.FEMINA_HONESTA;
     }
-    indexUnicusInitialValue(): string {
+    indexUnicusInitialValue(): UUID {
         return crypto.randomUUID()
     }
     iteratioSimpliciumTextuumInitialValue(): string {

@@ -36,18 +36,18 @@ object EntityServiceRenderer : BeEntityRenderer {
           |
           |    fun get${model.entityRootItem.itemName.pascalCase}List(): List<${model.entityRootItem.itemName.pascalCase}BO> = ${model.entityName.camelCase}Repository.findAll()
           |
-          |    fun get${model.entityRootItem.itemName.pascalCase}ById(${model.idAttribute.attributeName.camelCase}: String): ${model.entityRootItem.itemName.pascalCase}BO? =
+          |    fun get${model.entityRootItem.itemName.pascalCase}ById(${model.idAttribute.attributeName.camelCase}: UUID): ${model.entityRootItem.itemName.pascalCase}BO? =
           |        ${model.entityName.camelCase}Repository.findById(${model.idAttribute.attributeName.camelCase})
           |
           |    fun create${model.entityRootItem.itemName.pascalCase}(${model.entityRootItem.itemName.camelCase}: ${model.entityRootItem.itemName.pascalCase}BO): ${model.entityRootItem.itemName.pascalCase}BO {
-          |        val toCreate = ${model.entityRootItem.itemName.camelCase}.copy(${model.idAttribute.attributeName.camelCase} = UUID.randomUUID().toString())
+          |        val toCreate = ${model.entityRootItem.itemName.camelCase}.copy(${model.idAttribute.attributeName.camelCase} = UUID.randomUUID())
           |        return ${model.entityName.camelCase}Repository.save(toCreate)
           |    }
           |
           |    fun update${model.entityRootItem.itemName.pascalCase}(${model.entityRootItem.itemName.camelCase}: ${model.entityRootItem.itemName.pascalCase}BO): ${model.entityRootItem.itemName.pascalCase}BO =
           |        ${model.entityName.camelCase}Repository.save(${model.entityRootItem.itemName.camelCase})
           |
-          |    fun delete${model.entityRootItem.itemName.pascalCase}(${model.idAttribute.attributeName.camelCase}: String) = ${model.entityName.camelCase}Repository.deleteById(${model.idAttribute.attributeName.camelCase})
+          |    fun delete${model.entityRootItem.itemName.pascalCase}(${model.idAttribute.attributeName.camelCase}: UUID) = ${model.entityName.camelCase}Repository.deleteById(${model.idAttribute.attributeName.camelCase})
           |}
           |
         """.trimMargin(marginPrefix = "|")

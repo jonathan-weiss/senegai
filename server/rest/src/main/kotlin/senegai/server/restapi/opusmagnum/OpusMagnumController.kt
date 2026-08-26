@@ -34,6 +34,7 @@ import senegai.server.restapi.wto.mapper.SilvaOptionumMapper
 import senegai.server.restapi.wto.mapper.SilvaOptionumMapper.toBo
 import senegai.server.restapi.wto.mapper.SilvaOptionumMapper.toWto
 import senegai.server.service.opusmagnum.OpusMagnumService
+import java.util.UUID
 
 /**
  * REST endpoints of the OpusMagnum business context. Served under `/api/opus-magnum`
@@ -55,7 +56,7 @@ class OpusMagnumController(
         opusMagnumService.getSilvaOptionumList().map { it.toWto() }
 
     @GetMapping("/{indexUnicus}")
-    fun getSilvaOptionumById(@PathVariable indexUnicus: String): SilvaOptionumWTO? =
+    fun getSilvaOptionumById(@PathVariable indexUnicus: UUID): SilvaOptionumWTO? =
         opusMagnumService.getSilvaOptionumById(indexUnicus)?.toWto()
 
     @PostMapping
@@ -66,7 +67,7 @@ class OpusMagnumController(
 
     @PutMapping("/{indexUnicus}")
     fun updateSilvaOptionum(
-        @PathVariable indexUnicus: String,
+        @PathVariable indexUnicus: UUID,
         @RequestBody silvaOptionum: SilvaOptionumWTO,
     ): SilvaOptionumWTO {
         val toUpdate = silvaOptionum.toBo().copy(indexUnicus = indexUnicus)
@@ -74,6 +75,6 @@ class OpusMagnumController(
     }
 
     @DeleteMapping("/{indexUnicus}")
-    fun deleteSilvaOptionum(@PathVariable indexUnicus: String) =
+    fun deleteSilvaOptionum(@PathVariable indexUnicus: UUID) =
         opusMagnumService.deleteSilvaOptionum(indexUnicus)
 }

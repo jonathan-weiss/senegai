@@ -38,6 +38,7 @@ import {Observable, of} from 'rxjs';
 import {delay} from 'rxjs/operators';
 import {SilvaOptionumWTO} from "@app/wto/silva-optionum.wto";
 import {SILVA_OTIONUM_EXAMPLE_DATA} from "@app/opus-magnum/opus-magnum-example-data";
+import {UUID} from "@app/shared/uuid";
 
 
 @Injectable({providedIn: 'root'})
@@ -64,7 +65,7 @@ export class OpusMagnumService {
         return of(this.silvaOptionumList).pipe(delay(200));
     }
 
-    getSilvaOptionumById(indexUnicus: string): Observable<SilvaOptionumWTO | null> {
+    getSilvaOptionumById(indexUnicus: UUID): Observable<SilvaOptionumWTO | null> {
         if (!this.useClientOnlyExampleData) {
             return this.http.get<SilvaOptionumWTO | null>(`${this.baseUrl}/${indexUnicus}`);
         }
@@ -72,7 +73,7 @@ export class OpusMagnumService {
         return of(found).pipe(delay(200));
     }
 
-    deleteSilvaOptionum(indexUnicus: string): Observable<void> {
+    deleteSilvaOptionum(indexUnicus: UUID): Observable<void> {
         if (!this.useClientOnlyExampleData) {
             return this.http.delete<void>(`${this.baseUrl}/${indexUnicus}`);
         }

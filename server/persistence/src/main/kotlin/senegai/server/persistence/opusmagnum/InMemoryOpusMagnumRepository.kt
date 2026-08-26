@@ -30,6 +30,7 @@ import org.springframework.stereotype.Repository
 import senegai.server.service.opusmagnum.OpusMagnumRepository
 import senegai.server.service.bo.SilvaOptionumBO
 import java.util.concurrent.ConcurrentHashMap
+import java.util.UUID
 
 /**
  * Simple in-memory implementation of the [OpusMagnumRepository] port defined in the
@@ -39,18 +40,18 @@ import java.util.concurrent.ConcurrentHashMap
 @Repository
 class InMemoryOpusMagnumRepository : OpusMagnumRepository {
 
-    private val store = ConcurrentHashMap<String, SilvaOptionumBO>()
+    private val store = ConcurrentHashMap<UUID, SilvaOptionumBO>()
 
     override fun findAll(): List<SilvaOptionumBO> = store.values.toList()
 
-    override fun findById(indexUnicus: String): SilvaOptionumBO? = store[indexUnicus]
+    override fun findById(indexUnicus: UUID): SilvaOptionumBO? = store[indexUnicus]
 
     override fun save(silvaOptionum: SilvaOptionumBO): SilvaOptionumBO {
         store[silvaOptionum.indexUnicus] = silvaOptionum
         return silvaOptionum
     }
 
-    override fun deleteById(indexUnicus: String) {
+    override fun deleteById(indexUnicus: UUID) {
         store.remove(indexUnicus)
     }
 }

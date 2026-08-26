@@ -33,6 +33,9 @@
 }}}@  */
 import {ArticulusInteriorWTO} from "@app/wto/articulus-interior.wto";
 /* @tt{{{   @end-foreach  }}}@ */
+/* @tt{{{   @if [ conditionExpression="model.containsUuidAttributes"]  }}}@ */
+import {UUID} from "@app/shared/uuid";
+/* @tt{{{   @end-if  }}}@ */
 /* @tt{{{
     @foreach [ iteratorExpression="model.usedEnums" loopVariable="usedEnum" ]
 
@@ -72,7 +75,7 @@ export interface SilvaOptionumWTO {
     campusDiei: Date | null;
     campusBivalens: boolean;
     campusNumerorum: number;
-    indexUnicus: string;
+    indexUnicus: UUID;
     iteratioSimpliciumTextuum: Array<string>;
     /* @tt{{{   @end-ignore-text }}}@ */
 }

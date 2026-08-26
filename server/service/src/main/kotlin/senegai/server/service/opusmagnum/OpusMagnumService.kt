@@ -45,16 +45,16 @@ class OpusMagnumService(
 
     fun getSilvaOptionumList(): List<SilvaOptionumBO> = opusMagnumRepository.findAll()
 
-    fun getSilvaOptionumById(indexUnicus: String): SilvaOptionumBO? =
+    fun getSilvaOptionumById(indexUnicus: UUID): SilvaOptionumBO? =
         opusMagnumRepository.findById(indexUnicus)
 
     fun createSilvaOptionum(silvaOptionum: SilvaOptionumBO): SilvaOptionumBO {
-        val toCreate = silvaOptionum.copy(indexUnicus = UUID.randomUUID().toString())
+        val toCreate = silvaOptionum.copy(indexUnicus = UUID.randomUUID())
         return opusMagnumRepository.save(toCreate)
     }
 
     fun updateSilvaOptionum(silvaOptionum: SilvaOptionumBO): SilvaOptionumBO =
         opusMagnumRepository.save(silvaOptionum)
 
-    fun deleteSilvaOptionum(indexUnicus: String) = opusMagnumRepository.deleteById(indexUnicus)
+    fun deleteSilvaOptionum(indexUnicus: UUID) = opusMagnumRepository.deleteById(indexUnicus)
 }

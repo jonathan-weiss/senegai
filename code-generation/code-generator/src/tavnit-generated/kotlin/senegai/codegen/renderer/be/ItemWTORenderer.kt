@@ -18,7 +18,8 @@ object ItemWTORenderer : BeItemRenderer {
         return """
           |package senegai.server.restapi.wto
           |
-          |
+          |${ if(model.containsUuidAttributes) { """import java.util.UUID
+              |""" } else { """""" } }
           |/**
           | * Root WTO (Web Transfer Object), mirroring the Angular `${model.itemName.pascalCase}WTO` interface
           | * field by field so it serializes 1:1 for the client.

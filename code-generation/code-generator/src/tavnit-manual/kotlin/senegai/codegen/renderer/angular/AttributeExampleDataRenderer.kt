@@ -1,5 +1,6 @@
 package senegai.codegen.renderer.angular
 
+import senegai.codegen.renderer.model.EXAMPLE_UUID
 import senegai.codegen.renderer.model.ui.BuiltInTypeUiAttributeModel
 import senegai.codegen.renderer.model.ui.EnumUiAttributeModel
 import senegai.codegen.renderer.model.ui.ItemUiIAttributeModel
@@ -77,6 +78,7 @@ object AttributeExampleDataRenderer {
             BuiltInType.STRING -> "'example'"
             BuiltInType.NUMBER -> "42"
             BuiltInType.BOOLEAN -> "true"
+            BuiltInType.UUID -> "'$EXAMPLE_UUID'"
         }
     }
 

@@ -24,6 +24,7 @@ object EntityControllerRenderer : BeEntityRenderer {
           |import senegai.server.restapi.wto.mapper.${model.entityRootItem.itemName.pascalCase}Mapper.toBo
           |import senegai.server.restapi.wto.mapper.${model.entityRootItem.itemName.pascalCase}Mapper.toWto
           |import senegai.server.service.${model.entityName.lowerCase}.${model.entityName.pascalCase}Service
+          |import java.util.UUID
           |
           |/**
           | * REST endpoints of the ${model.entityName.pascalCase} business context. Served under `/api/${model.entityName.kebabCase}`
@@ -45,7 +46,7 @@ object EntityControllerRenderer : BeEntityRenderer {
           |        ${model.entityName.camelCase}Service.get${model.entityRootItem.itemName.pascalCase}List().map { it.toWto() }
           |
           |    @GetMapping("/{${model.idAttribute.attributeName.camelCase}}")
-          |    fun get${model.entityRootItem.itemName.pascalCase}ById(@PathVariable ${model.idAttribute.attributeName.camelCase}: String): ${model.entityRootItem.itemName.pascalCase}WTO? =
+          |    fun get${model.entityRootItem.itemName.pascalCase}ById(@PathVariable ${model.idAttribute.attributeName.camelCase}: UUID): ${model.entityRootItem.itemName.pascalCase}WTO? =
           |        ${model.entityName.camelCase}Service.get${model.entityRootItem.itemName.pascalCase}ById(${model.idAttribute.attributeName.camelCase})?.toWto()
           |
           |    @PostMapping
@@ -56,7 +57,7 @@ object EntityControllerRenderer : BeEntityRenderer {
           |
           |    @PutMapping("/{${model.idAttribute.attributeName.camelCase}}")
           |    fun update${model.entityRootItem.itemName.pascalCase}(
-          |        @PathVariable ${model.idAttribute.attributeName.camelCase}: String,
+          |        @PathVariable ${model.idAttribute.attributeName.camelCase}: UUID,
           |        @RequestBody ${model.entityRootItem.itemName.camelCase}: ${model.entityRootItem.itemName.pascalCase}WTO,
           |    ): ${model.entityRootItem.itemName.pascalCase}WTO {
           |        val toUpdate = ${model.entityRootItem.itemName.camelCase}.toBo().copy(${model.idAttribute.attributeName.camelCase} = ${model.idAttribute.attributeName.camelCase})
@@ -64,7 +65,7 @@ object EntityControllerRenderer : BeEntityRenderer {
           |    }
           |
           |    @DeleteMapping("/{${model.idAttribute.attributeName.camelCase}}")
-          |    fun delete${model.entityRootItem.itemName.pascalCase}(@PathVariable ${model.idAttribute.attributeName.camelCase}: String) =
+          |    fun delete${model.entityRootItem.itemName.pascalCase}(@PathVariable ${model.idAttribute.attributeName.camelCase}: UUID) =
           |        ${model.entityName.camelCase}Service.delete${model.entityRootItem.itemName.pascalCase}(${model.idAttribute.attributeName.camelCase})
           |}
           |

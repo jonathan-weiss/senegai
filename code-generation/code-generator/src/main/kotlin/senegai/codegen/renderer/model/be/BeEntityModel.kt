@@ -5,7 +5,7 @@ import senegai.codegen.renderer.model.NameCase
 data class BeEntityModel(
     val entityName: NameCase,
     val entityRootItem: BeItemModel,
-    /** The attribute of the [entityRootItem] that identifies the entity. */
+    /** The attribute of the [entityRootItem] that identifies the entity. It is always a UUID. */
     val idAttribute: BeAttributeModel,
     val entityItemModels: List<BeItemModel>,
     val entityEnumTypes: List<BeEnumModel>,

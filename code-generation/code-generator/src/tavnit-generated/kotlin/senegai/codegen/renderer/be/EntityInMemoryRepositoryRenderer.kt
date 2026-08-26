@@ -22,6 +22,7 @@ object EntityInMemoryRepositoryRenderer : BeEntityRenderer {
           |import senegai.server.service.${model.entityName.lowerCase}.${model.entityName.pascalCase}Repository
           |import senegai.server.service.bo.${model.entityRootItem.itemName.pascalCase}BO
           |import java.util.concurrent.ConcurrentHashMap
+          |import java.util.UUID
           |
           |/**
           | * Simple in-memory implementation of the [${model.entityName.pascalCase}Repository] port defined in the
@@ -31,18 +32,18 @@ object EntityInMemoryRepositoryRenderer : BeEntityRenderer {
           |@Repository
           |class InMemory${model.entityName.pascalCase}Repository : ${model.entityName.pascalCase}Repository {
           |
-          |    private val store = ConcurrentHashMap<String, ${model.entityRootItem.itemName.pascalCase}BO>()
+          |    private val store = ConcurrentHashMap<UUID, ${model.entityRootItem.itemName.pascalCase}BO>()
           |
           |    override fun findAll(): List<${model.entityRootItem.itemName.pascalCase}BO> = store.values.toList()
           |
-          |    override fun findById(${model.idAttribute.attributeName.camelCase}: String): ${model.entityRootItem.itemName.pascalCase}BO? = store[${model.idAttribute.attributeName.camelCase}]
+          |    override fun findById(${model.idAttribute.attributeName.camelCase}: UUID): ${model.entityRootItem.itemName.pascalCase}BO? = store[${model.idAttribute.attributeName.camelCase}]
           |
           |    override fun save(${model.entityRootItem.itemName.camelCase}: ${model.entityRootItem.itemName.pascalCase}BO): ${model.entityRootItem.itemName.pascalCase}BO {
           |        store[${model.entityRootItem.itemName.camelCase}.${model.idAttribute.attributeName.camelCase}] = ${model.entityRootItem.itemName.camelCase}
           |        return ${model.entityRootItem.itemName.camelCase}
           |    }
           |
-          |    override fun deleteById(${model.idAttribute.attributeName.camelCase}: String) {
+          |    override fun deleteById(${model.idAttribute.attributeName.camelCase}: UUID) {
           |        store.remove(${model.idAttribute.attributeName.camelCase})
           |    }
           |}

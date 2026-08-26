@@ -31,6 +31,7 @@ data class Entity(
     /**
      * The attribute of the root [item] that identifies
      * this entity (like a primary key in the database).
+     * It is always of type [BuiltInType.UUID].
      */
     val idAttribute: ItemAttribute = item.attributes
         .singleOrNull { it.attributeName == idAttributeName }
@@ -39,6 +40,14 @@ data class Entity(
                     "but the entity root item '${item.itemName}' has no such attribute. " +
                     "Available attributes are ${item.attributes.map { it.attributeName }}."
         )
+
+    init {
+        require(idAttribute.type == BuiltInType.UUID) {
+            "The entity '$entityName' declares '$idAttributeName' as its identifying attribute, " +
+                    "but that attribute is of type ${idAttribute.type}. " +
+                    "An entity can only be identified by an attribute of type ${BuiltInType.UUID}."
+        }
+    }
 }
 
 /**
@@ -63,12 +72,14 @@ enum class BuiltInType : ItemAttributeType {
     STRING,
     NUMBER,
     BOOLEAN,
+    UUID,
 }
 
 enum class ExampleDataCategory(val generatorPrefixName: String, val supportedBuiltInType: BuiltInType) {
     RANDOM_TEXT("RandomString", BuiltInType.STRING),
     RANDOM_NUMBER("RandomNumber",BuiltInType.NUMBER),
     RANDOM_BOOLEAN("RandomBoolean",BuiltInType.BOOLEAN),
+    RANDOM_UUID("RandomUuid",BuiltInType.UUID),
     FIRSTNAME("FirstnameString",BuiltInType.STRING),
     LASTNAME("LastnameString",BuiltInType.STRING),
     AGE("AgeNumber",BuiltInType.NUMBER),

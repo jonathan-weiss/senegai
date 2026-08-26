@@ -29,6 +29,9 @@
 
 import {FormArray, FormControl, FormGroup} from "@angular/forms";
 import {OpusMagnumSilvaOptionumFormPartFieldName} from "@app/opus-magnum/opus-magnum-form/opus-magnum-silva-optionum-form-part/opus-magnum-silva-optionum-form-part-field-name";
+/* @tt{{{   @if [ conditionExpression="model.item.containsUuidAttributes"]  }}}@ */
+import {UUID} from "@app/shared/uuid";
+/* @tt{{{   @end-if  }}}@ */
 /* @tt{{{
     @foreach [ iteratorExpression="model.item.usedEnums" loopVariable="usedEnum" ]
 
@@ -82,7 +85,7 @@ export interface OpusMagnumSilvaOptionumFormPartGroup {
     [OpusMagnumSilvaOptionumFormPartFieldName.campusBivalens]: FormControl<boolean>,
     [OpusMagnumSilvaOptionumFormPartFieldName.appellatio]: FormControl<AppellatioComisEnum>,
     [OpusMagnumSilvaOptionumFormPartFieldName.campusNumerorum]: FormControl<number>,
-    [OpusMagnumSilvaOptionumFormPartFieldName.indexUnicus]: FormControl<string>,
+    [OpusMagnumSilvaOptionumFormPartFieldName.indexUnicus]: FormControl<UUID>,
     [OpusMagnumSilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum]: FormArray<FormControl<string>>,
     /* @tt{{{   @end-ignore-text  }}}@ */
 }

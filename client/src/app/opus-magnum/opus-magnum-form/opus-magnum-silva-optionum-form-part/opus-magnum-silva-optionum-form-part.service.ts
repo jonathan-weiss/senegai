@@ -38,6 +38,9 @@ import {
 } from "@app/opus-magnum/opus-magnum-form/opus-magnum-silva-optionum-form-part/opus-magnum-silva-optionum-form-part-initial-value.service";
 import {OpusMagnumSilvaOptionumFormPartGroup} from "@app/opus-magnum/opus-magnum-form/opus-magnum-silva-optionum-form-part/opus-magnum-silva-optionum-form-part-group";
 import {OpusMagnumSilvaOptionumFormPartFieldName} from "@app/opus-magnum/opus-magnum-form/opus-magnum-silva-optionum-form-part/opus-magnum-silva-optionum-form-part-field-name";
+/* @tt{{{   @if [ conditionExpression="model.item.containsUuidAttributes"]  }}}@ */
+import {UUID} from "@app/shared/uuid";
+/* @tt{{{   @end-if  }}}@ */
 
 /* @tt{{{
     @foreach [ iteratorExpression="model.item.usedEnums" loopVariable="usedEnum" ]
@@ -193,7 +196,7 @@ export class OpusMagnumSilvaOptionumFormPartService {
                     validators: this.silvaOptionumFormValidationService.validatorFunctions(OpusMagnumSilvaOptionumFormPartFieldName.campusNumerorum)
                 },
             ),
-            [OpusMagnumSilvaOptionumFormPartFieldName.indexUnicus]: new FormControl<string>(
+            [OpusMagnumSilvaOptionumFormPartFieldName.indexUnicus]: new FormControl<UUID>(
                 this.silvaOptionumFormInitialValueService.indexUnicusInitialValue(),
                 {
                     nonNullable: true,

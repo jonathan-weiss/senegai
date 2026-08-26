@@ -46,6 +46,9 @@ import {
     OpusMagnumSilvaOptionumFormPartValidationService
 } from "@app/opus-magnum/opus-magnum-form/opus-magnum-silva-optionum-form-part/opus-magnum-silva-optionum-form-part-validation.service";
 import {OpusMagnumSilvaOptionumFormPartFieldName,} from "@app/opus-magnum/opus-magnum-form/opus-magnum-silva-optionum-form-part/opus-magnum-silva-optionum-form-part-field-name";
+/* @tt{{{   @if [ conditionExpression="model.item.containsUuidAttributes"]  }}}@ */
+import {UUID} from "@app/shared/uuid";
+/* @tt{{{   @end-if  }}}@ */
 /* @tt{{{   @if [ conditionExpression="model.item.containsTextAttributes"]   }}}@ */
 import {TextInputComponent} from "@app/shared/form-controls/text-input/text-input.component";
 /* @tt{{{   @end-if  }}}@ */
@@ -297,7 +300,7 @@ export class OpusMagnumSilvaOptionumFormPartComponent implements OnInit {
     protected articulusInteriorSingularisOptionalisValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected articulusInteriorSingularisOptionalisIsNotNullControl!: FormControl<boolean>
     protected articulusInteriorSingularisOptionalisIsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
-    protected indexUnicusControl!: FormControl<string>
+    protected indexUnicusControl!: FormControl<UUID>
     protected indexUnicusValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected campusNumerorumControl!: FormControl<number>
     protected campusNumerorumValidatorNames!: ReadonlyArray<ValidatorTranslation>

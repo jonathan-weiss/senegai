@@ -57,7 +57,8 @@ object SingleFormInputHtmlTagRenderer {
      */
     private fun determineFormComponentTypeInfix(builtInType: BuiltInType): String =
         when (builtInType) {
-            BuiltInType.STRING -> "text"
+            // a UUID is edited as plain text, therefore it reuses the text input component
+            BuiltInType.STRING, BuiltInType.UUID -> "text"
             BuiltInType.NUMBER -> "number"
             BuiltInType.BOOLEAN -> "boolean"
         }

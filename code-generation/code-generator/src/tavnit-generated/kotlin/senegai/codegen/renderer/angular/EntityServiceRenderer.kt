@@ -23,6 +23,7 @@ object EntityServiceRenderer : UiEntityRenderer {
           |import {delay} from 'rxjs/operators';
           |import {${model.entityRootItem.itemName.pascalCase}WTO} from "@app/wto/${model.entityRootItem.itemName.kebabCase}.wto";
           |import {${model.entityRootItem.itemName.screamingSnakeCase}_EXAMPLE_DATA} from "@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}-example-data";
+          |import {UUID} from "@app/shared/uuid";
           |
           |
           |@Injectable({providedIn: 'root'})
@@ -49,7 +50,7 @@ object EntityServiceRenderer : UiEntityRenderer {
           |        return of(this.${model.entityRootItem.itemName.camelCase}List).pipe(delay(200));
           |    }
           |
-          |    get${model.entityRootItem.itemName.pascalCase}ById(${model.idAttribute.attributeName.camelCase}: string): Observable<${model.entityRootItem.itemName.pascalCase}WTO | null> {
+          |    get${model.entityRootItem.itemName.pascalCase}ById(${model.idAttribute.attributeName.camelCase}: UUID): Observable<${model.entityRootItem.itemName.pascalCase}WTO | null> {
           |        if (!this.useClientOnlyExampleData) {
           |            return this.http.get<${model.entityRootItem.itemName.pascalCase}WTO | null>(`${"$"}{this.baseUrl}/${"$"}{${model.idAttribute.attributeName.camelCase}}`);
           |        }
@@ -57,7 +58,7 @@ object EntityServiceRenderer : UiEntityRenderer {
           |        return of(found).pipe(delay(200));
           |    }
           |
-          |    delete${model.entityRootItem.itemName.pascalCase}(${model.idAttribute.attributeName.camelCase}: string): Observable<void> {
+          |    delete${model.entityRootItem.itemName.pascalCase}(${model.idAttribute.attributeName.camelCase}: UUID): Observable<void> {
           |        if (!this.useClientOnlyExampleData) {
           |            return this.http.delete<void>(`${"$"}{this.baseUrl}/${"$"}{${model.idAttribute.attributeName.camelCase}}`);
           |        }

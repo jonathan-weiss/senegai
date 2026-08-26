@@ -39,17 +39,33 @@ data class BeItemModel(
         .map { it.exampleDataGeneratorConfig }
         .distinctBy { it.fullQualifiedName }
 
-    val containsTextAttributes: Boolean = attributesOfType(BuiltInType.STRING, isList = false).any()
+    /**
+     * UUIDs are edited with the very same text input as strings, therefore they count
+     * as text attributes for everything that is about rendering an input field.
+     */
+    val containsTextAttributes: Boolean = attributesOfTypes(TEXT_LIKE_BUILT_IN_TYPES, isList = false).any()
     val containsBooleanAttributes: Boolean = attributesOfType(BuiltInType.BOOLEAN, isList = false).any()
     val containsNumberAttributes: Boolean = attributesOfType(BuiltInType.NUMBER, isList = false).any()
 
-    val containsTextListAttributes: Boolean = attributesOfType(BuiltInType.STRING, isList = true).any()
+    val containsTextListAttributes: Boolean = attributesOfTypes(TEXT_LIKE_BUILT_IN_TYPES, isList = true).any()
     val containsBooleanListAttributes: Boolean = attributesOfType(BuiltInType.BOOLEAN, isList = true).any()
     val containsNumberListAttributes: Boolean = attributesOfType(BuiltInType.NUMBER, isList = true).any()
 
-    private fun attributesOfType(filterBuiltInType: BuiltInType, isList: Boolean): List<BeAttributeModel> {
+    /** Whether any attribute is a [BuiltInType.UUID], e.g. to render the import of the UUID type. */
+    val containsUuidAttributes: Boolean = attributesOfTypes(setOf(BuiltInType.UUID)).any()
+
+    private fun attributesOfType(filterBuiltInType: BuiltInType, isList: Boolean): List<BeAttributeModel> =
+        attributesOfTypes(setOf(filterBuiltInType), isList)
+
+    /** All built-in attributes of one of the [filterBuiltInTypes], of any cardinality if [isList] is `null`. */
+    private fun attributesOfTypes(filterBuiltInTypes: Set<BuiltInType>, isList: Boolean? = null): List<BeAttributeModel> {
         return attributes
             .filterIsInstance<BuiltInTypeBeAttributeModel>()
-            .filter { it.builtInType == filterBuiltInType && it.isList == isList }
+            .filter { it.builtInType in filterBuiltInTypes && (isList == null || it.isList == isList) }
+    }
+
+    private companion object {
+        /** Built-in types that are rendered as a text input on the client. */
+        private val TEXT_LIKE_BUILT_IN_TYPES = setOf(BuiltInType.STRING, BuiltInType.UUID)
     }
 }

@@ -35,7 +35,8 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
           |    ${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartValidationService
           |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part-validation.service";
           |import {${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName,} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part-field-name";
-          |${ if(model.item.containsTextAttributes) { """import {TextInputComponent} from "@app/shared/form-controls/text-input/text-input.component";
+          |${ if(model.item.containsUuidAttributes) { """import {UUID} from "@app/shared/uuid";
+              |""" } else { """""" } }${ if(model.item.containsTextAttributes) { """import {TextInputComponent} from "@app/shared/form-controls/text-input/text-input.component";
               |""" } else { """""" } }${ if(model.item.containsBooleanAttributes) { """import {BooleanInputComponent} from "@app/shared/form-controls/boolean-input/boolean-input.component";
               |""" } else { """""" } }${ if(model.item.containsNumberAttributes) { """import {NumberInputComponent} from "@app/shared/form-controls/number-input/number-input.component";
               |""" } else { """""" } }import {DatepickerInputComponent} from "@app/shared/form-controls/datepicker-input/datepicker-input.component";

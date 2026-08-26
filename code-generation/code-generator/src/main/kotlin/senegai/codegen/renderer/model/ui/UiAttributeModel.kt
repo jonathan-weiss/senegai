@@ -1,5 +1,6 @@
 package senegai.codegen.renderer.model.ui
 
+import senegai.codegen.renderer.model.NIL_UUID
 import senegai.codegen.renderer.model.NameCase
 import senegai.codegen.schema.BuiltInType
 import senegai.codegen.schema.EnumId
@@ -118,12 +119,7 @@ class BuiltInTypeUiAttributeModel(
         return builtInTypeAsString()
     }
 
-    private fun builtInTypeAsString(): String =
-        when (builtInType) {
-            BuiltInType.STRING -> "string"
-            BuiltInType.NUMBER -> "number"
-            BuiltInType.BOOLEAN -> "boolean"
-        }
+    private fun builtInTypeAsString(): String = typescriptBuildInType(builtInType)
 
 
     override fun calculateAngularInitialValueFormSingleType(): String {
@@ -135,6 +131,7 @@ class BuiltInTypeUiAttributeModel(
             BuiltInType.STRING -> "string"
             BuiltInType.NUMBER -> "number"
             BuiltInType.BOOLEAN -> "boolean"
+            BuiltInType.UUID -> "UUID"
         }
     }
 
@@ -156,6 +153,7 @@ class BuiltInTypeUiAttributeModel(
             BuiltInType.STRING -> "''"
             BuiltInType.NUMBER -> "0"
             BuiltInType.BOOLEAN -> "false"
+            BuiltInType.UUID -> "'$NIL_UUID'"
         }
     }
 

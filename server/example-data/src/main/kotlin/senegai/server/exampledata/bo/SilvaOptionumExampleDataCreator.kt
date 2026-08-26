@@ -36,6 +36,7 @@ import senegai.server.exampledata.framework.datagenerator.RandomStringDataGenera
 /* @tt{{{   @ignore-text  }}}@ */
 import senegai.server.exampledata.framework.datagenerator.RandomBooleanDataGenerator
 import senegai.server.exampledata.framework.datagenerator.RandomNumberDataGenerator
+import java.util.UUID
 /* @tt{{{   @end-ignore-text  }}}@ */
 
 
@@ -120,7 +121,7 @@ class SilvaOptionumExampleDataCreator(
         /* @tt{{{   @end-if  }}}@ */
         /* @tt{{{   @end-foreach  }}}@ */
         /* @tt{{{   @ignore-text  }}}@ */
-        indexUnicus = "exemplum",
+        indexUnicus = UUID.randomUUID(),
         campusNumerorum = randomNumberDataGenerator.generateData(dataContext),
         campusTextusOptionalis = randomStringDataGenerator.generateData(dataContext),
         articulusInteriorSingularisOptionalis = articulusInteriorExampleDataCreator.create(dataContext),

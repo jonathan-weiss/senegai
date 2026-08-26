@@ -2,11 +2,16 @@ package senegai.server.exampledata.framework.datafaker
 
 import net.datafaker.Faker
 import senegai.server.exampledata.DataContext
+import java.util.UUID
 
 object FakerHelper {
 
     fun randomString(dataContext: DataContext): String {
         return dataContext.toFaker().lorem().word()
+    }
+
+    fun randomUuid(dataContext: DataContext): UUID {
+        return UUID.fromString(dataContext.toFaker().internet().uuid())
     }
 
     fun randomBoolean(dataContext: DataContext): Boolean {

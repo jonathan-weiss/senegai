@@ -20,6 +20,9 @@
 }}}@ */
 package senegai.server.service.bo
 
+/* @tt{{{   @if [ conditionExpression="model.containsUuidAttributes"]  }}}@ */
+import java.util.UUID
+/* @tt{{{   @end-if  }}}@ */
 /* @tt{{{   @ignore-text  }}}@ */
 import java.time.LocalDate
 /* @tt{{{   @end-ignore-text  }}}@ */
@@ -32,9 +35,9 @@ data class SilvaOptionumBO(
         @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
         @replace-value-by-expression
             [ searchValue="indexUnicus" replaceByExpression="attribute.attributeName.camelCase" ]
-            [ searchValue="String" replaceByExpression="attribute.kotlinAttributeType" ]
+            [ searchValue="UUID" replaceByExpression="attribute.kotlinAttributeType" ]
     }}}@ */
-    val indexUnicus: String,
+    val indexUnicus: UUID,
     /* @tt{{{   @end-foreach  }}}@ */
     /* @tt{{{   @ignore-text  }}}@ */
     val campusTextusObligatorius: String,

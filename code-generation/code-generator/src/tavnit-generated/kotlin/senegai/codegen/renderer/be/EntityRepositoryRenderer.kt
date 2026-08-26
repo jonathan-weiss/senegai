@@ -19,6 +19,7 @@ object EntityRepositoryRenderer : BeEntityRenderer {
           |package senegai.server.service.${model.entityName.lowerCase}
           |
           |import senegai.server.service.bo.${model.entityRootItem.itemName.pascalCase}BO
+          |import java.util.UUID
           |
           |/**
           | * Port for persisting the ${model.entityName.pascalCase} root object [${model.entityRootItem.itemName.pascalCase}BO]. The implementation
@@ -31,12 +32,12 @@ object EntityRepositoryRenderer : BeEntityRenderer {
           |
           |    fun findAll(): List<${model.entityRootItem.itemName.pascalCase}BO>
           |
-          |    fun findById(${model.idAttribute.attributeName.camelCase}: String): ${model.entityRootItem.itemName.pascalCase}BO?
+          |    fun findById(${model.idAttribute.attributeName.camelCase}: UUID): ${model.entityRootItem.itemName.pascalCase}BO?
           |
           |    /** Inserts or replaces the given [${model.entityRootItem.itemName.camelCase}] (matched by [${model.entityRootItem.itemName.pascalCase}BO.${model.idAttribute.attributeName.camelCase}]). */
           |    fun save(${model.entityRootItem.itemName.camelCase}: ${model.entityRootItem.itemName.pascalCase}BO): ${model.entityRootItem.itemName.pascalCase}BO
           |
-          |    fun deleteById(${model.idAttribute.attributeName.camelCase}: String)
+          |    fun deleteById(${model.idAttribute.attributeName.camelCase}: UUID)
           |}
           |
         """.trimMargin(marginPrefix = "|")

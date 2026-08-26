@@ -20,6 +20,9 @@
 }}}@ */
 package senegai.server.restapi.wto
 
+/* @tt{{{   @if [ conditionExpression="model.containsUuidAttributes"]  }}}@ */
+import java.util.UUID
+/* @tt{{{   @end-if  }}}@ */
 /* @tt{{{   @ignore-text  }}}@ */
 import java.time.LocalDate
 /* @tt{{{   @end-ignore-text  }}}@ */
@@ -33,9 +36,9 @@ data class SilvaOptionumWTO(
         @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
         @replace-value-by-expression
             [ searchValue="indexUnicus" replaceByExpression="attribute.attributeName.camelCase" ]
-            [ searchValue="String" replaceByExpression="attribute.wtoAttributeType" ]
+            [ searchValue="UUID" replaceByExpression="attribute.wtoAttributeType" ]
     }}}@ */
-    val indexUnicus: String,
+    val indexUnicus: UUID,
     /* @tt{{{   @end-foreach  }}}@ */
     /* @tt{{{   @ignore-text  }}}@ */
     val campusTextusObligatorius: String,

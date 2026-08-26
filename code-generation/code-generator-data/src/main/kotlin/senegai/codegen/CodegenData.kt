@@ -62,7 +62,7 @@ object CodegenData {
             }
 
             item(itemId = Items.CONTACT) {
-                attribute(name = "contactId", type = BuiltInType.STRING)
+                attribute(name = "contactId", type = BuiltInType.UUID)
                 attribute(name = "contactSalutation", enumId = EnumTypes.SALUTATION)
                 attribute(name = "firstname", type = BuiltInType.STRING, exampleDataCategory = ExampleDataCategory.FIRSTNAME)
                 attribute(name = "nickname", type = BuiltInType.STRING, nullable = true, exampleDataCategory = ExampleDataCategory.FIRSTNAME)
@@ -79,7 +79,7 @@ object CodegenData {
             }
 
             item(itemId = Items.ADDRESS) {
-                attribute(name = "id", type = BuiltInType.STRING)
+                attribute(name = "id", type = BuiltInType.UUID)
                 attribute(name = "street", type = BuiltInType.STRING, exampleDataCategory = ExampleDataCategory.STREET)
                 attribute(name = "postalCode", type = BuiltInType.STRING, exampleDataCategory = ExampleDataCategory.POSTCODE)
                 attribute(name = "town", type = BuiltInType.STRING, exampleDataCategory = ExampleDataCategory.CITY)

@@ -119,6 +119,7 @@ class BuiltInTypeBeAttributeModel(
             BuiltInType.STRING -> "String"
             BuiltInType.NUMBER -> "Int"
             BuiltInType.BOOLEAN -> "Boolean"
+            BuiltInType.UUID -> "UUID"
         }
 
     // built-in types are identical in the BO and WTO layers
@@ -132,6 +133,7 @@ class BuiltInTypeBeAttributeModel(
             BuiltInType.STRING -> "string"
             BuiltInType.NUMBER -> "number"
             BuiltInType.BOOLEAN -> "boolean"
+            BuiltInType.UUID -> "UUID"
         }
 }
 

@@ -174,7 +174,7 @@ export const SILVA_OTIONUM_EXAMPLE_DATA: SilvaOptionumWTO[] = [
         iteratioSimpliciumTextuum: [],
     },
     {
-        indexUnicus: 'example',
+        indexUnicus: 'b0d5a3d2-6a55-4b47-9a1c-0b1f5f2c8e11',
         campusTextusObligatorius: 'Williams',
         campusTextusOptionalis: 'Molly',
         articulusInteriorSingularis: {
