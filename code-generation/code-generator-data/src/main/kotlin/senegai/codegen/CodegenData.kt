@@ -193,6 +193,20 @@ object CodegenData {
                     }
                 }
             }
+            uiEntity(entityId = Entities.ENTITAS_RELATA) {
+                views {
+                    editor {
+                        configureEditorForEntity {
+                            tab(tabName = "Referenced") {
+                                column {
+                                    attribute(attributeName = "clavisPrimaria")
+                                    attribute(attributeName = "descriptioExDistanti")
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
