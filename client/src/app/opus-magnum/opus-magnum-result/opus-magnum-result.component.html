@@ -46,15 +46,15 @@
             @foreach [ iteratorExpression="model.searchResultAttributes" loopVariable="attribute" ]
 
                 @replace-value-by-expression
-                [ searchValue="title" replaceByExpression="attribute.attributeName.camelCase" ]
-                [ searchValue="Title" replaceByExpression="attribute.attributeName.pascalCase" ]
+                [ searchValue="campusTextusObligatorius" replaceByExpression="attribute.attributeName.camelCase" ]
+                [ searchValue="Campus Textus Obligatorius" replaceByExpression="attribute.attributeName.pascalCase" ]
                 [ searchValue="string" replaceByExpression="attribute.typescriptAttributeType" ]
 
         }}}@  -->
-        <!-- Title Column -->
-        <ng-container matColumnDef="title">
-            <th mat-header-cell *matHeaderCellDef>Title</th>
-            <td mat-cell *matCellDef="let opusMagnum">{{ opusMagnum.title }}</td>
+        <!-- Campus Textus Obligatorius Column -->
+        <ng-container matColumnDef="campusTextusObligatorius">
+            <th mat-header-cell *matHeaderCellDef>Campus Textus Obligatorius</th>
+            <td mat-cell *matCellDef="let opusMagnum">{{ opusMagnum.campusTextusObligatorius }}</td>
         </ng-container>
         <!-- @tt{{{  @end-foreach  }}}@ -->
 

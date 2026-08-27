@@ -78,10 +78,10 @@ export class OpusMagnumResultComponent implements OnChanges {
             @foreach [ iteratorExpression="model.searchResultAttributes" loopVariable="attribute" ]
 
             @replace-value-by-expression
-                [ searchValue="title" replaceByExpression="attribute.attributeName.camelCase" ]
+                [ searchValue="campusTextusObligatorius" replaceByExpression="attribute.attributeName.camelCase" ]
 
         }}}@  */
-        'title',
+        'campusTextusObligatorius',
     /* @tt{{{  @end-foreach  }}}@ */
         'actions'
     ];
