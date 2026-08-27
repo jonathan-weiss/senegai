@@ -33,11 +33,17 @@ import {SideNavLink} from "@app/side-nav/side-nav-list/side-nav-link.model";
 /* @tt{{{ @foreach [ iteratorExpression="models" loopVariable="entity" ] }}}@  */
 import {OPUS_MAGNUM_SIDE_NAVIGATION_LINKS} from "@app/opus-magnum/opus-magnum-routing";
 /* @tt{{{   @end-foreach   }}}@ */
+/* @tt{{{   @ignore-text   }}}@ */
+import {ENTITAS_RELATA_SIDE_NAVIGATION_LINKS} from "@app/entitas-relata/entitas-relata-routing";
+/* @tt{{{   @end-ignore-text   }}}@ */
 
 export const ENTITY_SIDE_NAVIGATION_LINKS: ReadonlyArray<SideNavLink> = [
     /* @tt{{{ @foreach [ iteratorExpression="models" loopVariable="entity" ] }}}@  */
     ...OPUS_MAGNUM_SIDE_NAVIGATION_LINKS,
     /* @tt{{{   @end-foreach   }}}@ */
+    /* @tt{{{   @ignore-text   }}}@ */
+    ...ENTITAS_RELATA_SIDE_NAVIGATION_LINKS,
+    /* @tt{{{   @end-ignore-text   }}}@ */
 ]
 
 

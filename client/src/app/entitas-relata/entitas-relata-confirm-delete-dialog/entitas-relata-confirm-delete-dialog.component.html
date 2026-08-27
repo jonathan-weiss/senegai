@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>Delete EntitasRelata</h2>
+<mat-dialog-content><ng-container>Are you sure you want to delete this entity?</ng-container> <br />
+    <b>
+    {{ data.entity | json }}
+    </b>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button mat-raised-button color="warn" (click)="onConfirm()">OK</button>
+</mat-dialog-actions>

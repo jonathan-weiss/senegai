@@ -18,7 +18,6 @@ object CodegenData {
     ) : EntityId {
         EMPLOYEE(entityName = "Employee"),
         EMPLOYEE_ADDRESS(entityName = "EmployeeAddress"),
-        ENTITAS_RELATA(entityName = "EntitasRelata"),
     }
 
     enum class Items(
@@ -27,7 +26,6 @@ object CodegenData {
         CONTACT(itemName = "Contact"),
         ADDRESS(itemName = "Address"),
         COUNTRY(itemName = "Country"),
-        MEMBRUM_RELATUM(itemName = "MembrumRelatum"),
     }
 
     enum class EnumTypes(
@@ -42,7 +40,6 @@ object CodegenData {
         schema {
             entity(entityId = Entities.EMPLOYEE, entityRootItemId = Items.CONTACT, entityIdAttributeName = "contactId")
             entity(entityId = Entities.EMPLOYEE_ADDRESS, entityRootItemId = Items.ADDRESS, entityIdAttributeName = "id")
-            entity(entityId = Entities.ENTITAS_RELATA, entityRootItemId = Items.MEMBRUM_RELATUM, entityIdAttributeName = "clavisPrimaria")
 
             enumType(enumId = EnumTypes.SALUTATION) {
                 enumValue(name = "Mr")
@@ -92,11 +89,6 @@ object CodegenData {
             item(itemId = Items.COUNTRY) {
                 attribute(name = "countryIsoCode", type = BuiltInType.STRING, exampleDataCategory = ExampleDataCategory.COUNTRY_ISO)
                 attribute(name = "countryName", type = BuiltInType.STRING, exampleDataCategory = ExampleDataCategory.COUNTRY_NAME)
-            }
-
-            item(itemId = Items.MEMBRUM_RELATUM) {
-                attribute(name = "clavisPrimaria", type = BuiltInType.UUID)
-                attribute(name = "descriptioExDistanti", type = BuiltInType.STRING, exampleDataCategory = ExampleDataCategory.LASTNAME)
             }
         }
     }
@@ -188,20 +180,6 @@ object CodegenData {
                             column {
                                 attribute(attributeName = "countryIsoCode")
                                 attribute(attributeName = "countryName")
-                            }
-                        }
-                    }
-                }
-            }
-            uiEntity(entityId = Entities.ENTITAS_RELATA) {
-                views {
-                    editor {
-                        configureEditorForEntity {
-                            tab(tabName = "Referenced") {
-                                column {
-                                    attribute(attributeName = "clavisPrimaria")
-                                    attribute(attributeName = "descriptioExDistanti")
-                                }
                             }
                         }
                     }

@@ -30,6 +30,9 @@ import {Routes} from '@angular/router';
 /* @tt{{{ @foreach [ iteratorExpression="models" loopVariable="entity" ] }}}@  */
 import {OPUS_MAGNUM_ROUTES} from "@app/opus-magnum/opus-magnum-routing";
 /* @tt{{{ @end-foreach }}}@ */
+/* @tt{{{   @ignore-text   }}}@ */
+import {ENTITAS_RELATA_ROUTES} from "@app/entitas-relata/entitas-relata-routing";
+/* @tt{{{   @end-ignore-text   }}}@ */
 
 /* @tt{{{
     @replace-value-by-value
@@ -41,5 +44,8 @@ export const ENTITY_ROUTES: Routes = [
 /* @tt{{{ @foreach [ iteratorExpression="models" loopVariable="entity" ] }}}@  */
     ...OPUS_MAGNUM_ROUTES,
 /* @tt{{{ @end-foreach }}}@ */
+/* @tt{{{   @ignore-text   }}}@ */
+    ...ENTITAS_RELATA_ROUTES,
+/* @tt{{{   @end-ignore-text   }}}@ */
 ];
 

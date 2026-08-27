@@ -4,7 +4,6 @@ import org.springframework.stereotype.Component
 import senegai.server.exampledata.employee.EmployeeExampleDataCreator
 import senegai.server.exampledata.employeeaddress.EmployeeAddressExampleDataCreator
 import senegai.server.exampledata.entitasrelata.EntitasRelataExampleDataCreator
-import senegai.server.exampledata.framework.datafaker.DataFakerDataContext
 import senegai.server.exampledata.framework.datafaker.DataFakerDataContextFactoryService
 import senegai.server.exampledata.opusmagnum.OpusMagnumExampleDataCreator
 import senegai.server.service.opusmagnum.OpusMagnumRepository
