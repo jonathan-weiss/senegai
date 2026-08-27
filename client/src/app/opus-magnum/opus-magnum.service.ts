@@ -43,61 +43,27 @@ import {UUID} from "@app/shared/uuid";
 
 @Injectable({providedIn: 'root'})
 export class OpusMagnumService {
-    /**
-     * Data source switch: when `true` the service serves the in-memory
-     * {@link SILVA_OTIONUM_EXAMPLE_DATA} constant; when `false` it calls the Spring Boot
-     * REST API at {@link baseUrl}. Flip to `false` to consume the real backend.
-     */
-    private readonly useClientOnlyExampleData = false;
     private readonly baseUrl = 'http://localhost:8081/api/opus-magnum';
 
-    private silvaOptionumList: SilvaOptionumWTO[] = []
-
-    constructor(private readonly http: HttpClient) {
-        this.silvaOptionumList = SILVA_OTIONUM_EXAMPLE_DATA
-    }
+    constructor(private readonly http: HttpClient) {}
 
     getSilvaOptionumList(): Observable<SilvaOptionumWTO[]> {
-        if (!this.useClientOnlyExampleData) {
-            return this.http.get<SilvaOptionumWTO[]>(this.baseUrl);
-        }
-        // Simulate HTTP delay
-        return of(this.silvaOptionumList).pipe(delay(200));
+        return this.http.get<SilvaOptionumWTO[]>(this.baseUrl);
     }
 
     getSilvaOptionumById(indexUnicus: UUID): Observable<SilvaOptionumWTO | null> {
-        if (!this.useClientOnlyExampleData) {
-            return this.http.get<SilvaOptionumWTO | null>(`${this.baseUrl}/${indexUnicus}`);
-        }
-        const found = this.silvaOptionumList.find(a => a.indexUnicus === indexUnicus) || null;
-        return of(found).pipe(delay(200));
+        return this.http.get<SilvaOptionumWTO | null>(`${this.baseUrl}/${indexUnicus}`);
     }
 
     deleteSilvaOptionum(indexUnicus: UUID): Observable<void> {
-        if (!this.useClientOnlyExampleData) {
-            return this.http.delete<void>(`${this.baseUrl}/${indexUnicus}`);
-        }
-        this.silvaOptionumList = this.silvaOptionumList.filter(a => a.indexUnicus !== indexUnicus);
-        return of(void 0).pipe(delay(200));
+        return this.http.delete<void>(`${this.baseUrl}/${indexUnicus}`);
     }
 
     updateSilvaOptionum(silvaOptionum: SilvaOptionumWTO): Observable<SilvaOptionumWTO> {
-        if (!this.useClientOnlyExampleData) {
-            return this.http.put<SilvaOptionumWTO>(`${this.baseUrl}/${silvaOptionum.indexUnicus}`, silvaOptionum);
-        }
-        const idx = this.silvaOptionumList.findIndex(a => a.indexUnicus === silvaOptionum.indexUnicus);
-        if (idx !== -1) {
-            this.silvaOptionumList[idx] = {...silvaOptionum};
-        }
-        return of(silvaOptionum).pipe(delay(200));
+        return this.http.put<SilvaOptionumWTO>(`${this.baseUrl}/${silvaOptionum.indexUnicus}`, silvaOptionum);
     }
 
     createSilvaOptionum(opusMagnum: SilvaOptionumWTO): Observable<SilvaOptionumWTO> {
-        if (!this.useClientOnlyExampleData) {
-            return this.http.post<SilvaOptionumWTO>(this.baseUrl, opusMagnum);
-        }
-        const created: SilvaOptionumWTO = {...opusMagnum, indexUnicus: crypto.randomUUID()};
-        this.silvaOptionumList = [...this.silvaOptionumList, created];
-        return of(created).pipe(delay(200));
+        return this.http.post<SilvaOptionumWTO>(this.baseUrl, opusMagnum);
     }
 }

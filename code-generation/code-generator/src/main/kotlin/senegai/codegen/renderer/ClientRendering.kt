@@ -115,7 +115,6 @@ object ClientRendering {
                 EntitySearchComponentScssRenderer,
                 EntitySearchComponentTypescriptRenderer,
                 EntityServiceRenderer,
-                EntityExampleDataRenderer,
                 EntityFirstEntryGuardRenderer,
                 EntityRoutingRenderer,
             )
