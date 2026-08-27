@@ -19,8 +19,11 @@ object EntityControllerRenderer : BeEntityRenderer {
           |package senegai.server.restapi.${model.entityName.lowerCase}
           |
           |import org.springframework.web.bind.annotation.*
+          |import senegai.server.restapi.wto.${model.entityRootItem.itemName.pascalCase}SearchCriteriaWTO
+          |import senegai.server.restapi.wto.${model.entityRootItem.itemName.pascalCase}SearchResultWTO
           |import senegai.server.restapi.wto.${model.entityRootItem.itemName.pascalCase}WTO
           |import senegai.server.restapi.wto.mapper.${model.entityRootItem.itemName.pascalCase}Mapper
+          |import senegai.server.restapi.wto.mapper.${model.entityRootItem.itemName.pascalCase}SearchCriteriaMapper.toBo
           |import senegai.server.restapi.wto.mapper.${model.entityRootItem.itemName.pascalCase}Mapper.toBo
           |import senegai.server.restapi.wto.mapper.${model.entityRootItem.itemName.pascalCase}Mapper.toWto
           |import senegai.server.service.${model.entityName.lowerCase}.${model.entityName.pascalCase}Service
@@ -44,6 +47,12 @@ object EntityControllerRenderer : BeEntityRenderer {
           |    @GetMapping
           |    fun get${model.entityRootItem.itemName.pascalCase}List(): List<${model.entityRootItem.itemName.pascalCase}WTO> =
           |        ${model.entityName.camelCase}Service.get${model.entityRootItem.itemName.pascalCase}List().map { it.toWto() }
+          |
+          |    @PostMapping("/search")
+          |    fun search${model.entityRootItem.itemName.pascalCase}List(@RequestBody searchCriteria: ${model.entityRootItem.itemName.pascalCase}SearchCriteriaWTO): ${model.entityRootItem.itemName.pascalCase}SearchResultWTO =
+          |        ${model.entityRootItem.itemName.pascalCase}SearchResultWTO(
+          |            ${model.entityRootItem.itemName.camelCase}List = ${model.entityName.camelCase}Service.search${model.entityRootItem.itemName.pascalCase}List(searchCriteria.toBo()).map { it.toWto() },
+          |        )
           |
           |    @GetMapping("/{${model.idAttribute.attributeName.camelCase}}")
           |    fun get${model.entityRootItem.itemName.pascalCase}ById(@PathVariable ${model.idAttribute.attributeName.camelCase}: UUID): ${model.entityRootItem.itemName.pascalCase}WTO? =

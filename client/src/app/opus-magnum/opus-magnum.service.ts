@@ -34,10 +34,10 @@
 
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
-import {delay} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 import {SilvaOptionumWTO} from "@app/wto/silva-optionum.wto";
-import {SILVA_OTIONUM_EXAMPLE_DATA} from "@app/opus-magnum/opus-magnum-example-data";
+import {SilvaOptionumSearchCriteriaWTO} from "@app/wto/silva-optionum-search-criteria.wto";
+import {SilvaOptionumSearchResultWTO} from "@app/wto/silva-optionum-search-result.wto";
 import {UUID} from "@app/shared/uuid";
 
 
@@ -49,6 +49,10 @@ export class OpusMagnumService {
 
     getSilvaOptionumList(): Observable<SilvaOptionumWTO[]> {
         return this.http.get<SilvaOptionumWTO[]>(this.baseUrl);
+    }
+
+    searchSilvaOptionumList(searchCriteria: SilvaOptionumSearchCriteriaWTO): Observable<SilvaOptionumSearchResultWTO> {
+        return this.http.post<SilvaOptionumSearchResultWTO>(`${this.baseUrl}/search`, searchCriteria);
     }
 
     getSilvaOptionumById(indexUnicus: UUID): Observable<SilvaOptionumWTO | null> {

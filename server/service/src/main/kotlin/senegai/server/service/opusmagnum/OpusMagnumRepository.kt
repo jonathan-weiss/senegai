@@ -27,6 +27,7 @@
 package senegai.server.service.opusmagnum
 
 import senegai.server.service.bo.SilvaOptionumBO
+import senegai.server.service.bo.SilvaOptionumSearchCriteriaBO
 import java.util.UUID
 
 /**
@@ -42,7 +43,8 @@ interface OpusMagnumRepository {
 
     fun findById(indexUnicus: UUID): SilvaOptionumBO?
 
-    /** Inserts or replaces the given [silvaOptionum] (matched by [SilvaOptionumBO.indexUnicus]). */
+    fun search(searchCriteria: SilvaOptionumSearchCriteriaBO): List<SilvaOptionumBO>
+
     fun save(silvaOptionum: SilvaOptionumBO): SilvaOptionumBO
 
     fun deleteById(indexUnicus: UUID)

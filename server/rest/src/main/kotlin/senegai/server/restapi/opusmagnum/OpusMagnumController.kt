@@ -29,8 +29,11 @@
 package senegai.server.restapi.opusmagnum
 
 import org.springframework.web.bind.annotation.*
+import senegai.server.restapi.wto.SilvaOptionumSearchCriteriaWTO
+import senegai.server.restapi.wto.SilvaOptionumSearchResultWTO
 import senegai.server.restapi.wto.SilvaOptionumWTO
 import senegai.server.restapi.wto.mapper.SilvaOptionumMapper
+import senegai.server.restapi.wto.mapper.SilvaOptionumSearchCriteriaMapper.toBo
 import senegai.server.restapi.wto.mapper.SilvaOptionumMapper.toBo
 import senegai.server.restapi.wto.mapper.SilvaOptionumMapper.toWto
 import senegai.server.service.opusmagnum.OpusMagnumService
@@ -54,6 +57,12 @@ class OpusMagnumController(
     @GetMapping
     fun getSilvaOptionumList(): List<SilvaOptionumWTO> =
         opusMagnumService.getSilvaOptionumList().map { it.toWto() }
+
+    @PostMapping("/search")
+    fun searchSilvaOptionumList(@RequestBody searchCriteria: SilvaOptionumSearchCriteriaWTO): SilvaOptionumSearchResultWTO =
+        SilvaOptionumSearchResultWTO(
+            silvaOptionumList = opusMagnumService.searchSilvaOptionumList(searchCriteria.toBo()).map { it.toWto() },
+        )
 
     @GetMapping("/{indexUnicus}")
     fun getSilvaOptionumById(@PathVariable indexUnicus: UUID): SilvaOptionumWTO? =

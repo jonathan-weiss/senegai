@@ -20,6 +20,7 @@ object EntityServiceRenderer : BeEntityRenderer {
           |
           |import org.springframework.stereotype.Service
           |import senegai.server.service.bo.${model.entityRootItem.itemName.pascalCase}BO
+          |import senegai.server.service.bo.${model.entityRootItem.itemName.pascalCase}SearchCriteriaBO
           |import java.util.UUID
           |
           |/**
@@ -38,6 +39,9 @@ object EntityServiceRenderer : BeEntityRenderer {
           |
           |    fun get${model.entityRootItem.itemName.pascalCase}ById(${model.idAttribute.attributeName.camelCase}: UUID): ${model.entityRootItem.itemName.pascalCase}BO? =
           |        ${model.entityName.camelCase}Repository.findById(${model.idAttribute.attributeName.camelCase})
+          |
+          |    fun search${model.entityRootItem.itemName.pascalCase}List(searchCriteria: ${model.entityRootItem.itemName.pascalCase}SearchCriteriaBO): List<${model.entityRootItem.itemName.pascalCase}BO> =
+          |        ${model.entityName.camelCase}Repository.search(searchCriteria)
           |
           |    fun create${model.entityRootItem.itemName.pascalCase}(${model.entityRootItem.itemName.camelCase}: ${model.entityRootItem.itemName.pascalCase}BO): ${model.entityRootItem.itemName.pascalCase}BO {
           |        val toCreate = ${model.entityRootItem.itemName.camelCase}.copy(${model.idAttribute.attributeName.camelCase} = UUID.randomUUID())

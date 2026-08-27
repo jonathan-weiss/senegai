@@ -19,6 +19,7 @@ object EntityRepositoryRenderer : BeEntityRenderer {
           |package senegai.server.service.${model.entityName.lowerCase}
           |
           |import senegai.server.service.bo.${model.entityRootItem.itemName.pascalCase}BO
+          |import senegai.server.service.bo.${model.entityRootItem.itemName.pascalCase}SearchCriteriaBO
           |import java.util.UUID
           |
           |/**
@@ -34,7 +35,8 @@ object EntityRepositoryRenderer : BeEntityRenderer {
           |
           |    fun findById(${model.idAttribute.attributeName.camelCase}: UUID): ${model.entityRootItem.itemName.pascalCase}BO?
           |
-          |    /** Inserts or replaces the given [${model.entityRootItem.itemName.camelCase}] (matched by [${model.entityRootItem.itemName.pascalCase}BO.${model.idAttribute.attributeName.camelCase}]). */
+          |    fun search(searchCriteria: ${model.entityRootItem.itemName.pascalCase}SearchCriteriaBO): List<${model.entityRootItem.itemName.pascalCase}BO>
+          |
           |    fun save(${model.entityRootItem.itemName.camelCase}: ${model.entityRootItem.itemName.pascalCase}BO): ${model.entityRootItem.itemName.pascalCase}BO
           |
           |    fun deleteById(${model.idAttribute.attributeName.camelCase}: UUID)

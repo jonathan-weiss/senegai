@@ -27,7 +27,7 @@
     
 
 }}}@ */
-import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {OpusMagnumSearchCriteria} from '@app/opus-magnum/opus-magnum-search/opus-magnum-search.component';
 import {OpusMagnumService} from '@app/opus-magnum/opus-magnum.service';
@@ -43,6 +43,7 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {MatDialogModule} from "@angular/material/dialog";
 import {SilvaOptionumWTO} from "@app/wto/silva-optionum.wto";
+import {SilvaOptionumSearchCriteriaWTO} from "@app/wto/silva-optionum-search-criteria.wto";
 
 @Component({
     selector: 'app-opus-magnum-result',
@@ -63,7 +64,7 @@ import {SilvaOptionumWTO} from "@app/wto/silva-optionum.wto";
         MatDialogModule,
     ]
 })
-export class OpusMagnumResultComponent implements OnChanges {
+export class OpusMagnumResultComponent implements OnInit, OnChanges {
     @Input() searchCriteria: OpusMagnumSearchCriteria = {};
     @Input() refreshKey: number = 0;
     @Output() selectOpusMagnum = new EventEmitter<SilvaOptionumWTO>();
@@ -86,25 +87,30 @@ export class OpusMagnumResultComponent implements OnChanges {
         'actions'
     ];
     dataSource: MatTableDataSource<SilvaOptionumWTO> = new MatTableDataSource<SilvaOptionumWTO>();
-    private allOpusMagnums: SilvaOptionumWTO[] = [];
 
     constructor(private opusMagnumService: OpusMagnumService) {
+    }
+
+    ngOnInit(): void {
         this.loadOpusMagnums();
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (changes['refreshKey'] && !changes['refreshKey'].firstChange) {
+        const refreshed = changes['refreshKey'] && !changes['refreshKey'].firstChange;
+        const searchCriteriaChanged = changes['searchCriteria'] && !changes['searchCriteria'].firstChange;
+        if (refreshed || searchCriteriaChanged) {
             this.loadOpusMagnums();
-        } else if (changes['searchCriteria'] && this.allOpusMagnums.length) {
-            this.filterOpusMagnums();
         }
     }
 
     private loadOpusMagnums(): void {
-        this.opusMagnumService.getSilvaOptionumList().subscribe(opusMagnumList => {
-            this.allOpusMagnums = opusMagnumList;
-            this.filterOpusMagnums();
-        });
+        const searchCriteria: SilvaOptionumSearchCriteriaWTO = {
+            query: this.searchCriteria?.searchQuery ?? '',
+        };
+        this.opusMagnumService.searchSilvaOptionumList(searchCriteria)
+            .subscribe(searchResult => {
+                this.dataSource.data = searchResult.silvaOptionumList;
+            });
     }
 
     onCreate(): void {
@@ -117,28 +123,5 @@ export class OpusMagnumResultComponent implements OnChanges {
 
     onDelete(opusMagnum: SilvaOptionumWTO): void {
         this.deleteOpusMagnum.emit(opusMagnum);
-    }
-
-    private filterOpusMagnums(): void {
-        this.dataSource.data = this.filteredOpusMagnumList(this.searchCriteria, this.allOpusMagnums);
-    }
-
-    private filteredOpusMagnumList(searchCriteria: OpusMagnumSearchCriteria, allOpusMagnum: SilvaOptionumWTO[]): SilvaOptionumWTO[] {
-        const searchTokens = searchCriteria?.searchQuery?.split(" ") ?? [];
-        if(searchTokens.length < 1) {
-            return allOpusMagnum
-        } else {
-            return allOpusMagnum.filter(opusMagnum => {
-                return searchTokens.some(searchToken => this.isMatchingCriteria(searchToken, opusMagnum))
-            });
-        }
-    }
-
-    private isMatchingCriteria(searchCriteriaText: string | undefined | null, opusMagnum: SilvaOptionumWTO): boolean {
-        if(searchCriteriaText == undefined) {
-            return true;
-        }
-        // a rather simple implementation to search, but good enough for the moment...
-        return JSON.stringify(opusMagnum).includes(searchCriteriaText);
     }
 }

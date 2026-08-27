@@ -7,6 +7,10 @@ import senegai.codegen.renderer.be.EntityControllerRenderer
 import senegai.codegen.renderer.be.EntityExampleDataCreatorRenderer
 import senegai.codegen.renderer.be.EntityInMemoryRepositoryRenderer
 import senegai.codegen.renderer.be.EntityRepositoryRenderer
+import senegai.codegen.renderer.be.EntitySearchCriteriaBORenderer
+import senegai.codegen.renderer.be.EntitySearchCriteriaMapperRenderer
+import senegai.codegen.renderer.be.EntitySearchCriteriaWTORenderer
+import senegai.codegen.renderer.be.EntitySearchResultWTORenderer
 import senegai.codegen.renderer.be.EntityServiceRenderer
 import senegai.codegen.renderer.be.EnumBORenderer
 import senegai.codegen.renderer.be.EnumExampleDataCreatorRenderer
@@ -72,6 +76,10 @@ object BackendRendering {
                 EntityServiceRenderer to pathToGeneratedBackendServiceFiles,
                 EntityInMemoryRepositoryRenderer to pathToGeneratedBackendPersistenceFiles,
                 EntityControllerRenderer to pathToGeneratedBackendRestFiles,
+                EntitySearchCriteriaBORenderer to pathToGeneratedBackendServiceFiles,
+                EntitySearchCriteriaWTORenderer to pathToGeneratedBackendRestFiles,
+                EntitySearchResultWTORenderer to pathToGeneratedBackendRestFiles,
+                EntitySearchCriteriaMapperRenderer to pathToGeneratedBackendRestFiles,
             )
 
             entityRenderer.forEach { (renderer, basePath) ->

@@ -29,6 +29,7 @@ package senegai.server.persistence.opusmagnum
 import org.springframework.stereotype.Repository
 import senegai.server.service.opusmagnum.OpusMagnumRepository
 import senegai.server.service.bo.SilvaOptionumBO
+import senegai.server.service.bo.SilvaOptionumSearchCriteriaBO
 import java.util.concurrent.ConcurrentHashMap
 import java.util.UUID
 
@@ -45,6 +46,9 @@ class InMemoryOpusMagnumRepository : OpusMagnumRepository {
     override fun findAll(): List<SilvaOptionumBO> = store.values.toList()
 
     override fun findById(indexUnicus: UUID): SilvaOptionumBO? = store[indexUnicus]
+
+    override fun search(searchCriteria: SilvaOptionumSearchCriteriaBO): List<SilvaOptionumBO> =
+        store.values.filter { it.toString().contains(searchCriteria.query, ignoreCase = true) }
 
     override fun save(silvaOptionum: SilvaOptionumBO): SilvaOptionumBO {
         store[silvaOptionum.indexUnicus] = silvaOptionum
