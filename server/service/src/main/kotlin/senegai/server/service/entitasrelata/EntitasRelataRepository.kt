@@ -1,6 +1,7 @@
 package senegai.server.service.entitasrelata
 
 import senegai.server.service.bo.MembrumRelatumBO
+import senegai.server.service.bo.MembrumRelatumByIdsCriteriaBO
 import senegai.server.service.bo.MembrumRelatumSearchCriteriaBO
 import java.util.UUID
 
@@ -16,6 +17,8 @@ interface EntitasRelataRepository {
     fun findAll(): List<MembrumRelatumBO>
 
     fun findById(clavisPrimaria: UUID): MembrumRelatumBO?
+
+    fun findByIds(criteria: MembrumRelatumByIdsCriteriaBO): List<MembrumRelatumBO>
 
     fun search(searchCriteria: MembrumRelatumSearchCriteriaBO): List<MembrumRelatumBO>
 

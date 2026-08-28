@@ -1,0 +1,36 @@
+<div class="table-container">
+    <div class="action-bar">
+        <app-entitas-relata-typeahead
+                label="Add Entitas Relata..."
+                [excludedClavisPrimariaList]="referencedClavisPrimariaList()"
+                [disabled]="membrumRelatumReferenceFormArray.disabled"
+                (membrumRelatumSelected)="onMembrumRelatumSelected($event)" />
+    </div>
+    <table mat-table [dataSource]="dataSource">
+        <!-- Display attribute: Clavis Primaria -->
+        <ng-container matColumnDef="clavisPrimaria">
+            <th mat-header-cell *matHeaderCellDef>{{ columnHeaderClavisPrimaria }}</th>
+            <td mat-cell *matCellDef="let tableRow">{{ tableRow.clavisPrimaria }}</td>
+        </ng-container>
+
+        <!-- Display attribute: Descriptio Ex Distanti -->
+        <ng-container matColumnDef="descriptioExDistanti">
+            <th mat-header-cell *matHeaderCellDef>{{ columnHeaderDescriptioExDistanti }}</th>
+            <td mat-cell *matCellDef="let tableRow">{{ tableRow.descriptioExDistanti }}</td>
+        </ng-container>
+
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let tableRow">
+                <button mat-icon-button color="warn" (click)="onDelete(tableRow)" type="button"
+                        [disabled]="membrumRelatumReferenceFormArray.disabled">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>

@@ -135,6 +135,11 @@ import {
     OpusMagnumArticulusInteriorFormPartGroup
 } from "@app/opus-magnum/opus-magnum-form/opus-magnum-articulus-interior-form-part/opus-magnum-articulus-interior-form-part-group";
 /* @tt{{{   @end-foreach  }}}@ */
+/* @tt{{{   @ignore-text  }}}@ */
+import {
+    OpusMagnumMembrumRelatumReferenceTableComponent
+} from "@app/opus-magnum/opus-magnum-form/opus-magnum-membrum-relatum-reference-table/opus-magnum-membrum-relatum-reference-table.component";
+/* @tt{{{   @end-ignore-text  }}}@ */
 
 @Component({
     selector: 'app-opus-magnum-silva-optionum-form-part',
@@ -226,6 +231,7 @@ import {
         }}}@ */
         /* @tt{{{   @ignore-text }}}@ */
         DatepickerInputComponent,
+        OpusMagnumMembrumRelatumReferenceTableComponent,
         /* @tt{{{   @end-ignore-text }}}@ */
         /* @tt{{{
             @foreach [ iteratorExpression="model.item.attributesWithEnumType" loopVariable="attributeWithEnumType" ]
@@ -306,6 +312,8 @@ export class OpusMagnumSilvaOptionumFormPartComponent implements OnInit {
     protected campusNumerorumValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected iteratioSimpliciumTextuumControl!: FormArray<FormControl<string>>
     protected iteratioSimpliciumTextuumValidatorNames!: ReadonlyArray<ValidatorTranslation>
+    protected relatioAdEntitatemIteratusControl!: FormArray<FormControl<UUID>>
+    protected relatioAdEntitatemIteratusValidatorNames!: ReadonlyArray<ValidatorTranslation>
     /* @tt{{{   @end-ignore-text  }}}@ */
 
     constructor(private readonly silvaOptionumFormValidationService: OpusMagnumSilvaOptionumFormPartValidationService,) {
@@ -361,6 +369,8 @@ export class OpusMagnumSilvaOptionumFormPartComponent implements OnInit {
         this.articulusInteriorSingularisOptionalisIsNotNullValidatorNames = this.silvaOptionumFormValidationService.validatorNames(OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalisIsNotNull)
         this.iteratioSimpliciumTextuumControl = this.silvaOptionumForm.controls[OpusMagnumSilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum]
         this.iteratioSimpliciumTextuumValidatorNames = this.silvaOptionumFormValidationService.validatorNames(OpusMagnumSilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum)
+        this.relatioAdEntitatemIteratusControl = this.silvaOptionumForm.controls[OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemIteratus]
+        this.relatioAdEntitatemIteratusValidatorNames = this.silvaOptionumFormValidationService.validatorNames(OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemIteratus)
         /* @tt{{{   @end-ignore-text  }}}@ */
     }
 }

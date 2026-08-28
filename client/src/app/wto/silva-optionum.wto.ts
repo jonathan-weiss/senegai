@@ -77,5 +77,6 @@ export interface SilvaOptionumWTO {
     campusNumerorum: number;
     indexUnicus: UUID;
     iteratioSimpliciumTextuum: Array<string>;
+    relatioAdEntitatemIteratus: Array<UUID>;
     /* @tt{{{   @end-ignore-text }}}@ */
 }

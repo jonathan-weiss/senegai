@@ -53,5 +53,6 @@ data class SilvaOptionumWTO(
     val campusBivalens: Boolean,
     val campusNumerorum: Int,
     val iteratioSimpliciumTextuum: List<String>,
+    val relatioAdEntitatemIteratus: List<UUID>,
     /* @tt{{{   @end-ignore-text  }}}@ */
 )

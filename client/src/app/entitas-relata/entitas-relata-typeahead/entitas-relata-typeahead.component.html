@@ -1,0 +1,17 @@
+<mat-form-field appearance="fill" class="typeahead-field">
+    <mat-label>{{ label }}</mat-label>
+    <input matInput
+           #queryInput
+           [placeholder]="placeholder"
+           [disabled]="disabled"
+           [matAutocomplete]="membrumRelatumAutocomplete"
+           (input)="onQueryChanged(queryInput.value)">
+    <mat-icon matSuffix>search</mat-icon>
+    <mat-autocomplete #membrumRelatumAutocomplete="matAutocomplete"
+                      [displayWith]="clearSearchField"
+                      (optionSelected)="onOptionSelected($event.option.value)">
+        @for (membrumRelatum of suggestionList(); track membrumRelatum.clavisPrimaria) {
+            <mat-option [value]="membrumRelatum">{{ displayLabel(membrumRelatum) }}</mat-option>
+        }
+    </mat-autocomplete>
+</mat-form-field>

@@ -167,6 +167,12 @@ export class OpusMagnumSilvaOptionumFormPartService {
                     validators: this.silvaOptionumFormValidationService.validatorFunctions(OpusMagnumSilvaOptionumFormPartFieldName.appellatioOptionalisIteratus)
                 },
             ),
+            [OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemIteratus]: new FormArray<FormControl<UUID>>(
+                [],
+                {
+                    validators: this.silvaOptionumFormValidationService.validatorFunctions(OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemIteratus)
+                },
+            ),
             [OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalis]: this.articulusInteriorFormPartService.createInitialArticulusInteriorForm(),
             [OpusMagnumSilvaOptionumFormPartFieldName.campusDiei]: new FormControl<Date>(
                 this.silvaOptionumFormInitialValueService.campusDieiInitialValue(),
@@ -344,6 +350,7 @@ export class OpusMagnumSilvaOptionumFormPartService {
         form.controls[OpusMagnumSilvaOptionumFormPartFieldName.campusNumerorum].patchValue(silvaOptionum.campusNumerorum);
         form.controls[OpusMagnumSilvaOptionumFormPartFieldName.indexUnicus].patchValue(silvaOptionum.indexUnicus);
         form.controls[OpusMagnumSilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum].patchValue(silvaOptionum.iteratioSimpliciumTextuum);
+        form.controls[OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemIteratus].patchValue(silvaOptionum.relatioAdEntitatemIteratus);
         /* @tt{{{   @end-ignore-text  }}}@ */
 
         this.patchNestedItems(form, silvaOptionum);
@@ -403,6 +410,16 @@ export class OpusMagnumSilvaOptionumFormPartService {
             if (appellatioOptionalisIteratusLength < silvaOptionum.appellatioOptionalisIteratus.length) {
                 for (let i = appellatioOptionalisIteratusLength; i < silvaOptionum.appellatioOptionalisIteratus.length; i++) {
                     form.controls[OpusMagnumSilvaOptionumFormPartFieldName.appellatioOptionalisIteratus].push(this.createInitialAppellatioOptionalisIteratusForm())
+                }
+            }
+        }
+        if(silvaOptionum.relatioAdEntitatemIteratus != null) {
+            const relatioAdEntitatemIteratusLength = form.controls[OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemIteratus].controls.length
+            if (relatioAdEntitatemIteratusLength < silvaOptionum.relatioAdEntitatemIteratus.length) {
+                for (let i = relatioAdEntitatemIteratusLength; i < silvaOptionum.relatioAdEntitatemIteratus.length; i++) {
+                    form.controls[OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemIteratus].push(
+                        new FormControl<UUID>(silvaOptionum.relatioAdEntitatemIteratus[i], {nonNullable: true})
+                    )
                 }
             }
         }
@@ -524,6 +541,7 @@ export class OpusMagnumSilvaOptionumFormPartService {
                 ? form.controls[OpusMagnumSilvaOptionumFormPartFieldName.appellatioOptionalisIteratus].getRawValue()
                 : null,
             iteratioSimpliciumTextuum: form.controls[OpusMagnumSilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum].getRawValue(),
+            relatioAdEntitatemIteratus: form.controls[OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemIteratus].getRawValue(),
             campusDiei: form.controls[OpusMagnumSilvaOptionumFormPartFieldName.campusDieiIsNotNull].value ? form.controls[OpusMagnumSilvaOptionumFormPartFieldName.campusDiei].getRawValue() : null,
             campusBivalens: form.controls[OpusMagnumSilvaOptionumFormPartFieldName.campusBivalens].getRawValue(),
             campusNumerorum: form.controls[OpusMagnumSilvaOptionumFormPartFieldName.campusNumerorum].getRawValue(),

@@ -253,6 +253,12 @@
                         <app-single-text-form-field-table [formArray]="iteratioSimpliciumTextuumControl" columnHeader="Iteratio Simplicium Textuum" placeholder="Iteratio Simplicium Textuum" />
                     </app-field-wrapper>
                 </div>
+                <div class="form-row">
+                    <app-field-wrapper label="Relatio Ad Entitatem Iteratus">
+                        <app-opus-magnum-membrum-relatum-reference-table
+                                [membrumRelatumReferenceFormArray]="relatioAdEntitatemIteratusControl" />
+                    </app-field-wrapper>
+                </div>
                 <!-- @tt{{{   @end-ignore-text  }}}@ -->
             </div>
             <!-- @tt{{{  @end-foreach  }}}@ -->

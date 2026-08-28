@@ -2,6 +2,7 @@ package senegai.server.service.entitasrelata
 
 import org.springframework.stereotype.Service
 import senegai.server.service.bo.MembrumRelatumBO
+import senegai.server.service.bo.MembrumRelatumByIdsCriteriaBO
 import senegai.server.service.bo.MembrumRelatumSearchCriteriaBO
 import java.util.UUID
 
@@ -21,6 +22,9 @@ class EntitasRelataService(
 
     fun getMembrumRelatumById(clavisPrimaria: UUID): MembrumRelatumBO? =
         entitasRelataRepository.findById(clavisPrimaria)
+
+    fun getMembrumRelatumListByIds(criteria: MembrumRelatumByIdsCriteriaBO): List<MembrumRelatumBO> =
+        entitasRelataRepository.findByIds(criteria)
 
     fun searchMembrumRelatumList(searchCriteria: MembrumRelatumSearchCriteriaBO): List<MembrumRelatumBO> =
         entitasRelataRepository.search(searchCriteria)

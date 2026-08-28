@@ -5,6 +5,8 @@ import {MembrumRelatumWTO} from "@app/wto/membrum-relatum.wto";
 import {UUID} from "@app/shared/uuid";
 import {MembrumRelatumSearchCriteriaWTO} from "@app/wto/membrum-relatum-search-criteria.wto";
 import {MembrumRelatumSearchResultWTO} from "@app/wto/membrum-relatum-search-result.wto";
+import {MembrumRelatumByIdsCriteriaWTO} from "@app/wto/membrum-relatum-by-ids-criteria.wto";
+import {MembrumRelatumByIdsResultWTO} from "@app/wto/membrum-relatum-by-ids-result.wto";
 
 
 @Injectable({providedIn: 'root'})
@@ -19,6 +21,10 @@ export class EntitasRelataService {
 
     searchMembrumRelatumList(searchCriteria: MembrumRelatumSearchCriteriaWTO): Observable<MembrumRelatumSearchResultWTO> {
         return this.http.post<MembrumRelatumSearchResultWTO>(`${this.baseUrl}/search`, searchCriteria);
+    }
+
+    getMembrumRelatumListByIds(criteria: MembrumRelatumByIdsCriteriaWTO): Observable<MembrumRelatumByIdsResultWTO> {
+        return this.http.post<MembrumRelatumByIdsResultWTO>(`${this.baseUrl}/by-ids`, criteria);
     }
 
     getMembrumRelatumById(clavisPrimaria: UUID): Observable<MembrumRelatumWTO | null> {

@@ -62,6 +62,7 @@ export enum OpusMagnumSilvaOptionumFormPartFieldName {
     campusNumerorum = "campusNumerorum",
     indexUnicus = "indexUnicus",
     iteratioSimpliciumTextuum = "iteratioSimpliciumTextuum",
+    relatioAdEntitatemIteratus = "relatioAdEntitatemIteratus",
 /* @tt{{{   @end-ignore-text  }}}@ */
 }
 

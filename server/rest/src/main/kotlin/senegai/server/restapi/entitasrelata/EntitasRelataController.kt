@@ -1,10 +1,13 @@
 package senegai.server.restapi.entitasrelata
 
 import org.springframework.web.bind.annotation.*
+import senegai.server.restapi.wto.MembrumRelatumByIdsCriteriaWTO
+import senegai.server.restapi.wto.MembrumRelatumByIdsResultWTO
 import senegai.server.restapi.wto.MembrumRelatumSearchCriteriaWTO
 import senegai.server.restapi.wto.MembrumRelatumSearchResultWTO
 import senegai.server.restapi.wto.MembrumRelatumWTO
 import senegai.server.restapi.wto.mapper.MembrumRelatumMapper
+import senegai.server.restapi.wto.mapper.MembrumRelatumByIdsCriteriaMapper.toBo
 import senegai.server.restapi.wto.mapper.MembrumRelatumSearchCriteriaMapper.toBo
 import senegai.server.restapi.wto.mapper.MembrumRelatumMapper.toBo
 import senegai.server.restapi.wto.mapper.MembrumRelatumMapper.toWto
@@ -34,6 +37,12 @@ class EntitasRelataController(
     fun searchMembrumRelatumList(@RequestBody searchCriteria: MembrumRelatumSearchCriteriaWTO): MembrumRelatumSearchResultWTO =
         MembrumRelatumSearchResultWTO(
             membrumRelatumList = entitasRelataService.searchMembrumRelatumList(searchCriteria.toBo()).map { it.toWto() },
+        )
+
+    @PostMapping("/by-ids")
+    fun getMembrumRelatumListByIds(@RequestBody criteria: MembrumRelatumByIdsCriteriaWTO): MembrumRelatumByIdsResultWTO =
+        MembrumRelatumByIdsResultWTO(
+            membrumRelatumList = entitasRelataService.getMembrumRelatumListByIds(criteria.toBo()).map { it.toWto() },
         )
 
     @GetMapping("/{clavisPrimaria}")
