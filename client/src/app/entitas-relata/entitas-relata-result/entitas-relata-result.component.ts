@@ -13,6 +13,8 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {MatDialogModule} from "@angular/material/dialog";
 import {MembrumRelatumWTO} from "@app/wto/membrum-relatum.wto";
+import {EntitasRelataSearchCriteria} from "@app/entitas-relata/entitas-relata-search/entitas-relata-search.component";
+import {MembrumRelatumSearchCriteriaWTO} from "@app/wto/membrum-relatum-search-criteria.wto";
 
 @Component({
     selector: 'app-entitas-relata-result',
@@ -34,6 +36,7 @@ import {MembrumRelatumWTO} from "@app/wto/membrum-relatum.wto";
     ]
 })
 export class EntitasRelataResultComponent implements OnInit, OnChanges {
+    @Input() searchCriteria: EntitasRelataSearchCriteria = {};
     @Input() refreshKey: number = 0;
     @Output() selectEntitasRelata = new EventEmitter<MembrumRelatumWTO>();
     @Output() deleteEntitasRelata = new EventEmitter<MembrumRelatumWTO>();
@@ -55,16 +58,20 @@ export class EntitasRelataResultComponent implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         const refreshed = changes['refreshKey'] && !changes['refreshKey'].firstChange;
-        if (refreshed) {
+        const searchCriteriaChanged = changes['searchCriteria'] && !changes['searchCriteria'].firstChange;
+        if (refreshed || searchCriteriaChanged) {
             this.loadEntitasRelatas();
         }
     }
 
 
     private loadEntitasRelatas(): void {
-        this.entitasRelataService.getMembrumRelatumList()
+        const searchCriteria: MembrumRelatumSearchCriteriaWTO = {
+            query: this.searchCriteria?.searchQuery ?? '',
+        };
+        this.entitasRelataService.searchMembrumRelatumList(searchCriteria)
             .subscribe(searchResult => {
-                this.dataSource.data = searchResult
+                this.dataSource.data = searchResult.membrumRelatumList;
             });
     }
 

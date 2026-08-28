@@ -1,7 +1,9 @@
 import {Component} from '@angular/core';
 import {EntitasRelataResultComponent} from '@app/entitas-relata/entitas-relata-result/entitas-relata-result.component';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
-import {EntitasRelataConfirmDeleteDialogComponent} from '@app/entitas-relata/entitas-relata-confirm-delete-dialog/entitas-relata-confirm-delete-dialog.component';
+import {
+    EntitasRelataConfirmDeleteDialogComponent
+} from '@app/entitas-relata/entitas-relata-confirm-delete-dialog/entitas-relata-confirm-delete-dialog.component';
 import {EntitasRelataService} from '@app/entitas-relata/entitas-relata.service';
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
@@ -14,9 +16,15 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
-import {EntitasRelataFormComponent} from "@app/entitas-relata/entitas-relata-form/entitas-relata-form/entitas-relata-form.component";
+import {
+    EntitasRelataFormComponent
+} from "@app/entitas-relata/entitas-relata-form/entitas-relata-form/entitas-relata-form.component";
 import {MembrumRelatumWTO} from "@app/wto/membrum-relatum.wto";
 import {TranslocoPipe} from "@jsverse/transloco";
+import {
+    EntitasRelataSearchComponent,
+    EntitasRelataSearchCriteria
+} from "@app/entitas-relata/entitas-relata-search/entitas-relata-search.component";
 
 @Component({
     selector: 'app-entitas-relata-board',
@@ -38,14 +46,20 @@ import {TranslocoPipe} from "@jsverse/transloco";
         EntitasRelataResultComponent,
         EntitasRelataFormComponent,
         TranslocoPipe,
+        EntitasRelataSearchComponent,
     ]
 })
 export class EntitasRelataBoardComponent {
+    currentSearchCriteria: EntitasRelataSearchCriteria = {};
     selectedEntitasRelata: MembrumRelatumWTO | null = null;
     creating = false;
     refreshKey = 0;
 
     constructor(private dialog: MatDialog, private entitasRelataService: EntitasRelataService) {
+    }
+
+    onSearch(criteria: EntitasRelataSearchCriteria): void {
+        this.currentSearchCriteria = criteria;
     }
 
     onCreateEntitasRelata(): void {

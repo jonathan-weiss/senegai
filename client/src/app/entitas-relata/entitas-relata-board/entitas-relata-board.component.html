@@ -4,6 +4,18 @@
     </div>
 
     <mat-accordion class="entitas-relata-accordion" multi>
+        <!-- Search Panel -->
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <mat-icon>search</mat-icon>
+                    <ng-container>Search EntitasRelatas</ng-container>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <app-entitas-relata-search (search)="onSearch($event)"></app-entitas-relata-search>
+        </mat-expansion-panel>
+
+
         <!-- Results Panel -->
         <mat-expansion-panel expanded>
             <mat-expansion-panel-header>
@@ -13,6 +25,7 @@
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <app-entitas-relata-result
+                    [searchCriteria]="currentSearchCriteria"
                     (selectEntitasRelata)="onEntitasRelataSelect($event)"
                     (deleteEntitasRelata)="onDeleteEntitasRelata($event)"
                     (createEntitasRelata)="onCreateEntitasRelata()"
