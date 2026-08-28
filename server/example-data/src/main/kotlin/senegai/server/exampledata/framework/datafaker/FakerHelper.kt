@@ -60,7 +60,15 @@ object FakerHelper {
         return array[index]
     }
 
+    fun <T> manyOfRandom(dataContext: DataContext, array: Array<T>, size: Int): List<T> {
+        return dataContext.toFaker().options().subset(size, *array).toList()
+    }
+
     fun innerListRandomSize(dataContext: DataContext): Int {
+        return dataContext.toFaker().number().numberBetween(0, 3)
+    }
+
+    fun referenceListRandomSize(dataContext: DataContext): Int {
         return dataContext.toFaker().number().numberBetween(0, 3)
     }
 

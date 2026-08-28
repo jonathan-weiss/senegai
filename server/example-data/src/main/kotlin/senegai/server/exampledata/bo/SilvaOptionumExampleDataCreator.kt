@@ -36,7 +36,7 @@ import senegai.server.exampledata.framework.datagenerator.RandomStringDataGenera
 /* @tt{{{   @ignore-text  }}}@ */
 import senegai.server.exampledata.framework.datagenerator.RandomBooleanDataGenerator
 import senegai.server.exampledata.framework.datagenerator.RandomNumberDataGenerator
-import senegai.server.service.entitasrelata.EntitasRelataRepository
+import senegai.server.exampledata.entitasrelata.EntitasRelataExampleDataFetcher
 import java.util.UUID
 /* @tt{{{   @end-ignore-text  }}}@ */
 
@@ -77,7 +77,7 @@ class SilvaOptionumExampleDataCreator(
     /* @tt{{{   @ignore-text  }}}@ */
     private val randomNumberDataGenerator: RandomNumberDataGenerator,
     private val randomBooleanDataGenerator: RandomBooleanDataGenerator,
-    private val entitasRelataRepository: EntitasRelataRepository,
+    private val entitasRelataExampleDataFetcher: EntitasRelataExampleDataFetcher,
     /* @tt{{{   @end-ignore-text  }}}@ */
 ) {
 
@@ -130,10 +130,7 @@ class SilvaOptionumExampleDataCreator(
         articulusInteriorOptionalisIteratus = articulusInteriorExampleDataCreator.createList(dataContext, FakerHelper.innerListRandomSize(dataContext)),
         campusDiei = null,
         campusBivalens = randomBooleanDataGenerator.generateData(dataContext),
-        relatioAdEntitatemIteratus = entitasRelataRepository.findAll()
-            .map { it.clavisPrimaria }
-            .shuffled()
-            .take(FakerHelper.innerListRandomSize(dataContext)),
+        relatioAdEntitatemIteratus = entitasRelataExampleDataFetcher.fetchRandomKeysList(dataContext),
         /* @tt{{{   @end-ignore-text  }}}@ */
     )
 
