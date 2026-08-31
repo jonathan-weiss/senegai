@@ -12,8 +12,8 @@
             <option value="$PROJECT_DIR$/client" />
             <option value="$PROJECT_DIR$/code-generation" />
             <option value="$PROJECT_DIR$/code-generation/code-generator" />
-            <option value="$PROJECT_DIR$/code-generation/code-generator-data" />
             <option value="$PROJECT_DIR$/code-generation/renderer-creator" />
+            <option value="$PROJECT_DIR$/essential-model-data" />
             <option value="$PROJECT_DIR$/server" />
             <option value="$PROJECT_DIR$/server/app" />
             <option value="$PROJECT_DIR$/server/example-data" />

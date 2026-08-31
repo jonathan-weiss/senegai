@@ -49,6 +49,7 @@ dependencyResolutionManagement {
 }
 
 include("client")
+include("essential-model-data")
 include("server:app")
 include("server:service")
 include("server:example-data")
@@ -56,4 +57,3 @@ include("server:rest")
 include("server:persistence")
 include("code-generation:renderer-creator")
 include("code-generation:code-generator")
-include("code-generation:code-generator-data")

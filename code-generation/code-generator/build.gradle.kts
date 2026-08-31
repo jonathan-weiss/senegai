@@ -8,7 +8,7 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":code-generation:code-generator-data"))
+    implementation(project(":essential-model-data"))
     implementation(libs.sourceamazing.schema.api)
     runtimeOnly(libs.sourceamazing.schema)
     implementation(libs.sourceamazing.builder.api)
