@@ -7,7 +7,7 @@ import senegai.codegen.schema.EnumId
 import senegai.codegen.schema.ExampleDataCategory
 import senegai.codegen.schema.ItemId
 
-object CodegenData {
+object EssentialModelData {
     fun RootDsl.collectData() {
         collectEntityData()
         collectUiData()
