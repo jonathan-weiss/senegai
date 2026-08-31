@@ -4,7 +4,7 @@ import senegai.codegen.renderer.BackendRendering
 import senegai.codegen.renderer.ClientRendering
 import senegai.codegen.renderer.converter.RendererModelConverter
 import senegai.codegen.renderer.model.SchemaModel
-import senegai.codegen.schema.SchemaData
+import senegai.model.schema.SchemaData
 import senegai.codegen.sourceamazing.DefinitionDataCollection
 import kotlin.system.exitProcess
 

@@ -1,6 +1,6 @@
-package senegai.codegen.builders
+package senegai.model.builders
 
-import senegai.codegen.schema.ItemId
+import senegai.model.schema.ItemId
 
 @MainDslMarker
 interface UiEntityDsl {

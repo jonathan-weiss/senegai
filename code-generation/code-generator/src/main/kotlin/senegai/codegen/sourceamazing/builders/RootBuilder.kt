@@ -5,11 +5,13 @@ import org.codeblessing.sourceamazing.builder.api.annotations.BuilderMethod
 import org.codeblessing.sourceamazing.builder.api.annotations.ExpectedClazzModelFromSuperiorBuilder
 import org.codeblessing.sourceamazing.builder.api.annotations.InjectBuilder
 import org.codeblessing.sourceamazing.builder.api.annotations.RedeclareAliasForNestedBuilder
-import senegai.codegen.schema.SchemaData
+import senegai.model.builders.RootDsl
+import senegai.model.builders.SchemaDsl
+import senegai.model.schema.SchemaData
 
 @Builder
 @ExpectedClazzModelFromSuperiorBuilder(clazz = SchemaData::class, alias = "root")
-interface RootBuilder: senegai.codegen.builders.RootDsl {
+interface RootBuilder: RootDsl {
 
     @BuilderMethod
     @RedeclareAliasForNestedBuilder(alias = "root", newAlias = "schema")
@@ -20,7 +22,7 @@ interface RootBuilder: senegai.codegen.builders.RootDsl {
 
 
     override fun schema(
-        builder: senegai.codegen.builders.SchemaDsl.() -> Unit
+        builder: SchemaDsl.() -> Unit
     ) {
         createSchemaInternal(builder)
     }

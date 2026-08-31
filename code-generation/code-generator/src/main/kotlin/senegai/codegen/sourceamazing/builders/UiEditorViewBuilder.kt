@@ -1,14 +1,13 @@
 package senegai.codegen.sourceamazing.builders
 
 import org.codeblessing.sourceamazing.builder.api.annotations.*
-import senegai.codegen.builders.UiEditorDsl
-import senegai.codegen.builders.UiEditorForMainItemDsl
-import senegai.codegen.builders.UiEditorForNestedItemDsl
-import senegai.codegen.schema.ItemId
-import senegai.codegen.schema.UiEntityEditorColumn
-import senegai.codegen.schema.UiEntityEditorEntityConfiguration
-import senegai.codegen.schema.UiEntityEditorEntityNestedItemConfiguration
-import senegai.codegen.schema.UiEntityEditorView
+import senegai.model.builders.UiEditorDsl
+import senegai.model.builders.UiEditorForMainItemDsl
+import senegai.model.builders.UiEditorForNestedItemDsl
+import senegai.model.schema.ItemId
+import senegai.model.schema.UiEntityEditorEntityConfiguration
+import senegai.model.schema.UiEntityEditorEntityNestedItemConfiguration
+import senegai.model.schema.UiEntityEditorView
 
 @Builder
 @ExpectedClazzModelFromSuperiorBuilder(clazz = UiEntityEditorView::class, alias = "uiEditor")

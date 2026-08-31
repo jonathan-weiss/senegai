@@ -1,12 +1,22 @@
 package senegai.codegen.sourceamazing.builders
 
 import org.codeblessing.sourceamazing.builder.api.annotations.*
-import senegai.codegen.builders.UiEntityDsl
-import senegai.codegen.schema.*
+import senegai.model.builders.UiEntityDsl
+import senegai.model.builders.EnumDsl
+import senegai.model.builders.ItemDsl
+import senegai.model.builders.SchemaDsl
+import senegai.model.schema.Entity
+import senegai.model.schema.EntityId
+import senegai.model.schema.EnumId
+import senegai.model.schema.EnumType
+import senegai.model.schema.Item
+import senegai.model.schema.ItemId
+import senegai.model.schema.SchemaData
+import senegai.model.schema.UiEntity
 
 @Builder
 @ExpectedClazzModelFromSuperiorBuilder(clazz = SchemaData::class, alias = "schema")
-interface SchemaBuilder: senegai.codegen.builders.SchemaDsl {
+interface SchemaBuilder: SchemaDsl {
 
     // **************
     // Entity
@@ -39,7 +49,7 @@ interface SchemaBuilder: senegai.codegen.builders.SchemaDsl {
         @InjectBuilder builder: ItemBuilder.() -> Unit,
     )
 
-    override fun item(itemId: ItemId, builder: senegai.codegen.builders.ItemDsl.() -> Unit) {
+    override fun item(itemId: ItemId, builder: ItemDsl.() -> Unit) {
         // cast from senegai.codegen.builders.XyzBuilder to our XyzBuilder
         createNewItemInternal(itemId, builder)
     }
@@ -58,7 +68,7 @@ interface SchemaBuilder: senegai.codegen.builders.SchemaDsl {
         @InjectBuilder builder: EnumBuilder.() -> Unit
     )
 
-    override fun enumType(enumId: EnumId, builder: senegai.codegen.builders.EnumDsl.() -> Unit) {
+    override fun enumType(enumId: EnumId, builder: EnumDsl.() -> Unit) {
         // cast from senegai.codegen.builders.XyzBuilder to our XyzBuilder
         createNewEnumTypeInternal(enumId, builder)
     }

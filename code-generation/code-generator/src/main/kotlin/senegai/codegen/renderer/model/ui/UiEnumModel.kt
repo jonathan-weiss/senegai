@@ -1,8 +1,8 @@
 package senegai.codegen.renderer.model.ui
 
 import senegai.codegen.renderer.model.NameCase
-import senegai.codegen.schema.EnumId
-import senegai.codegen.schema.EnumType
+import senegai.model.schema.EnumId
+import senegai.model.schema.EnumType
 
 data class UiEnumModel(
     private val enumType: EnumType,

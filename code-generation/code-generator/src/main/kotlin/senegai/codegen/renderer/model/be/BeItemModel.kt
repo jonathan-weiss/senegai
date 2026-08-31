@@ -1,8 +1,8 @@
 package senegai.codegen.renderer.model.be
 
 import senegai.codegen.renderer.model.NameCase
-import senegai.codegen.schema.BuiltInType
-import senegai.codegen.schema.ItemId
+import senegai.model.schema.BuiltInType
+import senegai.model.schema.ItemId
 
 data class BeItemModel(
     val entityName: NameCase,

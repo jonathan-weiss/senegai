@@ -4,7 +4,7 @@ import senegai.codegen.renderer.model.ui.BuiltInTypeUiAttributeModel
 import senegai.codegen.renderer.model.ui.EnumUiAttributeModel
 import senegai.codegen.renderer.model.ui.ItemUiIAttributeModel
 import senegai.codegen.renderer.model.ui.UiAttributeModel
-import senegai.codegen.schema.BuiltInType
+import senegai.model.schema.BuiltInType
 
 /**
  * Generate the content for the template `SingleFormInputHtmlTagRenderer`.

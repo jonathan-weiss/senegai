@@ -2,7 +2,13 @@ package senegai.codegen.renderer.converter
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import senegai.codegen.schema.*
+import senegai.model.schema.BuiltInType
+import senegai.model.schema.EntityId
+import senegai.model.schema.EnumId
+import senegai.model.schema.Item
+import senegai.model.schema.ItemAttribute
+import senegai.model.schema.ItemAttributeType
+import senegai.model.schema.ItemId
 
 internal class HierarchicalItemSearchTest {
 
@@ -21,21 +27,21 @@ internal class HierarchicalItemSearchTest {
         val itemC = Item(
             itemId = itemIdC,
             attributes = listOf(
-                createItemAttribute("field1",  BuiltInType.STRING)
+                createItemAttribute("field1", BuiltInType.STRING)
             )
         )
 
         val itemB = Item(
             itemId = itemIdB,
             attributes = listOf(
-                createItemAttribute("nestedC",  itemIdC)
+                createItemAttribute("nestedC", itemIdC)
             )
         )
 
         val itemA = Item(
             itemId = itemIdA,
             attributes = listOf(
-                createItemAttribute("nestedB",  itemIdB)
+                createItemAttribute("nestedB", itemIdB)
             )
         )
 
@@ -56,9 +62,9 @@ internal class HierarchicalItemSearchTest {
         val itemA = Item(
             itemId = itemIdA,
             attributes = listOf(
-                createItemAttribute("field1",  BuiltInType.STRING),
-                createItemAttribute("field2",  BuiltInType.NUMBER),
-                createItemAttribute("field3",  BuiltInType.BOOLEAN)
+                createItemAttribute("field1", BuiltInType.STRING),
+                createItemAttribute("field2", BuiltInType.NUMBER),
+                createItemAttribute("field3", BuiltInType.BOOLEAN)
             )
         )
 
@@ -80,14 +86,14 @@ internal class HierarchicalItemSearchTest {
         val itemA = Item(
             itemId = itemIdA,
             attributes = listOf(
-                createItemAttribute("nestedB",  itemIdB)
+                createItemAttribute("nestedB", itemIdB)
             )
         )
 
         val itemB = Item(
             itemId = itemIdB,
             attributes = listOf(
-                createItemAttribute("nestedA",  itemIdA)
+                createItemAttribute("nestedA", itemIdA)
             )
         )
 
@@ -108,7 +114,7 @@ internal class HierarchicalItemSearchTest {
         val itemA = Item(
             itemId = itemIdA,
             attributes = listOf(
-                createItemAttribute("self",  itemIdA)
+                createItemAttribute("self", itemIdA)
             )
         )
 
@@ -133,29 +139,29 @@ internal class HierarchicalItemSearchTest {
         val itemD = Item(
             itemId = itemIdD,
             attributes = listOf(
-                createItemAttribute("field1",  BuiltInType.STRING)
+                createItemAttribute("field1", BuiltInType.STRING)
             )
         )
 
         val itemB = Item(
             itemId = itemIdB,
             attributes = listOf(
-                createItemAttribute("nestedD",  itemIdD)
+                createItemAttribute("nestedD", itemIdD)
             )
         )
 
         val itemC = Item(
             itemId = itemIdC,
             attributes = listOf(
-                createItemAttribute("nestedD",  itemIdD)
+                createItemAttribute("nestedD", itemIdD)
             )
         )
 
         val itemA = Item(
             itemId = itemIdA,
             attributes = listOf(
-                createItemAttribute("nestedB",  itemIdB),
-                createItemAttribute("nestedC",  itemIdC)
+                createItemAttribute("nestedB", itemIdB),
+                createItemAttribute("nestedC", itemIdC)
             )
         )
 
@@ -177,15 +183,15 @@ internal class HierarchicalItemSearchTest {
         val itemB = Item(
             itemId = itemIdB,
             attributes = listOf(
-                createItemAttribute("field1",  BuiltInType.STRING)
+                createItemAttribute("field1", BuiltInType.STRING)
             )
         )
 
         val itemA = Item(
             itemId = itemIdA,
             attributes = listOf(
-                createItemAttribute("nestedB1",  itemIdB),
-                createItemAttribute("nestedB2",  itemIdB)
+                createItemAttribute("nestedB1", itemIdB),
+                createItemAttribute("nestedB2", itemIdB)
             )
         )
 
@@ -210,35 +216,35 @@ internal class HierarchicalItemSearchTest {
         val itemE = Item(
             itemId = itemIdE,
             attributes = listOf(
-                createItemAttribute("field1",  BuiltInType.STRING)
+                createItemAttribute("field1", BuiltInType.STRING)
             )
         )
 
         val itemD = Item(
             itemId = itemIdD,
             attributes = listOf(
-                createItemAttribute("nestedE",  itemIdE)
+                createItemAttribute("nestedE", itemIdE)
             )
         )
 
         val itemC = Item(
             itemId = itemIdC,
             attributes = listOf(
-                createItemAttribute("nestedD",  itemIdD)
+                createItemAttribute("nestedD", itemIdD)
             )
         )
 
         val itemB = Item(
             itemId = itemIdB,
             attributes = listOf(
-                createItemAttribute("nestedC",  itemIdC)
+                createItemAttribute("nestedC", itemIdC)
             )
         )
 
         val itemA = Item(
             itemId = itemIdA,
             attributes = listOf(
-                createItemAttribute("nestedB",  itemIdB)
+                createItemAttribute("nestedB", itemIdB)
             )
         )
 
@@ -268,19 +274,19 @@ internal class HierarchicalItemSearchTest {
         val itemB = Item(
             itemId = itemIdB,
             attributes = listOf(
-                createItemAttribute("field1",  BuiltInType.STRING)
+                createItemAttribute("field1", BuiltInType.STRING)
             )
         )
 
         val itemA = Item(
             itemId = itemIdA,
             attributes = listOf(
-                createItemAttribute("stringField",  BuiltInType.STRING),
-                createItemAttribute("numberField",  BuiltInType.NUMBER),
-                createItemAttribute("boolField",  BuiltInType.BOOLEAN),
-                createItemAttribute("enumField",  enumId),
-                createItemAttribute("entityField",  entityId),
-                createItemAttribute("nestedItem",  itemIdB)
+                createItemAttribute("stringField", BuiltInType.STRING),
+                createItemAttribute("numberField", BuiltInType.NUMBER),
+                createItemAttribute("boolField", BuiltInType.BOOLEAN),
+                createItemAttribute("enumField", enumId),
+                createItemAttribute("entityField", entityId),
+                createItemAttribute("nestedItem", itemIdB)
             )
         )
 
@@ -321,7 +327,7 @@ internal class HierarchicalItemSearchTest {
         val itemA = Item(
             itemId = itemIdA,
             attributes = listOf(
-                createItemAttribute("nestedB",  itemIdB)
+                createItemAttribute("nestedB", itemIdB)
             )
         )
 

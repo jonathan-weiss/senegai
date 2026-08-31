@@ -1,4 +1,4 @@
-package senegai.codegen
+package senegai.model
 
 object Constants {
     @Suppress("ktlint:standard:max-line-length")

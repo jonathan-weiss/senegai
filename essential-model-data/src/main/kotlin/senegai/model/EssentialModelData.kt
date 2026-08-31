@@ -1,11 +1,11 @@
-package senegai.codegen
+package senegai.model
 
-import senegai.codegen.builders.RootDsl
-import senegai.codegen.schema.BuiltInType
-import senegai.codegen.schema.EntityId
-import senegai.codegen.schema.EnumId
-import senegai.codegen.schema.ExampleDataCategory
-import senegai.codegen.schema.ItemId
+import senegai.model.builders.RootDsl
+import senegai.model.schema.BuiltInType
+import senegai.model.schema.EntityId
+import senegai.model.schema.EnumId
+import senegai.model.schema.ExampleDataCategory
+import senegai.model.schema.ItemId
 
 object EssentialModelData {
     fun RootDsl.collectData() {

@@ -1,11 +1,17 @@
 package senegai.codegen.sourceamazing.builders
 
 import org.codeblessing.sourceamazing.builder.api.annotations.*
-import senegai.codegen.schema.*
+import senegai.model.builders.ItemDsl
+import senegai.model.schema.BuiltInType
+import senegai.model.schema.EnumId
+import senegai.model.schema.ExampleDataCategory
+import senegai.model.schema.Item
+import senegai.model.schema.ItemAttribute
+import senegai.model.schema.ItemId
 
 @Builder
 @ExpectedClazzModelFromSuperiorBuilder(clazz = Item::class, alias = "item")
-interface ItemBuilder: senegai.codegen.builders.ItemDsl {
+interface ItemBuilder: ItemDsl {
 
     @BuilderMethod
     @NewClazzModel(clazz = ItemAttribute::class, alias = "itemAttribute")

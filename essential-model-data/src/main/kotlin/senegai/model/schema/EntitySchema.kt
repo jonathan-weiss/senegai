@@ -1,4 +1,4 @@
-package senegai.codegen.schema
+package senegai.model.schema
 
 /**
  * All types an [ItemAttribute]'s type can

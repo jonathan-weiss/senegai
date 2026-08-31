@@ -1,8 +1,8 @@
-package senegai.codegen.builders
+package senegai.model.builders
 
-import senegai.codegen.schema.EntityId
-import senegai.codegen.schema.EnumId
-import senegai.codegen.schema.ItemId
+import senegai.model.schema.EntityId
+import senegai.model.schema.EnumId
+import senegai.model.schema.ItemId
 
 @MainDslMarker
 interface RootDsl {

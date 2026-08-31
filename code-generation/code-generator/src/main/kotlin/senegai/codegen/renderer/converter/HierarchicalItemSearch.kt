@@ -1,7 +1,7 @@
 package senegai.codegen.renderer.converter
 
-import senegai.codegen.schema.Item
-import senegai.codegen.schema.ItemId
+import senegai.model.schema.Item
+import senegai.model.schema.ItemId
 
 object HierarchicalItemSearch {
 

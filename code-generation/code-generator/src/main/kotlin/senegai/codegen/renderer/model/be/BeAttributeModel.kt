@@ -1,8 +1,8 @@
 package senegai.codegen.renderer.model.be
 
 import senegai.codegen.renderer.model.NameCase
-import senegai.codegen.schema.BuiltInType
-import senegai.codegen.schema.EnumId
+import senegai.model.schema.BuiltInType
+import senegai.model.schema.EnumId
 
 sealed class BeAttributeModel(
     val entity: BeEntityDescriptionModel,

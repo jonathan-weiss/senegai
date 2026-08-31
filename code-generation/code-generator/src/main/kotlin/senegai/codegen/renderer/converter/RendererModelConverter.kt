@@ -33,25 +33,25 @@ import senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormBlockMode
 import senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormItemAttributeBlockModel
 import senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormNamedSectionSplitBlockModel
 import senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormTextBlockModel
-import senegai.codegen.schema.BuiltInType
-import senegai.codegen.schema.Entity
-import senegai.codegen.schema.EntityId
-import senegai.codegen.schema.EnumId
-import senegai.codegen.schema.EnumType
-import senegai.codegen.schema.ExampleDataCategory
-import senegai.codegen.schema.Item
-import senegai.codegen.schema.ItemAttribute
-import senegai.codegen.schema.ItemId
-import senegai.codegen.schema.SchemaData
-import senegai.codegen.schema.UiEntity
-import senegai.codegen.schema.UiItemAttributeBlock
-import senegai.codegen.schema.UiBlock
-import senegai.codegen.schema.UiEntityEditorColumn
-import senegai.codegen.schema.UiEntityEditorEntityConfiguration
-import senegai.codegen.schema.UiEntityEditorEntityNestedItemConfiguration
-import senegai.codegen.schema.UiEntityEditorTab
-import senegai.codegen.schema.UiSectionBlock
-import senegai.codegen.schema.UiTextBlock
+import senegai.model.schema.BuiltInType
+import senegai.model.schema.Entity
+import senegai.model.schema.EntityId
+import senegai.model.schema.EnumId
+import senegai.model.schema.EnumType
+import senegai.model.schema.ExampleDataCategory
+import senegai.model.schema.Item
+import senegai.model.schema.ItemAttribute
+import senegai.model.schema.ItemId
+import senegai.model.schema.SchemaData
+import senegai.model.schema.UiEntity
+import senegai.model.schema.UiItemAttributeBlock
+import senegai.model.schema.UiBlock
+import senegai.model.schema.UiEntityEditorColumn
+import senegai.model.schema.UiEntityEditorEntityConfiguration
+import senegai.model.schema.UiEntityEditorEntityNestedItemConfiguration
+import senegai.model.schema.UiEntityEditorTab
+import senegai.model.schema.UiSectionBlock
+import senegai.model.schema.UiTextBlock
 
 object RendererModelConverter {
 

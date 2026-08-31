@@ -1,4 +1,4 @@
-package senegai.codegen.schema
+package senegai.model.schema
 
 data class SchemaData(
     val entities: List<Entity>,

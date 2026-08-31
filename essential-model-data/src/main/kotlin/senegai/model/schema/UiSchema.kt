@@ -1,4 +1,4 @@
-package senegai.codegen.schema
+package senegai.model.schema
 
 data class UiEntity(
     val entity: Entity,

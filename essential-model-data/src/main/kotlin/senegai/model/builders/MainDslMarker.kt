@@ -1,4 +1,4 @@
-package senegai.codegen.builders
+package senegai.model.builders
 
 /**
  * DslMarker only says:

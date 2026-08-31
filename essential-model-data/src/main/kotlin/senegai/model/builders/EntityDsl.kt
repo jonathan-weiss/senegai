@@ -1,9 +1,9 @@
-package senegai.codegen.builders
+package senegai.model.builders
 
-import senegai.codegen.schema.BuiltInType
-import senegai.codegen.schema.EnumId
-import senegai.codegen.schema.ExampleDataCategory
-import senegai.codegen.schema.ItemId
+import senegai.model.schema.BuiltInType
+import senegai.model.schema.EnumId
+import senegai.model.schema.ExampleDataCategory
+import senegai.model.schema.ItemId
 
 @MainDslMarker
 interface EnumDsl {

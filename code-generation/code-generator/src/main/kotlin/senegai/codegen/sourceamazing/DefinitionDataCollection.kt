@@ -2,8 +2,8 @@ package senegai.codegen.sourceamazing
 
 import org.codeblessing.sourceamazing.builder.api.BuilderApi
 import org.codeblessing.sourceamazing.schema.api.SchemaApi
-import senegai.codegen.EssentialModelData.collectData
-import senegai.codegen.schema.SchemaData
+import senegai.model.EssentialModelData.collectData
+import senegai.model.schema.SchemaData
 import senegai.codegen.sourceamazing.builders.RootBuilder
 
 object DefinitionDataCollection {

@@ -2,8 +2,8 @@ package senegai.codegen.renderer.model.ui
 
 import senegai.codegen.renderer.model.NIL_UUID
 import senegai.codegen.renderer.model.NameCase
-import senegai.codegen.schema.BuiltInType
-import senegai.codegen.schema.EnumId
+import senegai.model.schema.BuiltInType
+import senegai.model.schema.EnumId
 
 sealed class UiAttributeModel(
     val entity: UiEntityDescriptionModel,
