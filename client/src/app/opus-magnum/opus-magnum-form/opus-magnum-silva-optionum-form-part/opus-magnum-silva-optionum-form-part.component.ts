@@ -312,8 +312,10 @@ export class OpusMagnumSilvaOptionumFormPartComponent implements OnInit {
     protected campusNumerorumValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected iteratioSimpliciumTextuumControl!: FormArray<FormControl<string>>
     protected iteratioSimpliciumTextuumValidatorNames!: ReadonlyArray<ValidatorTranslation>
-    protected relatioAdEntitatemIteratusControl!: FormArray<FormControl<UUID>>
-    protected relatioAdEntitatemIteratusValidatorNames!: ReadonlyArray<ValidatorTranslation>
+    protected relatioAdEntitatemOptionalisIteratusControl!: FormArray<FormControl<UUID>>
+    protected relatioAdEntitatemOptionalisIteratusValidatorNames!: ReadonlyArray<ValidatorTranslation>
+    protected relatioAdEntitatemOptionalisIteratusIsNotNullControl!: FormControl<boolean>
+    protected relatioAdEntitatemOptionalisIteratusIsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
     /* @tt{{{   @end-ignore-text  }}}@ */
 
     constructor(private readonly silvaOptionumFormValidationService: OpusMagnumSilvaOptionumFormPartValidationService,) {
@@ -369,8 +371,10 @@ export class OpusMagnumSilvaOptionumFormPartComponent implements OnInit {
         this.articulusInteriorSingularisOptionalisIsNotNullValidatorNames = this.silvaOptionumFormValidationService.validatorNames(OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalisIsNotNull)
         this.iteratioSimpliciumTextuumControl = this.silvaOptionumForm.controls[OpusMagnumSilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum]
         this.iteratioSimpliciumTextuumValidatorNames = this.silvaOptionumFormValidationService.validatorNames(OpusMagnumSilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum)
-        this.relatioAdEntitatemIteratusControl = this.silvaOptionumForm.controls[OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemIteratus]
-        this.relatioAdEntitatemIteratusValidatorNames = this.silvaOptionumFormValidationService.validatorNames(OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemIteratus)
+        this.relatioAdEntitatemOptionalisIteratusControl = this.silvaOptionumForm.controls[OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemOptionalisIteratus]
+        this.relatioAdEntitatemOptionalisIteratusValidatorNames = this.silvaOptionumFormValidationService.validatorNames(OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemOptionalisIteratus)
+        this.relatioAdEntitatemOptionalisIteratusIsNotNullControl = this.silvaOptionumForm.controls[OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemOptionalisIteratusIsNotNull]
+        this.relatioAdEntitatemOptionalisIteratusIsNotNullValidatorNames = this.silvaOptionumFormValidationService.validatorNames(OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemOptionalisIteratusIsNotNull)
         /* @tt{{{   @end-ignore-text  }}}@ */
     }
 }

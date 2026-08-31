@@ -87,6 +87,7 @@ export interface OpusMagnumSilvaOptionumFormPartGroup {
     [OpusMagnumSilvaOptionumFormPartFieldName.campusNumerorum]: FormControl<number>,
     [OpusMagnumSilvaOptionumFormPartFieldName.indexUnicus]: FormControl<UUID>,
     [OpusMagnumSilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum]: FormArray<FormControl<string>>,
-    [OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemIteratus]: FormArray<FormControl<UUID>>,
+    [OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemOptionalisIteratus]: FormArray<FormControl<UUID>>,
+    [OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemOptionalisIteratusIsNotNull]: FormControl<boolean>,
     /* @tt{{{   @end-ignore-text  }}}@ */
 }

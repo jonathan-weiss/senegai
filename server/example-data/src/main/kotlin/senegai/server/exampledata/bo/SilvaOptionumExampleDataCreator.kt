@@ -130,7 +130,7 @@ class SilvaOptionumExampleDataCreator(
         articulusInteriorOptionalisIteratus = articulusInteriorExampleDataCreator.createList(dataContext, FakerHelper.innerListRandomSize(dataContext)),
         campusDiei = null,
         campusBivalens = randomBooleanDataGenerator.generateData(dataContext),
-        relatioAdEntitatemIteratus = entitasRelataExampleDataFetcher.fetchRandomKeysList(dataContext),
+        relatioAdEntitatemOptionalisIteratus = entitasRelataExampleDataFetcher.fetchRandomKeysList(dataContext),
         /* @tt{{{   @end-ignore-text  }}}@ */
     )
 

@@ -254,9 +254,12 @@
                     </app-field-wrapper>
                 </div>
                 <div class="form-row">
-                    <app-field-wrapper label="Relatio Ad Entitatem Iteratus">
+                    <app-field-wrapper label="Relatio Ad Entitatem Optionalis Iteratus"
+                                       [nullabilityCheckboxFormControl]="relatioAdEntitatemOptionalisIteratusIsNotNullControl"
+                                       [formGroupToDisableIfNullField]="relatioAdEntitatemOptionalisIteratusControl"
+                    >
                         <app-opus-magnum-membrum-relatum-reference-table
-                                [membrumRelatumReferenceFormArray]="relatioAdEntitatemIteratusControl" />
+                                [membrumRelatumReferenceFormArray]="relatioAdEntitatemOptionalisIteratusControl" />
                     </app-field-wrapper>
                 </div>
                 <!-- @tt{{{   @end-ignore-text  }}}@ -->
