@@ -7,6 +7,3 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
-    implementation(libs.sourceamazing.schema.api)
-}
