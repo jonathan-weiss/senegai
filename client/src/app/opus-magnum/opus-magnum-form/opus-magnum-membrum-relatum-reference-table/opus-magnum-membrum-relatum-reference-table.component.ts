@@ -6,7 +6,7 @@ import {MatTableDataSource, MatTableModule} from "@angular/material/table";
 import {
     EntitasRelataTypeaheadComponent
 } from "@app/entitas-relata/entitas-relata-typeahead/entitas-relata-typeahead.component";
-import {MEMBRUM_RELATUM_UNRESOLVED_DISPLAY_VALUE} from "@app/entitas-relata/membrum-relatum-display";
+import {membrumRelatumDisplayRow} from "@app/entitas-relata/membrum-relatum-display";
 import {EntitasRelataService} from "@app/entitas-relata/entitas-relata.service";
 import {
     OpusMagnumMembrumRelatumReferenceTableRow
@@ -101,10 +101,8 @@ export class OpusMagnumMembrumRelatumReferenceTableComponent implements OnInit {
 
     private toTableRow(formControl: FormControl<UUID>): OpusMagnumMembrumRelatumReferenceTableRow {
         const clavisPrimaria = formControl.getRawValue();
-        const membrumRelatum = this.resolvedByClavisPrimaria.get(clavisPrimaria);
         return {
-            clavisPrimaria: clavisPrimaria,
-            descriptioExDistanti: membrumRelatum?.descriptioExDistanti ?? MEMBRUM_RELATUM_UNRESOLVED_DISPLAY_VALUE,
+            ...membrumRelatumDisplayRow(clavisPrimaria, this.resolvedByClavisPrimaria.get(clavisPrimaria)),
             formControl: formControl,
         }
     }

@@ -31,4 +31,18 @@ class EntitasRelataExampleDataFetcher(
             array = entitasRelataRepository.findAll().toTypedArray(),
             size = FakerHelper.referenceListRandomSize(dataContext),
         ).map { it.clavisPrimaria }
+
+    /**
+     * The clavisPrimaria of one random existing [MembrumRelatumBO], or `null` if none exist yet.
+     */
+    fun fetchRandomKey(dataContext: DataContext): UUID? {
+        val membrumRelatumList = entitasRelataRepository.findAll()
+        if (membrumRelatumList.isEmpty()) {
+            return null
+        }
+        return FakerHelper.oneRandomOf(
+            dataContext = dataContext,
+            array = membrumRelatumList.toTypedArray(),
+        ).clavisPrimaria
+    }
 }

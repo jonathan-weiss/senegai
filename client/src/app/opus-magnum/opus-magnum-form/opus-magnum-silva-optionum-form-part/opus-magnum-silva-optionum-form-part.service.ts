@@ -173,6 +173,12 @@ export class OpusMagnumSilvaOptionumFormPartService {
                     validators: this.silvaOptionumFormValidationService.validatorFunctions(OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemOptionalisIteratus)
                 },
             ),
+            [OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemOptionalis]: new FormControl<UUID | null>(
+                null,
+                {
+                    validators: this.silvaOptionumFormValidationService.validatorFunctions(OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemOptionalis)
+                },
+            ),
             [OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalis]: this.articulusInteriorFormPartService.createInitialArticulusInteriorForm(),
             [OpusMagnumSilvaOptionumFormPartFieldName.campusDiei]: new FormControl<Date>(
                 this.silvaOptionumFormInitialValueService.campusDieiInitialValue(),
@@ -255,6 +261,13 @@ export class OpusMagnumSilvaOptionumFormPartService {
                 {
                     nonNullable: true,
                     validators: this.silvaOptionumFormValidationService.validatorFunctions(OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemOptionalisIteratusIsNotNull)
+                },
+            ),
+            [OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemOptionalisIsNotNull]: new FormControl<boolean>(
+                false,
+                {
+                    nonNullable: true,
+                    validators: this.silvaOptionumFormValidationService.validatorFunctions(OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemOptionalisIsNotNull)
                 },
             ),
             [OpusMagnumSilvaOptionumFormPartFieldName.campusDieiIsNotNull]: new FormControl<boolean>(
@@ -362,6 +375,12 @@ export class OpusMagnumSilvaOptionumFormPartService {
             form.controls[OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemOptionalisIteratus].patchValue(silvaOptionum.relatioAdEntitatemOptionalisIteratus);
         } else {
             form.controls[OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemOptionalisIteratusIsNotNull].patchValue(false);
+        }
+        if(silvaOptionum.relatioAdEntitatemOptionalis != null) {
+            form.controls[OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemOptionalisIsNotNull].patchValue(true);
+            form.controls[OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemOptionalis].patchValue(silvaOptionum.relatioAdEntitatemOptionalis);
+        } else {
+            form.controls[OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemOptionalisIsNotNull].patchValue(false);
         }
         /* @tt{{{   @end-ignore-text  }}}@ */
 
@@ -555,6 +574,9 @@ export class OpusMagnumSilvaOptionumFormPartService {
             iteratioSimpliciumTextuum: form.controls[OpusMagnumSilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum].getRawValue(),
             relatioAdEntitatemOptionalisIteratus: form.controls[OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemOptionalisIteratusIsNotNull].value
                 ? form.controls[OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemOptionalisIteratus].getRawValue()
+                : null,
+            relatioAdEntitatemOptionalis: form.controls[OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemOptionalisIsNotNull].value
+                ? form.controls[OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemOptionalis].getRawValue()
                 : null,
             campusDiei: form.controls[OpusMagnumSilvaOptionumFormPartFieldName.campusDieiIsNotNull].value ? form.controls[OpusMagnumSilvaOptionumFormPartFieldName.campusDiei].getRawValue() : null,
             campusBivalens: form.controls[OpusMagnumSilvaOptionumFormPartFieldName.campusBivalens].getRawValue(),

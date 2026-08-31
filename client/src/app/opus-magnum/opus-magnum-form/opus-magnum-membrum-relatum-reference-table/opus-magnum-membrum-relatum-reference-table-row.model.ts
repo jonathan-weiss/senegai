@@ -1,4 +1,5 @@
 import {FormControl} from "@angular/forms";
+import {MembrumRelatumDisplayRow} from "@app/entitas-relata/membrum-relatum-display";
 import {UUID} from "@app/shared/uuid";
 
 /**
@@ -8,8 +9,6 @@ import {UUID} from "@app/shared/uuid";
  * therefore carries the display attributes of the resolved MembrumRelatum flattened out, plus
  * a back-reference to the FormControl that actually holds the UUID.
  */
-export interface OpusMagnumMembrumRelatumReferenceTableRow {
-    clavisPrimaria: UUID
-    descriptioExDistanti: string
+export interface OpusMagnumMembrumRelatumReferenceTableRow extends MembrumRelatumDisplayRow {
     formControl: FormControl<UUID>
 }

@@ -24,6 +24,12 @@ const SEARCH_DEBOUNCE_IN_MILLISECONDS = 250;
  * The whole MembrumRelatumWTO is emitted, not just its clavisPrimaria, so the caller can show
  * the display attributes of the new entry without another backend call.
  *
+ * What the field shows when nothing is being typed is up to the caller, through
+ * [selectionLabel]: where the typeahead stands for a single reference the field shows the
+ * picked entry, so the selection is never deleted, only overwritten. Where it only appends to a
+ * list of references the label stays empty and the field is a pure search field that clears
+ * itself after every pick.
+ *
  * The search field is deliberately not bound to a form control: MatAutocompleteTrigger writes
  * the raw value of the selected option into the bound control (displayWith only changes the
  * text shown in the input), which would push a whole MembrumRelatumWTO through the search
@@ -43,6 +49,12 @@ const SEARCH_DEBOUNCE_IN_MILLISECONDS = 250;
 export class EntitasRelataTypeaheadComponent implements OnInit {
     @Input() label: string = 'Search EntitasRelata';
     @Input() placeholder: string = 'Enter search query for EntitasRelata';
+    /**
+     * The display attributes of the entry the typeahead itself stands for, shown in the search
+     * field whenever the user is not typing. Empty where the typeahead does not represent a
+     * selection of its own.
+     */
+    @Input() selectionLabel: string = '';
     /** clavisPrimaria that are already referenced and must therefore not be suggested again. */
     @Input() excludedClavisPrimariaList: ReadonlyArray<UUID> = [];
     @Input() disabled: boolean = false;
@@ -86,15 +98,30 @@ export class EntitasRelataTypeaheadComponent implements OnInit {
     }
 
     /**
-     * Empties the search field after a selection instead of writing the selected option into
-     * it: the field is a search field, not the representation of the picked value.
+     * Keeps MatAutocompleteTrigger from writing the raw option object into the search field. What
+     * the field shows after a pick is decided in [onOptionSelected] instead.
      */
     protected readonly clearSearchField = (): string => '';
 
-    protected onOptionSelected(membrumRelatum: MembrumRelatumWTO): void {
+    protected onOptionSelected(membrumRelatum: MembrumRelatumWTO, searchField: HTMLInputElement): void {
         this.membrumRelatumSuggestionList = [];
         // Keeps distinctUntilChanged from swallowing the same query when it is typed again.
         this.query.next('');
         this.membrumRelatumSelected.emit(membrumRelatum);
+        // The caller reacts to the pick by updating selectionLabel, which the [value] binding
+        // writes into the field. Picking the entry that is already selected leaves the label
+        // unchanged, so the field is restored here as well.
+        searchField.value = this.selectionLabel;
+    }
+
+    /**
+     * Leaving the field without picking anything must not leave a half typed query behind where
+     * the field shows a selection: it goes back to the picked entry. A pure search field keeps
+     * what was typed.
+     */
+    protected onSearchFieldBlurred(searchField: HTMLInputElement): void {
+        if (this.selectionLabel !== '') {
+            searchField.value = this.selectionLabel;
+        }
     }
 }

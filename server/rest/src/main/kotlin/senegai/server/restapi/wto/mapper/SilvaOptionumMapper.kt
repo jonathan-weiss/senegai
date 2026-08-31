@@ -67,6 +67,7 @@ object SilvaOptionumMapper {
         campusNumerorum = campusNumerorum,
         iteratioSimpliciumTextuum = iteratioSimpliciumTextuum,
         relatioAdEntitatemOptionalisIteratus = relatioAdEntitatemOptionalisIteratus,
+        relatioAdEntitatemOptionalis = relatioAdEntitatemOptionalis,
         /* @tt{{{   @end-ignore-text  }}}@ */
     )
 
@@ -93,6 +94,7 @@ object SilvaOptionumMapper {
         campusNumerorum = campusNumerorum,
         iteratioSimpliciumTextuum = iteratioSimpliciumTextuum,
         relatioAdEntitatemOptionalisIteratus = relatioAdEntitatemOptionalisIteratus,
+        relatioAdEntitatemOptionalis = relatioAdEntitatemOptionalis,
         /* @tt{{{   @end-ignore-text  }}}@ */
     )
 }

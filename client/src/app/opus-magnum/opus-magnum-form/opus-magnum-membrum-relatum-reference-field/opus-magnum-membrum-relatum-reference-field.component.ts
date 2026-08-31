@@ -1,0 +1,107 @@
+import {Component, Input, OnInit} from '@angular/core';
+import {FormControl} from "@angular/forms";
+import {
+    EntitasRelataTypeaheadComponent
+} from "@app/entitas-relata/entitas-relata-typeahead/entitas-relata-typeahead.component";
+import {
+    membrumRelatumDisplayRow,
+    membrumRelatumDisplayRowLabel
+} from "@app/entitas-relata/membrum-relatum-display";
+import {EntitasRelataService} from "@app/entitas-relata/entitas-relata.service";
+import {
+    FieldErrorMessagesComponent
+} from "@app/shared/form-controls/field-error-messages/field-error-messages.component";
+import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
+import {UUID} from "@app/shared/uuid";
+import {MembrumRelatumWTO} from "@app/wto/membrum-relatum.wto";
+
+/**
+ * Edits a single reference to an EntitasRelata, held in the form as one FormControl of a UUID
+ * or null.
+ *
+ * The single-reference counterpart of the OpusMagnumMembrumRelatumReferenceTableComponent: the
+ * typeahead itself is the field, it shows the picked entry by its display attributes and a new
+ * pick overwrites it. There is nothing to delete: whether the reference exists at all is decided
+ * one level up by the nullability of the field, and while the field is not null exactly one
+ * reference is required, so an empty field is a validation error.
+ *
+ * The UUID stored in the form says nothing to the user, so it is resolved to the whole
+ * MembrumRelatumWTO through the already existing backend call (`GET /api/entitas-relata/{id}`)
+ * and shown by its display attributes. Resolved objects are cached, so a UUID is fetched once.
+ */
+@Component({
+    selector: 'app-opus-magnum-membrum-relatum-reference-field',
+    templateUrl: './opus-magnum-membrum-relatum-reference-field.component.html',
+    styleUrls: ['./opus-magnum-membrum-relatum-reference-field.component.scss'],
+    imports: [
+        EntitasRelataTypeaheadComponent,
+        FieldErrorMessagesComponent,
+    ]
+})
+export class OpusMagnumMembrumRelatumReferenceFieldComponent implements OnInit {
+    @Input({required: true}) membrumRelatumReferenceFormControl!: FormControl<UUID | null>;
+    @Input() validatorTranslations: ReadonlyArray<ValidatorTranslation> = [];
+
+    private readonly resolvedByClavisPrimaria = new Map<UUID, MembrumRelatumWTO>();
+
+    constructor(private readonly entitasRelataService: EntitasRelataService) {}
+
+    ngOnInit(): void {
+        this.refresh();
+        // The form control is often patched only after the first render, so react to every change.
+        this.membrumRelatumReferenceFormControl.valueChanges.subscribe(() => this.refresh());
+    }
+
+    /**
+     * The display attributes of the referenced entry, shown in the search field itself. Falls
+     * back to the unresolved value for the attributes that are not known (yet).
+     */
+    protected selectionLabel(): string {
+        const clavisPrimaria = this.referencedClavisPrimaria();
+        if (clavisPrimaria === null) {
+            return '';
+        }
+        return membrumRelatumDisplayRowLabel(
+            membrumRelatumDisplayRow(clavisPrimaria, this.resolvedByClavisPrimaria.get(clavisPrimaria))
+        );
+    }
+
+    protected onMembrumRelatumSelected(membrumRelatum: MembrumRelatumWTO): void {
+        this.resolvedByClavisPrimaria.set(membrumRelatum.clavisPrimaria, membrumRelatum);
+        this.membrumRelatumReferenceFormControl.setValue(membrumRelatum.clavisPrimaria);
+    }
+
+    private referencedClavisPrimaria(): UUID | null {
+        return this.membrumRelatumReferenceFormControl.getRawValue();
+    }
+
+    private refresh(): void {
+        this.markAsTouchedIfEmpty();
+        this.resolveMissingMembrumRelatum();
+    }
+
+    /**
+     * Exactly one reference is required while the field is not null, so an empty enabled field
+     * is an error the user has to see right away. The typeahead is deliberately not bound to the
+     * form control, so nothing else ever marks it as touched and the message would stay hidden.
+     */
+    private markAsTouchedIfEmpty(): void {
+        if (this.membrumRelatumReferenceFormControl.enabled && this.referencedClavisPrimaria() === null) {
+            this.membrumRelatumReferenceFormControl.markAsTouched();
+        }
+    }
+
+    /** The separate backend call that resolves the UUID if it is not yet in the cache. */
+    private resolveMissingMembrumRelatum(): void {
+        const clavisPrimaria = this.referencedClavisPrimaria();
+        if (clavisPrimaria === null || this.resolvedByClavisPrimaria.has(clavisPrimaria)) {
+            return;
+        }
+        this.entitasRelataService.getMembrumRelatumById(clavisPrimaria)
+            .subscribe(membrumRelatum => {
+                if (membrumRelatum !== null) {
+                    this.resolvedByClavisPrimaria.set(membrumRelatum.clavisPrimaria, membrumRelatum);
+                }
+            });
+    }
+}

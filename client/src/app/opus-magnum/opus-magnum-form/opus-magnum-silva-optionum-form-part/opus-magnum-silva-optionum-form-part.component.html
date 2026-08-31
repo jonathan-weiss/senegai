@@ -262,6 +262,16 @@
                                 [membrumRelatumReferenceFormArray]="relatioAdEntitatemOptionalisIteratusControl" />
                     </app-field-wrapper>
                 </div>
+                <div class="form-row">
+                    <app-field-wrapper label="Relatio Ad Entitatem Optionalis"
+                                       [nullabilityCheckboxFormControl]="relatioAdEntitatemOptionalisIsNotNullControl"
+                                       [formGroupToDisableIfNullField]="relatioAdEntitatemOptionalisControl"
+                    >
+                        <app-opus-magnum-membrum-relatum-reference-field
+                                [membrumRelatumReferenceFormControl]="relatioAdEntitatemOptionalisControl"
+                                [validatorTranslations]="relatioAdEntitatemOptionalisValidatorNames" />
+                    </app-field-wrapper>
+                </div>
                 <!-- @tt{{{   @end-ignore-text  }}}@ -->
             </div>
             <!-- @tt{{{  @end-foreach  }}}@ -->

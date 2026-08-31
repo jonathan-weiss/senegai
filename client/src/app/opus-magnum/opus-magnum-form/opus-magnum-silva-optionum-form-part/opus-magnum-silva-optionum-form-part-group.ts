@@ -89,5 +89,7 @@ export interface OpusMagnumSilvaOptionumFormPartGroup {
     [OpusMagnumSilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum]: FormArray<FormControl<string>>,
     [OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemOptionalisIteratus]: FormArray<FormControl<UUID>>,
     [OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemOptionalisIteratusIsNotNull]: FormControl<boolean>,
+    [OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemOptionalis]: FormControl<UUID | null>,
+    [OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemOptionalisIsNotNull]: FormControl<boolean>,
     /* @tt{{{   @end-ignore-text  }}}@ */
 }

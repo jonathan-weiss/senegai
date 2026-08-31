@@ -4,12 +4,14 @@
            #queryInput
            [placeholder]="placeholder"
            [disabled]="disabled"
+           [value]="selectionLabel"
            [matAutocomplete]="membrumRelatumAutocomplete"
-           (input)="onQueryChanged(queryInput.value)">
+           (input)="onQueryChanged(queryInput.value)"
+           (blur)="onSearchFieldBlurred(queryInput)">
     <mat-icon matSuffix>search</mat-icon>
     <mat-autocomplete #membrumRelatumAutocomplete="matAutocomplete"
                       [displayWith]="clearSearchField"
-                      (optionSelected)="onOptionSelected($event.option.value)">
+                      (optionSelected)="onOptionSelected($event.option.value, queryInput)">
         @for (membrumRelatum of suggestionList(); track membrumRelatum.clavisPrimaria) {
             <mat-option [value]="membrumRelatum">{{ displayLabel(membrumRelatum) }}</mat-option>
         }

@@ -109,6 +109,13 @@ export class OpusMagnumSilvaOptionumFormPartValidationService {
                     validatorTranslationKey: "validator.required",
                 },
             ]
+            case OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemOptionalis: return [
+                {
+                    validatorName: "required",
+                    validatorFunction: Validators.required,
+                    validatorTranslationKey: "validator.required",
+                },
+            ]
             /* @tt{{{   @end-ignore-text  }}}@ */
             default: return []
         }

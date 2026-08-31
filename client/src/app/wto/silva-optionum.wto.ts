@@ -78,5 +78,6 @@ export interface SilvaOptionumWTO {
     indexUnicus: UUID;
     iteratioSimpliciumTextuum: Array<string>;
     relatioAdEntitatemOptionalisIteratus: Array<UUID> | null;
+    relatioAdEntitatemOptionalis: UUID | null;
     /* @tt{{{   @end-ignore-text }}}@ */
 }

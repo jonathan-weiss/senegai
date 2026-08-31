@@ -53,5 +53,6 @@ data class SilvaOptionumBO(
     val campusNumerorum: Int,
     val iteratioSimpliciumTextuum: List<String>,
     val relatioAdEntitatemOptionalisIteratus: List<UUID>?,
+    val relatioAdEntitatemOptionalis: UUID?,
     /* @tt{{{   @end-ignore-text  }}}@ */
 )

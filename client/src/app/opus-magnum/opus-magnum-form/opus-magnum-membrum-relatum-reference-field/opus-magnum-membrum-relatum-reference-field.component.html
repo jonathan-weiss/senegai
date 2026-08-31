@@ -1,0 +1,7 @@
+<app-entitas-relata-typeahead
+        label="Entitas Relata"
+        [selectionLabel]="selectionLabel()"
+        [disabled]="membrumRelatumReferenceFormControl.disabled"
+        (membrumRelatumSelected)="onMembrumRelatumSelected($event)" />
+<app-field-error-messages [control]="membrumRelatumReferenceFormControl"
+                          [validatorTranslations]="validatorTranslations" />

@@ -131,6 +131,7 @@ class SilvaOptionumExampleDataCreator(
         campusDiei = null,
         campusBivalens = randomBooleanDataGenerator.generateData(dataContext),
         relatioAdEntitatemOptionalisIteratus = entitasRelataExampleDataFetcher.fetchRandomKeysList(dataContext),
+        relatioAdEntitatemOptionalis = entitasRelataExampleDataFetcher.fetchRandomKey(dataContext),
         /* @tt{{{   @end-ignore-text  }}}@ */
     )
 

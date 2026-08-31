@@ -139,6 +139,9 @@ import {
 import {
     OpusMagnumMembrumRelatumReferenceTableComponent
 } from "@app/opus-magnum/opus-magnum-form/opus-magnum-membrum-relatum-reference-table/opus-magnum-membrum-relatum-reference-table.component";
+import {
+    OpusMagnumMembrumRelatumReferenceFieldComponent
+} from "@app/opus-magnum/opus-magnum-form/opus-magnum-membrum-relatum-reference-field/opus-magnum-membrum-relatum-reference-field.component";
 /* @tt{{{   @end-ignore-text  }}}@ */
 
 @Component({
@@ -232,6 +235,7 @@ import {
         /* @tt{{{   @ignore-text }}}@ */
         DatepickerInputComponent,
         OpusMagnumMembrumRelatumReferenceTableComponent,
+        OpusMagnumMembrumRelatumReferenceFieldComponent,
         /* @tt{{{   @end-ignore-text }}}@ */
         /* @tt{{{
             @foreach [ iteratorExpression="model.item.attributesWithEnumType" loopVariable="attributeWithEnumType" ]
@@ -316,6 +320,10 @@ export class OpusMagnumSilvaOptionumFormPartComponent implements OnInit {
     protected relatioAdEntitatemOptionalisIteratusValidatorNames!: ReadonlyArray<ValidatorTranslation>
     protected relatioAdEntitatemOptionalisIteratusIsNotNullControl!: FormControl<boolean>
     protected relatioAdEntitatemOptionalisIteratusIsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
+    protected relatioAdEntitatemOptionalisControl!: FormControl<UUID | null>
+    protected relatioAdEntitatemOptionalisValidatorNames!: ReadonlyArray<ValidatorTranslation>
+    protected relatioAdEntitatemOptionalisIsNotNullControl!: FormControl<boolean>
+    protected relatioAdEntitatemOptionalisIsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
     /* @tt{{{   @end-ignore-text  }}}@ */
 
     constructor(private readonly silvaOptionumFormValidationService: OpusMagnumSilvaOptionumFormPartValidationService,) {
@@ -375,6 +383,10 @@ export class OpusMagnumSilvaOptionumFormPartComponent implements OnInit {
         this.relatioAdEntitatemOptionalisIteratusValidatorNames = this.silvaOptionumFormValidationService.validatorNames(OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemOptionalisIteratus)
         this.relatioAdEntitatemOptionalisIteratusIsNotNullControl = this.silvaOptionumForm.controls[OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemOptionalisIteratusIsNotNull]
         this.relatioAdEntitatemOptionalisIteratusIsNotNullValidatorNames = this.silvaOptionumFormValidationService.validatorNames(OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemOptionalisIteratusIsNotNull)
+        this.relatioAdEntitatemOptionalisControl = this.silvaOptionumForm.controls[OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemOptionalis]
+        this.relatioAdEntitatemOptionalisValidatorNames = this.silvaOptionumFormValidationService.validatorNames(OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemOptionalis)
+        this.relatioAdEntitatemOptionalisIsNotNullControl = this.silvaOptionumForm.controls[OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemOptionalisIsNotNull]
+        this.relatioAdEntitatemOptionalisIsNotNullValidatorNames = this.silvaOptionumFormValidationService.validatorNames(OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemOptionalisIsNotNull)
         /* @tt{{{   @end-ignore-text  }}}@ */
     }
 }

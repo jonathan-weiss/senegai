@@ -64,6 +64,8 @@ export enum OpusMagnumSilvaOptionumFormPartFieldName {
     iteratioSimpliciumTextuum = "iteratioSimpliciumTextuum",
     relatioAdEntitatemOptionalisIteratus = "relatioAdEntitatemOptionalisIteratus",
     relatioAdEntitatemOptionalisIteratusIsNotNull = "relatioAdEntitatemOptionalisIteratusIsNotNull",
+    relatioAdEntitatemOptionalis = "relatioAdEntitatemOptionalis",
+    relatioAdEntitatemOptionalisIsNotNull = "relatioAdEntitatemOptionalisIsNotNull",
 /* @tt{{{   @end-ignore-text  }}}@ */
 }
 
