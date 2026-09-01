@@ -76,8 +76,10 @@ object EssentialModelData {
                 attribute(name = "otherAddresses", itemId = Items.ADDRESS, nullable = true, multiple = true)
                 attribute(name = "allKnownPinNumbers", type = BuiltInType.NUMBER, nullable = true, multiple = true)
                 attribute(name = "allContactTypes", enumId = EnumTypes.CONTACT_TYPE, nullable = true, multiple = true)
-                attribute(name = "myReferenceToEmployee", entityId = Entities.EMPLOYEE, nullable = false, multiple = false)
-                attribute(name = "myReferencesToEmployeeAddresses", entityId = Entities.EMPLOYEE_ADDRESS, nullable = true, multiple = true)
+                attribute(name = "myReferenceToEmployee", entityId = Entities.EMPLOYEE_ADDRESS, nullable = false, multiple = false)
+                attribute(name = "myReferenceToEmployeeNullable", entityId = Entities.EMPLOYEE_ADDRESS, nullable = true, multiple = false)
+                attribute(name = "myReferencesToEmployeeAddresses", entityId = Entities.EMPLOYEE_ADDRESS, nullable = false, multiple = true)
+                attribute(name = "myReferencesToEmployeeAddressesNullable", entityId = Entities.EMPLOYEE_ADDRESS, nullable = true, multiple = true)
             }
 
             item(itemId = Items.ADDRESS) {
@@ -116,14 +118,20 @@ object EssentialModelData {
                                     text(text = "The lastname, the lastname")
                                     section(sectionName = "Addresses")
                                     attribute(attributeName = "homeAddress")
+                                    attribute(attributeName = "contactAddress")
                                     attribute(attributeName = "mandatoryAddresses")
                                     attribute(attributeName = "otherAddresses")
-                                    attribute(attributeName = "contactAddress")
                                     attribute(attributeName = "allKnownPinNumbers")
                                     attribute(attributeName = "allContactTypes")
+                                }
+                            }
+                            tab(tabName = "References") {
+                                column {
                                     section(sectionName = "References to other entities")
                                     attribute(attributeName = "myReferenceToEmployee")
+                                    attribute(attributeName = "myReferenceToEmployeeNullable")
                                     attribute(attributeName = "myReferencesToEmployeeAddresses")
+                                    attribute(attributeName = "myReferencesToEmployeeAddressesNullable")
                                 }
                             }
                             tab(tabName = "Miscellaneous") {

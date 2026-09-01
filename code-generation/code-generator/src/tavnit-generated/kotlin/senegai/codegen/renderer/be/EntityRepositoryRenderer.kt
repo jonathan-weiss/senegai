@@ -19,6 +19,7 @@ object EntityRepositoryRenderer : BeEntityRenderer {
           |package senegai.server.service.${model.entityName.lowerCase}
           |
           |import senegai.server.service.bo.${model.entityRootItem.itemName.pascalCase}BO
+          |import senegai.server.service.bo.${model.entityRootItem.itemName.pascalCase}ByIdsCriteriaBO
           |import senegai.server.service.bo.${model.entityRootItem.itemName.pascalCase}SearchCriteriaBO
           |import java.util.UUID
           |
@@ -34,6 +35,8 @@ object EntityRepositoryRenderer : BeEntityRenderer {
           |    fun findAll(): List<${model.entityRootItem.itemName.pascalCase}BO>
           |
           |    fun findById(${model.idAttribute.attributeName.camelCase}: UUID): ${model.entityRootItem.itemName.pascalCase}BO?
+          |
+          |    fun findByIds(criteria: ${model.entityRootItem.itemName.pascalCase}ByIdsCriteriaBO): List<${model.entityRootItem.itemName.pascalCase}BO>
           |
           |    fun search(searchCriteria: ${model.entityRootItem.itemName.pascalCase}SearchCriteriaBO): List<${model.entityRootItem.itemName.pascalCase}BO>
           |

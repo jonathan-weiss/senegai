@@ -1,3 +1,30 @@
+/* @tt{{{
+
+    @move-comment-backward
+    @template-renderer [
+        templateRendererClassName="EntityTypeaheadComponentTypescriptRenderer"
+        templateRendererPackageName="senegai.codegen.renderer.angular"
+        templateRendererInterfaceName="UiEntityRenderer"
+        templateRendererInterfacePackageName="senegai.codegen.renderer.angular"
+    ] [
+        modelClassName="UiEntityModel"
+        modelPackageName="senegai.codegen.renderer.model.ui"
+        modelName="model"
+    ]
+
+    @replace-value-by-expression
+        [ searchValue="EntitasRelata" replaceByExpression="model.entityName.pascalCase" ]
+        [ searchValue="entitasRelata" replaceByExpression="model.entityName.camelCase" ]
+        [ searchValue="entitas-relata" replaceByExpression="model.entityName.kebabCase" ]
+        [ searchValue="MembrumRelatum" replaceByExpression="model.entityRootItem.itemName.pascalCase" ]
+        [ searchValue="membrumRelatum" replaceByExpression="model.entityRootItem.itemName.camelCase" ]
+        [ searchValue="membrum-relatum" replaceByExpression="model.entityRootItem.itemName.kebabCase" ]
+        [ searchValue="ClavisPrimaria" replaceByExpression="model.idAttribute.attributeName.pascalCase" ]
+        [ searchValue="clavisPrimaria" replaceByExpression="model.idAttribute.attributeName.camelCase" ]
+
+    @modify-provided-filepath-by-replacements
+
+}}}@ */
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatFormFieldModule} from "@angular/material/form-field";

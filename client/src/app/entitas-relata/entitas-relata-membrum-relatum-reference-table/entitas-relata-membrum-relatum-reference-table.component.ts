@@ -1,3 +1,30 @@
+/* @tt{{{
+
+    @move-comment-backward
+    @template-renderer [
+        templateRendererClassName="EntityReferenceTableComponentTypescriptRenderer"
+        templateRendererPackageName="senegai.codegen.renderer.angular"
+        templateRendererInterfaceName="UiEntityRenderer"
+        templateRendererInterfacePackageName="senegai.codegen.renderer.angular"
+    ] [
+        modelClassName="UiEntityModel"
+        modelPackageName="senegai.codegen.renderer.model.ui"
+        modelName="model"
+    ]
+
+    @replace-value-by-expression
+        [ searchValue="EntitasRelata" replaceByExpression="model.entityName.pascalCase" ]
+        [ searchValue="entitasRelata" replaceByExpression="model.entityName.camelCase" ]
+        [ searchValue="entitas-relata" replaceByExpression="model.entityName.kebabCase" ]
+        [ searchValue="MembrumRelatum" replaceByExpression="model.entityRootItem.itemName.pascalCase" ]
+        [ searchValue="membrumRelatum" replaceByExpression="model.entityRootItem.itemName.camelCase" ]
+        [ searchValue="membrum-relatum" replaceByExpression="model.entityRootItem.itemName.kebabCase" ]
+        [ searchValue="ClavisPrimaria" replaceByExpression="model.idAttribute.attributeName.pascalCase" ]
+        [ searchValue="clavisPrimaria" replaceByExpression="model.idAttribute.attributeName.camelCase" ]
+
+    @modify-provided-filepath-by-replacements
+
+}}}@ */
 import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormControl, ReactiveFormsModule} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
@@ -9,8 +36,8 @@ import {
 import {membrumRelatumDisplayRow} from "@app/entitas-relata/membrum-relatum-display";
 import {EntitasRelataService} from "@app/entitas-relata/entitas-relata.service";
 import {
-    OpusMagnumMembrumRelatumReferenceTableRow
-} from "@app/opus-magnum/opus-magnum-form/opus-magnum-membrum-relatum-reference-table/opus-magnum-membrum-relatum-reference-table-row.model";
+    EntitasRelataMembrumRelatumReferenceTableRow
+} from "@app/entitas-relata/entitas-relata-membrum-relatum-reference-table/entitas-relata-membrum-relatum-reference-table-row.model";
 import {FormUtil} from "@app/shared/form-controls/form.util";
 import {UUID} from "@app/shared/uuid";
 import {MembrumRelatumWTO} from "@app/wto/membrum-relatum.wto";
@@ -27,9 +54,9 @@ import {MembrumRelatumWTO} from "@app/wto/membrum-relatum.wto";
  * shown by their display attributes. Resolved objects are cached, so a UUID is fetched once.
  */
 @Component({
-    selector: 'app-opus-magnum-membrum-relatum-reference-table',
-    templateUrl: './opus-magnum-membrum-relatum-reference-table.component.html',
-    styleUrls: ['./opus-magnum-membrum-relatum-reference-table.component.scss'],
+    selector: 'app-entitas-relata-membrum-relatum-reference-table',
+    templateUrl: './entitas-relata-membrum-relatum-reference-table.component.html',
+    styleUrls: ['./entitas-relata-membrum-relatum-reference-table.component.scss'],
     imports: [
         ReactiveFormsModule,
         MatButtonModule,
@@ -38,13 +65,29 @@ import {MembrumRelatumWTO} from "@app/wto/membrum-relatum.wto";
         EntitasRelataTypeaheadComponent,
     ]
 })
-export class OpusMagnumMembrumRelatumReferenceTableComponent implements OnInit {
+export class EntitasRelataMembrumRelatumReferenceTableComponent implements OnInit {
     @Input({required: true}) membrumRelatumReferenceFormArray!: FormArray<FormControl<UUID>>;
-    @Input() columnHeaderClavisPrimaria: string = 'Clavis Primaria';
-    @Input() columnHeaderDescriptioExDistanti: string = 'Descriptio Ex Distanti';
+    @Input() columnHeaderClavisPrimaria: string = 'ClavisPrimaria';
+    /* @tt{{{
+        @foreach [ iteratorExpression="model.displayAttributes" loopVariable="displayAttribute" ]
+        @replace-value-by-expression
+            [ searchValue="DescriptioExDistanti" replaceByExpression="displayAttribute.attributeName.pascalCase" ]
+    }}}@ */
+    @Input() columnHeaderDescriptioExDistanti: string = 'DescriptioExDistanti';
+    /* @tt{{{   @end-foreach  }}}@ */
 
-    protected readonly displayedColumns: string[] = ['clavisPrimaria', 'descriptioExDistanti', 'actions'];
-    protected readonly dataSource = new MatTableDataSource<OpusMagnumMembrumRelatumReferenceTableRow>();
+    protected readonly displayedColumns: string[] = [
+        'clavisPrimaria',
+        /* @tt{{{
+            @foreach [ iteratorExpression="model.displayAttributes" loopVariable="displayAttribute" ]
+            @replace-value-by-expression
+                [ searchValue="descriptioExDistanti" replaceByExpression="displayAttribute.attributeName.camelCase" ]
+        }}}@ */
+        'descriptioExDistanti',
+        /* @tt{{{   @end-foreach  }}}@ */
+        'actions',
+    ];
+    protected readonly dataSource = new MatTableDataSource<EntitasRelataMembrumRelatumReferenceTableRow>();
 
     private readonly resolvedByClavisPrimaria = new Map<UUID, MembrumRelatumWTO>();
 
@@ -70,7 +113,7 @@ export class OpusMagnumMembrumRelatumReferenceTableComponent implements OnInit {
         );
     }
 
-    protected onDelete(tableRow: OpusMagnumMembrumRelatumReferenceTableRow): void {
+    protected onDelete(tableRow: EntitasRelataMembrumRelatumReferenceTableRow): void {
         FormUtil.removeControl(this.membrumRelatumReferenceFormArray, tableRow.formControl);
     }
 
@@ -99,7 +142,7 @@ export class OpusMagnumMembrumRelatumReferenceTableComponent implements OnInit {
         this.dataSource.data = this.membrumRelatumReferenceFormArray.controls.map((control) => this.toTableRow(control))
     }
 
-    private toTableRow(formControl: FormControl<UUID>): OpusMagnumMembrumRelatumReferenceTableRow {
+    private toTableRow(formControl: FormControl<UUID>): EntitasRelataMembrumRelatumReferenceTableRow {
         const clavisPrimaria = formControl.getRawValue();
         return {
             ...membrumRelatumDisplayRow(clavisPrimaria, this.resolvedByClavisPrimaria.get(clavisPrimaria)),

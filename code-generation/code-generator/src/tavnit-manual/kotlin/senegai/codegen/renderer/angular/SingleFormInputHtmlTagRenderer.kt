@@ -1,6 +1,7 @@
 package senegai.codegen.renderer.angular
 
 import senegai.codegen.renderer.model.ui.BuiltInTypeUiAttributeModel
+import senegai.codegen.renderer.model.ui.EntityReferenceUiAttributeModel
 import senegai.codegen.renderer.model.ui.EnumUiAttributeModel
 import senegai.codegen.renderer.model.ui.ItemUiIAttributeModel
 import senegai.codegen.renderer.model.ui.UiAttributeModel
@@ -27,6 +28,9 @@ object SingleFormInputHtmlTagRenderer {
         isList: Boolean = false,
     ): String {
         val inputTag = when (attributeModel) {
+            // must be checked before the built-in input: a reference is a UUID, but it is never
+            // edited as one
+            is EntityReferenceUiAttributeModel -> createEntityReferenceInput(attributeModel)
             is BuiltInTypeUiAttributeModel -> createBuiltInInput(attributeModel)
             is EnumUiAttributeModel -> createEnumInput(attributeModel)
             is ItemUiIAttributeModel -> createItemInput(attributeModel)
@@ -49,6 +53,26 @@ object SingleFormInputHtmlTagRenderer {
             """<app-single-${infix}-form-field-table [formArray]="${attributeNameCamelCase}Control" columnHeader="$attributeNameCamelCase" placeholder="Enter $attributeNameCamelCase" [validatorTranslations]="${attributeNameCamelCase}ValidatorNames" />"""
         } else {
             """<app-${infix}-input [${infix}FormControl]="${attributeNameCamelCase}Control" label="$attributeNameCamelCase" placeholder="Enter $attributeNameCamelCase" [validatorTranslations]="${attributeNameCamelCase}ValidatorNames" />"""
+        }
+    }
+
+    /**
+     *  ` <app-entitas-relata-membrum-relatum-reference-field [membrumRelatumReferenceFormControl]="relatioAdEntitatemOptionalisControl" [validatorTranslations]="relatioAdEntitatemOptionalisValidatorNames" />`
+     *  ` <app-entitas-relata-membrum-relatum-reference-table [membrumRelatumReferenceFormArray]="relatioAdEntitatemOptionalisIteratusControl" />`
+     *
+     * A reference is stored as the UUID of the referenced entity, which tells the user nothing.
+     * It is therefore edited with the reference components of the referenced entity, which search
+     * it with a typeahead and show it by its display attributes.
+     */
+    private fun createEntityReferenceInput(attributeModel: EntityReferenceUiAttributeModel): String {
+        val attributeNameCamelCase = attributeModel.attributeName.camelCase
+        val referencedEntity = attributeModel.referencedEntity
+        val componentSelectorPrefix = "app-${referencedEntity.entityName.kebabCase}-${referencedEntity.rootItem.itemName.kebabCase}-reference"
+        val referencedItemCamelCase = referencedEntity.rootItem.itemName.camelCase
+        return if (attributeModel.isList) {
+            """<$componentSelectorPrefix-table [${referencedItemCamelCase}ReferenceFormArray]="${attributeNameCamelCase}Control" />"""
+        } else {
+            """<$componentSelectorPrefix-field [${referencedItemCamelCase}ReferenceFormControl]="${attributeNameCamelCase}Control" [validatorTranslations]="${attributeNameCamelCase}ValidatorNames" />"""
         }
     }
 

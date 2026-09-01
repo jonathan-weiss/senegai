@@ -10,6 +10,7 @@ import senegai.codegen.renderer.model.be.BeExampleDataGeneratorConfig
 import senegai.codegen.renderer.model.be.BeItemDescriptionModel
 import senegai.codegen.renderer.model.be.BeItemModel
 import senegai.codegen.renderer.model.be.BeModel
+import senegai.codegen.renderer.model.be.BeReferencedEntityModel
 import senegai.codegen.renderer.model.be.BuiltInTypeBeAttributeModel
 import senegai.codegen.renderer.model.be.EntityReferenceBeAttributeModel
 import senegai.codegen.renderer.model.be.EnumBeAttributeModel
@@ -29,6 +30,7 @@ import senegai.codegen.renderer.model.ui.UiEnumModel
 import senegai.codegen.renderer.model.ui.UiItemDescriptionModel
 import senegai.codegen.renderer.model.ui.UiItemModel
 import senegai.codegen.renderer.model.ui.UiModel
+import senegai.codegen.renderer.model.ui.UiReferencedEntityModel
 import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewItemModel
 import senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormBlockModel
 import senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormItemAttributeBlockModel
@@ -126,7 +128,7 @@ object RendererModelConverter {
                 isNullable = itemAttribute.isNullable,
                 isList = itemAttribute.isMultiple,
                 customValidation = itemAttribute.customValidation,
-                referencedEntity = referencedEntity(itemAttributeType, entities).toUiEntityDescriptionModel(),
+                referencedEntity = referencedEntity(itemAttributeType, entities).toUiReferencedEntityModel(),
             )
             is EnumId -> {
                 val enumType = enums.singleOrNull { it.enumId == itemAttributeType }
@@ -159,6 +161,24 @@ object RendererModelConverter {
     private fun referencedEntity(entityId: EntityId, entities: List<Entity>): Entity {
         return entities.singleOrNull { it.entityId == entityId }
             ?: throw NoSuchElementException("Entity ${entityId.entityName} not found in schema entities")
+    }
+
+    private fun Entity.toUiReferencedEntityModel(): UiReferencedEntityModel {
+        return UiReferencedEntityModel(
+            entityId = entityId,
+            entityName = NameCase(entityName),
+            rootItem = toUiItemDescriptionModel(item.itemId),
+            idAttributeName = NameCase(idAttributeName),
+        )
+    }
+
+    private fun Entity.toBeReferencedEntityModel(): BeReferencedEntityModel {
+        return BeReferencedEntityModel(
+            entityId = entityId,
+            entityName = NameCase(entityName),
+            rootItem = toBeItemDescriptionModel(item.itemId),
+            idAttributeName = NameCase(idAttributeName),
+        )
     }
 
     private fun Entity.toBeEntityDescriptionModel(): BeEntityDescriptionModel {
@@ -213,7 +233,7 @@ object RendererModelConverter {
                 isNullable = itemAttribute.isNullable,
                 isList = itemAttribute.isMultiple,
                 customValidation = itemAttribute.customValidation,
-                referencedEntity = referencedEntity(itemAttributeType, entities).toBeEntityDescriptionModel(),
+                referencedEntity = referencedEntity(itemAttributeType, entities).toBeReferencedEntityModel(),
             )
             is EnumId -> {
                 val enumType = enums.singleOrNull { it.enumId == itemAttributeType }

@@ -21,6 +21,7 @@ object EntityInMemoryRepositoryRenderer : BeEntityRenderer {
           |import org.springframework.stereotype.Repository
           |import senegai.server.service.${model.entityName.lowerCase}.${model.entityName.pascalCase}Repository
           |import senegai.server.service.bo.${model.entityRootItem.itemName.pascalCase}BO
+          |import senegai.server.service.bo.${model.entityRootItem.itemName.pascalCase}ByIdsCriteriaBO
           |import senegai.server.service.bo.${model.entityRootItem.itemName.pascalCase}SearchCriteriaBO
           |import java.util.concurrent.ConcurrentHashMap
           |import java.util.UUID
@@ -38,6 +39,9 @@ object EntityInMemoryRepositoryRenderer : BeEntityRenderer {
           |    override fun findAll(): List<${model.entityRootItem.itemName.pascalCase}BO> = store.values.toList()
           |
           |    override fun findById(${model.idAttribute.attributeName.camelCase}: UUID): ${model.entityRootItem.itemName.pascalCase}BO? = store[${model.idAttribute.attributeName.camelCase}]
+          |
+          |    override fun findByIds(criteria: ${model.entityRootItem.itemName.pascalCase}ByIdsCriteriaBO): List<${model.entityRootItem.itemName.pascalCase}BO> =
+          |        criteria.${model.idAttribute.attributeName.camelCase}List.mapNotNull { store[it] }
           |
           |    override fun search(searchCriteria: ${model.entityRootItem.itemName.pascalCase}SearchCriteriaBO): List<${model.entityRootItem.itemName.pascalCase}BO> =
           |        store.values.filter { it.toString().contains(searchCriteria.query, ignoreCase = true) }

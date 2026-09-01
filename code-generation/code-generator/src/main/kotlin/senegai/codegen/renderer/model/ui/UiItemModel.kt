@@ -11,8 +11,14 @@ data class UiItemModel(
     val itemId: ItemId = itemDescription.itemId
     val itemName: NameCase = itemDescription.itemName
 
+    /**
+     * A single entity reference has no initial value: it starts out as `null` until the user
+     * picks an entry, so that the required validator can complain. A list of references does
+     * need one, because it is the value a newly pushed entry starts with.
+     */
     val attributesWithAngularFormInitialValues: List<UiAttributeModel> = attributes
         .filter { it is BuiltInTypeUiAttributeModel || it.isList || it.isEnum }
+        .filter { !it.isEntityReference || it.isList }
 
     val attributesWithCustomValidation: List<UiAttributeModel> = attributes
         .filter { it.hasCustomValidation }
@@ -35,8 +41,20 @@ data class UiItemModel(
     val attributesWithEntityReference: List<EntityReferenceUiAttributeModel> = attributes
         .filterIsInstance<EntityReferenceUiAttributeModel>()
 
-    /** All entities referenced by an attribute of this item, e.g. to render one search service per entity. */
-    val referencedEntities: List<UiEntityDescriptionModel> = attributesWithEntityReference
+    /** All entities referenced by an attribute of this item, e.g. to import one reference component per entity. */
+    val referencedEntities: List<UiReferencedEntityModel> = attributesWithEntityReference
+        .map { it.referencedEntity }
+        .distinct()
+
+    /** The entities referenced by a single-valued attribute, edited with the reference field component. */
+    val singleReferencedEntities: List<UiReferencedEntityModel> = attributesWithEntityReference
+        .filter { !it.isList }
+        .map { it.referencedEntity }
+        .distinct()
+
+    /** The entities referenced by a list attribute, edited with the reference table component. */
+    val listReferencedEntities: List<UiReferencedEntityModel> = attributesWithEntityReference
+        .filter { it.isList }
         .map { it.referencedEntity }
         .distinct()
 
@@ -60,16 +78,25 @@ data class UiItemModel(
     val containsBooleanListAttributes: Boolean = attributesOfType(BuiltInType.BOOLEAN, isList = true).any()
     val containsNumberListAttributes: Boolean = attributesOfType(BuiltInType.NUMBER, isList = true).any()
 
-    /** Whether any attribute is a [BuiltInType.UUID], e.g. to render the import of the UUID type. */
+    /**
+     * Whether any attribute is transported as a [BuiltInType.UUID], e.g. to render the import of
+     * the UUID type. Entity references count here, as they are UUIDs in the form as well.
+     */
     val containsUuidAttributes: Boolean = attributesOfTypes(setOf(BuiltInType.UUID)).any()
+            || attributesWithEntityReference.any()
 
     private fun attributesOfType(filterBuiltInType: BuiltInType, isList: Boolean): List<UiAttributeModel> =
         attributesOfTypes(setOf(filterBuiltInType), isList)
 
-    /** All built-in attributes of one of the [filterBuiltInTypes], of any cardinality if [isList] is `null`. */
+    /**
+     * All built-in attributes of one of the [filterBuiltInTypes], of any cardinality if [isList]
+     * is `null`. Entity references are left out: they happen to be UUIDs, but they are edited
+     * with their own reference components, never with a built-in input.
+     */
     private fun attributesOfTypes(filterBuiltInTypes: Set<BuiltInType>, isList: Boolean? = null): List<UiAttributeModel> {
         return attributes
             .filterIsInstance<BuiltInTypeUiAttributeModel>()
+            .filter { !it.isEntityReference }
             .filter { it.builtInType in filterBuiltInTypes && (isList == null || it.isList == isList) }
     }
 

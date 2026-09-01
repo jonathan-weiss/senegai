@@ -3,8 +3,13 @@ package senegai.codegen.renderer
 import senegai.codegen.renderer.be.BeEntityRenderer
 import senegai.codegen.renderer.be.BeEnumRenderer
 import senegai.codegen.renderer.be.BeItemRenderer
+import senegai.codegen.renderer.be.EntityByIdsCriteriaBORenderer
+import senegai.codegen.renderer.be.EntityByIdsCriteriaMapperRenderer
+import senegai.codegen.renderer.be.EntityByIdsCriteriaWTORenderer
+import senegai.codegen.renderer.be.EntityByIdsResultWTORenderer
 import senegai.codegen.renderer.be.EntityControllerRenderer
 import senegai.codegen.renderer.be.EntityExampleDataCreatorRenderer
+import senegai.codegen.renderer.be.EntityExampleDataFetcherRenderer
 import senegai.codegen.renderer.be.EntityInMemoryRepositoryRenderer
 import senegai.codegen.renderer.be.EntityRepositoryRenderer
 import senegai.codegen.renderer.be.EntitySearchCriteriaBORenderer
@@ -80,6 +85,11 @@ object BackendRendering {
                 EntitySearchCriteriaWTORenderer to pathToGeneratedBackendRestFiles,
                 EntitySearchResultWTORenderer to pathToGeneratedBackendRestFiles,
                 EntitySearchCriteriaMapperRenderer to pathToGeneratedBackendRestFiles,
+                EntityByIdsCriteriaBORenderer to pathToGeneratedBackendServiceFiles,
+                EntityByIdsCriteriaWTORenderer to pathToGeneratedBackendRestFiles,
+                EntityByIdsResultWTORenderer to pathToGeneratedBackendRestFiles,
+                EntityByIdsCriteriaMapperRenderer to pathToGeneratedBackendRestFiles,
+                EntityExampleDataFetcherRenderer to pathToGeneratedBackendExampleDataFiles,
             )
 
             entityRenderer.forEach { (renderer, basePath) ->

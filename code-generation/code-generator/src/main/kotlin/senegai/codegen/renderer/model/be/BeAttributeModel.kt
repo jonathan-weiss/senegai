@@ -162,7 +162,7 @@ class EntityReferenceBeAttributeModel(
     isNullable: Boolean,
     isList: Boolean,
     customValidation: Boolean,
-    val referencedEntity: BeEntityDescriptionModel,
+    val referencedEntity: BeReferencedEntityModel,
 ) : BuiltInTypeBeAttributeModel(
     entity = entity,
     item = item,

@@ -29,10 +29,13 @@
 package senegai.server.restapi.opusmagnum
 
 import org.springframework.web.bind.annotation.*
+import senegai.server.restapi.wto.SilvaOptionumByIdsCriteriaWTO
+import senegai.server.restapi.wto.SilvaOptionumByIdsResultWTO
 import senegai.server.restapi.wto.SilvaOptionumSearchCriteriaWTO
 import senegai.server.restapi.wto.SilvaOptionumSearchResultWTO
 import senegai.server.restapi.wto.SilvaOptionumWTO
 import senegai.server.restapi.wto.mapper.SilvaOptionumMapper
+import senegai.server.restapi.wto.mapper.SilvaOptionumByIdsCriteriaMapper.toBo
 import senegai.server.restapi.wto.mapper.SilvaOptionumSearchCriteriaMapper.toBo
 import senegai.server.restapi.wto.mapper.SilvaOptionumMapper.toBo
 import senegai.server.restapi.wto.mapper.SilvaOptionumMapper.toWto
@@ -62,6 +65,16 @@ class OpusMagnumController(
     fun searchSilvaOptionumList(@RequestBody searchCriteria: SilvaOptionumSearchCriteriaWTO): SilvaOptionumSearchResultWTO =
         SilvaOptionumSearchResultWTO(
             silvaOptionumList = opusMagnumService.searchSilvaOptionumList(searchCriteria.toBo()).map { it.toWto() },
+        )
+
+    /**
+     * Resolves a whole set of references to this entity at once, so that the client can show
+     * stored identifiers by their display attributes instead of the bare UUIDs.
+     */
+    @PostMapping("/by-ids")
+    fun getSilvaOptionumListByIds(@RequestBody criteria: SilvaOptionumByIdsCriteriaWTO): SilvaOptionumByIdsResultWTO =
+        SilvaOptionumByIdsResultWTO(
+            silvaOptionumList = opusMagnumService.getSilvaOptionumListByIds(criteria.toBo()).map { it.toWto() },
         )
 
     @GetMapping("/{indexUnicus}")

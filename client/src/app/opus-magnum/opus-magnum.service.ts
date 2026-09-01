@@ -38,6 +38,8 @@ import {Observable} from 'rxjs';
 import {SilvaOptionumWTO} from "@app/wto/silva-optionum.wto";
 import {SilvaOptionumSearchCriteriaWTO} from "@app/wto/silva-optionum-search-criteria.wto";
 import {SilvaOptionumSearchResultWTO} from "@app/wto/silva-optionum-search-result.wto";
+import {SilvaOptionumByIdsCriteriaWTO} from "@app/wto/silva-optionum-by-ids-criteria.wto";
+import {SilvaOptionumByIdsResultWTO} from "@app/wto/silva-optionum-by-ids-result.wto";
 import {UUID} from "@app/shared/uuid";
 
 
@@ -53,6 +55,14 @@ export class OpusMagnumService {
 
     searchSilvaOptionumList(searchCriteria: SilvaOptionumSearchCriteriaWTO): Observable<SilvaOptionumSearchResultWTO> {
         return this.http.post<SilvaOptionumSearchResultWTO>(`${this.baseUrl}/search`, searchCriteria);
+    }
+
+    /**
+     * Resolves a whole set of references to this entity in one call, so that a list of stored
+     * identifiers can be shown by the display attributes instead of the bare UUIDs.
+     */
+    getSilvaOptionumListByIds(criteria: SilvaOptionumByIdsCriteriaWTO): Observable<SilvaOptionumByIdsResultWTO> {
+        return this.http.post<SilvaOptionumByIdsResultWTO>(`${this.baseUrl}/by-ids`, criteria);
     }
 
     getSilvaOptionumById(indexUnicus: UUID): Observable<SilvaOptionumWTO | null> {

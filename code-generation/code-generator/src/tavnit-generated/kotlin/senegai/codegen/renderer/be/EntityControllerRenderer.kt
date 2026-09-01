@@ -19,10 +19,13 @@ object EntityControllerRenderer : BeEntityRenderer {
           |package senegai.server.restapi.${model.entityName.lowerCase}
           |
           |import org.springframework.web.bind.annotation.*
+          |import senegai.server.restapi.wto.${model.entityRootItem.itemName.pascalCase}ByIdsCriteriaWTO
+          |import senegai.server.restapi.wto.${model.entityRootItem.itemName.pascalCase}ByIdsResultWTO
           |import senegai.server.restapi.wto.${model.entityRootItem.itemName.pascalCase}SearchCriteriaWTO
           |import senegai.server.restapi.wto.${model.entityRootItem.itemName.pascalCase}SearchResultWTO
           |import senegai.server.restapi.wto.${model.entityRootItem.itemName.pascalCase}WTO
           |import senegai.server.restapi.wto.mapper.${model.entityRootItem.itemName.pascalCase}Mapper
+          |import senegai.server.restapi.wto.mapper.${model.entityRootItem.itemName.pascalCase}ByIdsCriteriaMapper.toBo
           |import senegai.server.restapi.wto.mapper.${model.entityRootItem.itemName.pascalCase}SearchCriteriaMapper.toBo
           |import senegai.server.restapi.wto.mapper.${model.entityRootItem.itemName.pascalCase}Mapper.toBo
           |import senegai.server.restapi.wto.mapper.${model.entityRootItem.itemName.pascalCase}Mapper.toWto
@@ -52,6 +55,16 @@ object EntityControllerRenderer : BeEntityRenderer {
           |    fun search${model.entityRootItem.itemName.pascalCase}List(@RequestBody searchCriteria: ${model.entityRootItem.itemName.pascalCase}SearchCriteriaWTO): ${model.entityRootItem.itemName.pascalCase}SearchResultWTO =
           |        ${model.entityRootItem.itemName.pascalCase}SearchResultWTO(
           |            ${model.entityRootItem.itemName.camelCase}List = ${model.entityName.camelCase}Service.search${model.entityRootItem.itemName.pascalCase}List(searchCriteria.toBo()).map { it.toWto() },
+          |        )
+          |
+          |    /**
+          |     * Resolves a whole set of references to this entity at once, so that the client can show
+          |     * stored identifiers by their display attributes instead of the bare UUIDs.
+          |     */
+          |    @PostMapping("/by-ids")
+          |    fun get${model.entityRootItem.itemName.pascalCase}ListByIds(@RequestBody criteria: ${model.entityRootItem.itemName.pascalCase}ByIdsCriteriaWTO): ${model.entityRootItem.itemName.pascalCase}ByIdsResultWTO =
+          |        ${model.entityRootItem.itemName.pascalCase}ByIdsResultWTO(
+          |            ${model.entityRootItem.itemName.camelCase}List = ${model.entityName.camelCase}Service.get${model.entityRootItem.itemName.pascalCase}ListByIds(criteria.toBo()).map { it.toWto() },
           |        )
           |
           |    @GetMapping("/{${model.idAttribute.attributeName.camelCase}}")

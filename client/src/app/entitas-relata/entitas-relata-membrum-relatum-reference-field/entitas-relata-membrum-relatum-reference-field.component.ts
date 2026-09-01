@@ -1,3 +1,30 @@
+/* @tt{{{
+
+    @move-comment-backward
+    @template-renderer [
+        templateRendererClassName="EntityReferenceFieldComponentTypescriptRenderer"
+        templateRendererPackageName="senegai.codegen.renderer.angular"
+        templateRendererInterfaceName="UiEntityRenderer"
+        templateRendererInterfacePackageName="senegai.codegen.renderer.angular"
+    ] [
+        modelClassName="UiEntityModel"
+        modelPackageName="senegai.codegen.renderer.model.ui"
+        modelName="model"
+    ]
+
+    @replace-value-by-expression
+        [ searchValue="EntitasRelata" replaceByExpression="model.entityName.pascalCase" ]
+        [ searchValue="entitasRelata" replaceByExpression="model.entityName.camelCase" ]
+        [ searchValue="entitas-relata" replaceByExpression="model.entityName.kebabCase" ]
+        [ searchValue="MembrumRelatum" replaceByExpression="model.entityRootItem.itemName.pascalCase" ]
+        [ searchValue="membrumRelatum" replaceByExpression="model.entityRootItem.itemName.camelCase" ]
+        [ searchValue="membrum-relatum" replaceByExpression="model.entityRootItem.itemName.kebabCase" ]
+        [ searchValue="ClavisPrimaria" replaceByExpression="model.idAttribute.attributeName.pascalCase" ]
+        [ searchValue="clavisPrimaria" replaceByExpression="model.idAttribute.attributeName.camelCase" ]
+
+    @modify-provided-filepath-by-replacements
+
+}}}@ */
 import {Component, Input, OnInit} from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {
@@ -19,7 +46,7 @@ import {MembrumRelatumWTO} from "@app/wto/membrum-relatum.wto";
  * Edits a single reference to an EntitasRelata, held in the form as one FormControl of a UUID
  * or null.
  *
- * The single-reference counterpart of the OpusMagnumMembrumRelatumReferenceTableComponent: the
+ * The single-reference counterpart of the EntitasRelataMembrumRelatumReferenceTableComponent: the
  * typeahead itself is the field, it shows the picked entry by its display attributes and a new
  * pick overwrites it. There is nothing to delete: whether the reference exists at all is decided
  * one level up by the nullability of the field, and while the field is not null exactly one
@@ -30,15 +57,15 @@ import {MembrumRelatumWTO} from "@app/wto/membrum-relatum.wto";
  * and shown by its display attributes. Resolved objects are cached, so a UUID is fetched once.
  */
 @Component({
-    selector: 'app-opus-magnum-membrum-relatum-reference-field',
-    templateUrl: './opus-magnum-membrum-relatum-reference-field.component.html',
-    styleUrls: ['./opus-magnum-membrum-relatum-reference-field.component.scss'],
+    selector: 'app-entitas-relata-membrum-relatum-reference-field',
+    templateUrl: './entitas-relata-membrum-relatum-reference-field.component.html',
+    styleUrls: ['./entitas-relata-membrum-relatum-reference-field.component.scss'],
     imports: [
         EntitasRelataTypeaheadComponent,
         FieldErrorMessagesComponent,
     ]
 })
-export class OpusMagnumMembrumRelatumReferenceFieldComponent implements OnInit {
+export class EntitasRelataMembrumRelatumReferenceFieldComponent implements OnInit {
     @Input({required: true}) membrumRelatumReferenceFormControl!: FormControl<UUID | null>;
     @Input() validatorTranslations: ReadonlyArray<ValidatorTranslation> = [];
 

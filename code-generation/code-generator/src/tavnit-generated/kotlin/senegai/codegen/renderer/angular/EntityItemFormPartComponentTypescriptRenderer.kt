@@ -68,6 +68,12 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
               |import {
               |    ${model.entity.entityName.pascalCase}${nestedItem.itemName.pascalCase}FormPartGroup
               |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-${nestedItem.itemName.kebabCase}-form-part/${model.entity.entityName.kebabCase}-${nestedItem.itemName.kebabCase}-form-part-group";
+              |""" } }${ model.item.listReferencedEntities.joinToString("") { listReferencedEntity ->  """import {
+              |    ${listReferencedEntity.entityName.pascalCase}${listReferencedEntity.rootItem.itemName.pascalCase}ReferenceTableComponent
+              |} from "@app/${listReferencedEntity.entityName.kebabCase}/${listReferencedEntity.entityName.kebabCase}-${listReferencedEntity.rootItem.itemName.kebabCase}-reference-table/${listReferencedEntity.entityName.kebabCase}-${listReferencedEntity.rootItem.itemName.kebabCase}-reference-table.component";
+              |""" } }${ model.item.singleReferencedEntities.joinToString("") { singleReferencedEntity ->  """import {
+              |    ${singleReferencedEntity.entityName.pascalCase}${singleReferencedEntity.rootItem.itemName.pascalCase}ReferenceFieldComponent
+              |} from "@app/${singleReferencedEntity.entityName.kebabCase}/${singleReferencedEntity.entityName.kebabCase}-${singleReferencedEntity.rootItem.itemName.kebabCase}-reference-field/${singleReferencedEntity.entityName.kebabCase}-${singleReferencedEntity.rootItem.itemName.kebabCase}-reference-field.component";
               |""" } }
           |@Component({
           |    selector: 'app-${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part',
@@ -97,7 +103,9 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
               |""" } else { """""" } }${ if(model.item.containsBooleanAttributes) { """        BooleanInputComponent,
               |""" } else { """""" } }${ if(model.item.containsNumberAttributes) { """        NumberInputComponent,
               |""" } else { """""" } }${ if(model.item.containsTextListAttributes) { """        SingleTextFormFieldTableComponent,
-              |""" } else { """""" } }${ if(model.item.containsNumberListAttributes) { """        SingleNumberFormFieldTableComponent,""" } else { """""" } }${ if(model.item.containsBooleanListAttributes) { """        SingleBooleanFormFieldTableComponent,""" } else { """""" } }${ model.item.attributesWithEnumType.joinToString("") { attributeWithEnumType ->  """${ if(attributeWithEnumType.isList) { """        ${attributeWithEnumType.enum.enumName.pascalCase}InputTableComponent,
+              |""" } else { """""" } }${ model.item.listReferencedEntities.joinToString("") { listReferencedEntity ->  """        ${listReferencedEntity.entityName.pascalCase}${listReferencedEntity.rootItem.itemName.pascalCase}ReferenceTableComponent,
+              |""" } }${ model.item.singleReferencedEntities.joinToString("") { singleReferencedEntity ->  """        ${singleReferencedEntity.entityName.pascalCase}${singleReferencedEntity.rootItem.itemName.pascalCase}ReferenceFieldComponent,
+              |""" } }${ if(model.item.containsNumberListAttributes) { """        SingleNumberFormFieldTableComponent,""" } else { """""" } }${ if(model.item.containsBooleanListAttributes) { """        SingleBooleanFormFieldTableComponent,""" } else { """""" } }${ model.item.attributesWithEnumType.joinToString("") { attributeWithEnumType ->  """${ if(attributeWithEnumType.isList) { """        ${attributeWithEnumType.enum.enumName.pascalCase}InputTableComponent,
                   |""" } else { """        ${attributeWithEnumType.enum.enumName.pascalCase}SelectorComponent,
                   |""" } }""" } }    ]
           |})

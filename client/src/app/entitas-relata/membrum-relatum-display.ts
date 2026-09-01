@@ -1,3 +1,29 @@
+/* @tt{{{
+
+    @move-comment-backward
+    @template-renderer [
+        templateRendererClassName="EntityReferenceDisplayRenderer"
+        templateRendererPackageName="senegai.codegen.renderer.angular"
+        templateRendererInterfaceName="UiEntityRenderer"
+        templateRendererInterfacePackageName="senegai.codegen.renderer.angular"
+    ] [
+        modelClassName="UiEntityModel"
+        modelPackageName="senegai.codegen.renderer.model.ui"
+        modelName="model"
+    ]
+
+    @replace-value-by-expression
+        [ searchValue="EntitasRelata" replaceByExpression="model.entityName.pascalCase" ]
+        [ searchValue="entitas-relata" replaceByExpression="model.entityName.kebabCase" ]
+        [ searchValue="MEMBRUM_RELATUM" replaceByExpression="model.entityRootItem.itemName.screamingSnakeCase" ]
+        [ searchValue="MembrumRelatum" replaceByExpression="model.entityRootItem.itemName.pascalCase" ]
+        [ searchValue="membrumRelatum" replaceByExpression="model.entityRootItem.itemName.camelCase" ]
+        [ searchValue="membrum-relatum" replaceByExpression="model.entityRootItem.itemName.kebabCase" ]
+        [ searchValue="clavisPrimaria" replaceByExpression="model.idAttribute.attributeName.camelCase" ]
+
+    @modify-provided-filepath-by-replacements
+
+}}}@ */
 import {UUID} from "@app/shared/uuid";
 import {MembrumRelatumWTO} from "@app/wto/membrum-relatum.wto";
 
@@ -11,7 +37,13 @@ import {MembrumRelatumWTO} from "@app/wto/membrum-relatum.wto";
  */
 export interface MembrumRelatumDisplayRow {
     clavisPrimaria: UUID
+    /* @tt{{{
+        @foreach [ iteratorExpression="model.displayAttributes" loopVariable="displayAttribute" ]
+        @replace-value-by-expression
+            [ searchValue="descriptioExDistanti" replaceByExpression="displayAttribute.attributeName.camelCase" ]
+    }}}@ */
     descriptioExDistanti: string
+    /* @tt{{{   @end-foreach  }}}@ */
 }
 
 /**
@@ -22,7 +54,13 @@ export interface MembrumRelatumDisplayRow {
  */
 export const MEMBRUM_RELATUM_DISPLAY_ATTRIBUTE_NAMES: ReadonlyArray<keyof MembrumRelatumDisplayRow> = [
     'clavisPrimaria',
+    /* @tt{{{
+        @foreach [ iteratorExpression="model.displayAttributes" loopVariable="displayAttribute" ]
+        @replace-value-by-expression
+            [ searchValue="descriptioExDistanti" replaceByExpression="displayAttribute.attributeName.camelCase" ]
+    }}}@ */
     'descriptioExDistanti',
+    /* @tt{{{   @end-foreach  }}}@ */
 ];
 
 /** Shown for a display attribute whose reference could not be resolved. */
@@ -35,7 +73,13 @@ export function membrumRelatumDisplayRow(
 ): MembrumRelatumDisplayRow {
     return {
         clavisPrimaria: clavisPrimaria,
+        /* @tt{{{
+            @foreach [ iteratorExpression="model.displayAttributes" loopVariable="displayAttribute" ]
+            @replace-value-by-expression
+                [ searchValue="descriptioExDistanti" replaceByExpression="displayAttribute.attributeName.camelCase" ]
+        }}}@ */
         descriptioExDistanti: membrumRelatum?.descriptioExDistanti ?? MEMBRUM_RELATUM_UNRESOLVED_DISPLAY_VALUE,
+        /* @tt{{{   @end-foreach  }}}@ */
     }
 }
 

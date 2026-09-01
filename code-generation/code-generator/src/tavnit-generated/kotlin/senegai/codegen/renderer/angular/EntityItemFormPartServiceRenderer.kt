@@ -47,14 +47,20 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
           |
           |    public createInitial${model.item.itemName.pascalCase}Form(): FormGroup<${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartGroup> {
           |        return new FormGroup({
-          |${ model.item.attributes.joinToString("") { attribute ->  """${ if(!attribute.isItem && !attribute.isList) { """            [${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}]: new ${attribute.angularFormControlType}(
+          |${ model.item.attributes.joinToString("") { attribute ->  """${ if(!attribute.isItem && !attribute.isList && !attribute.isEntityReference) { """            [${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}]: new ${attribute.angularFormControlType}(
                   |                this.${model.item.itemName.camelCase}FormInitialValueService.${attribute.attributeName.camelCase}InitialValue(),
                   |                {
                   |                    nonNullable: true,
                   |                    validators: this.${model.item.itemName.camelCase}FormValidationService.validatorFunctions(${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase})
                   |                },
                   |            ),
-                  |""" } else { """""" } }""" } }${ model.item.attributesWithItemType.filter { !it.isList }.joinToString("") { attributeWithItemType ->  """            [${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItemType.attributeName.camelCase}]: this.${attributeWithItemType.referencedItem.itemName.camelCase}FormPartService.createInitial${attributeWithItemType.referencedItem.itemName.pascalCase}Form(),
+                  |""" } else { """""" } }""" } }${ model.item.attributesWithEntityReference.filter { !it.isList }.joinToString("") { referenceAttribute ->  """            [${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${referenceAttribute.attributeName.camelCase}]: new FormControl<UUID | null>(
+              |                null,
+              |                {
+              |                    validators: this.${model.item.itemName.camelCase}FormValidationService.validatorFunctions(${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${referenceAttribute.attributeName.camelCase})
+              |                },
+              |            ),
+              |""" } }${ model.item.attributesWithItemType.filter { !it.isList }.joinToString("") { attributeWithItemType ->  """            [${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItemType.attributeName.camelCase}]: this.${attributeWithItemType.referencedItem.itemName.camelCase}FormPartService.createInitial${attributeWithItemType.referencedItem.itemName.pascalCase}Form(),
               |""" } }${ model.item.attributesWithItemType.filter { it.isList }.joinToString("") { attributeWithItemType ->  """            [${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItemType.attributeName.camelCase}]: new FormArray(
               |                this.${model.item.itemName.camelCase}FormInitialValueService.${attributeWithItemType.attributeName.camelCase}InitialValue(),
               |                {
@@ -162,7 +168,9 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
           |${ model.item.builtInTypeAndEnumAttributes.joinToString("") { attribute ->  """${ if(attribute.isNullable) { """            ${attribute.attributeName.camelCase}: form.controls[${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}IsNotNull].value
                   |                ? form.controls[${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].getRawValue()
                   |                : null,
-                  |""" } else { """            ${attribute.attributeName.camelCase}: form.controls[${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].getRawValue(),
+                  |""" } else { """            // the non-null assertion is only needed for a mandatory reference, whose control holds
+                  |            // `null` until an entry is picked; for every other attribute it is a no-op
+                  |            ${attribute.attributeName.camelCase}: form.controls[${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}].getRawValue()!,
                   |""" } }""" } }        };
           |    }
           |}

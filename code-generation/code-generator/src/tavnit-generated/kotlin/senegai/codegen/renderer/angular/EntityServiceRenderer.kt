@@ -23,6 +23,8 @@ object EntityServiceRenderer : UiEntityRenderer {
           |import {${model.entityRootItem.itemName.pascalCase}WTO} from "@app/wto/${model.entityRootItem.itemName.kebabCase}.wto";
           |import {${model.entityRootItem.itemName.pascalCase}SearchCriteriaWTO} from "@app/wto/${model.entityRootItem.itemName.kebabCase}-search-criteria.wto";
           |import {${model.entityRootItem.itemName.pascalCase}SearchResultWTO} from "@app/wto/${model.entityRootItem.itemName.kebabCase}-search-result.wto";
+          |import {${model.entityRootItem.itemName.pascalCase}ByIdsCriteriaWTO} from "@app/wto/${model.entityRootItem.itemName.kebabCase}-by-ids-criteria.wto";
+          |import {${model.entityRootItem.itemName.pascalCase}ByIdsResultWTO} from "@app/wto/${model.entityRootItem.itemName.kebabCase}-by-ids-result.wto";
           |import {UUID} from "@app/shared/uuid";
           |
           |
@@ -38,6 +40,14 @@ object EntityServiceRenderer : UiEntityRenderer {
           |
           |    search${model.entityRootItem.itemName.pascalCase}List(searchCriteria: ${model.entityRootItem.itemName.pascalCase}SearchCriteriaWTO): Observable<${model.entityRootItem.itemName.pascalCase}SearchResultWTO> {
           |        return this.http.post<${model.entityRootItem.itemName.pascalCase}SearchResultWTO>(`${"$"}{this.baseUrl}/search`, searchCriteria);
+          |    }
+          |
+          |    /**
+          |     * Resolves a whole set of references to this entity in one call, so that a list of stored
+          |     * identifiers can be shown by the display attributes instead of the bare UUIDs.
+          |     */
+          |    get${model.entityRootItem.itemName.pascalCase}ListByIds(criteria: ${model.entityRootItem.itemName.pascalCase}ByIdsCriteriaWTO): Observable<${model.entityRootItem.itemName.pascalCase}ByIdsResultWTO> {
+          |        return this.http.post<${model.entityRootItem.itemName.pascalCase}ByIdsResultWTO>(`${"$"}{this.baseUrl}/by-ids`, criteria);
           |    }
           |
           |    get${model.entityRootItem.itemName.pascalCase}ById(${model.idAttribute.attributeName.camelCase}: UUID): Observable<${model.entityRootItem.itemName.pascalCase}WTO | null> {

@@ -135,14 +135,32 @@ import {
     OpusMagnumArticulusInteriorFormPartGroup
 } from "@app/opus-magnum/opus-magnum-form/opus-magnum-articulus-interior-form-part/opus-magnum-articulus-interior-form-part-group";
 /* @tt{{{   @end-foreach  }}}@ */
-/* @tt{{{   @ignore-text  }}}@ */
+/* @tt{{{
+    @foreach [ iteratorExpression="model.item.listReferencedEntities" loopVariable="listReferencedEntity" ]
+    @replace-value-by-expression
+        [ searchValue="EntitasRelata" replaceByExpression="listReferencedEntity.entityName.pascalCase" ]
+        [ searchValue="entitas-relata" replaceByExpression="listReferencedEntity.entityName.kebabCase" ]
+        [ searchValue="MembrumRelatum" replaceByExpression="listReferencedEntity.rootItem.itemName.pascalCase" ]
+        [ searchValue="membrum-relatum" replaceByExpression="listReferencedEntity.rootItem.itemName.kebabCase" ]
+
+}}}@  */
 import {
-    OpusMagnumMembrumRelatumReferenceTableComponent
-} from "@app/opus-magnum/opus-magnum-form/opus-magnum-membrum-relatum-reference-table/opus-magnum-membrum-relatum-reference-table.component";
+    EntitasRelataMembrumRelatumReferenceTableComponent
+} from "@app/entitas-relata/entitas-relata-membrum-relatum-reference-table/entitas-relata-membrum-relatum-reference-table.component";
+/* @tt{{{   @end-foreach  }}}@ */
+/* @tt{{{
+    @foreach [ iteratorExpression="model.item.singleReferencedEntities" loopVariable="singleReferencedEntity" ]
+    @replace-value-by-expression
+        [ searchValue="EntitasRelata" replaceByExpression="singleReferencedEntity.entityName.pascalCase" ]
+        [ searchValue="entitas-relata" replaceByExpression="singleReferencedEntity.entityName.kebabCase" ]
+        [ searchValue="MembrumRelatum" replaceByExpression="singleReferencedEntity.rootItem.itemName.pascalCase" ]
+        [ searchValue="membrum-relatum" replaceByExpression="singleReferencedEntity.rootItem.itemName.kebabCase" ]
+
+}}}@  */
 import {
-    OpusMagnumMembrumRelatumReferenceFieldComponent
-} from "@app/opus-magnum/opus-magnum-form/opus-magnum-membrum-relatum-reference-field/opus-magnum-membrum-relatum-reference-field.component";
-/* @tt{{{   @end-ignore-text  }}}@ */
+    EntitasRelataMembrumRelatumReferenceFieldComponent
+} from "@app/entitas-relata/entitas-relata-membrum-relatum-reference-field/entitas-relata-membrum-relatum-reference-field.component";
+/* @tt{{{   @end-foreach  }}}@ */
 
 @Component({
     selector: 'app-opus-magnum-silva-optionum-form-part',
@@ -225,6 +243,22 @@ import {
         SingleTextFormFieldTableComponent,
         /* @tt{{{   @end-if }}}@ */
         /* @tt{{{
+            @foreach [ iteratorExpression="model.item.listReferencedEntities" loopVariable="listReferencedEntity" ]
+            @replace-value-by-expression
+                [ searchValue="EntitasRelata" replaceByExpression="listReferencedEntity.entityName.pascalCase" ]
+                [ searchValue="MembrumRelatum" replaceByExpression="listReferencedEntity.rootItem.itemName.pascalCase" ]
+        }}}@ */
+        EntitasRelataMembrumRelatumReferenceTableComponent,
+        /* @tt{{{   @end-foreach  }}}@ */
+        /* @tt{{{
+            @foreach [ iteratorExpression="model.item.singleReferencedEntities" loopVariable="singleReferencedEntity" ]
+            @replace-value-by-expression
+                [ searchValue="EntitasRelata" replaceByExpression="singleReferencedEntity.entityName.pascalCase" ]
+                [ searchValue="MembrumRelatum" replaceByExpression="singleReferencedEntity.rootItem.itemName.pascalCase" ]
+        }}}@ */
+        EntitasRelataMembrumRelatumReferenceFieldComponent,
+        /* @tt{{{   @end-foreach  }}}@ */
+        /* @tt{{{
         @if [ conditionExpression="model.item.containsNumberListAttributes"]
         @print-text [ text="        SingleNumberFormFieldTableComponent,"]
         @end-if
@@ -234,8 +268,6 @@ import {
         }}}@ */
         /* @tt{{{   @ignore-text }}}@ */
         DatepickerInputComponent,
-        OpusMagnumMembrumRelatumReferenceTableComponent,
-        OpusMagnumMembrumRelatumReferenceFieldComponent,
         /* @tt{{{   @end-ignore-text }}}@ */
         /* @tt{{{
             @foreach [ iteratorExpression="model.item.attributesWithEnumType" loopVariable="attributeWithEnumType" ]

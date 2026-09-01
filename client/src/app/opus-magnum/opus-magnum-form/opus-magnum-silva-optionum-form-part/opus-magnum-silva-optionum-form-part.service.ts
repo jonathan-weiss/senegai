@@ -102,7 +102,7 @@ export class OpusMagnumSilvaOptionumFormPartService {
 
 
             }}}@  */
-            /* @tt{{{   @if [ conditionExpression="!attribute.isItem && !attribute.isList"]  }}}@ */
+            /* @tt{{{   @if [ conditionExpression="!attribute.isItem && !attribute.isList && !attribute.isEntityReference"]  }}}@ */
             [OpusMagnumSilvaOptionumFormPartFieldName.campusTextusOptionalis]: new FormControl<string>(
                 this.silvaOptionumFormInitialValueService.campusTextusOptionalisInitialValue(),
                 {
@@ -111,6 +111,20 @@ export class OpusMagnumSilvaOptionumFormPartService {
                 },
             ),
             /* @tt{{{   @end-if  }}}@ */
+            /* @tt{{{  @end-foreach  }}}@ */
+            /* @tt{{{
+                @foreach [ iteratorExpression="model.item.attributesWithEntityReference.filter { !it.isList }" loopVariable="referenceAttribute" ]
+
+                @replace-value-by-expression
+                    [ searchValue="relatioAdEntitatemOptionalis" replaceByExpression="referenceAttribute.attributeName.camelCase" ]
+
+            }}}@  */
+            [OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemOptionalis]: new FormControl<UUID | null>(
+                null,
+                {
+                    validators: this.silvaOptionumFormValidationService.validatorFunctions(OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemOptionalis)
+                },
+            ),
             /* @tt{{{  @end-foreach  }}}@ */
             /* @tt{{{
                 @foreach [ iteratorExpression="model.item.attributesWithItemType.filter { !it.isList }" loopVariable="attributeWithItemType" ]
@@ -171,12 +185,6 @@ export class OpusMagnumSilvaOptionumFormPartService {
                 [],
                 {
                     validators: this.silvaOptionumFormValidationService.validatorFunctions(OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemOptionalisIteratus)
-                },
-            ),
-            [OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemOptionalis]: new FormControl<UUID | null>(
-                null,
-                {
-                    validators: this.silvaOptionumFormValidationService.validatorFunctions(OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemOptionalis)
                 },
             ),
             [OpusMagnumSilvaOptionumFormPartFieldName.articulusInteriorSingularisOptionalis]: this.articulusInteriorFormPartService.createInitialArticulusInteriorForm(),
@@ -564,7 +572,9 @@ export class OpusMagnumSilvaOptionumFormPartService {
                 ? form.controls[OpusMagnumSilvaOptionumFormPartFieldName.campusTextusOptionalis].getRawValue()
                 : null,
             /* @tt{{{   @else  }}}@ */
-            campusTextusObligatorius: form.controls[OpusMagnumSilvaOptionumFormPartFieldName.campusTextusObligatorius].getRawValue(),
+            // the non-null assertion is only needed for a mandatory reference, whose control holds
+            // `null` until an entry is picked; for every other attribute it is a no-op
+            campusTextusObligatorius: form.controls[OpusMagnumSilvaOptionumFormPartFieldName.campusTextusObligatorius].getRawValue()!,
             /* @tt{{{   @end-if  }}}@ */
             /* @tt{{{  @end-foreach  }}}@ */
             /* @tt{{{   @ignore-text  }}}@ */

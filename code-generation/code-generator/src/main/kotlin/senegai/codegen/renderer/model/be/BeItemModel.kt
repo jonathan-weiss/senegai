@@ -33,8 +33,8 @@ data class BeItemModel(
     val attributesWithEntityReference: List<EntityReferenceBeAttributeModel> = attributes
         .filterIsInstance<EntityReferenceBeAttributeModel>()
 
-    /** All entities referenced by an attribute of this item, e.g. to render one repository per entity. */
-    val referencedEntities: List<BeEntityDescriptionModel> = attributesWithEntityReference
+    /** All entities referenced by an attribute of this item, e.g. to inject one example data fetcher per entity. */
+    val referencedEntities: List<BeReferencedEntityModel> = attributesWithEntityReference
         .map { it.referencedEntity }
         .distinct()
 
@@ -46,8 +46,13 @@ data class BeItemModel(
         .map { it.referencedItem }
         .distinct()
 
+    /**
+     * Entity references are left out: their example data is not generated but fetched from the
+     * already existing instances of the referenced entity.
+     */
     val exampleDataGeneratorConfigs: List<BeExampleDataGeneratorConfig> = attributes
         .filterIsInstance<BuiltInTypeBeAttributeModel>()
+        .filter { !it.isEntityReference }
         .map { it.exampleDataGeneratorConfig }
         .distinctBy { it.fullQualifiedName }
 

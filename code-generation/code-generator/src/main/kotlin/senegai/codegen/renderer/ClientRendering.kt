@@ -45,6 +45,7 @@ object ClientRendering {
             uiEntities.forEach { uiEntityModel ->
                 renderEntityBoard(uiEntityModel)
                 renderEntityForm(uiEntityModel)
+                renderEntityReference(uiEntityModel)
             }
         }
 
@@ -134,6 +135,37 @@ object ClientRendering {
                 EntityFormComponentHtmlRenderer,
                 EntityFormComponentScssRenderer,
                 EntityFormComponentTypescriptRenderer,
+            )
+
+            entityRenderer.forEach { renderer ->
+                writeFile(
+                    filePath = pathToGeneratedAngularFiles.resolve(renderer.filePath(uiEntityModel)),
+                    content = renderer.renderTemplate(uiEntityModel),
+                )
+            }
+        }
+
+        /**
+         * The components with which an attribute of another item references this entity: the
+         * typeahead that searches it and the field and table that show the picked references by
+         * their display attributes instead of the stored UUIDs. They are rendered for every
+         * entity, as any entity may be referenced.
+         */
+        private fun renderEntityReference(uiEntityModel: UiEntityModel) {
+            val entityRenderer: List<UiEntityRenderer> = listOf(
+                EntityReferenceDisplayRenderer,
+                EntityTypeaheadComponentHtmlRenderer,
+                EntityTypeaheadComponentScssRenderer,
+                EntityTypeaheadComponentTypescriptRenderer,
+                EntityReferenceFieldComponentHtmlRenderer,
+                EntityReferenceFieldComponentScssRenderer,
+                EntityReferenceFieldComponentTypescriptRenderer,
+                EntityReferenceTableComponentHtmlRenderer,
+                EntityReferenceTableComponentScssRenderer,
+                EntityReferenceTableComponentTypescriptRenderer,
+                EntityReferenceTableRowRenderer,
+                EntityByIdsCriteriaWtoRenderer,
+                EntityByIdsResultWtoRenderer,
             )
 
             entityRenderer.forEach { renderer ->

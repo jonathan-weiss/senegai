@@ -183,7 +183,7 @@ class EntityReferenceUiAttributeModel(
     isNullable: Boolean,
     isList: Boolean,
     customValidation: Boolean,
-    val referencedEntity: UiEntityDescriptionModel,
+    val referencedEntity: UiReferencedEntityModel,
 ) : BuiltInTypeUiAttributeModel(
     entity = entity,
     item = item,
@@ -195,6 +195,15 @@ class EntityReferenceUiAttributeModel(
 ) {
     override val isEntityReference: Boolean
         get() = true
+
+    /**
+     * A single reference holds `null` as long as nothing is picked, so that the required
+     * validator can complain instead of a nil UUID being sent to the backend. Inside a list
+     * every entry is a picked reference, therefore the entries themselves are never null.
+     */
+    override fun calculateAngularFormControlSingleType(): String {
+        return if (isList) "FormControl<UUID>" else "FormControl<UUID | null>"
+    }
 }
 
 class ItemUiIAttributeModel(

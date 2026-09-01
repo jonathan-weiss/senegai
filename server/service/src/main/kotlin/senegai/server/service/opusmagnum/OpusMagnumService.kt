@@ -29,6 +29,7 @@ package senegai.server.service.opusmagnum
 
 import org.springframework.stereotype.Service
 import senegai.server.service.bo.SilvaOptionumBO
+import senegai.server.service.bo.SilvaOptionumByIdsCriteriaBO
 import senegai.server.service.bo.SilvaOptionumSearchCriteriaBO
 import java.util.UUID
 
@@ -48,6 +49,9 @@ class OpusMagnumService(
 
     fun getSilvaOptionumById(indexUnicus: UUID): SilvaOptionumBO? =
         opusMagnumRepository.findById(indexUnicus)
+
+    fun getSilvaOptionumListByIds(criteria: SilvaOptionumByIdsCriteriaBO): List<SilvaOptionumBO> =
+        opusMagnumRepository.findByIds(criteria)
 
     fun searchSilvaOptionumList(searchCriteria: SilvaOptionumSearchCriteriaBO): List<SilvaOptionumBO> =
         opusMagnumRepository.search(searchCriteria)

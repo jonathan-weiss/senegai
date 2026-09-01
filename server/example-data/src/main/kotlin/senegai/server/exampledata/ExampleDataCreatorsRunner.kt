@@ -27,11 +27,11 @@ class ExampleDataCreatorsRunner(
      */
     fun createExampleData() {
         val dataContext = dataContextFactoryService.createContext()
-        // the order matters:
-        // opusMagnum has a reference to entitasRelata, so opusMagnum must create example data after entitasRelata
+        // the order matters: an entity that references another one can only pick an existing
+        // instance, so the referenced entity has to create its example data first
         entitasRelataExampleDataCreator.createExampleData(dataContext)
         opusMagnumExampleDataCreator.createExampleData(dataContext)
-        employeeExampleDataCreator.createExampleData(dataContext)
         employeeAddressExampleDataCreator.createExampleData(dataContext)
+        employeeExampleDataCreator.createExampleData(dataContext)
     }
 }
