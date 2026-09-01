@@ -17,6 +17,14 @@ sealed class UiAttributeModel(
     abstract val isBuiltIn: Boolean
     abstract val isEnum: Boolean
 
+    /**
+     * Whether this attribute references another entity by its identifier.
+     * Such an attribute is a [BuiltInType.UUID] in every layer, therefore it is
+     * also a built-in attribute ([isBuiltIn] is `true` as well).
+     */
+    open val isEntityReference: Boolean
+        get() = false
+
     val typescriptAttributeType: String
         get() = calculateAttributeTypeWithCardinality()
 
@@ -92,7 +100,7 @@ sealed class UiAttributeModel(
 }
 
 
-class BuiltInTypeUiAttributeModel(
+open class BuiltInTypeUiAttributeModel(
     entity: UiEntityDescriptionModel,
     item: UiItemDescriptionModel,
     attributeName: NameCase,
@@ -157,6 +165,36 @@ class BuiltInTypeUiAttributeModel(
         }
     }
 
+}
+
+/**
+ * An attribute that references another entity by its identifying attribute.
+ *
+ * The referenced entity is always identified by a [BuiltInType.UUID], therefore this attribute
+ * behaves exactly like a built-in UUID attribute in the form and in the transport layer. What
+ * distinguishes it is [referencedEntity]: it tells the templates which entity has to be
+ * searched and resolved to display the reference by its identifying attributes instead of
+ * displaying the raw UUID.
+ */
+class EntityReferenceUiAttributeModel(
+    entity: UiEntityDescriptionModel,
+    item: UiItemDescriptionModel,
+    attributeName: NameCase,
+    isNullable: Boolean,
+    isList: Boolean,
+    customValidation: Boolean,
+    val referencedEntity: UiEntityDescriptionModel,
+) : BuiltInTypeUiAttributeModel(
+    entity = entity,
+    item = item,
+    attributeName = attributeName,
+    isNullable = isNullable,
+    isList = isList,
+    customValidation = customValidation,
+    builtInType = BuiltInType.UUID,
+) {
+    override val isEntityReference: Boolean
+        get() = true
 }
 
 class ItemUiIAttributeModel(

@@ -1,6 +1,5 @@
 package senegai.codegen.renderer.converter
 
-import senegai.codegen.renderer.NotSupportedInTemplateException
 import senegai.codegen.renderer.model.NameCase
 import senegai.codegen.renderer.model.SchemaModel
 import senegai.codegen.renderer.model.be.BeAttributeModel
@@ -12,9 +11,11 @@ import senegai.codegen.renderer.model.be.BeItemDescriptionModel
 import senegai.codegen.renderer.model.be.BeItemModel
 import senegai.codegen.renderer.model.be.BeModel
 import senegai.codegen.renderer.model.be.BuiltInTypeBeAttributeModel
+import senegai.codegen.renderer.model.be.EntityReferenceBeAttributeModel
 import senegai.codegen.renderer.model.be.EnumBeAttributeModel
 import senegai.codegen.renderer.model.be.ItemBeIAttributeModel
 import senegai.codegen.renderer.model.ui.BuiltInTypeUiAttributeModel
+import senegai.codegen.renderer.model.ui.EntityReferenceUiAttributeModel
 import senegai.codegen.renderer.model.ui.EnumUiAttributeModel
 import senegai.codegen.renderer.model.ui.ItemUiIAttributeModel
 import senegai.codegen.renderer.model.ui.UiEntityDescriptionModel
@@ -80,14 +81,14 @@ object RendererModelConverter {
     }
 
     private fun SchemaData.allUiItemModels(entity: UiEntityDescriptionModel): List<UiItemModel> {
-        return items.map { item -> mapUiItemModel(entity, item, enums) }
+        return items.map { item -> mapUiItemModel(entity, item, enums, entities) }
     }
 
-    private fun mapUiItemModel(entity: UiEntityDescriptionModel, item: Item, enums: List<EnumType>): UiItemModel {
+    private fun mapUiItemModel(entity: UiEntityDescriptionModel, item: Item, enums: List<EnumType>, entities: List<Entity>): UiItemModel {
         val itemDescription = toUiItemDescriptionModel(item.itemId)
         return UiItemModel(
             itemDescription = toUiItemDescriptionModel(item.itemId),
-            attributes = item.attributes.map { mapUiItemAttribute(entity, itemDescription, it, enums) }
+            attributes = item.attributes.map { mapUiItemAttribute(entity, itemDescription, it, enums, entities) }
         )
     }
 
@@ -102,7 +103,8 @@ object RendererModelConverter {
         entity: UiEntityDescriptionModel,
         item: UiItemDescriptionModel,
         itemAttribute: ItemAttribute,
-        enums: List<EnumType>
+        enums: List<EnumType>,
+        entities: List<Entity>,
     ): UiAttributeModel {
         val itemAttributeType = itemAttribute.type
         val attributeName = NameCase(itemAttribute.attributeName)
@@ -117,7 +119,15 @@ object RendererModelConverter {
                 customValidation = itemAttribute.customValidation,
                 builtInType = itemAttributeType,
             )
-            is EntityId -> throw NotSupportedInTemplateException("EntityId as attribute type is not supported in $itemAttributeType")
+            is EntityId -> EntityReferenceUiAttributeModel(
+                entity = entity,
+                item = item,
+                attributeName = attributeName,
+                isNullable = itemAttribute.isNullable,
+                isList = itemAttribute.isMultiple,
+                customValidation = itemAttribute.customValidation,
+                referencedEntity = referencedEntity(itemAttributeType, entities).toUiEntityDescriptionModel(),
+            )
             is EnumId -> {
                 val enumType = enums.singleOrNull { it.enumId == itemAttributeType }
                     ?: throw NoSuchElementException("EnumType ${itemAttributeType.enumName} not found in schema enums")
@@ -142,20 +152,29 @@ object RendererModelConverter {
         }
     }
 
+    /**
+     * The entity an attribute of type [EntityId] refers to. The referenced entity must be
+     * declared in the same schema, otherwise the reference could never be resolved.
+     */
+    private fun referencedEntity(entityId: EntityId, entities: List<Entity>): Entity {
+        return entities.singleOrNull { it.entityId == entityId }
+            ?: throw NoSuchElementException("Entity ${entityId.entityName} not found in schema entities")
+    }
+
     private fun Entity.toBeEntityDescriptionModel(): BeEntityDescriptionModel {
         return BeEntityDescriptionModel(entityId, NameCase(entityName))
     }
 
     private fun SchemaData.allBeItemModels(entity: BeEntityDescriptionModel): List<BeItemModel> {
-        return items.map { item -> mapBeItemModel(entity, item, enums) }
+        return items.map { item -> mapBeItemModel(entity, item, enums, entities) }
     }
 
-    private fun mapBeItemModel(entity: BeEntityDescriptionModel, item: Item, enums: List<EnumType>): BeItemModel {
+    private fun mapBeItemModel(entity: BeEntityDescriptionModel, item: Item, enums: List<EnumType>, entities: List<Entity>): BeItemModel {
         val itemDescription = toBeItemDescriptionModel(item.itemId)
         return BeItemModel(
             entityName = entity.entityName,
             itemDescription = itemDescription,
-            attributes = item.attributes.map { mapBeItemAttribute(entity, itemDescription, it, enums) }
+            attributes = item.attributes.map { mapBeItemAttribute(entity, itemDescription, it, enums, entities) }
         )
     }
 
@@ -170,7 +189,8 @@ object RendererModelConverter {
         entity: BeEntityDescriptionModel,
         item: BeItemDescriptionModel,
         itemAttribute: ItemAttribute,
-        enums: List<EnumType>
+        enums: List<EnumType>,
+        entities: List<Entity>,
     ): BeAttributeModel {
         val itemAttributeType = itemAttribute.type
         val attributeName = NameCase(itemAttribute.attributeName)
@@ -186,7 +206,15 @@ object RendererModelConverter {
                 builtInType = itemAttributeType,
                 exampleDataGeneratorConfig = toExampleDataGeneratorConfig(item, itemAttribute)
             )
-            is EntityId -> throw NotSupportedInTemplateException("EntityId as attribute type is not supported in $itemAttributeType")
+            is EntityId -> EntityReferenceBeAttributeModel(
+                entity = entity,
+                item = item,
+                attributeName = attributeName,
+                isNullable = itemAttribute.isNullable,
+                isList = itemAttribute.isMultiple,
+                customValidation = itemAttribute.customValidation,
+                referencedEntity = referencedEntity(itemAttributeType, entities).toBeEntityDescriptionModel(),
+            )
             is EnumId -> {
                 val enumType = enums.singleOrNull { it.enumId == itemAttributeType }
                     ?: throw NoSuchElementException("EnumType ${itemAttributeType.enumName} not found in schema enums")

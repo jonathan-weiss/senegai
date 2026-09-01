@@ -28,6 +28,18 @@ data class UiItemModel(
     val attributesWithEnumType: List<EnumUiAttributeModel> = attributes
         .filterIsInstance<EnumUiAttributeModel>()
 
+    /**
+     * All attributes referencing another entity. They are a subset of the built-in UUID
+     * attributes, as a reference is transported as the UUID of the referenced entity.
+     */
+    val attributesWithEntityReference: List<EntityReferenceUiAttributeModel> = attributes
+        .filterIsInstance<EntityReferenceUiAttributeModel>()
+
+    /** All entities referenced by an attribute of this item, e.g. to render one search service per entity. */
+    val referencedEntities: List<UiEntityDescriptionModel> = attributesWithEntityReference
+        .map { it.referencedEntity }
+        .distinct()
+
     val builtInTypeAndEnumAttributes: List<UiAttributeModel> = attributes
         .filter { it.isBuiltIn || it.isEnum }
 

@@ -3,6 +3,7 @@ package senegai.codegen.sourceamazing.builders
 import org.codeblessing.sourceamazing.builder.api.annotations.*
 import senegai.model.builders.ItemDsl
 import senegai.model.schema.BuiltInType
+import senegai.model.schema.EntityId
 import senegai.model.schema.EnumId
 import senegai.model.schema.ExampleDataCategory
 import senegai.model.schema.Item
@@ -56,6 +57,22 @@ interface ItemBuilder: ItemDsl {
         name: String,
         @SetAsValue(alias = "itemAttribute", clazzProperty = "type")
         enumId: EnumId,
+        @SetAsValue(alias = "itemAttribute", clazzProperty = "isNullable")
+        nullable: Boolean,
+        @SetAsValue(alias = "itemAttribute", clazzProperty = "isMultiple")
+        multiple: Boolean,
+        @SetAsValue(alias = "itemAttribute", clazzProperty = "customValidation")
+        customValidation: Boolean,
+    )
+
+    @BuilderMethod
+    @NewClazzModel(clazz = ItemAttribute::class, alias = "itemAttribute")
+    @SetClazzModelOfAlias(alias = "item", clazzProperty = "attributes", referencedAlias = "itemAttribute")
+    override fun attribute(
+        @SetAsValue(alias = "itemAttribute", clazzProperty = "attributeName")
+        name: String,
+        @SetAsValue(alias = "itemAttribute", clazzProperty = "type")
+        entityId: EntityId,
         @SetAsValue(alias = "itemAttribute", clazzProperty = "isNullable")
         nullable: Boolean,
         @SetAsValue(alias = "itemAttribute", clazzProperty = "isMultiple")

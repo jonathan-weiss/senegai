@@ -26,6 +26,18 @@ data class BeItemModel(
     val builtInAttributes: List<BuiltInTypeBeAttributeModel> = attributes
         .filterIsInstance<BuiltInTypeBeAttributeModel>()
 
+    /**
+     * All attributes referencing another entity. They are a subset of [builtInAttributes],
+     * as a reference is transported as the UUID of the referenced entity.
+     */
+    val attributesWithEntityReference: List<EntityReferenceBeAttributeModel> = attributes
+        .filterIsInstance<EntityReferenceBeAttributeModel>()
+
+    /** All entities referenced by an attribute of this item, e.g. to render one repository per entity. */
+    val referencedEntities: List<BeEntityDescriptionModel> = attributesWithEntityReference
+        .map { it.referencedEntity }
+        .distinct()
+
     val builtInTypeAndEnumAttributes: List<BeAttributeModel> = attributes
         .filter { it.isBuiltIn || it.isEnum }
 

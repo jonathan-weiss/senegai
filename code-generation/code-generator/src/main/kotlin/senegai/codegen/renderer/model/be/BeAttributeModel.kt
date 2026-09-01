@@ -3,6 +3,7 @@ package senegai.codegen.renderer.model.be
 import senegai.codegen.renderer.model.NameCase
 import senegai.model.schema.BuiltInType
 import senegai.model.schema.EnumId
+import senegai.model.schema.ExampleDataCategory
 
 sealed class BeAttributeModel(
     val entity: BeEntityDescriptionModel,
@@ -15,6 +16,14 @@ sealed class BeAttributeModel(
     abstract val isItem: Boolean
     abstract val isBuiltIn: Boolean
     abstract val isEnum: Boolean
+
+    /**
+     * Whether this attribute references another entity by its identifier.
+     * Such an attribute is a [BuiltInType.UUID] in every layer, therefore it is
+     * also a built-in attribute ([isBuiltIn] is `true` as well).
+     */
+    open val isEntityReference: Boolean
+        get() = false
 
     /**
      * The example-data creator call to obtain a value for this attribute, respecting its cardinality:
@@ -86,7 +95,7 @@ sealed class BeAttributeModel(
 }
 
 
-class BuiltInTypeBeAttributeModel(
+open class BuiltInTypeBeAttributeModel(
     entity: BeEntityDescriptionModel,
     item: BeItemDescriptionModel,
     attributeName: NameCase,
@@ -135,6 +144,48 @@ class BuiltInTypeBeAttributeModel(
             BuiltInType.BOOLEAN -> "boolean"
             BuiltInType.UUID -> "UUID"
         }
+}
+
+/**
+ * An attribute that references another entity by its identifying attribute.
+ *
+ * The referenced entity is always identified by a [BuiltInType.UUID], therefore this attribute
+ * behaves exactly like a built-in UUID attribute in the business objects and in the transport
+ * layer. What distinguishes it is [referencedEntity]: it tells the templates which entity has to
+ * be searched and resolved to display the reference by its identifying attributes instead of
+ * displaying the raw UUID.
+ */
+class EntityReferenceBeAttributeModel(
+    entity: BeEntityDescriptionModel,
+    item: BeItemDescriptionModel,
+    attributeName: NameCase,
+    isNullable: Boolean,
+    isList: Boolean,
+    customValidation: Boolean,
+    val referencedEntity: BeEntityDescriptionModel,
+) : BuiltInTypeBeAttributeModel(
+    entity = entity,
+    item = item,
+    attributeName = attributeName,
+    isNullable = isNullable,
+    isList = isList,
+    customValidation = customValidation,
+    builtInType = BuiltInType.UUID,
+    // Example data is a random UUID for now; resolving it to a really existing entity
+    // is up to the templates that know how to fetch the referenced entities.
+    exampleDataGeneratorConfig = randomUuidExampleDataGeneratorConfig(isNullable = isNullable, isList = isList),
+) {
+    override val isEntityReference: Boolean
+        get() = true
+
+    private companion object {
+        private fun randomUuidExampleDataGeneratorConfig(isNullable: Boolean, isList: Boolean) =
+            BeExampleDataGeneratorConfig(
+                generatorNamePrefix = NameCase(ExampleDataCategory.RANDOM_UUID.generatorPrefixName),
+                isNullable = isNullable,
+                numberOfEntries = if (isList) 3 else 1,
+            )
+    }
 }
 
 class ItemBeIAttributeModel(

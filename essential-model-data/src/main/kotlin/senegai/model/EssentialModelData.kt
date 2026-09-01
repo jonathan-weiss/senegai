@@ -76,6 +76,8 @@ object EssentialModelData {
                 attribute(name = "otherAddresses", itemId = Items.ADDRESS, nullable = true, multiple = true)
                 attribute(name = "allKnownPinNumbers", type = BuiltInType.NUMBER, nullable = true, multiple = true)
                 attribute(name = "allContactTypes", enumId = EnumTypes.CONTACT_TYPE, nullable = true, multiple = true)
+                attribute(name = "myReferenceToEmployee", entityId = Entities.EMPLOYEE, nullable = false, multiple = false)
+                attribute(name = "myReferencesToEmployeeAddresses", entityId = Entities.EMPLOYEE_ADDRESS, nullable = true, multiple = true)
             }
 
             item(itemId = Items.ADDRESS) {
@@ -119,6 +121,9 @@ object EssentialModelData {
                                     attribute(attributeName = "contactAddress")
                                     attribute(attributeName = "allKnownPinNumbers")
                                     attribute(attributeName = "allContactTypes")
+                                    section(sectionName = "References to other entities")
+                                    attribute(attributeName = "myReferenceToEmployee")
+                                    attribute(attributeName = "myReferencesToEmployeeAddresses")
                                 }
                             }
                             tab(tabName = "Miscellaneous") {
