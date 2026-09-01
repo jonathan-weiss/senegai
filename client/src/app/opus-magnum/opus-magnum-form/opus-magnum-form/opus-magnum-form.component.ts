@@ -46,6 +46,9 @@ import {OpusMagnumSilvaOptionumFormPartComponent} from "@app/opus-magnum/opus-ma
 import {
     OpusMagnumSilvaOptionumFormPartGroup
 } from "@app/opus-magnum/opus-magnum-form/opus-magnum-silva-optionum-form-part/opus-magnum-silva-optionum-form-part-group";
+import {
+    FormValidationSummaryComponent
+} from "@app/shared/form-controls/form-validation-summary/form-validation-summary.component";
 
 @Component({
     selector: 'app-opus-magnum-form',
@@ -65,6 +68,7 @@ import {
         MatListModule,
         MatDialogModule,
         OpusMagnumSilvaOptionumFormPartComponent,
+        FormValidationSummaryComponent,
     ]
 })
 export class OpusMagnumFormComponent implements OnInit {

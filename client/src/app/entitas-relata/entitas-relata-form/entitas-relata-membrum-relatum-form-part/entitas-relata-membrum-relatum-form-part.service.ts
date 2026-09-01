@@ -10,6 +10,9 @@ import {
 } from "@app/entitas-relata/entitas-relata-form/entitas-relata-membrum-relatum-form-part/entitas-relata-membrum-relatum-form-part-initial-value.service";
 import {EntitasRelataMembrumRelatumFormPartGroup} from "@app/entitas-relata/entitas-relata-form/entitas-relata-membrum-relatum-form-part/entitas-relata-membrum-relatum-form-part-group";
 import {EntitasRelataMembrumRelatumFormPartFieldName} from "@app/entitas-relata/entitas-relata-form/entitas-relata-membrum-relatum-form-part/entitas-relata-membrum-relatum-form-part-field-name";
+import {
+    registerFormPartValidationTranslations
+} from "@app/shared/form-controls/form-part-validation-translations";
 import {UUID} from "@app/shared/uuid";
 
 
@@ -23,7 +26,7 @@ export class EntitasRelataMembrumRelatumFormPartService {
     ) {}
 
     public createInitialMembrumRelatumForm(): FormGroup<EntitasRelataMembrumRelatumFormPartGroup> {
-        return new FormGroup({
+        const membrumRelatumForm = new FormGroup({
             [EntitasRelataMembrumRelatumFormPartFieldName.clavisPrimaria]: new FormControl<UUID>(
                 this.membrumRelatumFormInitialValueService.clavisPrimariaInitialValue(),
                 {
@@ -40,6 +43,7 @@ export class EntitasRelataMembrumRelatumFormPartService {
             ),
 
         });
+        return registerFormPartValidationTranslations(membrumRelatumForm, this.membrumRelatumFormValidationService);
     }
 
 

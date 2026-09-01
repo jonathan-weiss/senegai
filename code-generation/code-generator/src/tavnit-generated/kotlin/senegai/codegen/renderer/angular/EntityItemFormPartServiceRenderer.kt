@@ -28,6 +28,9 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
           |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part-initial-value.service";
           |import {${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartGroup} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part-group";
           |import {${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part-field-name";
+          |import {
+          |    registerFormPartValidationTranslations
+          |} from "@app/shared/form-controls/form-part-validation-translations";
           |${ if(model.item.containsUuidAttributes) { """import {UUID} from "@app/shared/uuid";
               |""" } else { """""" } }
           |${ model.item.usedEnums.joinToString("") { usedEnum ->  """import {${usedEnum.enumName.pascalCase}Enum} from "@app/wto/${usedEnum.enumName.kebabCase}.enum";
@@ -46,7 +49,7 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
               |""" } }    ) {}
           |
           |    public createInitial${model.item.itemName.pascalCase}Form(): FormGroup<${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartGroup> {
-          |        return new FormGroup({
+          |        const ${model.item.itemName.camelCase}Form = new FormGroup({
           |${ model.item.attributes.joinToString("") { attribute ->  """${ if(!attribute.isItem && !attribute.isList && !attribute.isEntityReference) { """            [${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}]: new ${attribute.angularFormControlType}(
                   |                this.${model.item.itemName.camelCase}FormInitialValueService.${attribute.attributeName.camelCase}InitialValue(),
                   |                {
@@ -82,6 +85,7 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
                   |            ),
                   |""" } else { """""" } }""" } }
           |        });
+          |        return registerFormPartValidationTranslations(${model.item.itemName.camelCase}Form, this.${model.item.itemName.camelCase}FormValidationService);
           |    }
           |
           |${ model.item.builtInTypeAndEnumAttributes.filter { it.isList }.joinToString("") { attribute ->  """    public createInitial${attribute.attributeName.pascalCase}Form(): ${attribute.angularFormControlType} {

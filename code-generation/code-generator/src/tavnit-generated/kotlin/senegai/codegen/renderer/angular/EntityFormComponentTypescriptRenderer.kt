@@ -35,6 +35,9 @@ object EntityFormComponentTypescriptRenderer : UiEntityRenderer {
           |import {
           |    ${model.entityName.pascalCase}${model.entityRootItem.itemName.pascalCase}FormPartGroup
           |} from "@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}-form/${model.entityName.kebabCase}-${model.entityRootItem.itemName.kebabCase}-form-part/${model.entityName.kebabCase}-${model.entityRootItem.itemName.kebabCase}-form-part-group";
+          |import {
+          |    FormValidationSummaryComponent
+          |} from "@app/shared/form-controls/form-validation-summary/form-validation-summary.component";
           |
           |@Component({
           |    selector: 'app-${model.entityName.kebabCase}-form',
@@ -54,6 +57,7 @@ object EntityFormComponentTypescriptRenderer : UiEntityRenderer {
           |        MatListModule,
           |        MatDialogModule,
           |        ${model.entityName.pascalCase}${model.entityRootItem.itemName.pascalCase}FormPartComponent,
+          |        FormValidationSummaryComponent,
           |    ]
           |})
           |export class ${model.entityName.pascalCase}FormComponent implements OnInit {

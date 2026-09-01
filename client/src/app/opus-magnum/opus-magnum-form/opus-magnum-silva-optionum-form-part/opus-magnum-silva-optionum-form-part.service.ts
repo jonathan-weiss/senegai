@@ -38,6 +38,9 @@ import {
 } from "@app/opus-magnum/opus-magnum-form/opus-magnum-silva-optionum-form-part/opus-magnum-silva-optionum-form-part-initial-value.service";
 import {OpusMagnumSilvaOptionumFormPartGroup} from "@app/opus-magnum/opus-magnum-form/opus-magnum-silva-optionum-form-part/opus-magnum-silva-optionum-form-part-group";
 import {OpusMagnumSilvaOptionumFormPartFieldName} from "@app/opus-magnum/opus-magnum-form/opus-magnum-silva-optionum-form-part/opus-magnum-silva-optionum-form-part-field-name";
+import {
+    registerFormPartValidationTranslations
+} from "@app/shared/form-controls/form-part-validation-translations";
 /* @tt{{{   @if [ conditionExpression="model.item.containsUuidAttributes"]  }}}@ */
 import {UUID} from "@app/shared/uuid";
 /* @tt{{{   @end-if  }}}@ */
@@ -83,7 +86,7 @@ export class OpusMagnumSilvaOptionumFormPartService {
     ) {}
 
     public createInitialSilvaOptionumForm(): FormGroup<OpusMagnumSilvaOptionumFormPartGroup> {
-        return new FormGroup({
+        const silvaOptionumForm = new FormGroup({
             /* @tt{{{   @ignore-text  }}}@ */
             [OpusMagnumSilvaOptionumFormPartFieldName.campusTextusObligatorius]: new FormControl<string>(
                 this.silvaOptionumFormInitialValueService.campusTextusObligatoriusInitialValue(),
@@ -288,6 +291,7 @@ export class OpusMagnumSilvaOptionumFormPartService {
             /* @tt{{{   @end-ignore-text  }}}@ */
 
         });
+        return registerFormPartValidationTranslations(silvaOptionumForm, this.silvaOptionumFormValidationService);
     }
 
     /* @tt{{{

@@ -16,6 +16,7 @@
   "opusMagnum.board.title": "Opus Magnum Masterpiece",
   "enum.appellatioComis.VIR_HONORATUS": "Gentleman",
   "enum.appellatioComis.FEMINA_HONESTA": "Lady",
+  "form.validationSummary.title": "Please correct the following validation errors:",
   "validator.required": "This field is required",
   "validator.minlength": "This field requires at least {{ minimalLength }} characters",
   "validator.maxlength": "This field allows at most {{ maximalLength }} characters",

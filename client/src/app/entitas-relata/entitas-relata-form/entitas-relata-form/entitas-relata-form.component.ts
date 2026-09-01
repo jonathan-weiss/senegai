@@ -17,6 +17,9 @@ import {EntitasRelataMembrumRelatumFormPartComponent} from "@app/entitas-relata/
 import {
     EntitasRelataMembrumRelatumFormPartGroup
 } from "@app/entitas-relata/entitas-relata-form/entitas-relata-membrum-relatum-form-part/entitas-relata-membrum-relatum-form-part-group";
+import {
+    FormValidationSummaryComponent
+} from "@app/shared/form-controls/form-validation-summary/form-validation-summary.component";
 
 @Component({
     selector: 'app-entitas-relata-form',
@@ -36,6 +39,7 @@ import {
         MatListModule,
         MatDialogModule,
         EntitasRelataMembrumRelatumFormPartComponent,
+        FormValidationSummaryComponent,
     ]
 })
 export class EntitasRelataFormComponent implements OnInit {

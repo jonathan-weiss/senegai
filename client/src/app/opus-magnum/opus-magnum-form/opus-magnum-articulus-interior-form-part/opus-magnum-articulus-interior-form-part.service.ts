@@ -13,6 +13,9 @@ import {
 import {
     OpusMagnumArticulusInteriorFormPartFieldName
 } from "@app/opus-magnum/opus-magnum-form/opus-magnum-articulus-interior-form-part/opus-magnum-articulus-interior-form-part-field-name";
+import {
+    registerFormPartValidationTranslations
+} from "@app/shared/form-controls/form-part-validation-translations";
 
 
 @Injectable({providedIn: 'root'})
@@ -24,7 +27,7 @@ export class OpusMagnumArticulusInteriorFormPartService {
     ) {}
 
     public createInitialArticulusInteriorForm(): FormGroup<OpusMagnumArticulusInteriorFormPartGroup> {
-        return new FormGroup({
+        const articulusInteriorForm = new FormGroup({
             [OpusMagnumArticulusInteriorFormPartFieldName.scriptumTriviale]: new FormControl<string>(
                 this.articulusInteriorFormInitialValueService.scriptumTrivialeInitialValue(),
                 {
@@ -40,6 +43,7 @@ export class OpusMagnumArticulusInteriorFormPartService {
                 },
             ),
         });
+        return registerFormPartValidationTranslations(articulusInteriorForm, this.articulusInteriorFormValidationService);
     }
 
     public patchArticulusInteriorForm(form: FormGroup<OpusMagnumArticulusInteriorFormPartGroup>, articulusInterior: ArticulusInteriorWTO): void {
