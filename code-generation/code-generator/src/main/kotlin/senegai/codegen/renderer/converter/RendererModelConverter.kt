@@ -308,6 +308,7 @@ object RendererModelConverter {
             entityRootItem = entityRootItem,
             entityItemModels = allUiItemModels.filter { it.itemId in entityItemModelIds },
             entityEnumTypes = allUiEnumModels, // TODO filter for only the enums used in this UiEntity
+            searchResultAttributes = mapSearchResultAttributes(uiEntity, entityRootItem),
         )
 
         val uiEntityItems = uiEntity.editorView.itemConfiguration.map { itemConfiguration ->
@@ -340,6 +341,17 @@ object RendererModelConverter {
                 entityItems = uiEntityItems,
             )
         )
+    }
+
+    private fun mapSearchResultAttributes(uiEntity: UiEntity, entityRootItem: UiItemModel): List<UiAttributeModel> {
+        return uiEntity.searchResultView.attributeNames.map { attributeName ->
+            entityRootItem.attributes.singleOrNull { it.attributeName.isEqual(attributeName) }
+                ?: throw NoSuchElementException(
+                    "The search result of the UiEntity '${uiEntity.uiEntityName}' declares the attribute " +
+                            "'$attributeName', but the item '${entityRootItem.itemName.pascalCase}' has no such " +
+                            "attribute. Available are ${entityRootItem.attributes.map { it.attributeName.camelCase }}."
+                )
+        }
     }
 
     private fun mapUiEntityTab(uiEntityModel: UiEntityModel, uiItemModel: UiItemModel, tab: UiEntityEditorTab): UiEntityFormViewTabModel {

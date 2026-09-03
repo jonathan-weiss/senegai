@@ -89,6 +89,12 @@ object EssentialModelData {
         schema {
             uiEntity(uiEntityName = "Contact", rootItemId = Items.CONTACT) {
                 views {
+                    searchResult {
+                        attribute(attributeName = "firstname")
+                        attribute(attributeName = "lastname")
+                        attribute(attributeName = "age")
+                        attribute(attributeName = "vegetarian")
+                    }
                     editor {
                         configureEditorForMainItem {
                             tab(tabTranslationKey = "tab.common") {
@@ -155,6 +161,11 @@ object EssentialModelData {
             }
             uiEntity(uiEntityName = "Address", rootItemId = Items.ADDRESS) {
                 views {
+                    searchResult {
+                        attribute(attributeName = "street")
+                        attribute(attributeName = "postalCode")
+                        attribute(attributeName = "town")
+                    }
                     editor {
                         configureEditorForMainItem {
                             tab(tabTranslationKey = "tab.address") {

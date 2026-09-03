@@ -10,6 +10,20 @@ interface UiEntityDsl {
 @MainDslMarker
 interface UiViewsDsl {
     fun editor(builder: UiEditorDsl.() -> Unit)
+
+    /**
+     * Declares the columns of the search result table, see [UiSearchResultDsl].
+     */
+    fun searchResult(builder: UiSearchResultDsl.() -> Unit)
+}
+
+/**
+ * Declares which attributes of the main item are shown as the columns of the
+ * search result table, in the order they are declared here.
+ */
+@MainDslMarker
+interface UiSearchResultDsl {
+    fun attribute(attributeName: String)
 }
 
 @MainDslMarker

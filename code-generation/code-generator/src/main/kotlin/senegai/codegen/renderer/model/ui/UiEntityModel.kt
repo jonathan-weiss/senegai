@@ -12,6 +12,12 @@ data class UiEntityModel(
     val entityRootItem: UiItemModel,
     val entityItemModels: List<UiItemModel>,
     val entityEnumTypes: List<UiEnumModel>,
+    /**
+     * The attributes shown as the columns of the search result table, in the order
+     * declared in the `searchResult` section of the UiEntity. They are always attributes
+     * of the [entityRootItem].
+     */
+    val searchResultAttributes: List<UiAttributeModel>,
 ) {
     /**
      * The attribute of the [entityRootItem] that identifies it, e.g. for the route
@@ -19,8 +25,6 @@ data class UiEntityModel(
      * because a UiEntity can only be built on a root item with a primary key.
      */
     val idAttribute: UiAttributeModel = entityRootItem.primaryKeyAttribute
-
-    val searchResultAttributes: List<UiAttributeModel> = entityRootItem.searchResultAttributes
 
     /** See [UiItemModel.displayAttributes]. */
     val displayAttributes: List<UiAttributeModel> = entityRootItem.displayAttributes

@@ -28,8 +28,6 @@ data class UiItemModel(
             "The item '${itemName.pascalCase}' declares no primary key."
         }
 
-    val searchResultAttributes: List<UiAttributeModel> = attributes
-
     /**
      * The attributes that identify one instance of this item for a human reader, shown
      * next to the [idAttribute] wherever a reference to this item is rendered. A reference

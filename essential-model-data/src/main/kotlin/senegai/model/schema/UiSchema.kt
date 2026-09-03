@@ -8,7 +8,16 @@ package senegai.model.schema
 data class UiEntity(
     val uiEntityName: String,
     val rootItem: Item,
-    val editorView: UiEntityEditorView
+    val editorView: UiEntityEditorView,
+    val searchResultView: UiEntitySearchResultView,
+)
+
+/**
+ * The columns of the search result table of a [UiEntity], declared as the names of the
+ * attributes of its [UiEntity.rootItem] in the order they are shown.
+ */
+data class UiEntitySearchResultView(
+    val attributeNames: List<String>,
 )
 
 data class UiEntityEditorView(
