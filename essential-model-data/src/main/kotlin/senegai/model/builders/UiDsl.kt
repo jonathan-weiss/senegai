@@ -9,6 +9,16 @@ interface UiItemDsl {
      * see [UiDisplayAttributesDsl].
      */
     fun displayAttributes(builder: UiDisplayAttributesDsl.() -> Unit)
+
+    /**
+     * Declares the editor of this item that is used wherever the item is edited as a nested
+     * item of an editor, so that the same configuration does not have to be repeated in
+     * every [UiEntityDsl] the item appears in.
+     *
+     * An editor that declares its own [UiEditorDsl.configureEditorForNestedItem] for this
+     * item uses that one instead of this default.
+     */
+    fun configureEditorForNestedItemDefault(builder: UiEditorForNestedItemDsl.() -> Unit)
 }
 
 /**

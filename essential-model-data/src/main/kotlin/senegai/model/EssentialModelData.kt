@@ -98,10 +98,25 @@ object EssentialModelData {
                     attribute(attributeName = "Street")
                     attribute(attributeName = "Town")
                 }
+                configureEditorForNestedItemDefault {
+                    column {
+                        attribute(attributeName = "Id")
+                        attribute(attributeName = "Street")
+                        attribute(attributeName = "PostalCode")
+                        attribute(attributeName = "Town")
+                        attribute(attributeName = "Country")
+                    }
+                }
             }
             uiItem(itemId = Items.COUNTRY) {
                 displayAttributes {
                     attribute(attributeName = "CountryName")
+                }
+                configureEditorForNestedItemDefault {
+                    column {
+                        attribute(attributeName = "CountryIsoCode")
+                        attribute(attributeName = "CountryName")
+                    }
                 }
             }
 
@@ -167,21 +182,6 @@ object EssentialModelData {
                                 }
                             }
                         }
-                        configureEditorForNestedItem(itemId = Items.ADDRESS) {
-                            column {
-                                attribute(attributeName = "Id")
-                                attribute(attributeName = "Street")
-                                attribute(attributeName = "PostalCode")
-                                attribute(attributeName = "Town")
-                                attribute(attributeName = "Country")
-                            }
-                        }
-                        configureEditorForNestedItem(itemId = Items.COUNTRY) {
-                            column {
-                                attribute(attributeName = "CountryIsoCode")
-                                attribute(attributeName = "CountryName")
-                            }
-                        }
                     }
                 }
             }
@@ -212,12 +212,6 @@ object EssentialModelData {
                                 attribute(attributeName = "PostalCode")
                                 attribute(attributeName = "Town")
                                 attribute(attributeName = "Country")
-                            }
-                        }
-                        configureEditorForNestedItem(itemId = Items.COUNTRY) {
-                            column {
-                                attribute(attributeName = "CountryIsoCode")
-                                attribute(attributeName = "CountryName")
                             }
                         }
                     }

@@ -44,6 +44,7 @@ import senegai.model.schema.SchemaData
 import senegai.model.schema.UiBlock
 import senegai.model.schema.UiEntity
 import senegai.model.schema.UiEntityEditorColumn
+import senegai.model.schema.UiEntityEditorItemConfiguration
 import senegai.model.schema.UiEntityEditorRootItemConfiguration
 import senegai.model.schema.UiEntityEditorEntityNestedItemConfiguration
 import senegai.model.schema.UiEntityEditorTab
@@ -60,9 +61,10 @@ object RendererModelConverter {
 
         // An item is independent of any UiEntity: it can appear in the editor of several of
         // them, therefore it is mapped exactly once.
-        val displayAttributeNames = displayAttributeNamesPerItem(schemaData.uiItems, schemaData.items)
+        val uiItemPerItem = uiItemPerItem(schemaData.uiItems, schemaData.items)
         val allUiItemModels = schemaData.items.map {
-            mapUiItemModel(it, displayAttributeNames[it.itemId].orEmpty(), schemaData.enums, schemaData.items)
+            val displayAttributeNames = uiItemPerItem[it.itemId]?.displayAttributeNames.orEmpty()
+            mapUiItemModel(it, displayAttributeNames, schemaData.enums, schemaData.items)
         }
         val allBeItemModels = schemaData.items.map { mapBeItemModel(it, schemaData.enums, schemaData.items) }
 
@@ -72,7 +74,7 @@ object RendererModelConverter {
                 uiEnums = allUiEnumModels,
                 uiEntitiesViews = schemaData.uiEntities.map { uiEntity ->
                     val allNestedItemIds = HierarchicalItemSearch.findAllItemNames(uiEntity.rootItem, schemaData.items)
-                    mapUiEntityViewsModel(uiEntity, allNestedItemIds, allUiItemModels, allUiEnumModels)
+                    mapUiEntityViewsModel(uiEntity, allNestedItemIds, allUiItemModels, allUiEnumModels, uiItemPerItem)
                 }
             ),
             beModel = BeModel(
@@ -105,7 +107,7 @@ object RendererModelConverter {
     }
 
     /** An item that declares no `uiItem` at all is missing from the returned map. */
-    private fun displayAttributeNamesPerItem(uiItems: List<UiItem>, items: List<Item>): Map<ItemId, List<String>> {
+    private fun uiItemPerItem(uiItems: List<UiItem>, items: List<Item>): Map<ItemId, UiItem> {
         val itemIds = items.map { it.itemId }.toSet()
 
         return uiItems.groupBy { it.itemId }
@@ -118,7 +120,7 @@ object RendererModelConverter {
                     "The item '${itemId.itemName}' is configured by ${uiItemsOfItem.size} 'uiItem' " +
                             "declarations. An item is configured for the UI exactly once."
                 }
-                uiItemsOfItem.single().displayAttributeNames
+                uiItemsOfItem.single()
             }
     }
 
@@ -370,6 +372,7 @@ object RendererModelConverter {
         entityItemModelIds: Set<ItemId>,
         allUiItemModels: List<UiItemModel>,
         allUiEnumModels: List<UiEnumModel>,
+        uiItemPerItem: Map<ItemId, UiItem>,
     ): UiEntityViewsModel {
         val entityRootItem = allUiItemModels.single { it.itemId == uiEntity.rootItem.itemId }
         val uiEntityModel = UiEntityModel(
@@ -380,7 +383,9 @@ object RendererModelConverter {
             searchResultAttributes = mapSearchResultAttributes(uiEntity, entityRootItem),
         )
 
-        val uiEntityItems = uiEntity.editorView.itemConfiguration.map { itemConfiguration ->
+        val itemConfigurations = itemConfigurationsWithDefaults(uiEntity, entityItemModelIds, uiItemPerItem)
+
+        val uiEntityItems = itemConfigurations.map { itemConfiguration ->
             val itemModel = when (itemConfiguration) {
                 is UiEntityEditorRootItemConfiguration -> uiEntityModel.entityRootItem
                 is UiEntityEditorEntityNestedItemConfiguration -> requireNotNull(uiEntityModel.entityItemModels.firstOrNull { it.itemName.isEqual(itemConfiguration.itemId.itemName) }) {
@@ -410,6 +415,35 @@ object RendererModelConverter {
                 entityItems = uiEntityItems,
             )
         )
+    }
+
+    /**
+     * The configurations the editor declares itself, followed by one configuration for every
+     * nested item of the entity that the editor does not configure at all, but whose `uiItem`
+     * declares a default nested item editor.
+     *
+     * The root item is left to [UiEntityEditorRootItemConfiguration], it is never configured
+     * by such a default.
+     */
+    private fun itemConfigurationsWithDefaults(
+        uiEntity: UiEntity,
+        entityItemModelIds: Set<ItemId>,
+        uiItemPerItem: Map<ItemId, UiItem>,
+    ): List<UiEntityEditorItemConfiguration> {
+        val declaredConfigurations = uiEntity.editorView.itemConfiguration
+        val configuredNestedItemIds = declaredConfigurations
+            .filterIsInstance<UiEntityEditorEntityNestedItemConfiguration>()
+            .map { it.itemId }
+            .toSet()
+
+        val defaultConfigurations = (entityItemModelIds - uiEntity.rootItem.itemId - configuredNestedItemIds)
+            .mapNotNull { itemId ->
+                uiItemPerItem[itemId]?.defaultNestedItemEditor
+                    ?.takeIf { it.isNotEmpty() }
+                    ?.let { UiEntityEditorEntityNestedItemConfiguration(itemId = itemId, noTab = it) }
+            }
+
+        return declaredConfigurations + defaultConfigurations
     }
 
     private fun mapSearchResultAttributes(uiEntity: UiEntity, entityRootItem: UiItemModel): List<UiAttributeModel> {

@@ -7,15 +7,33 @@ import senegai.model.schema.UiEntityEditorColumn
 import senegai.model.schema.UiEntityEditorEntityNestedItemConfiguration
 import senegai.model.schema.UiEntityEditorItemConfiguration
 import senegai.model.schema.UiEntityEditorRootItemConfiguration
+import senegai.model.schema.UiItem
 import senegai.model.schema.UiItemAttributeBlock
 
 /**
  * An attribute block of an editor shows only an attribute of the item it is configured
- * for, which is the root item of the ui entity or the nested item of the configuration
- * the block belongs to.
+ * for, which is the root item of the ui entity, the nested item of the configuration the
+ * block belongs to, or the item declaring the default nested item editor.
  */
 class AttributeBlockAttributeExistenceValidator : SchemaDataAspectValidator {
     override fun validate(schemaData: SchemaData, path: ValidationPath) {
+        validateDefaultNestedItemEditors(schemaData, path)
+        validateEditorViews(schemaData, path)
+    }
+
+    private fun validateDefaultNestedItemEditors(schemaData: SchemaData, path: ValidationPath) {
+        schemaData.uiItems.forEachIndexed { uiItemIndex, uiItem ->
+            val uiItemPath = path.child("uiItems", uiItemIndex, uiItem.itemId.itemName)
+
+            validateColumns(
+                columns = uiItem.defaultNestedItemEditor,
+                configuredItem = uiItem.configuredItem(schemaData, uiItemPath),
+                path = uiItemPath.child("defaultNestedItemEditor"),
+            )
+        }
+    }
+
+    private fun validateEditorViews(schemaData: SchemaData, path: ValidationPath) {
         schemaData.uiEntities.forEachIndexed { entityIndex, uiEntity ->
             val editorViewPath = path
                 .child("uiEntities", entityIndex, uiEntity.uiEntityName)
@@ -43,6 +61,14 @@ class AttributeBlockAttributeExistenceValidator : SchemaDataAspectValidator {
             }
         }
     }
+
+    private fun UiItem.configuredItem(schemaData: SchemaData, path: ValidationPath): Item =
+        schemaData.items.firstOrNull { it.itemId == itemId }
+            ?: validationError(
+                path,
+                "There is a ui configuration for the item '${itemId.itemName}', but no such item is " +
+                        "declared in the schema. Available are ${schemaData.items.map { it.itemName }}.",
+            )
 
     private fun UiEntityEditorItemConfiguration.configuredItemName(uiEntity: UiEntity): String = when (this) {
         is UiEntityEditorRootItemConfiguration -> uiEntity.rootItem.itemName

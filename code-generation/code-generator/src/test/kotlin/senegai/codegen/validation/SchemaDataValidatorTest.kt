@@ -34,8 +34,12 @@ class SchemaDataValidatorTest {
                 items = listOf(contact, address),
                 enums = listOf(gender),
                 uiItems = listOf(
-                    UiItem(itemId = contactId, displayAttributeNames = listOf("Firstname", "ContactSalutation")),
-                    UiItem(itemId = addressId, displayAttributeNames = listOf("Street")),
+                    uiItem(itemId = contactId, displayAttributeNames = listOf("Firstname", "ContactSalutation")),
+                    uiItem(
+                        itemId = addressId,
+                        displayAttributeNames = listOf("Street"),
+                        defaultNestedItemEditorAttributeNames = listOf("Street"),
+                    ),
                 ),
                 uiEntities = listOf(
                     uiEntity(
@@ -201,7 +205,7 @@ class SchemaDataValidatorTest {
         val exception = validationFailureOf(
             schemaData(
                 items = listOf(contact),
-                uiItems = listOf(UiItem(itemId = contactId, displayAttributeNames = listOf("Firstname", "Street"))),
+                uiItems = listOf(uiItem(itemId = contactId, displayAttributeNames = listOf("Firstname", "Street"))),
             )
         )
 
@@ -217,7 +221,7 @@ class SchemaDataValidatorTest {
         val exception = validationFailureOf(
             schemaData(
                 items = listOf(contact),
-                uiItems = listOf(UiItem(itemId = addressId, displayAttributeNames = listOf("Street"))),
+                uiItems = listOf(uiItem(itemId = addressId, displayAttributeNames = listOf("Street"))),
             )
         )
 
@@ -231,7 +235,7 @@ class SchemaDataValidatorTest {
             schemaData(
                 items = listOf(contact),
                 uiItems = listOf(
-                    UiItem(itemId = contactId, displayAttributeNames = listOf("Firstname", "ContactId", "Firstname"))
+                    uiItem(itemId = contactId, displayAttributeNames = listOf("Firstname", "ContactId", "Firstname"))
                 ),
             )
         )
@@ -250,7 +254,7 @@ class SchemaDataValidatorTest {
             schemaData(
                 items = listOf(contact),
                 uiItems = listOf(
-                    UiItem(itemId = contactId, displayAttributeNames = listOf("Firstname", "HomeAddress"))
+                    uiItem(itemId = contactId, displayAttributeNames = listOf("Firstname", "HomeAddress"))
                 ),
             )
         )
@@ -350,6 +354,24 @@ class SchemaDataValidatorTest {
     }
 
     @Test
+    fun `an attribute block of a default nested item editor shows only attributes of that item`() {
+        val exception = validationFailureOf(
+            schemaData(
+                items = listOf(contact, address),
+                uiItems = listOf(
+                    uiItem(itemId = addressId, defaultNestedItemEditorAttributeNames = listOf("Street", "Firstname"))
+                ),
+            )
+        )
+
+        assertEquals(
+            "SchemaData > uiItems[0] 'Address' > defaultNestedItemEditor > columns[0] > blocks[1] 'Firstname'",
+            exception.path.toString(),
+        )
+        assertProblemContains(exception, "the item 'Address' it is configured for has no such attribute")
+    }
+
+    @Test
     fun `an editor is configured only for an item of the schema`() {
         val exception = validationFailureOf(
             schemaData(
@@ -425,6 +447,20 @@ class SchemaDataValidatorTest {
         uiItems: List<UiItem> = emptyList(),
         uiEntities: List<UiEntity> = emptyList(),
     ): SchemaData = SchemaData(items = items, enums = enums, uiItems = uiItems, uiEntities = uiEntities)
+
+    private fun uiItem(
+        itemId: ItemId,
+        displayAttributeNames: List<String> = emptyList(),
+        defaultNestedItemEditorAttributeNames: List<String> = emptyList(),
+    ): UiItem = UiItem(
+        itemId = itemId,
+        displayAttributeNames = displayAttributeNames,
+        defaultNestedItemEditor = if (defaultNestedItemEditorAttributeNames.isEmpty()) {
+            emptyList()
+        } else {
+            listOf(column(defaultNestedItemEditorAttributeNames))
+        },
+    )
 
     private fun uiEntity(
         rootItem: Item,

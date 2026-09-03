@@ -12,6 +12,14 @@ data class UiItem(
      * order they are shown, declared as the names of the attributes of the item.
      */
     val displayAttributeNames: List<String>,
+    /**
+     * The columns of the editor of this item wherever it is edited as a nested item of a
+     * [UiEntity] that does not configure the item itself with its own
+     * [UiEntityEditorEntityNestedItemConfiguration].
+     *
+     * Empty as long as the item declares no such default.
+     */
+    val defaultNestedItemEditor: List<UiEntityEditorColumn>,
 )
 
 /**

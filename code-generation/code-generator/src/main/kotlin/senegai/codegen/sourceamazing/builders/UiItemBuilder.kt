@@ -5,6 +5,7 @@ import org.codeblessing.sourceamazing.builder.api.annotations.BuilderMethod
 import org.codeblessing.sourceamazing.builder.api.annotations.ExpectedClazzModelFromSuperiorBuilder
 import org.codeblessing.sourceamazing.builder.api.annotations.InjectBuilder
 import senegai.model.builders.UiDisplayAttributesDsl
+import senegai.model.builders.UiEditorForNestedItemDsl
 import senegai.model.builders.UiItemDsl
 import senegai.model.schema.UiItem
 
@@ -19,5 +20,14 @@ interface UiItemBuilder: UiItemDsl {
 
     override fun displayAttributes(builder: UiDisplayAttributesDsl.() -> Unit) {
         displayAttributesInternal(builder)
+    }
+
+    @BuilderMethod
+    fun configureEditorForNestedItemDefaultInternal(
+        @InjectBuilder builder: UiItemDefaultNestedItemEditorBuilder.() -> Unit
+    )
+
+    override fun configureEditorForNestedItemDefault(builder: UiEditorForNestedItemDsl.() -> Unit) {
+        configureEditorForNestedItemDefaultInternal(builder)
     }
 }
