@@ -60,9 +60,10 @@
         </mat-expansion-panel>
 
         <!-- Edit Form Panel -->
-        <mat-expansion-panel
+        <mat-expansion-panel #editPanel
                 [expanded]="!!selectedOpusMagnum || creating"
-                [disabled]="!selectedOpusMagnum && !creating">
+                [disabled]="!selectedOpusMagnum && !creating"
+                (afterExpand)="scrollToEditPanel()">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <mat-icon>edit</mat-icon>

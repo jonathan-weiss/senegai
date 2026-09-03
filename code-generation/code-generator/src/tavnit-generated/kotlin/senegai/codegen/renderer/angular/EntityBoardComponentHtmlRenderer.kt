@@ -51,9 +51,10 @@ object EntityBoardComponentHtmlRenderer : UiEntityRenderer {
           |        </mat-expansion-panel>
           |
           |        <!-- Edit Form Panel -->
-          |        <mat-expansion-panel
+          |        <mat-expansion-panel #editPanel
           |                [expanded]="!!selected${model.entityName.pascalCase} || creating"
-          |                [disabled]="!selected${model.entityName.pascalCase} && !creating">
+          |                [disabled]="!selected${model.entityName.pascalCase} && !creating"
+          |                (afterExpand)="scrollToEditPanel()">
           |            <mat-expansion-panel-header>
           |                <mat-panel-title>
           |                    <mat-icon>edit</mat-icon>

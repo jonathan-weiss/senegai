@@ -16,7 +16,7 @@ object EntityBoardComponentTypescriptRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
-          |import {Component} from '@angular/core';
+          |import {Component, ElementRef, ViewChild} from '@angular/core';
           |import {${model.entityName.pascalCase}SearchComponent, ${model.entityName.pascalCase}SearchCriteria} from '@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}-search/${model.entityName.kebabCase}-search.component';
           |import {${model.entityName.pascalCase}ResultComponent} from '@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}-result/${model.entityName.kebabCase}-result.component';
           |import {MatDialog, MatDialogModule} from '@angular/material/dialog';
@@ -66,6 +66,8 @@ object EntityBoardComponentTypescriptRenderer : UiEntityRenderer {
           |    creating = false;
           |    refreshKey = 0;
           |
+          |    @ViewChild('editPanel', {read: ElementRef}) private editPanel?: ElementRef<HTMLElement>;
+          |
           |    constructor(private dialog: MatDialog, private ${model.entityRootItem.itemName.camelCase}Service: ${model.entityRootItem.itemName.pascalCase}Service) {
           |    }
           |
@@ -74,13 +76,33 @@ object EntityBoardComponentTypescriptRenderer : UiEntityRenderer {
           |    }
           |
           |    onCreate${model.entityName.pascalCase}(): void {
+          |        const editPanelWasOpen = this.isEditPanelOpen();
           |        this.selected${model.entityName.pascalCase} = null;
           |        this.creating = true;
+          |        if (editPanelWasOpen) {
+          |            this.scrollToEditPanel();
+          |        }
           |    }
           |
           |    on${model.entityName.pascalCase}Select(${model.entityName.camelCase}: ${model.entityRootItem.itemName.pascalCase}WTO): void {
+          |        const editPanelWasOpen = this.isEditPanelOpen();
           |        this.creating = false;
           |        this.selected${model.entityName.pascalCase} = ${model.entityName.camelCase};
+          |        if (editPanelWasOpen) {
+          |            this.scrollToEditPanel();
+          |        }
+          |    }
+          |
+          |    // A panel that is still closed cannot be scrolled to yet: the page only grows
+          |    // tall enough for it once it is expanded, so the panel calls this from its
+          |    // (afterExpand) event. An already open panel emits no such event, which is why
+          |    // the handlers above scroll themselves in that case.
+          |    scrollToEditPanel(): void {
+          |        this.editPanel?.nativeElement.scrollIntoView({behavior: 'smooth', block: 'start'});
+          |    }
+          |
+          |    private isEditPanelOpen(): boolean {
+          |        return !!this.selected${model.entityName.pascalCase} || this.creating;
           |    }
           |
           |    onDelete${model.entityName.pascalCase}(${model.entityName.camelCase}: ${model.entityRootItem.itemName.pascalCase}WTO): void {

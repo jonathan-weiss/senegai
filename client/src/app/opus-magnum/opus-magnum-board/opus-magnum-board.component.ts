@@ -30,7 +30,7 @@
     
 
 }}}@ */
-import {Component} from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 import {OpusMagnumSearchComponent, OpusMagnumSearchCriteria} from '@app/opus-magnum/opus-magnum-search/opus-magnum-search.component';
 import {OpusMagnumResultComponent} from '@app/opus-magnum/opus-magnum-result/opus-magnum-result.component';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
@@ -80,6 +80,8 @@ export class OpusMagnumBoardComponent {
     creating = false;
     refreshKey = 0;
 
+    @ViewChild('editPanel', {read: ElementRef}) private editPanel?: ElementRef<HTMLElement>;
+
     constructor(private dialog: MatDialog, private silvaOptionumService: SilvaOptionumService) {
     }
 
@@ -88,13 +90,33 @@ export class OpusMagnumBoardComponent {
     }
 
     onCreateOpusMagnum(): void {
+        const editPanelWasOpen = this.isEditPanelOpen();
         this.selectedOpusMagnum = null;
         this.creating = true;
+        if (editPanelWasOpen) {
+            this.scrollToEditPanel();
+        }
     }
 
     onOpusMagnumSelect(opusMagnum: SilvaOptionumWTO): void {
+        const editPanelWasOpen = this.isEditPanelOpen();
         this.creating = false;
         this.selectedOpusMagnum = opusMagnum;
+        if (editPanelWasOpen) {
+            this.scrollToEditPanel();
+        }
+    }
+
+    // A panel that is still closed cannot be scrolled to yet: the page only grows
+    // tall enough for it once it is expanded, so the panel calls this from its
+    // (afterExpand) event. An already open panel emits no such event, which is why
+    // the handlers above scroll themselves in that case.
+    scrollToEditPanel(): void {
+        this.editPanel?.nativeElement.scrollIntoView({behavior: 'smooth', block: 'start'});
+    }
+
+    private isEditPanelOpen(): boolean {
+        return !!this.selectedOpusMagnum || this.creating;
     }
 
     onDeleteOpusMagnum(opusMagnum: SilvaOptionumWTO): void {
