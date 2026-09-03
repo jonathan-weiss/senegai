@@ -56,12 +56,12 @@ object EntityItemFormPartValidationServiceRenderer : UiEntityItemRenderer {
           |    namedValidators(field: ${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName): ReadonlyArray<NamedValidator> {
           |        switch(field) {
           |${ model.item.attributes.joinToString("") { attribute ->  """            case ${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}: return [
-              |                {
-              |                    validatorName: "required",
-              |                    validatorFunction: Validators.required,
-              |                    validatorTranslationKey: "validator.required",
-              |                },
-              |${ if(attribute.hasCustomValidation) { """                ...this.${attribute.attributeName.camelCase}NamedValidators,
+              |${ if(!attribute.isList) { """                {
+                  |                    validatorName: "required",
+                  |                    validatorFunction: Validators.required,
+                  |                    validatorTranslationKey: "validator.required",
+                  |                },
+                  |""" } else { """""" } }${ if(attribute.hasCustomValidation) { """                ...this.${attribute.attributeName.camelCase}NamedValidators,
                   |""" } else { """""" } }            ]
               |""" } }            default: return []
           |        }

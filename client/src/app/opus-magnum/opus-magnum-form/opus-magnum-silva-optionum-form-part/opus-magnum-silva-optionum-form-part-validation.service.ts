@@ -91,11 +91,13 @@ export class OpusMagnumSilvaOptionumFormPartValidationService {
 
             }}}@  */
             case OpusMagnumSilvaOptionumFormPartFieldName.campusTextusObligatorius: return [
+                /* @tt{{{ @if [ conditionExpression="!attribute.isList" ] }}}@  */
                 {
                     validatorName: "required",
                     validatorFunction: Validators.required,
                     validatorTranslationKey: "validator.required",
                 },
+                /* @tt{{{   @end-if  }}}@ */
                 /* @tt{{{ @if [ conditionExpression="attribute.hasCustomValidation" ] }}}@  */
                 ...this.campusTextusObligatoriusNamedValidators,
                 /* @tt{{{   @end-if  }}}@ */
@@ -115,6 +117,8 @@ export class OpusMagnumSilvaOptionumFormPartValidationService {
                     validatorFunction: Validators.required,
                     validatorTranslationKey: "validator.required",
                 },
+            ]
+            case OpusMagnumSilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum: return [
             ]
             /* @tt{{{   @end-ignore-text  }}}@ */
             default: return []
