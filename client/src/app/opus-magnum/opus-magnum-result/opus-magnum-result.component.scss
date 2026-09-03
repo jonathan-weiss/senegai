@@ -39,8 +39,30 @@
     }
   }
 
+  .opus-magnum-table-scroll {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
   table {
     width: 100%;
+  }
+
+  .table-cell-content {
+    display: block;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .mat-column-actions {
+    // A minimal width lets the browser shrink the column to its buttons,
+    // which keeps the sticky action column as narrow as possible.
+    width: 1px;
+    white-space: nowrap;
+    text-align: right;
+    padding-left: 8px;
   }
 
   th.mat-header-cell {
