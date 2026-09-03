@@ -76,36 +76,13 @@ data class Item(
      * database), or `null` if this item has no identifier at all.
      * It is always of type [BuiltInType.UUID].
      */
-    val idAttribute: ItemAttribute? = attributes.filter { it.isPrimaryKey }
-        .also { primaryKeyAttributes ->
-            require(primaryKeyAttributes.size <= 1) {
-                "The item '$itemName' declares more than one attribute as its primary key, " +
-                        "namely ${primaryKeyAttributes.map { it.attributeName }}. " +
-                        "An item can only be identified by one single attribute."
-            }
-        }
-        .singleOrNull()
+    val idAttribute: ItemAttribute? = attributes.singleOrNull { it.isPrimaryKey }
 
     /** The name of the [idAttribute], or `null` if this item has no identifier at all. */
     val idAttributeName: String? = idAttribute?.attributeName
 
     /** Whether this item is identified by a primary key and can therefore be referenced and searched. */
     val hasPrimaryKey: Boolean = idAttribute != null
-
-    init {
-        idAttribute?.let { attribute ->
-            require(attribute.type == BuiltInType.UUID) {
-                "The item '$itemName' declares '$idAttributeName' as its identifying attribute, " +
-                        "but that attribute is of type ${attribute.type}. " +
-                        "An item can only be identified by an attribute of type ${BuiltInType.UUID}."
-            }
-            require(!attribute.isNullable && !attribute.isMultiple) {
-                "The item '$itemName' declares '$idAttributeName' as its identifying attribute, " +
-                        "but that attribute is nullable and/or multiple. " +
-                        "An item can only be identified by a single mandatory attribute."
-            }
-        }
-    }
 }
 
 /**
