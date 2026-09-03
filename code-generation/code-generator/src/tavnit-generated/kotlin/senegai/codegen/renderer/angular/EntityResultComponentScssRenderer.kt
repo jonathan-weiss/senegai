@@ -31,7 +31,10 @@ object EntityResultComponentScssRenderer : UiEntityRenderer {
           |
           |  .${model.entityName.kebabCase}-table-scroll {
           |    max-width: 100%;
-          |    overflow-x: auto;
+          |    // Capping the height keeps a long result list inside its own scroll area
+          |    // instead of letting it push the panels below it out of the window.
+          |    max-height: 60vh;
+          |    overflow: auto;
           |  }
           |
           |  table {
