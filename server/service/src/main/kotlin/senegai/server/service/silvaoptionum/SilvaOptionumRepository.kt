@@ -19,6 +19,7 @@
 
     @replace-value-by-expression
         [ searchValue="indexUnicus" replaceByExpression="model.primaryKeyAttribute.attributeName.camelCase" ]
+        [ searchValue="UUID" replaceByExpression="model.primaryKeyAttribute.kotlinAttributeType" ]
 
     @modify-provided-filepath-by-replacements
 
@@ -28,7 +29,9 @@ package senegai.server.service.silvaoptionum
 import senegai.server.service.bo.SilvaOptionumBO
 import senegai.server.service.bo.SilvaOptionumByIdsCriteriaBO
 import senegai.server.service.bo.SilvaOptionumSearchCriteriaBO
+/* @tt{{{   @if [ conditionExpression="model.hasUuidPrimaryKey"]  }}}@ */
 import java.util.UUID
+/* @tt{{{   @end-if  }}}@ */
 
 /**
  * Port for persisting the SilvaOptionum root object [SilvaOptionumBO]. The implementation
@@ -50,4 +53,10 @@ interface SilvaOptionumRepository {
     fun save(silvaOptionum: SilvaOptionumBO): SilvaOptionumBO
 
     fun deleteById(indexUnicus: UUID)
+
+    /**
+     * A primary key that no stored SilvaOptionum is identified by, for a SilvaOptionum that is
+     * created. Handing out identity is the job of the persistence, like a sequence of a database.
+     */
+    fun nextId(): UUID
 }

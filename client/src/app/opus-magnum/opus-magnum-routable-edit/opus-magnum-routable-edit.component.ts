@@ -24,6 +24,7 @@
 
     @replace-value-by-expression
         [ searchValue="indexUnicus" replaceByExpression="model.idAttribute.attributeName.camelCase" ]
+        [ searchValue="UUID" replaceByExpression="model.idAttribute.typescriptAttributeType" ]
 
     @modify-provided-filepath-by-replacements
 
@@ -35,7 +36,9 @@ import {SilvaOptionumWTO} from "@app/wto/silva-optionum.wto";
 import {SilvaOptionumService} from "@app/service/silva-optionum.service";
 import {OpusMagnumFormComponent} from "@app/opus-magnum/opus-magnum-form/opus-magnum-form/opus-magnum-form.component";
 import {ActivatedRoute} from "@angular/router";
+/* @tt{{{   @if [ conditionExpression="model.entityRootItem.hasUuidPrimaryKey"]  }}}@ */
 import {UUID} from "@app/shared/uuid";
+/* @tt{{{   @end-if  }}}@ */
 
 import {TranslocoPipe} from "@jsverse/transloco";
 
@@ -58,7 +61,12 @@ export class OpusMagnumRoutableEditComponent {
         this.route.params.subscribe(params => {
             const idParam = params['indexUnicus'];
             if (idParam) {
+                /* @tt{{{
+                    @replace-value-by-expression
+                        [ searchValue="idParam as UUID" replaceByExpression="model.entityRootItem.primaryKeyFromRouteParamExpression" ]
+                }}}@ */
                 const indexUnicus = idParam as UUID;
+                /* @tt{{{   @end-replace-value-by-expression  }}}@ */
                 this.silvaOptionumService.getSilvaOptionumById(indexUnicus).subscribe(opusMagnum => {
                     this.selectedOpusMagnum = opusMagnum;
                 });

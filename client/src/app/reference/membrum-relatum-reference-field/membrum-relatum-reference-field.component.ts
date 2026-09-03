@@ -18,6 +18,7 @@
         [ searchValue="membrum-relatum" replaceByExpression="model.itemName.kebabCase" ]
         [ searchValue="ClavisPrimaria" replaceByExpression="model.primaryKeyAttribute.attributeName.pascalCase" ]
         [ searchValue="clavisPrimaria" replaceByExpression="model.primaryKeyAttribute.attributeName.camelCase" ]
+        [ searchValue="UUID" replaceByExpression="model.primaryKeyAttribute.typescriptAttributeType" ]
 
     @modify-provided-filepath-by-replacements
 
@@ -36,13 +37,15 @@ import {
     FieldErrorMessagesComponent
 } from "@app/shared/form-controls/field-error-messages/field-error-messages.component";
 import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
+/* @tt{{{   @if [ conditionExpression="model.hasUuidPrimaryKey"]  }}}@ */
 import {UUID} from "@app/shared/uuid";
+/* @tt{{{   @end-if  }}}@ */
 import {MembrumRelatumWTO} from "@app/wto/membrum-relatum.wto";
 import {TranslocoPipe} from "@jsverse/transloco";
 
 /**
- * Edits a single reference to a MembrumRelatum, held in the form as one FormControl of a UUID
- * or null.
+ * Edits a single reference to a MembrumRelatum, held in the form as one FormControl of a
+ * primary key or null.
  *
  * The single-reference counterpart of the MembrumRelatumReferenceTableComponent: the
  * typeahead itself is the field, it shows the picked entry by its display attributes and a new
@@ -50,9 +53,9 @@ import {TranslocoPipe} from "@jsverse/transloco";
  * one level up by the nullability of the field, and while the field is not null exactly one
  * reference is required, so an empty field is a validation error.
  *
- * The UUID stored in the form says nothing to the user, so it is resolved to the whole
+ * The primary key stored in the form says nothing to the user, so it is resolved to the whole
  * MembrumRelatumWTO through the already existing backend call (`GET /api/membrum-relatum/{id}`)
- * and shown by its display attributes. Resolved objects are cached, so a UUID is fetched once.
+ * and shown by its display attributes. Resolved objects are cached, so a key is fetched once.
  */
 @Component({
     selector: 'app-membrum-relatum-reference-field',
@@ -117,7 +120,7 @@ export class MembrumRelatumReferenceFieldComponent implements OnInit {
         }
     }
 
-    /** The separate backend call that resolves the UUID if it is not yet in the cache. */
+    /** The separate backend call that resolves the primary key if it is not yet in the cache. */
     private resolveMissingMembrumRelatum(): void {
         const clavisPrimaria = this.referencedClavisPrimaria();
         if (clavisPrimaria === null || this.resolvedByClavisPrimaria.has(clavisPrimaria)) {

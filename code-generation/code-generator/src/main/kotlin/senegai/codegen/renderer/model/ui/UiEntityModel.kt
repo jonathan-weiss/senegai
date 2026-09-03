@@ -21,10 +21,10 @@ data class UiEntityModel(
 ) {
     /**
      * The attribute of the [entityRootItem] that identifies it, e.g. for the route
-     * parameter of the edit route. It is always a UUID, and it is always present,
-     * because a UiEntity can only be built on a root item with a primary key.
+     * parameter of the edit route. It is always present, because a UiEntity can only be
+     * built on a root item with a primary key.
      */
-    val idAttribute: UiAttributeModel = entityRootItem.primaryKeyAttribute
+    val idAttribute: BuiltInTypeUiAttributeModel = entityRootItem.primaryKeyAttribute
 
     /** See [UiItemModel.displayAttributes]. */
     val displayAttributes: List<UiAttributeModel> = entityRootItem.displayAttributes

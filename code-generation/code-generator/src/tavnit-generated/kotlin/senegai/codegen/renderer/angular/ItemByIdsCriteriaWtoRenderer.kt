@@ -16,15 +16,15 @@ object ItemByIdsCriteriaWtoRenderer : UiItemRenderer {
 
     override fun renderTemplate(model: UiItemModel): String {
         return """
-          |import {UUID} from "@app/shared/uuid";
-          |
-          |/**
+          |${ if(model.hasUuidPrimaryKey) { """import {${model.primaryKeyAttribute.typescriptAttributeType}} from "@app/shared/uuid";
+              |
+              |""" } else { """""" } }/**
           | * The Silva Optionum by-ids criteria WTO (Web Transfer Object), sent as the request body of
           | * the by-ids endpoint. It carries the identifier of every Silva Optionum to resolve, which is
           | * what a reference to this entity is stored as.
           | */
           |export interface ${model.itemName.pascalCase}ByIdsCriteriaWTO {
-          |    ${model.primaryKeyAttribute.attributeName.camelCase}List: Array<UUID>;
+          |    ${model.primaryKeyAttribute.attributeName.camelCase}List: Array<${model.primaryKeyAttribute.typescriptAttributeType}>;
           |}
           |
         """.trimMargin(marginPrefix = "|")

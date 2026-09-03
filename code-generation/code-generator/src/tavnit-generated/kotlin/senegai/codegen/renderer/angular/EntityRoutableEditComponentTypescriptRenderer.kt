@@ -21,8 +21,8 @@ object EntityRoutableEditComponentTypescriptRenderer : UiEntityRenderer {
           |import {${model.entityRootItem.itemName.pascalCase}Service} from "@app/service/${model.entityRootItem.itemName.kebabCase}.service";
           |import {${model.entityName.pascalCase}FormComponent} from "@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}-form/${model.entityName.kebabCase}-form/${model.entityName.kebabCase}-form.component";
           |import {ActivatedRoute} from "@angular/router";
-          |import {UUID} from "@app/shared/uuid";
-          |
+          |${ if(model.entityRootItem.hasUuidPrimaryKey) { """import {${model.idAttribute.typescriptAttributeType}} from "@app/shared/uuid";
+              |""" } else { """""" } }
           |import {TranslocoPipe} from "@jsverse/transloco";
           |
           |@Component({
@@ -44,7 +44,7 @@ object EntityRoutableEditComponentTypescriptRenderer : UiEntityRenderer {
           |        this.route.params.subscribe(params => {
           |            const idParam = params['${model.idAttribute.attributeName.camelCase}'];
           |            if (idParam) {
-          |                const ${model.idAttribute.attributeName.camelCase} = idParam as UUID;
+          |                const ${model.idAttribute.attributeName.camelCase} = ${model.entityRootItem.primaryKeyFromRouteParamExpression};
           |                this.${model.entityRootItem.itemName.camelCase}Service.get${model.entityRootItem.itemName.pascalCase}ById(${model.idAttribute.attributeName.camelCase}).subscribe(${model.entityName.camelCase} => {
           |                    this.selected${model.entityName.pascalCase} = ${model.entityName.camelCase};
           |                });

@@ -15,14 +15,17 @@
     @replace-value-by-expression
         [ searchValue="SilvaOptionum" replaceByExpression="model.itemName.pascalCase" ]
         [ searchValue="indexUnicus" replaceByExpression="model.primaryKeyAttribute.attributeName.camelCase" ]
+        [ searchValue="UUID" replaceByExpression="model.primaryKeyAttribute.kotlinAttributeType" ]
 
     @modify-provided-filepath-by-replacements
 
 }}}@ */
 package senegai.server.service.bo
 
+/* @tt{{{   @if [ conditionExpression="model.hasUuidPrimaryKey"]  }}}@ */
 import java.util.UUID
 
+/* @tt{{{   @end-if  }}}@ */
 /**
  * Business object for resolving a whole set of references to SilvaOptionum aggregates at once.
  *

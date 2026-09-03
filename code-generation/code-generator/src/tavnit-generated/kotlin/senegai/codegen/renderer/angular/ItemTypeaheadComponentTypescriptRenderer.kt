@@ -24,8 +24,8 @@ object ItemTypeaheadComponentTypescriptRenderer : UiItemRenderer {
           |import {Observable, Subject, debounceTime, distinctUntilChanged, of, switchMap} from "rxjs";
           |import {${model.itemName.pascalCase}Service} from "@app/service/${model.itemName.kebabCase}.service";
           |import {${model.itemName.camelCase}DisplayLabel} from "@app/reference/${model.itemName.kebabCase}-display";
-          |import {UUID} from "@app/shared/uuid";
-          |import {${model.itemName.pascalCase}SearchResultWTO} from "@app/wto/${model.itemName.kebabCase}-search-result.wto";
+          |${ if(model.hasUuidPrimaryKey) { """import {${model.primaryKeyAttribute.typescriptAttributeType}} from "@app/shared/uuid";
+              |""" } else { """""" } }import {${model.itemName.pascalCase}SearchResultWTO} from "@app/wto/${model.itemName.kebabCase}-search-result.wto";
           |import {${model.itemName.pascalCase}WTO} from "@app/wto/${model.itemName.kebabCase}.wto";
           |import {TranslocoPipe} from "@jsverse/transloco";
           |
@@ -80,7 +80,7 @@ object ItemTypeaheadComponentTypescriptRenderer : UiItemRenderer {
           |     */
           |    @Input() selectionLabel: string = '';
           |    /** ${model.primaryKeyAttribute.attributeName.camelCase} that are already referenced and must therefore not be suggested again. */
-          |    @Input() excluded${model.primaryKeyAttribute.attributeName.pascalCase}List: ReadonlyArray<UUID> = [];
+          |    @Input() excluded${model.primaryKeyAttribute.attributeName.pascalCase}List: ReadonlyArray<${model.primaryKeyAttribute.typescriptAttributeType}> = [];
           |    @Input() disabled: boolean = false;
           |
           |    @Output() ${model.itemName.camelCase}Selected = new EventEmitter<${model.itemName.pascalCase}WTO>();

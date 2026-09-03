@@ -23,8 +23,8 @@ object ItemExampleDataFetcherRenderer : BeItemRenderer {
           |import senegai.server.exampledata.framework.datafaker.FakerHelper
           |import senegai.server.service.bo.${model.itemName.pascalCase}BO
           |import senegai.server.service.${model.itemName.lowerCase}.${model.itemName.pascalCase}Repository
-          |import java.util.UUID
-          |
+          |${ if(model.hasUuidPrimaryKey) { """import java.util.${model.primaryKeyAttribute.kotlinAttributeType}
+              |""" } else { """""" } }
           |/**
           | * Fetches already persisted ${model.itemName.pascalCase} example data so that other example data creators can
           | * reference it.
@@ -43,7 +43,7 @@ object ItemExampleDataFetcherRenderer : BeItemRenderer {
           |     * A random subset of the ${model.primaryKeyAttribute.attributeName.camelCase} of the existing [${model.itemName.pascalCase}BO] instances, or an
           |     * empty list if none exist yet.
           |     */
-          |    fun fetchRandomKeysList(dataContext: DataContext): List<UUID> =
+          |    fun fetchRandomKeysList(dataContext: DataContext): List<${model.primaryKeyAttribute.kotlinAttributeType}> =
           |        FakerHelper.manyOfRandom(
           |            dataContext = dataContext,
           |            array = ${model.itemName.camelCase}Repository.findAll().toTypedArray(),
@@ -58,7 +58,7 @@ object ItemExampleDataFetcherRenderer : BeItemRenderer {
           |     * example data yet. Such a reference gets [UNRESOLVABLE_KEY], which resolves to nothing and
           |     * is therefore shown with the fallback of the display attributes.
           |     */
-          |    fun fetchRandomKey(dataContext: DataContext): UUID {
+          |    fun fetchRandomKey(dataContext: DataContext): ${model.primaryKeyAttribute.kotlinAttributeType} {
           |        val ${model.itemName.camelCase}List = ${model.itemName.camelCase}Repository.findAll()
           |        if (${model.itemName.camelCase}List.isEmpty()) {
           |            return UNRESOLVABLE_KEY
@@ -70,8 +70,8 @@ object ItemExampleDataFetcherRenderer : BeItemRenderer {
           |    }
           |
           |    private companion object {
-          |        /** The nil UUID, which no item is ever identified by. */
-          |        private val UNRESOLVABLE_KEY: UUID = UUID(0L, 0L)
+          |        /** A primary key no item is ever identified by. */
+          |        private val UNRESOLVABLE_KEY: ${model.primaryKeyAttribute.kotlinAttributeType} = ${model.unresolvablePrimaryKeyValueExpression}
           |    }
           |}
           |

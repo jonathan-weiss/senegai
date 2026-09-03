@@ -19,6 +19,7 @@
 
     @replace-value-by-expression
         [ searchValue="indexUnicus" replaceByExpression="model.primaryKeyAttribute.attributeName.camelCase" ]
+        [ searchValue="UUID" replaceByExpression="model.primaryKeyAttribute.kotlinAttributeType" ]
 
     @modify-provided-filepath-by-replacements
 
@@ -30,7 +31,9 @@ import senegai.server.exampledata.DataContext
 import senegai.server.exampledata.framework.datafaker.FakerHelper
 import senegai.server.service.bo.SilvaOptionumBO
 import senegai.server.service.silvaoptionum.SilvaOptionumRepository
+/* @tt{{{   @if [ conditionExpression="model.hasUuidPrimaryKey"]  }}}@ */
 import java.util.UUID
+/* @tt{{{   @end-if  }}}@ */
 
 /**
  * Fetches already persisted SilvaOptionum example data so that other example data creators can
@@ -77,7 +80,12 @@ class SilvaOptionumExampleDataFetcher(
     }
 
     private companion object {
-        /** The nil UUID, which no item is ever identified by. */
+        /* @tt{{{
+            @replace-value-by-expression
+                [ searchValue="UUID(0L, 0L)" replaceByExpression="model.unresolvablePrimaryKeyValueExpression" ]
+        }}}@ */
+        /** A primary key no item is ever identified by. */
         private val UNRESOLVABLE_KEY: UUID = UUID(0L, 0L)
+        /* @tt{{{   @end-replace-value-by-expression  }}}@ */
     }
 }

@@ -25,7 +25,7 @@ interface UiItemDsl {
  * Declares which attributes of an item are shown wherever a reference to that item is
  * rendered, in the order they are declared here.
  *
- * A reference is stored as a bare UUID, which tells the user nothing, so every place that
+ * A reference is stored as a bare primary key, which tells the user nothing, so every place that
  * shows one resolves it to the whole item and renders these attributes instead. They have
  * to be single-valued text attributes, because they are rendered as plain strings.
  *

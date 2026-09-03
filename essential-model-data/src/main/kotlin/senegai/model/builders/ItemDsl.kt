@@ -3,6 +3,7 @@ package senegai.model.builders
 import senegai.model.schema.EnumId
 import senegai.model.schema.ExampleDataCategory
 import senegai.model.schema.ItemId
+import senegai.model.schema.PrimaryKeyType
 
 @MainDslMarker
 interface EnumDsl {
@@ -33,14 +34,15 @@ interface ItemDsl {
 interface ItemAttributeTypeDsl {
     /**
      * Declares this attribute as the one that identifies its item (like a primary key
-     * in the database), for example `attribute(name = "contactId").primaryKey()`.
+     * in the database), for example `attribute(name = "contactId").primaryKey()` or
+     * `attribute(name = "companyNumber").primaryKey(type = PrimaryKeyType.NUMBER)`.
      *
-     * A primary key is ALWAYS of type `BuiltInType.UUID` and never nullable nor multiple,
-     * therefore it has no options. Only an item with a primary key can be searched and
-     * referenced, and only for such an item the whole REST/service/persistence stack
-     * is generated.
+     * A primary key is of one of the [PrimaryKeyType] built-in types and never nullable
+     * nor multiple, therefore it has no options. Only an item with a primary key can be
+     * searched and referenced, and only for such an item the whole REST/service/persistence
+     * stack is generated.
      */
-    fun primaryKey()
+    fun primaryKey(type: PrimaryKeyType = PrimaryKeyType.UUID)
 
     fun string(exampleDataCategory: ExampleDataCategory? = null): ItemAttributeOptionsDsl
 
@@ -70,9 +72,9 @@ interface ItemAttributeTypeDsl {
      * `attribute(name = "myReferenceToAddress").reference(itemId = Items.ADDRESS)`.
      *
      * In contrast to [nestedItem] (which nests the item instance itself), such an
-     * attribute stores only the identifying attribute of the referenced item, which is
-     * always a `BuiltInType.UUID`. The referenced item therefore has to declare a
-     * [primaryKey].
+     * attribute stores only the identifying attribute of the referenced item and is
+     * therefore of the same type as that attribute. The referenced item has to declare
+     * a [primaryKey].
      */
     fun reference(itemId: ItemId): ItemAttributeOptionsDsl
 }

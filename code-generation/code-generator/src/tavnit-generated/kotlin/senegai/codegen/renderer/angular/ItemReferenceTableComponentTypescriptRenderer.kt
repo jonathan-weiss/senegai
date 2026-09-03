@@ -30,20 +30,20 @@ object ItemReferenceTableComponentTypescriptRenderer : UiItemRenderer {
           |    ${model.itemName.pascalCase}ReferenceTableRow
           |} from "@app/reference/${model.itemName.kebabCase}-reference-table/${model.itemName.kebabCase}-reference-table-row.model";
           |import {FormUtil} from "@app/shared/form-controls/form.util";
-          |import {UUID} from "@app/shared/uuid";
-          |import {${model.itemName.pascalCase}WTO} from "@app/wto/${model.itemName.kebabCase}.wto";
+          |${ if(model.hasUuidPrimaryKey) { """import {${model.primaryKeyAttribute.typescriptAttributeType}} from "@app/shared/uuid";
+              |""" } else { """""" } }import {${model.itemName.pascalCase}WTO} from "@app/wto/${model.itemName.kebabCase}.wto";
           |import {TranslocoPipe} from "@jsverse/transloco";
           |
           |/**
-          | * Edits a list of references to ${model.itemName.pascalCase}, held in the form as a FormArray of UUIDs.
+          | * Edits a list of references to ${model.itemName.pascalCase}, held in the form as a FormArray of primary keys.
           | *
           | * New rows are only ever created by picking an existing ${model.itemName.pascalCase} in the typeahead, so
           | * there is no "add empty row" button and the generic SingleFormFieldTableComponent does not
           | * fit here.
           | *
-          | * The UUIDs already stored in the form say nothing to the user, so they are resolved to whole
+          | * The primary keys already stored in the form say nothing to the user, so they are resolved to whole
           | * ${model.itemName.pascalCase}WTOs through a separate backend call (`POST /api/${model.itemName.kebabCase}/by-ids`) and
-          | * shown by their display attributes. Resolved objects are cached, so a UUID is fetched once.
+          | * shown by their display attributes. Resolved objects are cached, so a key is fetched once.
           | */
           |@Component({
           |    selector: 'app-${model.itemName.kebabCase}-reference-table',
@@ -59,7 +59,7 @@ object ItemReferenceTableComponentTypescriptRenderer : UiItemRenderer {
           |    ]
           |})
           |export class ${model.itemName.pascalCase}ReferenceTableComponent implements OnInit {
-          |    @Input({required: true}) ${model.itemName.camelCase}ReferenceFormArray!: FormArray<FormControl<UUID>>;
+          |    @Input({required: true}) ${model.itemName.camelCase}ReferenceFormArray!: FormArray<FormControl<${model.primaryKeyAttribute.typescriptAttributeType}>>;
           |${ model.displayAttributes.joinToString("") { displayAttribute ->  """    /**
               |     * t(${model.itemName.camelCase}.${displayAttribute.attributeName.camelCase}.label)
               |     */
@@ -71,7 +71,7 @@ object ItemReferenceTableComponentTypescriptRenderer : UiItemRenderer {
           |    ];
           |    protected readonly dataSource = new MatTableDataSource<${model.itemName.pascalCase}ReferenceTableRow>();
           |
-          |    private readonly resolvedBy${model.primaryKeyAttribute.attributeName.pascalCase} = new Map<UUID, ${model.itemName.pascalCase}WTO>();
+          |    private readonly resolvedBy${model.primaryKeyAttribute.attributeName.pascalCase} = new Map<${model.primaryKeyAttribute.typescriptAttributeType}, ${model.itemName.pascalCase}WTO>();
           |
           |    constructor(private readonly ${model.itemName.camelCase}Service: ${model.itemName.pascalCase}Service) {}
           |
@@ -81,7 +81,7 @@ object ItemReferenceTableComponentTypescriptRenderer : UiItemRenderer {
           |        this.${model.itemName.camelCase}ReferenceFormArray.valueChanges.subscribe(() => this.refresh());
           |    }
           |
-          |    protected referenced${model.primaryKeyAttribute.attributeName.pascalCase}List(): ReadonlyArray<UUID> {
+          |    protected referenced${model.primaryKeyAttribute.attributeName.pascalCase}List(): ReadonlyArray<${model.primaryKeyAttribute.typescriptAttributeType}> {
           |        return this.${model.itemName.camelCase}ReferenceFormArray.controls.map(control => control.getRawValue());
           |    }
           |
@@ -91,7 +91,7 @@ object ItemReferenceTableComponentTypescriptRenderer : UiItemRenderer {
           |        }
           |        this.resolvedBy${model.primaryKeyAttribute.attributeName.pascalCase}.set(${model.itemName.camelCase}.${model.primaryKeyAttribute.attributeName.camelCase}, ${model.itemName.camelCase});
           |        this.${model.itemName.camelCase}ReferenceFormArray.push(
-          |            new FormControl<UUID>(${model.itemName.camelCase}.${model.primaryKeyAttribute.attributeName.camelCase}, {nonNullable: true})
+          |            new FormControl<${model.primaryKeyAttribute.typescriptAttributeType}>(${model.itemName.camelCase}.${model.primaryKeyAttribute.attributeName.camelCase}, {nonNullable: true})
           |        );
           |    }
           |
@@ -104,7 +104,7 @@ object ItemReferenceTableComponentTypescriptRenderer : UiItemRenderer {
           |        this.resolveMissing${model.itemName.pascalCase}();
           |    }
           |
-          |    /** The separate backend call that resolves the UUIDs which are not yet in the cache. */
+          |    /** The separate backend call that resolves the primary keys which are not yet in the cache. */
           |    private resolveMissing${model.itemName.pascalCase}(): void {
           |        const unresolved${model.primaryKeyAttribute.attributeName.pascalCase}List = this.referenced${model.primaryKeyAttribute.attributeName.pascalCase}List()
           |            .filter(${model.primaryKeyAttribute.attributeName.camelCase} => !this.resolvedBy${model.primaryKeyAttribute.attributeName.pascalCase}.has(${model.primaryKeyAttribute.attributeName.camelCase}));
@@ -124,7 +124,7 @@ object ItemReferenceTableComponentTypescriptRenderer : UiItemRenderer {
           |        this.dataSource.data = this.${model.itemName.camelCase}ReferenceFormArray.controls.map((control) => this.toTableRow(control))
           |    }
           |
-          |    private toTableRow(formControl: FormControl<UUID>): ${model.itemName.pascalCase}ReferenceTableRow {
+          |    private toTableRow(formControl: FormControl<${model.primaryKeyAttribute.typescriptAttributeType}>): ${model.itemName.pascalCase}ReferenceTableRow {
           |        const ${model.primaryKeyAttribute.attributeName.camelCase} = formControl.getRawValue();
           |        return {
           |            ...${model.itemName.camelCase}DisplayRow(${model.primaryKeyAttribute.attributeName.camelCase}, this.resolvedBy${model.primaryKeyAttribute.attributeName.pascalCase}.get(${model.primaryKeyAttribute.attributeName.camelCase})),

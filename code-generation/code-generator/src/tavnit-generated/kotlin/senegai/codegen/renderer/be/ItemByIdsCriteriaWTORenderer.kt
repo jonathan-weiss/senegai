@@ -18,10 +18,10 @@ object ItemByIdsCriteriaWTORenderer : BeItemRenderer {
         return """
           |package senegai.server.restapi.wto
           |
-          |import java.util.UUID
-          |
-          |data class ${model.itemName.pascalCase}ByIdsCriteriaWTO(
-          |    val ${model.primaryKeyAttribute.attributeName.camelCase}List: List<UUID> = emptyList(),
+          |${ if(model.hasUuidPrimaryKey) { """import java.util.${model.primaryKeyAttribute.kotlinAttributeType}
+              |
+              |""" } else { """""" } }data class ${model.itemName.pascalCase}ByIdsCriteriaWTO(
+          |    val ${model.primaryKeyAttribute.attributeName.camelCase}List: List<${model.primaryKeyAttribute.kotlinAttributeType}> = emptyList(),
           |)
           |
         """.trimMargin(marginPrefix = "|")

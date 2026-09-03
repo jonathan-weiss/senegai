@@ -100,7 +100,11 @@ object RendererModelConverter {
             itemDescription = itemDescription,
             attributes = attributes,
             idAttribute = item.idAttributeName?.let { idAttributeName ->
-                attributes.single { it.attributeName.isEqual(idAttributeName) }
+                val idAttribute = attributes.single { it.attributeName.isEqual(idAttributeName) }
+                require(idAttribute is BuiltInTypeUiAttributeModel && !idAttribute.isItemReference) {
+                    primaryKeyIsNoBuiltInTypeMessage(item)
+                }
+                idAttribute
             },
             displayAttributes = mapDisplayAttributes(item, displayAttributeNames, attributes),
         )
@@ -229,6 +233,7 @@ object RendererModelConverter {
             itemId = itemId,
             itemName = NameCase(itemName),
             idAttributeName = NameCase(requireNotNull(idAttributeName)),
+            idBuiltInType = primaryKeyBuiltInType(),
         )
     }
 
@@ -243,7 +248,11 @@ object RendererModelConverter {
             itemDescription = itemDescription,
             attributes = attributes,
             idAttribute = item.idAttributeName?.let { idAttributeName ->
-                attributes.single { it.attributeName.isEqual(idAttributeName) }
+                val idAttribute = attributes.single { it.attributeName.isEqual(idAttributeName) }
+                require(idAttribute is BuiltInTypeBeAttributeModel && !idAttribute.isItemReference) {
+                    primaryKeyIsNoBuiltInTypeMessage(item)
+                }
+                idAttribute
             },
         )
     }
@@ -309,8 +318,20 @@ object RendererModelConverter {
             itemId = itemId,
             itemName = NameCase(itemName),
             idAttributeName = NameCase(requireNotNull(idAttributeName)),
+            idBuiltInType = primaryKeyBuiltInType(),
         )
     }
+
+    /** The built-in type this item is identified by, i.e. the type a reference to it is stored as. */
+    private fun Item.primaryKeyBuiltInType(): BuiltInType {
+        val primaryKeyType = requireNotNull(idAttribute).type
+        require(primaryKeyType is BuiltInType) { primaryKeyIsNoBuiltInTypeMessage(this) }
+        return primaryKeyType
+    }
+
+    private fun primaryKeyIsNoBuiltInTypeMessage(item: Item): String =
+        "The item '${item.itemName}' is identified by the attribute '${item.idAttributeName}', " +
+                "which is of ${requireNotNull(item.idAttribute).type} instead of a plain built-in type."
 
     /**
      * The item an attribute of type [ItemId] with `isReference` refers to. The referenced item
@@ -352,12 +373,7 @@ object RendererModelConverter {
     private fun defaultExampleDataCategory(itemAttribute: ItemAttribute): ExampleDataCategory {
         val type = itemAttribute.type
         if(type is BuiltInType) {
-            return when(type) {
-                BuiltInType.STRING -> ExampleDataCategory.RANDOM_TEXT
-                BuiltInType.NUMBER -> ExampleDataCategory.RANDOM_NUMBER
-                BuiltInType.BOOLEAN -> ExampleDataCategory.RANDOM_BOOLEAN
-                BuiltInType.UUID -> ExampleDataCategory.RANDOM_UUID
-            }
+            return ExampleDataCategory.randomDataOf(type)
         } else {
             throw IllegalStateException("ExampleDataCategory must be built-in type here")
         }

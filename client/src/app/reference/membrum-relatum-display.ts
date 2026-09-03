@@ -18,11 +18,14 @@
         [ searchValue="MEMBRUM_RELATUM" replaceByExpression="model.itemName.screamingSnakeCase" ]
         [ searchValue="membrumRelatum" replaceByExpression="model.itemName.camelCase" ]
         [ searchValue="clavisPrimaria" replaceByExpression="model.primaryKeyAttribute.attributeName.camelCase" ]
+        [ searchValue="UUID" replaceByExpression="model.primaryKeyAttribute.typescriptAttributeType" ]
 
     @modify-provided-filepath-by-replacements
 
 }}}@ */
+/* @tt{{{   @if [ conditionExpression="model.hasUuidPrimaryKey"]  }}}@ */
 import {UUID} from "@app/shared/uuid";
+/* @tt{{{   @end-if  }}}@ */
 import {MembrumRelatumWTO} from "@app/wto/membrum-relatum.wto";
 
 /**
@@ -34,7 +37,7 @@ import {MembrumRelatumWTO} from "@app/wto/membrum-relatum.wto";
  * reference or a whole list of them.
  */
 export interface MembrumRelatumDisplayRow {
-    /** Identifies the referenced entry. It is never shown: a bare UUID says nothing to the user. */
+    /** Identifies the referenced entry. It is never shown: a bare key says nothing to the user. */
     clavisPrimaria: UUID
     /* @tt{{{
         @foreach [ iteratorExpression="model.displayAttributes" loopVariable="displayAttribute" ]
@@ -47,9 +50,9 @@ export interface MembrumRelatumDisplayRow {
 
 /**
  * The display attributes of a MembrumRelatum: the attributes that identify an instance for a
- * human reader. A reference to a MembrumRelatum is stored as a bare UUID, which tells the user
- * nothing, so every place that shows such a reference resolves it to the whole
- * MembrumRelatumWTO and renders these attributes instead of the UUID alone.
+ * human reader. A reference to a MembrumRelatum is stored as its bare primary key, which tells
+ * the user nothing, so every place that shows such a reference resolves it to the whole
+ * MembrumRelatumWTO and renders these attributes instead of the primary key alone.
  */
 export const MEMBRUM_RELATUM_DISPLAY_ATTRIBUTE_NAMES: ReadonlyArray<keyof MembrumRelatumDisplayRow> = [
     /* @tt{{{

@@ -7,6 +7,7 @@ import senegai.model.schema.EnumId
 import senegai.model.schema.ExampleDataCategory
 import senegai.model.schema.ItemAttribute
 import senegai.model.schema.ItemId
+import senegai.model.schema.PrimaryKeyType
 
 @Builder
 @ExpectedClazzModelFromSuperiorBuilder(clazz = ItemAttribute::class, alias = "itemAttribute")
@@ -28,9 +29,9 @@ interface ItemAttributeTypeBuilder: ItemAttributeTypeDsl {
         type: BuiltInType,
     )
 
-    override fun primaryKey() {
-        // a primary key is always a UUID and has no options at all
-        primaryKeyInternal(type = BuiltInType.UUID)
+    override fun primaryKey(type: PrimaryKeyType) {
+        // a primary key is a plain built-in type and has no options at all
+        primaryKeyInternal(type = type.builtInType)
     }
 
     // **************

@@ -21,8 +21,8 @@ object ItemRepositoryRenderer : BeItemRenderer {
           |import senegai.server.service.bo.${model.itemName.pascalCase}BO
           |import senegai.server.service.bo.${model.itemName.pascalCase}ByIdsCriteriaBO
           |import senegai.server.service.bo.${model.itemName.pascalCase}SearchCriteriaBO
-          |import java.util.UUID
-          |
+          |${ if(model.hasUuidPrimaryKey) { """import java.util.${model.primaryKeyAttribute.kotlinAttributeType}
+              |""" } else { """""" } }
           |/**
           | * Port for persisting the ${model.itemName.pascalCase} root object [${model.itemName.pascalCase}BO]. The implementation
           | * lives in the persistence module, so the service (business) layer stays independent of
@@ -34,7 +34,7 @@ object ItemRepositoryRenderer : BeItemRenderer {
           |
           |    fun findAll(): List<${model.itemName.pascalCase}BO>
           |
-          |    fun findById(${model.primaryKeyAttribute.attributeName.camelCase}: UUID): ${model.itemName.pascalCase}BO?
+          |    fun findById(${model.primaryKeyAttribute.attributeName.camelCase}: ${model.primaryKeyAttribute.kotlinAttributeType}): ${model.itemName.pascalCase}BO?
           |
           |    fun findByIds(criteria: ${model.itemName.pascalCase}ByIdsCriteriaBO): List<${model.itemName.pascalCase}BO>
           |
@@ -42,7 +42,13 @@ object ItemRepositoryRenderer : BeItemRenderer {
           |
           |    fun save(${model.itemName.camelCase}: ${model.itemName.pascalCase}BO): ${model.itemName.pascalCase}BO
           |
-          |    fun deleteById(${model.primaryKeyAttribute.attributeName.camelCase}: UUID)
+          |    fun deleteById(${model.primaryKeyAttribute.attributeName.camelCase}: ${model.primaryKeyAttribute.kotlinAttributeType})
+          |
+          |    /**
+          |     * A primary key that no stored ${model.itemName.pascalCase} is identified by, for a ${model.itemName.pascalCase} that is
+          |     * created. Handing out identity is the job of the persistence, like a sequence of a database.
+          |     */
+          |    fun nextId(): ${model.primaryKeyAttribute.kotlinAttributeType}
           |}
           |
         """.trimMargin(marginPrefix = "|")

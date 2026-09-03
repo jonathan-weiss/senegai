@@ -39,12 +39,16 @@ object ItemExampleDataPopulatorRenderer : BeItemRenderer {
           |): ExampleDataCreator {
           |
           |    /**
-          |     * Creates the example [${model.itemName.pascalCase}BO] aggregates, writes each of them to the
-          |     * persistence via the [${model.itemName.pascalCase}Repository] and returns the persisted list.
+          |     * Creates the example [${model.itemName.pascalCase}BO] aggregates and writes each of them to the
+          |     * persistence via the [${model.itemName.pascalCase}Repository].
+          |     *
+          |     * The primary key of the created aggregates is the one the persistence hands out, not the
+          |     * one the example data creator generated: only that way every example aggregate is stored
+          |     * under a key of its own, whatever type the primary key is of.
           |     */
           |    override fun createExampleData(dataContext: DataContext) {
           |        ${model.itemName.camelCase}ExampleDataCreator.createList(dataContext, FakerHelper.itemListRandomSize(dataContext))
-          |            .forEach { ${model.itemName.camelCase}Repository.save(it) }
+          |            .forEach { ${model.itemName.camelCase}Repository.save(it.copy(${model.primaryKeyAttribute.attributeName.camelCase} = ${model.itemName.camelCase}Repository.nextId())) }
           |    }
           |}
           |

@@ -120,6 +120,7 @@ export class OpusMagnumSilvaOptionumFormPartService {
 
                 @replace-value-by-expression
                     [ searchValue="relatioAdEntitatemOptionalis" replaceByExpression="referenceAttribute.attributeName.camelCase" ]
+                    [ searchValue="FormControl<UUID | null>" replaceByExpression="referenceAttribute.angularFormControlType(model.entity.entityName)" ]
 
             }}}@  */
             [OpusMagnumSilvaOptionumFormPartFieldName.relatioAdEntitatemOptionalis]: new FormControl<UUID | null>(

@@ -20,6 +20,7 @@
 
     @replace-value-by-expression
         [ searchValue="indexUnicus" replaceByExpression="model.primaryKeyAttribute.attributeName.camelCase" ]
+        [ searchValue="UUID" replaceByExpression="model.primaryKeyAttribute.kotlinAttributeType" ]
 
     @modify-provided-filepath-by-replacements
 
@@ -38,7 +39,9 @@ import senegai.server.restapi.wto.mapper.SilvaOptionumSearchCriteriaMapper.toBo
 import senegai.server.restapi.wto.mapper.SilvaOptionumMapper.toBo
 import senegai.server.restapi.wto.mapper.SilvaOptionumMapper.toWto
 import senegai.server.service.silvaoptionum.SilvaOptionumService
+/* @tt{{{   @if [ conditionExpression="model.hasUuidPrimaryKey"]  }}}@ */
 import java.util.UUID
+/* @tt{{{   @end-if  }}}@ */
 
 /**
  * REST endpoints of the SilvaOptionum business context. Served under `/api/silva-optionum`
@@ -67,7 +70,7 @@ class SilvaOptionumController(
 
     /**
      * Resolves a whole set of references to this item at once, so that the client can show
-     * stored identifiers by their display attributes instead of the bare UUIDs.
+     * stored identifiers by their display attributes instead of the bare primary keys.
      */
     @PostMapping("/by-ids")
     fun getSilvaOptionumListByIds(@RequestBody criteria: SilvaOptionumByIdsCriteriaWTO): SilvaOptionumByIdsResultWTO =

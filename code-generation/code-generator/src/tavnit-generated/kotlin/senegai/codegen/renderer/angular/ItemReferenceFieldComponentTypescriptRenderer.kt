@@ -30,13 +30,13 @@ object ItemReferenceFieldComponentTypescriptRenderer : UiItemRenderer {
           |    FieldErrorMessagesComponent
           |} from "@app/shared/form-controls/field-error-messages/field-error-messages.component";
           |import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
-          |import {UUID} from "@app/shared/uuid";
-          |import {${model.itemName.pascalCase}WTO} from "@app/wto/${model.itemName.kebabCase}.wto";
+          |${ if(model.hasUuidPrimaryKey) { """import {${model.primaryKeyAttribute.typescriptAttributeType}} from "@app/shared/uuid";
+              |""" } else { """""" } }import {${model.itemName.pascalCase}WTO} from "@app/wto/${model.itemName.kebabCase}.wto";
           |import {TranslocoPipe} from "@jsverse/transloco";
           |
           |/**
-          | * Edits a single reference to a ${model.itemName.pascalCase}, held in the form as one FormControl of a UUID
-          | * or null.
+          | * Edits a single reference to a ${model.itemName.pascalCase}, held in the form as one FormControl of a
+          | * primary key or null.
           | *
           | * The single-reference counterpart of the ${model.itemName.pascalCase}ReferenceTableComponent: the
           | * typeahead itself is the field, it shows the picked entry by its display attributes and a new
@@ -44,9 +44,9 @@ object ItemReferenceFieldComponentTypescriptRenderer : UiItemRenderer {
           | * one level up by the nullability of the field, and while the field is not null exactly one
           | * reference is required, so an empty field is a validation error.
           | *
-          | * The UUID stored in the form says nothing to the user, so it is resolved to the whole
+          | * The primary key stored in the form says nothing to the user, so it is resolved to the whole
           | * ${model.itemName.pascalCase}WTO through the already existing backend call (`GET /api/${model.itemName.kebabCase}/{id}`)
-          | * and shown by its display attributes. Resolved objects are cached, so a UUID is fetched once.
+          | * and shown by its display attributes. Resolved objects are cached, so a key is fetched once.
           | */
           |@Component({
           |    selector: 'app-${model.itemName.kebabCase}-reference-field',
@@ -59,10 +59,10 @@ object ItemReferenceFieldComponentTypescriptRenderer : UiItemRenderer {
           |    ]
           |})
           |export class ${model.itemName.pascalCase}ReferenceFieldComponent implements OnInit {
-          |    @Input({required: true}) ${model.itemName.camelCase}ReferenceFormControl!: FormControl<UUID | null>;
+          |    @Input({required: true}) ${model.itemName.camelCase}ReferenceFormControl!: FormControl<${model.primaryKeyAttribute.typescriptAttributeType} | null>;
           |    @Input() validatorTranslations: ReadonlyArray<ValidatorTranslation> = [];
           |
-          |    private readonly resolvedBy${model.primaryKeyAttribute.attributeName.pascalCase} = new Map<UUID, ${model.itemName.pascalCase}WTO>();
+          |    private readonly resolvedBy${model.primaryKeyAttribute.attributeName.pascalCase} = new Map<${model.primaryKeyAttribute.typescriptAttributeType}, ${model.itemName.pascalCase}WTO>();
           |
           |    constructor(private readonly ${model.itemName.camelCase}Service: ${model.itemName.pascalCase}Service) {}
           |
@@ -91,7 +91,7 @@ object ItemReferenceFieldComponentTypescriptRenderer : UiItemRenderer {
           |        this.${model.itemName.camelCase}ReferenceFormControl.setValue(${model.itemName.camelCase}.${model.primaryKeyAttribute.attributeName.camelCase});
           |    }
           |
-          |    private referenced${model.primaryKeyAttribute.attributeName.pascalCase}(): UUID | null {
+          |    private referenced${model.primaryKeyAttribute.attributeName.pascalCase}(): ${model.primaryKeyAttribute.typescriptAttributeType} | null {
           |        return this.${model.itemName.camelCase}ReferenceFormControl.getRawValue();
           |    }
           |
@@ -111,7 +111,7 @@ object ItemReferenceFieldComponentTypescriptRenderer : UiItemRenderer {
           |        }
           |    }
           |
-          |    /** The separate backend call that resolves the UUID if it is not yet in the cache. */
+          |    /** The separate backend call that resolves the primary key if it is not yet in the cache. */
           |    private resolveMissing${model.itemName.pascalCase}(): void {
           |        const ${model.primaryKeyAttribute.attributeName.camelCase} = this.referenced${model.primaryKeyAttribute.attributeName.pascalCase}();
           |        if (${model.primaryKeyAttribute.attributeName.camelCase} === null || this.resolvedBy${model.primaryKeyAttribute.attributeName.pascalCase}.has(${model.primaryKeyAttribute.attributeName.camelCase})) {

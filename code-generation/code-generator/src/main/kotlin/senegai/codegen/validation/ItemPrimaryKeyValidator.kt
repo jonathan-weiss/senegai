@@ -1,11 +1,12 @@
 package senegai.codegen.validation
 
-import senegai.model.schema.BuiltInType
+import senegai.model.schema.PrimaryKeyType
 import senegai.model.schema.SchemaData
 
 /**
  * An item is identified by at most one attribute, and that attribute is a single
- * mandatory [BuiltInType.UUID] (like a primary key in the database).
+ * mandatory attribute of a [PrimaryKeyType] built-in type (like a primary key in the
+ * database).
  */
 class ItemPrimaryKeyValidator : SchemaDataAspectValidator {
     override fun validate(schemaData: SchemaData, path: ValidationPath) {
@@ -26,11 +27,13 @@ class ItemPrimaryKeyValidator : SchemaDataAspectValidator {
             val (primaryKeyIndex, primaryKey) = primaryKeyAttributes.singleOrNull() ?: return@forEachIndexed
             val primaryKeyPath = itemPath.child("attributes", primaryKeyIndex, primaryKey.attributeName)
 
-            if (primaryKey.type != BuiltInType.UUID) {
+            if (PrimaryKeyType.entries.none { it.builtInType == primaryKey.type }) {
+                val supportedTypes = PrimaryKeyType.entries.joinToString { it.builtInType.name }
                 validationError(
                     primaryKeyPath,
                     "The attribute identifies its item, but it is of ${primaryKey.type.description}. " +
-                            "An item is only identified by an attribute of the built-in type ${BuiltInType.UUID}.",
+                            "An item is only identified by an attribute of one of the built-in " +
+                            "types $supportedTypes.",
                 )
             }
             if (primaryKey.isNullable || primaryKey.isMultiple) {

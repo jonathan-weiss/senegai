@@ -15,14 +15,17 @@
     @replace-value-by-expression
         [ searchValue="SilvaOptionum" replaceByExpression="model.itemName.pascalCase" ]
         [ searchValue="indexUnicus" replaceByExpression="model.primaryKeyAttribute.attributeName.camelCase" ]
+        [ searchValue="UUID" replaceByExpression="model.primaryKeyAttribute.kotlinAttributeType" ]
 
     @modify-provided-filepath-by-replacements
 
 }}}@ */
 package senegai.server.restapi.wto
 
+/* @tt{{{   @if [ conditionExpression="model.hasUuidPrimaryKey"]  }}}@ */
 import java.util.UUID
 
+/* @tt{{{   @end-if  }}}@ */
 data class SilvaOptionumByIdsCriteriaWTO(
     val indexUnicusList: List<UUID> = emptyList(),
 )

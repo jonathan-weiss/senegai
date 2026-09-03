@@ -30,8 +30,8 @@ object ItemControllerRenderer : BeItemRenderer {
           |import senegai.server.restapi.wto.mapper.${model.itemName.pascalCase}Mapper.toBo
           |import senegai.server.restapi.wto.mapper.${model.itemName.pascalCase}Mapper.toWto
           |import senegai.server.service.${model.itemName.lowerCase}.${model.itemName.pascalCase}Service
-          |import java.util.UUID
-          |
+          |${ if(model.hasUuidPrimaryKey) { """import java.util.${model.primaryKeyAttribute.kotlinAttributeType}
+              |""" } else { """""" } }
           |/**
           | * REST endpoints of the ${model.itemName.pascalCase} business context. Served under `/api/${model.itemName.kebabCase}`
           | * (the `/api` prefix is added by `WebConfig`) and consumed by the Angular
@@ -59,7 +59,7 @@ object ItemControllerRenderer : BeItemRenderer {
           |
           |    /**
           |     * Resolves a whole set of references to this item at once, so that the client can show
-          |     * stored identifiers by their display attributes instead of the bare UUIDs.
+          |     * stored identifiers by their display attributes instead of the bare primary keys.
           |     */
           |    @PostMapping("/by-ids")
           |    fun get${model.itemName.pascalCase}ListByIds(@RequestBody criteria: ${model.itemName.pascalCase}ByIdsCriteriaWTO): ${model.itemName.pascalCase}ByIdsResultWTO =
@@ -68,7 +68,7 @@ object ItemControllerRenderer : BeItemRenderer {
           |        )
           |
           |    @GetMapping("/{${model.primaryKeyAttribute.attributeName.camelCase}}")
-          |    fun get${model.itemName.pascalCase}ById(@PathVariable ${model.primaryKeyAttribute.attributeName.camelCase}: UUID): ${model.itemName.pascalCase}WTO? =
+          |    fun get${model.itemName.pascalCase}ById(@PathVariable ${model.primaryKeyAttribute.attributeName.camelCase}: ${model.primaryKeyAttribute.kotlinAttributeType}): ${model.itemName.pascalCase}WTO? =
           |        ${model.itemName.camelCase}Service.get${model.itemName.pascalCase}ById(${model.primaryKeyAttribute.attributeName.camelCase})?.toWto()
           |
           |    @PostMapping
@@ -79,7 +79,7 @@ object ItemControllerRenderer : BeItemRenderer {
           |
           |    @PutMapping("/{${model.primaryKeyAttribute.attributeName.camelCase}}")
           |    fun update${model.itemName.pascalCase}(
-          |        @PathVariable ${model.primaryKeyAttribute.attributeName.camelCase}: UUID,
+          |        @PathVariable ${model.primaryKeyAttribute.attributeName.camelCase}: ${model.primaryKeyAttribute.kotlinAttributeType},
           |        @RequestBody ${model.itemName.camelCase}: ${model.itemName.pascalCase}WTO,
           |    ): ${model.itemName.pascalCase}WTO {
           |        val toUpdate = ${model.itemName.camelCase}.toBo().copy(${model.primaryKeyAttribute.attributeName.camelCase} = ${model.primaryKeyAttribute.attributeName.camelCase})
@@ -87,7 +87,7 @@ object ItemControllerRenderer : BeItemRenderer {
           |    }
           |
           |    @DeleteMapping("/{${model.primaryKeyAttribute.attributeName.camelCase}}")
-          |    fun delete${model.itemName.pascalCase}(@PathVariable ${model.primaryKeyAttribute.attributeName.camelCase}: UUID) =
+          |    fun delete${model.itemName.pascalCase}(@PathVariable ${model.primaryKeyAttribute.attributeName.camelCase}: ${model.primaryKeyAttribute.kotlinAttributeType}) =
           |        ${model.itemName.camelCase}Service.delete${model.itemName.pascalCase}(${model.primaryKeyAttribute.attributeName.camelCase})
           |}
           |

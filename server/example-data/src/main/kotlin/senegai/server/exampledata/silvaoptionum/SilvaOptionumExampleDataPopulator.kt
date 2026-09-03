@@ -16,6 +16,7 @@
         [ searchValue="SilvaOptionum" replaceByExpression="model.itemName.pascalCase" ]
         [ searchValue="silvaOptionum" replaceByExpression="model.itemName.camelCase" ]
         [ searchValue="silvaoptionum" replaceByExpression="model.itemName.lowerCase" ]
+        [ searchValue="indexUnicus" replaceByExpression="model.primaryKeyAttribute.attributeName.camelCase" ]
 
     @modify-provided-filepath-by-replacements
 
@@ -43,11 +44,15 @@ class SilvaOptionumExampleDataPopulator(
 ): ExampleDataCreator {
 
     /**
-     * Creates the example [SilvaOptionumBO] aggregates, writes each of them to the
-     * persistence via the [SilvaOptionumRepository] and returns the persisted list.
+     * Creates the example [SilvaOptionumBO] aggregates and writes each of them to the
+     * persistence via the [SilvaOptionumRepository].
+     *
+     * The primary key of the created aggregates is the one the persistence hands out, not the
+     * one the example data creator generated: only that way every example aggregate is stored
+     * under a key of its own, whatever type the primary key is of.
      */
     override fun createExampleData(dataContext: DataContext) {
         silvaOptionumExampleDataCreator.createList(dataContext, FakerHelper.itemListRandomSize(dataContext))
-            .forEach { silvaOptionumRepository.save(it) }
+            .forEach { silvaOptionumRepository.save(it.copy(indexUnicus = silvaOptionumRepository.nextId())) }
     }
 }

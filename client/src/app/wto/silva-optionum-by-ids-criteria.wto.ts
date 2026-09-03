@@ -16,12 +16,15 @@
         [ searchValue="SilvaOptionum" replaceByExpression="model.itemName.pascalCase" ]
         [ searchValue="silva-optionum" replaceByExpression="model.itemName.kebabCase" ]
         [ searchValue="indexUnicus" replaceByExpression="model.primaryKeyAttribute.attributeName.camelCase" ]
+        [ searchValue="UUID" replaceByExpression="model.primaryKeyAttribute.typescriptAttributeType" ]
 
     @modify-provided-filepath-by-replacements
 
 }}}@ */
+/* @tt{{{   @if [ conditionExpression="model.hasUuidPrimaryKey"]  }}}@ */
 import {UUID} from "@app/shared/uuid";
 
+/* @tt{{{   @end-if  }}}@ */
 /**
  * The Silva Optionum by-ids criteria WTO (Web Transfer Object), sent as the request body of
  * the by-ids endpoint. It carries the identifier of every Silva Optionum to resolve, which is

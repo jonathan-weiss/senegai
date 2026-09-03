@@ -4,6 +4,7 @@ import senegai.model.builders.RootDsl
 import senegai.model.schema.EnumId
 import senegai.model.schema.ExampleDataCategory
 import senegai.model.schema.ItemId
+import senegai.model.schema.PrimaryKeyType
 
 object EssentialModelData {
     fun RootDsl.collectData() {
@@ -17,6 +18,7 @@ object EssentialModelData {
         CONTACT(itemName = "Contact"),
         ADDRESS(itemName = "Address"),
         COUNTRY(itemName = "Country"),
+        COMPANY(itemName = "Company"),
     }
 
     enum class EnumTypes(
@@ -68,10 +70,13 @@ object EssentialModelData {
                 attribute(name = "MyReferenceToAddressNullable").reference(itemId = Items.ADDRESS).options(nullable = true, multiple = false)
                 attribute(name = "MyReferencesToAddresses").reference(itemId = Items.ADDRESS).options(nullable = false, multiple = true)
                 attribute(name = "MyReferencesToAddressesNullable").reference(itemId = Items.ADDRESS).options(nullable = true, multiple = true)
+                attribute(name = "Employer").reference(itemId = Items.COMPANY).options(nullable = false, multiple = false)
+                attribute(name = "PreviousEmployers").reference(itemId = Items.COMPANY).options(nullable = true, multiple = true)
+                attribute(name = "Supervisor").reference(itemId = Items.CONTACT).options(nullable = true, multiple = false)
             }
 
             item(itemId = Items.ADDRESS) {
-                attribute(name = "Id").primaryKey()
+                attribute(name = "Id").primaryKey(type = PrimaryKeyType.STRING)
                 attribute(name = "Street").string(exampleDataCategory = ExampleDataCategory.STREET)
                 attribute(name = "PostalCode").string(exampleDataCategory = ExampleDataCategory.POSTCODE)
                 attribute(name = "Town").string(exampleDataCategory = ExampleDataCategory.CITY)
@@ -81,6 +86,11 @@ object EssentialModelData {
             item(itemId = Items.COUNTRY) {
                 attribute(name = "CountryIsoCode").string(exampleDataCategory = ExampleDataCategory.COUNTRY_ISO)
                 attribute(name = "CountryName").string(exampleDataCategory = ExampleDataCategory.COUNTRY_NAME)
+            }
+
+            item(itemId = Items.COMPANY) {
+                attribute(name = "CompanyNumber").primaryKey(type = PrimaryKeyType.NUMBER)
+                attribute(name = "CompanyName").string()
             }
         }
     }
@@ -106,6 +116,11 @@ object EssentialModelData {
                         attribute(attributeName = "Town")
                         attribute(attributeName = "Country")
                     }
+                }
+            }
+            uiItem(itemId = Items.COMPANY) {
+                displayAttributes {
+                    attribute(attributeName = "CompanyName")
                 }
             }
             uiItem(itemId = Items.COUNTRY) {
@@ -167,6 +182,9 @@ object EssentialModelData {
                                     attribute(attributeName = "MyReferenceToAddressNullable")
                                     attribute(attributeName = "MyReferencesToAddresses")
                                     attribute(attributeName = "MyReferencesToAddressesNullable")
+                                    attribute(attributeName = "Employer")
+                                    attribute(attributeName = "PreviousEmployers")
+                                    attribute(attributeName = "Supervisor")
                                 }
                             }
                             tab(tabTranslationKey = "tab.miscellaneous") {
@@ -212,6 +230,24 @@ object EssentialModelData {
                                 attribute(attributeName = "PostalCode")
                                 attribute(attributeName = "Town")
                                 attribute(attributeName = "Country")
+                            }
+                        }
+                    }
+                }
+            }
+            uiEntity(uiEntityName = "Company", rootItemId = Items.COMPANY) {
+                views {
+                    searchResult {
+                        attribute(attributeName = "CompanyNumber")
+                        attribute(attributeName = "CompanyName")
+                    }
+                    editor {
+                        configureEditorForMainItem {
+                            tab(tabTranslationKey = "tab.company") {
+                                column {
+                                    attribute(attributeName = "CompanyNumber")
+                                    attribute(attributeName = "CompanyName")
+                                }
                             }
                         }
                     }

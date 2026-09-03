@@ -18,6 +18,7 @@
         [ searchValue="membrum-relatum" replaceByExpression="model.itemName.kebabCase" ]
         [ searchValue="ClavisPrimaria" replaceByExpression="model.primaryKeyAttribute.attributeName.pascalCase" ]
         [ searchValue="clavisPrimaria" replaceByExpression="model.primaryKeyAttribute.attributeName.camelCase" ]
+        [ searchValue="UUID" replaceByExpression="model.primaryKeyAttribute.typescriptAttributeType" ]
 
     @modify-provided-filepath-by-replacements
 
@@ -30,7 +31,9 @@ import {MatInputModule} from "@angular/material/input";
 import {Observable, Subject, debounceTime, distinctUntilChanged, of, switchMap} from "rxjs";
 import {MembrumRelatumService} from "@app/service/membrum-relatum.service";
 import {membrumRelatumDisplayLabel} from "@app/reference/membrum-relatum-display";
+/* @tt{{{   @if [ conditionExpression="model.hasUuidPrimaryKey"]  }}}@ */
 import {UUID} from "@app/shared/uuid";
+/* @tt{{{   @end-if  }}}@ */
 import {MembrumRelatumSearchResultWTO} from "@app/wto/membrum-relatum-search-result.wto";
 import {MembrumRelatumWTO} from "@app/wto/membrum-relatum.wto";
 import {TranslocoPipe} from "@jsverse/transloco";

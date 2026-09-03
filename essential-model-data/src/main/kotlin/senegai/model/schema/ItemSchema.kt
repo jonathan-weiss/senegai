@@ -31,6 +31,17 @@ enum class BuiltInType : ItemAttributeType {
     UUID,
 }
 
+/**
+ * The built-in types an item can be identified by (see [ItemAttribute.isPrimaryKey]).
+ *
+ * A [BuiltInType.BOOLEAN] is missing on purpose: it can only tell two items apart.
+ */
+enum class PrimaryKeyType(val builtInType: BuiltInType) {
+    UUID(BuiltInType.UUID),
+    STRING(BuiltInType.STRING),
+    NUMBER(BuiltInType.NUMBER),
+}
+
 enum class ExampleDataCategory(val generatorPrefixName: String, val supportedBuiltInType: BuiltInType) {
     RANDOM_TEXT("RandomString", BuiltInType.STRING),
     RANDOM_NUMBER("RandomNumber",BuiltInType.NUMBER),
@@ -44,6 +55,17 @@ enum class ExampleDataCategory(val generatorPrefixName: String, val supportedBui
     CITY("CityString",BuiltInType.STRING),
     COUNTRY_ISO("CountryIsoCodeString",BuiltInType.STRING),
     COUNTRY_NAME("CountryNameString",BuiltInType.STRING),
+    ;
+
+    companion object {
+        /** The category used for an attribute of [builtInType] that declares none itself. */
+        fun randomDataOf(builtInType: BuiltInType): ExampleDataCategory = when (builtInType) {
+            BuiltInType.STRING -> RANDOM_TEXT
+            BuiltInType.NUMBER -> RANDOM_NUMBER
+            BuiltInType.BOOLEAN -> RANDOM_BOOLEAN
+            BuiltInType.UUID -> RANDOM_UUID
+        }
+    }
 }
 
 /**
@@ -74,7 +96,7 @@ data class Item(
     /**
      * The attribute of this item that identifies it (like a primary key in the
      * database), or `null` if this item has no identifier at all.
-     * It is always of type [BuiltInType.UUID].
+     * It is always of one of the [PrimaryKeyType] built-in types.
      */
     val idAttribute: ItemAttribute? = attributes.singleOrNull { it.isPrimaryKey }
 
@@ -99,8 +121,9 @@ data class ItemAttribute(
     /**
      * Whether this attribute identifies its [Item] (like a primary key in the database).
      *
-     * Such an attribute is always of type [BuiltInType.UUID], neither nullable nor
-     * multiple, and there is at most one of them per [Item] (see [Item.idAttribute]).
+     * Such an attribute is always of one of the [PrimaryKeyType] built-in types, neither
+     * nullable nor multiple, and there is at most one of them per [Item]
+     * (see [Item.idAttribute]).
      */
     val isPrimaryKey: Boolean = false,
     /**
@@ -109,8 +132,8 @@ data class ItemAttribute(
      *
      * Both kinds of attribute carry an [ItemId] as their [type], this flag is what
      * distinguishes them: a reference stores only the primary key of the referenced
-     * item, which is always a [BuiltInType.UUID], so the referenced item has to
-     * declare an [Item.idAttributeName].
+     * item, so the referenced item has to declare an [Item.idAttributeName] and the
+     * reference is of the same built-in type as that primary key.
      */
     val isReference: Boolean = false,
 )

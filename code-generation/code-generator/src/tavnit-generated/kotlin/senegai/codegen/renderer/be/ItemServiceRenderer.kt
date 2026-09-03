@@ -22,8 +22,8 @@ object ItemServiceRenderer : BeItemRenderer {
           |import senegai.server.service.bo.${model.itemName.pascalCase}BO
           |import senegai.server.service.bo.${model.itemName.pascalCase}ByIdsCriteriaBO
           |import senegai.server.service.bo.${model.itemName.pascalCase}SearchCriteriaBO
-          |import java.util.UUID
-          |
+          |${ if(model.hasUuidPrimaryKey) { """import java.util.${model.primaryKeyAttribute.kotlinAttributeType}
+              |""" } else { """""" } }
           |/**
           | * Business service of the ${model.itemName.pascalCase} business context. It is called by the REST layer
           | * with [${model.itemName.pascalCase}BO] business objects (never WTOs) and delegates persistence to the
@@ -38,7 +38,7 @@ object ItemServiceRenderer : BeItemRenderer {
           |
           |    fun get${model.itemName.pascalCase}List(): List<${model.itemName.pascalCase}BO> = ${model.itemName.camelCase}Repository.findAll()
           |
-          |    fun get${model.itemName.pascalCase}ById(${model.primaryKeyAttribute.attributeName.camelCase}: UUID): ${model.itemName.pascalCase}BO? =
+          |    fun get${model.itemName.pascalCase}ById(${model.primaryKeyAttribute.attributeName.camelCase}: ${model.primaryKeyAttribute.kotlinAttributeType}): ${model.itemName.pascalCase}BO? =
           |        ${model.itemName.camelCase}Repository.findById(${model.primaryKeyAttribute.attributeName.camelCase})
           |
           |    fun get${model.itemName.pascalCase}ListByIds(criteria: ${model.itemName.pascalCase}ByIdsCriteriaBO): List<${model.itemName.pascalCase}BO> =
@@ -48,14 +48,14 @@ object ItemServiceRenderer : BeItemRenderer {
           |        ${model.itemName.camelCase}Repository.search(searchCriteria)
           |
           |    fun create${model.itemName.pascalCase}(${model.itemName.camelCase}: ${model.itemName.pascalCase}BO): ${model.itemName.pascalCase}BO {
-          |        val toCreate = ${model.itemName.camelCase}.copy(${model.primaryKeyAttribute.attributeName.camelCase} = UUID.randomUUID())
+          |        val toCreate = ${model.itemName.camelCase}.copy(${model.primaryKeyAttribute.attributeName.camelCase} = ${model.itemName.camelCase}Repository.nextId())
           |        return ${model.itemName.camelCase}Repository.save(toCreate)
           |    }
           |
           |    fun update${model.itemName.pascalCase}(${model.itemName.camelCase}: ${model.itemName.pascalCase}BO): ${model.itemName.pascalCase}BO =
           |        ${model.itemName.camelCase}Repository.save(${model.itemName.camelCase})
           |
-          |    fun delete${model.itemName.pascalCase}(${model.primaryKeyAttribute.attributeName.camelCase}: UUID) = ${model.itemName.camelCase}Repository.deleteById(${model.primaryKeyAttribute.attributeName.camelCase})
+          |    fun delete${model.itemName.pascalCase}(${model.primaryKeyAttribute.attributeName.camelCase}: ${model.primaryKeyAttribute.kotlinAttributeType}) = ${model.itemName.camelCase}Repository.deleteById(${model.primaryKeyAttribute.attributeName.camelCase})
           |}
           |
         """.trimMargin(marginPrefix = "|")

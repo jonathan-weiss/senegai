@@ -19,6 +19,7 @@
 
     @replace-value-by-expression
         [ searchValue="indexUnicus" replaceByExpression="model.primaryKeyAttribute.attributeName.camelCase" ]
+        [ searchValue="UUID" replaceByExpression="model.primaryKeyAttribute.kotlinAttributeType" ]
 
     @modify-provided-filepath-by-replacements
 
@@ -31,7 +32,9 @@ import senegai.server.service.bo.SilvaOptionumBO
 import senegai.server.service.bo.SilvaOptionumByIdsCriteriaBO
 import senegai.server.service.bo.SilvaOptionumSearchCriteriaBO
 import java.util.concurrent.ConcurrentHashMap
+/* @tt{{{   @if [ conditionExpression="model.hasUuidPrimaryKey"]  }}}@ */
 import java.util.UUID
+/* @tt{{{   @end-if  }}}@ */
 
 /**
  * Simple in-memory implementation of the [SilvaOptionumRepository] port defined in the
@@ -61,4 +64,11 @@ class InMemorySilvaOptionumRepository : SilvaOptionumRepository {
     override fun deleteById(indexUnicus: UUID) {
         store.remove(indexUnicus)
     }
+
+    /* @tt{{{
+        @replace-value-by-expression
+            [ searchValue="UUID.randomUUID()" replaceByExpression="model.nextPrimaryKeyValueExpression" ]
+    }}}@ */
+    override fun nextId(): UUID = UUID.randomUUID()
+    /* @tt{{{   @end-replace-value-by-expression  }}}@ */
 }

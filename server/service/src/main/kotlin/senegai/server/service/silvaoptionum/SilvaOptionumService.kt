@@ -19,6 +19,7 @@
 
     @replace-value-by-expression
         [ searchValue="indexUnicus" replaceByExpression="model.primaryKeyAttribute.attributeName.camelCase" ]
+        [ searchValue="UUID" replaceByExpression="model.primaryKeyAttribute.kotlinAttributeType" ]
 
     @modify-provided-filepath-by-replacements
 
@@ -29,7 +30,9 @@ import org.springframework.stereotype.Service
 import senegai.server.service.bo.SilvaOptionumBO
 import senegai.server.service.bo.SilvaOptionumByIdsCriteriaBO
 import senegai.server.service.bo.SilvaOptionumSearchCriteriaBO
+/* @tt{{{   @if [ conditionExpression="model.hasUuidPrimaryKey"]  }}}@ */
 import java.util.UUID
+/* @tt{{{   @end-if  }}}@ */
 
 /**
  * Business service of the SilvaOptionum business context. It is called by the REST layer
@@ -55,7 +58,7 @@ class SilvaOptionumService(
         silvaOptionumRepository.search(searchCriteria)
 
     fun createSilvaOptionum(silvaOptionum: SilvaOptionumBO): SilvaOptionumBO {
-        val toCreate = silvaOptionum.copy(indexUnicus = UUID.randomUUID())
+        val toCreate = silvaOptionum.copy(indexUnicus = silvaOptionumRepository.nextId())
         return silvaOptionumRepository.save(toCreate)
     }
 

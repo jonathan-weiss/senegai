@@ -18,6 +18,7 @@
         [ searchValue="membrum-relatum" replaceByExpression="model.itemName.kebabCase" ]
         [ searchValue="ClavisPrimaria" replaceByExpression="model.primaryKeyAttribute.attributeName.pascalCase" ]
         [ searchValue="clavisPrimaria" replaceByExpression="model.primaryKeyAttribute.attributeName.camelCase" ]
+        [ searchValue="UUID" replaceByExpression="model.primaryKeyAttribute.typescriptAttributeType" ]
 
     @modify-provided-filepath-by-replacements
 
@@ -36,20 +37,22 @@ import {
     MembrumRelatumReferenceTableRow
 } from "@app/reference/membrum-relatum-reference-table/membrum-relatum-reference-table-row.model";
 import {FormUtil} from "@app/shared/form-controls/form.util";
+/* @tt{{{   @if [ conditionExpression="model.hasUuidPrimaryKey"]  }}}@ */
 import {UUID} from "@app/shared/uuid";
+/* @tt{{{   @end-if  }}}@ */
 import {MembrumRelatumWTO} from "@app/wto/membrum-relatum.wto";
 import {TranslocoPipe} from "@jsverse/transloco";
 
 /**
- * Edits a list of references to MembrumRelatum, held in the form as a FormArray of UUIDs.
+ * Edits a list of references to MembrumRelatum, held in the form as a FormArray of primary keys.
  *
  * New rows are only ever created by picking an existing MembrumRelatum in the typeahead, so
  * there is no "add empty row" button and the generic SingleFormFieldTableComponent does not
  * fit here.
  *
- * The UUIDs already stored in the form say nothing to the user, so they are resolved to whole
+ * The primary keys already stored in the form say nothing to the user, so they are resolved to whole
  * MembrumRelatumWTOs through a separate backend call (`POST /api/membrum-relatum/by-ids`) and
- * shown by their display attributes. Resolved objects are cached, so a UUID is fetched once.
+ * shown by their display attributes. Resolved objects are cached, so a key is fetched once.
  */
 @Component({
     selector: 'app-membrum-relatum-reference-table',
@@ -123,7 +126,7 @@ export class MembrumRelatumReferenceTableComponent implements OnInit {
         this.resolveMissingMembrumRelatum();
     }
 
-    /** The separate backend call that resolves the UUIDs which are not yet in the cache. */
+    /** The separate backend call that resolves the primary keys which are not yet in the cache. */
     private resolveMissingMembrumRelatum(): void {
         const unresolvedClavisPrimariaList = this.referencedClavisPrimariaList()
             .filter(clavisPrimaria => !this.resolvedByClavisPrimaria.has(clavisPrimaria));

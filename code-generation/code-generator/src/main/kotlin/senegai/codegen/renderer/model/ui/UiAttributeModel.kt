@@ -18,8 +18,8 @@ sealed class UiAttributeModel(
 
     /**
      * Whether this attribute references another item by its primary key.
-     * Such an attribute is a [BuiltInType.UUID] in every layer, therefore it is
-     * also a built-in attribute ([isBuiltIn] is `true` as well).
+     * Such an attribute is of the built-in type of that primary key in every layer,
+     * therefore it is also a built-in attribute ([isBuiltIn] is `true` as well).
      */
     open val isItemReference: Boolean
         get() = false
@@ -176,11 +176,11 @@ open class BuiltInTypeUiAttributeModel(
 /**
  * An attribute that references another item by its primary key.
  *
- * The referenced item is always identified by a [BuiltInType.UUID], therefore this attribute
- * behaves exactly like a built-in UUID attribute in the form and in the transport layer. What
+ * The reference stores exactly that primary key, therefore this attribute behaves like a
+ * built-in attribute of the primary key's type in the form and in the transport layer. What
  * distinguishes it is [referencedItem]: it tells the templates which item has to be
  * searched and resolved to display the reference by its display attributes instead of
- * displaying the raw UUID.
+ * displaying the raw primary key.
  */
 class ItemReferenceUiAttributeModel(
     item: UiItemDescriptionModel,
@@ -195,18 +195,20 @@ class ItemReferenceUiAttributeModel(
     isNullable = isNullable,
     isList = isList,
     customValidation = customValidation,
-    builtInType = BuiltInType.UUID,
+    builtInType = referencedItem.idBuiltInType,
 ) {
     override val isItemReference: Boolean
         get() = true
 
     /**
      * A single reference holds `null` as long as nothing is picked, so that the required
-     * validator can complain instead of a nil UUID being sent to the backend. Inside a list
-     * every entry is a picked reference, therefore the entries themselves are never null.
+     * validator can complain instead of an unassigned primary key being sent to the backend.
+     * Inside a list every entry is a picked reference, therefore the entries themselves are
+     * never null.
      */
     override fun calculateAngularFormControlSingleType(uiEntityName: NameCase): String {
-        return if (isList) "FormControl<UUID>" else "FormControl<UUID | null>"
+        val referencedKeyType = attributeTypeAsString()
+        return if (isList) "FormControl<$referencedKeyType>" else "FormControl<$referencedKeyType | null>"
     }
 }
 

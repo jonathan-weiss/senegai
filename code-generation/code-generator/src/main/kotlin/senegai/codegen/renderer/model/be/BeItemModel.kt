@@ -1,5 +1,6 @@
 package senegai.codegen.renderer.model.be
 
+import senegai.codegen.renderer.NotSupportedInTemplateException
 import senegai.codegen.renderer.model.NameCase
 import senegai.model.schema.BuiltInType
 import senegai.model.schema.ItemId
@@ -9,9 +10,9 @@ data class BeItemModel(
     val attributes: List<BeAttributeModel>,
     /**
      * The attribute that identifies this item (its primary key), or `null` if this item
-     * has none. It is always a UUID.
+     * has none. It is always a plain built-in attribute, never a reference to another item.
      */
-    val idAttribute: BeAttributeModel?,
+    val idAttribute: BuiltInTypeBeAttributeModel?,
 ) {
     val itemId: ItemId = itemDescription.itemId
     val itemName: NameCase = itemDescription.itemName
@@ -23,10 +24,46 @@ data class BeItemModel(
      * The primary key, for the templates that are only rendered for an item that has one
      * (controller, service, repository, search, by-ids, example data initializer).
      */
-    val primaryKeyAttribute: BeAttributeModel
+    val primaryKeyAttribute: BuiltInTypeBeAttributeModel
         get() = requireNotNull(idAttribute) {
             "The item '${itemName.pascalCase}' declares no primary key."
         }
+
+    /** Whether the primary key is a [BuiltInType.UUID], e.g. to render the import of the UUID type. */
+    val hasUuidPrimaryKey: Boolean = idAttribute?.builtInType == BuiltInType.UUID
+
+    /**
+     * The Kotlin expression that hands out the next unused primary key, rendered into the
+     * `nextId()` of the in-memory repository, the only place that assigns one.
+     *
+     * A NUMBER key counts up and therefore reads the `store` map the in-memory repository
+     * holds its entries in. A STRING key is a random UUID in its textual form, written out
+     * fully qualified so that a STRING key needs no import at all.
+     */
+    val nextPrimaryKeyValueExpression: String
+        get() = when (primaryKeyAttribute.builtInType) {
+            BuiltInType.UUID -> "UUID.randomUUID()"
+            BuiltInType.STRING -> "java.util.UUID.randomUUID().toString()"
+            BuiltInType.NUMBER -> "(store.keys.maxOrNull() ?: 0) + 1"
+            BuiltInType.BOOLEAN -> throw NotSupportedInTemplateException(unsupportedPrimaryKeyTypeMessage())
+        }
+
+    /**
+     * The Kotlin expression for a primary key no item is ever identified by, rendered
+     * wherever a reference has to be created although there is nothing to reference yet.
+     */
+    val unresolvablePrimaryKeyValueExpression: String
+        get() = when (primaryKeyAttribute.builtInType) {
+            BuiltInType.UUID -> "UUID(0L, 0L)"
+            BuiltInType.STRING -> "\"\""
+            BuiltInType.NUMBER -> "0"
+            BuiltInType.BOOLEAN -> throw NotSupportedInTemplateException(unsupportedPrimaryKeyTypeMessage())
+        }
+
+    private fun unsupportedPrimaryKeyTypeMessage(): String =
+        "The item '${itemName.pascalCase}' is identified by the attribute " +
+                "'${primaryKeyAttribute.attributeName.camelCase}' of the built-in type " +
+                "${primaryKeyAttribute.builtInType}, which no item can be identified by."
 
     val usedEnums: List<BeEnumModel> = attributes
         .filterIsInstance<EnumBeAttributeModel>()
@@ -44,7 +81,7 @@ data class BeItemModel(
 
     /**
      * All attributes referencing another item. They are a subset of [builtInAttributes],
-     * as a reference is transported as the UUID of the referenced item.
+     * as a reference is transported as the primary key of the referenced item.
      */
     val attributesWithItemReference: List<ItemReferenceBeAttributeModel> = attributes
         .filterIsInstance<ItemReferenceBeAttributeModel>()
@@ -84,7 +121,10 @@ data class BeItemModel(
     val containsBooleanListAttributes: Boolean = attributesOfType(BuiltInType.BOOLEAN, isList = true).any()
     val containsNumberListAttributes: Boolean = attributesOfType(BuiltInType.NUMBER, isList = true).any()
 
-    /** Whether any attribute is a [BuiltInType.UUID], e.g. to render the import of the UUID type. */
+    /**
+     * Whether any attribute is a [BuiltInType.UUID], e.g. to render the import of the UUID
+     * type. A reference counts here if the item it references is identified by a UUID.
+     */
     val containsUuidAttributes: Boolean = attributesOfTypes(setOf(BuiltInType.UUID)).any()
 
     private fun attributesOfType(filterBuiltInType: BuiltInType, isList: Boolean): List<BeAttributeModel> =

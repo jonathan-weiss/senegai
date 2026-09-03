@@ -1,6 +1,7 @@
 package senegai.codegen.renderer.model.ui
 
 import senegai.codegen.renderer.model.NameCase
+import senegai.model.schema.BuiltInType
 import senegai.model.schema.ItemId
 
 /**
@@ -11,6 +12,11 @@ import senegai.model.schema.ItemId
 data class UiReferencedItemModel(
     val itemId: ItemId,
     val itemName: NameCase,
-    /** The attribute of the referenced item that holds the referenced UUID. */
+    /** The attribute of the referenced item that holds the referenced primary key. */
     val idAttributeName: NameCase,
+    /**
+     * The built-in type of that primary key, which is therefore also the type every
+     * reference to this item is stored and transported as.
+     */
+    val idBuiltInType: BuiltInType,
 )

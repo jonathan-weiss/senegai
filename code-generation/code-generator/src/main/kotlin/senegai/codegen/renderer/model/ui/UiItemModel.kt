@@ -1,5 +1,6 @@
 package senegai.codegen.renderer.model.ui
 
+import senegai.codegen.renderer.NotSupportedInTemplateException
 import senegai.codegen.renderer.model.NameCase
 import senegai.model.schema.BuiltInType
 import senegai.model.schema.ItemId
@@ -9,14 +10,14 @@ data class UiItemModel(
     val attributes: List<UiAttributeModel>,
     /**
      * The attribute that identifies this item (its primary key), or `null` if this item
-     * has none. It is always a UUID.
+     * has none. It is always a plain built-in attribute, never a reference to another item.
      */
-    val idAttribute: UiAttributeModel?,
+    val idAttribute: BuiltInTypeUiAttributeModel?,
     /**
      * The attributes that identify one instance of this item for a human reader, shown
      * next to the [idAttribute] wherever a reference to this item is rendered. A reference
-     * is stored as a bare UUID, which tells the user nothing, so every place that shows one
-     * resolves it to the whole item and renders these attributes instead.
+     * is stored as a bare primary key, which tells the user nothing, so every place that
+     * shows one resolves it to the whole item and renders these attributes instead.
      *
      * They are declared with `uiItem { displayAttributes { ... } }` in the essential model
      * data and belong to the item itself, therefore they are the same in every UiEntity.
@@ -33,9 +34,30 @@ data class UiItemModel(
      * The primary key, for the templates that are only rendered for an item that has one
      * (service, search/by-ids WTOs, reference components).
      */
-    val primaryKeyAttribute: UiAttributeModel
+    val primaryKeyAttribute: BuiltInTypeUiAttributeModel
         get() = requireNotNull(idAttribute) {
             "The item '${itemName.pascalCase}' declares no primary key."
+        }
+
+    /** Whether the primary key is a [BuiltInType.UUID], e.g. to render the import of the UUID type. */
+    val hasUuidPrimaryKey: Boolean = idAttribute?.builtInType == BuiltInType.UUID
+
+    /**
+     * The TypeScript expression that turns the primary key in the edit route into the type
+     * of the primary key. A route parameter is always a string, therefore only a NUMBER key
+     * has to be converted at all. The templates that read it name the raw parameter
+     * `idParam`.
+     */
+    val primaryKeyFromRouteParamExpression: String
+        get() = when (primaryKeyAttribute.builtInType) {
+            BuiltInType.UUID -> "idParam as UUID"
+            BuiltInType.STRING -> "idParam as string"
+            BuiltInType.NUMBER -> "Number(idParam)"
+            BuiltInType.BOOLEAN -> throw NotSupportedInTemplateException(
+                "The item '${itemName.pascalCase}' is identified by the attribute " +
+                        "'${primaryKeyAttribute.attributeName.camelCase}' of the built-in type " +
+                        "${primaryKeyAttribute.builtInType}, which no item can be identified by."
+            )
         }
 
     /**
@@ -62,8 +84,8 @@ data class UiItemModel(
         .filterIsInstance<EnumUiAttributeModel>()
 
     /**
-     * All attributes referencing another item. They are a subset of the built-in UUID
-     * attributes, as a reference is transported as the UUID of the referenced item.
+     * All attributes referencing another item. They are a subset of the built-in
+     * attributes, as a reference is transported as the primary key of the referenced item.
      */
     val attributesWithItemReference: List<ItemReferenceUiAttributeModel> = attributes
         .filterIsInstance<ItemReferenceUiAttributeModel>()
@@ -107,18 +129,19 @@ data class UiItemModel(
 
     /**
      * Whether any attribute is transported as a [BuiltInType.UUID], e.g. to render the import of
-     * the UUID type. Item references count here, as they are UUIDs in the form as well.
+     * the UUID type. A reference counts here if the item it references is identified by a UUID,
+     * as such a reference is a UUID in the form as well.
      */
     val containsUuidAttributes: Boolean = attributesOfTypes(setOf(BuiltInType.UUID)).any()
-            || attributesWithItemReference.any()
+            || attributesWithItemReference.any { it.builtInType == BuiltInType.UUID }
 
     private fun attributesOfType(filterBuiltInType: BuiltInType, isList: Boolean): List<UiAttributeModel> =
         attributesOfTypes(setOf(filterBuiltInType), isList)
 
     /**
      * All built-in attributes of one of the [filterBuiltInTypes], of any cardinality if [isList]
-     * is `null`. Item references are left out: they happen to be UUIDs, but they are edited
-     * with their own reference components, never with a built-in input.
+     * is `null`. Item references are left out: they happen to be of a built-in type, but they
+     * are edited with their own reference components, never with a built-in input.
      */
     private fun attributesOfTypes(filterBuiltInTypes: Set<BuiltInType>, isList: Boolean? = null): List<UiAttributeModel> {
         return attributes

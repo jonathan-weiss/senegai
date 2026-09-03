@@ -18,16 +18,16 @@ object ItemByIdsCriteriaBORenderer : BeItemRenderer {
         return """
           |package senegai.server.service.bo
           |
-          |import java.util.UUID
-          |
-          |/**
+          |${ if(model.hasUuidPrimaryKey) { """import java.util.${model.primaryKeyAttribute.kotlinAttributeType}
+              |
+              |""" } else { """""" } }/**
           | * Business object for resolving a whole set of references to ${model.itemName.pascalCase} aggregates at once.
           | *
           | * Holds the identifiers a reference to this item is stored as; unknown ones are simply not
           | * part of the result.
           | */
           |data class ${model.itemName.pascalCase}ByIdsCriteriaBO(
-          |    val ${model.primaryKeyAttribute.attributeName.camelCase}List: List<UUID>,
+          |    val ${model.primaryKeyAttribute.attributeName.camelCase}List: List<${model.primaryKeyAttribute.kotlinAttributeType}>,
           |)
           |
         """.trimMargin(marginPrefix = "|")

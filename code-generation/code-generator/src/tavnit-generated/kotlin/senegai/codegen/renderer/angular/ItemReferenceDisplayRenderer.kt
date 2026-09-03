@@ -16,8 +16,8 @@ object ItemReferenceDisplayRenderer : UiItemRenderer {
 
     override fun renderTemplate(model: UiItemModel): String {
         return """
-          |import {UUID} from "@app/shared/uuid";
-          |import {${model.itemName.pascalCase}WTO} from "@app/wto/${model.itemName.kebabCase}.wto";
+          |${ if(model.hasUuidPrimaryKey) { """import {${model.primaryKeyAttribute.typescriptAttributeType}} from "@app/shared/uuid";
+              |""" } else { """""" } }import {${model.itemName.pascalCase}WTO} from "@app/wto/${model.itemName.kebabCase}.wto";
           |
           |/**
           | * One reference to a ${model.itemName.pascalCase}, ready to be rendered: the display attributes of the
@@ -28,16 +28,16 @@ object ItemReferenceDisplayRenderer : UiItemRenderer {
           | * reference or a whole list of them.
           | */
           |export interface ${model.itemName.pascalCase}DisplayRow {
-          |    /** Identifies the referenced entry. It is never shown: a bare UUID says nothing to the user. */
-          |    ${model.primaryKeyAttribute.attributeName.camelCase}: UUID
+          |    /** Identifies the referenced entry. It is never shown: a bare key says nothing to the user. */
+          |    ${model.primaryKeyAttribute.attributeName.camelCase}: ${model.primaryKeyAttribute.typescriptAttributeType}
           |${ model.displayAttributes.joinToString("") { displayAttribute ->  """    ${displayAttribute.attributeName.camelCase}: string
               |""" } }}
           |
           |/**
           | * The display attributes of a ${model.itemName.pascalCase}: the attributes that identify an instance for a
-          | * human reader. A reference to a ${model.itemName.pascalCase} is stored as a bare UUID, which tells the user
-          | * nothing, so every place that shows such a reference resolves it to the whole
-          | * ${model.itemName.pascalCase}WTO and renders these attributes instead of the UUID alone.
+          | * human reader. A reference to a ${model.itemName.pascalCase} is stored as its bare primary key, which tells
+          | * the user nothing, so every place that shows such a reference resolves it to the whole
+          | * ${model.itemName.pascalCase}WTO and renders these attributes instead of the primary key alone.
           | */
           |export const ${model.itemName.screamingSnakeCase}_DISPLAY_ATTRIBUTE_NAMES: ReadonlyArray<keyof ${model.itemName.pascalCase}DisplayRow> = [
           |${ model.displayAttributes.joinToString("") { displayAttribute ->  """    '${displayAttribute.attributeName.camelCase}',
@@ -48,7 +48,7 @@ object ItemReferenceDisplayRenderer : UiItemRenderer {
           |
           |/** Flattens the display attributes of a (possibly unresolved) reference into one row. */
           |export function ${model.itemName.camelCase}DisplayRow(
-          |    ${model.primaryKeyAttribute.attributeName.camelCase}: UUID,
+          |    ${model.primaryKeyAttribute.attributeName.camelCase}: ${model.primaryKeyAttribute.typescriptAttributeType},
           |    ${model.itemName.camelCase}: ${model.itemName.pascalCase}WTO | undefined,
           |): ${model.itemName.pascalCase}DisplayRow {
           |    return {

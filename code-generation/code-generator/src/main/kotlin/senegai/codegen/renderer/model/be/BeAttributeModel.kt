@@ -17,8 +17,8 @@ sealed class BeAttributeModel(
 
     /**
      * Whether this attribute references another item by its primary key.
-     * Such an attribute is a [BuiltInType.UUID] in every layer, therefore it is
-     * also a built-in attribute ([isBuiltIn] is `true` as well).
+     * Such an attribute is of the built-in type of that primary key in every layer,
+     * therefore it is also a built-in attribute ([isBuiltIn] is `true` as well).
      */
     open val isItemReference: Boolean
         get() = false
@@ -143,11 +143,11 @@ open class BuiltInTypeBeAttributeModel(
 /**
  * An attribute that references another item by its primary key.
  *
- * The referenced item is always identified by a [BuiltInType.UUID], therefore this attribute
- * behaves exactly like a built-in UUID attribute in the business objects and in the transport
+ * The reference stores exactly that primary key, therefore this attribute behaves like a
+ * built-in attribute of the primary key's type in the business objects and in the transport
  * layer. What distinguishes it is [referencedItem]: it tells the templates which item has to
  * be searched and resolved to display the reference by its identifying attributes instead of
- * displaying the raw UUID.
+ * displaying the raw primary key.
  */
 class ItemReferenceBeAttributeModel(
     item: BeItemDescriptionModel,
@@ -160,21 +160,28 @@ class ItemReferenceBeAttributeModel(
     attributeName = attributeName,
     isNullable = isNullable,
     isList = isList,
-    builtInType = BuiltInType.UUID,
-    // Example data is a random UUID for now; resolving it to a really existing item
-    // is up to the templates that know how to fetch the referenced items.
-    exampleDataGeneratorConfig = randomUuidExampleDataGeneratorConfig(isNullable = isNullable, isList = isList),
+    builtInType = referencedItem.idBuiltInType,
+    // A random value of the primary key's type for now; resolving it to a really existing
+    // item is up to the templates that know how to fetch the referenced items.
+    exampleDataGeneratorConfig = randomKeyExampleDataGeneratorConfig(
+        builtInType = referencedItem.idBuiltInType,
+        isNullable = isNullable,
+        isList = isList,
+    ),
 ) {
     override val isItemReference: Boolean
         get() = true
 
     private companion object {
-        private fun randomUuidExampleDataGeneratorConfig(isNullable: Boolean, isList: Boolean) =
-            BeExampleDataGeneratorConfig(
-                generatorNamePrefix = NameCase(ExampleDataCategory.RANDOM_UUID.generatorPrefixName),
-                isNullable = isNullable,
-                numberOfEntries = if (isList) 3 else 1,
-            )
+        private fun randomKeyExampleDataGeneratorConfig(
+            builtInType: BuiltInType,
+            isNullable: Boolean,
+            isList: Boolean,
+        ) = BeExampleDataGeneratorConfig(
+            generatorNamePrefix = NameCase(ExampleDataCategory.randomDataOf(builtInType).generatorPrefixName),
+            isNullable = isNullable,
+            numberOfEntries = if (isList) 3 else 1,
+        )
     }
 }
 

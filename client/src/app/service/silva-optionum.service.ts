@@ -21,6 +21,7 @@
 
     @replace-value-by-expression
         [ searchValue="indexUnicus" replaceByExpression="model.primaryKeyAttribute.attributeName.camelCase" ]
+        [ searchValue="UUID" replaceByExpression="model.primaryKeyAttribute.typescriptAttributeType" ]
 
 
     @modify-provided-filepath-by-replacements
@@ -37,7 +38,9 @@ import {SilvaOptionumSearchCriteriaWTO} from "@app/wto/silva-optionum-search-cri
 import {SilvaOptionumSearchResultWTO} from "@app/wto/silva-optionum-search-result.wto";
 import {SilvaOptionumByIdsCriteriaWTO} from "@app/wto/silva-optionum-by-ids-criteria.wto";
 import {SilvaOptionumByIdsResultWTO} from "@app/wto/silva-optionum-by-ids-result.wto";
+/* @tt{{{   @if [ conditionExpression="model.hasUuidPrimaryKey"]  }}}@ */
 import {UUID} from "@app/shared/uuid";
+/* @tt{{{   @end-if  }}}@ */
 
 
 @Injectable({providedIn: 'root'})
@@ -56,7 +59,7 @@ export class SilvaOptionumService {
 
     /**
      * Resolves a whole set of references to this item in one call, so that a list of stored
-     * identifiers can be shown by the display attributes instead of the bare UUIDs.
+     * identifiers can be shown by the display attributes instead of the bare primary keys.
      */
     getSilvaOptionumListByIds(criteria: SilvaOptionumByIdsCriteriaWTO): Observable<SilvaOptionumByIdsResultWTO> {
         return this.http.post<SilvaOptionumByIdsResultWTO>(`${this.baseUrl}/by-ids`, criteria);

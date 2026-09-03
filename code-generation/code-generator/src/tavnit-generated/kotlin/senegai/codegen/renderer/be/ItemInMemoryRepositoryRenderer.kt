@@ -24,8 +24,8 @@ object ItemInMemoryRepositoryRenderer : BeItemRenderer {
           |import senegai.server.service.bo.${model.itemName.pascalCase}ByIdsCriteriaBO
           |import senegai.server.service.bo.${model.itemName.pascalCase}SearchCriteriaBO
           |import java.util.concurrent.ConcurrentHashMap
-          |import java.util.UUID
-          |
+          |${ if(model.hasUuidPrimaryKey) { """import java.util.${model.primaryKeyAttribute.kotlinAttributeType}
+              |""" } else { """""" } }
           |/**
           | * Simple in-memory implementation of the [${model.itemName.pascalCase}Repository] port defined in the
           | * service module. Holds the [${model.itemName.pascalCase}BO] aggregates in memory only; a real
@@ -34,11 +34,11 @@ object ItemInMemoryRepositoryRenderer : BeItemRenderer {
           |@Repository
           |class InMemory${model.itemName.pascalCase}Repository : ${model.itemName.pascalCase}Repository {
           |
-          |    private val store = ConcurrentHashMap<UUID, ${model.itemName.pascalCase}BO>()
+          |    private val store = ConcurrentHashMap<${model.primaryKeyAttribute.kotlinAttributeType}, ${model.itemName.pascalCase}BO>()
           |
           |    override fun findAll(): List<${model.itemName.pascalCase}BO> = store.values.toList()
           |
-          |    override fun findById(${model.primaryKeyAttribute.attributeName.camelCase}: UUID): ${model.itemName.pascalCase}BO? = store[${model.primaryKeyAttribute.attributeName.camelCase}]
+          |    override fun findById(${model.primaryKeyAttribute.attributeName.camelCase}: ${model.primaryKeyAttribute.kotlinAttributeType}): ${model.itemName.pascalCase}BO? = store[${model.primaryKeyAttribute.attributeName.camelCase}]
           |
           |    override fun findByIds(criteria: ${model.itemName.pascalCase}ByIdsCriteriaBO): List<${model.itemName.pascalCase}BO> =
           |        criteria.${model.primaryKeyAttribute.attributeName.camelCase}List.mapNotNull { store[it] }
@@ -51,9 +51,11 @@ object ItemInMemoryRepositoryRenderer : BeItemRenderer {
           |        return ${model.itemName.camelCase}
           |    }
           |
-          |    override fun deleteById(${model.primaryKeyAttribute.attributeName.camelCase}: UUID) {
+          |    override fun deleteById(${model.primaryKeyAttribute.attributeName.camelCase}: ${model.primaryKeyAttribute.kotlinAttributeType}) {
           |        store.remove(${model.primaryKeyAttribute.attributeName.camelCase})
           |    }
+          |
+          |    override fun nextId(): ${model.primaryKeyAttribute.kotlinAttributeType} = ${model.nextPrimaryKeyValueExpression}
           |}
           |
         """.trimMargin(marginPrefix = "|")

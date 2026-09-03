@@ -57,7 +57,7 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
                   |                    validators: this.${model.item.itemName.camelCase}FormValidationService.validatorFunctions(${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase})
                   |                },
                   |            ),
-                  |""" } else { """""" } }""" } }${ model.item.attributesWithItemReference.filter { !it.isList }.joinToString("") { referenceAttribute ->  """            [${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${referenceAttribute.attributeName.camelCase}]: new FormControl<UUID | null>(
+                  |""" } else { """""" } }""" } }${ model.item.attributesWithItemReference.filter { !it.isList }.joinToString("") { referenceAttribute ->  """            [${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${referenceAttribute.attributeName.camelCase}]: new ${referenceAttribute.angularFormControlType(model.entity.entityName)}(
               |                null,
               |                {
               |                    validators: this.${model.item.itemName.camelCase}FormValidationService.validatorFunctions(${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${referenceAttribute.attributeName.camelCase})

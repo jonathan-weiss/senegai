@@ -18,17 +18,17 @@ object ItemReferenceTableRowRenderer : UiItemRenderer {
         return """
           |import {FormControl} from "@angular/forms";
           |import {${model.itemName.pascalCase}DisplayRow} from "@app/reference/${model.itemName.kebabCase}-display";
-          |import {UUID} from "@app/shared/uuid";
-          |
+          |${ if(model.hasUuidPrimaryKey) { """import {${model.primaryKeyAttribute.typescriptAttributeType}} from "@app/shared/uuid";
+              |""" } else { """""" } }
           |/**
           | * One row of the ${model.itemName.pascalCase} reference table.
           | *
-          | * A reference is stored as a bare UUID in the form, which is meaningless to the user. The row
-          | * therefore carries the display attributes of the resolved ${model.itemName.pascalCase} flattened out, plus
-          | * a back-reference to the FormControl that actually holds the UUID.
+          | * A reference is stored as a bare primary key in the form, which is meaningless to the user. The
+          | * row therefore carries the display attributes of the resolved ${model.itemName.pascalCase} flattened out, plus
+          | * a back-reference to the FormControl that actually holds the primary key.
           | */
           |export interface ${model.itemName.pascalCase}ReferenceTableRow extends ${model.itemName.pascalCase}DisplayRow {
-          |    formControl: FormControl<UUID>
+          |    formControl: FormControl<${model.primaryKeyAttribute.typescriptAttributeType}>
           |}
           |
         """.trimMargin(marginPrefix = "|")

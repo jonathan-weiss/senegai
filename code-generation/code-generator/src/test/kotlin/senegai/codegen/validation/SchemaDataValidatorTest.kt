@@ -12,6 +12,7 @@ import senegai.model.schema.Item
 import senegai.model.schema.ItemAttribute
 import senegai.model.schema.ItemAttributeType
 import senegai.model.schema.ItemId
+import senegai.model.schema.PrimaryKeyType
 import senegai.model.schema.SchemaData
 import senegai.model.schema.UiBlock
 import senegai.model.schema.UiEntity
@@ -90,16 +91,30 @@ class SchemaDataValidatorTest {
     }
 
     @Test
-    fun `an item is identified by an attribute of the built-in type UUID only`() {
-        val itemWithStringPrimaryKey = Item(
+    fun `an item is identified by an attribute of a primary key built-in type only`() {
+        val itemWithBooleanPrimaryKey = Item(
             itemId = contactId,
-            attributes = listOf(attribute(name = "ContactId", type = BuiltInType.STRING, isPrimaryKey = true)),
+            attributes = listOf(attribute(name = "ContactId", type = BuiltInType.BOOLEAN, isPrimaryKey = true)),
         )
 
-        val exception = validationFailureOf(schemaData(items = listOf(itemWithStringPrimaryKey)))
+        val exception = validationFailureOf(schemaData(items = listOf(itemWithBooleanPrimaryKey)))
 
         assertEquals("SchemaData > items[0] 'Contact' > attributes[0] 'ContactId'", exception.path.toString())
-        assertProblemContains(exception, "it is of the built-in type STRING")
+        assertProblemContains(exception, "it is of the built-in type BOOLEAN")
+    }
+
+    @Test
+    fun `an item is identified by an attribute of any primary key built-in type`() {
+        PrimaryKeyType.entries.forEach { primaryKeyType ->
+            val identifiedItem = Item(
+                itemId = contactId,
+                attributes = listOf(
+                    attribute(name = "ContactId", type = primaryKeyType.builtInType, isPrimaryKey = true),
+                ),
+            )
+
+            SchemaDataValidator().validate(schemaData(items = listOf(identifiedItem)))
+        }
     }
 
     @Test
