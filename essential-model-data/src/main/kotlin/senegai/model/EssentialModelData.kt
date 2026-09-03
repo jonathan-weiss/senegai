@@ -90,10 +90,25 @@ object EssentialModelData {
             uiEntity(uiEntityName = "Contact", rootItemId = Items.CONTACT) {
                 views {
                     searchResult {
+                        attribute(attributeName = "contactId")
+                        attribute(attributeName = "contactSalutation")
                         attribute(attributeName = "firstname")
+                        attribute(attributeName = "nickname")
+                        attribute(attributeName = "allKnownNicknames")
                         attribute(attributeName = "lastname")
                         attribute(attributeName = "age")
                         attribute(attributeName = "vegetarian")
+                        attribute(attributeName = "homeAddress")
+                        attribute(attributeName = "contactAddress")
+                        attribute(attributeName = "mandatoryAddresses")
+                        attribute(attributeName = "otherAddresses")
+                        attribute(attributeName = "allKnownPinNumbers")
+                        attribute(attributeName = "allContactTypes")
+                        attribute(attributeName = "myReferenceToAddress")
+                        attribute(attributeName = "myReferenceToAddressNullable")
+                        attribute(attributeName = "myReferencesToAddresses")
+                        attribute(attributeName = "myReferencesToAddressesNullable")
+
                     }
                     editor {
                         configureEditorForMainItem {
@@ -117,6 +132,8 @@ object EssentialModelData {
                                     attribute(attributeName = "otherAddresses")
                                     attribute(attributeName = "allKnownPinNumbers")
                                     attribute(attributeName = "allContactTypes")
+                                    attribute(attributeName = "age")
+                                    attribute(attributeName = "vegetarian")
                                 }
                             }
                             tab(tabTranslationKey = "tab.references") {
