@@ -10,7 +10,6 @@ sealed class BeAttributeModel(
     val attributeName: NameCase,
     val isNullable: Boolean,
     val isList: Boolean,
-    val hasCustomValidation: Boolean,
 ) {
     abstract val isItem: Boolean
     abstract val isBuiltIn: Boolean
@@ -99,7 +98,6 @@ open class BuiltInTypeBeAttributeModel(
     attributeName: NameCase,
     isNullable: Boolean,
     isList: Boolean,
-    customValidation: Boolean,
     val builtInType: BuiltInType,
     val exampleDataGeneratorConfig: BeExampleDataGeneratorConfig
 ) : BeAttributeModel(
@@ -107,7 +105,6 @@ open class BuiltInTypeBeAttributeModel(
     attributeName = attributeName,
     isNullable = isNullable,
     isList = isList,
-    hasCustomValidation = customValidation,
 ) {
     override val isItem: Boolean
         get() = false
@@ -157,14 +154,12 @@ class ItemReferenceBeAttributeModel(
     attributeName: NameCase,
     isNullable: Boolean,
     isList: Boolean,
-    customValidation: Boolean,
     val referencedItem: BeReferencedItemModel,
 ) : BuiltInTypeBeAttributeModel(
     item = item,
     attributeName = attributeName,
     isNullable = isNullable,
     isList = isList,
-    customValidation = customValidation,
     builtInType = BuiltInType.UUID,
     // Example data is a random UUID for now; resolving it to a really existing item
     // is up to the templates that know how to fetch the referenced items.
@@ -188,14 +183,12 @@ class ItemBeIAttributeModel(
     attributeName: NameCase,
     isNullable: Boolean,
     isList: Boolean,
-    customValidation: Boolean,
     val referencedItem: BeItemDescriptionModel,
 ) : BeAttributeModel(
     item = item,
     attributeName = attributeName,
     isNullable = isNullable,
     isList = isList,
-    hasCustomValidation = customValidation,
 ) {
     override val isItem: Boolean
         get() = true
@@ -220,14 +213,12 @@ class EnumBeAttributeModel(
     attributeName: NameCase,
     isNullable: Boolean,
     isList: Boolean,
-    customValidation: Boolean,
     val enum: BeEnumModel,
 ) : BeAttributeModel(
     item = item,
     attributeName = attributeName,
     isNullable = isNullable,
     isList = isList,
-    hasCustomValidation = customValidation,
 ) {
     val enumId: EnumId = enum.enumId
 

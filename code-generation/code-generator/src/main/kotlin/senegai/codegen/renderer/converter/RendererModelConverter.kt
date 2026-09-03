@@ -199,7 +199,6 @@ object RendererModelConverter {
                 attributeName = attributeName,
                 isNullable = itemAttribute.isNullable,
                 isList = itemAttribute.isMultiple,
-                customValidation = itemAttribute.customValidation,
                 builtInType = itemAttributeType,
                 exampleDataGeneratorConfig = toExampleDataGeneratorConfig(item, itemAttribute)
             )
@@ -211,7 +210,6 @@ object RendererModelConverter {
                     attributeName = attributeName,
                     isNullable = itemAttribute.isNullable,
                     isList = itemAttribute.isMultiple,
-                    customValidation = itemAttribute.customValidation,
                     enum = BeEnumModel(enumType),
                 )
             }
@@ -221,7 +219,6 @@ object RendererModelConverter {
                     attributeName = attributeName,
                     isNullable = itemAttribute.isNullable,
                     isList = itemAttribute.isMultiple,
-                    customValidation = itemAttribute.customValidation,
                     referencedItem = referencedItem(itemAttributeType, items).toBeReferencedItemModel(),
                 )
             } else {
@@ -230,7 +227,6 @@ object RendererModelConverter {
                     attributeName = attributeName,
                     isNullable = itemAttribute.isNullable,
                     isList = itemAttribute.isMultiple,
-                    customValidation = itemAttribute.customValidation,
                     referencedItem = toBeItemDescriptionModel(itemAttributeType),
                 )
             }
