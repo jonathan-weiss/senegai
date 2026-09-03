@@ -1,6 +1,20 @@
 package senegai.model.schema
 
 /**
+ * The UI configuration of an [Item] itself, holding for every UI component that shows
+ * that item. In contrast to a [UiEntity], which configures one single editor, this
+ * configuration is independent of the editor the item appears in.
+ */
+data class UiItem(
+    val itemId: ItemId,
+    /**
+     * The attributes that identify one instance of this item for a human reader, in the
+     * order they are shown, declared as the names of the attributes of the item.
+     */
+    val displayAttributeNames: List<String>,
+)
+
+/**
  * A [UiEntity] exists for the frontend only: it is the shell that bundles all
  * Angular components of one editor around a root [Item] with a primary key.
  * The backend has no notion of it.

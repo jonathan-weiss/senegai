@@ -2,6 +2,7 @@ package senegai.codegen.sourceamazing.builders
 
 import org.codeblessing.sourceamazing.builder.api.annotations.*
 import senegai.model.builders.UiEntityDsl
+import senegai.model.builders.UiItemDsl
 import senegai.model.builders.EnumDsl
 import senegai.model.builders.ItemDsl
 import senegai.model.builders.SchemaDsl
@@ -11,6 +12,7 @@ import senegai.model.schema.Item
 import senegai.model.schema.ItemId
 import senegai.model.schema.SchemaData
 import senegai.model.schema.UiEntity
+import senegai.model.schema.UiItem
 
 @Builder
 @ExpectedClazzModelFromSuperiorBuilder(clazz = SchemaData::class, alias = "schema")
@@ -52,6 +54,24 @@ interface SchemaBuilder: SchemaDsl {
     override fun enumType(enumId: EnumId, builder: EnumDsl.() -> Unit) {
         // cast from senegai.codegen.builders.XyzBuilder to our XyzBuilder
         createNewEnumTypeInternal(enumId, builder)
+    }
+
+
+    // **************
+    // UI Item
+    // **************
+
+    @BuilderMethod
+    @NewClazzModel(clazz = UiItem::class, alias = "uiItem")
+    @SetClazzModelOfAlias(alias = "schema", clazzProperty = "uiItems", referencedAlias = "uiItem")
+    fun uiItemInternal(
+        @SetAsValue(alias = "uiItem", clazzProperty = "itemId")
+        itemId: ItemId,
+        @InjectBuilder builder: UiItemBuilder.() -> Unit
+    )
+
+    override fun uiItem(itemId: ItemId, builder: UiItemDsl.() -> Unit) {
+        uiItemInternal(itemId, builder)
     }
 
 

@@ -12,6 +12,16 @@ data class UiItemModel(
      * has none. It is always a UUID.
      */
     val idAttribute: UiAttributeModel?,
+    /**
+     * The attributes that identify one instance of this item for a human reader, shown
+     * next to the [idAttribute] wherever a reference to this item is rendered. A reference
+     * is stored as a bare UUID, which tells the user nothing, so every place that shows one
+     * resolves it to the whole item and renders these attributes instead.
+     *
+     * They are declared with `uiItem { displayAttributes { ... } }` in the essential model
+     * data and belong to the item itself, therefore they are the same in every UiEntity.
+     */
+    val displayAttributes: List<UiAttributeModel>,
 ) {
     val itemId: ItemId = itemDescription.itemId
     val itemName: NameCase = itemDescription.itemName
@@ -27,19 +37,6 @@ data class UiItemModel(
         get() = requireNotNull(idAttribute) {
             "The item '${itemName.pascalCase}' declares no primary key."
         }
-
-    /**
-     * The attributes that identify one instance of this item for a human reader, shown
-     * next to the [idAttribute] wherever a reference to this item is rendered. A reference
-     * is stored as a bare UUID, which tells the user nothing, so every place that shows one
-     * resolves it to the whole item and renders these attributes instead.
-     *
-     * Derived for now: every single-valued text attribute. Picking them explicitly in the
-     * essential model data is a separate step.
-     */
-    val displayAttributes: List<UiAttributeModel> = attributes
-        .filterIsInstance<BuiltInTypeUiAttributeModel>()
-        .filter { !it.isItemReference && !it.isList && it.builtInType == BuiltInType.STRING }
 
     /**
      * A single item reference has no initial value: it starts out as `null` until the user

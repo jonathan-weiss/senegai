@@ -47,6 +47,7 @@ import senegai.model.schema.UiEntityEditorColumn
 import senegai.model.schema.UiEntityEditorRootItemConfiguration
 import senegai.model.schema.UiEntityEditorEntityNestedItemConfiguration
 import senegai.model.schema.UiEntityEditorTab
+import senegai.model.schema.UiItem
 import senegai.model.schema.UiItemAttributeBlock
 import senegai.model.schema.UiSectionBlock
 import senegai.model.schema.UiTextBlock
@@ -59,7 +60,10 @@ object RendererModelConverter {
 
         // An item is independent of any UiEntity: it can appear in the editor of several of
         // them, therefore it is mapped exactly once.
-        val allUiItemModels = schemaData.items.map { mapUiItemModel(it, schemaData.enums, schemaData.items) }
+        val displayAttributeNames = displayAttributeNamesPerItem(schemaData.uiItems, schemaData.items)
+        val allUiItemModels = schemaData.items.map {
+            mapUiItemModel(it, displayAttributeNames[it.itemId].orEmpty(), schemaData.enums, schemaData.items)
+        }
         val allBeItemModels = schemaData.items.map { mapBeItemModel(it, schemaData.enums, schemaData.items) }
 
         return SchemaModel(
@@ -82,7 +86,12 @@ object RendererModelConverter {
     // UI items
     // **************
 
-    private fun mapUiItemModel(item: Item, enums: List<EnumType>, items: List<Item>): UiItemModel {
+    private fun mapUiItemModel(
+        item: Item,
+        displayAttributeNames: List<String>,
+        enums: List<EnumType>,
+        items: List<Item>,
+    ): UiItemModel {
         val itemDescription = toUiItemDescriptionModel(item.itemId)
         val attributes = item.attributes.map { mapUiItemAttribute(itemDescription, it, enums, items) }
         return UiItemModel(
@@ -91,8 +100,68 @@ object RendererModelConverter {
             idAttribute = item.idAttributeName?.let { idAttributeName ->
                 attributes.single { it.attributeName.isEqual(idAttributeName) }
             },
+            displayAttributes = mapDisplayAttributes(item, displayAttributeNames, attributes),
         )
     }
+
+    /** An item that declares no `uiItem` at all is missing from the returned map. */
+    private fun displayAttributeNamesPerItem(uiItems: List<UiItem>, items: List<Item>): Map<ItemId, List<String>> {
+        val itemIds = items.map { it.itemId }.toSet()
+
+        return uiItems.groupBy { it.itemId }
+            .mapValues { (itemId, uiItemsOfItem) ->
+                require(itemId in itemIds) {
+                    "There is a 'uiItem' declaration for the item '${itemId.itemName}', but no such item " +
+                            "is declared in the schema. Available are ${itemIds.map { it.itemName }}."
+                }
+                require(uiItemsOfItem.size == 1) {
+                    "The item '${itemId.itemName}' is configured by ${uiItemsOfItem.size} 'uiItem' " +
+                            "declarations. An item is configured for the UI exactly once."
+                }
+                uiItemsOfItem.single().displayAttributeNames
+            }
+    }
+
+    /**
+     * The declared display attributes in the declared order, or, as long as an item declares
+     * none, every single-valued text attribute of the item.
+     */
+    private fun mapDisplayAttributes(
+        item: Item,
+        displayAttributeNames: List<String>,
+        attributes: List<UiAttributeModel>,
+    ): List<UiAttributeModel> {
+        if (displayAttributeNames.isEmpty()) {
+            return attributes.filter { it.isDisplayable }
+        }
+
+        return displayAttributeNames.map { attributeName ->
+            val attribute = attributes.singleOrNull { it.attributeName.isEqual(attributeName) }
+                ?: throw NoSuchElementException(
+                    "The 'uiItem' of the item '${item.itemName}' declares '$attributeName' as a display " +
+                            "attribute, but the item has no such attribute. " +
+                            "Available are ${attributes.map { it.attributeName.camelCase }}."
+                )
+
+            require(attribute.isDisplayable) {
+                "The 'uiItem' of the item '${item.itemName}' declares '$attributeName' as a display attribute, " +
+                        "but only a single-valued text attribute can be one, because a display attribute is " +
+                        "rendered as a plain string wherever a reference to the item is shown."
+            }
+            attribute
+        }
+    }
+
+    /**
+     * Whether an attribute can be shown as one of the display attributes of its item.
+     * A reference is left out although it is a UUID: it identifies another item instead
+     * of describing this one.
+     */
+    private val UiAttributeModel.isDisplayable: Boolean
+        get() = this is BuiltInTypeUiAttributeModel
+                && !isItemReference
+                && !isList
+                && builtInType == BuiltInType.STRING
 
     private fun toUiItemDescriptionModel(itemId: ItemId): UiItemDescriptionModel {
         return UiItemDescriptionModel(

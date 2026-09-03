@@ -87,6 +87,24 @@ object EssentialModelData {
 
     private fun RootDsl.collectUiData() {
         schema {
+            uiItem(itemId = Items.CONTACT) {
+                displayAttributes {
+                    attribute(attributeName = "firstname")
+                    attribute(attributeName = "lastname")
+                }
+            }
+            uiItem(itemId = Items.ADDRESS) {
+                displayAttributes {
+                    attribute(attributeName = "street")
+                    attribute(attributeName = "town")
+                }
+            }
+            uiItem(itemId = Items.COUNTRY) {
+                displayAttributes {
+                    attribute(attributeName = "countryName")
+                }
+            }
+
             uiEntity(uiEntityName = "Contact", rootItemId = Items.CONTACT) {
                 views {
                     searchResult {

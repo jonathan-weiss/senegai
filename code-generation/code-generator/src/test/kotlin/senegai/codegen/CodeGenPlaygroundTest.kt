@@ -44,6 +44,24 @@ class CodeGenPlaygroundTest {
     }
 
     @Test
+    fun `the display attributes are the ones declared by the uiItem of the item`() {
+        val schemaModel = convertToSchemaModel(fetchSchemaData())
+
+        val address = schemaModel.uiModel.uiItems.single { it.itemName.isEqual("Address") }
+        assertEquals(
+            listOf("street", "town"),
+            address.displayAttributes.map { it.attributeName.camelCase },
+        )
+
+        // The UiEntity shows the display attributes of its root item, they are not declared per UiEntity.
+        val addressEntity = schemaModel.uiModel.uiEntities.single { it.entityName.isEqual("Address") }
+        assertEquals(
+            address.displayAttributes,
+            addressEntity.displayAttributes,
+        )
+    }
+
+    @Test
     fun `every item is mapped exactly once, independent of the UiEntities it appears in`() {
         val schemaModel = convertToSchemaModel(fetchSchemaData())
 
