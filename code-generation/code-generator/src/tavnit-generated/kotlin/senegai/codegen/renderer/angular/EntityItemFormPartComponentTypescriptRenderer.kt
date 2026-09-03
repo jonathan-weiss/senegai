@@ -43,7 +43,8 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
           |import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
           |import {MatTab, MatTabGroup} from "@angular/material/tabs";
           |import {${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartGroup} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part-group";
-          |${ if(model.containsNamedSectionSplitBlocks()) { """import {SectionSplitterComponent} from "@app/shared/blocks/section-splitter/section-splitter.component";
+          |${ if(model.containsTranslatedLabels()) { """import {TranslocoPipe} from "@jsverse/transloco";
+              |""" } else { """""" } }${ if(model.containsNamedSectionSplitBlocks()) { """import {SectionSplitterComponent} from "@app/shared/blocks/section-splitter/section-splitter.component";
               |""" } else { """""" } }${ if(model.containsTextBlocks()) { """import {TextBlockComponent} from "@app/shared/blocks/text-block/text-block.component";
               |""" } else { """""" } }${ if(model.item.containsTextListAttributes) { """import {
               |    SingleTextFormFieldTableComponent
@@ -93,7 +94,8 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
           |        MatListModule,
           |        MatDialogModule,
           |        FieldWrapperComponent,
-          |${ if(model.tabs.isNotEmpty()) { """        MatTabGroup,
+          |${ if(model.containsTranslatedLabels()) { """        TranslocoPipe,
+              |""" } else { """""" } }${ if(model.tabs.isNotEmpty()) { """        MatTabGroup,
               |        MatTab,
               |""" } else { """""" } }${ if(model.containsNamedSectionSplitBlocks()) { """        SectionSplitterComponent,
               |""" } else { """""" } }${ if(model.containsTextBlocks()) { """        TextBlockComponent,

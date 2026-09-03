@@ -30,7 +30,7 @@ data class UiEntityEditorEntityNestedItemConfiguration(
 ): UiEntityEditorItemConfiguration
 
 data class UiEntityEditorTab(
-    val tabName: String,
+    val tabTranslationKey: String,
     val columns: List<UiEntityEditorColumn>
 )
 
@@ -45,9 +45,9 @@ data class UiItemAttributeBlock(
 ): UiBlock
 
 data class UiSectionBlock(
-    val sectionName: String,
+    val sectionTranslationKey: String,
 ): UiBlock
 
 data class UiTextBlock(
-    val textName: String,
+    val textTranslationKey: String,
 ): UiBlock

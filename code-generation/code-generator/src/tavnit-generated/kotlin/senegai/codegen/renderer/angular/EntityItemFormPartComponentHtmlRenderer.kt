@@ -20,7 +20,7 @@ object EntityItemFormPartComponentHtmlRenderer : UiEntityItemRenderer {
           |<div [formGroup]="${model.item.itemName.camelCase}Form">
           |${ if(model.tabs.isNotEmpty()) { """<mat-tab-group dynamicHeight>
               |${ model.tabs.joinToString("") { tab ->  """
-                  |    <mat-tab label="${tab.tabName}">
+                  |    <mat-tab [label]="'${tab.tabTranslationKey}' | transloco">
                   |        <div class="column-layout">
                   |${ tab.columns.joinToString("") { column ->  """
                       |            <div class="column">

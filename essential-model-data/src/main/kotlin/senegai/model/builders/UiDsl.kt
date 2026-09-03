@@ -25,7 +25,7 @@ interface UiEditorDsl {
 @MainDslMarker
 interface UiEditorForMainItemDsl {
     fun tab(
-        tabName: String,
+        tabTranslationKey: String,
         builder: UiTabDsl.() -> Unit,
     )
 
@@ -44,9 +44,9 @@ interface UiTabDsl {
 
 @MainDslMarker
 interface UiBlockEditorDsl {
-    fun text(text: String)
+    fun text(textTranslationKey: String)
 
-    fun section(sectionName: String)
+    fun section(sectionTranslationKey: String)
 
     fun attribute(attributeName: String)
 }

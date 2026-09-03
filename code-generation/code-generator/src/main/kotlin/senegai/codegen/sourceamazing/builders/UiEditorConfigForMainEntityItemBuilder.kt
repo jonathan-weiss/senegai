@@ -16,13 +16,13 @@ interface UiEditorConfigForMainEntityItemBuilder: UiEditorForMainItemDsl {
     @NewClazzModel(clazz = UiEntityEditorTab::class, alias = "uiTab")
     @SetClazzModelOfAlias(alias = "mainItemConfiguration", clazzProperty = "tabs", referencedAlias = "uiTab")
     fun tabInternal(
-        @SetAsValue(alias = "uiTab", clazzProperty = "tabName")
-        tabName: String,
+        @SetAsValue(alias = "uiTab", clazzProperty = "tabTranslationKey")
+        tabTranslationKey: String,
         @InjectBuilder builder: UiTabBuilder.() -> Unit
     )
 
-    override fun tab(tabName: String, builder: UiTabDsl.() -> Unit) {
-        tabInternal(tabName, builder)
+    override fun tab(tabTranslationKey: String, builder: UiTabDsl.() -> Unit) {
+        tabInternal(tabTranslationKey, builder)
     }
 
     @BuilderMethod

@@ -5,7 +5,7 @@ import senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormBlockMode
 
 data class UiEntityFormViewTabModel(
     val entity: UiEntityModel,
-    val tabName: String,
+    val tabTranslationKey: String,
     val columns: List<UiEntityFormViewColumnModel>,
 ) : BlockHolder {
     override fun allBlocks(): List<UiEntityFormBlockModel> {

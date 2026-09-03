@@ -35,11 +35,11 @@
     @foreach [ iteratorExpression="model.tabs" loopVariable="tab" ]
 
         @replace-value-by-expression
-        [ searchValue="Main" replaceByExpression="tab.tabName" ]
+        [ searchValue="tab.main" replaceByExpression="tab.tabTranslationKey" ]
 
 }}}@  -->
 
-    <mat-tab label="Main">
+    <mat-tab [label]="'tab.main' | transloco">
         <div class="column-layout">
             <!-- @tt{{{
                 @foreach [ iteratorExpression="tab.columns" loopVariable="column" ]
@@ -93,17 +93,17 @@
                     @if [ conditionExpression="block is senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormNamedSectionSplitBlockModel" ]
 
                     @replace-value-by-expression
-                    [ searchValue="Veni, vidi, vici" replaceByExpression="block.sectionName" ]
+                    [ searchValue="section.veniVidiVici" replaceByExpression="block.sectionTranslationKey" ]
 
                 }}}@  -->
-                <app-section-splitter label="Veni, vidi, vici"></app-section-splitter>
+                <app-section-splitter [label]="'section.veniVidiVici' | transloco"></app-section-splitter>
                 <!-- @tt{{{
                     @else-if [ conditionExpression="block is senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormTextBlockModel" ]
                     @replace-value-by-expression
-                    [ searchValue="Lorem ipsum dolor sit amet, consetetur sadipscing elitr." replaceByExpression="block.text" ]
+                    [ searchValue="text.loremIpsum" replaceByExpression="block.textTranslationKey" ]
 
                 }}}@  -->
-                <app-text-block label="Lorem ipsum dolor sit amet, consetetur sadipscing elitr." />
+                <app-text-block [label]="'text.loremIpsum' | transloco" />
                 <!-- @tt{{{
                     @else-if [ conditionExpression="block is senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormItemAttributeBlockModel" ]
 

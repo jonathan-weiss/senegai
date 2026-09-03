@@ -91,20 +91,20 @@ object EssentialModelData {
                 views {
                     editor {
                         configureEditorForMainItem {
-                            tab(tabName = "Common") {
+                            tab(tabTranslationKey = "tab.common") {
                                 column {
                                     attribute(attributeName = "contactId")
                                     attribute(attributeName = "contactSalutation")
-                                    section(sectionName = "Names")
-                                    text(text = "Lorem ipsum dolor sit amet")
+                                    section(sectionTranslationKey = "section.names")
+                                    text(textTranslationKey = "text.loremIpsum")
                                     attribute(attributeName = "firstname")
-                                    text(text = "First things first")
+                                    text(textTranslationKey = "text.firstThingsFirst")
                                     attribute(attributeName = "nickname")
                                     attribute(attributeName = "allKnownNicknames")
-                                    text(text = "Nick, you have a nickname")
+                                    text(textTranslationKey = "text.nickname")
                                     attribute(attributeName = "lastname")
-                                    text(text = "The lastname, the lastname")
-                                    section(sectionName = "Addresses")
+                                    text(textTranslationKey = "text.lastname")
+                                    section(sectionTranslationKey = "section.addresses")
                                     attribute(attributeName = "homeAddress")
                                     attribute(attributeName = "contactAddress")
                                     attribute(attributeName = "mandatoryAddresses")
@@ -113,23 +113,23 @@ object EssentialModelData {
                                     attribute(attributeName = "allContactTypes")
                                 }
                             }
-                            tab(tabName = "References") {
+                            tab(tabTranslationKey = "tab.references") {
                                 column {
-                                    section(sectionName = "References to other items")
+                                    section(sectionTranslationKey = "section.referencesToOtherItems")
                                     attribute(attributeName = "myReferenceToAddress")
                                     attribute(attributeName = "myReferenceToAddressNullable")
                                     attribute(attributeName = "myReferencesToAddresses")
                                     attribute(attributeName = "myReferencesToAddressesNullable")
                                 }
                             }
-                            tab(tabName = "Miscellaneous") {
+                            tab(tabTranslationKey = "tab.miscellaneous") {
                                 column {
-                                    section(sectionName = "Misc")
-                                    text(text = Constants.TEXT)
+                                    section(sectionTranslationKey = "section.misc")
+                                    text(textTranslationKey = "text.longText")
                                 }
                                 column {
-                                    section(sectionName = "Legend:")
-                                    text(text = Constants.MULTILINE_TEXT)
+                                    section(sectionTranslationKey = "section.legend")
+                                    text(textTranslationKey = "text.multilineText")
                                     attribute(attributeName = "age")
                                     attribute(attributeName = "vegetarian")
                                 }
@@ -157,10 +157,10 @@ object EssentialModelData {
                 views {
                     editor {
                         configureEditorForMainItem {
-                            tab(tabName = "Address") {
+                            tab(tabTranslationKey = "tab.address") {
                                 column {
                                     attribute(attributeName = "id")
-                                    section(sectionName = "Address")
+                                    section(sectionTranslationKey = "section.address")
                                     attribute(attributeName = "street")
                                     attribute(attributeName = "postalCode")
                                     attribute(attributeName = "town")

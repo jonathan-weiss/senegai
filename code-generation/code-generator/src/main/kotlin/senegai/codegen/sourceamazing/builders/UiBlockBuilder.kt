@@ -23,16 +23,16 @@ interface UiBlockBuilder: UiBlockEditorDsl {
     @NewClazzModel(clazz = UiSectionBlock::class, alias = "uiSectionBlock")
     @SetClazzModelOfAlias(alias = "uiColumn", clazzProperty = "blocks", referencedAlias = "uiSectionBlock")
     override fun section(
-        @SetAsValue("uiSectionBlock", "sectionName")
-        sectionName: String,
+        @SetAsValue("uiSectionBlock", "sectionTranslationKey")
+        sectionTranslationKey: String,
     )
 
     @BuilderMethod
     @NewClazzModel(clazz = UiTextBlock::class, alias = "uiTextBlock")
     @SetClazzModelOfAlias(alias = "uiColumn", clazzProperty = "blocks", referencedAlias = "uiTextBlock")
     override fun text(
-        @SetAsValue("uiTextBlock", "textName")
-        text: String,
+        @SetAsValue("uiTextBlock", "textTranslationKey")
+        textTranslationKey: String,
     )
 
 }

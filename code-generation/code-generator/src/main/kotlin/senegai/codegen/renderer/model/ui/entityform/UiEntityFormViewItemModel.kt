@@ -13,6 +13,14 @@ data class UiEntityFormViewItemModel(
     val tabs: List<UiEntityFormViewTabModel>
 ) : BlockHolder {
 
+    /**
+     * True as soon as the form part renders a label that has to be translated
+     * with transloco (tab labels, section splitters and text blocks).
+     */
+    fun containsTranslatedLabels(): Boolean {
+        return tabs.isNotEmpty() || containsNamedSectionSplitBlocks() || containsTextBlocks()
+    }
+
     fun containsTextBlocks(): Boolean {
         return allBlocks().filterIsInstance<UiEntityFormTextBlockModel>().isNotEmpty()
     }

@@ -345,7 +345,7 @@ object RendererModelConverter {
     private fun mapUiEntityTab(uiEntityModel: UiEntityModel, uiItemModel: UiItemModel, tab: UiEntityEditorTab): UiEntityFormViewTabModel {
         return UiEntityFormViewTabModel(
             entity = uiEntityModel,
-            tabName = tab.tabName,
+            tabTranslationKey = tab.tabTranslationKey,
             columns = tab.columns.map { mapUiEntityColumn(uiEntityModel = uiEntityModel, uiItemModel = uiItemModel, column = it) })
     }
 
@@ -363,8 +363,8 @@ object RendererModelConverter {
                 item = uiItemModel,
                 attribute = uiItemModel.attributes.single { it.attributeName.isEqual(block.attributeName) },
             )
-            is UiSectionBlock -> UiEntityFormNamedSectionSplitBlockModel(block.sectionName)
-            is UiTextBlock -> UiEntityFormTextBlockModel(block.textName)
+            is UiSectionBlock -> UiEntityFormNamedSectionSplitBlockModel(block.sectionTranslationKey)
+            is UiTextBlock -> UiEntityFormTextBlockModel(block.textTranslationKey)
         }
     }
 }

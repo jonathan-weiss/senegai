@@ -21,8 +21,8 @@ object EntityItemFormPartBlocksComponentHtmlRenderer {
         return """
           |
           |
-          |${ blocks.joinToString("") { block ->  """${ if(block is senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormNamedSectionSplitBlockModel) { """                <app-section-splitter label="${block.sectionName}"></app-section-splitter>
-                  |""" } else if(block is senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormTextBlockModel) { """                <app-text-block label="${block.text}" />
+          |${ blocks.joinToString("") { block ->  """${ if(block is senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormNamedSectionSplitBlockModel) { """                <app-section-splitter [label]="'${block.sectionTranslationKey}' | transloco"></app-section-splitter>
+                  |""" } else if(block is senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormTextBlockModel) { """                <app-text-block [label]="'${block.textTranslationKey}' | transloco" />
                   |""" } else if(block is senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormItemAttributeBlockModel) { """${ if((block.attribute.isBuiltIn || block.attribute.isEnum || !block.attribute.isList) && !block.attribute.isNullable) { """
                       |                    <div class="form-row">
                       |                        <app-field-wrapper label="${block.attribute.attributeName.pascalCase}">
