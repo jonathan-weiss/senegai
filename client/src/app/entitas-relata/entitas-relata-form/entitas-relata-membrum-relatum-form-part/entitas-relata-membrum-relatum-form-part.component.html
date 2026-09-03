@@ -1,7 +1,7 @@
 <div [formGroup]="membrumRelatumForm">
 <mat-tab-group dynamicHeight>
 
-    <mat-tab label="Referenced">
+    <mat-tab [label]="'tab.referenced' | transloco">
         <div class="column-layout">
 
             <div class="column">
@@ -9,15 +9,15 @@
 
 
                     <div class="form-row">
-                        <app-field-wrapper label="ClavisPrimaria">
-                <app-text-input [textFormControl]="clavisPrimariaControl" label="clavisPrimaria" placeholder="Enter clavisPrimaria" [validatorTranslations]="clavisPrimariaValidatorNames" />                                </app-field-wrapper>
+                        <app-field-wrapper [label]="'membrumRelatum.clavisPrimaria.label' | transloco">
+                <app-text-input [textFormControl]="clavisPrimariaControl" [label]="'membrumRelatum.clavisPrimaria.label' | transloco" [placeholder]="'membrumRelatum.clavisPrimaria.placeholder' | transloco" [validatorTranslations]="clavisPrimariaValidatorNames" />                                </app-field-wrapper>
                     </div>
 
 
 
                     <div class="form-row">
-                        <app-field-wrapper label="DescriptioExDistanti">
-                <app-text-input [textFormControl]="descriptioExDistantiControl" label="descriptioExDistanti" placeholder="Enter descriptioExDistanti" [validatorTranslations]="descriptioExDistantiValidatorNames" />                                </app-field-wrapper>
+                        <app-field-wrapper [label]="'membrumRelatum.descriptioExDistanti.label' | transloco">
+                <app-text-input [textFormControl]="descriptioExDistantiControl" [label]="'membrumRelatum.descriptioExDistanti.label' | transloco" [placeholder]="'membrumRelatum.descriptioExDistanti.placeholder' | transloco" [validatorTranslations]="descriptioExDistantiValidatorNames" />                                </app-field-wrapper>
                     </div>
 
 

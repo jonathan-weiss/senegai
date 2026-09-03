@@ -1,5 +1,5 @@
 export interface SideNavLink {
     routeLink: string;
-    name: string;
+    nameTranslationKey: string;
     icon: string | undefined;
 }

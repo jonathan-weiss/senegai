@@ -13,6 +13,9 @@ export const ENTITAS_RELATA_ROUTES: Routes = [
     {path: 'entitas-relata-edit/:clavisPrimaria', component: EntitasRelataRoutableEditComponent},
 ];
 
+/**
+ * t(entitasRelata.sideNav.board)
+ */
 export const ENTITAS_RELATA_SIDE_NAVIGATION_LINKS: ReadonlyArray<SideNavLink> = [
-    {routeLink: '/entitas-relata-board', name: "EntitasRelata", icon: "people"},
+    {routeLink: '/entitas-relata-board', nameTranslationKey: "entitasRelata.sideNav.board", icon: "people"},
 ]

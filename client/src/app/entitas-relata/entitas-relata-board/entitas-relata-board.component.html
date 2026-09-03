@@ -9,7 +9,7 @@
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <mat-icon>search</mat-icon>
-                    <ng-container>Search EntitasRelatas</ng-container>
+                    <ng-container>{{ 'entitasRelata.search.panelTitle' | transloco }}</ng-container>
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <app-entitas-relata-search (search)="onSearch($event)"></app-entitas-relata-search>
@@ -21,7 +21,7 @@
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <mat-icon>list</mat-icon>
-                    <ng-container>EntitasRelata List</ng-container>
+                    <ng-container>{{ 'entitasRelata.result.panelTitle' | transloco }}</ng-container>
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <app-entitas-relata-result
@@ -40,7 +40,7 @@
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <mat-icon>edit</mat-icon>
-                    <ng-container>{{ creating ? 'New EntitasRelata' : 'Edit EntitasRelata' }}</ng-container>
+                    <ng-container>{{ (creating ? 'entitasRelata.create.title' : 'entitasRelata.edit.title') | transloco }}</ng-container>
                 </mat-panel-title>
                 @if (selectedEntitasRelata) {
                     <mat-panel-description>

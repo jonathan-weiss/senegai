@@ -33,6 +33,7 @@ import {membrumRelatumDisplayLabel} from "@app/reference/membrum-relatum-display
 import {UUID} from "@app/shared/uuid";
 import {MembrumRelatumSearchResultWTO} from "@app/wto/membrum-relatum-search-result.wto";
 import {MembrumRelatumWTO} from "@app/wto/membrum-relatum.wto";
+import {TranslocoPipe} from "@jsverse/transloco";
 
 /** Idle time after the last keystroke before the search is sent to the backend. */
 const SEARCH_DEBOUNCE_IN_MILLISECONDS = 250;
@@ -68,11 +69,16 @@ const SEARCH_DEBOUNCE_IN_MILLISECONDS = 250;
         MatFormFieldModule,
         MatIconModule,
         MatInputModule,
+        TranslocoPipe,
     ]
 })
 export class MembrumRelatumTypeaheadComponent implements OnInit {
-    @Input() label: string = 'Search MembrumRelatum';
-    @Input() placeholder: string = 'Enter search query for MembrumRelatum';
+    /** Already translated, because what the field stands for is up to the caller. */
+    @Input() label: string = '';
+    /**
+     * t(membrumRelatum.typeahead.placeholder)
+     */
+    @Input() placeholderTranslationKey: string = 'membrumRelatum.typeahead.placeholder';
     /**
      * The display attributes of the entry the typeahead itself stands for, shown in the search
      * field whenever the user is not typing. Empty where the typeahead does not represent a

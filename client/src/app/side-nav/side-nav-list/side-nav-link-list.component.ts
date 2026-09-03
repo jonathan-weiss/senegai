@@ -4,6 +4,7 @@ import {MatListModule} from "@angular/material/list";
 import {RouterLink} from "@angular/router";
 import {SideNavEntryComponent} from "../side-nav-entry/side-nav-entry.component";
 import {SideNavLink} from "./side-nav-link.model";
+import {TranslocoPipe} from "@jsverse/transloco";
 
 @Component({
     selector: 'side-nav-link-list',
@@ -14,6 +15,7 @@ import {SideNavLink} from "./side-nav-link.model";
         MatListModule,
         RouterLink,
         SideNavEntryComponent,
+        TranslocoPipe,
     ]
 })
 export class SideNavLinkListComponent {

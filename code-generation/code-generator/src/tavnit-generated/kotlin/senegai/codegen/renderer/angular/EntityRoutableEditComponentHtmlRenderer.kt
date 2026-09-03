@@ -19,7 +19,7 @@ object EntityRoutableEditComponentHtmlRenderer : UiEntityRenderer {
           |@if (selected${model.entityName.pascalCase}) {
           |    <app-${model.entityName.kebabCase}-form [${model.entityRootItem.itemName.camelCase}]="selected${model.entityName.pascalCase}" />
           |} @else {
-          |   Loading...
+          |   {{ 'text.loading' | transloco }}
           |}
           |
           |

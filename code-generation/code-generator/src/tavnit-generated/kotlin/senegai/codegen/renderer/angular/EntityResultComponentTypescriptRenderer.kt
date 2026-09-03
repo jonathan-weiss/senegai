@@ -33,6 +33,7 @@ object EntityResultComponentTypescriptRenderer : UiEntityRenderer {
           |import {MatDialogModule} from "@angular/material/dialog";
           |import {${model.entityRootItem.itemName.pascalCase}WTO} from "@app/wto/${model.entityRootItem.itemName.kebabCase}.wto";
           |import {${model.entityRootItem.itemName.pascalCase}SearchCriteriaWTO} from "@app/wto/${model.entityRootItem.itemName.kebabCase}-search-criteria.wto";
+          |import {TranslocoPipe} from "@jsverse/transloco";
           |
           |@Component({
           |    selector: 'app-${model.entityName.kebabCase}-result',
@@ -51,6 +52,7 @@ object EntityResultComponentTypescriptRenderer : UiEntityRenderer {
           |        MatSidenavModule,
           |        MatListModule,
           |        MatDialogModule,
+          |        TranslocoPipe,
           |    ]
           |})
           |export class ${model.entityName.pascalCase}ResultComponent implements OnInit, OnChanges {

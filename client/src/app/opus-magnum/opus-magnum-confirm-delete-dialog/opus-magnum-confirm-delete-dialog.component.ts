@@ -42,6 +42,7 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {SilvaOptionumWTO} from "@app/wto/silva-optionum.wto";
 import {JsonPipe} from "@angular/common";
+import {TranslocoPipe} from "@jsverse/transloco";
 
 @Component({
     selector: 'app-opus-magnum-confirm-delete-dialog',
@@ -61,6 +62,7 @@ import {JsonPipe} from "@angular/common";
         MatListModule,
         MatDialogModule,
         JsonPipe,
+        TranslocoPipe,
     ]
 })
 export class OpusMagnumConfirmDeleteDialogComponent {

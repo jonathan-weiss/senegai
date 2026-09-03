@@ -32,6 +32,7 @@ object ItemReferenceFieldComponentTypescriptRenderer : UiItemRenderer {
           |import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
           |import {UUID} from "@app/shared/uuid";
           |import {${model.itemName.pascalCase}WTO} from "@app/wto/${model.itemName.kebabCase}.wto";
+          |import {TranslocoPipe} from "@jsverse/transloco";
           |
           |/**
           | * Edits a single reference to a ${model.itemName.pascalCase}, held in the form as one FormControl of a UUID
@@ -54,6 +55,7 @@ object ItemReferenceFieldComponentTypescriptRenderer : UiItemRenderer {
           |    imports: [
           |        ${model.itemName.pascalCase}TypeaheadComponent,
           |        FieldErrorMessagesComponent,
+          |        TranslocoPipe,
           |    ]
           |})
           |export class ${model.itemName.pascalCase}ReferenceFieldComponent implements OnInit {

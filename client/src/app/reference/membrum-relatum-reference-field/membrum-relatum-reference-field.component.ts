@@ -38,6 +38,7 @@ import {
 import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
 import {UUID} from "@app/shared/uuid";
 import {MembrumRelatumWTO} from "@app/wto/membrum-relatum.wto";
+import {TranslocoPipe} from "@jsverse/transloco";
 
 /**
  * Edits a single reference to a MembrumRelatum, held in the form as one FormControl of a UUID
@@ -60,6 +61,7 @@ import {MembrumRelatumWTO} from "@app/wto/membrum-relatum.wto";
     imports: [
         MembrumRelatumTypeaheadComponent,
         FieldErrorMessagesComponent,
+        TranslocoPipe,
     ]
 })
 export class MembrumRelatumReferenceFieldComponent implements OnInit {

@@ -41,6 +41,7 @@ object EntityItemTableComponentTypescriptRenderer : UiEntityItemRenderer {
           |import {
           |    ${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartGroup
           |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part/${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part-group";
+          |import {TranslocoPipe} from "@jsverse/transloco";
           |
           |@Component({
           |    selector: 'app-${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-table',
@@ -59,6 +60,7 @@ object EntityItemTableComponentTypescriptRenderer : UiEntityItemRenderer {
           |        MatSidenavModule,
           |        MatListModule,
           |        MatDialogModule,
+          |        TranslocoPipe,
           |    ]
           |})
           |export class ${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}TableComponent implements OnInit {

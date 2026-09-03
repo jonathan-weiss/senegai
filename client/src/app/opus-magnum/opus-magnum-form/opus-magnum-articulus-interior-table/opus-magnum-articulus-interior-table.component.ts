@@ -52,6 +52,7 @@ import {
 import {
     OpusMagnumArticulusInteriorFormPartGroup
 } from "@app/opus-magnum/opus-magnum-form/opus-magnum-articulus-interior-form-part/opus-magnum-articulus-interior-form-part-group";
+import {TranslocoPipe} from "@jsverse/transloco";
 
 @Component({
     selector: 'app-opus-magnum-articulus-interior-table',
@@ -70,6 +71,7 @@ import {
         MatSidenavModule,
         MatListModule,
         MatDialogModule,
+        TranslocoPipe,
     ]
 })
 export class OpusMagnumArticulusInteriorTableComponent implements OnInit {

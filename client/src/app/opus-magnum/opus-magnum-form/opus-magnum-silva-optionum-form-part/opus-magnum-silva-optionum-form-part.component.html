@@ -76,10 +76,10 @@
 
                 <!-- @tt{{{   @ignore-text  }}}@ -->
                 <div class="form-row">
-                    <app-field-wrapper label="IndexUnicus">
+                    <app-field-wrapper [label]="'silvaOptionum.indexUnicus.label' | transloco">
                         <mat-form-field appearance="fill">
                             <input matInput [formControl]="indexUnicusControl" readonly>
-                            <mat-hint>IndexUnicus cannot be modified</mat-hint>
+                            <mat-hint>{{ 'silvaOptionum.indexUnicus.readonlyHint' | transloco }}</mat-hint>
                         </mat-form-field>
                     </app-field-wrapper>
                 </div>
@@ -112,13 +112,13 @@
                         @if [ conditionExpression="(block.attribute.isBuiltIn || block.attribute.isEnum || !block.attribute.isList) && !block.attribute.isNullable" ]
 
                         @replace-value-by-expression
+                        [ searchValue="silvaOptionum" replaceByExpression="block.item.itemName.camelCase" ]
                         [ searchValue="campusTextusObligatorius" replaceByExpression="block.attribute.attributeName.camelCase" ]
-                        [ searchValue="Campus Textus Obligatorius" replaceByExpression="block.attribute.attributeName.pascalCase" ]
 
                     }}}@  -->
 
                     <div class="form-row">
-                        <app-field-wrapper label="Campus Textus Obligatorius">
+                        <app-field-wrapper [label]="'silvaOptionum.campusTextusObligatorius.label' | transloco">
                             <!-- @tt{{{
                                 @render-template
                                     [ templateRendererClassName="SingleFormInputHtmlTagRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" ]
@@ -126,7 +126,7 @@
                                     [ modelName="uiEntityName" modelExpression="block.entity.entityName" ]
                                 @ignore-text
                             }}}@  -->
-                            <app-text-input [textFormControl]="campusTextusObligatoriusControl" label="campusTextusObligatorius" placeholder="Enter Campus Textus Obligatorius" [validatorTranslations]="campusTextusObligatoriusValidatorNames" />
+                            <app-text-input [textFormControl]="campusTextusObligatoriusControl" [label]="'silvaOptionum.campusTextusObligatorius.label' | transloco" [placeholder]="'silvaOptionum.campusTextusObligatorius.placeholder' | transloco" [validatorTranslations]="campusTextusObligatoriusValidatorNames" />
                             <!-- @tt{{{ @end-ignore-text }}}@  -->
                         </app-field-wrapper>
                     </div>
@@ -135,13 +135,13 @@
                         @if [ conditionExpression="(block.attribute.isBuiltIn || block.attribute.isEnum || !block.attribute.isList) && block.attribute.isNullable" ]
 
                         @replace-value-by-expression
+                        [ searchValue="silvaOptionum" replaceByExpression="block.item.itemName.camelCase" ]
                         [ searchValue="campusTextusOptionalis" replaceByExpression="block.attribute.attributeName.camelCase" ]
-                        [ searchValue="CampusTextusOptionalis" replaceByExpression="block.attribute.attributeName.pascalCase" ]
 
                     }}}@  -->
 
                     <div class="form-row">
-                        <app-field-wrapper label="CampusTextusOptionalis"
+                        <app-field-wrapper [label]="'silvaOptionum.campusTextusOptionalis.label' | transloco"
                                             [nullabilityCheckboxFormControl]="campusTextusOptionalisIsNotNullControl"
                                             [formGroupToDisableIfNullField]="campusTextusOptionalisControl"
                          >
@@ -152,7 +152,7 @@
                                     [ modelName="uiEntityName" modelExpression="block.entity.entityName" ]
                                 @ignore-text
                             }}}@  -->
-                            <app-text-input [textFormControl]="campusTextusOptionalisControl" label="campusTextusOptionalis" placeholder="Enter campusTextusOptionalis" [validatorTranslations]="campusTextusOptionalisValidatorNames" />
+                            <app-text-input [textFormControl]="campusTextusOptionalisControl" [label]="'silvaOptionum.campusTextusOptionalis.label' | transloco" [placeholder]="'silvaOptionum.campusTextusOptionalis.placeholder' | transloco" [validatorTranslations]="campusTextusOptionalisValidatorNames" />
                             <!-- @tt{{{ @end-ignore-text }}}@  -->
                         </app-field-wrapper>
                     </div>
@@ -162,7 +162,7 @@
                     @if [ conditionExpression="block.attribute is senegai.codegen.renderer.model.ui.ItemUiIAttributeModel && block.attribute.isList && !block.attribute.isNullable" ]
 
                     @replace-value-by-expression
-                    [ searchValue="Articulus Interior List" replaceByExpression="block.attribute.attributeName.pascalCase" ]
+                    [ searchValue="silvaOptionum" replaceByExpression="block.item.itemName.camelCase" ]
                     [ searchValue="ArticulusInteriorIteratus" replaceByExpression="block.attribute.attributeName.pascalCase" ]
                     [ searchValue="articulusInteriorIteratus" replaceByExpression="block.attribute.attributeName.camelCase" ]
                     [ searchValue="ArticulusInterior" replaceByExpression="block.attribute.referencedItem.itemName.pascalCase" ]
@@ -173,7 +173,7 @@
                 }}}@  -->
 
                 <div class="form-row">
-                    <app-field-wrapper label="Articulus Interior List">
+                    <app-field-wrapper [label]="'silvaOptionum.articulusInteriorIteratus.label' | transloco">
                         <app-opus-magnum-articulus-interior-table
                                 [articulusInteriorFormArray]="articulusInteriorIteratusControl"
                                 (editArticulusInteriorFormGroup)="articulusInteriorIteratusEditState.onEdit($event)"
@@ -204,7 +204,7 @@
                     @if [ conditionExpression="block.attribute is senegai.codegen.renderer.model.ui.ItemUiIAttributeModel && block.attribute.isList && block.attribute.isNullable" ]
 
                     @replace-value-by-expression
-                    [ searchValue="Articulus Interior Optionalis List" replaceByExpression="block.attribute.attributeName.pascalCase" ]
+                    [ searchValue="silvaOptionum" replaceByExpression="block.item.itemName.camelCase" ]
                     [ searchValue="ArticulusInteriorOptionalisIteratus" replaceByExpression="block.attribute.attributeName.pascalCase" ]
                     [ searchValue="articulusInteriorOptionalisIteratus" replaceByExpression="block.attribute.attributeName.camelCase" ]
                     [ searchValue="ArticulusInterior" replaceByExpression="block.attribute.referencedItem.itemName.pascalCase" ]
@@ -215,7 +215,7 @@
                 }}}@  -->
 
                 <div class="form-row">
-                    <app-field-wrapper label="Articulus Interior Optionalis List"
+                    <app-field-wrapper [label]="'silvaOptionum.articulusInteriorOptionalisIteratus.label' | transloco"
                                        [nullabilityCheckboxFormControl]="articulusInteriorOptionalisIteratusIsNotNullControl"
                                        [formGroupToDisableIfNullField]="articulusInteriorOptionalisIteratusControl"
                     >
@@ -253,12 +253,12 @@
                 <!-- @tt{{{   @end-template-renderer  }}}@ -->
                 <!-- @tt{{{   @ignore-text  }}}@ -->
                 <div class="form-row">
-                    <app-field-wrapper label="Iteratio Simplicium Textuum">
-                        <app-single-text-form-field-table [formArray]="iteratioSimpliciumTextuumControl" columnHeader="Iteratio Simplicium Textuum" placeholder="Iteratio Simplicium Textuum" />
+                    <app-field-wrapper [label]="'silvaOptionum.iteratioSimpliciumTextuum.label' | transloco">
+                        <app-single-text-form-field-table [formArray]="iteratioSimpliciumTextuumControl" [columnHeader]="'silvaOptionum.iteratioSimpliciumTextuum.label' | transloco" [placeholder]="'silvaOptionum.iteratioSimpliciumTextuum.placeholder' | transloco" />
                     </app-field-wrapper>
                 </div>
                 <div class="form-row">
-                    <app-field-wrapper label="Relatio Ad Entitatem Optionalis Iteratus"
+                    <app-field-wrapper [label]="'silvaOptionum.relatioAdEntitatemOptionalisIteratus.label' | transloco"
                                        [nullabilityCheckboxFormControl]="relatioAdEntitatemOptionalisIteratusIsNotNullControl"
                                        [formGroupToDisableIfNullField]="relatioAdEntitatemOptionalisIteratusControl"
                     >
@@ -267,7 +267,7 @@
                     </app-field-wrapper>
                 </div>
                 <div class="form-row">
-                    <app-field-wrapper label="Relatio Ad Entitatem Optionalis"
+                    <app-field-wrapper [label]="'silvaOptionum.relatioAdEntitatemOptionalis.label' | transloco"
                                        [nullabilityCheckboxFormControl]="relatioAdEntitatemOptionalisIsNotNullControl"
                                        [formGroupToDisableIfNullField]="relatioAdEntitatemOptionalisControl"
                     >
@@ -282,25 +282,25 @@
             <!-- @tt{{{   @ignore-text  }}}@ -->
             <div class="column">
                 <div class="form-row">
-                    <app-field-wrapper label="Articulus Interior Singularis">
+                    <app-field-wrapper [label]="'silvaOptionum.articulusInteriorSingularis.label' | transloco">
                         <app-opus-magnum-articulus-interior-form-part [articulusInteriorForm]="articulusInteriorSingularisControl"  />
                     </app-field-wrapper>
                 </div>
 
                 <div class="form-row">
-                    <app-field-wrapper label="Appellatio">
+                    <app-field-wrapper [label]="'silvaOptionum.appellatio.label' | transloco">
                         <app-appellatio-comis-selector [enumFormControl]="appellatioControl" [validatorTranslations]="appellatioValidatorNames"></app-appellatio-comis-selector>
                     </app-field-wrapper>
                 </div>
 
                 <div class="form-row">
-                    <app-field-wrapper label="Campus Numerorum">
+                    <app-field-wrapper [label]="'silvaOptionum.campusNumerorum.label' | transloco">
                         <app-number-input [numberFormControl]="campusNumerorumControl" [validatorTranslations]="campusNumerorumValidatorNames"></app-number-input>
                     </app-field-wrapper>
                 </div>
 
                 <div class="form-row">
-                    <app-field-wrapper label="Articulus Interior Singularis Optionalis"
+                    <app-field-wrapper [label]="'silvaOptionum.articulusInteriorSingularisOptionalis.label' | transloco"
                                        [nullabilityCheckboxFormControl]="articulusInteriorSingularisOptionalisIsNotNullControl"
                                        [formGroupToDisableIfNullField]="articulusInteriorSingularisOptionalisControl"
                     >
@@ -309,11 +309,11 @@
                 </div>
 
                 <div class="form-row">
-                    <app-field-wrapper label="Appellatio Optionalis Iteratus"
+                    <app-field-wrapper [label]="'silvaOptionum.appellatioOptionalisIteratus.label' | transloco"
                                        [nullabilityCheckboxFormControl]="appellatioOptionalisIteratusIsNotNullControl"
                                        [formGroupToDisableIfNullField]="appellatioOptionalisIteratusControl"
                     >
-                        <app-single-appellatio-comis-form-field-table [formArray]="appellatioOptionalisIteratusControl" columnHeader="Appellatio Optionalis Iteratus" />
+                        <app-single-appellatio-comis-form-field-table [formArray]="appellatioOptionalisIteratusControl" [columnHeader]="'silvaOptionum.appellatioOptionalisIteratus.label' | transloco" />
                     </app-field-wrapper>
                 </div>
             </div>
@@ -322,22 +322,22 @@
     </mat-tab>
     <!-- @tt{{{  @end-foreach  }}}@ -->
     <!-- @tt{{{  @ignore-text  }}}@ -->
-    <mat-tab label="Miscellaneous">
+    <mat-tab [label]="'tab.miscellaneous' | transloco">
         <div class="column-layout">
             <div class="column">
 
                 <div class="form-row">
-                    <app-field-wrapper label="CampusDiei"
+                    <app-field-wrapper [label]="'silvaOptionum.campusDiei.label' | transloco"
                                        [nullabilityCheckboxFormControl]="campusDieiIsNotNullControl"
                                        [formGroupToDisableIfNullField]="campusDieiControl"
                     >
-                        <app-datepicker-input [datepickerFormControl]="campusDieiControl" label="campusDiei" placeholder="Enter campusDiei" [validatorTranslations]="campusDieiValidatorNames" />
+                        <app-datepicker-input [datepickerFormControl]="campusDieiControl" [label]="'silvaOptionum.campusDiei.label' | transloco" [placeholder]="'silvaOptionum.campusDiei.placeholder' | transloco" [validatorTranslations]="campusDieiValidatorNames" />
                     </app-field-wrapper>
                 </div>
 
                 <div class="form-row">
-                    <app-field-wrapper label="CampusBivalens">
-                        <app-boolean-input [booleanFormControl]="campusBivalensControl" label="campusBivalens" [validatorTranslations]="campusBivalensValidatorNames" />
+                    <app-field-wrapper [label]="'silvaOptionum.campusBivalens.label' | transloco">
+                        <app-boolean-input [booleanFormControl]="campusBivalensControl" [label]="'silvaOptionum.campusBivalens.label' | transloco" [validatorTranslations]="campusBivalensValidatorNames" />
                     </app-field-wrapper>
                 </div>
             </div>

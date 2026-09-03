@@ -13,6 +13,7 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {MembrumRelatumWTO} from "@app/wto/membrum-relatum.wto";
 import {JsonPipe} from "@angular/common";
+import {TranslocoPipe} from "@jsverse/transloco";
 
 @Component({
     selector: 'app-entitas-relata-confirm-delete-dialog',
@@ -32,6 +33,7 @@ import {JsonPipe} from "@angular/common";
         MatListModule,
         MatDialogModule,
         JsonPipe,
+        TranslocoPipe,
     ]
 })
 export class EntitasRelataConfirmDeleteDialogComponent {

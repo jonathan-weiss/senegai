@@ -17,10 +17,12 @@ object ItemTypeaheadComponentHtmlRenderer : UiItemRenderer {
     override fun renderTemplate(model: UiItemModel): String {
         return """
           |<mat-form-field appearance="fill" class="typeahead-field">
-          |    <mat-label>{{ label }}</mat-label>
+          |    @if (label !== '') {
+          |        <mat-label>{{ label }}</mat-label>
+          |    }
           |    <input matInput
           |           #queryInput
-          |           [placeholder]="placeholder"
+          |           [placeholder]="placeholderTranslationKey | transloco"
           |           [disabled]="disabled"
           |           [value]="selectionLabel"
           |           [matAutocomplete]="${model.itemName.camelCase}Autocomplete"

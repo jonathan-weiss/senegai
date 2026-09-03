@@ -44,11 +44,11 @@ export const OPUS_MAGNUM_ROUTES: Routes = [
     {path: 'opus-magnum-edit/:indexUnicus', component: OpusMagnumRoutableEditComponent},
 ];
 
-/* @tt{{{
-    @replace-value-by-expression
-        [ searchValue="Opera Magna" replaceByExpression="model.entityName.pascalCase" ]
-}}}@ */
+/**
+ * t(opusMagnum.sideNav.board)
+ * t(opusMagnum.sideNav.editFirstEntry)
+ */
 export const OPUS_MAGNUM_SIDE_NAVIGATION_LINKS: ReadonlyArray<SideNavLink> = [
-    {routeLink: '/opus-magnum-board', name: "Opera Magna", icon: "people"},
-    {routeLink: '/opus-magnum-edit-first-entry', name: "Edit First Opera Magna", icon: "code"},
+    {routeLink: '/opus-magnum-board', nameTranslationKey: "opusMagnum.sideNav.board", icon: "people"},
+    {routeLink: '/opus-magnum-edit-first-entry', nameTranslationKey: "opusMagnum.sideNav.editFirstEntry", icon: "code"},
 ]

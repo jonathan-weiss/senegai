@@ -25,7 +25,7 @@
 <div class="table-container">
     <div class="action-bar">
         <app-membrum-relatum-typeahead
-                label="Add MembrumRelatum..."
+                [label]="'membrumRelatum.reference.addEntry' | transloco"
                 [excludedClavisPrimariaList]="referencedClavisPrimariaList()"
                 [disabled]="membrumRelatumReferenceFormArray.disabled"
                 (membrumRelatumSelected)="onMembrumRelatumSelected($event)" />
@@ -33,7 +33,7 @@
     <table mat-table [dataSource]="dataSource">
         <!-- Display attribute: ClavisPrimaria -->
         <ng-container matColumnDef="clavisPrimaria">
-            <th mat-header-cell *matHeaderCellDef>{{ columnHeaderClavisPrimaria }}</th>
+            <th mat-header-cell *matHeaderCellDef>{{ columnHeaderClavisPrimariaTranslationKey | transloco }}</th>
             <td mat-cell *matCellDef="let tableRow">{{ tableRow.clavisPrimaria }}</td>
         </ng-container>
 
@@ -45,14 +45,14 @@
         }}}@ -->
         <!-- Display attribute: DescriptioExDistanti -->
         <ng-container matColumnDef="descriptioExDistanti">
-            <th mat-header-cell *matHeaderCellDef>{{ columnHeaderDescriptioExDistanti }}</th>
+            <th mat-header-cell *matHeaderCellDef>{{ columnHeaderDescriptioExDistantiTranslationKey | transloco }}</th>
             <td mat-cell *matCellDef="let tableRow">{{ tableRow.descriptioExDistanti }}</td>
         </ng-container>
         <!-- @tt{{{   @end-foreach  }}}@ -->
 
         <!-- Actions Column -->
         <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <th mat-header-cell *matHeaderCellDef>{{ 'table.column.actions' | transloco }}</th>
             <td mat-cell *matCellDef="let tableRow">
                 <button mat-icon-button color="warn" (click)="onDelete(tableRow)" type="button"
                         [disabled]="membrumRelatumReferenceFormArray.disabled">

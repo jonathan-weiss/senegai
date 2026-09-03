@@ -44,6 +44,7 @@ import {MatListModule} from "@angular/material/list";
 import {MatDialogModule} from "@angular/material/dialog";
 import {SilvaOptionumWTO} from "@app/wto/silva-optionum.wto";
 import {SilvaOptionumSearchCriteriaWTO} from "@app/wto/silva-optionum-search-criteria.wto";
+import {TranslocoPipe} from "@jsverse/transloco";
 
 @Component({
     selector: 'app-opus-magnum-result',
@@ -62,6 +63,7 @@ import {SilvaOptionumSearchCriteriaWTO} from "@app/wto/silva-optionum-search-cri
         MatSidenavModule,
         MatListModule,
         MatDialogModule,
+        TranslocoPipe,
     ]
 })
 export class OpusMagnumResultComponent implements OnInit, OnChanges {

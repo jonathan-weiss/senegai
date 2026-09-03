@@ -38,6 +38,7 @@ import {
 import {FormUtil} from "@app/shared/form-controls/form.util";
 import {UUID} from "@app/shared/uuid";
 import {MembrumRelatumWTO} from "@app/wto/membrum-relatum.wto";
+import {TranslocoPipe} from "@jsverse/transloco";
 
 /**
  * Edits a list of references to MembrumRelatum, held in the form as a FormArray of UUIDs.
@@ -60,17 +61,25 @@ import {MembrumRelatumWTO} from "@app/wto/membrum-relatum.wto";
         MatIconModule,
         MatTableModule,
         MembrumRelatumTypeaheadComponent,
+        TranslocoPipe,
     ]
 })
 export class MembrumRelatumReferenceTableComponent implements OnInit {
     @Input({required: true}) membrumRelatumReferenceFormArray!: FormArray<FormControl<UUID>>;
-    @Input() columnHeaderClavisPrimaria: string = 'ClavisPrimaria';
+    /**
+     * t(membrumRelatum.clavisPrimaria.label)
+     */
+    @Input() columnHeaderClavisPrimariaTranslationKey: string = 'membrumRelatum.clavisPrimaria.label';
     /* @tt{{{
         @foreach [ iteratorExpression="model.displayAttributes" loopVariable="displayAttribute" ]
         @replace-value-by-expression
             [ searchValue="DescriptioExDistanti" replaceByExpression="displayAttribute.attributeName.pascalCase" ]
+            [ searchValue="descriptioExDistanti" replaceByExpression="displayAttribute.attributeName.camelCase" ]
     }}}@ */
-    @Input() columnHeaderDescriptioExDistanti: string = 'DescriptioExDistanti';
+    /**
+     * t(membrumRelatum.descriptioExDistanti.label)
+     */
+    @Input() columnHeaderDescriptioExDistantiTranslationKey: string = 'membrumRelatum.descriptioExDistanti.label';
     /* @tt{{{   @end-foreach  }}}@ */
 
     protected readonly displayedColumns: string[] = [

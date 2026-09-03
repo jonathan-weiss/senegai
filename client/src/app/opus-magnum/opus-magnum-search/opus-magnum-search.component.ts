@@ -40,6 +40,7 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {MatDialogModule} from "@angular/material/dialog";
+import {TranslocoPipe} from "@jsverse/transloco";
 
 export interface OpusMagnumSearchCriteria {
     searchQuery?: string;
@@ -71,6 +72,7 @@ export enum OpusMagnumSearchFormFieldName {
         MatSidenavModule,
         MatListModule,
         MatDialogModule,
+        TranslocoPipe,
     ]
 })
 export class OpusMagnumSearchComponent {

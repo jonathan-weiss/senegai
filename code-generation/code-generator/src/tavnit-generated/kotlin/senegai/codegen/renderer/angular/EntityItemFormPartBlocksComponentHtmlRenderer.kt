@@ -25,12 +25,12 @@ object EntityItemFormPartBlocksComponentHtmlRenderer {
                   |""" } else if(block is senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormTextBlockModel) { """                <app-text-block [label]="'${block.textTranslationKey}' | transloco" />
                   |""" } else if(block is senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormItemAttributeBlockModel) { """${ if((block.attribute.isBuiltIn || block.attribute.isEnum || !block.attribute.isList) && !block.attribute.isNullable) { """
                       |                    <div class="form-row">
-                      |                        <app-field-wrapper label="${block.attribute.attributeName.pascalCase}">
+                      |                        <app-field-wrapper [label]="'${block.item.itemName.camelCase}.${block.attribute.attributeName.camelCase}.label' | transloco">
                       |${SingleFormInputHtmlTagRenderer.renderTemplate(attributeModel = block.attribute, uiEntityName = block.entity.entityName)}                        </app-field-wrapper>
                       |                    </div>
                       |""" } else { """""" } }${ if((block.attribute.isBuiltIn || block.attribute.isEnum || !block.attribute.isList) && block.attribute.isNullable) { """
                       |                    <div class="form-row">
-                      |                        <app-field-wrapper label="${block.attribute.attributeName.pascalCase}"
+                      |                        <app-field-wrapper [label]="'${block.item.itemName.camelCase}.${block.attribute.attributeName.camelCase}.label' | transloco"
                       |                                            [nullabilityCheckboxFormControl]="${block.attribute.attributeName.camelCase}IsNotNullControl"
                       |                                            [formGroupToDisableIfNullField]="${block.attribute.attributeName.camelCase}Control"
                       |                         >
@@ -39,7 +39,7 @@ object EntityItemFormPartBlocksComponentHtmlRenderer {
                       |""" } else { """""" } }
                   |${ if(block.attribute is senegai.codegen.renderer.model.ui.ItemUiIAttributeModel && block.attribute.isList && !block.attribute.isNullable) { """
                       |                <div class="form-row">
-                      |                    <app-field-wrapper label="${block.attribute.attributeName.pascalCase}">
+                      |                    <app-field-wrapper [label]="'${block.item.itemName.camelCase}.${block.attribute.attributeName.camelCase}.label' | transloco">
                       |                        <app-${block.entity.entityName.kebabCase}-${block.attribute.referencedItem.itemName.kebabCase}-table
                       |                                [${block.attribute.referencedItem.itemName.camelCase}FormArray]="${block.attribute.attributeName.camelCase}Control"
                       |                                (edit${block.attribute.referencedItem.itemName.pascalCase}FormGroup)="${block.attribute.attributeName.camelCase}EditState.onEdit(${"$"}event)"
@@ -57,7 +57,7 @@ object EntityItemFormPartBlocksComponentHtmlRenderer {
                       |                </div>
                       |""" } else { """""" } }${ if(block.attribute is senegai.codegen.renderer.model.ui.ItemUiIAttributeModel && block.attribute.isList && block.attribute.isNullable) { """
                       |                <div class="form-row">
-                      |                    <app-field-wrapper label="${block.attribute.attributeName.pascalCase}"
+                      |                    <app-field-wrapper [label]="'${block.item.itemName.camelCase}.${block.attribute.attributeName.camelCase}.label' | transloco"
                       |                                       [nullabilityCheckboxFormControl]="${block.attribute.attributeName.camelCase}IsNotNullControl"
                       |                                       [formGroupToDisableIfNullField]="${block.attribute.attributeName.camelCase}Control"
                       |                    >

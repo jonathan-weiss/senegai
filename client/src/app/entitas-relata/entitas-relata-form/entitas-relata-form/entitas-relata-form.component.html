@@ -1,7 +1,7 @@
 <div class="edit-form-container">
     <mat-card>
         <mat-card-header>
-            <mat-card-title>{{ membrumRelatum ? 'Edit EntitasRelata' : 'New EntitasRelata' }}</mat-card-title>
+            <mat-card-title>{{ (membrumRelatum ? 'entitasRelata.edit.title' : 'entitasRelata.create.title') | transloco }}</mat-card-title>
         </mat-card-header>
 
         <mat-card-content>
@@ -12,10 +12,10 @@
 
                 <div class="form-actions">
                     <button mat-button type="button" (click)="onCancel()">
-                        Cancel
+                        {{ 'action.cancel' | transloco }}
                     </button>
                     <button mat-raised-button color="primary" type="submit" [disabled]="!membrumRelatumForm.valid">
-                        Save
+                        {{ 'action.save' | transloco }}
                     </button>
                 </div>
             </form>

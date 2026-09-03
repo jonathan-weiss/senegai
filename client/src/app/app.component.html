@@ -2,9 +2,9 @@
     <button mat-icon-button (click)="toggleSidenav()">
         <mat-icon>menu</mat-icon>
     </button>
-    <span>{{ title }}</span>
+    <span>{{ 'app.title' | transloco }}</span>
     <span class="spacer"></span>
-    <button mat-button [matMenuTriggerFor]="langMenu" aria-label="Language">
+    <button mat-button [matMenuTriggerFor]="langMenu" [attr.aria-label]="'toolbar.language' | transloco">
         <mat-icon>language</mat-icon>
         {{ activeLang.toUpperCase() }}
     </button>

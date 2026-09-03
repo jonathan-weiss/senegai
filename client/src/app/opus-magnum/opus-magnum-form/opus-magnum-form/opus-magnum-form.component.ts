@@ -49,6 +49,7 @@ import {
 import {
     FormValidationSummaryComponent
 } from "@app/shared/form-controls/form-validation-summary/form-validation-summary.component";
+import {TranslocoPipe} from "@jsverse/transloco";
 
 @Component({
     selector: 'app-opus-magnum-form',
@@ -69,6 +70,7 @@ import {
         MatDialogModule,
         OpusMagnumSilvaOptionumFormPartComponent,
         FormValidationSummaryComponent,
+        TranslocoPipe,
     ]
 })
 export class OpusMagnumFormComponent implements OnInit {

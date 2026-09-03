@@ -20,7 +20,7 @@ object EntityResultComponentHtmlRenderer : UiEntityRenderer {
           |    <div class="${model.entityName.kebabCase}-result-actions">
           |        <button mat-raised-button color="primary" (click)="onCreate()">
           |            <mat-icon>add</mat-icon>
-          |            <ng-container>New ${model.entityName.pascalCase}</ng-container>
+          |            <ng-container>{{ '${model.entityName.camelCase}.create.title' | transloco }}</ng-container>
           |        </button>
           |    </div>
           |    <div class="${model.entityName.kebabCase}-table-scroll">
@@ -28,7 +28,7 @@ object EntityResultComponentHtmlRenderer : UiEntityRenderer {
           |
           |${ model.searchResultAttributes.joinToString("") { attribute ->  """            <!-- ${attribute.attributeName.pascalCase} Column -->
               |            <ng-container matColumnDef="${attribute.attributeName.camelCase}">
-              |                <th mat-header-cell *matHeaderCellDef><span class="table-cell-content">${attribute.attributeName.pascalCase}</span></th>
+              |                <th mat-header-cell *matHeaderCellDef><span class="table-cell-content">{{ '${model.entityRootItem.itemName.camelCase}.${attribute.attributeName.camelCase}.label' | transloco }}</span></th>
               |                <td mat-cell *matCellDef="let ${model.entityName.camelCase}">
               |                    <span class="table-cell-content" [title]="${model.entityName.camelCase}.${attribute.attributeName.camelCase}">{{ ${model.entityName.camelCase}.${attribute.attributeName.camelCase} }}</span>
               |                </td>
@@ -36,7 +36,7 @@ object EntityResultComponentHtmlRenderer : UiEntityRenderer {
               |""" } }
           |            <!-- Actions Column -->
           |            <ng-container matColumnDef="actions" stickyEnd>
-          |                <th mat-header-cell *matHeaderCellDef>Actions</th>
+          |                <th mat-header-cell *matHeaderCellDef>{{ 'table.column.actions' | transloco }}</th>
           |                <td mat-cell *matCellDef="let ${model.entityName.camelCase}">
           |                    <button mat-icon-button color="primary" (click)="onEdit(${model.entityName.camelCase})">
           |                        <mat-icon>edit</mat-icon>

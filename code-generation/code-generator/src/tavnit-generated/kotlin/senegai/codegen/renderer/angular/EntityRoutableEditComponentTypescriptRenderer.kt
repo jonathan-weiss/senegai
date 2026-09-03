@@ -23,6 +23,7 @@ object EntityRoutableEditComponentTypescriptRenderer : UiEntityRenderer {
           |import {ActivatedRoute} from "@angular/router";
           |import {UUID} from "@app/shared/uuid";
           |
+          |import {TranslocoPipe} from "@jsverse/transloco";
           |
           |@Component({
           |    selector: 'app-${model.entityName.kebabCase}-routable-edit',
@@ -30,6 +31,7 @@ object EntityRoutableEditComponentTypescriptRenderer : UiEntityRenderer {
           |    styleUrls: ['./${model.entityName.kebabCase}-routable-edit.component.scss'],
           |    imports: [
           |        ${model.entityName.pascalCase}FormComponent,
+          |        TranslocoPipe,
           |    ]
           |})
           |export class ${model.entityName.pascalCase}RoutableEditComponent {

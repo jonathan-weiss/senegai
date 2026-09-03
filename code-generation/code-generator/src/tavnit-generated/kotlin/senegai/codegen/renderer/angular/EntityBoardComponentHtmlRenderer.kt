@@ -27,7 +27,7 @@ object EntityBoardComponentHtmlRenderer : UiEntityRenderer {
           |            <mat-expansion-panel-header>
           |                <mat-panel-title>
           |                    <mat-icon>search</mat-icon>
-          |                    <ng-container>Search ${model.entityName.pascalCase}s</ng-container>
+          |                    <ng-container>{{ '${model.entityName.camelCase}.search.panelTitle' | transloco }}</ng-container>
           |                </mat-panel-title>
           |            </mat-expansion-panel-header>
           |            <app-${model.entityName.kebabCase}-search (search)="onSearch(${"$"}event)"></app-${model.entityName.kebabCase}-search>
@@ -38,7 +38,7 @@ object EntityBoardComponentHtmlRenderer : UiEntityRenderer {
           |            <mat-expansion-panel-header>
           |                <mat-panel-title>
           |                    <mat-icon>list</mat-icon>
-          |                    <ng-container>${model.entityName.pascalCase} List</ng-container>
+          |                    <ng-container>{{ '${model.entityName.camelCase}.result.panelTitle' | transloco }}</ng-container>
           |                </mat-panel-title>
           |            </mat-expansion-panel-header>
           |            <app-${model.entityName.kebabCase}-result
@@ -57,7 +57,7 @@ object EntityBoardComponentHtmlRenderer : UiEntityRenderer {
           |            <mat-expansion-panel-header>
           |                <mat-panel-title>
           |                    <mat-icon>edit</mat-icon>
-          |                    <ng-container>{{ creating ? 'New ${model.entityName.pascalCase}' : 'Edit ${model.entityName.pascalCase}' }}</ng-container>
+          |                    <ng-container>{{ (creating ? '${model.entityName.camelCase}.create.title' : '${model.entityName.camelCase}.edit.title') | transloco }}</ng-container>
           |                </mat-panel-title>
           |                @if (selected${model.entityName.pascalCase}) {
           |                    <mat-panel-description>

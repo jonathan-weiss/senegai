@@ -11,6 +11,7 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {MatDialogModule} from "@angular/material/dialog";
+import {TranslocoPipe} from "@jsverse/transloco";
 
 export interface EntitasRelataSearchCriteria {
     searchQuery?: string;
@@ -42,6 +43,7 @@ export enum EntitasRelataSearchFormFieldName {
         MatSidenavModule,
         MatListModule,
         MatDialogModule,
+        TranslocoPipe,
     ]
 })
 export class EntitasRelataSearchComponent {

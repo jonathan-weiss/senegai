@@ -23,7 +23,7 @@
 
 }}}@ -->
 <app-membrum-relatum-typeahead
-        label="MembrumRelatum"
+        [label]="'membrumRelatum.label' | transloco"
         [selectionLabel]="selectionLabel()"
         [disabled]="membrumRelatumReferenceFormControl.disabled"
         (membrumRelatumSelected)="onMembrumRelatumSelected($event)" />

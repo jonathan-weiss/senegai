@@ -19,7 +19,7 @@ object EntityFormComponentHtmlRenderer : UiEntityRenderer {
           |<div class="edit-form-container">
           |    <mat-card>
           |        <mat-card-header>
-          |            <mat-card-title>{{ ${model.entityRootItem.itemName.camelCase} ? 'Edit ${model.entityName.pascalCase}' : 'New ${model.entityName.pascalCase}' }}</mat-card-title>
+          |            <mat-card-title>{{ (${model.entityRootItem.itemName.camelCase} ? '${model.entityName.camelCase}.edit.title' : '${model.entityName.camelCase}.create.title') | transloco }}</mat-card-title>
           |        </mat-card-header>
           |
           |        <mat-card-content>
@@ -30,10 +30,10 @@ object EntityFormComponentHtmlRenderer : UiEntityRenderer {
           |
           |                <div class="form-actions">
           |                    <button mat-button type="button" (click)="onCancel()">
-          |                        Cancel
+          |                        {{ 'action.cancel' | transloco }}
           |                    </button>
           |                    <button mat-raised-button color="primary" type="submit" [disabled]="!${model.entityRootItem.itemName.camelCase}Form.valid">
-          |                        Save
+          |                        {{ 'action.save' | transloco }}
           |                    </button>
           |                </div>
           |            </form>

@@ -5,6 +5,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {CommonModule} from "@angular/common";
 import {FormUtil} from "@app/shared/form-controls/form.util";
+import {TranslocoPipe} from "@jsverse/transloco";
 
 @Component({
     selector: 'app-single-form-field-table',
@@ -17,12 +18,16 @@ import {FormUtil} from "@app/shared/form-controls/form.util";
         MatButtonModule,
         MatTableModule,
         MatIconModule,
+        TranslocoPipe,
     ]
 })
 export class SingleFormFieldTableComponent implements OnInit {
     @Input({required: true}) formArray!: FormArray;
     @Input() columnHeader: string = '';
-    @Input() addButtonLabel: string = 'Add item...';
+    /**
+     * t(table.addEntry)
+     */
+    @Input() addButtonLabelTranslationKey: string = 'table.addEntry';
     @Input() createControl: () => AbstractControl = () => new FormControl('');
 
     /** Template for a single row's form field. Receives the row's FormControl as $implicit context. */

@@ -5,6 +5,7 @@ import {EntitasRelataFormComponent} from "@app/entitas-relata/entitas-relata-for
 import {ActivatedRoute} from "@angular/router";
 import {UUID} from "@app/shared/uuid";
 
+import {TranslocoPipe} from "@jsverse/transloco";
 
 @Component({
     selector: 'app-entitas-relata-routable-edit',
@@ -12,6 +13,7 @@ import {UUID} from "@app/shared/uuid";
     styleUrls: ['./entitas-relata-routable-edit.component.scss'],
     imports: [
         EntitasRelataFormComponent,
+        TranslocoPipe,
     ]
 })
 export class EntitasRelataRoutableEditComponent {

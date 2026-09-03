@@ -17,7 +17,7 @@ object ItemReferenceFieldComponentHtmlRenderer : UiItemRenderer {
     override fun renderTemplate(model: UiItemModel): String {
         return """
           |<app-${model.itemName.kebabCase}-typeahead
-          |        label="${model.itemName.pascalCase}"
+          |        [label]="'${model.itemName.camelCase}.label' | transloco"
           |        [selectionLabel]="selectionLabel()"
           |        [disabled]="${model.itemName.camelCase}ReferenceFormControl.disabled"
           |        (${model.itemName.camelCase}Selected)="on${model.itemName.pascalCase}Selected(${"$"}event)" />

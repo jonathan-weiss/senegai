@@ -16,15 +16,15 @@ object EntityConfirmDeleteDialogComponentHtmlRenderer : UiEntityRenderer {
 
     override fun renderTemplate(model: UiEntityModel): String {
         return """
-          |<h2 mat-dialog-title>Delete ${model.entityName.pascalCase}</h2>
-          |<mat-dialog-content><ng-container>Are you sure you want to delete this entity?</ng-container> <br />
+          |<h2 mat-dialog-title>{{ '${model.entityName.camelCase}.delete.title' | transloco }}</h2>
+          |<mat-dialog-content><ng-container>{{ 'dialog.confirmDelete.question' | transloco }}</ng-container> <br />
           |    <b>
           |    {{ data.entity | json }}
           |    </b>
           |</mat-dialog-content>
           |<mat-dialog-actions align="end">
-          |    <button mat-button (click)="onCancel()">Cancel</button>
-          |    <button mat-raised-button color="warn" (click)="onConfirm()">OK</button>
+          |    <button mat-button (click)="onCancel()">{{ 'action.cancel' | transloco }}</button>
+          |    <button mat-raised-button color="warn" (click)="onConfirm()">{{ 'action.ok' | transloco }}</button>
           |</mat-dialog-actions>
           |
         """.trimMargin(marginPrefix = "|")

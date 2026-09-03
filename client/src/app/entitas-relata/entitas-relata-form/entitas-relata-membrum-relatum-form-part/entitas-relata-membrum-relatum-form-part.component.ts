@@ -24,7 +24,7 @@ import {ValidatorTranslation} from "@app/shared/form-controls/validator-translat
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
 import {EntitasRelataMembrumRelatumFormPartGroup} from "@app/entitas-relata/entitas-relata-form/entitas-relata-membrum-relatum-form-part/entitas-relata-membrum-relatum-form-part-group";
 
-
+import {TranslocoPipe} from "@jsverse/transloco";
 
 @Component({
     selector: 'app-entitas-relata-membrum-relatum-form-part',
@@ -47,6 +47,7 @@ import {EntitasRelataMembrumRelatumFormPartGroup} from "@app/entitas-relata/enti
         MatTabGroup,
         MatTab,
         TextInputComponent,
+        TranslocoPipe,
     ]
 })
 export class EntitasRelataMembrumRelatumFormPartComponent implements OnInit {

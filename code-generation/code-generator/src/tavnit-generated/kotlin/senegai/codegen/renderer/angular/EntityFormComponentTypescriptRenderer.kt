@@ -38,6 +38,7 @@ object EntityFormComponentTypescriptRenderer : UiEntityRenderer {
           |import {
           |    FormValidationSummaryComponent
           |} from "@app/shared/form-controls/form-validation-summary/form-validation-summary.component";
+          |import {TranslocoPipe} from "@jsverse/transloco";
           |
           |@Component({
           |    selector: 'app-${model.entityName.kebabCase}-form',
@@ -58,6 +59,7 @@ object EntityFormComponentTypescriptRenderer : UiEntityRenderer {
           |        MatDialogModule,
           |        ${model.entityName.pascalCase}${model.entityRootItem.itemName.pascalCase}FormPartComponent,
           |        FormValidationSummaryComponent,
+          |        TranslocoPipe,
           |    ]
           |})
           |export class ${model.entityName.pascalCase}FormComponent implements OnInit {

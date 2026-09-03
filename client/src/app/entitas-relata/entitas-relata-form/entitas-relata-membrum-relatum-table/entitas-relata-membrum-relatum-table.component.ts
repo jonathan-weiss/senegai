@@ -23,6 +23,7 @@ import {
 import {
     EntitasRelataMembrumRelatumFormPartGroup
 } from "@app/entitas-relata/entitas-relata-form/entitas-relata-membrum-relatum-form-part/entitas-relata-membrum-relatum-form-part-group";
+import {TranslocoPipe} from "@jsverse/transloco";
 
 @Component({
     selector: 'app-entitas-relata-membrum-relatum-table',
@@ -41,6 +42,7 @@ import {
         MatSidenavModule,
         MatListModule,
         MatDialogModule,
+        TranslocoPipe,
     ]
 })
 export class EntitasRelataMembrumRelatumTableComponent implements OnInit {

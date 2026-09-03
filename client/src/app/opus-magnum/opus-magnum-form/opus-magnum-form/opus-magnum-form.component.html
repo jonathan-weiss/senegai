@@ -29,7 +29,7 @@
 <div class="edit-form-container">
     <mat-card>
         <mat-card-header>
-            <mat-card-title>{{ silvaOptionum ? 'Edit OpusMagnum' : 'New OpusMagnum' }}</mat-card-title>
+            <mat-card-title>{{ (silvaOptionum ? 'opusMagnum.edit.title' : 'opusMagnum.create.title') | transloco }}</mat-card-title>
         </mat-card-header>
 
         <mat-card-content>
@@ -40,10 +40,10 @@
 
                 <div class="form-actions">
                     <button mat-button type="button" (click)="onCancel()">
-                        Cancel
+                        {{ 'action.cancel' | transloco }}
                     </button>
                     <button mat-raised-button color="primary" type="submit" [disabled]="!silvaOptionumForm.valid">
-                        Save
+                        {{ 'action.save' | transloco }}
                     </button>
                 </div>
             </form>

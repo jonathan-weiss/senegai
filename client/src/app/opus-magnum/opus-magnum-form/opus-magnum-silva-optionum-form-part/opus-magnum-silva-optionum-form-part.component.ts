@@ -62,18 +62,7 @@ import {DatepickerInputComponent} from "@app/shared/form-controls/datepicker-inp
 import {ValidatorTranslation} from "@app/shared/form-controls/validator-translation";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
 import {OpusMagnumSilvaOptionumFormPartGroup} from "@app/opus-magnum/opus-magnum-form/opus-magnum-silva-optionum-form-part/opus-magnum-silva-optionum-form-part-group";
-/*
-@tt{{{
-    @if [ conditionExpression="model.containsTranslatedLabels()" ]
-    
-}}}@
- */
 import {TranslocoPipe} from "@jsverse/transloco";
-/*
-@tt{{{
-    @end-if 
-}}}@
- */
 /*
 @tt{{{
     @if [ conditionExpression="model.containsNamedSectionSplitBlocks()" ]
@@ -188,18 +177,7 @@ import {
         MatListModule,
         MatDialogModule,
         FieldWrapperComponent,
-        /*
-        @tt{{{
-            @if [ conditionExpression="model.containsTranslatedLabels()" ]
-            
-        }}}@
-         */
         TranslocoPipe,
-        /*
-        @tt{{{
-            @end-if 
-        }}}@
-         */
         /*
         @tt{{{
             @if [ conditionExpression="model.tabs.isNotEmpty()" ]

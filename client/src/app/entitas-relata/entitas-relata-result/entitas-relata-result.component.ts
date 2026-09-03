@@ -15,6 +15,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MembrumRelatumWTO} from "@app/wto/membrum-relatum.wto";
 import {EntitasRelataSearchCriteria} from "@app/entitas-relata/entitas-relata-search/entitas-relata-search.component";
 import {MembrumRelatumSearchCriteriaWTO} from "@app/wto/membrum-relatum-search-criteria.wto";
+import {TranslocoPipe} from "@jsverse/transloco";
 
 @Component({
     selector: 'app-entitas-relata-result',
@@ -33,6 +34,7 @@ import {MembrumRelatumSearchCriteriaWTO} from "@app/wto/membrum-relatum-search-c
         MatSidenavModule,
         MatListModule,
         MatDialogModule,
+        TranslocoPipe,
     ]
 })
 export class EntitasRelataResultComponent implements OnInit, OnChanges {

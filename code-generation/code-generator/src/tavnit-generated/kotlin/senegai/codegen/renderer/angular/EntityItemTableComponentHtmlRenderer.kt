@@ -19,7 +19,7 @@ object EntityItemTableComponentHtmlRenderer : UiEntityItemRenderer {
           |<div class="table-container">
           |    <div class="action-bar">
           |        <button mat-button color="primary" (click)="onAdd()" type="button" [disabled]="${model.item.itemName.camelCase}FormArray.disabled">
-          |            <mat-icon>add</mat-icon> Add ${model.item.itemName.pascalCase}...
+          |            <mat-icon>add</mat-icon> {{ '${model.item.itemName.camelCase}.table.addEntry' | transloco }}
           |        </button>
           |
           |    </div>
@@ -27,7 +27,7 @@ object EntityItemTableComponentHtmlRenderer : UiEntityItemRenderer {
           |${ model.item.attributes.joinToString("") { attribute ->  """
               |        <!-- ${attribute.attributeName.pascalCase} Column -->
               |        <ng-container matColumnDef="${attribute.attributeName.camelCase}">
-              |            <th mat-header-cell *matHeaderCellDef>${attribute.attributeName.pascalCase}</th>
+              |            <th mat-header-cell *matHeaderCellDef>{{ '${model.item.itemName.camelCase}.${attribute.attributeName.camelCase}.label' | transloco }}</th>
               |            <td mat-cell *matCellDef="let tableRow" (click)="onSelect(tableRow.formGroup)">
               |                {{ tableRow.${attribute.attributeName.camelCase} }}
               |            </td>
@@ -36,7 +36,7 @@ object EntityItemTableComponentHtmlRenderer : UiEntityItemRenderer {
           |
           |        <!-- Actions Column -->
           |        <ng-container matColumnDef="actions">
-          |            <th mat-header-cell *matHeaderCellDef>Actions</th>
+          |            <th mat-header-cell *matHeaderCellDef>{{ 'table.column.actions' | transloco }}</th>
           |            <td mat-cell *matCellDef="let tableRow">
           |                <button mat-icon-button color="primary" (click)="onEdit(tableRow.formGroup)" type="button" [disabled]="${model.item.itemName.camelCase}FormArray.disabled">
           |                    <mat-icon>edit</mat-icon>

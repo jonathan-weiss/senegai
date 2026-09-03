@@ -2,25 +2,25 @@
     <div class="entitas-relata-result-actions">
         <button mat-raised-button color="primary" (click)="onCreate()">
             <mat-icon>add</mat-icon>
-            <ng-container>New EntitasRelata</ng-container>
+            <ng-container>{{ 'entitasRelata.create.title' | transloco }}</ng-container>
         </button>
     </div>
     <table mat-table [dataSource]="dataSource">
 
         <!-- ClavisPrimaria Column -->
         <ng-container matColumnDef="clavisPrimaria">
-            <th mat-header-cell *matHeaderCellDef>ClavisPrimaria</th>
+            <th mat-header-cell *matHeaderCellDef>{{ 'membrumRelatum.clavisPrimaria.label' | transloco }}</th>
             <td mat-cell *matCellDef="let entitasRelata">{{ entitasRelata.clavisPrimaria }}</td>
         </ng-container>
         <!-- DescriptioExDistanti Column -->
         <ng-container matColumnDef="descriptioExDistanti">
-            <th mat-header-cell *matHeaderCellDef>DescriptioExDistanti</th>
+            <th mat-header-cell *matHeaderCellDef>{{ 'membrumRelatum.descriptioExDistanti.label' | transloco }}</th>
             <td mat-cell *matCellDef="let entitasRelata">{{ entitasRelata.descriptioExDistanti }}</td>
         </ng-container>
 
         <!-- Actions Column -->
         <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <th mat-header-cell *matHeaderCellDef>{{ 'table.column.actions' | transloco }}</th>
             <td mat-cell *matCellDef="let entitasRelata">
                 <button mat-icon-button color="primary" (click)="onEdit(entitasRelata)">
                     <mat-icon>edit</mat-icon>

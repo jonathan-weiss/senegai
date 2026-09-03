@@ -32,6 +32,7 @@ object ItemReferenceTableComponentTypescriptRenderer : UiItemRenderer {
           |import {FormUtil} from "@app/shared/form-controls/form.util";
           |import {UUID} from "@app/shared/uuid";
           |import {${model.itemName.pascalCase}WTO} from "@app/wto/${model.itemName.kebabCase}.wto";
+          |import {TranslocoPipe} from "@jsverse/transloco";
           |
           |/**
           | * Edits a list of references to ${model.itemName.pascalCase}, held in the form as a FormArray of UUIDs.
@@ -54,12 +55,19 @@ object ItemReferenceTableComponentTypescriptRenderer : UiItemRenderer {
           |        MatIconModule,
           |        MatTableModule,
           |        ${model.itemName.pascalCase}TypeaheadComponent,
+          |        TranslocoPipe,
           |    ]
           |})
           |export class ${model.itemName.pascalCase}ReferenceTableComponent implements OnInit {
           |    @Input({required: true}) ${model.itemName.camelCase}ReferenceFormArray!: FormArray<FormControl<UUID>>;
-          |    @Input() columnHeader${model.primaryKeyAttribute.attributeName.pascalCase}: string = '${model.primaryKeyAttribute.attributeName.pascalCase}';
-          |${ model.displayAttributes.joinToString("") { displayAttribute ->  """    @Input() columnHeader${displayAttribute.attributeName.pascalCase}: string = '${displayAttribute.attributeName.pascalCase}';
+          |    /**
+          |     * t(${model.itemName.camelCase}.${model.primaryKeyAttribute.attributeName.camelCase}.label)
+          |     */
+          |    @Input() columnHeader${model.primaryKeyAttribute.attributeName.pascalCase}TranslationKey: string = '${model.itemName.camelCase}.${model.primaryKeyAttribute.attributeName.camelCase}.label';
+          |${ model.displayAttributes.joinToString("") { displayAttribute ->  """    /**
+              |     * t(${model.itemName.camelCase}.${displayAttribute.attributeName.camelCase}.label)
+              |     */
+              |    @Input() columnHeader${displayAttribute.attributeName.pascalCase}TranslationKey: string = '${model.itemName.camelCase}.${displayAttribute.attributeName.camelCase}.label';
               |""" } }
           |    protected readonly displayedColumns: string[] = [
           |        '${model.primaryKeyAttribute.attributeName.camelCase}',

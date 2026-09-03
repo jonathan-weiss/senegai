@@ -32,9 +32,13 @@ object EntityRoutingRenderer : UiEntityRenderer {
           |    {path: '${model.entityName.kebabCase}-edit/:${model.idAttribute.attributeName.camelCase}', component: ${model.entityName.pascalCase}RoutableEditComponent},
           |];
           |
+          |/**
+          | * t(${model.entityName.camelCase}.sideNav.board)
+          | * t(${model.entityName.camelCase}.sideNav.editFirstEntry)
+          | */
           |export const ${model.entityName.screamingSnakeCase}_SIDE_NAVIGATION_LINKS: ReadonlyArray<SideNavLink> = [
-          |    {routeLink: '/${model.entityName.kebabCase}-board', name: "${model.entityName.pascalCase}", icon: "people"},
-          |    {routeLink: '/${model.entityName.kebabCase}-edit-first-entry', name: "Edit First ${model.entityName.pascalCase}", icon: "code"},
+          |    {routeLink: '/${model.entityName.kebabCase}-board', nameTranslationKey: "${model.entityName.camelCase}.sideNav.board", icon: "people"},
+          |    {routeLink: '/${model.entityName.kebabCase}-edit-first-entry', nameTranslationKey: "${model.entityName.camelCase}.sideNav.editFirstEntry", icon: "code"},
           |]
           |
         """.trimMargin(marginPrefix = "|")

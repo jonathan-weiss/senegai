@@ -1,3 +1,3 @@
-@for (sideNavLink of sideNavLinks; track sideNavLink.name) {
-    <side-nav-entry [routerLink]="sideNavLink.routeLink" [linkText]="sideNavLink.name" [iconName]="sideNavLink.icon"/>
+@for (sideNavLink of sideNavLinks; track sideNavLink.nameTranslationKey) {
+    <side-nav-entry [routerLink]="sideNavLink.routeLink" [linkText]="sideNavLink.nameTranslationKey | transloco" [iconName]="sideNavLink.icon"/>
 }

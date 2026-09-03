@@ -27,6 +27,7 @@ object ItemTypeaheadComponentTypescriptRenderer : UiItemRenderer {
           |import {UUID} from "@app/shared/uuid";
           |import {${model.itemName.pascalCase}SearchResultWTO} from "@app/wto/${model.itemName.kebabCase}-search-result.wto";
           |import {${model.itemName.pascalCase}WTO} from "@app/wto/${model.itemName.kebabCase}.wto";
+          |import {TranslocoPipe} from "@jsverse/transloco";
           |
           |/** Idle time after the last keystroke before the search is sent to the backend. */
           |const SEARCH_DEBOUNCE_IN_MILLISECONDS = 250;
@@ -62,11 +63,16 @@ object ItemTypeaheadComponentTypescriptRenderer : UiItemRenderer {
           |        MatFormFieldModule,
           |        MatIconModule,
           |        MatInputModule,
+          |        TranslocoPipe,
           |    ]
           |})
           |export class ${model.itemName.pascalCase}TypeaheadComponent implements OnInit {
-          |    @Input() label: string = 'Search ${model.itemName.pascalCase}';
-          |    @Input() placeholder: string = 'Enter search query for ${model.itemName.pascalCase}';
+          |    /** Already translated, because what the field stands for is up to the caller. */
+          |    @Input() label: string = '';
+          |    /**
+          |     * t(${model.itemName.camelCase}.typeahead.placeholder)
+          |     */
+          |    @Input() placeholderTranslationKey: string = '${model.itemName.camelCase}.typeahead.placeholder';
           |    /**
           |     * The display attributes of the entry the typeahead itself stands for, shown in the search
           |     * field whenever the user is not typing. Empty where the typeahead does not represent a

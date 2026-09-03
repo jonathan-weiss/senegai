@@ -19,7 +19,7 @@ object ItemReferenceTableComponentHtmlRenderer : UiItemRenderer {
           |<div class="table-container">
           |    <div class="action-bar">
           |        <app-${model.itemName.kebabCase}-typeahead
-          |                label="Add ${model.itemName.pascalCase}..."
+          |                [label]="'${model.itemName.camelCase}.reference.addEntry' | transloco"
           |                [excluded${model.primaryKeyAttribute.attributeName.pascalCase}List]="referenced${model.primaryKeyAttribute.attributeName.pascalCase}List()"
           |                [disabled]="${model.itemName.camelCase}ReferenceFormArray.disabled"
           |                (${model.itemName.camelCase}Selected)="on${model.itemName.pascalCase}Selected(${"$"}event)" />
@@ -27,19 +27,19 @@ object ItemReferenceTableComponentHtmlRenderer : UiItemRenderer {
           |    <table mat-table [dataSource]="dataSource">
           |        <!-- Display attribute: ${model.primaryKeyAttribute.attributeName.pascalCase} -->
           |        <ng-container matColumnDef="${model.primaryKeyAttribute.attributeName.camelCase}">
-          |            <th mat-header-cell *matHeaderCellDef>{{ columnHeader${model.primaryKeyAttribute.attributeName.pascalCase} }}</th>
+          |            <th mat-header-cell *matHeaderCellDef>{{ columnHeader${model.primaryKeyAttribute.attributeName.pascalCase}TranslationKey | transloco }}</th>
           |            <td mat-cell *matCellDef="let tableRow">{{ tableRow.${model.primaryKeyAttribute.attributeName.camelCase} }}</td>
           |        </ng-container>
           |
           |${ model.displayAttributes.joinToString("") { displayAttribute ->  """        <!-- Display attribute: ${displayAttribute.attributeName.pascalCase} -->
               |        <ng-container matColumnDef="${displayAttribute.attributeName.camelCase}">
-              |            <th mat-header-cell *matHeaderCellDef>{{ columnHeader${displayAttribute.attributeName.pascalCase} }}</th>
+              |            <th mat-header-cell *matHeaderCellDef>{{ columnHeader${displayAttribute.attributeName.pascalCase}TranslationKey | transloco }}</th>
               |            <td mat-cell *matCellDef="let tableRow">{{ tableRow.${displayAttribute.attributeName.camelCase} }}</td>
               |        </ng-container>
               |""" } }
           |        <!-- Actions Column -->
           |        <ng-container matColumnDef="actions">
-          |            <th mat-header-cell *matHeaderCellDef>Actions</th>
+          |            <th mat-header-cell *matHeaderCellDef>{{ 'table.column.actions' | transloco }}</th>
           |            <td mat-cell *matCellDef="let tableRow">
           |                <button mat-icon-button color="warn" (click)="onDelete(tableRow)" type="button"
           |                        [disabled]="${model.itemName.camelCase}ReferenceFormArray.disabled">

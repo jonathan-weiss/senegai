@@ -29,6 +29,7 @@ object EntitySearchComponentTypescriptRenderer : UiEntityRenderer {
           |import {MatSidenavModule} from "@angular/material/sidenav";
           |import {MatListModule} from "@angular/material/list";
           |import {MatDialogModule} from "@angular/material/dialog";
+          |import {TranslocoPipe} from "@jsverse/transloco";
           |
           |export interface ${model.entityName.pascalCase}SearchCriteria {
           |    searchQuery?: string;
@@ -60,6 +61,7 @@ object EntitySearchComponentTypescriptRenderer : UiEntityRenderer {
           |        MatSidenavModule,
           |        MatListModule,
           |        MatDialogModule,
+          |        TranslocoPipe,
           |    ]
           |})
           |export class ${model.entityName.pascalCase}SearchComponent {

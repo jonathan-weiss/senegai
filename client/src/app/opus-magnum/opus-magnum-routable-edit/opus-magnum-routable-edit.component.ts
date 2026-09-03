@@ -37,6 +37,7 @@ import {OpusMagnumFormComponent} from "@app/opus-magnum/opus-magnum-form/opus-ma
 import {ActivatedRoute} from "@angular/router";
 import {UUID} from "@app/shared/uuid";
 
+import {TranslocoPipe} from "@jsverse/transloco";
 
 @Component({
     selector: 'app-opus-magnum-routable-edit',
@@ -44,6 +45,7 @@ import {UUID} from "@app/shared/uuid";
     styleUrls: ['./opus-magnum-routable-edit.component.scss'],
     imports: [
         OpusMagnumFormComponent,
+        TranslocoPipe,
     ]
 })
 export class OpusMagnumRoutableEditComponent {

@@ -18,7 +18,7 @@ import {SideNavLinkListComponent} from "./side-nav/side-nav-list/side-nav-link-l
 import {ENTITY_SIDE_NAVIGATION_LINKS} from "./entity-side-nav-links";
 import {OTHER_SIDE_NAVIGATION_LINKS} from "./more-side-nav-links";
 import { GENERATED_ENTITY_SIDE_NAVIGATION_LINKS } from "@app/generated-entity-side-nav-links";
-import {TranslocoService} from "@jsverse/transloco";
+import {TranslocoPipe, TranslocoService} from "@jsverse/transloco";
 
 @Component({
     imports: [
@@ -37,13 +37,13 @@ import {TranslocoService} from "@jsverse/transloco";
         MatMenuModule,
         RouterOutlet,
         SideNavLinkListComponent,
+        TranslocoPipe,
     ],
     selector: 'app-root',
     styleUrls: ['./app.component.scss'],
     templateUrl: './app.component.html'
 })
 export class AppComponent {
-    title = 'senegal';
     sidenavOpened = true;
     activeLang: string;
 

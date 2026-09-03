@@ -20,6 +20,7 @@ import {
 import {
     FormValidationSummaryComponent
 } from "@app/shared/form-controls/form-validation-summary/form-validation-summary.component";
+import {TranslocoPipe} from "@jsverse/transloco";
 
 @Component({
     selector: 'app-entitas-relata-form',
@@ -40,6 +41,7 @@ import {
         MatDialogModule,
         EntitasRelataMembrumRelatumFormPartComponent,
         FormValidationSummaryComponent,
+        TranslocoPipe,
     ]
 })
 export class EntitasRelataFormComponent implements OnInit {

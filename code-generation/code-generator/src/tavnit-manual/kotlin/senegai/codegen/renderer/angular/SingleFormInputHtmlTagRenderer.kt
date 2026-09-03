@@ -18,8 +18,7 @@ import senegai.model.schema.BuiltInType
 object SingleFormInputHtmlTagRenderer {
 
     /**
-     *  ` <app-text-input [textFormControl]="campusTextusObligatoriusControl" label="campusTextusObligatorius" placeholder="Enter Campus Textus Obligatorius" [validatorTranslations]="campusTextusObligatoriusValidatorNames" />`
-     *  ` <app-text-input [textFormControl]="campusTextusOptionalisControl" label="campusTextusOptionalis" placeholder="Enter campusTextusOptionalis" [validatorTranslations]="campusTextusOptionalisValidatorNames" />`
+     *  ` <app-text-input [textFormControl]="campusTextusObligatoriusControl" [label]="'silvaOptionum.campusTextusObligatorius.label' | transloco" [placeholder]="'silvaOptionum.campusTextusObligatorius.placeholder' | transloco" [validatorTranslations]="campusTextusObligatoriusValidatorNames" />`
      *  ` <app-articulus-interior-form-part [articulusInteriorForm]="articulusInteriorListFormGroupUnderEdit!"  />`
      *  ` <app-articulus-interior-form-part [articulusInteriorForm]="articulusInteriorSingularisControl"  />`
      *  ` <app-appellatio-selector [enumFormControl]="appellatioControl" [validatorTranslations]="appellatioValidatorNames" />`
@@ -44,19 +43,35 @@ object SingleFormInputHtmlTagRenderer {
     }
 
     /**
-     *  ` <app-text-input [textFormControl]="campusTextusObligatoriusControl" label="campusTextusObligatorius" placeholder="Enter Campus Textus Obligatorius" [validatorTranslations]="campusTextusObligatoriusValidatorNames" />`
-     *  ` <app-text-input [textFormControl]="campusTextusOptionalisControl" label="campusTextusOptionalis" placeholder="Enter campusTextusOptionalis" [validatorTranslations]="campusTextusOptionalisValidatorNames" />`
-     *  ` <app-single-text-form-field-table [formArray]="iteratioSimpliciumTextuumControl" columnHeader="Iteratio Simplicium Textuum" placeholder="Iteratio Simplicium Textuum" />`
+     *  ` <app-text-input [textFormControl]="campusTextusObligatoriusControl" [label]="'silvaOptionum.campusTextusObligatorius.label' | transloco" [placeholder]="'silvaOptionum.campusTextusObligatorius.placeholder' | transloco" [validatorTranslations]="campusTextusObligatoriusValidatorNames" />`
+     *  ` <app-single-text-form-field-table [formArray]="iteratioSimpliciumTextuumControl" [columnHeader]="'silvaOptionum.iteratioSimpliciumTextuum.label' | transloco" [placeholder]="'silvaOptionum.iteratioSimpliciumTextuum.placeholder' | transloco" />`
      */
     private fun createBuiltInInput(attributeModel: BuiltInTypeUiAttributeModel): String {
         val infix = determineFormComponentTypeInfix(attributeModel.builtInType)
         val attributeNameCamelCase = attributeModel.attributeName.camelCase
+        val label = """[label]="'${attributeLabelTranslationKey(attributeModel)}' | transloco""""
+        val columnHeader = """[columnHeader]="'${attributeLabelTranslationKey(attributeModel)}' | transloco""""
+        val placeholder = """[placeholder]="'${attributePlaceholderTranslationKey(attributeModel)}' | transloco""""
+        // A checkbox has no placeholder, it is labelled next to the box instead.
+        val isCheckbox = attributeModel.builtInType == BuiltInType.BOOLEAN
         return if(attributeModel.isList) {
-            """<app-single-${infix}-form-field-table [formArray]="${attributeNameCamelCase}Control" columnHeader="$attributeNameCamelCase" placeholder="Enter $attributeNameCamelCase" [validatorTranslations]="${attributeNameCamelCase}ValidatorNames" />"""
+            val entryInput = if(isCheckbox) label else placeholder
+            """<app-single-${infix}-form-field-table [formArray]="${attributeNameCamelCase}Control" $columnHeader $entryInput [validatorTranslations]="${attributeNameCamelCase}ValidatorNames" />"""
         } else {
-            """<app-${infix}-input [${infix}FormControl]="${attributeNameCamelCase}Control" label="$attributeNameCamelCase" placeholder="Enter $attributeNameCamelCase" [validatorTranslations]="${attributeNameCamelCase}ValidatorNames" />"""
+            val labelAndPlaceholder = if(isCheckbox) label else "$label $placeholder"
+            """<app-${infix}-input [${infix}FormControl]="${attributeNameCamelCase}Control" $labelAndPlaceholder [validatorTranslations]="${attributeNameCamelCase}ValidatorNames" />"""
         }
     }
+
+    /**
+     * The label of a field is translated under the item the attribute belongs to, so that the
+     * same attribute of two items can be labelled differently, e.g. `contact.firstname.label`.
+     */
+    private fun attributeLabelTranslationKey(attributeModel: UiAttributeModel): String =
+        "${attributeModel.item.itemName.camelCase}.${attributeModel.attributeName.camelCase}.label"
+
+    private fun attributePlaceholderTranslationKey(attributeModel: UiAttributeModel): String =
+        "${attributeModel.item.itemName.camelCase}.${attributeModel.attributeName.camelCase}.placeholder"
 
     /**
      *  ` <app-membrum-relatum-reference-field [membrumRelatumReferenceFormControl]="relatioAdEntitatemOptionalisControl" [validatorTranslations]="relatioAdEntitatemOptionalisValidatorNames" />`
@@ -105,13 +120,13 @@ object SingleFormInputHtmlTagRenderer {
 
     /**
      *  ` <app-appellatio-comis-selector [enumFormControl]="appellatioControl" [validatorTranslations]="appellatioValidatorNames" />`
-     *  ` <app-single-appellatio-comis-form-field-table [formArray]="appellatioOptionalisIteratusControl" columnHeader="appellatioOptionalisIteratus" [validatorTranslations]="appellatioOptionalisIteratusValidatorNames" />`
+     *  ` <app-single-appellatio-comis-form-field-table [formArray]="appellatioOptionalisIteratusControl" [columnHeader]="'silvaOptionum.appellatioOptionalisIteratus.label' | transloco" [validatorTranslations]="appellatioOptionalisIteratusValidatorNames" />`
      */
     private fun createEnumInput(attributeModel: EnumUiAttributeModel): String {
         val attributeNameCamelCase = attributeModel.attributeName.camelCase
         val enumNameKebabCase = attributeModel.enum.enumName.kebabCase
         return if(attributeModel.isList) {
-            """<app-single-${enumNameKebabCase}-form-field-table [formArray]="${attributeNameCamelCase}Control" columnHeader="$attributeNameCamelCase" [validatorTranslations]="${attributeNameCamelCase}ValidatorNames" />"""
+            """<app-single-${enumNameKebabCase}-form-field-table [formArray]="${attributeNameCamelCase}Control" [columnHeader]="'${attributeLabelTranslationKey(attributeModel)}' | transloco" [validatorTranslations]="${attributeNameCamelCase}ValidatorNames" />"""
         } else {
             """<app-${enumNameKebabCase}-selector [enumFormControl]="${attributeNameCamelCase}Control" [validatorTranslations]="${attributeNameCamelCase}ValidatorNames" />"""
         }
