@@ -5,11 +5,11 @@ import senegai.model.builders.UiBlockEditorDsl
 import senegai.model.builders.UiEditorForMainItemDsl
 import senegai.model.builders.UiTabDsl
 import senegai.model.schema.UiEntityEditorColumn
-import senegai.model.schema.UiEntityEditorEntityConfiguration
+import senegai.model.schema.UiEntityEditorRootItemConfiguration
 import senegai.model.schema.UiEntityEditorTab
 
 @Builder
-@ExpectedClazzModelFromSuperiorBuilder(clazz = UiEntityEditorEntityConfiguration::class, alias = "mainItemConfiguration")
+@ExpectedClazzModelFromSuperiorBuilder(clazz = UiEntityEditorRootItemConfiguration::class, alias = "mainItemConfiguration")
 interface UiEditorConfigForMainEntityItemBuilder: UiEditorForMainItemDsl {
 
     @BuilderMethod

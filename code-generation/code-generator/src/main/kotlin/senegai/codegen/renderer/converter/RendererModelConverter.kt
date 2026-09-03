@@ -44,7 +44,7 @@ import senegai.model.schema.SchemaData
 import senegai.model.schema.UiBlock
 import senegai.model.schema.UiEntity
 import senegai.model.schema.UiEntityEditorColumn
-import senegai.model.schema.UiEntityEditorEntityConfiguration
+import senegai.model.schema.UiEntityEditorRootItemConfiguration
 import senegai.model.schema.UiEntityEditorEntityNestedItemConfiguration
 import senegai.model.schema.UiEntityEditorTab
 import senegai.model.schema.UiItemAttributeBlock
@@ -316,7 +316,7 @@ object RendererModelConverter {
 
         val uiEntityItems = uiEntity.editorView.itemConfiguration.map { itemConfiguration ->
             val itemModel = when (itemConfiguration) {
-                is UiEntityEditorEntityConfiguration -> uiEntityModel.entityRootItem
+                is UiEntityEditorRootItemConfiguration -> uiEntityModel.entityRootItem
                 is UiEntityEditorEntityNestedItemConfiguration -> requireNotNull(uiEntityModel.entityItemModels.firstOrNull { it.itemName.isEqual(itemConfiguration.itemId.itemName) }) {
                     "No item found with item id '${itemConfiguration.itemId.itemName}' within items ${uiEntityModel.entityItemModels.map { it.itemName }}"
                 }
@@ -325,7 +325,7 @@ object RendererModelConverter {
             val noTab = itemConfiguration.noTab.map { mapUiEntityColumn(uiEntityModel = uiEntityModel, uiItemModel = itemModel, column = it) }
 
             val tabs = when (itemConfiguration) {
-                is UiEntityEditorEntityConfiguration -> itemConfiguration.tabs.map { mapUiEntityTab(uiEntityModel = uiEntityModel, uiItemModel = itemModel, tab = it) }
+                is UiEntityEditorRootItemConfiguration -> itemConfiguration.tabs.map { mapUiEntityTab(uiEntityModel = uiEntityModel, uiItemModel = itemModel, tab = it) }
                 is UiEntityEditorEntityNestedItemConfiguration -> emptyList()
             }
 

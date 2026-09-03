@@ -19,7 +19,7 @@ sealed interface UiEntityEditorItemConfiguration {
     val noTab: List<UiEntityEditorColumn>
 }
 
-data class UiEntityEditorEntityConfiguration(
+data class UiEntityEditorRootItemConfiguration(
     override val noTab: List<UiEntityEditorColumn>,
     val tabs: List<UiEntityEditorTab>,
 ): UiEntityEditorItemConfiguration

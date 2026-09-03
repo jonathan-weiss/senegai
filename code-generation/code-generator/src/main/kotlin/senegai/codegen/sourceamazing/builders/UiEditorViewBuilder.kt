@@ -5,7 +5,7 @@ import senegai.model.builders.UiEditorDsl
 import senegai.model.builders.UiEditorForMainItemDsl
 import senegai.model.builders.UiEditorForNestedItemDsl
 import senegai.model.schema.ItemId
-import senegai.model.schema.UiEntityEditorEntityConfiguration
+import senegai.model.schema.UiEntityEditorRootItemConfiguration
 import senegai.model.schema.UiEntityEditorEntityNestedItemConfiguration
 import senegai.model.schema.UiEntityEditorView
 
@@ -14,7 +14,7 @@ import senegai.model.schema.UiEntityEditorView
 interface UiEditorViewBuilder: UiEditorDsl {
 
     @BuilderMethod
-    @NewClazzModel(clazz = UiEntityEditorEntityConfiguration::class, alias = "mainItemConfiguration")
+    @NewClazzModel(clazz = UiEntityEditorRootItemConfiguration::class, alias = "mainItemConfiguration")
     @SetClazzModelOfAlias(alias = "uiEditor", clazzProperty = "itemConfiguration", referencedAlias = "mainItemConfiguration")
     fun configureEditorForEntityInternal(
         @InjectBuilder builder: UiEditorConfigForMainEntityItemBuilder.() -> Unit
