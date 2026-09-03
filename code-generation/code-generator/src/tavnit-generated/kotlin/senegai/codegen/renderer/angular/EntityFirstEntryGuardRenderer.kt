@@ -22,7 +22,7 @@ object EntityFirstEntryGuardRenderer : UiEntityRenderer {
           |import {CanActivateFn, Router, UrlTree} from '@angular/router';
           |import {Observable} from 'rxjs';
           |import {map} from 'rxjs/operators';
-          |import {${model.entityName.pascalCase}Service} from '@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}.service';
+          |import {${model.entityRootItem.itemName.pascalCase}Service} from '@app/service/${model.entityRootItem.itemName.kebabCase}.service';
           |
           |/**
           | * Resolves the first available {@link ${model.entityRootItem.itemName.pascalCase}WTO} and redirects to its edit route,
@@ -32,7 +32,7 @@ object EntityFirstEntryGuardRenderer : UiEntityRenderer {
           | */
           |export const ${model.entityName.camelCase}FirstEntryEditGuard: CanActivateFn = (): Observable<UrlTree> => {
           |    const router = inject(Router);
-          |    return inject(${model.entityName.pascalCase}Service).get${model.entityRootItem.itemName.pascalCase}List().pipe(
+          |    return inject(${model.entityRootItem.itemName.pascalCase}Service).get${model.entityRootItem.itemName.pascalCase}List().pipe(
           |        map(${model.entityRootItem.itemName.camelCase}List => {
           |            const first = ${model.entityRootItem.itemName.camelCase}List.at(0);
           |            return first

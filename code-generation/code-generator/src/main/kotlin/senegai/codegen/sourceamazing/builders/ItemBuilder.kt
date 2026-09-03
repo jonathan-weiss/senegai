@@ -3,7 +3,6 @@ package senegai.codegen.sourceamazing.builders
 import org.codeblessing.sourceamazing.builder.api.annotations.*
 import senegai.model.builders.ItemDsl
 import senegai.model.schema.BuiltInType
-import senegai.model.schema.EntityId
 import senegai.model.schema.EnumId
 import senegai.model.schema.ExampleDataCategory
 import senegai.model.schema.Item
@@ -15,8 +14,15 @@ import senegai.model.schema.ItemId
 interface ItemBuilder: ItemDsl {
 
     @BuilderMethod
+    override fun primaryKey(
+        @SetAsValue(alias = "item", clazzProperty = "idAttributeName")
+        attributeName: String,
+    )
+
+    @BuilderMethod
     @NewClazzModel(clazz = ItemAttribute::class, alias = "itemAttribute")
     @SetClazzModelOfAlias(alias = "item", clazzProperty = "attributes", referencedAlias = "itemAttribute")
+    @SetFixedBooleanValue(alias = "itemAttribute", clazzProperty = "isReference", value = false)
     override fun attribute(
         @SetAsValue(alias = "itemAttribute", clazzProperty = "attributeName")
         name: String,
@@ -36,6 +42,7 @@ interface ItemBuilder: ItemDsl {
     @BuilderMethod
     @NewClazzModel(clazz = ItemAttribute::class, alias = "itemAttribute")
     @SetClazzModelOfAlias(alias = "item", clazzProperty = "attributes", referencedAlias = "itemAttribute")
+    @SetFixedBooleanValue(alias = "itemAttribute", clazzProperty = "isReference", value = false)
     override fun attribute(
         @SetAsValue(alias = "itemAttribute", clazzProperty = "attributeName")
         name: String,
@@ -52,6 +59,7 @@ interface ItemBuilder: ItemDsl {
     @BuilderMethod
     @NewClazzModel(clazz = ItemAttribute::class, alias = "itemAttribute")
     @SetClazzModelOfAlias(alias = "item", clazzProperty = "attributes", referencedAlias = "itemAttribute")
+    @SetFixedBooleanValue(alias = "itemAttribute", clazzProperty = "isReference", value = false)
     override fun attribute(
         @SetAsValue(alias = "itemAttribute", clazzProperty = "attributeName")
         name: String,
@@ -65,14 +73,19 @@ interface ItemBuilder: ItemDsl {
         customValidation: Boolean,
     )
 
+    /**
+     * A reference carries an [ItemId] as its type just like a nested item attribute,
+     * therefore `isReference` is what tells the two apart.
+     */
     @BuilderMethod
     @NewClazzModel(clazz = ItemAttribute::class, alias = "itemAttribute")
     @SetClazzModelOfAlias(alias = "item", clazzProperty = "attributes", referencedAlias = "itemAttribute")
-    override fun attribute(
+    @SetFixedBooleanValue(alias = "itemAttribute", clazzProperty = "isReference", value = true)
+    override fun reference(
         @SetAsValue(alias = "itemAttribute", clazzProperty = "attributeName")
         name: String,
         @SetAsValue(alias = "itemAttribute", clazzProperty = "type")
-        entityId: EntityId,
+        itemId: ItemId,
         @SetAsValue(alias = "itemAttribute", clazzProperty = "isNullable")
         nullable: Boolean,
         @SetAsValue(alias = "itemAttribute", clazzProperty = "isMultiple")
@@ -81,4 +94,3 @@ interface ItemBuilder: ItemDsl {
         customValidation: Boolean,
     )
 }
-

@@ -136,30 +136,26 @@ import {
 } from "@app/opus-magnum/opus-magnum-form/opus-magnum-articulus-interior-form-part/opus-magnum-articulus-interior-form-part-group";
 /* @tt{{{   @end-foreach  }}}@ */
 /* @tt{{{
-    @foreach [ iteratorExpression="model.item.listReferencedEntities" loopVariable="listReferencedEntity" ]
+    @foreach [ iteratorExpression="model.item.listReferencedItems" loopVariable="listReferencedItem" ]
     @replace-value-by-expression
-        [ searchValue="EntitasRelata" replaceByExpression="listReferencedEntity.entityName.pascalCase" ]
-        [ searchValue="entitas-relata" replaceByExpression="listReferencedEntity.entityName.kebabCase" ]
-        [ searchValue="MembrumRelatum" replaceByExpression="listReferencedEntity.rootItem.itemName.pascalCase" ]
-        [ searchValue="membrum-relatum" replaceByExpression="listReferencedEntity.rootItem.itemName.kebabCase" ]
+        [ searchValue="MembrumRelatum" replaceByExpression="listReferencedItem.itemName.pascalCase" ]
+        [ searchValue="membrum-relatum" replaceByExpression="listReferencedItem.itemName.kebabCase" ]
 
 }}}@  */
 import {
-    EntitasRelataMembrumRelatumReferenceTableComponent
-} from "@app/entitas-relata/entitas-relata-membrum-relatum-reference-table/entitas-relata-membrum-relatum-reference-table.component";
+    MembrumRelatumReferenceTableComponent
+} from "@app/reference/membrum-relatum-reference-table/membrum-relatum-reference-table.component";
 /* @tt{{{   @end-foreach  }}}@ */
 /* @tt{{{
-    @foreach [ iteratorExpression="model.item.singleReferencedEntities" loopVariable="singleReferencedEntity" ]
+    @foreach [ iteratorExpression="model.item.singleReferencedItems" loopVariable="singleReferencedItem" ]
     @replace-value-by-expression
-        [ searchValue="EntitasRelata" replaceByExpression="singleReferencedEntity.entityName.pascalCase" ]
-        [ searchValue="entitas-relata" replaceByExpression="singleReferencedEntity.entityName.kebabCase" ]
-        [ searchValue="MembrumRelatum" replaceByExpression="singleReferencedEntity.rootItem.itemName.pascalCase" ]
-        [ searchValue="membrum-relatum" replaceByExpression="singleReferencedEntity.rootItem.itemName.kebabCase" ]
+        [ searchValue="MembrumRelatum" replaceByExpression="singleReferencedItem.itemName.pascalCase" ]
+        [ searchValue="membrum-relatum" replaceByExpression="singleReferencedItem.itemName.kebabCase" ]
 
 }}}@  */
 import {
-    EntitasRelataMembrumRelatumReferenceFieldComponent
-} from "@app/entitas-relata/entitas-relata-membrum-relatum-reference-field/entitas-relata-membrum-relatum-reference-field.component";
+    MembrumRelatumReferenceFieldComponent
+} from "@app/reference/membrum-relatum-reference-field/membrum-relatum-reference-field.component";
 /* @tt{{{   @end-foreach  }}}@ */
 
 @Component({
@@ -243,20 +239,18 @@ import {
         SingleTextFormFieldTableComponent,
         /* @tt{{{   @end-if }}}@ */
         /* @tt{{{
-            @foreach [ iteratorExpression="model.item.listReferencedEntities" loopVariable="listReferencedEntity" ]
+            @foreach [ iteratorExpression="model.item.listReferencedItems" loopVariable="listReferencedItem" ]
             @replace-value-by-expression
-                [ searchValue="EntitasRelata" replaceByExpression="listReferencedEntity.entityName.pascalCase" ]
-                [ searchValue="MembrumRelatum" replaceByExpression="listReferencedEntity.rootItem.itemName.pascalCase" ]
+                [ searchValue="MembrumRelatum" replaceByExpression="listReferencedItem.itemName.pascalCase" ]
         }}}@ */
-        EntitasRelataMembrumRelatumReferenceTableComponent,
+        MembrumRelatumReferenceTableComponent,
         /* @tt{{{   @end-foreach  }}}@ */
         /* @tt{{{
-            @foreach [ iteratorExpression="model.item.singleReferencedEntities" loopVariable="singleReferencedEntity" ]
+            @foreach [ iteratorExpression="model.item.singleReferencedItems" loopVariable="singleReferencedItem" ]
             @replace-value-by-expression
-                [ searchValue="EntitasRelata" replaceByExpression="singleReferencedEntity.entityName.pascalCase" ]
-                [ searchValue="MembrumRelatum" replaceByExpression="singleReferencedEntity.rootItem.itemName.pascalCase" ]
+                [ searchValue="MembrumRelatum" replaceByExpression="singleReferencedItem.itemName.pascalCase" ]
         }}}@ */
-        EntitasRelataMembrumRelatumReferenceFieldComponent,
+        MembrumRelatumReferenceFieldComponent,
         /* @tt{{{   @end-foreach  }}}@ */
         /* @tt{{{
         @if [ conditionExpression="model.item.containsNumberListAttributes"]
@@ -289,7 +283,7 @@ export class OpusMagnumSilvaOptionumFormPartComponent implements OnInit {
         @foreach [ iteratorExpression="model.item.attributesWithItemType.filter { it.isList }" loopVariable="attributeWithItemType" ]
         @replace-value-by-expression
             [ searchValue="articulusInteriorIteratus" replaceByExpression="attributeWithItemType.attributeName.camelCase" ]
-            [ searchValue="FormGroup<OpusMagnumArticulusInteriorFormPartGroup>" replaceByExpression="attributeWithItemType.angularFormControlType" ]
+            [ searchValue="FormGroup<OpusMagnumArticulusInteriorFormPartGroup>" replaceByExpression="attributeWithItemType.angularFormControlType(model.entity.entityName)" ]
 
     }}}@  */
     readonly articulusInteriorIteratusEditState = new FormArrayEditState<FormGroup<OpusMagnumArticulusInteriorFormPartGroup>>(() => this.articulusInteriorIteratusControl);
@@ -306,7 +300,7 @@ export class OpusMagnumSilvaOptionumFormPartComponent implements OnInit {
 
     @replace-value-by-expression
         [ searchValue="campusTextusOptionalis" replaceByExpression="attribute.attributeName.camelCase" ]
-        [ searchValue="FormControl<string | null>" replaceByExpression="attribute.angularFormControlTypeWithCollection" ]
+        [ searchValue="FormControl<string | null>" replaceByExpression="attribute.angularFormControlTypeWithCollection(model.entity.entityName)" ]
 
     }}}@  */
     /* @tt{{{   @if [ conditionExpression="attribute.isNullable"]  }}}@ */

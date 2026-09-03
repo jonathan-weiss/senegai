@@ -14,7 +14,7 @@
 
     @replace-value-by-expression
         [ searchValue="SilvaOptionum" replaceByExpression="model.itemName.pascalCase" ]
-        [ searchValue="opusmagnum" replaceByExpression="model.entityName.lowerCase" ]
+        [ searchValue="silvaoptionum" replaceByExpression="model.itemName.lowerCase" ]
 
     @modify-provided-filepath-by-replacements
 
@@ -34,12 +34,12 @@ import senegai.server.service.bo.SilvaOptionumBO
 import senegai.server.exampledata.framework.datagenerator.RandomStringDataGenerator
 /* @tt{{{   @end-foreach  }}}@ */
 /* @tt{{{
-    @foreach [ iteratorExpression="model.referencedEntities" loopVariable="referencedEntity" ]
+    @foreach [ iteratorExpression="model.referencedItems" loopVariable="referencedItem" ]
     @replace-value-by-expression
-        [ searchValue="EntitasRelata" replaceByExpression="referencedEntity.entityName.pascalCase" ]
-        [ searchValue="entitasrelata" replaceByExpression="referencedEntity.entityName.lowerCase" ]
+        [ searchValue="MembrumRelatum" replaceByExpression="referencedItem.itemName.pascalCase" ]
+        [ searchValue="membrumrelatum" replaceByExpression="referencedItem.itemName.lowerCase" ]
 }}}@ */
-import senegai.server.exampledata.entitasrelata.EntitasRelataExampleDataFetcher
+import senegai.server.exampledata.membrumrelatum.MembrumRelatumExampleDataFetcher
 /* @tt{{{   @end-foreach  }}}@ */
 /* @tt{{{   @ignore-text  }}}@ */
 import senegai.server.exampledata.framework.datagenerator.RandomBooleanDataGenerator
@@ -82,13 +82,13 @@ class SilvaOptionumExampleDataCreator(
     private val randomStringDataGenerator: RandomStringDataGenerator,
     /* @tt{{{   @end-foreach  }}}@ */
     /* @tt{{{
-        @foreach [ iteratorExpression="model.referencedEntities" loopVariable="referencedEntity" ]
+        @foreach [ iteratorExpression="model.referencedItems" loopVariable="referencedItem" ]
         @replace-value-by-expression
-            [ searchValue="EntitasRelata" replaceByExpression="referencedEntity.entityName.pascalCase" ]
-            [ searchValue="entitasRelata" replaceByExpression="referencedEntity.entityName.camelCase" ]
-            [ searchValue="entitasrelata" replaceByExpression="referencedEntity.entityName.lowerCase" ]
+            [ searchValue="MembrumRelatum" replaceByExpression="referencedItem.itemName.pascalCase" ]
+            [ searchValue="membrumRelatum" replaceByExpression="referencedItem.itemName.camelCase" ]
+            [ searchValue="membrumrelatum" replaceByExpression="referencedItem.itemName.lowerCase" ]
     }}}@ */
-    private val entitasRelataExampleDataFetcher: EntitasRelataExampleDataFetcher,
+    private val membrumRelatumExampleDataFetcher: MembrumRelatumExampleDataFetcher,
     /* @tt{{{   @end-foreach  }}}@ */
     /* @tt{{{   @ignore-text  }}}@ */
     private val randomNumberDataGenerator: RandomNumberDataGenerator,
@@ -98,7 +98,7 @@ class SilvaOptionumExampleDataCreator(
 
     fun create(dataContext: DataContext): SilvaOptionumBO = SilvaOptionumBO(
         /* @tt{{{
-            @foreach [ iteratorExpression="model.builtInAttributes.filter { !it.isEntityReference }" loopVariable="builtInAttribute" ]
+            @foreach [ iteratorExpression="model.builtInAttributes.filter { !it.isItemReference }" loopVariable="builtInAttribute" ]
             @replace-value-by-expression
                 [ searchValue="iteratioSimpliciumTextuum" replaceByExpression="builtInAttribute.attributeName.camelCase" ]
                 [ searchValue="campusTextusObligatorius" replaceByExpression="builtInAttribute.attributeName.camelCase" ]
@@ -138,16 +138,16 @@ class SilvaOptionumExampleDataCreator(
         /* @tt{{{   @end-if  }}}@ */
         /* @tt{{{   @end-foreach  }}}@ */
         /* @tt{{{
-            @foreach [ iteratorExpression="model.attributesWithEntityReference" loopVariable="referenceAttribute" ]
+            @foreach [ iteratorExpression="model.attributesWithItemReference" loopVariable="referenceAttribute" ]
             @replace-value-by-expression
                 [ searchValue="relatioAdEntitatemOptionalisIteratus" replaceByExpression="referenceAttribute.attributeName.camelCase" ]
                 [ searchValue="relatioAdEntitatemOptionalis" replaceByExpression="referenceAttribute.attributeName.camelCase" ]
-                [ searchValue="entitasRelata" replaceByExpression="referenceAttribute.referencedEntity.entityName.camelCase" ]
+                [ searchValue="membrumRelatum" replaceByExpression="referenceAttribute.referencedItem.itemName.camelCase" ]
         }}}@ */
         /* @tt{{{   @if [ conditionExpression="referenceAttribute.isList"]  }}}@ */
-        relatioAdEntitatemOptionalisIteratus = entitasRelataExampleDataFetcher.fetchRandomKeysList(dataContext),
+        relatioAdEntitatemOptionalisIteratus = membrumRelatumExampleDataFetcher.fetchRandomKeysList(dataContext),
         /* @tt{{{   @else }}}@ */
-        relatioAdEntitatemOptionalis = entitasRelataExampleDataFetcher.fetchRandomKey(dataContext),
+        relatioAdEntitatemOptionalis = membrumRelatumExampleDataFetcher.fetchRandomKey(dataContext),
         /* @tt{{{   @end-if  }}}@ */
         /* @tt{{{   @end-foreach  }}}@ */
         /* @tt{{{   @ignore-text  }}}@ */

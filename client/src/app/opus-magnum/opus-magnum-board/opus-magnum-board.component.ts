@@ -35,7 +35,7 @@ import {OpusMagnumSearchComponent, OpusMagnumSearchCriteria} from '@app/opus-mag
 import {OpusMagnumResultComponent} from '@app/opus-magnum/opus-magnum-result/opus-magnum-result.component';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {OpusMagnumConfirmDeleteDialogComponent} from '@app/opus-magnum/opus-magnum-confirm-delete-dialog/opus-magnum-confirm-delete-dialog.component';
-import {OpusMagnumService} from '@app/opus-magnum/opus-magnum.service';
+import {SilvaOptionumService} from '@app/service/silva-optionum.service';
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
 import {MatToolbarModule} from "@angular/material/toolbar";
@@ -80,7 +80,7 @@ export class OpusMagnumBoardComponent {
     creating = false;
     refreshKey = 0;
 
-    constructor(private dialog: MatDialog, private opusMagnumService: OpusMagnumService) {
+    constructor(private dialog: MatDialog, private silvaOptionumService: SilvaOptionumService) {
     }
 
     onSearch(criteria: OpusMagnumSearchCriteria): void {
@@ -105,7 +105,7 @@ export class OpusMagnumBoardComponent {
         });
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.opusMagnumService.deleteSilvaOptionum(opusMagnum.indexUnicus).subscribe(() => {
+                this.silvaOptionumService.deleteSilvaOptionum(opusMagnum.indexUnicus).subscribe(() => {
                     this.refreshKey++;
                 });
             }
@@ -114,8 +114,8 @@ export class OpusMagnumBoardComponent {
 
     onSave(opusMagnum: SilvaOptionumWTO): void {
         const save$ = this.creating
-            ? this.opusMagnumService.createSilvaOptionum(opusMagnum)
-            : this.opusMagnumService.updateSilvaOptionum(opusMagnum);
+            ? this.silvaOptionumService.createSilvaOptionum(opusMagnum)
+            : this.silvaOptionumService.updateSilvaOptionum(opusMagnum);
         save$.subscribe(() => {
             this.selectedOpusMagnum = null;
             this.creating = false;

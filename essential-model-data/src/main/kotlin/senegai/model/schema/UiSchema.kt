@@ -1,7 +1,13 @@
 package senegai.model.schema
 
+/**
+ * A [UiEntity] exists for the frontend only: it is the shell that bundles all
+ * Angular components of one editor around a root [Item] with a primary key.
+ * The backend has no notion of it.
+ */
 data class UiEntity(
-    val entity: Entity,
+    val uiEntityName: String,
+    val rootItem: Item,
     val editorView: UiEntityEditorView
 )
 

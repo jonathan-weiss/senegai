@@ -62,7 +62,7 @@ export interface OpusMagnumSilvaOptionumFormPartGroup {
 
         @replace-value-by-expression
             [ searchValue="campusTextusOptionalis" replaceByExpression="attribute.attributeName.camelCase" ]
-            [ searchValue="FormControl<string>" replaceByExpression="attribute.angularFormControlTypeWithCollection" ]
+            [ searchValue="FormControl<string>" replaceByExpression="attribute.angularFormControlTypeWithCollection(model.entity.entityName)" ]
 
     }}}@  */
     [OpusMagnumSilvaOptionumFormPartFieldName.campusTextusOptionalis]: FormControl<string>,

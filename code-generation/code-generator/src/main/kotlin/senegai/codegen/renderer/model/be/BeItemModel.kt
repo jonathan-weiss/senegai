@@ -5,12 +5,28 @@ import senegai.model.schema.BuiltInType
 import senegai.model.schema.ItemId
 
 data class BeItemModel(
-    val entityName: NameCase,
     val itemDescription: BeItemDescriptionModel,
     val attributes: List<BeAttributeModel>,
+    /**
+     * The attribute that identifies this item (its primary key), or `null` if this item
+     * has none. It is always a UUID.
+     */
+    val idAttribute: BeAttributeModel?,
 ) {
     val itemId: ItemId = itemDescription.itemId
     val itemName: NameCase = itemDescription.itemName
+
+    /** Whether this item is identified by a primary key and can therefore be addressed, searched and referenced. */
+    val hasPrimaryKey: Boolean = idAttribute != null
+
+    /**
+     * The primary key, for the templates that are only rendered for an item that has one
+     * (controller, service, repository, search, by-ids, example data initializer).
+     */
+    val primaryKeyAttribute: BeAttributeModel
+        get() = requireNotNull(idAttribute) {
+            "The item '${itemName.pascalCase}' declares no primary key."
+        }
 
     val usedEnums: List<BeEnumModel> = attributes
         .filterIsInstance<EnumBeAttributeModel>()
@@ -27,15 +43,15 @@ data class BeItemModel(
         .filterIsInstance<BuiltInTypeBeAttributeModel>()
 
     /**
-     * All attributes referencing another entity. They are a subset of [builtInAttributes],
-     * as a reference is transported as the UUID of the referenced entity.
+     * All attributes referencing another item. They are a subset of [builtInAttributes],
+     * as a reference is transported as the UUID of the referenced item.
      */
-    val attributesWithEntityReference: List<EntityReferenceBeAttributeModel> = attributes
-        .filterIsInstance<EntityReferenceBeAttributeModel>()
+    val attributesWithItemReference: List<ItemReferenceBeAttributeModel> = attributes
+        .filterIsInstance<ItemReferenceBeAttributeModel>()
 
-    /** All entities referenced by an attribute of this item, e.g. to inject one example data fetcher per entity. */
-    val referencedEntities: List<BeReferencedEntityModel> = attributesWithEntityReference
-        .map { it.referencedEntity }
+    /** All items referenced by an attribute of this item, e.g. to inject one example data fetcher per item. */
+    val referencedItems: List<BeReferencedItemModel> = attributesWithItemReference
+        .map { it.referencedItem }
         .distinct()
 
     val builtInTypeAndEnumAttributes: List<BeAttributeModel> = attributes
@@ -47,12 +63,12 @@ data class BeItemModel(
         .distinct()
 
     /**
-     * Entity references are left out: their example data is not generated but fetched from the
-     * already existing instances of the referenced entity.
+     * Item references are left out: their example data is not generated but fetched from the
+     * already existing instances of the referenced item.
      */
     val exampleDataGeneratorConfigs: List<BeExampleDataGeneratorConfig> = attributes
         .filterIsInstance<BuiltInTypeBeAttributeModel>()
-        .filter { !it.isEntityReference }
+        .filter { !it.isItemReference }
         .map { it.exampleDataGeneratorConfig }
         .distinctBy { it.fullQualifiedName }
 

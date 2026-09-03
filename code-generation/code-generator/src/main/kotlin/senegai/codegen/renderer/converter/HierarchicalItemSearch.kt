@@ -31,8 +31,11 @@ object HierarchicalItemSearch {
             // Find the item in the schema
             val currentItem = itemsByName[currentItemName] ?: continue
 
-            // Find all nested items (attributes with ItemId type)
+            // Find all nested items: attributes with an ItemId type that are NOT a reference.
+            // A reference also carries an ItemId, but it points at a foreign item that is only
+            // stored by its primary key, so it must not be pulled in as a nested item.
             currentItem.attributes
+                .filter { !it.isReference }
                 .map { it.type }
                 .filterIsInstance<ItemId>()
                 .filter { it !in visited }

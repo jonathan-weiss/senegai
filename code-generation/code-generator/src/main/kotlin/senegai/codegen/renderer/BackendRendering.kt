@@ -1,31 +1,29 @@
 package senegai.codegen.renderer
 
-import senegai.codegen.renderer.be.BeEntityRenderer
 import senegai.codegen.renderer.be.BeEnumRenderer
 import senegai.codegen.renderer.be.BeItemRenderer
-import senegai.codegen.renderer.be.EntityByIdsCriteriaBORenderer
-import senegai.codegen.renderer.be.EntityByIdsCriteriaMapperRenderer
-import senegai.codegen.renderer.be.EntityByIdsCriteriaWTORenderer
-import senegai.codegen.renderer.be.EntityByIdsResultWTORenderer
-import senegai.codegen.renderer.be.EntityControllerRenderer
-import senegai.codegen.renderer.be.EntityExampleDataCreatorRenderer
-import senegai.codegen.renderer.be.EntityExampleDataFetcherRenderer
-import senegai.codegen.renderer.be.EntityInMemoryRepositoryRenderer
-import senegai.codegen.renderer.be.EntityRepositoryRenderer
-import senegai.codegen.renderer.be.EntitySearchCriteriaBORenderer
-import senegai.codegen.renderer.be.EntitySearchCriteriaMapperRenderer
-import senegai.codegen.renderer.be.EntitySearchCriteriaWTORenderer
-import senegai.codegen.renderer.be.EntitySearchResultWTORenderer
-import senegai.codegen.renderer.be.EntityServiceRenderer
 import senegai.codegen.renderer.be.EnumBORenderer
 import senegai.codegen.renderer.be.EnumExampleDataCreatorRenderer
 import senegai.codegen.renderer.be.EnumMapperRenderer
 import senegai.codegen.renderer.be.EnumWTORenderer
 import senegai.codegen.renderer.be.ItemBORenderer
+import senegai.codegen.renderer.be.ItemByIdsCriteriaBORenderer
+import senegai.codegen.renderer.be.ItemByIdsCriteriaMapperRenderer
+import senegai.codegen.renderer.be.ItemByIdsCriteriaWTORenderer
+import senegai.codegen.renderer.be.ItemByIdsResultWTORenderer
+import senegai.codegen.renderer.be.ItemControllerRenderer
 import senegai.codegen.renderer.be.ItemExampleDataCreatorRenderer
+import senegai.codegen.renderer.be.ItemExampleDataFetcherRenderer
+import senegai.codegen.renderer.be.ItemExampleDataPopulatorRenderer
+import senegai.codegen.renderer.be.ItemInMemoryRepositoryRenderer
 import senegai.codegen.renderer.be.ItemMapperRenderer
+import senegai.codegen.renderer.be.ItemRepositoryRenderer
+import senegai.codegen.renderer.be.ItemSearchCriteriaBORenderer
+import senegai.codegen.renderer.be.ItemSearchCriteriaMapperRenderer
+import senegai.codegen.renderer.be.ItemSearchCriteriaWTORenderer
+import senegai.codegen.renderer.be.ItemSearchResultWTORenderer
+import senegai.codegen.renderer.be.ItemServiceRenderer
 import senegai.codegen.renderer.be.ItemWTORenderer
-import senegai.codegen.renderer.model.be.BeEntityModel
 import senegai.codegen.renderer.model.be.BeEnumModel
 import senegai.codegen.renderer.model.be.BeItemModel
 import senegai.codegen.renderer.model.be.BeModel
@@ -61,12 +59,14 @@ object BackendRendering {
         ) {
 
         fun renderBackendFiles(beModel: BeModel) {
-            beModel.entities.forEach { beEntityModel ->
-                renderEntity(beEntityModel)
-            }
-
             beModel.items.forEach { beItemModel ->
                 renderItem(beItemModel)
+            }
+
+            // Controller, service, persistence and the example data initializer only exist for
+            // an item that can be addressed by a primary key.
+            beModel.itemsWithPrimaryKey.forEach { beItemModel ->
+                renderItemWithPrimaryKey(beItemModel)
             }
 
             beModel.enums.forEach { beEnumModel ->
@@ -74,41 +74,40 @@ object BackendRendering {
             }
         }
 
-        private fun renderEntity(beEntityModel: BeEntityModel) {
-            val entityRenderer: List<Pair<BeEntityRenderer, Path>> = listOf(
-                EntityExampleDataCreatorRenderer to pathToGeneratedBackendExampleDataFiles,
-                EntityRepositoryRenderer to pathToGeneratedBackendServiceFiles,
-                EntityServiceRenderer to pathToGeneratedBackendServiceFiles,
-                EntityInMemoryRepositoryRenderer to pathToGeneratedBackendPersistenceFiles,
-                EntityControllerRenderer to pathToGeneratedBackendRestFiles,
-                EntitySearchCriteriaBORenderer to pathToGeneratedBackendServiceFiles,
-                EntitySearchCriteriaWTORenderer to pathToGeneratedBackendRestFiles,
-                EntitySearchResultWTORenderer to pathToGeneratedBackendRestFiles,
-                EntitySearchCriteriaMapperRenderer to pathToGeneratedBackendRestFiles,
-                EntityByIdsCriteriaBORenderer to pathToGeneratedBackendServiceFiles,
-                EntityByIdsCriteriaWTORenderer to pathToGeneratedBackendRestFiles,
-                EntityByIdsResultWTORenderer to pathToGeneratedBackendRestFiles,
-                EntityByIdsCriteriaMapperRenderer to pathToGeneratedBackendRestFiles,
-                EntityExampleDataFetcherRenderer to pathToGeneratedBackendExampleDataFiles,
-            )
-
-            entityRenderer.forEach { (renderer, basePath) ->
-                writeFile(
-                    filePath = basePath.resolve(renderer.filePath(beEntityModel)),
-                    content = renderer.renderTemplate(beEntityModel),
-                )
-            }
-        }
-
         private fun renderItem(beItemModel: BeItemModel) {
-            val itemRenderer: List<Pair<BeItemRenderer, Path>> = listOf(
+            val itemRenderers: List<Pair<BeItemRenderer, Path>> = listOf(
                 ItemExampleDataCreatorRenderer to pathToGeneratedBackendExampleDataFiles,
                 ItemBORenderer to pathToGeneratedBackendServiceFiles,
                 ItemMapperRenderer to pathToGeneratedBackendRestFiles,
                 ItemWTORenderer to pathToGeneratedBackendRestFiles,
             )
 
-            itemRenderer.forEach { (renderer, basePath) ->
+            renderAll(itemRenderers, beItemModel)
+        }
+
+        private fun renderItemWithPrimaryKey(beItemModel: BeItemModel) {
+            val itemRenderers: List<Pair<BeItemRenderer, Path>> = listOf(
+                ItemExampleDataPopulatorRenderer to pathToGeneratedBackendExampleDataFiles,
+                ItemRepositoryRenderer to pathToGeneratedBackendServiceFiles,
+                ItemServiceRenderer to pathToGeneratedBackendServiceFiles,
+                ItemInMemoryRepositoryRenderer to pathToGeneratedBackendPersistenceFiles,
+                ItemControllerRenderer to pathToGeneratedBackendRestFiles,
+                ItemSearchCriteriaBORenderer to pathToGeneratedBackendServiceFiles,
+                ItemSearchCriteriaWTORenderer to pathToGeneratedBackendRestFiles,
+                ItemSearchResultWTORenderer to pathToGeneratedBackendRestFiles,
+                ItemSearchCriteriaMapperRenderer to pathToGeneratedBackendRestFiles,
+                ItemByIdsCriteriaBORenderer to pathToGeneratedBackendServiceFiles,
+                ItemByIdsCriteriaWTORenderer to pathToGeneratedBackendRestFiles,
+                ItemByIdsResultWTORenderer to pathToGeneratedBackendRestFiles,
+                ItemByIdsCriteriaMapperRenderer to pathToGeneratedBackendRestFiles,
+                ItemExampleDataFetcherRenderer to pathToGeneratedBackendExampleDataFiles,
+            )
+
+            renderAll(itemRenderers, beItemModel)
+        }
+
+        private fun renderAll(renderers: List<Pair<BeItemRenderer, Path>>, beItemModel: BeItemModel) {
+            renderers.forEach { (renderer, basePath) ->
                 writeFile(
                     filePath = basePath.resolve(renderer.filePath(beItemModel)),
                     content = renderer.renderTemplate(beItemModel),
@@ -134,7 +133,12 @@ object BackendRendering {
 
         private fun writeFile(filePath: Path, content: String) {
             require(!filePath.isDirectory()) { "$filePath is a directory" }
-            filePath.parent.createDirectories()
+            // createDirectories() is not reliably a no-op for an existing directory on every
+            // file system, and several files share one directory, so check first.
+            val parent = filePath.parent
+            if (!parent.isDirectory()) {
+                parent.createDirectories()
+            }
             filePath.writeText(content)
         }
     }

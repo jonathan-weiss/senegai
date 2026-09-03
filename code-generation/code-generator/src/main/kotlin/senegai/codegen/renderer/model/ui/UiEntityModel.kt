@@ -1,28 +1,27 @@
 package senegai.codegen.renderer.model.ui
 
 import senegai.codegen.renderer.model.NameCase
-import senegai.model.schema.BuiltInType
 
+/**
+ * One editor shell of the frontend: a directory that bundles the Angular components
+ * (board, search, result, form, ...) around one root item with a primary key.
+ * It has no counterpart in the backend.
+ */
 data class UiEntityModel(
     val entityName: NameCase,
     val entityRootItem: UiItemModel,
-    /** The attribute of the [entityRootItem] that identifies the entity. It is always a UUID. */
-    val idAttribute: UiAttributeModel,
     val entityItemModels: List<UiItemModel>,
     val entityEnumTypes: List<UiEnumModel>,
 ) {
-    val searchResultAttributes: List<UiAttributeModel> = entityRootItem.attributes
-
     /**
-     * The attributes that identify one instance of this entity for a human reader, shown
-     * next to the [idAttribute] wherever a reference to this entity is rendered. A reference
-     * is stored as a bare UUID, which tells the user nothing, so every place that shows one
-     * resolves it to the whole root item and renders these attributes instead.
-     *
-     * Derived for now: every single-valued text attribute of the [entityRootItem]. Picking
-     * them explicitly in the essential model data is a separate step.
+     * The attribute of the [entityRootItem] that identifies it, e.g. for the route
+     * parameter of the edit route. It is always a UUID, and it is always present,
+     * because a UiEntity can only be built on a root item with a primary key.
      */
-    val displayAttributes: List<UiAttributeModel> = entityRootItem.attributes
-        .filterIsInstance<BuiltInTypeUiAttributeModel>()
-        .filter { !it.isEntityReference && !it.isList && it.builtInType == BuiltInType.STRING }
+    val idAttribute: UiAttributeModel = entityRootItem.primaryKeyAttribute
+
+    val searchResultAttributes: List<UiAttributeModel> = entityRootItem.searchResultAttributes
+
+    /** See [UiItemModel.displayAttributes]. */
+    val displayAttributes: List<UiAttributeModel> = entityRootItem.displayAttributes
 }

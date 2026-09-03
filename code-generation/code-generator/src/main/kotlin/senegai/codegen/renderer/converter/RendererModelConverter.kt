@@ -3,42 +3,37 @@ package senegai.codegen.renderer.converter
 import senegai.codegen.renderer.model.NameCase
 import senegai.codegen.renderer.model.SchemaModel
 import senegai.codegen.renderer.model.be.BeAttributeModel
-import senegai.codegen.renderer.model.be.BeEntityDescriptionModel
-import senegai.codegen.renderer.model.be.BeEntityModel
 import senegai.codegen.renderer.model.be.BeEnumModel
 import senegai.codegen.renderer.model.be.BeExampleDataGeneratorConfig
 import senegai.codegen.renderer.model.be.BeItemDescriptionModel
 import senegai.codegen.renderer.model.be.BeItemModel
 import senegai.codegen.renderer.model.be.BeModel
-import senegai.codegen.renderer.model.be.BeReferencedEntityModel
+import senegai.codegen.renderer.model.be.BeReferencedItemModel
 import senegai.codegen.renderer.model.be.BuiltInTypeBeAttributeModel
-import senegai.codegen.renderer.model.be.EntityReferenceBeAttributeModel
 import senegai.codegen.renderer.model.be.EnumBeAttributeModel
 import senegai.codegen.renderer.model.be.ItemBeIAttributeModel
+import senegai.codegen.renderer.model.be.ItemReferenceBeAttributeModel
 import senegai.codegen.renderer.model.ui.BuiltInTypeUiAttributeModel
-import senegai.codegen.renderer.model.ui.EntityReferenceUiAttributeModel
 import senegai.codegen.renderer.model.ui.EnumUiAttributeModel
+import senegai.codegen.renderer.model.ui.ItemReferenceUiAttributeModel
 import senegai.codegen.renderer.model.ui.ItemUiIAttributeModel
-import senegai.codegen.renderer.model.ui.UiEntityDescriptionModel
 import senegai.codegen.renderer.model.ui.UiAttributeModel
-import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewModel
-import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewColumnModel
-import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewTabModel
 import senegai.codegen.renderer.model.ui.UiEntityModel
 import senegai.codegen.renderer.model.ui.UiEntityViewsModel
 import senegai.codegen.renderer.model.ui.UiEnumModel
 import senegai.codegen.renderer.model.ui.UiItemDescriptionModel
 import senegai.codegen.renderer.model.ui.UiItemModel
 import senegai.codegen.renderer.model.ui.UiModel
-import senegai.codegen.renderer.model.ui.UiReferencedEntityModel
+import senegai.codegen.renderer.model.ui.UiReferencedItemModel
+import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewColumnModel
 import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewItemModel
+import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewModel
+import senegai.codegen.renderer.model.ui.entityform.UiEntityFormViewTabModel
 import senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormBlockModel
 import senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormItemAttributeBlockModel
 import senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormNamedSectionSplitBlockModel
 import senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormTextBlockModel
 import senegai.model.schema.BuiltInType
-import senegai.model.schema.Entity
-import senegai.model.schema.EntityId
 import senegai.model.schema.EnumId
 import senegai.model.schema.EnumType
 import senegai.model.schema.ExampleDataCategory
@@ -46,51 +41,56 @@ import senegai.model.schema.Item
 import senegai.model.schema.ItemAttribute
 import senegai.model.schema.ItemId
 import senegai.model.schema.SchemaData
-import senegai.model.schema.UiEntity
-import senegai.model.schema.UiItemAttributeBlock
 import senegai.model.schema.UiBlock
+import senegai.model.schema.UiEntity
 import senegai.model.schema.UiEntityEditorColumn
 import senegai.model.schema.UiEntityEditorEntityConfiguration
 import senegai.model.schema.UiEntityEditorEntityNestedItemConfiguration
 import senegai.model.schema.UiEntityEditorTab
+import senegai.model.schema.UiItemAttributeBlock
 import senegai.model.schema.UiSectionBlock
 import senegai.model.schema.UiTextBlock
 
 object RendererModelConverter {
 
     fun convertSchemaDataToSchemaModel(schemaData: SchemaData): SchemaModel {
+        val allUiEnumModels = schemaData.enums.map { UiEnumModel(it) }
+        val allBeEnumModels = schemaData.enums.map { BeEnumModel(it) }
+
+        // An item is independent of any UiEntity: it can appear in the editor of several of
+        // them, therefore it is mapped exactly once.
+        val allUiItemModels = schemaData.items.map { mapUiItemModel(it, schemaData.enums, schemaData.items) }
+        val allBeItemModels = schemaData.items.map { mapBeItemModel(it, schemaData.enums, schemaData.items) }
+
         return SchemaModel(
             uiModel = UiModel(
-                uiEntitiesViews = schemaData.uiEntities
-                    .map {
-                        val entity = schemaData.entities.single { entity -> it.entity.entityId == entity.entityId }
-                        val allNestedItemIds = HierarchicalItemSearch.findAllItemNames(entity.item, schemaData.items)
-                        mapUiEntityViewsModel(it, allNestedItemIds, schemaData.allUiItemModels(entity.toUiEntityDescriptionModel()), schemaData.enums)
-                    }
+                uiItems = allUiItemModels,
+                uiEnums = allUiEnumModels,
+                uiEntitiesViews = schemaData.uiEntities.map { uiEntity ->
+                    val allNestedItemIds = HierarchicalItemSearch.findAllItemNames(uiEntity.rootItem, schemaData.items)
+                    mapUiEntityViewsModel(uiEntity, allNestedItemIds, allUiItemModels, allUiEnumModels)
+                }
             ),
             beModel = BeModel(
-                entities = schemaData.entities
-                    .map { entity ->
-                        val allNestedItemIds = HierarchicalItemSearch.findAllItemNames(entity.item, schemaData.items)
-                        mapBeEntityModel(entity, allNestedItemIds, schemaData.allBeItemModels(entity.toBeEntityDescriptionModel()), schemaData.enums)
-                    }
+                items = allBeItemModels,
+                enums = allBeEnumModels,
             )
         )
     }
 
-    private fun Entity.toUiEntityDescriptionModel(): UiEntityDescriptionModel {
-        return UiEntityDescriptionModel(entityId, NameCase(entityName))
-    }
+    // **************
+    // UI items
+    // **************
 
-    private fun SchemaData.allUiItemModels(entity: UiEntityDescriptionModel): List<UiItemModel> {
-        return items.map { item -> mapUiItemModel(entity, item, enums, entities) }
-    }
-
-    private fun mapUiItemModel(entity: UiEntityDescriptionModel, item: Item, enums: List<EnumType>, entities: List<Entity>): UiItemModel {
+    private fun mapUiItemModel(item: Item, enums: List<EnumType>, items: List<Item>): UiItemModel {
         val itemDescription = toUiItemDescriptionModel(item.itemId)
+        val attributes = item.attributes.map { mapUiItemAttribute(itemDescription, it, enums, items) }
         return UiItemModel(
-            itemDescription = toUiItemDescriptionModel(item.itemId),
-            attributes = item.attributes.map { mapUiItemAttribute(entity, itemDescription, it, enums, entities) }
+            itemDescription = itemDescription,
+            attributes = attributes,
+            idAttribute = item.idAttributeName?.let { idAttributeName ->
+                attributes.single { it.attributeName.isEqual(idAttributeName) }
+            },
         )
     }
 
@@ -102,18 +102,16 @@ object RendererModelConverter {
     }
 
     private fun mapUiItemAttribute(
-        entity: UiEntityDescriptionModel,
         item: UiItemDescriptionModel,
         itemAttribute: ItemAttribute,
         enums: List<EnumType>,
-        entities: List<Entity>,
+        items: List<Item>,
     ): UiAttributeModel {
         val itemAttributeType = itemAttribute.type
         val attributeName = NameCase(itemAttribute.attributeName)
 
         return when (itemAttributeType) {
             is BuiltInType -> BuiltInTypeUiAttributeModel(
-                entity = entity,
                 item = item,
                 attributeName = attributeName,
                 isNullable = itemAttribute.isNullable,
@@ -121,20 +119,10 @@ object RendererModelConverter {
                 customValidation = itemAttribute.customValidation,
                 builtInType = itemAttributeType,
             )
-            is EntityId -> EntityReferenceUiAttributeModel(
-                entity = entity,
-                item = item,
-                attributeName = attributeName,
-                isNullable = itemAttribute.isNullable,
-                isList = itemAttribute.isMultiple,
-                customValidation = itemAttribute.customValidation,
-                referencedEntity = referencedEntity(itemAttributeType, entities).toUiReferencedEntityModel(),
-            )
             is EnumId -> {
                 val enumType = enums.singleOrNull { it.enumId == itemAttributeType }
                     ?: throw NoSuchElementException("EnumType ${itemAttributeType.enumName} not found in schema enums")
                 EnumUiAttributeModel(
-                    entity = entity,
                     item = item,
                     attributeName = attributeName,
                     isNullable = itemAttribute.isNullable,
@@ -143,58 +131,49 @@ object RendererModelConverter {
                     enum = UiEnumModel(enumType),
                 )
             }
-            is ItemId -> ItemUiIAttributeModel(
-                entity = entity,
-                item = item,
-                attributeName = attributeName,
-                isNullable = itemAttribute.isNullable,
-                isList = itemAttribute.isMultiple,
-                customValidation = itemAttribute.customValidation,
-                referencedItem = toUiItemDescriptionModel(itemAttributeType))
+            is ItemId -> if (itemAttribute.isReference) {
+                ItemReferenceUiAttributeModel(
+                    item = item,
+                    attributeName = attributeName,
+                    isNullable = itemAttribute.isNullable,
+                    isList = itemAttribute.isMultiple,
+                    customValidation = itemAttribute.customValidation,
+                    referencedItem = referencedItem(itemAttributeType, items).toUiReferencedItemModel(),
+                )
+            } else {
+                ItemUiIAttributeModel(
+                    item = item,
+                    attributeName = attributeName,
+                    isNullable = itemAttribute.isNullable,
+                    isList = itemAttribute.isMultiple,
+                    customValidation = itemAttribute.customValidation,
+                    referencedItem = toUiItemDescriptionModel(itemAttributeType),
+                )
+            }
         }
     }
 
-    /**
-     * The entity an attribute of type [EntityId] refers to. The referenced entity must be
-     * declared in the same schema, otherwise the reference could never be resolved.
-     */
-    private fun referencedEntity(entityId: EntityId, entities: List<Entity>): Entity {
-        return entities.singleOrNull { it.entityId == entityId }
-            ?: throw NoSuchElementException("Entity ${entityId.entityName} not found in schema entities")
-    }
-
-    private fun Entity.toUiReferencedEntityModel(): UiReferencedEntityModel {
-        return UiReferencedEntityModel(
-            entityId = entityId,
-            entityName = NameCase(entityName),
-            rootItem = toUiItemDescriptionModel(item.itemId),
-            idAttributeName = NameCase(idAttributeName),
+    private fun Item.toUiReferencedItemModel(): UiReferencedItemModel {
+        return UiReferencedItemModel(
+            itemId = itemId,
+            itemName = NameCase(itemName),
+            idAttributeName = NameCase(requireNotNull(idAttributeName)),
         )
     }
 
-    private fun Entity.toBeReferencedEntityModel(): BeReferencedEntityModel {
-        return BeReferencedEntityModel(
-            entityId = entityId,
-            entityName = NameCase(entityName),
-            rootItem = toBeItemDescriptionModel(item.itemId),
-            idAttributeName = NameCase(idAttributeName),
-        )
-    }
+    // **************
+    // Backend items
+    // **************
 
-    private fun Entity.toBeEntityDescriptionModel(): BeEntityDescriptionModel {
-        return BeEntityDescriptionModel(entityId, NameCase(entityName))
-    }
-
-    private fun SchemaData.allBeItemModels(entity: BeEntityDescriptionModel): List<BeItemModel> {
-        return items.map { item -> mapBeItemModel(entity, item, enums, entities) }
-    }
-
-    private fun mapBeItemModel(entity: BeEntityDescriptionModel, item: Item, enums: List<EnumType>, entities: List<Entity>): BeItemModel {
+    private fun mapBeItemModel(item: Item, enums: List<EnumType>, items: List<Item>): BeItemModel {
         val itemDescription = toBeItemDescriptionModel(item.itemId)
+        val attributes = item.attributes.map { mapBeItemAttribute(itemDescription, it, enums, items) }
         return BeItemModel(
-            entityName = entity.entityName,
             itemDescription = itemDescription,
-            attributes = item.attributes.map { mapBeItemAttribute(entity, itemDescription, it, enums, entities) }
+            attributes = attributes,
+            idAttribute = item.idAttributeName?.let { idAttributeName ->
+                attributes.single { it.attributeName.isEqual(idAttributeName) }
+            },
         )
     }
 
@@ -206,18 +185,16 @@ object RendererModelConverter {
     }
 
     private fun mapBeItemAttribute(
-        entity: BeEntityDescriptionModel,
         item: BeItemDescriptionModel,
         itemAttribute: ItemAttribute,
         enums: List<EnumType>,
-        entities: List<Entity>,
+        items: List<Item>,
     ): BeAttributeModel {
         val itemAttributeType = itemAttribute.type
         val attributeName = NameCase(itemAttribute.attributeName)
 
         return when (itemAttributeType) {
             is BuiltInType -> BuiltInTypeBeAttributeModel(
-                entity = entity,
                 item = item,
                 attributeName = attributeName,
                 isNullable = itemAttribute.isNullable,
@@ -226,38 +203,68 @@ object RendererModelConverter {
                 builtInType = itemAttributeType,
                 exampleDataGeneratorConfig = toExampleDataGeneratorConfig(item, itemAttribute)
             )
-            is EntityId -> EntityReferenceBeAttributeModel(
-                entity = entity,
-                item = item,
-                attributeName = attributeName,
-                isNullable = itemAttribute.isNullable,
-                isList = itemAttribute.isMultiple,
-                customValidation = itemAttribute.customValidation,
-                referencedEntity = referencedEntity(itemAttributeType, entities).toBeReferencedEntityModel(),
-            )
             is EnumId -> {
                 val enumType = enums.singleOrNull { it.enumId == itemAttributeType }
                     ?: throw NoSuchElementException("EnumType ${itemAttributeType.enumName} not found in schema enums")
                 EnumBeAttributeModel(
-                    entity = entity,
                     item = item,
                     attributeName = attributeName,
                     isNullable = itemAttribute.isNullable,
                     isList = itemAttribute.isMultiple,
                     customValidation = itemAttribute.customValidation,
-                    enum = BeEnumModel(entity.entityName, enumType),
+                    enum = BeEnumModel(enumType),
                 )
             }
-            is ItemId -> ItemBeIAttributeModel(
-                entity = entity,
-                item = item,
-                attributeName = attributeName,
-                isNullable = itemAttribute.isNullable,
-                isList = itemAttribute.isMultiple,
-                customValidation = itemAttribute.customValidation,
-                referencedItem = toBeItemDescriptionModel(itemAttributeType))
+            is ItemId -> if (itemAttribute.isReference) {
+                ItemReferenceBeAttributeModel(
+                    item = item,
+                    attributeName = attributeName,
+                    isNullable = itemAttribute.isNullable,
+                    isList = itemAttribute.isMultiple,
+                    customValidation = itemAttribute.customValidation,
+                    referencedItem = referencedItem(itemAttributeType, items).toBeReferencedItemModel(),
+                )
+            } else {
+                ItemBeIAttributeModel(
+                    item = item,
+                    attributeName = attributeName,
+                    isNullable = itemAttribute.isNullable,
+                    isList = itemAttribute.isMultiple,
+                    customValidation = itemAttribute.customValidation,
+                    referencedItem = toBeItemDescriptionModel(itemAttributeType),
+                )
+            }
         }
     }
+
+    private fun Item.toBeReferencedItemModel(): BeReferencedItemModel {
+        return BeReferencedItemModel(
+            itemId = itemId,
+            itemName = NameCase(itemName),
+            idAttributeName = NameCase(requireNotNull(idAttributeName)),
+        )
+    }
+
+    /**
+     * The item an attribute of type [ItemId] with `isReference` refers to. The referenced item
+     * must be declared in the same schema, otherwise the reference could never be resolved,
+     * and it must declare a primary key, otherwise there is no identifier to store.
+     */
+    private fun referencedItem(itemId: ItemId, items: List<Item>): Item {
+        val item = items.singleOrNull { it.itemId == itemId }
+            ?: throw NoSuchElementException("Item ${itemId.itemName} not found in schema items")
+
+        require(item.hasPrimaryKey) {
+            "The item '${item.itemName}' is referenced by another item, but it declares no " +
+                    "primary key. Only an item with a primary key can be referenced, because a " +
+                    "reference stores exactly that primary key."
+        }
+        return item
+    }
+
+    // **************
+    // Example data
+    // **************
 
     private fun toExampleDataGeneratorConfig(item: BeItemDescriptionModel, itemAttribute: ItemAttribute): BeExampleDataGeneratorConfig {
         val exampleDataCategory = itemAttribute.exampleDataCategory ?: defaultExampleDataCategory(itemAttribute)
@@ -289,28 +296,25 @@ object RendererModelConverter {
         }
     }
 
-    private fun mapBeEntityModel(entity: Entity, entityItemModelIds: Set<ItemId>, allBeItemModels: List<BeItemModel>, allEnumTypes: List<EnumType>): BeEntityModel {
-        val entityRootItem = allBeItemModels.single { it.itemId == entity.item.itemId }
-        return BeEntityModel(
-            entityName = NameCase(entity.entityName),
-            entityRootItem = entityRootItem,
-            idAttribute = entityRootItem.attributes.single { it.attributeName.isEqual(entity.idAttributeName) },
-            entityItemModels = allBeItemModels.filter { it.itemId in entityItemModelIds },
-            entityEnumTypes = allEnumTypes.map { BeEnumModel(NameCase(entity.entityName), it) }, // TODO filter for only the enums used in this entity
-        )
-    }
+    // **************
+    // UiEntity editor views
+    // **************
 
-    private fun mapUiEntityViewsModel(uiEntity: UiEntity, entityItemModelIds: Set<ItemId>, allUiItemModels: List<UiItemModel>, allEnumTypes: List<EnumType>): UiEntityViewsModel {
-        val entityRootItem = allUiItemModels.single { it.itemId == uiEntity.entity.item.itemId }
+    private fun mapUiEntityViewsModel(
+        uiEntity: UiEntity,
+        entityItemModelIds: Set<ItemId>,
+        allUiItemModels: List<UiItemModel>,
+        allUiEnumModels: List<UiEnumModel>,
+    ): UiEntityViewsModel {
+        val entityRootItem = allUiItemModels.single { it.itemId == uiEntity.rootItem.itemId }
         val uiEntityModel = UiEntityModel(
-            entityName = NameCase(uiEntity.entity.entityName),
+            entityName = NameCase(uiEntity.uiEntityName),
             entityRootItem = entityRootItem,
-            idAttribute = entityRootItem.attributes.single { it.attributeName.isEqual(uiEntity.entity.idAttributeName) },
             entityItemModels = allUiItemModels.filter { it.itemId in entityItemModelIds },
-            entityEnumTypes = allEnumTypes.map { UiEnumModel(it) }, // TODO filter for only the enums used in this entity
+            entityEnumTypes = allUiEnumModels, // TODO filter for only the enums used in this UiEntity
         )
 
-        val uiEntityItems =uiEntity.editorView.itemConfiguration.map { itemConfiguration ->
+        val uiEntityItems = uiEntity.editorView.itemConfiguration.map { itemConfiguration ->
             val itemModel = when (itemConfiguration) {
                 is UiEntityEditorEntityConfiguration -> uiEntityModel.entityRootItem
                 is UiEntityEditorEntityNestedItemConfiguration -> requireNotNull(uiEntityModel.entityItemModels.firstOrNull { it.itemName.isEqual(itemConfiguration.itemId.itemName) }) {

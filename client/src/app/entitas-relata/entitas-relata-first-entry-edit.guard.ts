@@ -4,7 +4,7 @@ import {inject} from '@angular/core';
 import {CanActivateFn, Router, UrlTree} from '@angular/router';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {EntitasRelataService} from '@app/entitas-relata/entitas-relata.service';
+import {MembrumRelatumService} from '@app/service/membrum-relatum.service';
 
 /**
  * Resolves the first available {@link MembrumRelatumWTO} and redirects to its edit route,
@@ -14,7 +14,7 @@ import {EntitasRelataService} from '@app/entitas-relata/entitas-relata.service';
  */
 export const entitasRelataFirstEntryEditGuard: CanActivateFn = (): Observable<UrlTree> => {
     const router = inject(Router);
-    return inject(EntitasRelataService).getMembrumRelatumList().pipe(
+    return inject(MembrumRelatumService).getMembrumRelatumList().pipe(
         map(membrumRelatumList => {
             const first = membrumRelatumList.at(0);
             return first

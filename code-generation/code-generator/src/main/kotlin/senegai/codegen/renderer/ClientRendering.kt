@@ -23,17 +23,22 @@ object ClientRendering {
     ) {
 
         fun renderClientFiles(uiModel: UiModel) {
-            val uiEntities = uiModel.uiEntities
+            renderNavigation(uiModel.uiEntities)
 
-            renderNavigation(uiEntities)
             uiModel.uiItems.forEach { uiItemModel ->
                 renderWTO(uiItemModel)
+            }
+
+            // Service, search/by-ids WTOs and the reference components only exist for an item
+            // that can be addressed by a primary key.
+            uiModel.uiItemsWithPrimaryKey.forEach { uiItemModel ->
+                renderItemService(uiItemModel)
+                renderItemReference(uiItemModel)
             }
 
             uiModel.uiEnums.forEach { uiEnumModel ->
                 renderEnum(uiEnumModel)
             }
-
 
             uiModel.uiEntitiesViews.forEach { uiEntityView ->
                 uiEntityView.formView.entityItems.forEach { entityItem ->
@@ -42,10 +47,9 @@ object ClientRendering {
                 }
             }
 
-            uiEntities.forEach { uiEntityModel ->
+            uiModel.uiEntities.forEach { uiEntityModel ->
                 renderEntityBoard(uiEntityModel)
                 renderEntityForm(uiEntityModel)
-                renderEntityReference(uiEntityModel)
             }
         }
 
@@ -64,11 +68,52 @@ object ClientRendering {
         }
 
         private fun renderWTO(uiItemModel: UiItemModel) {
-            val itemRenderer: List<UiItemRenderer> = listOf(
-                ItemWTOInterfaceRenderer,
+            renderAll(listOf(ItemWTOInterfaceRenderer), uiItemModel)
+        }
+
+        /**
+         * The service that talks to the REST endpoints of this item, together with the transfer
+         * objects of its search and by-ids calls. They live next to the WTOs, one level above the
+         * UiEntity directories, because an item is not owned by a single UiEntity.
+         */
+        private fun renderItemService(uiItemModel: UiItemModel) {
+            val itemRenderers: List<UiItemRenderer> = listOf(
+                ItemServiceRenderer,
+                ItemSearchCriteriaWtoRenderer,
+                ItemSearchResultWtoRenderer,
+                ItemByIdsCriteriaWtoRenderer,
+                ItemByIdsResultWtoRenderer,
             )
 
-            itemRenderer.forEach { renderer ->
+            renderAll(itemRenderers, uiItemModel)
+        }
+
+        /**
+         * The components with which an attribute of another item references this item: the
+         * typeahead that searches it and the field and table that show the picked references by
+         * their display attributes instead of the stored UUIDs. They are rendered for every item
+         * with a primary key, as any such item may be referenced.
+         */
+        private fun renderItemReference(uiItemModel: UiItemModel) {
+            val itemRenderers: List<UiItemRenderer> = listOf(
+                ItemReferenceDisplayRenderer,
+                ItemTypeaheadComponentHtmlRenderer,
+                ItemTypeaheadComponentScssRenderer,
+                ItemTypeaheadComponentTypescriptRenderer,
+                ItemReferenceFieldComponentHtmlRenderer,
+                ItemReferenceFieldComponentScssRenderer,
+                ItemReferenceFieldComponentTypescriptRenderer,
+                ItemReferenceTableComponentHtmlRenderer,
+                ItemReferenceTableComponentScssRenderer,
+                ItemReferenceTableComponentTypescriptRenderer,
+                ItemReferenceTableRowRenderer,
+            )
+
+            renderAll(itemRenderers, uiItemModel)
+        }
+
+        private fun renderAll(renderers: List<UiItemRenderer>, uiItemModel: UiItemModel) {
+            renderers.forEach { renderer ->
                 writeFile(
                     filePath = pathToGeneratedAngularFiles.resolve(renderer.filePath(uiItemModel)),
                     content = renderer.renderTemplate(uiItemModel),
@@ -115,9 +160,6 @@ object ClientRendering {
                 EntitySearchComponentHtmlRenderer,
                 EntitySearchComponentScssRenderer,
                 EntitySearchComponentTypescriptRenderer,
-                EntityServiceRenderer,
-                EntitySearchCriteriaWtoRenderer,
-                EntitySearchResultWtoRenderer,
                 EntityFirstEntryGuardRenderer,
                 EntityRoutingRenderer,
             )
@@ -135,37 +177,6 @@ object ClientRendering {
                 EntityFormComponentHtmlRenderer,
                 EntityFormComponentScssRenderer,
                 EntityFormComponentTypescriptRenderer,
-            )
-
-            entityRenderer.forEach { renderer ->
-                writeFile(
-                    filePath = pathToGeneratedAngularFiles.resolve(renderer.filePath(uiEntityModel)),
-                    content = renderer.renderTemplate(uiEntityModel),
-                )
-            }
-        }
-
-        /**
-         * The components with which an attribute of another item references this entity: the
-         * typeahead that searches it and the field and table that show the picked references by
-         * their display attributes instead of the stored UUIDs. They are rendered for every
-         * entity, as any entity may be referenced.
-         */
-        private fun renderEntityReference(uiEntityModel: UiEntityModel) {
-            val entityRenderer: List<UiEntityRenderer> = listOf(
-                EntityReferenceDisplayRenderer,
-                EntityTypeaheadComponentHtmlRenderer,
-                EntityTypeaheadComponentScssRenderer,
-                EntityTypeaheadComponentTypescriptRenderer,
-                EntityReferenceFieldComponentHtmlRenderer,
-                EntityReferenceFieldComponentScssRenderer,
-                EntityReferenceFieldComponentTypescriptRenderer,
-                EntityReferenceTableComponentHtmlRenderer,
-                EntityReferenceTableComponentScssRenderer,
-                EntityReferenceTableComponentTypescriptRenderer,
-                EntityReferenceTableRowRenderer,
-                EntityByIdsCriteriaWtoRenderer,
-                EntityByIdsResultWtoRenderer,
             )
 
             entityRenderer.forEach { renderer ->
@@ -221,7 +232,12 @@ object ClientRendering {
 
         private fun writeFile(filePath: Path, content: String) {
             require(!filePath.isDirectory()) { "$filePath is a directory" }
-            filePath.parent.createDirectories()
+            // createDirectories() is not reliably a no-op for an existing directory on every
+            // file system, and several files share one directory, so check first.
+            val parent = filePath.parent
+            if (!parent.isDirectory()) {
+                parent.createDirectories()
+            }
             filePath.writeText(content)
         }
     }

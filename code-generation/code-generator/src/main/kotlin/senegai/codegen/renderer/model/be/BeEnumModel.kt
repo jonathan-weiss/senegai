@@ -5,12 +5,9 @@ import senegai.model.schema.EnumId
 import senegai.model.schema.EnumType
 
 data class BeEnumModel(
-    val entityName: NameCase,
     private val enumType: EnumType,
 ) {
     val enumId: EnumId = enumType.enumId
     val enumName: NameCase = NameCase(enumType.enumId.enumName)
     val enumValues: List<NameCase> = enumType.enumValues.map { NameCase(it) }
-
-
 }

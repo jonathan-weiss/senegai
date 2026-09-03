@@ -5,8 +5,6 @@ import senegai.model.builders.UiEntityDsl
 import senegai.model.builders.EnumDsl
 import senegai.model.builders.ItemDsl
 import senegai.model.builders.SchemaDsl
-import senegai.model.schema.Entity
-import senegai.model.schema.EntityId
 import senegai.model.schema.EnumId
 import senegai.model.schema.EnumType
 import senegai.model.schema.Item
@@ -17,23 +15,6 @@ import senegai.model.schema.UiEntity
 @Builder
 @ExpectedClazzModelFromSuperiorBuilder(clazz = SchemaData::class, alias = "schema")
 interface SchemaBuilder: SchemaDsl {
-
-    // **************
-    // Entity
-    // **************
-
-    @BuilderMethod
-    @NewClazzModel(clazz = Entity::class, alias = "entity")
-    @SetClazzModelOfAlias(alias = "schema", clazzProperty = "entities", referencedAlias = "entity")
-    override fun entity(
-        @SetAsClazzModelId(alias = "entity")
-        @SetAsValue(alias = "entity", clazzProperty = "entityId")
-        entityId: EntityId,
-        @SetClazzModelOfId(alias = "entity", clazzProperty = "item")
-        entityRootItemId: ItemId,
-        @SetAsValue(alias = "entity", clazzProperty = "idAttributeName")
-        entityIdAttributeName: String,
-    )
 
     // **************
     // Item
@@ -82,13 +63,16 @@ interface SchemaBuilder: SchemaDsl {
     @NewClazzModel(clazz = UiEntity::class, alias = "uiEntity")
     @SetClazzModelOfAlias(alias = "schema", clazzProperty = "uiEntities", referencedAlias = "uiEntity")
     fun uiEntityInternal(
-        @SetClazzModelOfId(alias = "uiEntity", clazzProperty = "entity")
-        entityId: EntityId,
+        @SetAsClazzModelId(alias = "uiEntity")
+        @SetAsValue(alias = "uiEntity", clazzProperty = "uiEntityName")
+        uiEntityName: String,
+        @SetClazzModelOfId(alias = "uiEntity", clazzProperty = "rootItem")
+        rootItemId: ItemId,
         @InjectBuilder builder: UiEntityBuilder.() -> Unit
     )
 
-    override fun uiEntity(entityId: EntityId, builder: UiEntityDsl.() -> Unit) {
-        uiEntityInternal(entityId, builder)
+    override fun uiEntity(uiEntityName: String, rootItemId: ItemId, builder: UiEntityDsl.() -> Unit) {
+        uiEntityInternal(uiEntityName, rootItemId, builder)
     }
 
 }

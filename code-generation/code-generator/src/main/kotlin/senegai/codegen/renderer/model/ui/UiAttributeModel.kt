@@ -6,7 +6,6 @@ import senegai.model.schema.BuiltInType
 import senegai.model.schema.EnumId
 
 sealed class UiAttributeModel(
-    val entity: UiEntityDescriptionModel,
     val item: UiItemDescriptionModel,
     val attributeName: NameCase,
     val isNullable: Boolean,
@@ -18,22 +17,31 @@ sealed class UiAttributeModel(
     abstract val isEnum: Boolean
 
     /**
-     * Whether this attribute references another entity by its identifier.
+     * Whether this attribute references another item by its primary key.
      * Such an attribute is a [BuiltInType.UUID] in every layer, therefore it is
      * also a built-in attribute ([isBuiltIn] is `true` as well).
      */
-    open val isEntityReference: Boolean
+    open val isItemReference: Boolean
         get() = false
 
     val typescriptAttributeType: String
         get() = calculateAttributeTypeWithCardinality()
 
-    val angularInitialValueFormType: String
-        get() = calculateAngularInitialValueFormType()
-    val angularFormControlType: String
-        get() = calculateAngularFormControlType(withCollection = false)
-    val angularFormControlTypeWithCollection: String
-        get() = calculateAngularFormControlType(withCollection = true)
+    /**
+     * The three form-type accessors take the name of the UiEntity whose editor is being
+     * rendered, because a nested item's form part is generated once per UiEntity and its
+     * `FormPartGroup` type is therefore prefixed with that name. The attribute itself is
+     * UiEntity-agnostic: an item can appear in the editor of several UiEntities.
+     */
+    fun angularInitialValueFormType(uiEntityName: NameCase): String =
+        calculateAngularInitialValueFormType(uiEntityName)
+
+    fun angularFormControlType(uiEntityName: NameCase): String =
+        calculateAngularFormControlType(uiEntityName, withCollection = false)
+
+    fun angularFormControlTypeWithCollection(uiEntityName: NameCase): String =
+        calculateAngularFormControlType(uiEntityName, withCollection = true)
+
     val angularFormInitialValue: String
         get() = determineAngularFormInitialValue()
 
@@ -58,8 +66,8 @@ sealed class UiAttributeModel(
      * - `Array<FormGroup<ArticulusInteriorFormPartGroup>>`
      * Form values are always `null`based, not `undefined`.
      */
-    private fun calculateAngularInitialValueFormType(): String {
-        val singleType = calculateAngularInitialValueFormSingleType()
+    private fun calculateAngularInitialValueFormType(uiEntityName: NameCase): String {
+        val singleType = calculateAngularInitialValueFormSingleType(uiEntityName)
 
         // Built-in type and enum lists store their elements directly in a `FormArray<FormControl<...>>`.
         // The initial value provided by the form-part service is the value of a single element
@@ -72,7 +80,7 @@ sealed class UiAttributeModel(
         }
     }
 
-    protected abstract fun calculateAngularInitialValueFormSingleType(): String
+    protected abstract fun calculateAngularInitialValueFormSingleType(uiEntityName: NameCase): String
 
 
     /**
@@ -84,8 +92,8 @@ sealed class UiAttributeModel(
      * - `FormArray<FormGroup<ArticulusInteriorFormPartGroup>>`
      * Form values are always `null`based, not `undefined`.
      */
-    private fun calculateAngularFormControlType(withCollection: Boolean): String {
-        val singleFormType = calculateAngularFormControlSingleType()
+    private fun calculateAngularFormControlType(uiEntityName: NameCase, withCollection: Boolean): String {
+        val singleFormType = calculateAngularFormControlSingleType(uiEntityName)
 
         return if (isList && withCollection) {
             "FormArray<$singleFormType>"
@@ -94,14 +102,13 @@ sealed class UiAttributeModel(
         }
     }
 
-    protected abstract fun calculateAngularFormControlSingleType(): String
+    protected abstract fun calculateAngularFormControlSingleType(uiEntityName: NameCase): String
 
     protected abstract fun determineAngularFormInitialValue(): String
 }
 
 
 open class BuiltInTypeUiAttributeModel(
-    entity: UiEntityDescriptionModel,
     item: UiItemDescriptionModel,
     attributeName: NameCase,
     isNullable: Boolean,
@@ -109,7 +116,6 @@ open class BuiltInTypeUiAttributeModel(
     customValidation: Boolean,
     val builtInType: BuiltInType,
 ) : UiAttributeModel(
-    entity = entity,
     item = item,
     attributeName = attributeName,
     isNullable = isNullable,
@@ -130,7 +136,7 @@ open class BuiltInTypeUiAttributeModel(
     private fun builtInTypeAsString(): String = typescriptBuildInType(builtInType)
 
 
-    override fun calculateAngularInitialValueFormSingleType(): String {
+    override fun calculateAngularInitialValueFormSingleType(uiEntityName: NameCase): String {
         return typescriptBuildInType(builtInType)
     }
 
@@ -152,7 +158,7 @@ open class BuiltInTypeUiAttributeModel(
      * - `FormArray<FormGroup<ArticulusInteriorFormPartGroup>>`
      * Form values are always `null`based, not `undefined`.
      */
-    override fun calculateAngularFormControlSingleType(): String {
+    override fun calculateAngularFormControlSingleType(uiEntityName: NameCase): String {
         return "FormControl<${typescriptBuildInType(builtInType)}>"
     }
 
@@ -168,24 +174,22 @@ open class BuiltInTypeUiAttributeModel(
 }
 
 /**
- * An attribute that references another entity by its identifying attribute.
+ * An attribute that references another item by its primary key.
  *
- * The referenced entity is always identified by a [BuiltInType.UUID], therefore this attribute
+ * The referenced item is always identified by a [BuiltInType.UUID], therefore this attribute
  * behaves exactly like a built-in UUID attribute in the form and in the transport layer. What
- * distinguishes it is [referencedEntity]: it tells the templates which entity has to be
- * searched and resolved to display the reference by its identifying attributes instead of
+ * distinguishes it is [referencedItem]: it tells the templates which item has to be
+ * searched and resolved to display the reference by its display attributes instead of
  * displaying the raw UUID.
  */
-class EntityReferenceUiAttributeModel(
-    entity: UiEntityDescriptionModel,
+class ItemReferenceUiAttributeModel(
     item: UiItemDescriptionModel,
     attributeName: NameCase,
     isNullable: Boolean,
     isList: Boolean,
     customValidation: Boolean,
-    val referencedEntity: UiReferencedEntityModel,
+    val referencedItem: UiReferencedItemModel,
 ) : BuiltInTypeUiAttributeModel(
-    entity = entity,
     item = item,
     attributeName = attributeName,
     isNullable = isNullable,
@@ -193,7 +197,7 @@ class EntityReferenceUiAttributeModel(
     customValidation = customValidation,
     builtInType = BuiltInType.UUID,
 ) {
-    override val isEntityReference: Boolean
+    override val isItemReference: Boolean
         get() = true
 
     /**
@@ -201,13 +205,12 @@ class EntityReferenceUiAttributeModel(
      * validator can complain instead of a nil UUID being sent to the backend. Inside a list
      * every entry is a picked reference, therefore the entries themselves are never null.
      */
-    override fun calculateAngularFormControlSingleType(): String {
+    override fun calculateAngularFormControlSingleType(uiEntityName: NameCase): String {
         return if (isList) "FormControl<UUID>" else "FormControl<UUID | null>"
     }
 }
 
 class ItemUiIAttributeModel(
-    entity: UiEntityDescriptionModel,
     item: UiItemDescriptionModel,
     attributeName: NameCase,
     isNullable: Boolean,
@@ -215,16 +218,12 @@ class ItemUiIAttributeModel(
     customValidation: Boolean,
     val referencedItem: UiItemDescriptionModel,
 ) : UiAttributeModel(
-    entity = entity,
     item = item,
     attributeName = attributeName,
     isNullable = isNullable,
     isList = isList,
     hasCustomValidation = customValidation,
 ) {
-    // it is always the same entity as the parent entity, as references can only exist within entities
-    val referencedEntity: UiEntityDescriptionModel = entity
-
     override val isItem: Boolean
         get() = true
     override val isBuiltIn: Boolean
@@ -239,8 +238,8 @@ class ItemUiIAttributeModel(
     private fun referencedItemTypeAsString(): String = this.referencedItem.itemName.pascalCase
 
 
-    override fun calculateAngularInitialValueFormSingleType(): String {
-        return "FormGroup<${entityAndReferencedItemTypeAsString()}FormPartGroup>"
+    override fun calculateAngularInitialValueFormSingleType(uiEntityName: NameCase): String {
+        return "FormGroup<${uiEntityAndReferencedItemTypeAsString(uiEntityName)}FormPartGroup>"
     }
 
     /**
@@ -252,12 +251,12 @@ class ItemUiIAttributeModel(
      * - `FormArray<FormGroup<ArticulusInteriorFormPartGroup>>`
      * Form values are always `null`based, not `undefined`.
      */
-    override fun calculateAngularFormControlSingleType(): String {
-        return "FormGroup<${entityAndReferencedItemTypeAsString()}FormPartGroup>"
+    override fun calculateAngularFormControlSingleType(uiEntityName: NameCase): String {
+        return "FormGroup<${uiEntityAndReferencedItemTypeAsString(uiEntityName)}FormPartGroup>"
     }
 
-    private fun entityAndReferencedItemTypeAsString(): String =
-        "${entity.entityName.pascalCase}${referencedItem.itemName.pascalCase}"
+    private fun uiEntityAndReferencedItemTypeAsString(uiEntityName: NameCase): String =
+        "${uiEntityName.pascalCase}${referencedItem.itemName.pascalCase}"
 
     override fun determineAngularFormInitialValue(): String {
         return if (isList) {
@@ -270,7 +269,6 @@ class ItemUiIAttributeModel(
 }
 
 class EnumUiAttributeModel(
-    entity: UiEntityDescriptionModel,
     item: UiItemDescriptionModel,
     attributeName: NameCase,
     isNullable: Boolean,
@@ -278,7 +276,6 @@ class EnumUiAttributeModel(
     customValidation: Boolean,
     val enum: UiEnumModel,
 ) : UiAttributeModel(
-    entity = entity,
     item = item,
     attributeName = attributeName,
     isNullable = isNullable,
@@ -300,7 +297,7 @@ class EnumUiAttributeModel(
 
     private fun enumTypeAsString(): String = this.enum.enumClassName
 
-    override fun calculateAngularInitialValueFormSingleType(): String {
+    override fun calculateAngularInitialValueFormSingleType(uiEntityName: NameCase): String {
         return enumTypeAsString()
     }
 
@@ -312,7 +309,7 @@ class EnumUiAttributeModel(
      * - `FormGroup<ArticulusInteriorFormPartGroup>`
      * Form values are always `null`based, not `undefined`.
      */
-    override fun calculateAngularFormControlSingleType(): String {
+    override fun calculateAngularFormControlSingleType(uiEntityName: NameCase): String {
         return "FormControl<${enumTypeAsString()}>"
     }
 

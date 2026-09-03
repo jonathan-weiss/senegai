@@ -2,19 +2,19 @@
 
     @move-comment-backward
     @template-renderer [
-        templateRendererClassName="EntityByIdsCriteriaBORenderer"
+        templateRendererClassName="ItemByIdsCriteriaBORenderer"
         templateRendererPackageName="senegai.codegen.renderer.be"
-        templateRendererInterfaceName="BeEntityRenderer"
+        templateRendererInterfaceName="BeItemRenderer"
         templateRendererInterfacePackageName="senegai.codegen.renderer.be"
     ] [
-        modelClassName="BeEntityModel"
+        modelClassName="BeItemModel"
         modelPackageName="senegai.codegen.renderer.model.be"
         modelName="model"
     ]
 
     @replace-value-by-expression
-        [ searchValue="SilvaOptionum" replaceByExpression="model.entityRootItem.itemName.pascalCase" ]
-        [ searchValue="indexUnicus" replaceByExpression="model.idAttribute.attributeName.camelCase" ]
+        [ searchValue="SilvaOptionum" replaceByExpression="model.itemName.pascalCase" ]
+        [ searchValue="indexUnicus" replaceByExpression="model.primaryKeyAttribute.attributeName.camelCase" ]
 
     @modify-provided-filepath-by-replacements
 
@@ -26,7 +26,7 @@ import java.util.UUID
 /**
  * Business object for resolving a whole set of references to SilvaOptionum aggregates at once.
  *
- * Holds the identifiers a reference to this entity is stored as; unknown ones are simply not
+ * Holds the identifiers a reference to this item is stored as; unknown ones are simply not
  * part of the result.
  */
 data class SilvaOptionumByIdsCriteriaBO(

@@ -1,0 +1,31 @@
+<!-- @tt{{{
+
+    @move-comment-backward
+    @template-renderer [
+        templateRendererClassName="ItemReferenceFieldComponentHtmlRenderer"
+        templateRendererPackageName="senegai.codegen.renderer.angular"
+        templateRendererInterfaceName="UiItemRenderer"
+        templateRendererInterfacePackageName="senegai.codegen.renderer.angular"
+    ] [
+        modelClassName="UiItemModel"
+        modelPackageName="senegai.codegen.renderer.model.ui"
+        modelName="model"
+    ]
+
+    @replace-value-by-expression
+        [ searchValue="MembrumRelatum" replaceByExpression="model.itemName.pascalCase" ]
+        [ searchValue="membrumRelatum" replaceByExpression="model.itemName.camelCase" ]
+        [ searchValue="membrum-relatum" replaceByExpression="model.itemName.kebabCase" ]
+        [ searchValue="ClavisPrimaria" replaceByExpression="model.primaryKeyAttribute.attributeName.pascalCase" ]
+        [ searchValue="clavisPrimaria" replaceByExpression="model.primaryKeyAttribute.attributeName.camelCase" ]
+
+    @modify-provided-filepath-by-replacements
+
+}}}@ -->
+<app-membrum-relatum-typeahead
+        label="MembrumRelatum"
+        [selectionLabel]="selectionLabel()"
+        [disabled]="membrumRelatumReferenceFormControl.disabled"
+        (membrumRelatumSelected)="onMembrumRelatumSelected($event)" />
+<app-field-error-messages [control]="membrumRelatumReferenceFormControl"
+                          [validatorTranslations]="validatorTranslations" />

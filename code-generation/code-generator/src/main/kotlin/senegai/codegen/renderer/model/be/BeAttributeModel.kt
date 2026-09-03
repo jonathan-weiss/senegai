@@ -6,7 +6,6 @@ import senegai.model.schema.EnumId
 import senegai.model.schema.ExampleDataCategory
 
 sealed class BeAttributeModel(
-    val entity: BeEntityDescriptionModel,
     val item: BeItemDescriptionModel,
     val attributeName: NameCase,
     val isNullable: Boolean,
@@ -18,11 +17,11 @@ sealed class BeAttributeModel(
     abstract val isEnum: Boolean
 
     /**
-     * Whether this attribute references another entity by its identifier.
+     * Whether this attribute references another item by its primary key.
      * Such an attribute is a [BuiltInType.UUID] in every layer, therefore it is
      * also a built-in attribute ([isBuiltIn] is `true` as well).
      */
-    open val isEntityReference: Boolean
+    open val isItemReference: Boolean
         get() = false
 
     /**
@@ -96,7 +95,6 @@ sealed class BeAttributeModel(
 
 
 open class BuiltInTypeBeAttributeModel(
-    entity: BeEntityDescriptionModel,
     item: BeItemDescriptionModel,
     attributeName: NameCase,
     isNullable: Boolean,
@@ -105,7 +103,6 @@ open class BuiltInTypeBeAttributeModel(
     val builtInType: BuiltInType,
     val exampleDataGeneratorConfig: BeExampleDataGeneratorConfig
 ) : BeAttributeModel(
-    entity = entity,
     item = item,
     attributeName = attributeName,
     isNullable = isNullable,
@@ -147,35 +144,33 @@ open class BuiltInTypeBeAttributeModel(
 }
 
 /**
- * An attribute that references another entity by its identifying attribute.
+ * An attribute that references another item by its primary key.
  *
- * The referenced entity is always identified by a [BuiltInType.UUID], therefore this attribute
+ * The referenced item is always identified by a [BuiltInType.UUID], therefore this attribute
  * behaves exactly like a built-in UUID attribute in the business objects and in the transport
- * layer. What distinguishes it is [referencedEntity]: it tells the templates which entity has to
+ * layer. What distinguishes it is [referencedItem]: it tells the templates which item has to
  * be searched and resolved to display the reference by its identifying attributes instead of
  * displaying the raw UUID.
  */
-class EntityReferenceBeAttributeModel(
-    entity: BeEntityDescriptionModel,
+class ItemReferenceBeAttributeModel(
     item: BeItemDescriptionModel,
     attributeName: NameCase,
     isNullable: Boolean,
     isList: Boolean,
     customValidation: Boolean,
-    val referencedEntity: BeReferencedEntityModel,
+    val referencedItem: BeReferencedItemModel,
 ) : BuiltInTypeBeAttributeModel(
-    entity = entity,
     item = item,
     attributeName = attributeName,
     isNullable = isNullable,
     isList = isList,
     customValidation = customValidation,
     builtInType = BuiltInType.UUID,
-    // Example data is a random UUID for now; resolving it to a really existing entity
-    // is up to the templates that know how to fetch the referenced entities.
+    // Example data is a random UUID for now; resolving it to a really existing item
+    // is up to the templates that know how to fetch the referenced items.
     exampleDataGeneratorConfig = randomUuidExampleDataGeneratorConfig(isNullable = isNullable, isList = isList),
 ) {
-    override val isEntityReference: Boolean
+    override val isItemReference: Boolean
         get() = true
 
     private companion object {
@@ -189,7 +184,6 @@ class EntityReferenceBeAttributeModel(
 }
 
 class ItemBeIAttributeModel(
-    entity: BeEntityDescriptionModel,
     item: BeItemDescriptionModel,
     attributeName: NameCase,
     isNullable: Boolean,
@@ -197,16 +191,12 @@ class ItemBeIAttributeModel(
     customValidation: Boolean,
     val referencedItem: BeItemDescriptionModel,
 ) : BeAttributeModel(
-    entity = entity,
     item = item,
     attributeName = attributeName,
     isNullable = isNullable,
     isList = isList,
     hasCustomValidation = customValidation,
 ) {
-    // it is always the same entity as the parent entity, as references can only exist within entities
-    val referencedEntity: BeEntityDescriptionModel = entity
-
     override val isItem: Boolean
         get() = true
     override val isBuiltIn: Boolean
@@ -226,7 +216,6 @@ class ItemBeIAttributeModel(
 }
 
 class EnumBeAttributeModel(
-    entity: BeEntityDescriptionModel,
     item: BeItemDescriptionModel,
     attributeName: NameCase,
     isNullable: Boolean,
@@ -234,7 +223,6 @@ class EnumBeAttributeModel(
     customValidation: Boolean,
     val enum: BeEnumModel,
 ) : BeAttributeModel(
-    entity = entity,
     item = item,
     attributeName = attributeName,
     isNullable = isNullable,

@@ -16,8 +16,8 @@ import {
     evenNumberNamedValidator,
 } from "@app/named-validators/field-validators";
 import {
-    EmployeeContactAgeNamedValidators, EmployeeContactLastnameNamedValidators
-} from "@app/employee/employee-form/employee-contact-form-part/employee-contact-form-part-validation.service";
+    ContactContactAgeNamedValidators, ContactContactLastnameNamedValidators
+} from "@app/contact/contact-form/contact-contact-form-part/contact-contact-form-part-validation.service";
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -48,13 +48,13 @@ export const appConfig: ApplicationConfig = {
                     minimumLengthNamedValidator(3),
                 ]
         },
-        { provide: EmployeeContactLastnameNamedValidators, useValue:
+        { provide: ContactContactLastnameNamedValidators, useValue:
                 [
                     minimumLengthNamedValidator(6),
                     maximumLengthNamedValidator(15),
                 ]
         },
-        { provide: EmployeeContactAgeNamedValidators, useValue:
+        { provide: ContactContactAgeNamedValidators, useValue:
                 [
                     minimumNumberNamedValidator(0),
                     maximumNumberNamedValidator(120),

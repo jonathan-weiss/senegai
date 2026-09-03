@@ -2,19 +2,19 @@
 
     @move-comment-backward
     @template-renderer [
-        templateRendererClassName="EntitySearchCriteriaWtoRenderer"
+        templateRendererClassName="ItemSearchCriteriaWtoRenderer"
         templateRendererPackageName="senegai.codegen.renderer.angular"
-        templateRendererInterfaceName="UiEntityRenderer"
+        templateRendererInterfaceName="UiItemRenderer"
         templateRendererInterfacePackageName="senegai.codegen.renderer.angular"
     ] [
-        modelClassName="UiEntityModel"
+        modelClassName="UiItemModel"
         modelPackageName="senegai.codegen.renderer.model.ui"
         modelName="model"
     ]
 
     @replace-value-by-expression
-        [ searchValue="SilvaOptionum" replaceByExpression="model.entityRootItem.itemName.pascalCase" ]
-        [ searchValue="silva-optionum" replaceByExpression="model.entityRootItem.itemName.kebabCase" ]
+        [ searchValue="SilvaOptionum" replaceByExpression="model.itemName.pascalCase" ]
+        [ searchValue="silva-optionum" replaceByExpression="model.itemName.kebabCase" ]
 
     @modify-provided-filepath-by-replacements
 

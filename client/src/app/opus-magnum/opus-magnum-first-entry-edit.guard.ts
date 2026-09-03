@@ -20,7 +20,7 @@
         [ searchValue="SilvaOptionum" replaceByExpression="model.entityRootItem.itemName.pascalCase" ]
         [ searchValue="silvaOptionum" replaceByExpression="model.entityRootItem.itemName.camelCase" ]
         [ searchValue="silva-optionum" replaceByExpression="model.entityRootItem.itemName.kebabCase" ]
-        [ searchValue="SILVA_OTIONUM" replaceByExpression="model.entityRootItem.itemName.screamingSnakeCase" ]
+        [ searchValue="SILVA_OPTIONUM" replaceByExpression="model.entityRootItem.itemName.screamingSnakeCase" ]
 
     @replace-value-by-expression
         [ searchValue="indexUnicus" replaceByExpression="model.idAttribute.attributeName.camelCase" ]
@@ -37,7 +37,7 @@ import {inject} from '@angular/core';
 import {CanActivateFn, Router, UrlTree} from '@angular/router';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {OpusMagnumService} from '@app/opus-magnum/opus-magnum.service';
+import {SilvaOptionumService} from '@app/service/silva-optionum.service';
 
 /**
  * Resolves the first available {@link SilvaOptionumWTO} and redirects to its edit route,
@@ -47,7 +47,7 @@ import {OpusMagnumService} from '@app/opus-magnum/opus-magnum.service';
  */
 export const opusMagnumFirstEntryEditGuard: CanActivateFn = (): Observable<UrlTree> => {
     const router = inject(Router);
-    return inject(OpusMagnumService).getSilvaOptionumList().pipe(
+    return inject(SilvaOptionumService).getSilvaOptionumList().pipe(
         map(silvaOptionumList => {
             const first = silvaOptionumList.at(0);
             return first

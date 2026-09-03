@@ -68,12 +68,12 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
               |import {
               |    ${model.entity.entityName.pascalCase}${nestedItem.itemName.pascalCase}FormPartGroup
               |} from "@app/${model.entity.entityName.kebabCase}/${model.entity.entityName.kebabCase}-form/${model.entity.entityName.kebabCase}-${nestedItem.itemName.kebabCase}-form-part/${model.entity.entityName.kebabCase}-${nestedItem.itemName.kebabCase}-form-part-group";
-              |""" } }${ model.item.listReferencedEntities.joinToString("") { listReferencedEntity ->  """import {
-              |    ${listReferencedEntity.entityName.pascalCase}${listReferencedEntity.rootItem.itemName.pascalCase}ReferenceTableComponent
-              |} from "@app/${listReferencedEntity.entityName.kebabCase}/${listReferencedEntity.entityName.kebabCase}-${listReferencedEntity.rootItem.itemName.kebabCase}-reference-table/${listReferencedEntity.entityName.kebabCase}-${listReferencedEntity.rootItem.itemName.kebabCase}-reference-table.component";
-              |""" } }${ model.item.singleReferencedEntities.joinToString("") { singleReferencedEntity ->  """import {
-              |    ${singleReferencedEntity.entityName.pascalCase}${singleReferencedEntity.rootItem.itemName.pascalCase}ReferenceFieldComponent
-              |} from "@app/${singleReferencedEntity.entityName.kebabCase}/${singleReferencedEntity.entityName.kebabCase}-${singleReferencedEntity.rootItem.itemName.kebabCase}-reference-field/${singleReferencedEntity.entityName.kebabCase}-${singleReferencedEntity.rootItem.itemName.kebabCase}-reference-field.component";
+              |""" } }${ model.item.listReferencedItems.joinToString("") { listReferencedItem ->  """import {
+              |    ${listReferencedItem.itemName.pascalCase}ReferenceTableComponent
+              |} from "@app/reference/${listReferencedItem.itemName.kebabCase}-reference-table/${listReferencedItem.itemName.kebabCase}-reference-table.component";
+              |""" } }${ model.item.singleReferencedItems.joinToString("") { singleReferencedItem ->  """import {
+              |    ${singleReferencedItem.itemName.pascalCase}ReferenceFieldComponent
+              |} from "@app/reference/${singleReferencedItem.itemName.kebabCase}-reference-field/${singleReferencedItem.itemName.kebabCase}-reference-field.component";
               |""" } }
           |@Component({
           |    selector: 'app-${model.entity.entityName.kebabCase}-${model.item.itemName.kebabCase}-form-part',
@@ -103,8 +103,8 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
               |""" } else { """""" } }${ if(model.item.containsBooleanAttributes) { """        BooleanInputComponent,
               |""" } else { """""" } }${ if(model.item.containsNumberAttributes) { """        NumberInputComponent,
               |""" } else { """""" } }${ if(model.item.containsTextListAttributes) { """        SingleTextFormFieldTableComponent,
-              |""" } else { """""" } }${ model.item.listReferencedEntities.joinToString("") { listReferencedEntity ->  """        ${listReferencedEntity.entityName.pascalCase}${listReferencedEntity.rootItem.itemName.pascalCase}ReferenceTableComponent,
-              |""" } }${ model.item.singleReferencedEntities.joinToString("") { singleReferencedEntity ->  """        ${singleReferencedEntity.entityName.pascalCase}${singleReferencedEntity.rootItem.itemName.pascalCase}ReferenceFieldComponent,
+              |""" } else { """""" } }${ model.item.listReferencedItems.joinToString("") { listReferencedItem ->  """        ${listReferencedItem.itemName.pascalCase}ReferenceTableComponent,
+              |""" } }${ model.item.singleReferencedItems.joinToString("") { singleReferencedItem ->  """        ${singleReferencedItem.itemName.pascalCase}ReferenceFieldComponent,
               |""" } }${ if(model.item.containsNumberListAttributes) { """        SingleNumberFormFieldTableComponent,""" } else { """""" } }${ if(model.item.containsBooleanListAttributes) { """        SingleBooleanFormFieldTableComponent,""" } else { """""" } }${ model.item.attributesWithEnumType.joinToString("") { attributeWithEnumType ->  """${ if(attributeWithEnumType.isList) { """        ${attributeWithEnumType.enum.enumName.pascalCase}InputTableComponent,
                   |""" } else { """        ${attributeWithEnumType.enum.enumName.pascalCase}SelectorComponent,
                   |""" } }""" } }    ]
@@ -112,11 +112,11 @@ object EntityItemFormPartComponentTypescriptRenderer : UiEntityItemRenderer {
           |export class ${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartComponent implements OnInit {
           |    @Input({ required: true }) ${model.item.itemName.camelCase}Form!: FormGroup<${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartGroup>;
           |
-          |${ model.item.attributesWithItemType.filter { it.isList }.joinToString("") { attributeWithItemType ->  """    readonly ${attributeWithItemType.attributeName.camelCase}EditState = new FormArrayEditState<${attributeWithItemType.angularFormControlType}>(() => this.${attributeWithItemType.attributeName.camelCase}Control);
+          |${ model.item.attributesWithItemType.filter { it.isList }.joinToString("") { attributeWithItemType ->  """    readonly ${attributeWithItemType.attributeName.camelCase}EditState = new FormArrayEditState<${attributeWithItemType.angularFormControlType(model.entity.entityName)}>(() => this.${attributeWithItemType.attributeName.camelCase}Control);
               |""" } }
           |${ model.item.attributes.joinToString("") { attribute ->  """${ if(attribute.isNullable) { """    protected ${attribute.attributeName.camelCase}IsNotNullControl!: FormControl<boolean>
                   |    protected ${attribute.attributeName.camelCase}IsNotNullValidatorNames!: ReadonlyArray<ValidatorTranslation>
-                  |""" } else { """""" } }    protected ${attribute.attributeName.camelCase}Control!: ${attribute.angularFormControlTypeWithCollection}
+                  |""" } else { """""" } }    protected ${attribute.attributeName.camelCase}Control!: ${attribute.angularFormControlTypeWithCollection(model.entity.entityName)}
               |    protected ${attribute.attributeName.camelCase}ValidatorNames!: ReadonlyArray<ValidatorTranslation>
               |""" } }
           |    constructor(private readonly ${model.item.itemName.camelCase}FormValidationService: ${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartValidationService,) {

@@ -1,37 +1,32 @@
 package senegai.server.exampledata
 
 import org.springframework.stereotype.Component
-import senegai.server.exampledata.employee.EmployeeExampleDataCreator
-import senegai.server.exampledata.employeeaddress.EmployeeAddressExampleDataCreator
-import senegai.server.exampledata.entitasrelata.EntitasRelataExampleDataCreator
+import senegai.server.exampledata.address.AddressExampleDataPopulator
+import senegai.server.exampledata.contact.ContactExampleDataPopulator
 import senegai.server.exampledata.framework.datafaker.DataFakerDataContextFactoryService
-import senegai.server.exampledata.opusmagnum.OpusMagnumExampleDataCreator
-import senegai.server.service.opusmagnum.OpusMagnumRepository
-import senegai.server.service.bo.SilvaOptionumBO
+import senegai.server.exampledata.membrumrelatum.MembrumRelatumExampleDataPopulator
+import senegai.server.exampledata.silvaoptionum.SilvaOptionumExampleDataPopulator
 
 /**
- * Orchestrates the creation of example data.
+ * Orchestrates the creation of example data: one populator per item with a primary key,
+ * each of them filling the repository of that item.
  */
 @Component
 class ExampleDataCreatorsRunner(
-    private val opusMagnumExampleDataCreator: OpusMagnumExampleDataCreator,
-    private val entitasRelataExampleDataCreator: EntitasRelataExampleDataCreator,
-    private val employeeExampleDataCreator: EmployeeExampleDataCreator,
-    private val employeeAddressExampleDataCreator: EmployeeAddressExampleDataCreator,
+    private val membrumRelatumExampleDataPopulator: MembrumRelatumExampleDataPopulator,
+    private val silvaOptionumExampleDataPopulator: SilvaOptionumExampleDataPopulator,
+    private val addressExampleDataPopulator: AddressExampleDataPopulator,
+    private val contactExampleDataPopulator: ContactExampleDataPopulator,
     private val dataContextFactoryService: DataFakerDataContextFactoryService,
 ) {
 
-    /**
-     * Creates the example [SilvaOptionumBO] aggregates, writes each of them to the
-     * persistence via the [OpusMagnumRepository] and returns the persisted list.
-     */
     fun createExampleData() {
         val dataContext = dataContextFactoryService.createContext()
-        // the order matters: an entity that references another one can only pick an existing
-        // instance, so the referenced entity has to create its example data first
-        entitasRelataExampleDataCreator.createExampleData(dataContext)
-        opusMagnumExampleDataCreator.createExampleData(dataContext)
-        employeeAddressExampleDataCreator.createExampleData(dataContext)
-        employeeExampleDataCreator.createExampleData(dataContext)
+        // the order matters: an item that references another one can only pick an existing
+        // instance, so the referenced item has to create its example data first
+        membrumRelatumExampleDataPopulator.createExampleData(dataContext)
+        silvaOptionumExampleDataPopulator.createExampleData(dataContext)
+        addressExampleDataPopulator.createExampleData(dataContext)
+        contactExampleDataPopulator.createExampleData(dataContext)
     }
 }

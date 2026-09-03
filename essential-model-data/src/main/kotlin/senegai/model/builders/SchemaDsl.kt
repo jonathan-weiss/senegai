@@ -1,6 +1,5 @@
 package senegai.model.builders
 
-import senegai.model.schema.EntityId
 import senegai.model.schema.EnumId
 import senegai.model.schema.ItemId
 
@@ -11,12 +10,6 @@ interface RootDsl {
 
 @MainDslMarker
 interface SchemaDsl {
-    fun entity(
-        entityId: EntityId,
-        entityRootItemId: ItemId,
-        entityIdAttributeName: String,
-    )
-
     fun enumType(
         enumId: EnumId,
         builder: EnumDsl.() -> Unit,
@@ -27,8 +20,14 @@ interface SchemaDsl {
         builder: ItemDsl.() -> Unit,
     )
 
+    /**
+     * Declares the frontend shell that bundles all Angular components of one editor
+     * around the root item [rootItemId], which has to declare a primary key.
+     * The [uiEntityName] names the directory and the component classes.
+     */
     fun uiEntity(
-        entityId: EntityId,
+        uiEntityName: String,
+        rootItemId: ItemId,
         builder: UiEntityDsl.() -> Unit,
     )
 }

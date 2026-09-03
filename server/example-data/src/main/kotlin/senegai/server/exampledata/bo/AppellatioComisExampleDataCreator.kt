@@ -14,7 +14,7 @@
 
     @replace-value-by-expression
         [ searchValue="AppellatioComis" replaceByExpression="model.enumName.pascalCase" ]
-        [ searchValue="opusmagnum" replaceByExpression="model.entityName.lowerCase" ]
+        [ searchValue="silvaoptionum" replaceByExpression="model.itemName.lowerCase" ]
 
     @modify-provided-filepath-by-replacements
 

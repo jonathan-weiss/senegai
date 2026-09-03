@@ -50,14 +50,14 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
           |
           |    public createInitial${model.item.itemName.pascalCase}Form(): FormGroup<${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartGroup> {
           |        const ${model.item.itemName.camelCase}Form = new FormGroup({
-          |${ model.item.attributes.joinToString("") { attribute ->  """${ if(!attribute.isItem && !attribute.isList && !attribute.isEntityReference) { """            [${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}]: new ${attribute.angularFormControlType}(
+          |${ model.item.attributes.joinToString("") { attribute ->  """${ if(!attribute.isItem && !attribute.isList && !attribute.isItemReference) { """            [${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}]: new ${attribute.angularFormControlType(model.entity.entityName)}(
                   |                this.${model.item.itemName.camelCase}FormInitialValueService.${attribute.attributeName.camelCase}InitialValue(),
                   |                {
                   |                    nonNullable: true,
                   |                    validators: this.${model.item.itemName.camelCase}FormValidationService.validatorFunctions(${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase})
                   |                },
                   |            ),
-                  |""" } else { """""" } }""" } }${ model.item.attributesWithEntityReference.filter { !it.isList }.joinToString("") { referenceAttribute ->  """            [${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${referenceAttribute.attributeName.camelCase}]: new FormControl<UUID | null>(
+                  |""" } else { """""" } }""" } }${ model.item.attributesWithItemReference.filter { !it.isList }.joinToString("") { referenceAttribute ->  """            [${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${referenceAttribute.attributeName.camelCase}]: new FormControl<UUID | null>(
               |                null,
               |                {
               |                    validators: this.${model.item.itemName.camelCase}FormValidationService.validatorFunctions(${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${referenceAttribute.attributeName.camelCase})
@@ -70,7 +70,7 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
               |                    validators: this.${model.item.itemName.camelCase}FormValidationService.validatorFunctions(${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attributeWithItemType.attributeName.camelCase})
               |                },
               |            ),
-              |""" } }${ model.item.builtInTypeAndEnumAttributes.filter { it.isList }.joinToString("") { attribute ->  """            [${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}]: new ${attribute.angularFormControlTypeWithCollection}(
+              |""" } }${ model.item.builtInTypeAndEnumAttributes.filter { it.isList }.joinToString("") { attribute ->  """            [${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase}]: new ${attribute.angularFormControlTypeWithCollection(model.entity.entityName)}(
               |                [],
               |                {
               |                    validators: this.${model.item.itemName.camelCase}FormValidationService.validatorFunctions(${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartFieldName.${attribute.attributeName.camelCase})
@@ -88,8 +88,8 @@ object EntityItemFormPartServiceRenderer : UiEntityItemRenderer {
           |        return registerFormPartValidationTranslations(${model.item.itemName.camelCase}Form, this.${model.item.itemName.camelCase}FormValidationService);
           |    }
           |
-          |${ model.item.builtInTypeAndEnumAttributes.filter { it.isList }.joinToString("") { attribute ->  """    public createInitial${attribute.attributeName.pascalCase}Form(): ${attribute.angularFormControlType} {
-              |        return new ${attribute.angularFormControlType}(
+          |${ model.item.builtInTypeAndEnumAttributes.filter { it.isList }.joinToString("") { attribute ->  """    public createInitial${attribute.attributeName.pascalCase}Form(): ${attribute.angularFormControlType(model.entity.entityName)} {
+              |        return new ${attribute.angularFormControlType(model.entity.entityName)}(
               |            this.${model.item.itemName.camelCase}FormInitialValueService.${attribute.attributeName.camelCase}InitialValue(),
               |            {
               |                nonNullable: true,

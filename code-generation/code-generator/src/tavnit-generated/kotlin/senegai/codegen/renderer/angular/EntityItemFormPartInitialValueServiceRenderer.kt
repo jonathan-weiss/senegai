@@ -29,7 +29,7 @@ object EntityItemFormPartInitialValueServiceRenderer : UiEntityItemRenderer {
               |""" } }
           |@Injectable({providedIn: 'root'})
           |export class ${model.entity.entityName.pascalCase}${model.item.itemName.pascalCase}FormPartInitialValueService {
-          |${ model.item.attributesWithAngularFormInitialValues.joinToString("") { attribute ->  """    ${attribute.attributeName.camelCase}InitialValue(): ${attribute.angularInitialValueFormType} {
+          |${ model.item.attributesWithAngularFormInitialValues.joinToString("") { attribute ->  """    ${attribute.attributeName.camelCase}InitialValue(): ${attribute.angularInitialValueFormType(model.entity.entityName)} {
               |        return ${attribute.angularFormInitialValue}
               |    }
               |""" } }}

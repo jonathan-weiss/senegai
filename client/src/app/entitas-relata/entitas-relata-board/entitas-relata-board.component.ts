@@ -4,7 +4,7 @@ import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {
     EntitasRelataConfirmDeleteDialogComponent
 } from '@app/entitas-relata/entitas-relata-confirm-delete-dialog/entitas-relata-confirm-delete-dialog.component';
-import {EntitasRelataService} from '@app/entitas-relata/entitas-relata.service';
+import {MembrumRelatumService} from '@app/service/membrum-relatum.service';
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
 import {MatToolbarModule} from "@angular/material/toolbar";
@@ -55,7 +55,7 @@ export class EntitasRelataBoardComponent {
     creating = false;
     refreshKey = 0;
 
-    constructor(private dialog: MatDialog, private entitasRelataService: EntitasRelataService) {
+    constructor(private dialog: MatDialog, private membrumRelatumService: MembrumRelatumService) {
     }
 
     onSearch(criteria: EntitasRelataSearchCriteria): void {
@@ -80,7 +80,7 @@ export class EntitasRelataBoardComponent {
         });
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.entitasRelataService.deleteMembrumRelatum(entitasRelata.clavisPrimaria).subscribe(() => {
+                this.membrumRelatumService.deleteMembrumRelatum(entitasRelata.clavisPrimaria).subscribe(() => {
                     this.refreshKey++;
                 });
             }
@@ -89,8 +89,8 @@ export class EntitasRelataBoardComponent {
 
     onSave(entitasRelata: MembrumRelatumWTO): void {
         const save$ = this.creating
-            ? this.entitasRelataService.createMembrumRelatum(entitasRelata)
-            : this.entitasRelataService.updateMembrumRelatum(entitasRelata);
+            ? this.membrumRelatumService.createMembrumRelatum(entitasRelata)
+            : this.membrumRelatumService.updateMembrumRelatum(entitasRelata);
         save$.subscribe(() => {
             this.selectedEntitasRelata = null;
             this.creating = false;

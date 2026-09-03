@@ -19,7 +19,7 @@ object EntityResultComponentTypescriptRenderer : UiEntityRenderer {
           |import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
           |import {MatTableDataSource, MatTableModule} from '@angular/material/table';
           |import {${model.entityName.pascalCase}SearchCriteria} from '@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}-search/${model.entityName.kebabCase}-search.component';
-          |import {${model.entityName.pascalCase}Service} from '@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}.service';
+          |import {${model.entityRootItem.itemName.pascalCase}Service} from '@app/service/${model.entityRootItem.itemName.kebabCase}.service';
           |import {ReactiveFormsModule} from "@angular/forms";
           |import {MatButtonModule} from "@angular/material/button";
           |import {MatToolbarModule} from "@angular/material/toolbar";
@@ -66,7 +66,7 @@ object EntityResultComponentTypescriptRenderer : UiEntityRenderer {
           |    ];
           |    dataSource: MatTableDataSource<${model.entityRootItem.itemName.pascalCase}WTO> = new MatTableDataSource<${model.entityRootItem.itemName.pascalCase}WTO>();
           |
-          |    constructor(private ${model.entityName.camelCase}Service: ${model.entityName.pascalCase}Service) {
+          |    constructor(private ${model.entityRootItem.itemName.camelCase}Service: ${model.entityRootItem.itemName.pascalCase}Service) {
           |    }
           |
           |    ngOnInit(): void {
@@ -85,7 +85,7 @@ object EntityResultComponentTypescriptRenderer : UiEntityRenderer {
           |        const searchCriteria: ${model.entityRootItem.itemName.pascalCase}SearchCriteriaWTO = {
           |            query: this.searchCriteria?.searchQuery ?? '',
           |        };
-          |        this.${model.entityName.camelCase}Service.search${model.entityRootItem.itemName.pascalCase}List(searchCriteria)
+          |        this.${model.entityRootItem.itemName.camelCase}Service.search${model.entityRootItem.itemName.pascalCase}List(searchCriteria)
           |            .subscribe(searchResult => {
           |                this.dataSource.data = searchResult.${model.entityRootItem.itemName.camelCase}List;
           |            });

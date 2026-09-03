@@ -1,7 +1,8 @@
 package senegai.codegen.renderer.angular
 
 import senegai.codegen.renderer.model.ui.BuiltInTypeUiAttributeModel
-import senegai.codegen.renderer.model.ui.EntityReferenceUiAttributeModel
+import senegai.codegen.renderer.model.NameCase
+import senegai.codegen.renderer.model.ui.ItemReferenceUiAttributeModel
 import senegai.codegen.renderer.model.ui.EnumUiAttributeModel
 import senegai.codegen.renderer.model.ui.ItemUiIAttributeModel
 import senegai.codegen.renderer.model.ui.UiAttributeModel
@@ -25,15 +26,16 @@ object SingleFormInputHtmlTagRenderer {
      */
     fun renderTemplate(
         attributeModel: UiAttributeModel,
+        uiEntityName: NameCase,
         isList: Boolean = false,
     ): String {
         val inputTag = when (attributeModel) {
             // must be checked before the built-in input: a reference is a UUID, but it is never
             // edited as one
-            is EntityReferenceUiAttributeModel -> createEntityReferenceInput(attributeModel)
+            is ItemReferenceUiAttributeModel -> createItemReferenceInput(attributeModel)
             is BuiltInTypeUiAttributeModel -> createBuiltInInput(attributeModel)
             is EnumUiAttributeModel -> createEnumInput(attributeModel)
-            is ItemUiIAttributeModel -> createItemInput(attributeModel)
+            is ItemUiIAttributeModel -> createItemInput(attributeModel, uiEntityName)
         }
 
         return """
@@ -57,18 +59,18 @@ object SingleFormInputHtmlTagRenderer {
     }
 
     /**
-     *  ` <app-entitas-relata-membrum-relatum-reference-field [membrumRelatumReferenceFormControl]="relatioAdEntitatemOptionalisControl" [validatorTranslations]="relatioAdEntitatemOptionalisValidatorNames" />`
-     *  ` <app-entitas-relata-membrum-relatum-reference-table [membrumRelatumReferenceFormArray]="relatioAdEntitatemOptionalisIteratusControl" />`
+     *  ` <app-membrum-relatum-reference-field [membrumRelatumReferenceFormControl]="relatioAdEntitatemOptionalisControl" [validatorTranslations]="relatioAdEntitatemOptionalisValidatorNames" />`
+     *  ` <app-membrum-relatum-reference-table [membrumRelatumReferenceFormArray]="relatioAdEntitatemOptionalisIteratusControl" />`
      *
-     * A reference is stored as the UUID of the referenced entity, which tells the user nothing.
-     * It is therefore edited with the reference components of the referenced entity, which search
-     * it with a typeahead and show it by its display attributes.
+     * A reference is stored as the primary key of the referenced item, which tells the user
+     * nothing. It is therefore edited with the reference components of the referenced item,
+     * which search it with a typeahead and show it by its display attributes.
      */
-    private fun createEntityReferenceInput(attributeModel: EntityReferenceUiAttributeModel): String {
+    private fun createItemReferenceInput(attributeModel: ItemReferenceUiAttributeModel): String {
         val attributeNameCamelCase = attributeModel.attributeName.camelCase
-        val referencedEntity = attributeModel.referencedEntity
-        val componentSelectorPrefix = "app-${referencedEntity.entityName.kebabCase}-${referencedEntity.rootItem.itemName.kebabCase}-reference"
-        val referencedItemCamelCase = referencedEntity.rootItem.itemName.camelCase
+        val referencedItem = attributeModel.referencedItem
+        val componentSelectorPrefix = "app-${referencedItem.itemName.kebabCase}-reference"
+        val referencedItemCamelCase = referencedItem.itemName.camelCase
         return if (attributeModel.isList) {
             """<$componentSelectorPrefix-table [${referencedItemCamelCase}ReferenceFormArray]="${attributeNameCamelCase}Control" />"""
         } else {
@@ -92,9 +94,9 @@ object SingleFormInputHtmlTagRenderer {
      *  ` <app-articulus-interior-form-part [articulusInteriorForm]="articulusInteriorListEditState.formGroupUnderEdit!"  />`
      *  ` <app-articulus-interior-form-part [articulusInteriorForm]="articulusInteriorSingularisControl"  />`
      */
-    private fun createItemInput(attributeModel: ItemUiIAttributeModel): String {
+    private fun createItemInput(attributeModel: ItemUiIAttributeModel, uiEntityName: NameCase): String {
         val attributeNameCamelCase = attributeModel.attributeName.camelCase
-        val entityNameKebabCase = attributeModel.entity.entityName.kebabCase
+        val entityNameKebabCase = uiEntityName.kebabCase
         val itemNameKebabCase = attributeModel.referencedItem.itemName.kebabCase
         val itemNameCamelCase = attributeModel.referencedItem.itemName.camelCase
         val controlName = if(attributeModel.isList) "${attributeNameCamelCase}EditState.formGroupUnderEdit!" else "${attributeNameCamelCase}Control"

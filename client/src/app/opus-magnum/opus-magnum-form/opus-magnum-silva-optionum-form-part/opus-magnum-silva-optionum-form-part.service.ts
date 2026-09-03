@@ -101,11 +101,11 @@ export class OpusMagnumSilvaOptionumFormPartService {
 
                 @replace-value-by-expression
                     [ searchValue="campusTextusOptionalis" replaceByExpression="attribute.attributeName.camelCase" ]
-                    [ searchValue="FormControl<string>" replaceByExpression="attribute.angularFormControlType" ]
+                    [ searchValue="FormControl<string>" replaceByExpression="attribute.angularFormControlType(model.entity.entityName)" ]
 
 
             }}}@  */
-            /* @tt{{{   @if [ conditionExpression="!attribute.isItem && !attribute.isList && !attribute.isEntityReference"]  }}}@ */
+            /* @tt{{{   @if [ conditionExpression="!attribute.isItem && !attribute.isList && !attribute.isItemReference"]  }}}@ */
             [OpusMagnumSilvaOptionumFormPartFieldName.campusTextusOptionalis]: new FormControl<string>(
                 this.silvaOptionumFormInitialValueService.campusTextusOptionalisInitialValue(),
                 {
@@ -116,7 +116,7 @@ export class OpusMagnumSilvaOptionumFormPartService {
             /* @tt{{{   @end-if  }}}@ */
             /* @tt{{{  @end-foreach  }}}@ */
             /* @tt{{{
-                @foreach [ iteratorExpression="model.item.attributesWithEntityReference.filter { !it.isList }" loopVariable="referenceAttribute" ]
+                @foreach [ iteratorExpression="model.item.attributesWithItemReference.filter { !it.isList }" loopVariable="referenceAttribute" ]
 
                 @replace-value-by-expression
                     [ searchValue="relatioAdEntitatemOptionalis" replaceByExpression="referenceAttribute.attributeName.camelCase" ]
@@ -161,7 +161,7 @@ export class OpusMagnumSilvaOptionumFormPartService {
 
                 @replace-value-by-expression
                     [ searchValue="iteratioSimpliciumTextuum" replaceByExpression="attribute.attributeName.camelCase" ]
-                    [ searchValue="FormArray<FormControl<string>>" replaceByExpression="attribute.angularFormControlTypeWithCollection" ]
+                    [ searchValue="FormArray<FormControl<string>>" replaceByExpression="attribute.angularFormControlTypeWithCollection(model.entity.entityName)" ]
 
             }}}@  */
             [OpusMagnumSilvaOptionumFormPartFieldName.iteratioSimpliciumTextuum]: new FormArray<FormControl<string>>(
@@ -232,7 +232,7 @@ export class OpusMagnumSilvaOptionumFormPartService {
 
                 @replace-value-by-expression
                     [ searchValue="campusTextusOptionalis" replaceByExpression="attribute.attributeName.camelCase" ]
-                    [ searchValue="FormControl<string | null>" replaceByExpression="attribute.angularFormControlType" ]
+                    [ searchValue="FormControl<string | null>" replaceByExpression="attribute.angularFormControlType(model.entity.entityName)" ]
 
             }}}@  */
             /* @tt{{{   @if [ conditionExpression="attribute.isNullable"]  }}}@ */
@@ -300,7 +300,7 @@ export class OpusMagnumSilvaOptionumFormPartService {
         @replace-value-by-expression
             [ searchValue="iteratioSimpliciumTextuum" replaceByExpression="attribute.attributeName.camelCase" ]
             [ searchValue="IteratioSimpliciumTextuum" replaceByExpression="attribute.attributeName.pascalCase" ]
-            [ searchValue="FormControl<string>" replaceByExpression="attribute.angularFormControlType" ]
+            [ searchValue="FormControl<string>" replaceByExpression="attribute.angularFormControlType(model.entity.entityName)" ]
 
     }}}@  */
     public createInitialIteratioSimpliciumTextuumForm(): FormControl<string> {

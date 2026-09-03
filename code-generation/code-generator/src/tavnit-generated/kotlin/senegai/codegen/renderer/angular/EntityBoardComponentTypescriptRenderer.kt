@@ -21,7 +21,7 @@ object EntityBoardComponentTypescriptRenderer : UiEntityRenderer {
           |import {${model.entityName.pascalCase}ResultComponent} from '@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}-result/${model.entityName.kebabCase}-result.component';
           |import {MatDialog, MatDialogModule} from '@angular/material/dialog';
           |import {${model.entityName.pascalCase}ConfirmDeleteDialogComponent} from '@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}-confirm-delete-dialog/${model.entityName.kebabCase}-confirm-delete-dialog.component';
-          |import {${model.entityName.pascalCase}Service} from '@app/${model.entityName.kebabCase}/${model.entityName.kebabCase}.service';
+          |import {${model.entityRootItem.itemName.pascalCase}Service} from '@app/service/${model.entityRootItem.itemName.kebabCase}.service';
           |import {ReactiveFormsModule} from "@angular/forms";
           |import {MatButtonModule} from "@angular/material/button";
           |import {MatToolbarModule} from "@angular/material/toolbar";
@@ -66,7 +66,7 @@ object EntityBoardComponentTypescriptRenderer : UiEntityRenderer {
           |    creating = false;
           |    refreshKey = 0;
           |
-          |    constructor(private dialog: MatDialog, private ${model.entityName.camelCase}Service: ${model.entityName.pascalCase}Service) {
+          |    constructor(private dialog: MatDialog, private ${model.entityRootItem.itemName.camelCase}Service: ${model.entityRootItem.itemName.pascalCase}Service) {
           |    }
           |
           |    onSearch(criteria: ${model.entityName.pascalCase}SearchCriteria): void {
@@ -91,7 +91,7 @@ object EntityBoardComponentTypescriptRenderer : UiEntityRenderer {
           |        });
           |        dialogRef.afterClosed().subscribe(result => {
           |            if (result) {
-          |                this.${model.entityName.camelCase}Service.delete${model.entityRootItem.itemName.pascalCase}(${model.entityName.camelCase}.${model.idAttribute.attributeName.camelCase}).subscribe(() => {
+          |                this.${model.entityRootItem.itemName.camelCase}Service.delete${model.entityRootItem.itemName.pascalCase}(${model.entityName.camelCase}.${model.idAttribute.attributeName.camelCase}).subscribe(() => {
           |                    this.refreshKey++;
           |                });
           |            }
@@ -100,8 +100,8 @@ object EntityBoardComponentTypescriptRenderer : UiEntityRenderer {
           |
           |    onSave(${model.entityName.camelCase}: ${model.entityRootItem.itemName.pascalCase}WTO): void {
           |        const save${"$"} = this.creating
-          |            ? this.${model.entityName.camelCase}Service.create${model.entityRootItem.itemName.pascalCase}(${model.entityName.camelCase})
-          |            : this.${model.entityName.camelCase}Service.update${model.entityRootItem.itemName.pascalCase}(${model.entityName.camelCase});
+          |            ? this.${model.entityRootItem.itemName.camelCase}Service.create${model.entityRootItem.itemName.pascalCase}(${model.entityName.camelCase})
+          |            : this.${model.entityRootItem.itemName.camelCase}Service.update${model.entityRootItem.itemName.pascalCase}(${model.entityName.camelCase});
           |        save${"$"}.subscribe(() => {
           |            this.selected${model.entityName.pascalCase} = null;
           |            this.creating = false;

@@ -30,7 +30,7 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {OpusMagnumSearchCriteria} from '@app/opus-magnum/opus-magnum-search/opus-magnum-search.component';
-import {OpusMagnumService} from '@app/opus-magnum/opus-magnum.service';
+import {SilvaOptionumService} from '@app/service/silva-optionum.service';
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
 import {MatToolbarModule} from "@angular/material/toolbar";
@@ -88,7 +88,7 @@ export class OpusMagnumResultComponent implements OnInit, OnChanges {
     ];
     dataSource: MatTableDataSource<SilvaOptionumWTO> = new MatTableDataSource<SilvaOptionumWTO>();
 
-    constructor(private opusMagnumService: OpusMagnumService) {
+    constructor(private silvaOptionumService: SilvaOptionumService) {
     }
 
     ngOnInit(): void {
@@ -107,7 +107,7 @@ export class OpusMagnumResultComponent implements OnInit, OnChanges {
         const searchCriteria: SilvaOptionumSearchCriteriaWTO = {
             query: this.searchCriteria?.searchQuery ?? '',
         };
-        this.opusMagnumService.searchSilvaOptionumList(searchCriteria)
+        this.silvaOptionumService.searchSilvaOptionumList(searchCriteria)
             .subscribe(searchResult => {
                 this.dataSource.data = searchResult.silvaOptionumList;
             });

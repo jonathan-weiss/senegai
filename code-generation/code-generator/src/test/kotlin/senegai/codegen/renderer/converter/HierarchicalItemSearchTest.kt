@@ -3,7 +3,6 @@ package senegai.codegen.renderer.converter
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import senegai.model.schema.BuiltInType
-import senegai.model.schema.EntityId
 import senegai.model.schema.EnumId
 import senegai.model.schema.Item
 import senegai.model.schema.ItemAttribute
@@ -258,14 +257,10 @@ internal class HierarchicalItemSearchTest {
     }
 
     @Test
-    fun `mixed attribute types - ItemId, EntityId, EnumId, and BuiltInType`() {
-        // Given: Item with various attribute types, only ItemId should be followed
+    fun `mixed attribute types - ItemId, EnumId, and BuiltInType`() {
+        // Given: Item with various attribute types, only a nested ItemId should be followed
         val enumId = object : EnumId {
             override val enumName: String = "Status"
-        }
-
-        val entityId = object : EntityId {
-            override val entityName: String = "User"
         }
 
         val itemIdB = itemId("ItemB")
@@ -285,7 +280,6 @@ internal class HierarchicalItemSearchTest {
                 createItemAttribute("numberField", BuiltInType.NUMBER),
                 createItemAttribute("boolField", BuiltInType.BOOLEAN),
                 createItemAttribute("enumField", enumId),
-                createItemAttribute("entityField", entityId),
                 createItemAttribute("nestedItem", itemIdB)
             )
         )
@@ -296,6 +290,46 @@ internal class HierarchicalItemSearchTest {
         val result = HierarchicalItemSearch.findAllItemNames(itemA, allItems)
 
         // Then - only ItemId references should be followed
+        assertEquals(setOf(itemIdA, itemIdB), result)
+    }
+
+    @Test
+    fun `a reference is not followed as a nested item`() {
+        // Given: A nests B and references C. A reference carries an ItemId just like a nested
+        // item, but it points at a foreign item that is stored by its primary key only.
+        val itemIdA = itemId("ItemA")
+        val itemIdB = itemId("ItemB")
+        val itemIdC = itemId("ItemC")
+
+        val itemC = Item(
+            itemId = itemIdC,
+            attributes = listOf(
+                createItemAttribute("id", BuiltInType.UUID)
+            ),
+            idAttributeName = "id",
+        )
+
+        val itemB = Item(
+            itemId = itemIdB,
+            attributes = listOf(
+                createItemAttribute("field1", BuiltInType.STRING)
+            )
+        )
+
+        val itemA = Item(
+            itemId = itemIdA,
+            attributes = listOf(
+                createItemAttribute("nestedB", itemIdB),
+                createItemAttribute("referenceToC", itemIdC, isReference = true)
+            )
+        )
+
+        val allItems = listOf(itemA, itemB, itemC)
+
+        // When
+        val result = HierarchicalItemSearch.findAllItemNames(itemA, allItems)
+
+        // Then - ItemC is referenced, not nested, and therefore not part of the hierarchy
         assertEquals(setOf(itemIdA, itemIdB), result)
     }
 
@@ -340,13 +374,18 @@ internal class HierarchicalItemSearchTest {
         assertEquals(setOf(itemIdA, itemIdB), result)
     }
     
-    private fun createItemAttribute(name: String, type: ItemAttributeType = BuiltInType.STRING): ItemAttribute {
+    private fun createItemAttribute(
+        name: String,
+        type: ItemAttributeType = BuiltInType.STRING,
+        isReference: Boolean = false,
+    ): ItemAttribute {
         return ItemAttribute(
             attributeName = name,
             isNullable = false,
             isMultiple = false,
             type = type,
             exampleDataCategory = null,
+            isReference = isReference,
         )
     }
 }

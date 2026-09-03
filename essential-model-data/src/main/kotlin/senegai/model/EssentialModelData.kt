@@ -2,22 +2,14 @@ package senegai.model
 
 import senegai.model.builders.RootDsl
 import senegai.model.schema.BuiltInType
-import senegai.model.schema.EntityId
 import senegai.model.schema.EnumId
 import senegai.model.schema.ExampleDataCategory
 import senegai.model.schema.ItemId
 
 object EssentialModelData {
     fun RootDsl.collectData() {
-        collectEntityData()
+        collectItemData()
         collectUiData()
-    }
-
-    enum class Entities(
-        override val entityName: String,
-    ) : EntityId {
-        EMPLOYEE(entityName = "Employee"),
-        EMPLOYEE_ADDRESS(entityName = "EmployeeAddress"),
     }
 
     enum class Items(
@@ -36,11 +28,8 @@ object EssentialModelData {
         CONTACT_TYPE(enumName = "ContactType"),
     }
 
-    private fun RootDsl.collectEntityData() {
+    private fun RootDsl.collectItemData() {
         schema {
-            entity(entityId = Entities.EMPLOYEE, entityRootItemId = Items.CONTACT, entityIdAttributeName = "contactId")
-            entity(entityId = Entities.EMPLOYEE_ADDRESS, entityRootItemId = Items.ADDRESS, entityIdAttributeName = "id")
-
             enumType(enumId = EnumTypes.SALUTATION) {
                 enumValue(name = "Mr")
                 enumValue(name = "Ms")
@@ -62,6 +51,8 @@ object EssentialModelData {
             }
 
             item(itemId = Items.CONTACT) {
+                primaryKey(attributeName = "contactId")
+
                 attribute(name = "contactId", type = BuiltInType.UUID)
                 attribute(name = "contactSalutation", enumId = EnumTypes.SALUTATION)
                 attribute(name = "firstname", type = BuiltInType.STRING, exampleDataCategory = ExampleDataCategory.FIRSTNAME)
@@ -76,13 +67,15 @@ object EssentialModelData {
                 attribute(name = "otherAddresses", itemId = Items.ADDRESS, nullable = true, multiple = true)
                 attribute(name = "allKnownPinNumbers", type = BuiltInType.NUMBER, nullable = true, multiple = true)
                 attribute(name = "allContactTypes", enumId = EnumTypes.CONTACT_TYPE, nullable = true, multiple = true)
-                attribute(name = "myReferenceToEmployee", entityId = Entities.EMPLOYEE_ADDRESS, nullable = false, multiple = false)
-                attribute(name = "myReferenceToEmployeeNullable", entityId = Entities.EMPLOYEE_ADDRESS, nullable = true, multiple = false)
-                attribute(name = "myReferencesToEmployeeAddresses", entityId = Entities.EMPLOYEE_ADDRESS, nullable = false, multiple = true)
-                attribute(name = "myReferencesToEmployeeAddressesNullable", entityId = Entities.EMPLOYEE_ADDRESS, nullable = true, multiple = true)
+                reference(name = "myReferenceToAddress", itemId = Items.ADDRESS, nullable = false, multiple = false)
+                reference(name = "myReferenceToAddressNullable", itemId = Items.ADDRESS, nullable = true, multiple = false)
+                reference(name = "myReferencesToAddresses", itemId = Items.ADDRESS, nullable = false, multiple = true)
+                reference(name = "myReferencesToAddressesNullable", itemId = Items.ADDRESS, nullable = true, multiple = true)
             }
 
             item(itemId = Items.ADDRESS) {
+                primaryKey(attributeName = "id")
+
                 attribute(name = "id", type = BuiltInType.UUID)
                 attribute(name = "street", type = BuiltInType.STRING, exampleDataCategory = ExampleDataCategory.STREET)
                 attribute(name = "postalCode", type = BuiltInType.STRING, exampleDataCategory = ExampleDataCategory.POSTCODE)
@@ -99,7 +92,7 @@ object EssentialModelData {
 
     private fun RootDsl.collectUiData() {
         schema {
-            uiEntity(entityId = Entities.EMPLOYEE) {
+            uiEntity(uiEntityName = "Contact", rootItemId = Items.CONTACT) {
                 views {
                     editor {
                         configureEditorForEntity {
@@ -127,11 +120,11 @@ object EssentialModelData {
                             }
                             tab(tabName = "References") {
                                 column {
-                                    section(sectionName = "References to other entities")
-                                    attribute(attributeName = "myReferenceToEmployee")
-                                    attribute(attributeName = "myReferenceToEmployeeNullable")
-                                    attribute(attributeName = "myReferencesToEmployeeAddresses")
-                                    attribute(attributeName = "myReferencesToEmployeeAddressesNullable")
+                                    section(sectionName = "References to other items")
+                                    attribute(attributeName = "myReferenceToAddress")
+                                    attribute(attributeName = "myReferenceToAddressNullable")
+                                    attribute(attributeName = "myReferencesToAddresses")
+                                    attribute(attributeName = "myReferencesToAddressesNullable")
                                 }
                             }
                             tab(tabName = "Miscellaneous") {
@@ -165,7 +158,7 @@ object EssentialModelData {
                     }
                 }
             }
-            uiEntity(entityId = Entities.EMPLOYEE_ADDRESS) {
+            uiEntity(uiEntityName = "Address", rootItemId = Items.ADDRESS) {
                 views {
                     editor {
                         configureEditorForEntity {

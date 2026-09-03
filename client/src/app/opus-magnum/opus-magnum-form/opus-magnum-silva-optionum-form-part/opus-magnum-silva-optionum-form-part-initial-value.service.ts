@@ -62,7 +62,7 @@ export class OpusMagnumSilvaOptionumFormPartInitialValueService {
         @foreach [ iteratorExpression="model.item.attributesWithAngularFormInitialValues" loopVariable="attribute" ]
         @replace-value-by-expression
             [ searchValue="campusTextusObligatorius" replaceByExpression="attribute.attributeName.camelCase" ]
-            [ searchValue="string" replaceByExpression="attribute.angularInitialValueFormType" ]
+            [ searchValue="string" replaceByExpression="attribute.angularInitialValueFormType(model.entity.entityName)" ]
             [ searchValue="''" replaceByExpression="attribute.angularFormInitialValue" ]
 
     }}}@  */

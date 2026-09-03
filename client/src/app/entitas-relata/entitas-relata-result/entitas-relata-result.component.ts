@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
-import {EntitasRelataService} from '@app/entitas-relata/entitas-relata.service';
+import {MembrumRelatumService} from '@app/service/membrum-relatum.service';
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
 import {MatToolbarModule} from "@angular/material/toolbar";
@@ -49,7 +49,7 @@ export class EntitasRelataResultComponent implements OnInit, OnChanges {
     ];
     dataSource: MatTableDataSource<MembrumRelatumWTO> = new MatTableDataSource<MembrumRelatumWTO>();
 
-    constructor(private entitasRelataService: EntitasRelataService) {
+    constructor(private membrumRelatumService: MembrumRelatumService) {
     }
 
     ngOnInit(): void {
@@ -69,7 +69,7 @@ export class EntitasRelataResultComponent implements OnInit, OnChanges {
         const searchCriteria: MembrumRelatumSearchCriteriaWTO = {
             query: this.searchCriteria?.searchQuery ?? '',
         };
-        this.entitasRelataService.searchMembrumRelatumList(searchCriteria)
+        this.membrumRelatumService.searchMembrumRelatumList(searchCriteria)
             .subscribe(searchResult => {
                 this.dataSource.data = searchResult.membrumRelatumList;
             });

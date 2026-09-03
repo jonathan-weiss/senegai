@@ -2,19 +2,19 @@
 
     @move-comment-backward
     @template-renderer [
-        templateRendererClassName="EntityByIdsCriteriaMapperRenderer"
+        templateRendererClassName="ItemByIdsCriteriaMapperRenderer"
         templateRendererPackageName="senegai.codegen.renderer.be"
-        templateRendererInterfaceName="BeEntityRenderer"
+        templateRendererInterfaceName="BeItemRenderer"
         templateRendererInterfacePackageName="senegai.codegen.renderer.be"
     ] [
-        modelClassName="BeEntityModel"
+        modelClassName="BeItemModel"
         modelPackageName="senegai.codegen.renderer.model.be"
         modelName="model"
     ]
 
     @replace-value-by-expression
-        [ searchValue="SilvaOptionum" replaceByExpression="model.entityRootItem.itemName.pascalCase" ]
-        [ searchValue="indexUnicus" replaceByExpression="model.idAttribute.attributeName.camelCase" ]
+        [ searchValue="SilvaOptionum" replaceByExpression="model.itemName.pascalCase" ]
+        [ searchValue="indexUnicus" replaceByExpression="model.primaryKeyAttribute.attributeName.camelCase" ]
 
     @modify-provided-filepath-by-replacements
 

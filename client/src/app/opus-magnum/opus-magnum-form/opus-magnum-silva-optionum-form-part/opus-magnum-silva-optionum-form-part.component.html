@@ -123,6 +123,7 @@
                                 @render-template
                                     [ templateRendererClassName="SingleFormInputHtmlTagRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" ]
                                     [ modelName="attributeModel" modelExpression="block.attribute" ]
+                                    [ modelName="uiEntityName" modelExpression="block.entity.entityName" ]
                                 @ignore-text
                             }}}@  -->
                             <app-text-input [textFormControl]="campusTextusObligatoriusControl" label="campusTextusObligatorius" placeholder="Enter Campus Textus Obligatorius" [validatorTranslations]="campusTextusObligatoriusValidatorNames" />
@@ -148,6 +149,7 @@
                                 @render-template
                                     [ templateRendererClassName="SingleFormInputHtmlTagRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" ]
                                     [ modelName="attributeModel" modelExpression="block.attribute" ]
+                                    [ modelName="uiEntityName" modelExpression="block.entity.entityName" ]
                                 @ignore-text
                             }}}@  -->
                             <app-text-input [textFormControl]="campusTextusOptionalisControl" label="campusTextusOptionalis" placeholder="Enter campusTextusOptionalis" [validatorTranslations]="campusTextusOptionalisValidatorNames" />
@@ -166,7 +168,7 @@
                     [ searchValue="ArticulusInterior" replaceByExpression="block.attribute.referencedItem.itemName.pascalCase" ]
                     [ searchValue="articulusInterior" replaceByExpression="block.attribute.referencedItem.itemName.camelCase" ]
                     [ searchValue="articulus-interior" replaceByExpression="block.attribute.referencedItem.itemName.kebabCase" ]
-                    [ searchValue="opus-magnum" replaceByExpression="block.attribute.referencedEntity.entityName.kebabCase" ]
+                    [ searchValue="opus-magnum" replaceByExpression="block.entity.entityName.kebabCase" ]
 
                 }}}@  -->
 
@@ -186,6 +188,7 @@
                                     @render-template
                                         [ templateRendererClassName="SingleFormInputHtmlTagRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" ]
                                         [ modelName="attributeModel" modelExpression="block.attribute" ]
+                                        [ modelName="uiEntityName" modelExpression="block.entity.entityName" ]
                                         [ modelName="isList" modelExpression="true" ]
                                     @ignore-text
                                 }}}@  -->
@@ -207,7 +210,7 @@
                     [ searchValue="ArticulusInterior" replaceByExpression="block.attribute.referencedItem.itemName.pascalCase" ]
                     [ searchValue="articulusInterior" replaceByExpression="block.attribute.referencedItem.itemName.camelCase" ]
                     [ searchValue="articulus-interior" replaceByExpression="block.attribute.referencedItem.itemName.kebabCase" ]
-                    [ searchValue="opus-magnum" replaceByExpression="block.attribute.referencedEntity.entityName.kebabCase" ]
+                    [ searchValue="opus-magnum" replaceByExpression="block.entity.entityName.kebabCase" ]
 
                 }}}@  -->
 
@@ -230,6 +233,7 @@
                                     @render-template
                                         [ templateRendererClassName="SingleFormInputHtmlTagRenderer" templateRendererPackageName="senegai.codegen.renderer.angular" ]
                                         [ modelName="attributeModel" modelExpression="block.attribute" ]
+                                        [ modelName="uiEntityName" modelExpression="block.entity.entityName" ]
                                         [ modelName="isList" modelExpression="true" ]
                                     @ignore-text
                                 }}}@  -->
@@ -258,7 +262,7 @@
                                        [nullabilityCheckboxFormControl]="relatioAdEntitatemOptionalisIteratusIsNotNullControl"
                                        [formGroupToDisableIfNullField]="relatioAdEntitatemOptionalisIteratusControl"
                     >
-                        <app-entitas-relata-membrum-relatum-reference-table
+                        <app-membrum-relatum-reference-table
                                 [membrumRelatumReferenceFormArray]="relatioAdEntitatemOptionalisIteratusControl" />
                     </app-field-wrapper>
                 </div>
@@ -267,7 +271,7 @@
                                        [nullabilityCheckboxFormControl]="relatioAdEntitatemOptionalisIsNotNullControl"
                                        [formGroupToDisableIfNullField]="relatioAdEntitatemOptionalisControl"
                     >
-                        <app-entitas-relata-membrum-relatum-reference-field
+                        <app-membrum-relatum-reference-field
                                 [membrumRelatumReferenceFormControl]="relatioAdEntitatemOptionalisControl"
                                 [validatorTranslations]="relatioAdEntitatemOptionalisValidatorNames" />
                     </app-field-wrapper>

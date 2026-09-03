@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {MembrumRelatumWTO} from "@app/wto/membrum-relatum.wto";
-import {EntitasRelataService} from "@app/entitas-relata/entitas-relata.service";
+import {MembrumRelatumService} from "@app/service/membrum-relatum.service";
 import {EntitasRelataFormComponent} from "@app/entitas-relata/entitas-relata-form/entitas-relata-form/entitas-relata-form.component";
 import {ActivatedRoute} from "@angular/router";
 import {UUID} from "@app/shared/uuid";
@@ -18,14 +18,14 @@ export class EntitasRelataRoutableEditComponent {
     selectedEntitasRelata: MembrumRelatumWTO | null = null;
 
     constructor(
-        private entitasRelataService: EntitasRelataService,
+        private membrumRelatumService: MembrumRelatumService,
         private route: ActivatedRoute,
     ) {
         this.route.params.subscribe(params => {
             const idParam = params['clavisPrimaria'];
             if (idParam) {
                 const clavisPrimaria = idParam as UUID;
-                this.entitasRelataService.getMembrumRelatumById(clavisPrimaria).subscribe(entitasRelata => {
+                this.membrumRelatumService.getMembrumRelatumById(clavisPrimaria).subscribe(entitasRelata => {
                     this.selectedEntitasRelata = entitasRelata;
                 });
             }

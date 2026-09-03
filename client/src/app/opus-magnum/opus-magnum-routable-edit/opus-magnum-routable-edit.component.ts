@@ -32,7 +32,7 @@
 }}}@ */
 import {Component} from '@angular/core';
 import {SilvaOptionumWTO} from "@app/wto/silva-optionum.wto";
-import {OpusMagnumService} from "@app/opus-magnum/opus-magnum.service";
+import {SilvaOptionumService} from "@app/service/silva-optionum.service";
 import {OpusMagnumFormComponent} from "@app/opus-magnum/opus-magnum-form/opus-magnum-form/opus-magnum-form.component";
 import {ActivatedRoute} from "@angular/router";
 import {UUID} from "@app/shared/uuid";
@@ -50,14 +50,14 @@ export class OpusMagnumRoutableEditComponent {
     selectedOpusMagnum: SilvaOptionumWTO | null = null;
 
     constructor(
-        private opusMagnumService: OpusMagnumService,
+        private silvaOptionumService: SilvaOptionumService,
         private route: ActivatedRoute,
     ) {
         this.route.params.subscribe(params => {
             const idParam = params['indexUnicus'];
             if (idParam) {
                 const indexUnicus = idParam as UUID;
-                this.opusMagnumService.getSilvaOptionumById(indexUnicus).subscribe(opusMagnum => {
+                this.silvaOptionumService.getSilvaOptionumById(indexUnicus).subscribe(opusMagnum => {
                     this.selectedOpusMagnum = opusMagnum;
                 });
             }

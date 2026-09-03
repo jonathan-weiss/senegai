@@ -72,7 +72,7 @@ object FakerHelper {
         return dataContext.toFaker().number().numberBetween(0, 3)
     }
 
-    fun entityListRandomSize(dataContext: DataContext): Int {
+    fun itemListRandomSize(dataContext: DataContext): Int {
         return dataContext.toFaker().number().numberBetween(0, 25)
     }
 
