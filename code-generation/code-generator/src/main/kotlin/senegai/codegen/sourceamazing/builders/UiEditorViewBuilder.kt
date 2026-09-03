@@ -16,24 +16,24 @@ interface UiEditorViewBuilder: UiEditorDsl {
     @BuilderMethod
     @NewClazzModel(clazz = UiEntityEditorRootItemConfiguration::class, alias = "mainItemConfiguration")
     @SetClazzModelOfAlias(alias = "uiEditor", clazzProperty = "itemConfiguration", referencedAlias = "mainItemConfiguration")
-    fun configureEditorForEntityInternal(
+    fun configureEditorForMainItemInternal(
         @InjectBuilder builder: UiEditorConfigForMainEntityItemBuilder.() -> Unit
     )
 
-    override fun configureEditorForEntity(builder: UiEditorForMainItemDsl.() -> Unit) {
-        configureEditorForEntityInternal(builder)
+    override fun configureEditorForMainItem(builder: UiEditorForMainItemDsl.() -> Unit) {
+        configureEditorForMainItemInternal(builder)
     }
 
     @BuilderMethod
     @NewClazzModel(clazz = UiEntityEditorEntityNestedItemConfiguration::class, alias = "nestedItemConfiguration")
     @SetClazzModelOfAlias(alias = "uiEditor", clazzProperty = "itemConfiguration", referencedAlias = "nestedItemConfiguration")
-    fun configureEditorForNestedEntityItemInternal(
+    fun configureEditorForNestedItemInternal(
         @SetAsValue(alias = "nestedItemConfiguration", clazzProperty = "itemId")
         itemId: ItemId,
         @InjectBuilder builder: UiEditorConfigForNestedEntityItemBuilder.() -> Unit
     )
 
-    override fun configureNestedEntityItem(itemId: ItemId, builder: UiEditorForNestedItemDsl.() -> Unit) {
-        configureEditorForNestedEntityItemInternal(itemId, builder)
+    override fun configureEditorForNestedItem(itemId: ItemId, builder: UiEditorForNestedItemDsl.() -> Unit) {
+        configureEditorForNestedItemInternal(itemId, builder)
     }
 }

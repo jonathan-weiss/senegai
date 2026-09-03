@@ -14,9 +14,9 @@ interface UiViewsDsl {
 
 @MainDslMarker
 interface UiEditorDsl {
-    fun configureEditorForEntity(builder: UiEditorForMainItemDsl.() -> Unit)
+    fun configureEditorForMainItem(builder: UiEditorForMainItemDsl.() -> Unit)
 
-    fun configureNestedEntityItem(
+    fun configureEditorForNestedItem(
         itemId: ItemId,
         builder: UiEditorForNestedItemDsl.() -> Unit,
     )

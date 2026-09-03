@@ -90,7 +90,7 @@ object EssentialModelData {
             uiEntity(uiEntityName = "Contact", rootItemId = Items.CONTACT) {
                 views {
                     editor {
-                        configureEditorForEntity {
+                        configureEditorForMainItem {
                             tab(tabName = "Common") {
                                 column {
                                     attribute(attributeName = "contactId")
@@ -135,7 +135,7 @@ object EssentialModelData {
                                 }
                             }
                         }
-                        configureNestedEntityItem(itemId = Items.ADDRESS) {
+                        configureEditorForNestedItem(itemId = Items.ADDRESS) {
                             column {
                                 attribute(attributeName = "id")
                                 attribute(attributeName = "street")
@@ -144,7 +144,7 @@ object EssentialModelData {
                                 attribute(attributeName = "country")
                             }
                         }
-                        configureNestedEntityItem(itemId = Items.COUNTRY) {
+                        configureEditorForNestedItem(itemId = Items.COUNTRY) {
                             column {
                                 attribute(attributeName = "countryIsoCode")
                                 attribute(attributeName = "countryName")
@@ -156,7 +156,7 @@ object EssentialModelData {
             uiEntity(uiEntityName = "Address", rootItemId = Items.ADDRESS) {
                 views {
                     editor {
-                        configureEditorForEntity {
+                        configureEditorForMainItem {
                             tab(tabName = "Address") {
                                 column {
                                     attribute(attributeName = "id")
@@ -168,7 +168,7 @@ object EssentialModelData {
                                 }
                             }
                         }
-                        configureNestedEntityItem(itemId = Items.ADDRESS) {
+                        configureEditorForNestedItem(itemId = Items.ADDRESS) {
                             column {
                                 attribute(attributeName = "id")
                                 attribute(attributeName = "street")
@@ -177,7 +177,7 @@ object EssentialModelData {
                                 attribute(attributeName = "country")
                             }
                         }
-                        configureNestedEntityItem(itemId = Items.COUNTRY) {
+                        configureEditorForNestedItem(itemId = Items.COUNTRY) {
                             column {
                                 attribute(attributeName = "countryIsoCode")
                                 attribute(attributeName = "countryName")
