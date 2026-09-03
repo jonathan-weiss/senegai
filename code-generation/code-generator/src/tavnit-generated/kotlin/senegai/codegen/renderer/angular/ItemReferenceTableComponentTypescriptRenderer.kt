@@ -60,17 +60,12 @@ object ItemReferenceTableComponentTypescriptRenderer : UiItemRenderer {
           |})
           |export class ${model.itemName.pascalCase}ReferenceTableComponent implements OnInit {
           |    @Input({required: true}) ${model.itemName.camelCase}ReferenceFormArray!: FormArray<FormControl<UUID>>;
-          |    /**
-          |     * t(${model.itemName.camelCase}.${model.primaryKeyAttribute.attributeName.camelCase}.label)
-          |     */
-          |    @Input() columnHeader${model.primaryKeyAttribute.attributeName.pascalCase}TranslationKey: string = '${model.itemName.camelCase}.${model.primaryKeyAttribute.attributeName.camelCase}.label';
           |${ model.displayAttributes.joinToString("") { displayAttribute ->  """    /**
               |     * t(${model.itemName.camelCase}.${displayAttribute.attributeName.camelCase}.label)
               |     */
               |    @Input() columnHeader${displayAttribute.attributeName.pascalCase}TranslationKey: string = '${model.itemName.camelCase}.${displayAttribute.attributeName.camelCase}.label';
               |""" } }
           |    protected readonly displayedColumns: string[] = [
-          |        '${model.primaryKeyAttribute.attributeName.camelCase}',
           |${ model.displayAttributes.joinToString("") { displayAttribute ->  """        '${displayAttribute.attributeName.camelCase}',
               |""" } }        'actions',
           |    ];

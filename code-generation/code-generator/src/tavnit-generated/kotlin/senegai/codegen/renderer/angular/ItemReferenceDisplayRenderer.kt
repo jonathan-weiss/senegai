@@ -28,6 +28,7 @@ object ItemReferenceDisplayRenderer : UiItemRenderer {
           | * reference or a whole list of them.
           | */
           |export interface ${model.itemName.pascalCase}DisplayRow {
+          |    /** Identifies the referenced entry. It is never shown: a bare UUID says nothing to the user. */
           |    ${model.primaryKeyAttribute.attributeName.camelCase}: UUID
           |${ model.displayAttributes.joinToString("") { displayAttribute ->  """    ${displayAttribute.attributeName.camelCase}: string
               |""" } }}
@@ -39,7 +40,6 @@ object ItemReferenceDisplayRenderer : UiItemRenderer {
           | * ${model.itemName.pascalCase}WTO and renders these attributes instead of the UUID alone.
           | */
           |export const ${model.itemName.screamingSnakeCase}_DISPLAY_ATTRIBUTE_NAMES: ReadonlyArray<keyof ${model.itemName.pascalCase}DisplayRow> = [
-          |    '${model.primaryKeyAttribute.attributeName.camelCase}',
           |${ model.displayAttributes.joinToString("") { displayAttribute ->  """    '${displayAttribute.attributeName.camelCase}',
               |""" } }];
           |

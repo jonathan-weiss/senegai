@@ -25,12 +25,6 @@ object ItemReferenceTableComponentHtmlRenderer : UiItemRenderer {
           |                (${model.itemName.camelCase}Selected)="on${model.itemName.pascalCase}Selected(${"$"}event)" />
           |    </div>
           |    <table mat-table [dataSource]="dataSource">
-          |        <!-- Display attribute: ${model.primaryKeyAttribute.attributeName.pascalCase} -->
-          |        <ng-container matColumnDef="${model.primaryKeyAttribute.attributeName.camelCase}">
-          |            <th mat-header-cell *matHeaderCellDef>{{ columnHeader${model.primaryKeyAttribute.attributeName.pascalCase}TranslationKey | transloco }}</th>
-          |            <td mat-cell *matCellDef="let tableRow">{{ tableRow.${model.primaryKeyAttribute.attributeName.camelCase} }}</td>
-          |        </ng-container>
-          |
           |${ model.displayAttributes.joinToString("") { displayAttribute ->  """        <!-- Display attribute: ${displayAttribute.attributeName.pascalCase} -->
               |        <ng-container matColumnDef="${displayAttribute.attributeName.camelCase}">
               |            <th mat-header-cell *matHeaderCellDef>{{ columnHeader${displayAttribute.attributeName.pascalCase}TranslationKey | transloco }}</th>

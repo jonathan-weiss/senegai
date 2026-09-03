@@ -31,12 +31,6 @@
                 (membrumRelatumSelected)="onMembrumRelatumSelected($event)" />
     </div>
     <table mat-table [dataSource]="dataSource">
-        <!-- Display attribute: ClavisPrimaria -->
-        <ng-container matColumnDef="clavisPrimaria">
-            <th mat-header-cell *matHeaderCellDef>{{ columnHeaderClavisPrimariaTranslationKey | transloco }}</th>
-            <td mat-cell *matCellDef="let tableRow">{{ tableRow.clavisPrimaria }}</td>
-        </ng-container>
-
         <!-- @tt{{{
             @foreach [ iteratorExpression="model.displayAttributes" loopVariable="displayAttribute" ]
             @replace-value-by-expression

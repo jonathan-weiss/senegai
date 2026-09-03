@@ -34,6 +34,7 @@ import {MembrumRelatumWTO} from "@app/wto/membrum-relatum.wto";
  * reference or a whole list of them.
  */
 export interface MembrumRelatumDisplayRow {
+    /** Identifies the referenced entry. It is never shown: a bare UUID says nothing to the user. */
     clavisPrimaria: UUID
     /* @tt{{{
         @foreach [ iteratorExpression="model.displayAttributes" loopVariable="displayAttribute" ]
@@ -51,7 +52,6 @@ export interface MembrumRelatumDisplayRow {
  * MembrumRelatumWTO and renders these attributes instead of the UUID alone.
  */
 export const MEMBRUM_RELATUM_DISPLAY_ATTRIBUTE_NAMES: ReadonlyArray<keyof MembrumRelatumDisplayRow> = [
-    'clavisPrimaria',
     /* @tt{{{
         @foreach [ iteratorExpression="model.displayAttributes" loopVariable="displayAttribute" ]
         @replace-value-by-expression

@@ -66,10 +66,6 @@ import {TranslocoPipe} from "@jsverse/transloco";
 })
 export class MembrumRelatumReferenceTableComponent implements OnInit {
     @Input({required: true}) membrumRelatumReferenceFormArray!: FormArray<FormControl<UUID>>;
-    /**
-     * t(membrumRelatum.clavisPrimaria.label)
-     */
-    @Input() columnHeaderClavisPrimariaTranslationKey: string = 'membrumRelatum.clavisPrimaria.label';
     /* @tt{{{
         @foreach [ iteratorExpression="model.displayAttributes" loopVariable="displayAttribute" ]
         @replace-value-by-expression
@@ -83,7 +79,6 @@ export class MembrumRelatumReferenceTableComponent implements OnInit {
     /* @tt{{{   @end-foreach  }}}@ */
 
     protected readonly displayedColumns: string[] = [
-        'clavisPrimaria',
         /* @tt{{{
             @foreach [ iteratorExpression="model.displayAttributes" loopVariable="displayAttribute" ]
             @replace-value-by-expression
