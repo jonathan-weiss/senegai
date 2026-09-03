@@ -1,7 +1,6 @@
 package senegai.model
 
 import senegai.model.builders.RootDsl
-import senegai.model.schema.BuiltInType
 import senegai.model.schema.EnumId
 import senegai.model.schema.ExampleDataCategory
 import senegai.model.schema.ItemId
@@ -51,41 +50,37 @@ object EssentialModelData {
             }
 
             item(itemId = Items.CONTACT) {
-                primaryKey(attributeName = "contactId")
-
-                attribute(name = "contactId", type = BuiltInType.UUID)
-                attribute(name = "contactSalutation", enumId = EnumTypes.SALUTATION)
-                attribute(name = "firstname", type = BuiltInType.STRING, exampleDataCategory = ExampleDataCategory.FIRSTNAME)
-                attribute(name = "nickname", type = BuiltInType.STRING, nullable = true, exampleDataCategory = ExampleDataCategory.FIRSTNAME)
-                attribute(name = "lastname", type = BuiltInType.STRING, customValidation = true , exampleDataCategory = ExampleDataCategory.LASTNAME)
-                attribute(name = "allKnownNicknames", type = BuiltInType.STRING, multiple = true, exampleDataCategory = ExampleDataCategory.FIRSTNAME)
-                attribute(name = "age", type = BuiltInType.NUMBER, customValidation = true, exampleDataCategory = ExampleDataCategory.AGE)
-                attribute(name = "vegetarian", type = BuiltInType.BOOLEAN)
-                attribute(name = "homeAddress", itemId = Items.ADDRESS, nullable = false)
-                attribute(name = "contactAddress", itemId = Items.ADDRESS, nullable = true)
-                attribute(name = "mandatoryAddresses", itemId = Items.ADDRESS, nullable = false, multiple = true)
-                attribute(name = "otherAddresses", itemId = Items.ADDRESS, nullable = true, multiple = true)
-                attribute(name = "allKnownPinNumbers", type = BuiltInType.NUMBER, nullable = true, multiple = true)
-                attribute(name = "allContactTypes", enumId = EnumTypes.CONTACT_TYPE, nullable = true, multiple = true)
-                reference(name = "myReferenceToAddress", itemId = Items.ADDRESS, nullable = false, multiple = false)
-                reference(name = "myReferenceToAddressNullable", itemId = Items.ADDRESS, nullable = true, multiple = false)
-                reference(name = "myReferencesToAddresses", itemId = Items.ADDRESS, nullable = false, multiple = true)
-                reference(name = "myReferencesToAddressesNullable", itemId = Items.ADDRESS, nullable = true, multiple = true)
+                attribute(name = "contactId").primaryKey()
+                attribute(name = "contactSalutation").enumType(enumId = EnumTypes.SALUTATION)
+                attribute(name = "firstname").string(exampleDataCategory = ExampleDataCategory.FIRSTNAME)
+                attribute(name = "nickname").string(exampleDataCategory = ExampleDataCategory.FIRSTNAME).options(nullable = true)
+                attribute(name = "lastname").string(exampleDataCategory = ExampleDataCategory.LASTNAME).options(customValidation = true)
+                attribute(name = "allKnownNicknames").string(exampleDataCategory = ExampleDataCategory.FIRSTNAME).options(multiple = true)
+                attribute(name = "age").number(exampleDataCategory = ExampleDataCategory.AGE).options(customValidation = true)
+                attribute(name = "vegetarian").boolean()
+                attribute(name = "homeAddress").nestedItem(itemId = Items.ADDRESS).options(nullable = false)
+                attribute(name = "contactAddress").nestedItem(itemId = Items.ADDRESS).options(nullable = true)
+                attribute(name = "mandatoryAddresses").nestedItem(itemId = Items.ADDRESS).options(nullable = false, multiple = true)
+                attribute(name = "otherAddresses").nestedItem(itemId = Items.ADDRESS).options(nullable = true, multiple = true)
+                attribute(name = "allKnownPinNumbers").number().options(nullable = true, multiple = true)
+                attribute(name = "allContactTypes").enumType(enumId = EnumTypes.CONTACT_TYPE).options(nullable = true, multiple = true)
+                attribute(name = "myReferenceToAddress").reference(itemId = Items.ADDRESS).options(nullable = false, multiple = false)
+                attribute(name = "myReferenceToAddressNullable").reference(itemId = Items.ADDRESS).options(nullable = true, multiple = false)
+                attribute(name = "myReferencesToAddresses").reference(itemId = Items.ADDRESS).options(nullable = false, multiple = true)
+                attribute(name = "myReferencesToAddressesNullable").reference(itemId = Items.ADDRESS).options(nullable = true, multiple = true)
             }
 
             item(itemId = Items.ADDRESS) {
-                primaryKey(attributeName = "id")
-
-                attribute(name = "id", type = BuiltInType.UUID)
-                attribute(name = "street", type = BuiltInType.STRING, exampleDataCategory = ExampleDataCategory.STREET)
-                attribute(name = "postalCode", type = BuiltInType.STRING, exampleDataCategory = ExampleDataCategory.POSTCODE)
-                attribute(name = "town", type = BuiltInType.STRING, exampleDataCategory = ExampleDataCategory.CITY)
-                attribute(name = "country", itemId = Items.COUNTRY)
+                attribute(name = "id").primaryKey()
+                attribute(name = "street").string(exampleDataCategory = ExampleDataCategory.STREET)
+                attribute(name = "postalCode").string(exampleDataCategory = ExampleDataCategory.POSTCODE)
+                attribute(name = "town").string(exampleDataCategory = ExampleDataCategory.CITY)
+                attribute(name = "country").nestedItem(itemId = Items.COUNTRY)
             }
 
             item(itemId = Items.COUNTRY) {
-                attribute(name = "countryIsoCode", type = BuiltInType.STRING, exampleDataCategory = ExampleDataCategory.COUNTRY_ISO)
-                attribute(name = "countryName", type = BuiltInType.STRING, exampleDataCategory = ExampleDataCategory.COUNTRY_NAME)
+                attribute(name = "countryIsoCode").string(exampleDataCategory = ExampleDataCategory.COUNTRY_ISO)
+                attribute(name = "countryName").string(exampleDataCategory = ExampleDataCategory.COUNTRY_NAME)
             }
         }
     }

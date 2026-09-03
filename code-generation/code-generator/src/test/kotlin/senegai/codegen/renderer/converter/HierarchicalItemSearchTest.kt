@@ -304,9 +304,8 @@ internal class HierarchicalItemSearchTest {
         val itemC = Item(
             itemId = itemIdC,
             attributes = listOf(
-                createItemAttribute("id", BuiltInType.UUID)
+                createItemAttribute("id", BuiltInType.UUID, isPrimaryKey = true)
             ),
-            idAttributeName = "id",
         )
 
         val itemB = Item(
@@ -378,6 +377,7 @@ internal class HierarchicalItemSearchTest {
         name: String,
         type: ItemAttributeType = BuiltInType.STRING,
         isReference: Boolean = false,
+        isPrimaryKey: Boolean = false,
     ): ItemAttribute {
         return ItemAttribute(
             attributeName = name,
@@ -385,6 +385,7 @@ internal class HierarchicalItemSearchTest {
             isMultiple = false,
             type = type,
             exampleDataCategory = null,
+            isPrimaryKey = isPrimaryKey,
             isReference = isReference,
         )
     }
