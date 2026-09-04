@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import senegai.model.schema.BuiltInType
+import senegai.model.schema.DbColumn
+import senegai.model.schema.DbItem
 import senegai.model.schema.EnumId
 import senegai.model.schema.EnumType
 import senegai.model.schema.ExampleDataCategory
@@ -51,6 +53,13 @@ class SchemaDataValidatorTest {
                             nestedItemConfiguration(addressId, attributeNames = listOf("Street")),
                         ),
                     )
+                ),
+                dbItems = listOf(
+                    dbItem(
+                        itemId = contactId,
+                        tableName = "T_CONTACT",
+                        columns = listOf(DbColumn(attributeName = "ContactId", columnName = "CONTACT_PK")),
+                    ),
                 ),
             )
         )
@@ -409,6 +418,109 @@ class SchemaDataValidatorTest {
         assertProblemContains(exception, "no such item is declared in the schema")
     }
 
+    @Test
+    fun `a database configuration is declared only for an item of the schema`() {
+        val exception = validationFailureOf(
+            schemaData(items = listOf(contact), dbItems = listOf(dbItem(itemId = TestItemId("Unknown"))))
+        )
+
+        assertEquals("SchemaData > dbItems[0] 'Unknown'", exception.path.toString())
+        assertProblemContains(exception, "no such item is declared in the schema")
+    }
+
+    @Test
+    fun `a database configuration is declared only for an item with a primary key`() {
+        val exception = validationFailureOf(
+            schemaData(items = listOf(contact, address), dbItems = listOf(dbItem(itemId = addressId)))
+        )
+
+        assertEquals("SchemaData > dbItems[0] 'Address'", exception.path.toString())
+        assertProblemContains(exception, "it declares no primary key")
+    }
+
+    @Test
+    fun `an item is configured for the database only once`() {
+        val exception = validationFailureOf(
+            schemaData(
+                items = listOf(contact),
+                dbItems = listOf(dbItem(itemId = contactId), dbItem(itemId = contactId)),
+            )
+        )
+
+        assertEquals("SchemaData > dbItems", exception.path.toString())
+        assertProblemContains(exception, "configured for the database by 2 declarations")
+    }
+
+    @Test
+    fun `a database configuration names a column only for an attribute of its own item`() {
+        val exception = validationFailureOf(
+            schemaData(
+                items = listOf(contact),
+                dbItems = listOf(
+                    dbItem(
+                        itemId = contactId,
+                        columns = listOf(DbColumn(attributeName = "Street", columnName = "STREET")),
+                    ),
+                ),
+            )
+        )
+
+        assertEquals("SchemaData > dbItems[0] 'Contact' > columns[0] 'Street'", exception.path.toString())
+        assertProblemContains(exception, "the item 'Contact' has no such attribute")
+    }
+
+    @Test
+    fun `a database configuration names a column for every attribute only once`() {
+        val exception = validationFailureOf(
+            schemaData(
+                items = listOf(contact),
+                dbItems = listOf(
+                    dbItem(
+                        itemId = contactId,
+                        columns = listOf(
+                            DbColumn(attributeName = "Firstname", columnName = "FIRST_NAME"),
+                            DbColumn(attributeName = "Firstname", columnName = "GIVEN_NAME"),
+                        ),
+                    ),
+                ),
+            )
+        )
+
+        assertEquals("SchemaData > dbItems[0] 'Contact'", exception.path.toString())
+        assertProblemContains(exception, "names a column for the attribute 'Firstname' 2 times")
+    }
+
+    @Test
+    fun `every item is stored in a table of its own`() {
+        val exception = validationFailureOf(
+            schemaData(
+                items = listOf(contact, company),
+                dbItems = listOf(dbItem(itemId = company.itemId, tableName = "CONTACT")),
+            )
+        )
+
+        assertEquals("SchemaData > dbItems", exception.path.toString())
+        assertProblemContains(exception, "The table 'CONTACT' is used by 2 items")
+    }
+
+    @Test
+    fun `every attribute is stored in a column of its own`() {
+        val exception = validationFailureOf(
+            schemaData(
+                items = listOf(contact),
+                dbItems = listOf(
+                    dbItem(
+                        itemId = contactId,
+                        columns = listOf(DbColumn(attributeName = "Firstname", columnName = "CONTACT_ID")),
+                    ),
+                ),
+            )
+        )
+
+        assertEquals("SchemaData > dbItems", exception.path.toString())
+        assertProblemContains(exception, "The column 'CONTACT_ID' of the table 'CONTACT' stores 2 attributes")
+    }
+
     // **************
     // Test fixtures
     // **************
@@ -438,6 +550,11 @@ class SchemaDataValidatorTest {
         attributes = listOf(attribute(name = "Street")),
     )
 
+    private val company = Item(
+        itemId = TestItemId("Company"),
+        attributes = listOf(attribute(name = "CompanyNumber", type = BuiltInType.NUMBER, isPrimaryKey = true)),
+    )
+
     private fun attribute(
         name: String,
         type: ItemAttributeType = BuiltInType.STRING,
@@ -461,7 +578,20 @@ class SchemaDataValidatorTest {
         enums: List<EnumType> = emptyList(),
         uiItems: List<UiItem> = emptyList(),
         uiEntities: List<UiEntity> = emptyList(),
-    ): SchemaData = SchemaData(items = items, enums = enums, uiItems = uiItems, uiEntities = uiEntities)
+        dbItems: List<DbItem> = emptyList(),
+    ): SchemaData = SchemaData(
+        items = items,
+        enums = enums,
+        uiItems = uiItems,
+        uiEntities = uiEntities,
+        dbItems = dbItems,
+    )
+
+    private fun dbItem(
+        itemId: ItemId,
+        tableName: String? = null,
+        columns: List<DbColumn> = emptyList(),
+    ): DbItem = DbItem(itemId = itemId, tableName = tableName, columns = columns)
 
     private fun uiItem(
         itemId: ItemId,

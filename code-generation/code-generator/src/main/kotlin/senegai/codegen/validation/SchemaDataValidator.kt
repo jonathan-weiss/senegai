@@ -26,6 +26,10 @@ class SchemaDataValidator {
         SearchResultViewAttributeExistenceValidator(),
         SearchResultViewAttributeTypeValidator(),
         AttributeBlockAttributeExistenceValidator(),
+        DbItemItemExistenceValidator(),
+        DbItemUniquenessValidator(),
+        DbColumnAttributeValidator(),
+        DbNameUniquenessValidator(),
     )
 
     fun validate(schemaData: SchemaData) {

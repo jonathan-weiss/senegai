@@ -5,4 +5,5 @@ data class SchemaData(
     val enums: List<EnumType>,
     val uiItems: List<UiItem>,
     val uiEntities: List<UiEntity>,
+    val dbItems: List<DbItem>,
 )

@@ -9,6 +9,11 @@ import senegai.codegen.renderer.model.be.BeItemDescriptionModel
 import senegai.codegen.renderer.model.be.BeItemModel
 import senegai.codegen.renderer.model.be.BeModel
 import senegai.codegen.renderer.model.be.BeReferencedItemModel
+import senegai.codegen.renderer.model.db.DbColumnModel
+import senegai.codegen.renderer.model.db.DbModel
+import senegai.codegen.renderer.model.db.DbNameDefaults
+import senegai.codegen.renderer.model.db.DbSqlType
+import senegai.codegen.renderer.model.db.DbTableModel
 import senegai.codegen.renderer.model.be.BuiltInTypeBeAttributeModel
 import senegai.codegen.renderer.model.be.EnumBeAttributeModel
 import senegai.codegen.renderer.model.be.ItemBeIAttributeModel
@@ -34,6 +39,7 @@ import senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormItemAttri
 import senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormNamedSectionSplitBlockModel
 import senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormTextBlockModel
 import senegai.model.schema.BuiltInType
+import senegai.model.schema.DbItem
 import senegai.model.schema.EnumId
 import senegai.model.schema.EnumType
 import senegai.model.schema.ExampleDataCategory
@@ -80,7 +86,8 @@ object RendererModelConverter {
             beModel = BeModel(
                 items = allBeItemModels,
                 enums = allBeEnumModels,
-            )
+            ),
+            dbModel = mapDbModel(schemaData),
         )
     }
 
@@ -348,6 +355,69 @@ object RendererModelConverter {
                     "reference stores exactly that primary key."
         }
         return item
+    }
+
+    // **************
+    // Database tables
+    // **************
+
+    private fun mapDbModel(schemaData: SchemaData): DbModel {
+        // Only an item with a primary key is stored on its own; one without is nested into
+        // the row of the item holding it and has therefore no table.
+        val dbItemPerItem = schemaData.dbItems.associateBy { it.itemId }
+
+        return DbModel(
+            tables = schemaData.items
+                .filter { it.hasPrimaryKey }
+                .map { mapDbTableModel(it, dbItemPerItem[it.itemId], schemaData.items) },
+        )
+    }
+
+    private fun mapDbTableModel(item: Item, dbItem: DbItem?, items: List<Item>): DbTableModel = DbTableModel(
+        itemId = item.itemId,
+        itemName = NameCase(item.itemName),
+        tableName = DbNameDefaults.tableName(item, dbItem),
+        columns = item.attributes.map { mapDbColumnModel(it, dbItem, items) },
+    )
+
+    private fun mapDbColumnModel(
+        itemAttribute: ItemAttribute,
+        dbItem: DbItem?,
+        items: List<Item>,
+    ): DbColumnModel = DbColumnModel(
+        attributeName = NameCase(itemAttribute.attributeName),
+        columnName = DbNameDefaults.columnName(itemAttribute, dbItem),
+        sqlType = dbSqlType(itemAttribute, items),
+        isNullable = itemAttribute.isNullable,
+        isPrimaryKey = itemAttribute.isPrimaryKey,
+    )
+
+    /**
+     * Everything without a flat relational representation is stored as a single `jsonb`
+     * value: a list of any kind and a nested item instance. A reference is stored as the
+     * primary key of the item it refers to and is therefore of that key's type.
+     */
+    private fun dbSqlType(itemAttribute: ItemAttribute, items: List<Item>): DbSqlType {
+        if (itemAttribute.isMultiple) {
+            return DbSqlType.JSONB
+        }
+
+        return when (val itemAttributeType = itemAttribute.type) {
+            is BuiltInType -> dbSqlType(itemAttributeType)
+            is EnumId -> DbSqlType.TEXT
+            is ItemId -> if (itemAttribute.isReference) {
+                dbSqlType(referencedItem(itemAttributeType, items).primaryKeyBuiltInType())
+            } else {
+                DbSqlType.JSONB
+            }
+        }
+    }
+
+    private fun dbSqlType(builtInType: BuiltInType): DbSqlType = when (builtInType) {
+        BuiltInType.STRING -> DbSqlType.TEXT
+        BuiltInType.NUMBER -> DbSqlType.INTEGER
+        BuiltInType.BOOLEAN -> DbSqlType.BOOLEAN
+        BuiltInType.UUID -> DbSqlType.UUID
     }
 
     // **************

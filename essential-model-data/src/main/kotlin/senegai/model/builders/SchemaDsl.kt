@@ -33,6 +33,19 @@ interface SchemaDsl {
     )
 
     /**
+     * Declares how the item [itemId] is mapped to a SQL table, for example
+     * `dbItem(itemId = Items.COMPANY) { tableName(name = "T_COMPANY") }`.
+     *
+     * Only an item with a primary key is stored in a table of its own, therefore only such
+     * an item is configured here. Declaring nothing at all is valid: the table and column
+     * names are then derived from the item and attribute names.
+     */
+    fun dbItem(
+        itemId: ItemId,
+        builder: DbItemDsl.() -> Unit,
+    )
+
+    /**
      * Declares the frontend shell that bundles all Angular components of one editor
      * around the root item [rootItemId], which has to declare a primary key.
      * The [uiEntityName] names the directory and the component classes.

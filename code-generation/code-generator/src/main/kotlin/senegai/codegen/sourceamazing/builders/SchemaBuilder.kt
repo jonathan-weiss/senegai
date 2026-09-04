@@ -1,12 +1,14 @@
 package senegai.codegen.sourceamazing.builders
 
 import org.codeblessing.sourceamazing.builder.api.annotations.*
+import senegai.model.builders.DbItemDsl
 import senegai.model.builders.UiEntityDsl
 import senegai.model.builders.UiItemDsl
 import senegai.model.builders.EnumDsl
 import senegai.model.builders.ItemDsl
 import senegai.model.builders.SchemaDsl
 import senegai.model.schema.EnumId
+import senegai.model.schema.DbItem
 import senegai.model.schema.EnumType
 import senegai.model.schema.Item
 import senegai.model.schema.ItemId
@@ -72,6 +74,24 @@ interface SchemaBuilder: SchemaDsl {
 
     override fun uiItem(itemId: ItemId, builder: UiItemDsl.() -> Unit) {
         uiItemInternal(itemId, builder)
+    }
+
+
+    // **************
+    // DB Item
+    // **************
+
+    @BuilderMethod
+    @NewClazzModel(clazz = DbItem::class, alias = "dbItem")
+    @SetClazzModelOfAlias(alias = "schema", clazzProperty = "dbItems", referencedAlias = "dbItem")
+    fun dbItemInternal(
+        @SetAsValue(alias = "dbItem", clazzProperty = "itemId")
+        itemId: ItemId,
+        @InjectBuilder builder: DbItemBuilder.() -> Unit
+    )
+
+    override fun dbItem(itemId: ItemId, builder: DbItemDsl.() -> Unit) {
+        dbItemInternal(itemId, builder)
     }
 
 

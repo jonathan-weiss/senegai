@@ -10,6 +10,7 @@ object EssentialModelData {
     fun RootDsl.collectData() {
         collectItemData()
         collectUiData()
+        collectDatabaseData()
     }
 
     enum class Items(
@@ -91,6 +92,15 @@ object EssentialModelData {
             item(itemId = Items.COMPANY) {
                 attribute(name = "CompanyNumber").primaryKey(type = PrimaryKeyType.NUMBER)
                 attribute(name = "CompanyName").string()
+            }
+        }
+    }
+
+    private fun RootDsl.collectDatabaseData() {
+        schema {
+            dbItem(itemId = Items.COMPANY) {
+                tableName(name = "T_COMPANY")
+                column(attributeName = "CompanyNumber", columnName = "COMPANY_PK")
             }
         }
     }
