@@ -33,13 +33,13 @@ docker run --name postgres-senegai -e POSTGRES_PASSWORD=password -p 5432:5432 po
 Import the data into postgres
 
 ```
-docker exec -i postgres-senegai psql -U postgres -d postgres < ./postgres-db-dump/postgres-sakila-schema.sql
-docker exec -i postgres-senegai psql -U postgres -d postgres < ./postgres-db-dump/postgres-sakila-insert-data.sql
+docker exec -i postgres-senegai psql -U postgres -d postgres < ./database/postgres-sakila-db-dump/postgres-sakila-schema.sql
+docker exec -i postgres-senegai psql -U postgres -d postgres < ./database/postgres-sakila-db-dump/postgres-sakila-insert-data.sql
 ```
 
 Remove the data from postgres
 
 ```
-docker exec -i postgres-senegai psql -U postgres -d postgres < ./postgres-db-dump/postgres-sakila-delete-data.sql
-docker exec -i postgres-senegai psql -U postgres -d postgres < ./postgres-db-dump/postgres-sakila-drop-objects.sql
+docker exec -i postgres-senegai psql -U postgres -d postgres < ./database/postgres-sakila-db-dump/postgres-sakila-delete-data.sql
+docker exec -i postgres-senegai psql -U postgres -d postgres < ./database/postgres-sakila-db-dump/postgres-sakila-drop-objects.sql
 ```
