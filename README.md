@@ -43,3 +43,9 @@ Remove the data from postgres
 docker exec -i postgres-senegai psql -U postgres -d postgres < ./database/postgres-sakila-db-dump/postgres-sakila-delete-data.sql
 docker exec -i postgres-senegai psql -U postgres -d postgres < ./database/postgres-sakila-db-dump/postgres-sakila-drop-objects.sql
 ```
+
+Import the reference schema
+
+```
+docker exec -i postgres-senegai psql -U postgres -d postgres < ./database/postgres-schema-reference.sql
+```

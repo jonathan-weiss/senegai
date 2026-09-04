@@ -26,9 +26,16 @@ kotlin {
 dependencies {
     implementation(project(":server:service"))
 
-    // Only spring-context for the @Repository stereotype / DI.
-    // No persistence framework on purpose — to be added later.
     implementation("org.springframework:spring-context")
+
+    // JDBC access for the PostgreSQL repositories: brings spring-jdbc, HikariCP and the
+    // auto configuration that builds the DataSource/JdbcClient from the spring.datasource.* properties.
+    implementation("org.springframework.boot:spring-boot-starter-jdbc")
+
+    // Serializes the attributes that have no flat relational representation into jsonb columns.
+    implementation("tools.jackson.module:jackson-module-kotlin")
+
+    runtimeOnly("org.postgresql:postgresql")
 }
 
 tasks.named("compileKotlin") {
