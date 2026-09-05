@@ -16,247 +16,697 @@ object EssentialModelData {
     enum class Items(
         override val itemName: String,
     ) : ItemId {
-        CONTACT(itemName = "Contact"),
+        ACTOR(itemName = "Actor"),
+        CATEGORY(itemName = "Category"),
+        FILM(itemName = "Film"),
+        FILM_ACTOR(itemName = "FilmActor"),
+        FILM_CATEGORY(itemName = "FilmCategory"),
         ADDRESS(itemName = "Address"),
+        CITY(itemName = "City"),
         COUNTRY(itemName = "Country"),
-        COMPANY(itemName = "Company"),
+        CUSTOMER(itemName = "Customer"),
+        INVENTORY(itemName = "Inventory"),
+        LANGUAGE(itemName = "Language"),
+        PAYMENT(itemName = "Payment"),
+        RENTAL(itemName = "Rental"),
+        STAFF(itemName = "Staff"),
+        STORE(itemName = "Store"),
     }
 
     enum class EnumTypes(
         override val enumName: String,
     ) : EnumId {
-        SALUTATION(enumName = "Gender"),
-        MARITAL_STATUS(enumName = "MaritalStatus"),
-        CONTACT_TYPE(enumName = "ContactType"),
+        MPAA_RATING(enumName = "MpaaRating"),
     }
 
     private fun RootDsl.collectItemData() {
         schema {
-            enumType(enumId = EnumTypes.SALUTATION) {
-                enumValue(name = "Mr")
-                enumValue(name = "Ms")
-                enumValue(name = "Mrs")
+            enumType(enumId = EnumTypes.MPAA_RATING) {
+                enumValue(name = "G")
+                enumValue(name = "PG")
+                // 'PG-13' and 'NC-17' lose their hyphen: an enum value has to be in PascalCase.
+                enumValue(name = "PG13")
+                enumValue(name = "R")
+                enumValue(name = "NC17")
             }
 
-            enumType(enumId = EnumTypes.MARITAL_STATUS) {
-                enumValue(name = "Single")
-                enumValue(name = "Married")
-                enumValue(name = "Divorced")
-                enumValue(name = "Widowed")
+            item(itemId = Items.ACTOR) {
+                attribute(name = "ActorId").primaryKey(type = PrimaryKeyType.NUMBER)
+                attribute(name = "FirstName").string(exampleDataCategory = ExampleDataCategory.FIRSTNAME)
+                attribute(name = "LastName").string(exampleDataCategory = ExampleDataCategory.LASTNAME)
             }
 
-            enumType(enumId = EnumTypes.CONTACT_TYPE) {
-                enumValue(name = "Email")
-                enumValue(name = "Phone")
-                enumValue(name = "Sms")
-                enumValue(name = "Post")
+            item(itemId = Items.CATEGORY) {
+                attribute(name = "CategoryId").primaryKey(type = PrimaryKeyType.NUMBER)
+                attribute(name = "Name").string()
             }
 
-            item(itemId = Items.CONTACT) {
-                attribute(name = "ContactId").primaryKey()
-                attribute(name = "ContactSalutation").enumType(enumId = EnumTypes.SALUTATION)
-                attribute(name = "Firstname").string(exampleDataCategory = ExampleDataCategory.FIRSTNAME)
-                attribute(name = "Nickname").string(exampleDataCategory = ExampleDataCategory.FIRSTNAME).options(nullable = true)
-                attribute(name = "Lastname").string(exampleDataCategory = ExampleDataCategory.LASTNAME).options(customValidation = true)
-                attribute(name = "AllKnownNicknames").string(exampleDataCategory = ExampleDataCategory.FIRSTNAME).options(multiple = true)
-                attribute(name = "Age").number(exampleDataCategory = ExampleDataCategory.AGE).options(customValidation = true)
-                attribute(name = "Vegetarian").boolean()
-                attribute(name = "HomeAddress").nestedItem(itemId = Items.ADDRESS).options(nullable = false)
-                attribute(name = "ContactAddress").nestedItem(itemId = Items.ADDRESS).options(nullable = true)
-                attribute(name = "MandatoryAddresses").nestedItem(itemId = Items.ADDRESS).options(nullable = false, multiple = true)
-                attribute(name = "OtherAddresses").nestedItem(itemId = Items.ADDRESS).options(nullable = true, multiple = true)
-                attribute(name = "AllKnownPinNumbers").number().options(nullable = true, multiple = true)
-                attribute(name = "AllContactTypes").enumType(enumId = EnumTypes.CONTACT_TYPE).options(nullable = true, multiple = true)
-                attribute(name = "MyReferenceToAddress").reference(itemId = Items.ADDRESS).options(nullable = false, multiple = false)
-                attribute(name = "MyReferenceToAddressNullable").reference(itemId = Items.ADDRESS).options(nullable = true, multiple = false)
-                attribute(name = "MyReferencesToAddresses").reference(itemId = Items.ADDRESS).options(nullable = false, multiple = true)
-                attribute(name = "MyReferencesToAddressesNullable").reference(itemId = Items.ADDRESS).options(nullable = true, multiple = true)
-                attribute(name = "Employer").reference(itemId = Items.COMPANY).options(nullable = false, multiple = false)
-                attribute(name = "PreviousEmployers").reference(itemId = Items.COMPANY).options(nullable = true, multiple = true)
-                attribute(name = "Supervisor").reference(itemId = Items.CONTACT).options(nullable = true, multiple = false)
+            item(itemId = Items.FILM) {
+                attribute(name = "FilmId").primaryKey(type = PrimaryKeyType.NUMBER)
+                attribute(name = "Title").string()
+                attribute(name = "Description").string().options(nullable = true)
+                attribute(name = "ReleaseYear").number().options(nullable = true)
+                attribute(name = "Language").reference(itemId = Items.LANGUAGE)
+                attribute(name = "OriginalLanguage").reference(itemId = Items.LANGUAGE).options(nullable = true)
+                attribute(name = "RentalDuration").number()
+                attribute(name = "RentalRate").number()
+                attribute(name = "Length").number().options(nullable = true)
+                attribute(name = "ReplacementCost").number()
+                attribute(name = "Rating").enumType(enumId = EnumTypes.MPAA_RATING).options(nullable = true)
+                attribute(name = "SpecialFeatures").string().options(nullable = true, multiple = true)
+                attribute(name = "Fulltext").string()
+            }
+
+            item(itemId = Items.FILM_ACTOR) {
+                // The table is identified by (actor_id, film_id); an item is identified by one
+                // single attribute, therefore the link table gets a surrogate key of its own.
+                attribute(name = "FilmActorId").primaryKey(type = PrimaryKeyType.NUMBER)
+                attribute(name = "Actor").reference(itemId = Items.ACTOR)
+                attribute(name = "Film").reference(itemId = Items.FILM)
+            }
+
+            item(itemId = Items.FILM_CATEGORY) {
+                // Surrogate key for the composite (film_id, category_id), see FilmActor.
+                attribute(name = "FilmCategoryId").primaryKey(type = PrimaryKeyType.NUMBER)
+                attribute(name = "Film").reference(itemId = Items.FILM)
+                attribute(name = "Category").reference(itemId = Items.CATEGORY)
             }
 
             item(itemId = Items.ADDRESS) {
-                attribute(name = "Id").primaryKey(type = PrimaryKeyType.STRING)
-                attribute(name = "Street").string(exampleDataCategory = ExampleDataCategory.STREET)
-                attribute(name = "PostalCode").string(exampleDataCategory = ExampleDataCategory.POSTCODE)
-                attribute(name = "Town").string(exampleDataCategory = ExampleDataCategory.CITY)
-                attribute(name = "Country").nestedItem(itemId = Items.COUNTRY)
+                attribute(name = "AddressId").primaryKey(type = PrimaryKeyType.NUMBER)
+                attribute(name = "Address").string(exampleDataCategory = ExampleDataCategory.STREET)
+                attribute(name = "Address2").string(exampleDataCategory = ExampleDataCategory.STREET).options(nullable = true)
+                attribute(name = "District").string()
+                attribute(name = "City").reference(itemId = Items.CITY)
+                attribute(name = "PostalCode").string(exampleDataCategory = ExampleDataCategory.POSTCODE).options(nullable = true)
+                attribute(name = "Phone").string()
+            }
+
+            item(itemId = Items.CITY) {
+                attribute(name = "CityId").primaryKey(type = PrimaryKeyType.NUMBER)
+                attribute(name = "City").string(exampleDataCategory = ExampleDataCategory.CITY)
+                attribute(name = "Country").reference(itemId = Items.COUNTRY)
             }
 
             item(itemId = Items.COUNTRY) {
-                attribute(name = "CountryIsoCode").string(exampleDataCategory = ExampleDataCategory.COUNTRY_ISO)
-                attribute(name = "CountryName").string(exampleDataCategory = ExampleDataCategory.COUNTRY_NAME)
+                attribute(name = "CountryId").primaryKey(type = PrimaryKeyType.NUMBER)
+                attribute(name = "Country").string(exampleDataCategory = ExampleDataCategory.COUNTRY_NAME)
             }
 
-            item(itemId = Items.COMPANY) {
-                attribute(name = "CompanyNumber").primaryKey(type = PrimaryKeyType.NUMBER)
-                attribute(name = "CompanyName").string()
+            item(itemId = Items.CUSTOMER) {
+                attribute(name = "CustomerId").primaryKey(type = PrimaryKeyType.NUMBER)
+                attribute(name = "Store").reference(itemId = Items.STORE)
+                attribute(name = "FirstName").string(exampleDataCategory = ExampleDataCategory.FIRSTNAME)
+                attribute(name = "LastName").string(exampleDataCategory = ExampleDataCategory.LASTNAME)
+                attribute(name = "Email").string().options(nullable = true)
+                attribute(name = "Address").reference(itemId = Items.ADDRESS)
+                attribute(name = "Activebool").boolean()
+                // A DATE has no built-in type of its own, therefore it is carried as text.
+                attribute(name = "CreateDate").string()
+                attribute(name = "Active").number().options(nullable = true)
+            }
+
+            item(itemId = Items.INVENTORY) {
+                attribute(name = "InventoryId").primaryKey(type = PrimaryKeyType.NUMBER)
+                attribute(name = "Film").reference(itemId = Items.FILM)
+                attribute(name = "Store").reference(itemId = Items.STORE)
+            }
+
+            item(itemId = Items.LANGUAGE) {
+                attribute(name = "LanguageId").primaryKey(type = PrimaryKeyType.NUMBER)
+                attribute(name = "Name").string()
+            }
+
+            item(itemId = Items.PAYMENT) {
+                attribute(name = "PaymentId").primaryKey(type = PrimaryKeyType.NUMBER)
+                attribute(name = "Customer").reference(itemId = Items.CUSTOMER)
+                attribute(name = "Staff").reference(itemId = Items.STAFF)
+                attribute(name = "Rental").reference(itemId = Items.RENTAL)
+                attribute(name = "Amount").number()
+            }
+
+            item(itemId = Items.RENTAL) {
+                attribute(name = "RentalId").primaryKey(type = PrimaryKeyType.NUMBER)
+                attribute(name = "Inventory").reference(itemId = Items.INVENTORY)
+                attribute(name = "Customer").reference(itemId = Items.CUSTOMER)
+                attribute(name = "Staff").reference(itemId = Items.STAFF)
+            }
+
+            item(itemId = Items.STAFF) {
+                attribute(name = "StaffId").primaryKey(type = PrimaryKeyType.NUMBER)
+                attribute(name = "FirstName").string(exampleDataCategory = ExampleDataCategory.FIRSTNAME)
+                attribute(name = "LastName").string(exampleDataCategory = ExampleDataCategory.LASTNAME)
+                attribute(name = "Address").reference(itemId = Items.ADDRESS)
+                attribute(name = "Email").string().options(nullable = true)
+                attribute(name = "Store").reference(itemId = Items.STORE)
+                attribute(name = "Active").boolean()
+                attribute(name = "Username").string()
+                attribute(name = "Password").string().options(nullable = true)
+                // A BYTEA has no built-in type of its own, therefore it is carried as text.
+                attribute(name = "Picture").string().options(nullable = true)
+            }
+
+            item(itemId = Items.STORE) {
+                attribute(name = "StoreId").primaryKey(type = PrimaryKeyType.NUMBER)
+                attribute(name = "ManagerStaff").reference(itemId = Items.STAFF)
+                attribute(name = "Address").reference(itemId = Items.ADDRESS)
             }
         }
     }
 
     private fun RootDsl.collectDatabaseData() {
         schema {
-            dbItem(itemId = Items.COMPANY) {
-                tableName(name = "T_COMPANY")
-                column(attributeName = "CompanyNumber", columnName = "COMPANY_PK")
+            dbItem(itemId = Items.ACTOR) {
+                tableName(name = "actor")
+                column(attributeName = "ActorId", columnName = "actor_id")
+                column(attributeName = "FirstName", columnName = "first_name")
+                column(attributeName = "LastName", columnName = "last_name")
+            }
+
+            dbItem(itemId = Items.CATEGORY) {
+                tableName(name = "category")
+                column(attributeName = "CategoryId", columnName = "category_id")
+                column(attributeName = "Name", columnName = "name")
+            }
+
+            dbItem(itemId = Items.FILM) {
+                tableName(name = "film")
+                column(attributeName = "FilmId", columnName = "film_id")
+                column(attributeName = "Title", columnName = "title")
+                column(attributeName = "Description", columnName = "description")
+                column(attributeName = "ReleaseYear", columnName = "release_year")
+                column(attributeName = "Language", columnName = "language_id")
+                column(attributeName = "OriginalLanguage", columnName = "original_language_id")
+                column(attributeName = "RentalDuration", columnName = "rental_duration")
+                column(attributeName = "RentalRate", columnName = "rental_rate")
+                column(attributeName = "Length", columnName = "length")
+                column(attributeName = "ReplacementCost", columnName = "replacement_cost")
+                column(attributeName = "Rating", columnName = "rating")
+                column(attributeName = "SpecialFeatures", columnName = "special_features")
+                column(attributeName = "Fulltext", columnName = "fulltext")
+            }
+
+            dbItem(itemId = Items.FILM_ACTOR) {
+                tableName(name = "film_actor")
+                column(attributeName = "FilmActorId", columnName = "film_actor_id")
+                column(attributeName = "Actor", columnName = "actor_id")
+                column(attributeName = "Film", columnName = "film_id")
+            }
+
+            dbItem(itemId = Items.FILM_CATEGORY) {
+                tableName(name = "film_category")
+                column(attributeName = "FilmCategoryId", columnName = "film_category_id")
+                column(attributeName = "Film", columnName = "film_id")
+                column(attributeName = "Category", columnName = "category_id")
+            }
+
+            dbItem(itemId = Items.ADDRESS) {
+                tableName(name = "address")
+                column(attributeName = "AddressId", columnName = "address_id")
+                column(attributeName = "Address", columnName = "address")
+                column(attributeName = "Address2", columnName = "address2")
+                column(attributeName = "District", columnName = "district")
+                column(attributeName = "City", columnName = "city_id")
+                column(attributeName = "PostalCode", columnName = "postal_code")
+                column(attributeName = "Phone", columnName = "phone")
+            }
+
+            dbItem(itemId = Items.CITY) {
+                tableName(name = "city")
+                column(attributeName = "CityId", columnName = "city_id")
+                column(attributeName = "City", columnName = "city")
+                column(attributeName = "Country", columnName = "country_id")
+            }
+
+            dbItem(itemId = Items.COUNTRY) {
+                tableName(name = "country")
+                column(attributeName = "CountryId", columnName = "country_id")
+                column(attributeName = "Country", columnName = "country")
+            }
+
+            dbItem(itemId = Items.CUSTOMER) {
+                tableName(name = "customer")
+                column(attributeName = "CustomerId", columnName = "customer_id")
+                column(attributeName = "Store", columnName = "store_id")
+                column(attributeName = "FirstName", columnName = "first_name")
+                column(attributeName = "LastName", columnName = "last_name")
+                column(attributeName = "Email", columnName = "email")
+                column(attributeName = "Address", columnName = "address_id")
+                column(attributeName = "Activebool", columnName = "activebool")
+                column(attributeName = "CreateDate", columnName = "create_date")
+                column(attributeName = "Active", columnName = "active")
+            }
+
+            dbItem(itemId = Items.INVENTORY) {
+                tableName(name = "inventory")
+                column(attributeName = "InventoryId", columnName = "inventory_id")
+                column(attributeName = "Film", columnName = "film_id")
+                column(attributeName = "Store", columnName = "store_id")
+            }
+
+            dbItem(itemId = Items.LANGUAGE) {
+                tableName(name = "language")
+                column(attributeName = "LanguageId", columnName = "language_id")
+                column(attributeName = "Name", columnName = "name")
+            }
+
+            dbItem(itemId = Items.PAYMENT) {
+                tableName(name = "payment")
+                column(attributeName = "PaymentId", columnName = "payment_id")
+                column(attributeName = "Customer", columnName = "customer_id")
+                column(attributeName = "Staff", columnName = "staff_id")
+                column(attributeName = "Rental", columnName = "rental_id")
+                column(attributeName = "Amount", columnName = "amount")
+            }
+
+            dbItem(itemId = Items.RENTAL) {
+                tableName(name = "rental")
+                column(attributeName = "RentalId", columnName = "rental_id")
+                column(attributeName = "Inventory", columnName = "inventory_id")
+                column(attributeName = "Customer", columnName = "customer_id")
+                column(attributeName = "Staff", columnName = "staff_id")
+            }
+
+            dbItem(itemId = Items.STAFF) {
+                tableName(name = "staff")
+                column(attributeName = "StaffId", columnName = "staff_id")
+                column(attributeName = "FirstName", columnName = "first_name")
+                column(attributeName = "LastName", columnName = "last_name")
+                column(attributeName = "Address", columnName = "address_id")
+                column(attributeName = "Email", columnName = "email")
+                column(attributeName = "Store", columnName = "store_id")
+                column(attributeName = "Active", columnName = "active")
+                column(attributeName = "Username", columnName = "username")
+                column(attributeName = "Password", columnName = "password")
+                column(attributeName = "Picture", columnName = "picture")
+            }
+
+            dbItem(itemId = Items.STORE) {
+                tableName(name = "store")
+                column(attributeName = "StoreId", columnName = "store_id")
+                column(attributeName = "ManagerStaff", columnName = "manager_staff_id")
+                column(attributeName = "Address", columnName = "address_id")
             }
         }
     }
 
     private fun RootDsl.collectUiData() {
         schema {
-            uiItem(itemId = Items.CONTACT) {
+            uiItem(itemId = Items.ACTOR) {
                 displayAttributes {
-                    attribute(attributeName = "Firstname")
-                    attribute(attributeName = "Lastname")
+                    attribute(attributeName = "FirstName")
+                    attribute(attributeName = "LastName")
                 }
             }
+            uiItem(itemId = Items.CATEGORY) {
+                displayAttributes {
+                    attribute(attributeName = "Name")
+                }
+            }
+            uiItem(itemId = Items.FILM) {
+                displayAttributes {
+                    attribute(attributeName = "Title")
+                }
+            }
+            // A link table holds nothing but foreign keys, so there is no text attribute a
+            // reference to it could be rendered with. The same holds for Inventory, Payment,
+            // Rental and Store.
+            uiItem(itemId = Items.FILM_ACTOR) {}
+            uiItem(itemId = Items.FILM_CATEGORY) {}
             uiItem(itemId = Items.ADDRESS) {
                 displayAttributes {
-                    attribute(attributeName = "Street")
-                    attribute(attributeName = "Town")
-                }
-                configureEditorForNestedItemDefault {
-                    column {
-                        attribute(attributeName = "Id")
-                        attribute(attributeName = "Street")
-                        attribute(attributeName = "PostalCode")
-                        attribute(attributeName = "Town")
-                        attribute(attributeName = "Country")
-                    }
+                    attribute(attributeName = "Address")
+                    attribute(attributeName = "District")
                 }
             }
-            uiItem(itemId = Items.COMPANY) {
+            uiItem(itemId = Items.CITY) {
                 displayAttributes {
-                    attribute(attributeName = "CompanyName")
+                    attribute(attributeName = "City")
                 }
             }
             uiItem(itemId = Items.COUNTRY) {
                 displayAttributes {
-                    attribute(attributeName = "CountryName")
-                }
-                configureEditorForNestedItemDefault {
-                    column {
-                        attribute(attributeName = "CountryIsoCode")
-                        attribute(attributeName = "CountryName")
-                    }
+                    attribute(attributeName = "Country")
                 }
             }
+            uiItem(itemId = Items.CUSTOMER) {
+                displayAttributes {
+                    attribute(attributeName = "FirstName")
+                    attribute(attributeName = "LastName")
+                }
+            }
+            uiItem(itemId = Items.INVENTORY) {}
+            uiItem(itemId = Items.LANGUAGE) {
+                displayAttributes {
+                    attribute(attributeName = "Name")
+                }
+            }
+            uiItem(itemId = Items.PAYMENT) {}
+            uiItem(itemId = Items.RENTAL) {}
+            uiItem(itemId = Items.STAFF) {
+                displayAttributes {
+                    attribute(attributeName = "FirstName")
+                    attribute(attributeName = "LastName")
+                }
+            }
+            uiItem(itemId = Items.STORE) {}
 
-            uiEntity(uiEntityName = "Contact", rootItemId = Items.CONTACT) {
+            uiEntity(uiEntityName = "Actor", rootItemId = Items.ACTOR) {
                 views {
                     searchResult {
-                        attribute(attributeName = "ContactId")
-                        attribute(attributeName = "ContactSalutation")
-                        attribute(attributeName = "Firstname")
-                        attribute(attributeName = "Nickname")
-                        attribute(attributeName = "AllKnownNicknames")
-                        attribute(attributeName = "Lastname")
-                        attribute(attributeName = "Age")
-                        attribute(attributeName = "Vegetarian")
-                        attribute(attributeName = "AllKnownPinNumbers")
-                        attribute(attributeName = "AllContactTypes")
+                        attribute(attributeName = "ActorId")
+                        attribute(attributeName = "FirstName")
+                        attribute(attributeName = "LastName")
                     }
                     editor {
                         configureEditorForMainItem {
                             tab(tabTranslationKey = "tab.common") {
                                 column {
-                                    attribute(attributeName = "ContactId")
-                                    attribute(attributeName = "ContactSalutation")
-                                    section(sectionTranslationKey = "section.names")
-                                    text(textTranslationKey = "text.loremIpsum")
-                                    attribute(attributeName = "Firstname")
-                                    text(textTranslationKey = "text.firstThingsFirst")
-                                    attribute(attributeName = "Nickname")
-                                    attribute(attributeName = "AllKnownNicknames")
-                                    text(textTranslationKey = "text.nickname")
-                                    attribute(attributeName = "Lastname")
-                                    text(textTranslationKey = "text.lastname")
-                                    section(sectionTranslationKey = "section.addresses")
-                                    attribute(attributeName = "HomeAddress")
-                                    attribute(attributeName = "ContactAddress")
-                                    attribute(attributeName = "MandatoryAddresses")
-                                    attribute(attributeName = "OtherAddresses")
-                                    attribute(attributeName = "AllKnownPinNumbers")
-                                    attribute(attributeName = "AllContactTypes")
-                                    attribute(attributeName = "Age")
-                                    attribute(attributeName = "Vegetarian")
-                                }
-                            }
-                            tab(tabTranslationKey = "tab.references") {
-                                column {
-                                    section(sectionTranslationKey = "section.referencesToOtherItems")
-                                    attribute(attributeName = "MyReferenceToAddress")
-                                    attribute(attributeName = "MyReferenceToAddressNullable")
-                                    attribute(attributeName = "MyReferencesToAddresses")
-                                    attribute(attributeName = "MyReferencesToAddressesNullable")
-                                    attribute(attributeName = "Employer")
-                                    attribute(attributeName = "PreviousEmployers")
-                                    attribute(attributeName = "Supervisor")
-                                }
-                            }
-                            tab(tabTranslationKey = "tab.miscellaneous") {
-                                column {
-                                    section(sectionTranslationKey = "section.misc")
-                                    text(textTranslationKey = "text.longText")
-                                }
-                                column {
-                                    section(sectionTranslationKey = "section.legend")
-                                    text(textTranslationKey = "text.multilineText")
-                                    attribute(attributeName = "Age")
-                                    attribute(attributeName = "Vegetarian")
+                                    attribute(attributeName = "ActorId")
+                                    attribute(attributeName = "FirstName")
+                                    attribute(attributeName = "LastName")
                                 }
                             }
                         }
                     }
                 }
             }
-            uiEntity(uiEntityName = "Address", rootItemId = Items.ADDRESS) {
+
+            uiEntity(uiEntityName = "Category", rootItemId = Items.CATEGORY) {
                 views {
                     searchResult {
-                        attribute(attributeName = "Street")
-                        attribute(attributeName = "PostalCode")
-                        attribute(attributeName = "Town")
+                        attribute(attributeName = "CategoryId")
+                        attribute(attributeName = "Name")
                     }
                     editor {
                         configureEditorForMainItem {
-                            tab(tabTranslationKey = "tab.address") {
+                            tab(tabTranslationKey = "tab.common") {
                                 column {
-                                    attribute(attributeName = "Id")
-                                    section(sectionTranslationKey = "section.address")
-                                    attribute(attributeName = "Street")
+                                    attribute(attributeName = "CategoryId")
+                                    attribute(attributeName = "Name")
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            uiEntity(uiEntityName = "Film", rootItemId = Items.FILM) {
+                views {
+                    searchResult {
+                        attribute(attributeName = "FilmId")
+                        attribute(attributeName = "Title")
+                        attribute(attributeName = "Description")
+                        attribute(attributeName = "ReleaseYear")
+                        attribute(attributeName = "RentalDuration")
+                        attribute(attributeName = "RentalRate")
+                        attribute(attributeName = "Length")
+                        attribute(attributeName = "ReplacementCost")
+                        attribute(attributeName = "Rating")
+                    }
+                    editor {
+                        configureEditorForMainItem {
+                            tab(tabTranslationKey = "tab.common") {
+                                column {
+                                    attribute(attributeName = "FilmId")
+                                    attribute(attributeName = "Title")
+                                    attribute(attributeName = "Description")
+                                    attribute(attributeName = "ReleaseYear")
+                                    attribute(attributeName = "Language")
+                                    attribute(attributeName = "OriginalLanguage")
+                                    attribute(attributeName = "RentalDuration")
+                                    attribute(attributeName = "RentalRate")
+                                    attribute(attributeName = "Length")
+                                    attribute(attributeName = "ReplacementCost")
+                                    attribute(attributeName = "Rating")
+                                    attribute(attributeName = "SpecialFeatures")
+                                    attribute(attributeName = "Fulltext")
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            uiEntity(uiEntityName = "FilmActor", rootItemId = Items.FILM_ACTOR) {
+                views {
+                    searchResult {
+                        attribute(attributeName = "FilmActorId")
+                    }
+                    editor {
+                        configureEditorForMainItem {
+                            tab(tabTranslationKey = "tab.common") {
+                                column {
+                                    attribute(attributeName = "FilmActorId")
+                                    attribute(attributeName = "Actor")
+                                    attribute(attributeName = "Film")
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            uiEntity(uiEntityName = "FilmCategory", rootItemId = Items.FILM_CATEGORY) {
+                views {
+                    searchResult {
+                        attribute(attributeName = "FilmCategoryId")
+                    }
+                    editor {
+                        configureEditorForMainItem {
+                            tab(tabTranslationKey = "tab.common") {
+                                column {
+                                    attribute(attributeName = "FilmCategoryId")
+                                    attribute(attributeName = "Film")
+                                    attribute(attributeName = "Category")
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            uiEntity(uiEntityName = "Address", rootItemId = Items.ADDRESS) {
+                views {
+                    searchResult {
+                        attribute(attributeName = "AddressId")
+                        attribute(attributeName = "Address")
+                        attribute(attributeName = "Address2")
+                        attribute(attributeName = "District")
+                        attribute(attributeName = "PostalCode")
+                        attribute(attributeName = "Phone")
+                    }
+                    editor {
+                        configureEditorForMainItem {
+                            tab(tabTranslationKey = "tab.common") {
+                                column {
+                                    attribute(attributeName = "AddressId")
+                                    attribute(attributeName = "Address")
+                                    attribute(attributeName = "Address2")
+                                    attribute(attributeName = "District")
+                                    attribute(attributeName = "City")
                                     attribute(attributeName = "PostalCode")
-                                    attribute(attributeName = "Town")
+                                    attribute(attributeName = "Phone")
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            uiEntity(uiEntityName = "City", rootItemId = Items.CITY) {
+                views {
+                    searchResult {
+                        attribute(attributeName = "CityId")
+                        attribute(attributeName = "City")
+                    }
+                    editor {
+                        configureEditorForMainItem {
+                            tab(tabTranslationKey = "tab.common") {
+                                column {
+                                    attribute(attributeName = "CityId")
+                                    attribute(attributeName = "City")
                                     attribute(attributeName = "Country")
                                 }
                             }
                         }
-                        configureEditorForNestedItem(itemId = Items.ADDRESS) {
-                            column {
-                                attribute(attributeName = "Id")
-                                attribute(attributeName = "Street")
-                                attribute(attributeName = "PostalCode")
-                                attribute(attributeName = "Town")
-                                attribute(attributeName = "Country")
+                    }
+                }
+            }
+
+            uiEntity(uiEntityName = "Country", rootItemId = Items.COUNTRY) {
+                views {
+                    searchResult {
+                        attribute(attributeName = "CountryId")
+                        attribute(attributeName = "Country")
+                    }
+                    editor {
+                        configureEditorForMainItem {
+                            tab(tabTranslationKey = "tab.common") {
+                                column {
+                                    attribute(attributeName = "CountryId")
+                                    attribute(attributeName = "Country")
+                                }
                             }
                         }
                     }
                 }
             }
-            uiEntity(uiEntityName = "Company", rootItemId = Items.COMPANY) {
+
+            uiEntity(uiEntityName = "Customer", rootItemId = Items.CUSTOMER) {
                 views {
                     searchResult {
-                        attribute(attributeName = "CompanyNumber")
-                        attribute(attributeName = "CompanyName")
+                        attribute(attributeName = "CustomerId")
+                        attribute(attributeName = "FirstName")
+                        attribute(attributeName = "LastName")
+                        attribute(attributeName = "Email")
+                        attribute(attributeName = "Activebool")
+                        attribute(attributeName = "CreateDate")
+                        attribute(attributeName = "Active")
                     }
                     editor {
                         configureEditorForMainItem {
-                            tab(tabTranslationKey = "tab.company") {
+                            tab(tabTranslationKey = "tab.common") {
                                 column {
-                                    attribute(attributeName = "CompanyNumber")
-                                    attribute(attributeName = "CompanyName")
+                                    attribute(attributeName = "CustomerId")
+                                    attribute(attributeName = "Store")
+                                    attribute(attributeName = "FirstName")
+                                    attribute(attributeName = "LastName")
+                                    attribute(attributeName = "Email")
+                                    attribute(attributeName = "Address")
+                                    attribute(attributeName = "Activebool")
+                                    attribute(attributeName = "CreateDate")
+                                    attribute(attributeName = "Active")
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            uiEntity(uiEntityName = "Inventory", rootItemId = Items.INVENTORY) {
+                views {
+                    searchResult {
+                        attribute(attributeName = "InventoryId")
+                    }
+                    editor {
+                        configureEditorForMainItem {
+                            tab(tabTranslationKey = "tab.common") {
+                                column {
+                                    attribute(attributeName = "InventoryId")
+                                    attribute(attributeName = "Film")
+                                    attribute(attributeName = "Store")
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            uiEntity(uiEntityName = "Language", rootItemId = Items.LANGUAGE) {
+                views {
+                    searchResult {
+                        attribute(attributeName = "LanguageId")
+                        attribute(attributeName = "Name")
+                    }
+                    editor {
+                        configureEditorForMainItem {
+                            tab(tabTranslationKey = "tab.common") {
+                                column {
+                                    attribute(attributeName = "LanguageId")
+                                    attribute(attributeName = "Name")
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            uiEntity(uiEntityName = "Payment", rootItemId = Items.PAYMENT) {
+                views {
+                    searchResult {
+                        attribute(attributeName = "PaymentId")
+                        attribute(attributeName = "Amount")
+                    }
+                    editor {
+                        configureEditorForMainItem {
+                            tab(tabTranslationKey = "tab.common") {
+                                column {
+                                    attribute(attributeName = "PaymentId")
+                                    attribute(attributeName = "Customer")
+                                    attribute(attributeName = "Staff")
+                                    attribute(attributeName = "Rental")
+                                    attribute(attributeName = "Amount")
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            uiEntity(uiEntityName = "Rental", rootItemId = Items.RENTAL) {
+                views {
+                    searchResult {
+                        attribute(attributeName = "RentalId")
+                    }
+                    editor {
+                        configureEditorForMainItem {
+                            tab(tabTranslationKey = "tab.common") {
+                                column {
+                                    attribute(attributeName = "RentalId")
+                                    attribute(attributeName = "Inventory")
+                                    attribute(attributeName = "Customer")
+                                    attribute(attributeName = "Staff")
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            uiEntity(uiEntityName = "Staff", rootItemId = Items.STAFF) {
+                views {
+                    searchResult {
+                        attribute(attributeName = "StaffId")
+                        attribute(attributeName = "FirstName")
+                        attribute(attributeName = "LastName")
+                        attribute(attributeName = "Email")
+                        attribute(attributeName = "Active")
+                        attribute(attributeName = "Username")
+                    }
+                    editor {
+                        configureEditorForMainItem {
+                            tab(tabTranslationKey = "tab.common") {
+                                column {
+                                    attribute(attributeName = "StaffId")
+                                    attribute(attributeName = "FirstName")
+                                    attribute(attributeName = "LastName")
+                                    attribute(attributeName = "Address")
+                                    attribute(attributeName = "Email")
+                                    attribute(attributeName = "Store")
+                                    attribute(attributeName = "Active")
+                                    attribute(attributeName = "Username")
+                                    attribute(attributeName = "Password")
+                                    attribute(attributeName = "Picture")
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            uiEntity(uiEntityName = "Store", rootItemId = Items.STORE) {
+                views {
+                    searchResult {
+                        attribute(attributeName = "StoreId")
+                    }
+                    editor {
+                        configureEditorForMainItem {
+                            tab(tabTranslationKey = "tab.common") {
+                                column {
+                                    attribute(attributeName = "StoreId")
+                                    attribute(attributeName = "ManagerStaff")
+                                    attribute(attributeName = "Address")
                                 }
                             }
                         }
