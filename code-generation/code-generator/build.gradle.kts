@@ -67,6 +67,7 @@ tasks.register<Delete>("cleanCodegen") {
         directoryForPersistenceGeneratedSource,
         directoryForRestGeneratedSource,
         directoryForServiceGeneratedSource,
+        directoryForDatabaseMigrationGeneratedSource,
     )
 }
 

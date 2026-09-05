@@ -1,6 +1,7 @@
 plugins {
     id("org.flywaydb.flyway")
 }
+val directoryForGeneratedSource = "db/generated-migration"
 
 // Flyway reads FLYWAY_URL, FLYWAY_USER and FLYWAY_PASSWORD from the environment itself, and those
 // win over whatever is configured here, so only the Gradle properties need wiring up.
@@ -8,7 +9,9 @@ fun dbSetting(gradleProperty: String, default: String): String =
     providers.gradleProperty(gradleProperty).getOrElse(default)
 
 flyway {
-    locations = arrayOf("filesystem:db/migration")
+    // db/migration holds the hand-written reference migrations, db/generated-migration the
+    // repeatable ones the code generator writes from the model.
+    locations = arrayOf("filesystem:db/migration", "filesystem:$directoryForGeneratedSource")
 
     url = dbSetting("flyway.url", "jdbc:postgresql://localhost:5432/postgres")
     user = dbSetting("flyway.user", "postgres")
@@ -21,4 +24,13 @@ flyway {
     // baselined at 1 instead, so the version stays overridable.
     baselineOnMigrate = true
     baselineVersion = dbSetting("flyway.baselineVersion", "0")
+}
+
+
+tasks.register<Delete>("cleanGeneratedSources") {
+    delete(projectDir.resolve(directoryForGeneratedSource))
+}
+
+tasks.register("clean") {
+    dependsOn("cleanGeneratedSources")
 }
