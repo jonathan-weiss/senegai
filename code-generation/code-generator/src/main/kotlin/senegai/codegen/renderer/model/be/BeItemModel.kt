@@ -64,7 +64,8 @@ data class BeItemModel(
             BuiltInType.UUID -> "UUID.randomUUID()"
             BuiltInType.NUMBER -> "(store.keys.maxOrNull() ?: 0) + 1"
             BuiltInType.STRING -> throw NotSupportedInTemplateException(clientProvidedPrimaryKeyMessage())
-            BuiltInType.BOOLEAN -> throw NotSupportedInTemplateException(unsupportedPrimaryKeyTypeMessage())
+            BuiltInType.DOUBLE, BuiltInType.BOOLEAN ->
+                throw NotSupportedInTemplateException(unsupportedPrimaryKeyTypeMessage())
         }
 
     /**
@@ -86,7 +87,8 @@ data class BeItemModel(
                 "jdbcClient.sql(\"SELECT nextval(pg_get_serial_sequence('\$TABLE_NAME', " +
                         "'\${PRIMARY_KEY_COLUMN_NAME.lowercase()}'))\").query(Int::class.java).single()"
             BuiltInType.STRING -> throw NotSupportedInTemplateException(clientProvidedPrimaryKeyMessage())
-            BuiltInType.BOOLEAN -> throw NotSupportedInTemplateException(unsupportedPrimaryKeyTypeMessage())
+            BuiltInType.DOUBLE, BuiltInType.BOOLEAN ->
+                throw NotSupportedInTemplateException(unsupportedPrimaryKeyTypeMessage())
         }
 
     /**
@@ -98,7 +100,8 @@ data class BeItemModel(
             BuiltInType.UUID -> "UUID(0L, 0L)"
             BuiltInType.STRING -> "\"\""
             BuiltInType.NUMBER -> "0"
-            BuiltInType.BOOLEAN -> throw NotSupportedInTemplateException(unsupportedPrimaryKeyTypeMessage())
+            BuiltInType.DOUBLE, BuiltInType.BOOLEAN ->
+                throw NotSupportedInTemplateException(unsupportedPrimaryKeyTypeMessage())
         }
 
     private fun clientProvidedPrimaryKeyMessage(): String =
@@ -161,11 +164,11 @@ data class BeItemModel(
      */
     val containsTextAttributes: Boolean = attributesOfTypes(TEXT_LIKE_BUILT_IN_TYPES, isList = false).any()
     val containsBooleanAttributes: Boolean = attributesOfType(BuiltInType.BOOLEAN, isList = false).any()
-    val containsNumberAttributes: Boolean = attributesOfType(BuiltInType.NUMBER, isList = false).any()
+    val containsNumberAttributes: Boolean = attributesOfTypes(NUMBER_LIKE_BUILT_IN_TYPES, isList = false).any()
 
     val containsTextListAttributes: Boolean = attributesOfTypes(TEXT_LIKE_BUILT_IN_TYPES, isList = true).any()
     val containsBooleanListAttributes: Boolean = attributesOfType(BuiltInType.BOOLEAN, isList = true).any()
-    val containsNumberListAttributes: Boolean = attributesOfType(BuiltInType.NUMBER, isList = true).any()
+    val containsNumberListAttributes: Boolean = attributesOfTypes(NUMBER_LIKE_BUILT_IN_TYPES, isList = true).any()
 
     /**
      * Whether any attribute is a [BuiltInType.UUID], e.g. to render the import of the UUID
@@ -186,5 +189,8 @@ data class BeItemModel(
     private companion object {
         /** Built-in types that are rendered as a text input on the client. */
         private val TEXT_LIKE_BUILT_IN_TYPES = setOf(BuiltInType.STRING, BuiltInType.UUID)
+
+        /** Built-in types that are rendered as a number input on the client. */
+        private val NUMBER_LIKE_BUILT_IN_TYPES = setOf(BuiltInType.NUMBER, BuiltInType.DOUBLE)
     }
 }

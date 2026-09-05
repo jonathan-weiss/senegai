@@ -135,6 +135,7 @@ open class BuiltInTypeBeAttributeModel(
         when (builtInType) {
             BuiltInType.STRING -> "String"
             BuiltInType.NUMBER -> "Int"
+            BuiltInType.DOUBLE -> "Double"
             BuiltInType.BOOLEAN -> "Boolean"
             BuiltInType.UUID -> "UUID"
         }
@@ -148,7 +149,7 @@ open class BuiltInTypeBeAttributeModel(
     private fun builtInTypeAsString(): String =
         when (builtInType) {
             BuiltInType.STRING -> "string"
-            BuiltInType.NUMBER -> "number"
+            BuiltInType.NUMBER, BuiltInType.DOUBLE -> "number"
             BuiltInType.BOOLEAN -> "boolean"
             BuiltInType.UUID -> "UUID"
         }

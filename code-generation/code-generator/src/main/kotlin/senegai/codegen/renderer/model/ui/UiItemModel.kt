@@ -53,7 +53,7 @@ data class UiItemModel(
             BuiltInType.UUID -> "idParam as UUID"
             BuiltInType.STRING -> "idParam as string"
             BuiltInType.NUMBER -> "Number(idParam)"
-            BuiltInType.BOOLEAN -> throw NotSupportedInTemplateException(
+            BuiltInType.DOUBLE, BuiltInType.BOOLEAN -> throw NotSupportedInTemplateException(
                 "The item '${itemName.pascalCase}' is identified by the attribute " +
                         "'${primaryKeyAttribute.attributeName.camelCase}' of the built-in type " +
                         "${primaryKeyAttribute.builtInType}, which no item can be identified by."
@@ -121,11 +121,11 @@ data class UiItemModel(
      */
     val containsTextAttributes: Boolean = attributesOfTypes(TEXT_LIKE_BUILT_IN_TYPES, isList = false).any()
     val containsBooleanAttributes: Boolean = attributesOfType(BuiltInType.BOOLEAN, isList = false).any()
-    val containsNumberAttributes: Boolean = attributesOfType(BuiltInType.NUMBER, isList = false).any()
+    val containsNumberAttributes: Boolean = attributesOfTypes(NUMBER_LIKE_BUILT_IN_TYPES, isList = false).any()
 
     val containsTextListAttributes: Boolean = attributesOfTypes(TEXT_LIKE_BUILT_IN_TYPES, isList = true).any()
     val containsBooleanListAttributes: Boolean = attributesOfType(BuiltInType.BOOLEAN, isList = true).any()
-    val containsNumberListAttributes: Boolean = attributesOfType(BuiltInType.NUMBER, isList = true).any()
+    val containsNumberListAttributes: Boolean = attributesOfTypes(NUMBER_LIKE_BUILT_IN_TYPES, isList = true).any()
 
     /**
      * Whether any attribute is transported as a [BuiltInType.UUID], e.g. to render the import of
@@ -153,5 +153,8 @@ data class UiItemModel(
     private companion object {
         /** Built-in types that are rendered as a text input on the client. */
         private val TEXT_LIKE_BUILT_IN_TYPES = setOf(BuiltInType.STRING, BuiltInType.UUID)
+
+        /** Built-in types that are rendered as a number input on the client. */
+        private val NUMBER_LIKE_BUILT_IN_TYPES = setOf(BuiltInType.NUMBER, BuiltInType.DOUBLE)
     }
 }

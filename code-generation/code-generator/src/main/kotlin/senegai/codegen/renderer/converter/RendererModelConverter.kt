@@ -434,6 +434,7 @@ object RendererModelConverter {
     private fun dbSqlType(builtInType: BuiltInType): DbSqlType = when (builtInType) {
         BuiltInType.STRING -> DbSqlType.TEXT
         BuiltInType.NUMBER -> DbSqlType.INTEGER
+        BuiltInType.DOUBLE -> DbSqlType.DOUBLE_PRECISION
         BuiltInType.BOOLEAN -> DbSqlType.BOOLEAN
         BuiltInType.UUID -> DbSqlType.UUID
     }

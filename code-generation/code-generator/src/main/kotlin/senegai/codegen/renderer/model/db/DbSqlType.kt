@@ -10,6 +10,7 @@ enum class DbSqlType(val sqlTypeName: String) {
     UUID("uuid"),
     TEXT("text"),
     INTEGER("integer"),
+    DOUBLE_PRECISION("double precision"),
     BOOLEAN("boolean"),
     JSONB("jsonb"),
 }

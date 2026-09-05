@@ -27,6 +27,7 @@ data class EnumType(
 enum class BuiltInType : ItemAttributeType {
     STRING,
     NUMBER,
+    DOUBLE,
     BOOLEAN,
     UUID,
 }
@@ -34,7 +35,9 @@ enum class BuiltInType : ItemAttributeType {
 /**
  * The built-in types an item can be identified by (see [ItemAttribute.isPrimaryKey]).
  *
- * A [BuiltInType.BOOLEAN] is missing on purpose: it can only tell two items apart.
+ * A [BuiltInType.BOOLEAN] is missing on purpose: it can only tell two items apart. So is a
+ * [BuiltInType.DOUBLE]: two floating point values that differ only below their precision
+ * compare as equal, so it identifies nothing reliably.
  */
 enum class PrimaryKeyType(val builtInType: BuiltInType) {
     UUID(BuiltInType.UUID),
@@ -45,11 +48,13 @@ enum class PrimaryKeyType(val builtInType: BuiltInType) {
 enum class ExampleDataCategory(val generatorPrefixName: String, val supportedBuiltInType: BuiltInType) {
     RANDOM_TEXT("RandomString", BuiltInType.STRING),
     RANDOM_NUMBER("RandomNumber",BuiltInType.NUMBER),
+    RANDOM_DOUBLE("RandomDouble",BuiltInType.DOUBLE),
     RANDOM_BOOLEAN("RandomBoolean",BuiltInType.BOOLEAN),
     RANDOM_UUID("RandomUuid",BuiltInType.UUID),
     FIRSTNAME("FirstnameString",BuiltInType.STRING),
     LASTNAME("LastnameString",BuiltInType.STRING),
     AGE("AgeNumber",BuiltInType.NUMBER),
+    AMOUNT("AmountDouble",BuiltInType.DOUBLE),
     STREET("StreetAndNumberString",BuiltInType.STRING),
     POSTCODE("PostcodeString",BuiltInType.STRING),
     CITY("CityString",BuiltInType.STRING),
@@ -62,6 +67,7 @@ enum class ExampleDataCategory(val generatorPrefixName: String, val supportedBui
         fun randomDataOf(builtInType: BuiltInType): ExampleDataCategory = when (builtInType) {
             BuiltInType.STRING -> RANDOM_TEXT
             BuiltInType.NUMBER -> RANDOM_NUMBER
+            BuiltInType.DOUBLE -> RANDOM_DOUBLE
             BuiltInType.BOOLEAN -> RANDOM_BOOLEAN
             BuiltInType.UUID -> RANDOM_UUID
         }

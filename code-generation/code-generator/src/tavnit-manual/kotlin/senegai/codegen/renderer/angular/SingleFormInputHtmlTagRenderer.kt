@@ -100,7 +100,8 @@ object SingleFormInputHtmlTagRenderer {
         when (builtInType) {
             // a UUID is edited as plain text, therefore it reuses the text input component
             BuiltInType.STRING, BuiltInType.UUID -> "text"
-            BuiltInType.NUMBER -> "number"
+            // a floating point number is edited with the very same input as a whole one
+            BuiltInType.NUMBER, BuiltInType.DOUBLE -> "number"
             BuiltInType.BOOLEAN -> "boolean"
         }
 

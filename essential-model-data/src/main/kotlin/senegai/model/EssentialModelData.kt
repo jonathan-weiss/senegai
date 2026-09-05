@@ -69,9 +69,9 @@ object EssentialModelData {
                 attribute(name = "Language").reference(itemId = Items.LANGUAGE)
                 attribute(name = "OriginalLanguage").reference(itemId = Items.LANGUAGE).options(nullable = true)
                 attribute(name = "RentalDuration").number()
-                attribute(name = "RentalRate").number()
+                attribute(name = "RentalRate").double(exampleDataCategory = ExampleDataCategory.AMOUNT)
                 attribute(name = "Length").number().options(nullable = true)
-                attribute(name = "ReplacementCost").number()
+                attribute(name = "ReplacementCost").double(exampleDataCategory = ExampleDataCategory.AMOUNT)
                 attribute(name = "Rating").enumType(enumId = EnumTypes.MPAA_RATING).options(nullable = true)
                 attribute(name = "SpecialFeatures").string().options(nullable = true, multiple = true)
                 attribute(name = "Fulltext").string()
@@ -142,7 +142,7 @@ object EssentialModelData {
                 attribute(name = "Customer").reference(itemId = Items.CUSTOMER)
                 attribute(name = "Staff").reference(itemId = Items.STAFF)
                 attribute(name = "Rental").reference(itemId = Items.RENTAL)
-                attribute(name = "Amount").number()
+                attribute(name = "Amount").double(exampleDataCategory = ExampleDataCategory.AMOUNT)
             }
 
             item(itemId = Items.RENTAL) {

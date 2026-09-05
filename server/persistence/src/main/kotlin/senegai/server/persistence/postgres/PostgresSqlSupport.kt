@@ -25,12 +25,19 @@ internal inline fun <reified T : Any> ResultSet.getJsonbOrNull(columnLabel: Stri
  * column the business object declares non-null fails on the cast, which is what should happen.
  * Anything that is neither a scalar nor an enum has no flat relational representation and is
  * therefore stored as `jsonb` — a nested item or a list of any kind.
+ *
+ * A `Double` is read as a `BigDecimal` rather than with `getObject(_, Double::class)`, because
+ * the driver refuses that conversion for a `numeric` column ("conversion to class
+ * java.lang.Double from numeric not supported") — and `numeric` is exactly what an existing
+ * schema spells a decimal column as. `getBigDecimal` accepts every numeric column type and
+ * returns `null` for a SQL NULL.
  */
 @Suppress("UNCHECKED_CAST")
 internal inline fun <reified T> ResultSet.columnValue(columnLabel: String): T = when {
     T::class == UUID::class -> getObject(columnLabel, UUID::class.java)
     T::class == String::class -> getString(columnLabel)
     T::class == Int::class -> getObject(columnLabel, Int::class.javaObjectType)
+    T::class == Double::class -> getBigDecimal(columnLabel)?.toDouble()
     T::class == Boolean::class -> getObject(columnLabel, Boolean::class.javaObjectType)
     T::class.java.isEnum -> getString(columnLabel)?.let { name ->
         T::class.java.enumConstants.single { (it as Enum<*>).name == name }
@@ -41,7 +48,7 @@ internal inline fun <reified T> ResultSet.columnValue(columnLabel: String): T = 
 
 /** The counterpart of [columnValue]: turns a business object value into the JDBC parameter it is stored as. */
 internal fun paramValue(value: Any?): Any? = when (value) {
-    null, is String, is Int, is Boolean, is UUID -> value
+    null, is String, is Int, is Double, is Boolean, is UUID -> value
     is Enum<*> -> value.name
     else -> toJsonb(value)
 }

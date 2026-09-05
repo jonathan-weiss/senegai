@@ -48,6 +48,12 @@ interface ItemAttributeTypeDsl {
 
     fun number(exampleDataCategory: ExampleDataCategory? = null): ItemAttributeOptionsDsl
 
+    /**
+     * Declares this attribute to hold a floating point number, for everything a whole
+     * number cannot carry, e.g. an amount of money or a measurement.
+     */
+    fun double(exampleDataCategory: ExampleDataCategory? = null): ItemAttributeOptionsDsl
+
     fun boolean(exampleDataCategory: ExampleDataCategory? = null): ItemAttributeOptionsDsl
 
     fun uuid(exampleDataCategory: ExampleDataCategory? = null): ItemAttributeOptionsDsl

@@ -53,6 +53,9 @@ interface ItemAttributeTypeBuilder: ItemAttributeTypeDsl {
     override fun number(exampleDataCategory: ExampleDataCategory?): ItemAttributeOptionsBuilder =
         builtInTypeInternal(type = BuiltInType.NUMBER, exampleDataCategory = exampleDataCategory)
 
+    override fun double(exampleDataCategory: ExampleDataCategory?): ItemAttributeOptionsBuilder =
+        builtInTypeInternal(type = BuiltInType.DOUBLE, exampleDataCategory = exampleDataCategory)
+
     override fun boolean(exampleDataCategory: ExampleDataCategory?): ItemAttributeOptionsBuilder =
         builtInTypeInternal(type = BuiltInType.BOOLEAN, exampleDataCategory = exampleDataCategory)
 

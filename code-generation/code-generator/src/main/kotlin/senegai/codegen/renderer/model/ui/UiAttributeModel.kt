@@ -143,7 +143,7 @@ open class BuiltInTypeUiAttributeModel(
     private fun typescriptBuildInType(builtInType: BuiltInType): String {
         return when (builtInType) {
             BuiltInType.STRING -> "string"
-            BuiltInType.NUMBER -> "number"
+            BuiltInType.NUMBER, BuiltInType.DOUBLE -> "number"
             BuiltInType.BOOLEAN -> "boolean"
             BuiltInType.UUID -> "UUID"
         }
@@ -165,7 +165,7 @@ open class BuiltInTypeUiAttributeModel(
     override fun determineAngularFormInitialValue(): String {
         return when (builtInType) {
             BuiltInType.STRING -> "''"
-            BuiltInType.NUMBER -> "0"
+            BuiltInType.NUMBER, BuiltInType.DOUBLE -> "0"
             BuiltInType.BOOLEAN -> "false"
             BuiltInType.UUID -> "'$NIL_UUID'"
         }

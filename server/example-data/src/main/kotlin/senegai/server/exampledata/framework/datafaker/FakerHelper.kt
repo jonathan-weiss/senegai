@@ -22,6 +22,10 @@ object FakerHelper {
         return dataContext.toFaker().number().randomNumber().toInt()
     }
 
+    fun randomDouble(dataContext: DataContext): Double {
+        return dataContext.toFaker().number().randomDouble(4, -1000, 1000)
+    }
+
     fun firstname(dataContext: DataContext): String {
         return dataContext.toFaker().name().firstName()
     }
@@ -52,6 +56,10 @@ object FakerHelper {
 
     fun age(dataContext: DataContext): Int {
         return dataContext.toFaker().number().numberBetween(1, 99)
+    }
+
+    fun amount(dataContext: DataContext): Double {
+        return dataContext.toFaker().number().randomDouble(2, 0, 999)
     }
 
 
