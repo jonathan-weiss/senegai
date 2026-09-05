@@ -1,5 +1,3 @@
--- Schema for the tables the PostgresSql*Repository implementations read and write.
-
 CREATE TABLE SILVA_OPTIONUM (
     INDEX_UNICUS                             uuid PRIMARY KEY,
     CAMPUS_TEXTUS_OBLIGATORIUS               text    NOT NULL,
@@ -16,9 +14,4 @@ CREATE TABLE SILVA_OPTIONUM (
     ITERATIO_SIMPLICIUM_TEXTUUM              jsonb   NOT NULL,
     RELATIO_AD_ENTITATEM_OPTIONALIS_ITERATUS jsonb,
     RELATIO_AD_ENTITATEM_OPTIONALIS          uuid
-);
-
-CREATE TABLE MEMBRUM_RELATUM (
-    CLAVIS_PRIMARIA        uuid PRIMARY KEY,
-    DESCRIPTIO_EX_DISTANTI text NOT NULL
 );
