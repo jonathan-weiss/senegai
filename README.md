@@ -75,14 +75,15 @@ Migrate the database schema
 Import the sakila schema and data
 
 ```
-docker exec -i postgres-senegai psql -U postgres -d postgres < ./database/postgresql-sakila-db-dump/db/migration/R03__postgres-sakila-schema.sql
-docker exec -i postgres-senegai psql -U postgres -d postgres < ./database/postgresql-sakila-db-dump/db/migration/R04__postgres-sakila-insert-data.sql
+docker exec -i postgres-senegai psql -U postgres -d postgres < ./database/postgresql-sakila-db-dump/db/migration/R__03__postgres-sakila-schema.sql
+docker exec -i postgres-senegai psql -U postgres -d postgres < ./database/postgresql-sakila-db-dump/db/migration/R__04__postgres-sakila-schema__manual-amendments.sql
+docker exec -i postgres-senegai psql -U postgres -d postgres < ./database/postgresql-sakila-db-dump/db/migration/R__10__postgres-sakila-insert-data.sql
 ```
 
 Remove the sakila schema and data
 
 ```
-docker exec -i postgres-senegai psql -U postgres -d postgres < ./database/postgresql-sakila-db-dump/db/migration/R01__postgres-sakila-delete-data.sql
-docker exec -i postgres-senegai psql -U postgres -d postgres < ./database/postgresql-sakila-db-dump/db/migration/R02__postgres-sakila-drop-objects.sql
+docker exec -i postgres-senegai psql -U postgres -d postgres < ./database/postgresql-sakila-db-dump/db/postgres-sakila-delete-data.sql
+docker exec -i postgres-senegai psql -U postgres -d postgres < ./database/postgresql-sakila-db-dump/db/postgres-sakila-drop-objects.sql
 ```
 
