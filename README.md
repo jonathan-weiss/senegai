@@ -5,10 +5,17 @@
 Start the server
 
 ```
-./gradlew :server:bootRun
+./gradlew :server:app:bootRun
 ```
 
-Open a browser on http://localhost:8080.
+or if you are using postgreSQL
+
+```
+./gradlew :server:app:bootRun --args='--senegai.persistence.type=postgres'
+```
+
+
+Open a browser on http://localhost:8081.
 
 ## Angular Client
 Start the client
