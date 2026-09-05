@@ -114,15 +114,16 @@ object ItemPostgresSqlRepositoryRenderer : BeItemRenderer {
           |    }
           |    private val upsertStatement: String
           |        get() {
-          |            // because we need kotlin comments between the lines, we can not use kotlins multiline-comments
+          |            // because we need kotlin comments between the lines, we can not use kotlin multiline-comments
           |            val sb = StringBuilder()
           |            sb.appendLine("INSERT INTO ${"$"}TABLE_NAME (")
-          |${ model.table.columnsWithoutPrimaryKey.joinToString("") { column ->  """            sb.appendLine("    ${column.columnName},")
+          |${ model.table.columnsWithoutPrimaryKey.filterNot { it.isJsonb }.joinToString("") { column ->  """            sb.appendLine("    ${column.columnName},")
+              |""" } }${ model.table.columnsWithoutPrimaryKey.filter { it.isJsonb }.joinToString("") { column ->  """            sb.appendLine("    ${column.columnName},")
               |""" } }            sb.appendLine("    ${"$"}PRIMARY_KEY_COLUMN_NAME")
           |            sb.appendLine(") VALUES (")
-          |${ model.table.columnsWithoutPrimaryKey.joinToString("") { column ->  """${ if(column.isJsonb) { """            sb.appendLine("    CAST(:${column.attributeName.camelCase} AS jsonb),")
-                  |""" } else { """            sb.appendLine("    :${column.attributeName.camelCase},")
-                  |""" } }""" } }            sb.appendLine("    :${model.primaryKeyAttribute.attributeName.camelCase}")
+          |${ model.table.columnsWithoutPrimaryKey.filterNot { it.isJsonb }.joinToString("") { column ->  """            sb.appendLine("    :${column.attributeName.camelCase},")
+              |""" } }${ model.table.columnsWithoutPrimaryKey.filter { it.isJsonb }.joinToString("") { column ->  """            sb.appendLine("    CAST(:${column.attributeName.camelCase} AS jsonb),")
+              |""" } }            sb.appendLine("    :${model.primaryKeyAttribute.attributeName.camelCase}")
           |            sb.appendLine(")")
           |            sb.appendLine("ON CONFLICT (${"$"}PRIMARY_KEY_COLUMN_NAME) DO UPDATE SET")
           |${ model.table.columnsWithoutPrimaryKey.joinToString("") { column ->  """            sb.appendLine("     ${column.columnName} = EXCLUDED.${column.columnName},")

@@ -199,11 +199,11 @@ class PostgresSqlSilvaOptionumRepository(
     }
     private val upsertStatement: String
         get() {
-            // because we need kotlin comments between the lines, we can not use kotlins multiline-comments
+            // because we need kotlin comments between the lines, we can not use kotlin multiline-comments
             val sb = StringBuilder()
             sb.appendLine("INSERT INTO $TABLE_NAME (")
             /* @tt{{{
-                @foreach [ iteratorExpression="model.table.columnsWithoutPrimaryKey" loopVariable="column" ]
+                @foreach [ iteratorExpression="model.table.columnsWithoutPrimaryKey.filterNot { it.isJsonb }" loopVariable="column" ]
                 @replace-value-by-expression
                     [ searchValue="CAMPUS_TEXTUS_OBLIGATORIUS" replaceByExpression="column.columnName" ]
             }}}@ */
@@ -211,47 +211,54 @@ class PostgresSqlSilvaOptionumRepository(
             /* @tt{{{   @end-replace-value-by-expression @end-foreach @ignore-text  }}}@ */
             sb.appendLine("    CAMPUS_TEXTUS_OPTIONALIS,")
             sb.appendLine("    APPELLATIO,")
+            sb.appendLine("    CAMPUS_DIEI,")
+            sb.appendLine("    CAMPUS_BIVALENS,")
+            sb.appendLine("    CAMPUS_NUMERORUM,")
+            sb.appendLine("    RELATIO_AD_ENTITATEM_OPTIONALIS,")
+            /* @tt{{{   @end-ignore-text  }}}@ */
+            /* @tt{{{
+                @foreach [ iteratorExpression="model.table.columnsWithoutPrimaryKey.filter { it.isJsonb }" loopVariable="column" ]
+                @replace-value-by-expression
+                    [ searchValue="ARTICULUS_INTERIOR_SINGULARIS" replaceByExpression="column.columnName" ]
+            }}}@ */
             sb.appendLine("    ARTICULUS_INTERIOR_SINGULARIS,")
+            /* @tt{{{   @end-replace-value-by-expression @end-foreach @ignore-text  }}}@ */
             sb.appendLine("    ARTICULUS_INTERIOR_ITERATUS,")
             sb.appendLine("    ARTICULUS_INTERIOR_SINGULARIS_OPTIONALIS,")
             sb.appendLine("    ARTICULUS_INTERIOR_OPTIONALIS_ITERATUS,")
             sb.appendLine("    APPELLATIO_OPTIONALIS_ITERATUS,")
-            sb.appendLine("    CAMPUS_DIEI,")
-            sb.appendLine("    CAMPUS_BIVALENS,")
-            sb.appendLine("    CAMPUS_NUMERORUM,")
             sb.appendLine("    ITERATIO_SIMPLICIUM_TEXTUUM,")
             sb.appendLine("    RELATIO_AD_ENTITATEM_OPTIONALIS_ITERATUS,")
-            sb.appendLine("    RELATIO_AD_ENTITATEM_OPTIONALIS,")
             /* @tt{{{   @end-ignore-text  }}}@ */
             sb.appendLine("    $PRIMARY_KEY_COLUMN_NAME")
             sb.appendLine(") VALUES (")
             /* @tt{{{
-                @foreach [ iteratorExpression="model.table.columnsWithoutPrimaryKey" loopVariable="column" ]
-                @if [ conditionExpression="column.isJsonb" ]
-                @replace-value-by-expression
-                    [ searchValue="articulusInteriorSingularis" replaceByExpression="column.attributeName.camelCase" ]
-            }}}@ */
-            sb.appendLine("    CAST(:articulusInteriorSingularis AS jsonb),")
-            /* @tt{{{
-                @end-replace-value-by-expression
-                @else
+                @foreach [ iteratorExpression="model.table.columnsWithoutPrimaryKey.filterNot { it.isJsonb }" loopVariable="column" ]
                 @replace-value-by-expression
                     [ searchValue="campusTextusObligatorius" replaceByExpression="column.attributeName.camelCase" ]
             }}}@ */
             sb.appendLine("    :campusTextusObligatorius,")
-            /* @tt{{{   @end-replace-value-by-expression @end-if @end-foreach @ignore-text  }}}@ */
+            /* @tt{{{   @end-replace-value-by-expression @end-foreach @ignore-text  }}}@ */
             sb.appendLine("    :campusTextusOptionalis,")
             sb.appendLine("    :appellatio,")
+            sb.appendLine("    :campusDiei,")
+            sb.appendLine("    :campusBivalens,")
+            sb.appendLine("    :campusNumerorum,")
+            sb.appendLine("    :relatioAdEntitatemOptionalis,")
+            /* @tt{{{   @end-ignore-text  }}}@ */
+            /* @tt{{{
+                @foreach [ iteratorExpression="model.table.columnsWithoutPrimaryKey.filter { it.isJsonb }" loopVariable="column" ]
+                @replace-value-by-expression
+                    [ searchValue="articulusInteriorSingularis" replaceByExpression="column.attributeName.camelCase" ]
+            }}}@ */
+            sb.appendLine("    CAST(:articulusInteriorSingularis AS jsonb),")
+            /* @tt{{{   @end-replace-value-by-expression @end-foreach @ignore-text  }}}@ */
             sb.appendLine("    CAST(:articulusInteriorIteratus AS jsonb),")
             sb.appendLine("    CAST(:articulusInteriorSingularisOptionalis AS jsonb),")
             sb.appendLine("    CAST(:articulusInteriorOptionalisIteratus AS jsonb),")
             sb.appendLine("    CAST(:appellatioOptionalisIteratus AS jsonb),")
-            sb.appendLine("    :campusDiei,")
-            sb.appendLine("    :campusBivalens,")
-            sb.appendLine("    :campusNumerorum,")
             sb.appendLine("    CAST(:iteratioSimpliciumTextuum AS jsonb),")
             sb.appendLine("    CAST(:relatioAdEntitatemOptionalisIteratus AS jsonb),")
-            sb.appendLine("    :relatioAdEntitatemOptionalis,")
             /* @tt{{{   @end-ignore-text  }}}@ */
             sb.appendLine("    :indexUnicus")
             sb.appendLine(")")
