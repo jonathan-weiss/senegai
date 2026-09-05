@@ -8,6 +8,7 @@ dependencyResolutionManagement {
             val tavnitVersion = version("tavnit", "1.0.0")
             val sourceAmazingVersion = version("sourceAmazing", "4.0.0")
             val datafakerVersion = version("datafaker", "2.7.0")
+            val flywayVersion = version("flyway", providers.gradleProperty("flywayVersion").get())
 
             library("kotlin-stdlib", "org.jetbrains.kotlin", "kotlin-stdlib").versionRef(kotlinVersion)
             library("kotlin-reflect", "org.jetbrains.kotlin", "kotlin-reflect").versionRef(kotlinVersion)
@@ -44,11 +45,15 @@ dependencyResolutionManagement {
             ).versionRef(sourceAmazingVersion)
 
             library("datafaker", "net.datafaker", "datafaker").versionRef(datafakerVersion)
+
+            plugin("flyway", "org.flywaydb.flyway").versionRef(flywayVersion)
         }
     }
 }
 
 include("client")
+include("database:postgresql-example-data")
+include("database:postgresql-sakila-db-dump")
 include("essential-model-data")
 include("server:app")
 include("server:service")

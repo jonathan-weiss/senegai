@@ -1,5 +1,4 @@
--- Reference DDL for the tables the PostgresSql*Repository implementations read and write.
--- Nothing executes this file; it documents the schema so it can be created by hand.
+-- Schema for the tables the PostgresSql*Repository implementations read and write.
 
 CREATE TABLE SILVA_OPTIONUM (
     INDEX_UNICUS                             uuid PRIMARY KEY,
