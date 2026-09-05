@@ -9,15 +9,11 @@ import {
     OpusMagnumSilvaOptionumCampusTextusObligatoriusNamedValidators
 } from "@app/opus-magnum/opus-magnum-form/opus-magnum-silva-optionum-form-part/opus-magnum-silva-optionum-form-part-validation.service";
 import {
-    maximumLengthNamedValidator,
-    maximumNumberNamedValidator,
     minimumLengthNamedValidator,
-    minimumNumberNamedValidator,
-    evenNumberNamedValidator,
 } from "@app/named-validators/field-validators";
-import {
-    ContactContactAgeNamedValidators, ContactContactLastnameNamedValidators
-} from "@app/contact/contact-form/contact-contact-form-part/contact-contact-form-part-validation.service";
+// import {
+//     ContactContactAgeNamedValidators, ContactContactLastnameNamedValidators
+// } from "@app/contact/contact-form/contact-contact-form-part/contact-contact-form-part-validation.service";
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -48,18 +44,18 @@ export const appConfig: ApplicationConfig = {
                     minimumLengthNamedValidator(3),
                 ]
         },
-        { provide: ContactContactLastnameNamedValidators, useValue:
-                [
-                    minimumLengthNamedValidator(6),
-                    maximumLengthNamedValidator(15),
-                ]
-        },
-        { provide: ContactContactAgeNamedValidators, useValue:
-                [
-                    minimumNumberNamedValidator(0),
-                    maximumNumberNamedValidator(120),
-                    evenNumberNamedValidator(),
-                ]
-        },
+        // { provide: ContactContactLastnameNamedValidators, useValue:
+        //         [
+        //             minimumLengthNamedValidator(6),
+        //             maximumLengthNamedValidator(15),
+        //         ]
+        // },
+        // { provide: ContactContactAgeNamedValidators, useValue:
+        //         [
+        //             minimumNumberNamedValidator(0),
+        //             maximumNumberNamedValidator(120),
+        //             evenNumberNamedValidator(),
+        //         ]
+        // },
     ],
 };

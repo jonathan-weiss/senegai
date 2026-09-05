@@ -1,9 +1,9 @@
 package senegai.server.exampledata
 
 import org.springframework.stereotype.Component
-import senegai.server.exampledata.address.AddressExampleDataPopulator
-import senegai.server.exampledata.company.CompanyExampleDataPopulator
-import senegai.server.exampledata.contact.ContactExampleDataPopulator
+//import senegai.server.exampledata.address.AddressExampleDataPopulator
+//import senegai.server.exampledata.company.CompanyExampleDataPopulator
+//import senegai.server.exampledata.contact.ContactExampleDataPopulator
 import senegai.server.exampledata.framework.datafaker.DataFakerDataContextFactoryService
 import senegai.server.exampledata.membrumrelatum.MembrumRelatumExampleDataPopulator
 import senegai.server.exampledata.silvaoptionum.SilvaOptionumExampleDataPopulator
@@ -16,9 +16,10 @@ import senegai.server.exampledata.silvaoptionum.SilvaOptionumExampleDataPopulato
 class ExampleDataCreatorsRunner(
     private val membrumRelatumExampleDataPopulator: MembrumRelatumExampleDataPopulator,
     private val silvaOptionumExampleDataPopulator: SilvaOptionumExampleDataPopulator,
-    private val addressExampleDataPopulator: AddressExampleDataPopulator,
-    private val companyExampleDataPopulator: CompanyExampleDataPopulator,
-    private val contactExampleDataPopulator: ContactExampleDataPopulator,
+// TODO make a tavnit from this
+//    private val addressExampleDataPopulator: AddressExampleDataPopulator,
+//    private val companyExampleDataPopulator: CompanyExampleDataPopulator,
+//    private val contactExampleDataPopulator: ContactExampleDataPopulator,
     private val dataContextFactoryService: DataFakerDataContextFactoryService,
 ) {
 
@@ -28,8 +29,8 @@ class ExampleDataCreatorsRunner(
         // instance, so the referenced item has to create its example data first
         membrumRelatumExampleDataPopulator.createExampleData(dataContext)
         silvaOptionumExampleDataPopulator.createExampleData(dataContext)
-        addressExampleDataPopulator.createExampleData(dataContext)
-        companyExampleDataPopulator.createExampleData(dataContext)
-        contactExampleDataPopulator.createExampleData(dataContext)
+//        addressExampleDataPopulator.createExampleData(dataContext)
+//        companyExampleDataPopulator.createExampleData(dataContext)
+//        contactExampleDataPopulator.createExampleData(dataContext)
     }
 }
