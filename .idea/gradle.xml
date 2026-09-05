@@ -14,7 +14,7 @@
             <option value="$PROJECT_DIR$/code-generation/code-generator" />
             <option value="$PROJECT_DIR$/code-generation/renderer-creator" />
             <option value="$PROJECT_DIR$/database" />
-            <option value="$PROJECT_DIR$/database/postgresql-example-data" />
+            <option value="$PROJECT_DIR$/database/postgresql-dsl-schema" />
             <option value="$PROJECT_DIR$/database/postgresql-sakila-db-dump" />
             <option value="$PROJECT_DIR$/essential-model-data" />
             <option value="$PROJECT_DIR$/server" />

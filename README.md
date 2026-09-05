@@ -33,7 +33,7 @@ docker run --name postgres-senegai -e POSTGRES_PASSWORD=password -p 5432:5432 po
 Migrate the database schema
 
 ```
-./gradlew :database:postgresql-example-data:flywayMigrate
+./gradlew :database:postgresql-dsl-schema:flywayMigrate
 ```
 
 The migrations live in `database/src/main/resources/db/migration`. Schema changes are added as a new
@@ -45,14 +45,14 @@ Flyway connects to the postgres container above by default. Point it somewhere e
 `FLYWAY_PASSWORD` environment variables:
 
 ```
-./gradlew :database:postgresql-example-data:flywayMigrate -Pflyway.url=jdbc:postgresql://localhost:5432/senegai
+./gradlew :database:postgresql-dsl-schema:flywayMigrate -Pflyway.url=jdbc:postgresql://localhost:5432/senegai
 ```
 
 If you created the schema by hand before Flyway was introduced, record it as already migrated once,
 so that Flyway does not try to create the tables a second time:
 
 ```
-./gradlew :database:postgresql-example-data:flywayBaseline -Pflyway.baselineVersion=1
+./gradlew :database:postgresql-dsl-schema:flywayBaseline -Pflyway.baselineVersion=1
 ```
 
 ## sakila schema and data

@@ -4,3 +4,4 @@ build
 **/build
 *.todo.txt
 COMMAND-REFERENCE.md
+database/postgresql-dsl-schema/db/generated-migration/*

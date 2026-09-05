@@ -52,7 +52,7 @@ dependencyResolutionManagement {
 }
 
 include("client")
-include("database:postgresql-example-data")
+include("database:postgresql-dsl-schema")
 include("database:postgresql-sakila-db-dump")
 include("essential-model-data")
 include("server:app")
