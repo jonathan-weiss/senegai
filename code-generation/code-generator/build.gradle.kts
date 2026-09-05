@@ -25,18 +25,19 @@ tasks.test {
 val directoryForGeneratedTemplateRenderer = "src/tavnit-generated/kotlin"
 val directoryForManualTemplateRenderer = "src/tavnit-manual/kotlin"
 
-val angularClientProjectPath = project(":client").projectDir
-val serverRestProjectPath = project(":server:rest").projectDir
-val serverServiceProjectPath = project(":server:service").projectDir
-val serverPersistenceProjectPath = project(":server:persistence").projectDir
-val serverExampleDataProjectPath = project(":server:example-data").projectDir
-
+val angularClientProjectPath: File = project(":client").projectDir
+val serverRestProjectPath: File = project(":server:rest").projectDir
+val serverServiceProjectPath: File = project(":server:service").projectDir
+val serverPersistenceProjectPath: File = project(":server:persistence").projectDir
+val serverExampleDataProjectPath: File = project(":server:example-data").projectDir
+val databaseDslSchemaProjectPath: File = project(":database:postgresql-dsl-schema").projectDir
 
 val directoryForAngularGeneratedSource = angularClientProjectPath.resolve("src/app-generated")
 val directoryForRestGeneratedSource = serverRestProjectPath.resolve("src/generated/kotlin")
 val directoryForServiceGeneratedSource = serverServiceProjectPath.resolve("src/generated/kotlin")
 val directoryForPersistenceGeneratedSource = serverPersistenceProjectPath.resolve("src/generated/kotlin")
 val directoryForExampleDataGeneratedSource = serverExampleDataProjectPath.resolve("src/generated/kotlin")
+val directoryForDatabaseMigrationGeneratedSource = databaseDslSchemaProjectPath.resolve("db/generated-migration")
 
 kotlin {
     sourceSets["main"].kotlin.srcDir(directoryForGeneratedTemplateRenderer)
@@ -53,6 +54,7 @@ tasks.register<JavaExec>("codegen") {
         directoryForServiceGeneratedSource,
         directoryForPersistenceGeneratedSource,
         directoryForExampleDataGeneratedSource,
+        directoryForDatabaseMigrationGeneratedSource,
     )
 
     dependsOn("cleanCodegen")

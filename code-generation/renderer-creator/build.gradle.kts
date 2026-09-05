@@ -20,6 +20,7 @@ tasks.register<JavaExec>("createTavnitRenderers") {
     val serverRestProjectPath = project(":server:rest").projectDir
     val serverPersistenceProjectPath = project(":server:persistence").projectDir
     val serverExampleDataProjectPath = project(":server:example-data").projectDir
+    val databaseDslSchemaProjectPath = project(":database:postgresql-dsl-schema").projectDir
 
     classpath = sourceSets.main.get().runtimeClasspath
     mainClass.set("senegai.codegen.renderercreator.TavnitRendererCreatorKt")
@@ -31,6 +32,7 @@ tasks.register<JavaExec>("createTavnitRenderers") {
         serverServiceProjectPath.resolve("src/main/kotlin").absolutePath,
         serverPersistenceProjectPath.resolve("src/main/kotlin").absolutePath,
         serverExampleDataProjectPath.resolve("src/main/kotlin").absolutePath,
+        databaseDslSchemaProjectPath.resolve("db/migration").absolutePath,
     )
 
     dependsOn("cleanRenderers")

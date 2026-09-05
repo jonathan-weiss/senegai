@@ -1,6 +1,7 @@
 package senegai.codegen
 
 import senegai.codegen.CommandLineArgument.ANGULAR
+import senegai.codegen.CommandLineArgument.DATABASE_MIGRATION
 import senegai.codegen.CommandLineArgument.EXAMPLE_DATA
 import senegai.codegen.CommandLineArgument.PERSISTENCE
 import senegai.codegen.CommandLineArgument.REST
@@ -14,6 +15,7 @@ enum class CommandLineArgument(val description: String) {
     SERVICE("Path to service generated sources"),
     PERSISTENCE("Path to persistence generated sources"),
     EXAMPLE_DATA("Path to example_data generated sources"),
+    DATABASE_MIGRATION("Path to generated database migrations"),
     ;
 }
 
@@ -25,6 +27,7 @@ data class CommandLineArguments(
     val directoryForServiceGeneratedSource: Path = Paths.get(requireNotNull(arguments[SERVICE]))
     val directoryForPersistenceGeneratedSource: Path = Paths.get(requireNotNull(arguments[PERSISTENCE]))
     val directoryForExampleDataGeneratedSource: Path = Paths.get(requireNotNull(arguments[EXAMPLE_DATA]))
+    val directoryForDatabaseMigrationGeneratedSource: Path = Paths.get(requireNotNull(arguments[DATABASE_MIGRATION]))
 }
 
 fun createCommandLineArguments(args: Array<String>): CommandLineArguments? {

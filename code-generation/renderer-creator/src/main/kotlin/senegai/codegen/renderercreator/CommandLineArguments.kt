@@ -1,6 +1,7 @@
 package senegai.codegen.renderercreator
 
 import senegai.codegen.renderercreator.CommandLineArgument.ANGULAR
+import senegai.codegen.renderercreator.CommandLineArgument.DATABASE_MIGRATION
 import senegai.codegen.renderercreator.CommandLineArgument.EXAMPLE_DATA
 import senegai.codegen.renderercreator.CommandLineArgument.PERSISTENCE
 import senegai.codegen.renderercreator.CommandLineArgument.REST
@@ -16,6 +17,7 @@ enum class CommandLineArgument(val description: String) {
     REST("Path to backend rest sources"),
     PERSISTENCE("Path to backend persistence sources"),
     EXAMPLE_DATA("Path to backend example data sources"),
+    DATABASE_MIGRATION("Path to database migration scripts"),
     ;
 }
 
@@ -28,6 +30,7 @@ data class CommandLineArguments(
     val directoryForServiceSource: Path = Paths.get(requireNotNull(arguments[SERVICE]))
     val directoryForPersistenceSource: Path = Paths.get(requireNotNull(arguments[PERSISTENCE]))
     val directoryForExampleDataSource: Path = Paths.get(requireNotNull(arguments[EXAMPLE_DATA]))
+    val directoryForDatabaseMigration: Path = Paths.get(requireNotNull(arguments[DATABASE_MIGRATION]))
 }
 
 fun createCommandLineArguments(args: Array<String>): CommandLineArguments? {

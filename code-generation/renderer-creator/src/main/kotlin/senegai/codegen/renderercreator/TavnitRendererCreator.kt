@@ -62,6 +62,10 @@ private fun gatherTemplatingConfigurations(
             rootDirectoryToSearch = cliArgs.directoryForExampleDataSource,
             filenameMatchingPattern = Regex(".*\\.kt"),
         ),
+        FileSearchLocation(
+            rootDirectoryToSearch = cliArgs.directoryForDatabaseMigration,
+            filenameMatchingPattern = Regex(".*\\.sql"),
+        ),
     )
 
     val templateRendererConfiguration = TemplateRendererConfiguration(

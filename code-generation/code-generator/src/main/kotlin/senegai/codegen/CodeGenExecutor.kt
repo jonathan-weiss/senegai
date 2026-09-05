@@ -2,6 +2,7 @@ package senegai.codegen
 
 import senegai.codegen.renderer.BackendRendering
 import senegai.codegen.renderer.ClientRendering
+import senegai.codegen.renderer.DatabaseRendering
 import senegai.codegen.renderer.converter.RendererModelConverter
 import senegai.codegen.renderer.model.SchemaModel
 import senegai.model.schema.SchemaData
@@ -25,6 +26,11 @@ fun main(args: Array<String>) {
         pathToGeneratedBackendPersistenceFiles = cliArgs.directoryForPersistenceGeneratedSource,
         pathToGeneratedBackendExampleDataFiles = cliArgs.directoryForExampleDataGeneratedSource,
         beModel = schemaModel.beModel,
+    )
+
+    DatabaseRendering.renderDatabaseFiles(
+        pathToGeneratedDatabaseMigrationScripts = cliArgs.directoryForDatabaseMigrationGeneratedSource,
+        dbModel = schemaModel.dbModel,
     )
 }
 
