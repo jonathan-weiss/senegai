@@ -10,7 +10,10 @@ import senegai.server.service.bo.MembrumRelatumBO
 import senegai.server.service.bo.MembrumRelatumByIdsCriteriaBO
 import senegai.server.service.bo.MembrumRelatumSearchCriteriaBO
 import senegai.server.service.membrumrelatum.MembrumRelatumRepository
-import java.util.UUID
+import java.util.*
+
+private const val TABLE_NAME = "MEMBRUM_RELATUM"
+private const val PRIMARY_KEY_COLUMN_NAME = "CLAVIS_PRIMARIA"
 
 /**
  * PostgreSQL implementation of the [MembrumRelatumRepository] port, storing every
@@ -27,11 +30,11 @@ class PostgresSqlMembrumRelatumRepository(
 ) : MembrumRelatumRepository {
 
     override fun findAll(): List<MembrumRelatumBO> =
-        jdbcClient.sql("$SELECT_COLUMNS ORDER BY CLAVIS_PRIMARIA").query(rowMapper).list()
+        jdbcClient.sql("$selectColumns ORDER BY $PRIMARY_KEY_COLUMN_NAME").query(rowMapper).list()
 
     override fun findById(clavisPrimaria: UUID): MembrumRelatumBO? =
-        jdbcClient.sql("$SELECT_COLUMNS WHERE CLAVIS_PRIMARIA = :clavisPrimaria")
-            .param("clavisPrimaria", clavisPrimaria)
+        jdbcClient.sql("$selectColumns WHERE $PRIMARY_KEY_COLUMN_NAME = :primaryKeyValue")
+            .param("primaryKeyValue", clavisPrimaria)
             .query(rowMapper)
             .optional()
             .orElse(null)
@@ -40,8 +43,8 @@ class PostgresSqlMembrumRelatumRepository(
         if (criteria.clavisPrimariaList.isEmpty()) {
             return emptyList()
         }
-        val found = jdbcClient.sql("$SELECT_COLUMNS WHERE CLAVIS_PRIMARIA IN (:clavisPrimariaList)")
-            .param("clavisPrimariaList", criteria.clavisPrimariaList)
+        val found = jdbcClient.sql("$selectColumns WHERE $PRIMARY_KEY_COLUMN_NAME IN (:primaryKeyValues)")
+            .param("primaryKeyValues", criteria.clavisPrimariaList)
             .query(rowMapper)
             .list()
             .associateBy { it.clavisPrimaria }
@@ -49,13 +52,13 @@ class PostgresSqlMembrumRelatumRepository(
     }
 
     override fun search(searchCriteria: MembrumRelatumSearchCriteriaBO): List<MembrumRelatumBO> =
-        jdbcClient.sql("$SELECT_COLUMNS WHERE MEMBRUM_RELATUM::text ILIKE :query ESCAPE '\\' ORDER BY CLAVIS_PRIMARIA")
+        jdbcClient.sql("$selectColumns WHERE $TABLE_NAME::text ILIKE :query ESCAPE '\\' ORDER BY $PRIMARY_KEY_COLUMN_NAME")
             .param("query", "%${searchCriteria.query.escapeForLikePattern()}%")
             .query(rowMapper)
             .list()
 
     override fun save(membrumRelatum: MembrumRelatumBO): MembrumRelatumBO {
-        jdbcClient.sql(UPSERT)
+        jdbcClient.sql(upsertStatement)
             .param("clavisPrimaria", membrumRelatum.clavisPrimaria)
             .param("descriptioExDistanti", membrumRelatum.descriptioExDistanti)
             .update()
@@ -63,8 +66,8 @@ class PostgresSqlMembrumRelatumRepository(
     }
 
     override fun deleteById(clavisPrimaria: UUID) {
-        jdbcClient.sql("DELETE FROM MEMBRUM_RELATUM WHERE CLAVIS_PRIMARIA = :clavisPrimaria")
-            .param("clavisPrimaria", clavisPrimaria)
+        jdbcClient.sql("DELETE FROM $TABLE_NAME WHERE $PRIMARY_KEY_COLUMN_NAME = :primaryKeyValue")
+            .param("primaryKeyValue", clavisPrimaria)
             .update()
     }
 
@@ -75,17 +78,29 @@ class PostgresSqlMembrumRelatumRepository(
         )
     }
 
-    private companion object {
-        const val SELECT_COLUMNS = """
-            SELECT CLAVIS_PRIMARIA, DESCRIPTIO_EX_DISTANTI
-              FROM MEMBRUM_RELATUM
-        """
-
-        const val UPSERT = """
-            INSERT INTO MEMBRUM_RELATUM (CLAVIS_PRIMARIA, DESCRIPTIO_EX_DISTANTI)
-            VALUES (:clavisPrimaria, :descriptioExDistanti)
-            ON CONFLICT (CLAVIS_PRIMARIA) DO UPDATE SET
-                DESCRIPTIO_EX_DISTANTI = EXCLUDED.DESCRIPTIO_EX_DISTANTI
-        """
-    }
+    private val selectColumns: String
+        get() {
+            // because we need kotlin comments between the lines, we can not use kotlins multiline-comments
+            val sb = StringBuilder()
+            sb.append("SELECT")
+            sb.append("    ${PRIMARY_KEY_COLUMN_NAME},")
+            sb.append("    DESCRIPTIO_EX_DISTANTI,")
+            sb.append("FROM $TABLE_NAME")
+            return sb.toString()
+        }
+    private val upsertStatement: String
+        get() {
+            // because we need kotlin comments between the lines, we can not use kotlins multiline-comments
+            val sb = StringBuilder()
+            sb.append("INSERT INTO $TABLE_NAME (")
+            sb.append("    ${PRIMARY_KEY_COLUMN_NAME},")
+            sb.append("    DESCRIPTIO_EX_DISTANTI,")
+            sb.append(") VALUES (")
+            sb.append("    :clavisPrimaria,")
+            sb.append("    :descriptioExDistanti")
+            sb.append(")")
+            sb.append("ON CONFLICT (${PRIMARY_KEY_COLUMN_NAME}) DO UPDATE SET")
+            sb.append("     DESCRIPTIO_EX_DISTANTI = EXCLUDED.DESCRIPTIO_EX_DISTANTI")
+            return sb.toString()
+        }
 }

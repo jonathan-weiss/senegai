@@ -18,6 +18,8 @@ import senegai.server.service.silvaoptionum.SilvaOptionumRepository
 import java.time.LocalDate
 import java.util.UUID
 
+private const val TABLE_NAME = "SILVA_OPTIONUM"
+private const val PRIMARY_KEY_COLUMN_NAME = "INDEX_UNICUS"
 /**
  * PostgreSQL implementation of the [SilvaOptionumRepository] port, storing every
  * [SilvaOptionumBO] aggregate as one row of the SILVA_OPTIONUM table.
@@ -35,12 +37,13 @@ class PostgresSqlSilvaOptionumRepository(
     private val jdbcClient: JdbcClient,
 ) : SilvaOptionumRepository {
 
+
     override fun findAll(): List<SilvaOptionumBO> =
-        jdbcClient.sql("$SELECT_COLUMNS ORDER BY INDEX_UNICUS").query(rowMapper).list()
+        jdbcClient.sql("$selectColumns ORDER BY $PRIMARY_KEY_COLUMN_NAME").query(rowMapper).list()
 
     override fun findById(indexUnicus: UUID): SilvaOptionumBO? =
-        jdbcClient.sql("$SELECT_COLUMNS WHERE INDEX_UNICUS = :indexUnicus")
-            .param("indexUnicus", indexUnicus)
+        jdbcClient.sql("$selectColumns WHERE $PRIMARY_KEY_COLUMN_NAME = :primaryKeyValue")
+            .param("primaryKeyValue", indexUnicus)
             .query(rowMapper)
             .optional()
             .orElse(null)
@@ -49,8 +52,8 @@ class PostgresSqlSilvaOptionumRepository(
         if (criteria.indexUnicusList.isEmpty()) {
             return emptyList()
         }
-        val found = jdbcClient.sql("$SELECT_COLUMNS WHERE INDEX_UNICUS IN (:indexUnicusList)")
-            .param("indexUnicusList", criteria.indexUnicusList)
+        val found = jdbcClient.sql("$selectColumns WHERE $PRIMARY_KEY_COLUMN_NAME IN (:primaryKeyValues)")
+            .param("primaryKeyValues", criteria.indexUnicusList)
             .query(rowMapper)
             .list()
             .associateBy { it.indexUnicus }
@@ -58,13 +61,13 @@ class PostgresSqlSilvaOptionumRepository(
     }
 
     override fun search(searchCriteria: SilvaOptionumSearchCriteriaBO): List<SilvaOptionumBO> =
-        jdbcClient.sql("$SELECT_COLUMNS WHERE SILVA_OPTIONUM::text ILIKE :query ESCAPE '\\' ORDER BY INDEX_UNICUS")
+        jdbcClient.sql("$selectColumns WHERE $TABLE_NAME::text ILIKE :query ESCAPE '\\' ORDER BY $PRIMARY_KEY_COLUMN_NAME")
             .param("query", "%${searchCriteria.query.escapeForLikePattern()}%")
             .query(rowMapper)
             .list()
 
     override fun save(silvaOptionum: SilvaOptionumBO): SilvaOptionumBO {
-        jdbcClient.sql(UPSERT)
+        jdbcClient.sql(upsertStatement)
             .param("indexUnicus", silvaOptionum.indexUnicus)
             .param("campusTextusObligatorius", silvaOptionum.campusTextusObligatorius)
             .param("campusTextusOptionalis", silvaOptionum.campusTextusOptionalis)
@@ -85,8 +88,8 @@ class PostgresSqlSilvaOptionumRepository(
     }
 
     override fun deleteById(indexUnicus: UUID) {
-        jdbcClient.sql("DELETE FROM SILVA_OPTIONUM WHERE INDEX_UNICUS = :indexUnicus")
-            .param("indexUnicus", indexUnicus)
+        jdbcClient.sql("DELETE FROM $TABLE_NAME WHERE $PRIMARY_KEY_COLUMN_NAME = :indexValue")
+            .param("indexValue", indexUnicus)
             .update()
     }
 
@@ -100,91 +103,93 @@ class PostgresSqlSilvaOptionumRepository(
             appellatio = AppellatioComis.valueOf(resultSet.getString("APPELLATIO")),
             articulusInteriorSingularis = resultSet.getJsonb("ARTICULUS_INTERIOR_SINGULARIS"),
             articulusInteriorIteratus = resultSet.getJsonb("ARTICULUS_INTERIOR_ITERATUS"),
-            articulusInteriorSingularisOptionalis =
-                resultSet.getJsonbOrNull<ArticulusInteriorBO>("ARTICULUS_INTERIOR_SINGULARIS_OPTIONALIS"),
-            articulusInteriorOptionalisIteratus =
-                resultSet.getJsonbOrNull<List<ArticulusInteriorBO>>("ARTICULUS_INTERIOR_OPTIONALIS_ITERATUS"),
-            appellatioOptionalisIteratus =
-                resultSet.getJsonbOrNull<List<AppellatioComis>>("APPELLATIO_OPTIONALIS_ITERATUS"),
+            articulusInteriorSingularisOptionalis = resultSet.getJsonbOrNull<ArticulusInteriorBO>("ARTICULUS_INTERIOR_SINGULARIS_OPTIONALIS"),
+            articulusInteriorOptionalisIteratus = resultSet.getJsonbOrNull<List<ArticulusInteriorBO>>("ARTICULUS_INTERIOR_OPTIONALIS_ITERATUS"),
+            appellatioOptionalisIteratus = resultSet.getJsonbOrNull<List<AppellatioComis>>("APPELLATIO_OPTIONALIS_ITERATUS"),
             campusDiei = resultSet.getObject("CAMPUS_DIEI", LocalDate::class.java),
             campusBivalens = resultSet.getBoolean("CAMPUS_BIVALENS"),
             campusNumerorum = resultSet.getInt("CAMPUS_NUMERORUM"),
             iteratioSimpliciumTextuum = resultSet.getJsonb("ITERATIO_SIMPLICIUM_TEXTUUM"),
-            relatioAdEntitatemOptionalisIteratus =
-                resultSet.getJsonbOrNull<List<UUID>>("RELATIO_AD_ENTITATEM_OPTIONALIS_ITERATUS"),
+            relatioAdEntitatemOptionalisIteratus = resultSet.getJsonbOrNull<List<UUID>>("RELATIO_AD_ENTITATEM_OPTIONALIS_ITERATUS"),
             relatioAdEntitatemOptionalis = resultSet.getObject("RELATIO_AD_ENTITATEM_OPTIONALIS", UUID::class.java),
         )
     }
 
-    private companion object {
-        const val SELECT_COLUMNS = """
-            SELECT INDEX_UNICUS,
-                   CAMPUS_TEXTUS_OBLIGATORIUS,
-                   CAMPUS_TEXTUS_OPTIONALIS,
-                   APPELLATIO,
-                   ARTICULUS_INTERIOR_SINGULARIS,
-                   ARTICULUS_INTERIOR_ITERATUS,
-                   ARTICULUS_INTERIOR_SINGULARIS_OPTIONALIS,
-                   ARTICULUS_INTERIOR_OPTIONALIS_ITERATUS,
-                   APPELLATIO_OPTIONALIS_ITERATUS,
-                   CAMPUS_DIEI,
-                   CAMPUS_BIVALENS,
-                   CAMPUS_NUMERORUM,
-                   ITERATIO_SIMPLICIUM_TEXTUUM,
-                   RELATIO_AD_ENTITATEM_OPTIONALIS_ITERATUS,
-                   RELATIO_AD_ENTITATEM_OPTIONALIS
-              FROM SILVA_OPTIONUM
-        """
-
-        const val UPSERT = """
-            INSERT INTO SILVA_OPTIONUM (
-                INDEX_UNICUS,
-                CAMPUS_TEXTUS_OBLIGATORIUS,
-                CAMPUS_TEXTUS_OPTIONALIS,
-                APPELLATIO,
-                ARTICULUS_INTERIOR_SINGULARIS,
-                ARTICULUS_INTERIOR_ITERATUS,
-                ARTICULUS_INTERIOR_SINGULARIS_OPTIONALIS,
-                ARTICULUS_INTERIOR_OPTIONALIS_ITERATUS,
-                APPELLATIO_OPTIONALIS_ITERATUS,
-                CAMPUS_DIEI,
-                CAMPUS_BIVALENS,
-                CAMPUS_NUMERORUM,
-                ITERATIO_SIMPLICIUM_TEXTUUM,
-                RELATIO_AD_ENTITATEM_OPTIONALIS_ITERATUS,
-                RELATIO_AD_ENTITATEM_OPTIONALIS
-            ) VALUES (
-                :indexUnicus,
-                :campusTextusObligatorius,
-                :campusTextusOptionalis,
-                :appellatio,
-                CAST(:articulusInteriorSingularis AS jsonb),
-                CAST(:articulusInteriorIteratus AS jsonb),
-                CAST(:articulusInteriorSingularisOptionalis AS jsonb),
-                CAST(:articulusInteriorOptionalisIteratus AS jsonb),
-                CAST(:appellatioOptionalisIteratus AS jsonb),
-                :campusDiei,
-                :campusBivalens,
-                :campusNumerorum,
-                CAST(:iteratioSimpliciumTextuum AS jsonb),
-                CAST(:relatioAdEntitatemOptionalisIteratus AS jsonb),
-                :relatioAdEntitatemOptionalis
-            )
-            ON CONFLICT (INDEX_UNICUS) DO UPDATE SET
-                CAMPUS_TEXTUS_OBLIGATORIUS = EXCLUDED.CAMPUS_TEXTUS_OBLIGATORIUS,
-                CAMPUS_TEXTUS_OPTIONALIS = EXCLUDED.CAMPUS_TEXTUS_OPTIONALIS,
-                APPELLATIO = EXCLUDED.APPELLATIO,
-                ARTICULUS_INTERIOR_SINGULARIS = EXCLUDED.ARTICULUS_INTERIOR_SINGULARIS,
-                ARTICULUS_INTERIOR_ITERATUS = EXCLUDED.ARTICULUS_INTERIOR_ITERATUS,
-                ARTICULUS_INTERIOR_SINGULARIS_OPTIONALIS = EXCLUDED.ARTICULUS_INTERIOR_SINGULARIS_OPTIONALIS,
-                ARTICULUS_INTERIOR_OPTIONALIS_ITERATUS = EXCLUDED.ARTICULUS_INTERIOR_OPTIONALIS_ITERATUS,
-                APPELLATIO_OPTIONALIS_ITERATUS = EXCLUDED.APPELLATIO_OPTIONALIS_ITERATUS,
-                CAMPUS_DIEI = EXCLUDED.CAMPUS_DIEI,
-                CAMPUS_BIVALENS = EXCLUDED.CAMPUS_BIVALENS,
-                CAMPUS_NUMERORUM = EXCLUDED.CAMPUS_NUMERORUM,
-                ITERATIO_SIMPLICIUM_TEXTUUM = EXCLUDED.ITERATIO_SIMPLICIUM_TEXTUUM,
-                RELATIO_AD_ENTITATEM_OPTIONALIS_ITERATUS = EXCLUDED.RELATIO_AD_ENTITATEM_OPTIONALIS_ITERATUS,
-                RELATIO_AD_ENTITATEM_OPTIONALIS = EXCLUDED.RELATIO_AD_ENTITATEM_OPTIONALIS
-        """
+    private val selectColumns: String
+        get() {
+            // because we need kotlin comments between the lines, we can not use kotlins multiline-comments
+            val sb = StringBuilder()
+            sb.append("SELECT")
+            sb.append("    $PRIMARY_KEY_COLUMN_NAME,")
+            sb.append("    CAMPUS_TEXTUS_OBLIGATORIUS,")
+            sb.append("    CAMPUS_TEXTUS_OPTIONALIS,")
+            sb.append("    APPELLATIO,")
+            sb.append("    ARTICULUS_INTERIOR_SINGULARIS,")
+            sb.append("    ARTICULUS_INTERIOR_ITERATUS,")
+            sb.append("    ARTICULUS_INTERIOR_SINGULARIS_OPTIONALIS,")
+            sb.append("    ARTICULUS_INTERIOR_OPTIONALIS_ITERATUS,")
+            sb.append("    APPELLATIO_OPTIONALIS_ITERATUS,")
+            sb.append("    CAMPUS_DIEI,")
+            sb.append("    CAMPUS_BIVALENS,")
+            sb.append("    CAMPUS_NUMERORUM,")
+            sb.append("    ITERATIO_SIMPLICIUM_TEXTUUM,")
+            sb.append("    RELATIO_AD_ENTITATEM_OPTIONALIS_ITERATUS,")
+            sb.append("    RELATIO_AD_ENTITATEM_OPTIONALIS")
+            sb.append("FROM $TABLE_NAME")
+            return sb.toString()
+    }
+    private val upsertStatement: String
+        get() {
+            // because we need kotlin comments between the lines, we can not use kotlins multiline-comments
+            val sb = StringBuilder()
+            sb.append("INSERT INTO $TABLE_NAME (")
+            sb.append("    INDEX_UNICUS,")
+            sb.append("    CAMPUS_TEXTUS_OBLIGATORIUS,")
+            sb.append("    CAMPUS_TEXTUS_OPTIONALIS,")
+            sb.append("    APPELLATIO,")
+            sb.append("    ARTICULUS_INTERIOR_SINGULARIS,")
+            sb.append("    ARTICULUS_INTERIOR_ITERATUS,")
+            sb.append("    ARTICULUS_INTERIOR_SINGULARIS_OPTIONALIS,")
+            sb.append("    ARTICULUS_INTERIOR_OPTIONALIS_ITERATUS,")
+            sb.append("    APPELLATIO_OPTIONALIS_ITERATUS,")
+            sb.append("    CAMPUS_DIEI,")
+            sb.append("    CAMPUS_BIVALENS,")
+            sb.append("    CAMPUS_NUMERORUM,")
+            sb.append("    ITERATIO_SIMPLICIUM_TEXTUUM,")
+            sb.append("    RELATIO_AD_ENTITATEM_OPTIONALIS_ITERATUS,")
+            sb.append("    RELATIO_AD_ENTITATEM_OPTIONALIS")
+            sb.append(") VALUES (")
+            sb.append("    :indexUnicus,")
+            sb.append("    :campusTextusObligatorius,")
+            sb.append("    :campusTextusOptionalis,")
+            sb.append("    :appellatio,")
+            sb.append("    CAST(:articulusInteriorSingularis AS jsonb),")
+            sb.append("    CAST(:articulusInteriorIteratus AS jsonb),")
+            sb.append("    CAST(:articulusInteriorSingularisOptionalis AS jsonb),")
+            sb.append("    CAST(:articulusInteriorOptionalisIteratus AS jsonb),")
+            sb.append("    CAST(:appellatioOptionalisIteratus AS jsonb),")
+            sb.append("    :campusDiei,")
+            sb.append("    :campusBivalens,")
+            sb.append("    :campusNumerorum,")
+            sb.append("    CAST(:iteratioSimpliciumTextuum AS jsonb),")
+            sb.append("    CAST(:relatioAdEntitatemOptionalisIteratus AS jsonb),")
+            sb.append("    :relatioAdEntitatemOptionalis")
+            sb.append(")")
+            sb.append("ON CONFLICT ($PRIMARY_KEY_COLUMN_NAME) DO UPDATE SET")
+            sb.append("     CAMPUS_TEXTUS_OBLIGATORIUS = EXCLUDED.CAMPUS_TEXTUS_OBLIGATORIUS,")
+            sb.append("     CAMPUS_TEXTUS_OPTIONALIS = EXCLUDED.CAMPUS_TEXTUS_OPTIONALIS,")
+            sb.append("     APPELLATIO = EXCLUDED.APPELLATIO,")
+            sb.append("     ARTICULUS_INTERIOR_SINGULARIS = EXCLUDED.ARTICULUS_INTERIOR_SINGULARIS,")
+            sb.append("     ARTICULUS_INTERIOR_ITERATUS = EXCLUDED.ARTICULUS_INTERIOR_ITERATUS,")
+            sb.append("     ARTICULUS_INTERIOR_SINGULARIS_OPTIONALIS = EXCLUDED.ARTICULUS_INTERIOR_SINGULARIS_OPTIONALIS,")
+            sb.append("     ARTICULUS_INTERIOR_OPTIONALIS_ITERATUS = EXCLUDED.ARTICULUS_INTERIOR_OPTIONALIS_ITERATUS,")
+            sb.append("     APPELLATIO_OPTIONALIS_ITERATUS = EXCLUDED.APPELLATIO_OPTIONALIS_ITERATUS,")
+            sb.append("     CAMPUS_DIEI = EXCLUDED.CAMPUS_DIEI,")
+            sb.append("     CAMPUS_BIVALENS = EXCLUDED.CAMPUS_BIVALENS,")
+            sb.append("     CAMPUS_NUMERORUM = EXCLUDED.CAMPUS_NUMERORUM,")
+            sb.append("     ITERATIO_SIMPLICIUM_TEXTUUM = EXCLUDED.ITERATIO_SIMPLICIUM_TEXTUUM,")
+            sb.append("     RELATIO_AD_ENTITATEM_OPTIONALIS_ITERATUS = EXCLUDED.RELATIO_AD_ENTITATEM_OPTIONALIS_ITERATUS,")
+            sb.append("     RELATIO_AD_ENTITATEM_OPTIONALIS = EXCLUDED.RELATIO_AD_ENTITATEM_OPTIONALIS")
+            return sb.toString()
     }
 }
