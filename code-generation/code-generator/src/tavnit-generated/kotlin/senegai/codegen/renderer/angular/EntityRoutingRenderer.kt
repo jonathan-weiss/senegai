@@ -38,7 +38,6 @@ object EntityRoutingRenderer : UiEntityRenderer {
           | */
           |export const ${model.entityName.screamingSnakeCase}_SIDE_NAVIGATION_LINKS: ReadonlyArray<SideNavLink> = [
           |    {routeLink: '/${model.entityName.kebabCase}-board', nameTranslationKey: "${model.entityName.camelCase}.sideNav.board", icon: "people"},
-          |    {routeLink: '/${model.entityName.kebabCase}-edit-first-entry', nameTranslationKey: "${model.entityName.camelCase}.sideNav.editFirstEntry", icon: "code"},
           |]
           |
         """.trimMargin(marginPrefix = "|")

@@ -50,5 +50,7 @@ export const OPUS_MAGNUM_ROUTES: Routes = [
  */
 export const OPUS_MAGNUM_SIDE_NAVIGATION_LINKS: ReadonlyArray<SideNavLink> = [
     {routeLink: '/opus-magnum-board', nameTranslationKey: "opusMagnum.sideNav.board", icon: "people"},
+    /* @tt{{{   @ignore-text  }}}@ */
     {routeLink: '/opus-magnum-edit-first-entry', nameTranslationKey: "opusMagnum.sideNav.editFirstEntry", icon: "code"},
+    /* @tt{{{   @end-ignore-text  }}}@ */
 ]
