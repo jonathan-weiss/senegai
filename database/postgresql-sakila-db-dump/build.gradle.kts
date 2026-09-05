@@ -8,7 +8,10 @@ fun dbSetting(gradleProperty: String, default: String): String =
     providers.gradleProperty(gradleProperty).getOrElse(default)
 
 flyway {
-    locations = arrayOf("filesystem:db/migration")
+    locations = arrayOf(
+        "filesystem:../postgresql-dsl-schema/db/migration", // necessary for MEMBRUM_RELATUM and SILVA_OPTIONUM
+        "filesystem:db/migration",
+    )
 
     url = dbSetting("flyway.url", "jdbc:postgresql://localhost:5432/postgres")
     user = dbSetting("flyway.user", "postgres")
