@@ -291,6 +291,24 @@ class SchemaDataValidatorTest {
     }
 
     @Test
+    fun `a ui configuration shows an attribute referencing another item as a display attribute`() {
+        val contactWithReference = Item(
+            itemId = contactId,
+            attributes = listOf(
+                attribute(name = "ContactId", type = BuiltInType.UUID, isPrimaryKey = true),
+                attribute(name = "InvoiceAddress", type = addressId, isReference = true),
+            ),
+        )
+
+        SchemaDataValidator().validate(
+            schemaData(
+                items = listOf(contactWithReference, address),
+                uiItems = listOf(uiItem(itemId = contactId, displayAttributeNames = listOf("InvoiceAddress"))),
+            )
+        )
+    }
+
+    @Test
     fun `a search result shows only attributes of the root item`() {
         val exception = validationFailureOf(
             schemaData(
