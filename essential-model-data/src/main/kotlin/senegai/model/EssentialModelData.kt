@@ -328,11 +328,20 @@ object EssentialModelData {
                     attribute(attributeName = "Title")
                 }
             }
-            // A link table holds nothing but foreign keys, so there is no text attribute a
-            // reference to it could be rendered with. The same holds for Inventory, Payment,
-            // Rental and Store.
-            uiItem(itemId = Items.FILM_ACTOR) {}
-            uiItem(itemId = Items.FILM_CATEGORY) {}
+            // A link table holds nothing but foreign keys, so its references are all it can be
+            // shown by. The same holds for Inventory, Payment, Rental and Store.
+            uiItem(itemId = Items.FILM_ACTOR) {
+                displayAttributes {
+                    attribute(attributeName = "Actor")
+                    attribute(attributeName = "Film")
+                }
+            }
+            uiItem(itemId = Items.FILM_CATEGORY) {
+                displayAttributes {
+                    attribute(attributeName = "Film")
+                    attribute(attributeName = "Category")
+                }
+            }
             uiItem(itemId = Items.ADDRESS) {
                 displayAttributes {
                     attribute(attributeName = "Address")
@@ -355,21 +364,41 @@ object EssentialModelData {
                     attribute(attributeName = "LastName")
                 }
             }
-            uiItem(itemId = Items.INVENTORY) {}
+            uiItem(itemId = Items.INVENTORY) {
+                displayAttributes {
+                    attribute(attributeName = "Film")
+                    attribute(attributeName = "Store")
+                }
+            }
             uiItem(itemId = Items.LANGUAGE) {
                 displayAttributes {
                     attribute(attributeName = "Name")
                 }
             }
-            uiItem(itemId = Items.PAYMENT) {}
-            uiItem(itemId = Items.RENTAL) {}
+            uiItem(itemId = Items.PAYMENT) {
+                displayAttributes {
+                    attribute(attributeName = "Customer")
+                    attribute(attributeName = "Rental")
+                }
+            }
+            uiItem(itemId = Items.RENTAL) {
+                displayAttributes {
+                    attribute(attributeName = "Inventory")
+                    attribute(attributeName = "Customer")
+                }
+            }
             uiItem(itemId = Items.STAFF) {
                 displayAttributes {
                     attribute(attributeName = "FirstName")
                     attribute(attributeName = "LastName")
                 }
             }
-            uiItem(itemId = Items.STORE) {}
+            uiItem(itemId = Items.STORE) {
+                displayAttributes {
+                    attribute(attributeName = "ManagerStaff")
+                    attribute(attributeName = "Address")
+                }
+            }
 
             uiEntity(uiEntityName = "Actor", rootItemId = Items.ACTOR) {
                 views {
