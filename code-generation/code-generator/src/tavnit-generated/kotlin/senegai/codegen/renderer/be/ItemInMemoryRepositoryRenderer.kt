@@ -36,23 +36,23 @@ object ItemInMemoryRepositoryRenderer : BeItemRenderer {
           |
           |    private val store = ConcurrentHashMap<${model.primaryKeyAttribute.kotlinAttributeType}, ${model.itemName.pascalCase}BO>()
           |
-          |    override fun findAll(): List<${model.itemName.pascalCase}BO> = store.values.toList()
+          |    override fun findAll(): List<${model.itemName.pascalCase}BO> = this.store.values.toList()
           |
-          |    override fun findById(${model.primaryKeyAttribute.attributeName.camelCase}: ${model.primaryKeyAttribute.kotlinAttributeType}): ${model.itemName.pascalCase}BO? = store[${model.primaryKeyAttribute.attributeName.camelCase}]
+          |    override fun findById(${model.primaryKeyAttribute.attributeName.camelCase}: ${model.primaryKeyAttribute.kotlinAttributeType}): ${model.itemName.pascalCase}BO? = this.store[${model.primaryKeyAttribute.attributeName.camelCase}]
           |
           |    override fun findByIds(criteria: ${model.itemName.pascalCase}ByIdsCriteriaBO): List<${model.itemName.pascalCase}BO> =
-          |        criteria.${model.primaryKeyAttribute.attributeName.camelCase}List.mapNotNull { store[it] }
+          |        criteria.${model.primaryKeyAttribute.attributeName.camelCase}List.mapNotNull { this.store[it] }
           |
           |    override fun search(searchCriteria: ${model.itemName.pascalCase}SearchCriteriaBO): List<${model.itemName.pascalCase}BO> =
-          |        store.values.filter { it.toString().contains(searchCriteria.query, ignoreCase = true) }
+          |        this.store.values.filter { it.toString().contains(searchCriteria.query, ignoreCase = true) }
           |
           |    override fun save(${model.itemName.camelCase}: ${model.itemName.pascalCase}BO): ${model.itemName.pascalCase}BO {
-          |        store[${model.itemName.camelCase}.${model.primaryKeyAttribute.attributeName.camelCase}] = ${model.itemName.camelCase}
+          |        this.store[${model.itemName.camelCase}.${model.primaryKeyAttribute.attributeName.camelCase}] = ${model.itemName.camelCase}
           |        return ${model.itemName.camelCase}
           |    }
           |
           |    override fun deleteById(${model.primaryKeyAttribute.attributeName.camelCase}: ${model.primaryKeyAttribute.kotlinAttributeType}) {
-          |        store.remove(${model.primaryKeyAttribute.attributeName.camelCase})
+          |        this.store.remove(${model.primaryKeyAttribute.attributeName.camelCase})
           |    }
           |
           |${ if(model.hasGeneratedPrimaryKey) { """    override fun nextId(): ${model.primaryKeyAttribute.kotlinAttributeType} = ${model.nextPrimaryKeyValueExpression}

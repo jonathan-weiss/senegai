@@ -46,23 +46,23 @@ class InMemorySilvaOptionumRepository : SilvaOptionumRepository {
 
     private val store = ConcurrentHashMap<UUID, SilvaOptionumBO>()
 
-    override fun findAll(): List<SilvaOptionumBO> = store.values.toList()
+    override fun findAll(): List<SilvaOptionumBO> = this.store.values.toList()
 
-    override fun findById(indexUnicus: UUID): SilvaOptionumBO? = store[indexUnicus]
+    override fun findById(indexUnicus: UUID): SilvaOptionumBO? = this.store[indexUnicus]
 
     override fun findByIds(criteria: SilvaOptionumByIdsCriteriaBO): List<SilvaOptionumBO> =
-        criteria.indexUnicusList.mapNotNull { store[it] }
+        criteria.indexUnicusList.mapNotNull { this.store[it] }
 
     override fun search(searchCriteria: SilvaOptionumSearchCriteriaBO): List<SilvaOptionumBO> =
-        store.values.filter { it.toString().contains(searchCriteria.query, ignoreCase = true) }
+        this.store.values.filter { it.toString().contains(searchCriteria.query, ignoreCase = true) }
 
     override fun save(silvaOptionum: SilvaOptionumBO): SilvaOptionumBO {
-        store[silvaOptionum.indexUnicus] = silvaOptionum
+        this.store[silvaOptionum.indexUnicus] = silvaOptionum
         return silvaOptionum
     }
 
     override fun deleteById(indexUnicus: UUID) {
-        store.remove(indexUnicus)
+        this.store.remove(indexUnicus)
     }
 
     /* @tt{{{
