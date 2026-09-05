@@ -82,25 +82,28 @@ class PostgresSqlMembrumRelatumRepository(
         get() {
             // because we need kotlin comments between the lines, we can not use kotlins multiline-comments
             val sb = StringBuilder()
-            sb.append("SELECT")
-            sb.append("    ${PRIMARY_KEY_COLUMN_NAME},")
-            sb.append("    DESCRIPTIO_EX_DISTANTI,")
-            sb.append("FROM $TABLE_NAME")
+            sb.appendLine("SELECT")
+            sb.appendLine("    DESCRIPTIO_EX_DISTANTI,")
+            // the primary key is rendered last, so that every line above can carry a comma
+            sb.appendLine("    $PRIMARY_KEY_COLUMN_NAME")
+            sb.appendLine("FROM $TABLE_NAME")
             return sb.toString()
         }
     private val upsertStatement: String
         get() {
             // because we need kotlin comments between the lines, we can not use kotlins multiline-comments
             val sb = StringBuilder()
-            sb.append("INSERT INTO $TABLE_NAME (")
-            sb.append("    ${PRIMARY_KEY_COLUMN_NAME},")
-            sb.append("    DESCRIPTIO_EX_DISTANTI,")
-            sb.append(") VALUES (")
-            sb.append("    :clavisPrimaria,")
-            sb.append("    :descriptioExDistanti")
-            sb.append(")")
-            sb.append("ON CONFLICT (${PRIMARY_KEY_COLUMN_NAME}) DO UPDATE SET")
-            sb.append("     DESCRIPTIO_EX_DISTANTI = EXCLUDED.DESCRIPTIO_EX_DISTANTI")
+            sb.appendLine("INSERT INTO $TABLE_NAME (")
+            sb.appendLine("    DESCRIPTIO_EX_DISTANTI,")
+            sb.appendLine("    $PRIMARY_KEY_COLUMN_NAME")
+            sb.appendLine(") VALUES (")
+            sb.appendLine("    :descriptioExDistanti,")
+            sb.appendLine("    :clavisPrimaria")
+            sb.appendLine(")")
+            sb.appendLine("ON CONFLICT ($PRIMARY_KEY_COLUMN_NAME) DO UPDATE SET")
+            sb.appendLine("     DESCRIPTIO_EX_DISTANTI = EXCLUDED.DESCRIPTIO_EX_DISTANTI,")
+            // assigning the key to itself is a no-op and keeps the last line free of a comma
+            sb.appendLine("     $PRIMARY_KEY_COLUMN_NAME = EXCLUDED.$PRIMARY_KEY_COLUMN_NAME")
             return sb.toString()
         }
 }
