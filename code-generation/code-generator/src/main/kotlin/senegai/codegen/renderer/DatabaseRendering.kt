@@ -1,6 +1,7 @@
 package senegai.codegen.renderer
 
 import senegai.codegen.renderer.db.DbItemRenderer
+import senegai.codegen.renderer.db.ItemTableSchemaRenderer
 import senegai.codegen.renderer.model.db.DbModel
 import senegai.codegen.renderer.model.db.DbTableModel
 import java.nio.file.Path
@@ -31,7 +32,7 @@ object DatabaseRendering {
 
         private fun renderItemWithPrimaryKey(dbTableModel: DbTableModel) {
             val itemRenderers: List<Pair<DbItemRenderer, Path>> = listOf(
-                // TODO add all DB renderers for SQL script here
+                ItemTableSchemaRenderer to pathToGeneratedDatabaseMigrationScripts,
             )
 
             renderAll(itemRenderers, dbTableModel)
