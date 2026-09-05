@@ -79,7 +79,7 @@ export function membrumRelatumDisplayRow(
             @replace-value-by-expression
                 [ searchValue="descriptioExDistanti" replaceByExpression="displayAttribute.attributeName.camelCase" ]
         }}}@ */
-        descriptioExDistanti: membrumRelatum?.descriptioExDistanti ?? MEMBRUM_RELATUM_UNRESOLVED_DISPLAY_VALUE,
+        descriptioExDistanti: (membrumRelatum?.descriptioExDistanti ?? MEMBRUM_RELATUM_UNRESOLVED_DISPLAY_VALUE).toString(),
         /* @tt{{{   @end-foreach  }}}@ */
     }
 }

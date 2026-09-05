@@ -164,7 +164,7 @@ object RendererModelConverter {
 
             require(attribute.isDisplayable) {
                 "The 'uiItem' of the item '${item.itemName}' declares '$attributeName' as a display attribute, " +
-                        "but only a single-valued text attribute can be one, because a display attribute is " +
+                        "but only a single-valued attribute can be one, because a display attribute is " +
                         "rendered as a plain string wherever a reference to the item is shown."
             }
             attribute
@@ -178,9 +178,7 @@ object RendererModelConverter {
      */
     private val UiAttributeModel.isDisplayable: Boolean
         get() = this is BuiltInTypeUiAttributeModel
-                && !isItemReference
                 && !isList
-                && builtInType == BuiltInType.STRING
 
     private fun toUiItemDescriptionModel(itemId: ItemId): UiItemDescriptionModel {
         return UiItemDescriptionModel(

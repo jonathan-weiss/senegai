@@ -53,7 +53,7 @@ object ItemReferenceDisplayRenderer : UiItemRenderer {
           |): ${model.itemName.pascalCase}DisplayRow {
           |    return {
           |        ${model.primaryKeyAttribute.attributeName.camelCase}: ${model.primaryKeyAttribute.attributeName.camelCase},
-          |${ model.displayAttributes.joinToString("") { displayAttribute ->  """        ${displayAttribute.attributeName.camelCase}: ${model.itemName.camelCase}?.${displayAttribute.attributeName.camelCase} ?? ${model.itemName.screamingSnakeCase}_UNRESOLVED_DISPLAY_VALUE,
+          |${ model.displayAttributes.joinToString("") { displayAttribute ->  """        ${displayAttribute.attributeName.camelCase}: (${model.itemName.camelCase}?.${displayAttribute.attributeName.camelCase} ?? ${model.itemName.screamingSnakeCase}_UNRESOLVED_DISPLAY_VALUE).toString(),
               |""" } }    }
           |}
           |
