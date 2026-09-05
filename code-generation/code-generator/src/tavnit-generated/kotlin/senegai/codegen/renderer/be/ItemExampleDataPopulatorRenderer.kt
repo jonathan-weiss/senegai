@@ -42,14 +42,16 @@ object ItemExampleDataPopulatorRenderer : BeItemRenderer {
           |     * Creates the example [${model.itemName.pascalCase}BO] aggregates and writes each of them to the
           |     * persistence via the [${model.itemName.pascalCase}Repository].
           |     *
-          |     * The primary key of the created aggregates is the one the persistence hands out, not the
-          |     * one the example data creator generated: only that way every example aggregate is stored
-          |     * under a key of its own, whatever type the primary key is of.
+          |     * Where the persistence hands out primary keys, an aggregate is stored under a key it hands
+          |     * out rather than the one the example data creator generated, so that every example
+          |     * aggregate gets a key of its own. An item whose key is supplied by the caller instead
+          |     * keeps the generated one.
           |     */
           |    override fun createExampleData(dataContext: DataContext) {
-          |        ${model.itemName.camelCase}ExampleDataCreator.createList(dataContext, FakerHelper.itemListRandomSize(dataContext))
-          |            .forEach { ${model.itemName.camelCase}Repository.save(it.copy(${model.primaryKeyAttribute.attributeName.camelCase} = ${model.itemName.camelCase}Repository.nextId())) }
-          |    }
+          |        val created = ${model.itemName.camelCase}ExampleDataCreator.createList(dataContext, FakerHelper.itemListRandomSize(dataContext))
+          |${ if(model.hasGeneratedPrimaryKey) { """        created.forEach { ${model.itemName.camelCase}Repository.save(it.copy(${model.primaryKeyAttribute.attributeName.camelCase} = ${model.itemName.camelCase}Repository.nextId())) }
+              |""" } else { """        created.forEach { ${model.itemName.camelCase}Repository.save(it) }
+              |""" } }    }
           |}
           |
         """.trimMargin(marginPrefix = "|")

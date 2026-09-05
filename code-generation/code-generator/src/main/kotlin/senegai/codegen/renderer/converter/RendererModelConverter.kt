@@ -72,7 +72,13 @@ object RendererModelConverter {
             val displayAttributeNames = uiItemPerItem[it.itemId]?.displayAttributeNames.orEmpty()
             mapUiItemModel(it, displayAttributeNames, schemaData.enums, schemaData.items)
         }
-        val allBeItemModels = schemaData.items.map { mapBeItemModel(it, schemaData.enums, schemaData.items) }
+        // The tables are mapped first: an item that is stored in one carries it, so that a
+        // template reaching only the BeItemModel still knows the SQL names of its attributes.
+        val dbModel = mapDbModel(schemaData)
+        val allBeItemModels = schemaData.items.map { item ->
+            val dbTable = dbModel.tables.singleOrNull { it.itemId == item.itemId }
+            mapBeItemModel(item, dbTable, schemaData.enums, schemaData.items)
+        }
 
         return SchemaModel(
             uiModel = UiModel(
@@ -87,7 +93,7 @@ object RendererModelConverter {
                 items = allBeItemModels,
                 enums = allBeEnumModels,
             ),
-            dbModel = mapDbModel(schemaData),
+            dbModel = dbModel,
         )
     }
 
@@ -248,9 +254,17 @@ object RendererModelConverter {
     // Backend items
     // **************
 
-    private fun mapBeItemModel(item: Item, enums: List<EnumType>, items: List<Item>): BeItemModel {
+    private fun mapBeItemModel(
+        item: Item,
+        dbTable: DbTableModel?,
+        enums: List<EnumType>,
+        items: List<Item>,
+    ): BeItemModel {
         val itemDescription = toBeItemDescriptionModel(item.itemId)
-        val attributes = item.attributes.map { mapBeItemAttribute(itemDescription, it, enums, items) }
+        val dbColumnPerAttributeName = dbTable?.columns.orEmpty().associateBy { it.attributeName }
+        val attributes = item.attributes.map {
+            mapBeItemAttribute(itemDescription, it, dbColumnPerAttributeName[NameCase(it.attributeName)], enums, items)
+        }
         return BeItemModel(
             itemDescription = itemDescription,
             attributes = attributes,
@@ -261,6 +275,7 @@ object RendererModelConverter {
                 }
                 idAttribute
             },
+            dbTable = dbTable,
         )
     }
 
@@ -274,6 +289,7 @@ object RendererModelConverter {
     private fun mapBeItemAttribute(
         item: BeItemDescriptionModel,
         itemAttribute: ItemAttribute,
+        dbColumn: DbColumnModel?,
         enums: List<EnumType>,
         items: List<Item>,
     ): BeAttributeModel {
@@ -286,6 +302,7 @@ object RendererModelConverter {
                 attributeName = attributeName,
                 isNullable = itemAttribute.isNullable,
                 isList = itemAttribute.isMultiple,
+                dbColumn = dbColumn,
                 builtInType = itemAttributeType,
                 exampleDataGeneratorConfig = toExampleDataGeneratorConfig(item, itemAttribute)
             )
@@ -297,6 +314,7 @@ object RendererModelConverter {
                     attributeName = attributeName,
                     isNullable = itemAttribute.isNullable,
                     isList = itemAttribute.isMultiple,
+                    dbColumn = dbColumn,
                     enum = BeEnumModel(enumType),
                 )
             }
@@ -306,6 +324,7 @@ object RendererModelConverter {
                     attributeName = attributeName,
                     isNullable = itemAttribute.isNullable,
                     isList = itemAttribute.isMultiple,
+                    dbColumn = dbColumn,
                     referencedItem = referencedItem(itemAttributeType, items).toBeReferencedItemModel(),
                 )
             } else {
@@ -314,6 +333,7 @@ object RendererModelConverter {
                     attributeName = attributeName,
                     isNullable = itemAttribute.isNullable,
                     isList = itemAttribute.isMultiple,
+                    dbColumn = dbColumn,
                     referencedItem = toBeItemDescriptionModel(itemAttributeType),
                 )
             }

@@ -1,3 +1,29 @@
+/* @tt{{{
+
+    @move-comment-backward
+    @template-renderer [
+        templateRendererClassName="ItemPostgresSqlRepositoryRenderer"
+        templateRendererPackageName="senegai.codegen.renderer.be"
+        templateRendererInterfaceName="BeItemRenderer"
+        templateRendererInterfacePackageName="senegai.codegen.renderer.be"
+    ] [
+        modelClassName="BeItemModel"
+        modelPackageName="senegai.codegen.renderer.model.be"
+        modelName="model"
+    ]
+
+    @replace-value-by-expression
+        [ searchValue="SilvaOptionum" replaceByExpression="model.itemName.pascalCase" ]
+        [ searchValue="silvaOptionum" replaceByExpression="model.itemName.camelCase" ]
+        [ searchValue="silvaoptionum" replaceByExpression="model.itemName.lowerCase" ]
+
+    @replace-value-by-expression
+        [ searchValue="indexUnicus" replaceByExpression="model.primaryKeyAttribute.attributeName.camelCase" ]
+        [ searchValue="UUID" replaceByExpression="model.primaryKeyAttribute.kotlinAttributeType" ]
+
+    @modify-provided-filepath-by-replacements
+
+}}}@ */
 package senegai.server.persistence.silvaoptionum
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
@@ -5,19 +31,22 @@ import org.springframework.context.annotation.Primary
 import org.springframework.jdbc.core.RowMapper
 import org.springframework.jdbc.core.simple.JdbcClient
 import org.springframework.stereotype.Repository
+import senegai.server.persistence.postgres.columnValue
 import senegai.server.persistence.postgres.escapeForLikePattern
-import senegai.server.persistence.postgres.getJsonb
-import senegai.server.persistence.postgres.getJsonbOrNull
-import senegai.server.persistence.postgres.toJsonb
-import senegai.server.service.bo.AppellatioComis
-import senegai.server.service.bo.ArticulusInteriorBO
+import senegai.server.persistence.postgres.paramValue
 import senegai.server.service.bo.SilvaOptionumBO
 import senegai.server.service.bo.SilvaOptionumByIdsCriteriaBO
 import senegai.server.service.bo.SilvaOptionumSearchCriteriaBO
 import senegai.server.service.silvaoptionum.SilvaOptionumRepository
-import java.time.LocalDate
+/* @tt{{{   @if [ conditionExpression="model.hasUuidPrimaryKey"]  }}}@ */
 import java.util.UUID
+/* @tt{{{   @end-if  }}}@ */
 
+/* @tt{{{
+    @replace-value-by-expression
+        [ searchValue="SILVA_OPTIONUM" replaceByExpression="model.table.tableName" ]
+        [ searchValue="INDEX_UNICUS" replaceByExpression="model.table.primaryKeyColumn.columnName" ]
+}}}@ */
 private const val TABLE_NAME = "SILVA_OPTIONUM"
 private const val PRIMARY_KEY_COLUMN_NAME = "INDEX_UNICUS"
 /**
@@ -30,6 +59,7 @@ private const val PRIMARY_KEY_COLUMN_NAME = "INDEX_UNICUS"
  * Only active when `senegai.persistence.type=postgres`; it then takes precedence over the
  * [senegai.server.persistence.silvaoptionum.InMemorySilvaOptionumRepository].
  */
+/* @tt{{{   @end-replace-value-by-expression  }}}@ */
 @Repository
 @Primary
 @ConditionalOnProperty(name = ["senegai.persistence.type"], havingValue = "postgres")
@@ -68,21 +98,28 @@ class PostgresSqlSilvaOptionumRepository(
 
     override fun save(silvaOptionum: SilvaOptionumBO): SilvaOptionumBO {
         jdbcClient.sql(upsertStatement)
-            .param("indexUnicus", silvaOptionum.indexUnicus)
-            .param("campusTextusObligatorius", silvaOptionum.campusTextusObligatorius)
-            .param("campusTextusOptionalis", silvaOptionum.campusTextusOptionalis)
-            .param("appellatio", silvaOptionum.appellatio.name)
-            .param("articulusInteriorSingularis", toJsonb(silvaOptionum.articulusInteriorSingularis))
-            .param("articulusInteriorIteratus", toJsonb(silvaOptionum.articulusInteriorIteratus))
-            .param("articulusInteriorSingularisOptionalis", toJsonb(silvaOptionum.articulusInteriorSingularisOptionalis))
-            .param("articulusInteriorOptionalisIteratus", toJsonb(silvaOptionum.articulusInteriorOptionalisIteratus))
-            .param("appellatioOptionalisIteratus", toJsonb(silvaOptionum.appellatioOptionalisIteratus))
-            .param("campusDiei", silvaOptionum.campusDiei)
-            .param("campusBivalens", silvaOptionum.campusBivalens)
-            .param("campusNumerorum", silvaOptionum.campusNumerorum)
-            .param("iteratioSimpliciumTextuum", toJsonb(silvaOptionum.iteratioSimpliciumTextuum))
-            .param("relatioAdEntitatemOptionalisIteratus", toJsonb(silvaOptionum.relatioAdEntitatemOptionalisIteratus))
-            .param("relatioAdEntitatemOptionalis", silvaOptionum.relatioAdEntitatemOptionalis)
+            /* @tt{{{
+                @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
+                @replace-value-by-expression
+                    [ searchValue="campusTextusObligatorius" replaceByExpression="attribute.attributeName.camelCase" ]
+            }}}@ */
+            .param("campusTextusObligatorius", paramValue(silvaOptionum.campusTextusObligatorius))
+            /* @tt{{{   @end-replace-value-by-expression @end-foreach @ignore-text  }}}@ */
+            .param("indexUnicus", paramValue(silvaOptionum.indexUnicus))
+            .param("campusTextusOptionalis", paramValue(silvaOptionum.campusTextusOptionalis))
+            .param("appellatio", paramValue(silvaOptionum.appellatio))
+            .param("articulusInteriorSingularis", paramValue(silvaOptionum.articulusInteriorSingularis))
+            .param("articulusInteriorIteratus", paramValue(silvaOptionum.articulusInteriorIteratus))
+            .param("articulusInteriorSingularisOptionalis", paramValue(silvaOptionum.articulusInteriorSingularisOptionalis))
+            .param("articulusInteriorOptionalisIteratus", paramValue(silvaOptionum.articulusInteriorOptionalisIteratus))
+            .param("appellatioOptionalisIteratus", paramValue(silvaOptionum.appellatioOptionalisIteratus))
+            .param("campusDiei", paramValue(silvaOptionum.campusDiei))
+            .param("campusBivalens", paramValue(silvaOptionum.campusBivalens))
+            .param("campusNumerorum", paramValue(silvaOptionum.campusNumerorum))
+            .param("iteratioSimpliciumTextuum", paramValue(silvaOptionum.iteratioSimpliciumTextuum))
+            .param("relatioAdEntitatemOptionalisIteratus", paramValue(silvaOptionum.relatioAdEntitatemOptionalisIteratus))
+            .param("relatioAdEntitatemOptionalis", paramValue(silvaOptionum.relatioAdEntitatemOptionalis))
+            /* @tt{{{   @end-ignore-text  }}}@ */
             .update()
         return silvaOptionum
     }
@@ -93,25 +130,39 @@ class PostgresSqlSilvaOptionumRepository(
             .update()
     }
 
+    /* @tt{{{
+        @if [ conditionExpression="model.hasGeneratedPrimaryKey" ]
+        @replace-value-by-expression
+            [ searchValue="UUID.randomUUID()" replaceByExpression="model.databaseNextPrimaryKeyValueExpression" ]
+    }}}@ */
     override fun nextId(): UUID = UUID.randomUUID()
+    /* @tt{{{   @end-replace-value-by-expression @end-if  }}}@ */
 
     private val rowMapper = RowMapper { resultSet, _ ->
         SilvaOptionumBO(
-            indexUnicus = resultSet.getObject("INDEX_UNICUS", UUID::class.java),
-            campusTextusObligatorius = resultSet.getString("CAMPUS_TEXTUS_OBLIGATORIUS"),
-            campusTextusOptionalis = resultSet.getString("CAMPUS_TEXTUS_OPTIONALIS"),
-            appellatio = AppellatioComis.valueOf(resultSet.getString("APPELLATIO")),
-            articulusInteriorSingularis = resultSet.getJsonb("ARTICULUS_INTERIOR_SINGULARIS"),
-            articulusInteriorIteratus = resultSet.getJsonb("ARTICULUS_INTERIOR_ITERATUS"),
-            articulusInteriorSingularisOptionalis = resultSet.getJsonbOrNull<ArticulusInteriorBO>("ARTICULUS_INTERIOR_SINGULARIS_OPTIONALIS"),
-            articulusInteriorOptionalisIteratus = resultSet.getJsonbOrNull<List<ArticulusInteriorBO>>("ARTICULUS_INTERIOR_OPTIONALIS_ITERATUS"),
-            appellatioOptionalisIteratus = resultSet.getJsonbOrNull<List<AppellatioComis>>("APPELLATIO_OPTIONALIS_ITERATUS"),
-            campusDiei = resultSet.getObject("CAMPUS_DIEI", LocalDate::class.java),
-            campusBivalens = resultSet.getBoolean("CAMPUS_BIVALENS"),
-            campusNumerorum = resultSet.getInt("CAMPUS_NUMERORUM"),
-            iteratioSimpliciumTextuum = resultSet.getJsonb("ITERATIO_SIMPLICIUM_TEXTUUM"),
-            relatioAdEntitatemOptionalisIteratus = resultSet.getJsonbOrNull<List<UUID>>("RELATIO_AD_ENTITATEM_OPTIONALIS_ITERATUS"),
-            relatioAdEntitatemOptionalis = resultSet.getObject("RELATIO_AD_ENTITATEM_OPTIONALIS", UUID::class.java),
+            /* @tt{{{
+                @foreach [ iteratorExpression="model.attributes" loopVariable="attribute" ]
+                @replace-value-by-expression
+                    [ searchValue="campusTextusObligatorius" replaceByExpression="attribute.attributeName.camelCase" ]
+                    [ searchValue="CAMPUS_TEXTUS_OBLIGATORIUS" replaceByExpression="attribute.column.columnName" ]
+            }}}@ */
+            campusTextusObligatorius = resultSet.columnValue("CAMPUS_TEXTUS_OBLIGATORIUS"),
+            /* @tt{{{   @end-replace-value-by-expression @end-foreach @ignore-text  }}}@ */
+            indexUnicus = resultSet.columnValue("INDEX_UNICUS"),
+            campusTextusOptionalis = resultSet.columnValue("CAMPUS_TEXTUS_OPTIONALIS"),
+            appellatio = resultSet.columnValue("APPELLATIO"),
+            articulusInteriorSingularis = resultSet.columnValue("ARTICULUS_INTERIOR_SINGULARIS"),
+            articulusInteriorIteratus = resultSet.columnValue("ARTICULUS_INTERIOR_ITERATUS"),
+            articulusInteriorSingularisOptionalis = resultSet.columnValue("ARTICULUS_INTERIOR_SINGULARIS_OPTIONALIS"),
+            articulusInteriorOptionalisIteratus = resultSet.columnValue("ARTICULUS_INTERIOR_OPTIONALIS_ITERATUS"),
+            appellatioOptionalisIteratus = resultSet.columnValue("APPELLATIO_OPTIONALIS_ITERATUS"),
+            campusDiei = resultSet.columnValue("CAMPUS_DIEI"),
+            campusBivalens = resultSet.columnValue("CAMPUS_BIVALENS"),
+            campusNumerorum = resultSet.columnValue("CAMPUS_NUMERORUM"),
+            iteratioSimpliciumTextuum = resultSet.columnValue("ITERATIO_SIMPLICIUM_TEXTUUM"),
+            relatioAdEntitatemOptionalisIteratus = resultSet.columnValue("RELATIO_AD_ENTITATEM_OPTIONALIS_ITERATUS"),
+            relatioAdEntitatemOptionalis = resultSet.columnValue("RELATIO_AD_ENTITATEM_OPTIONALIS"),
+            /* @tt{{{   @end-ignore-text  }}}@ */
         )
     }
 
@@ -119,77 +170,115 @@ class PostgresSqlSilvaOptionumRepository(
         get() {
             // because we need kotlin comments between the lines, we can not use kotlins multiline-comments
             val sb = StringBuilder()
-            sb.append("SELECT")
-            sb.append("    $PRIMARY_KEY_COLUMN_NAME,")
-            sb.append("    CAMPUS_TEXTUS_OBLIGATORIUS,")
-            sb.append("    CAMPUS_TEXTUS_OPTIONALIS,")
-            sb.append("    APPELLATIO,")
-            sb.append("    ARTICULUS_INTERIOR_SINGULARIS,")
-            sb.append("    ARTICULUS_INTERIOR_ITERATUS,")
-            sb.append("    ARTICULUS_INTERIOR_SINGULARIS_OPTIONALIS,")
-            sb.append("    ARTICULUS_INTERIOR_OPTIONALIS_ITERATUS,")
-            sb.append("    APPELLATIO_OPTIONALIS_ITERATUS,")
-            sb.append("    CAMPUS_DIEI,")
-            sb.append("    CAMPUS_BIVALENS,")
-            sb.append("    CAMPUS_NUMERORUM,")
-            sb.append("    ITERATIO_SIMPLICIUM_TEXTUUM,")
-            sb.append("    RELATIO_AD_ENTITATEM_OPTIONALIS_ITERATUS,")
-            sb.append("    RELATIO_AD_ENTITATEM_OPTIONALIS")
-            sb.append("FROM $TABLE_NAME")
+            sb.appendLine("SELECT")
+            /* @tt{{{
+                @foreach [ iteratorExpression="model.table.columnsWithoutPrimaryKey" loopVariable="column" ]
+                @replace-value-by-expression
+                    [ searchValue="CAMPUS_TEXTUS_OBLIGATORIUS" replaceByExpression="column.columnName" ]
+            }}}@ */
+            sb.appendLine("    CAMPUS_TEXTUS_OBLIGATORIUS,")
+            /* @tt{{{   @end-replace-value-by-expression @end-foreach @ignore-text  }}}@ */
+            sb.appendLine("    CAMPUS_TEXTUS_OPTIONALIS,")
+            sb.appendLine("    APPELLATIO,")
+            sb.appendLine("    ARTICULUS_INTERIOR_SINGULARIS,")
+            sb.appendLine("    ARTICULUS_INTERIOR_ITERATUS,")
+            sb.appendLine("    ARTICULUS_INTERIOR_SINGULARIS_OPTIONALIS,")
+            sb.appendLine("    ARTICULUS_INTERIOR_OPTIONALIS_ITERATUS,")
+            sb.appendLine("    APPELLATIO_OPTIONALIS_ITERATUS,")
+            sb.appendLine("    CAMPUS_DIEI,")
+            sb.appendLine("    CAMPUS_BIVALENS,")
+            sb.appendLine("    CAMPUS_NUMERORUM,")
+            sb.appendLine("    ITERATIO_SIMPLICIUM_TEXTUUM,")
+            sb.appendLine("    RELATIO_AD_ENTITATEM_OPTIONALIS_ITERATUS,")
+            sb.appendLine("    RELATIO_AD_ENTITATEM_OPTIONALIS,")
+            /* @tt{{{   @end-ignore-text  }}}@ */
+            // the primary key is rendered last, so that every looped line above can carry a comma
+            sb.appendLine("    $PRIMARY_KEY_COLUMN_NAME")
+            sb.appendLine("FROM $TABLE_NAME")
             return sb.toString()
     }
     private val upsertStatement: String
         get() {
             // because we need kotlin comments between the lines, we can not use kotlins multiline-comments
             val sb = StringBuilder()
-            sb.append("INSERT INTO $TABLE_NAME (")
-            sb.append("    INDEX_UNICUS,")
-            sb.append("    CAMPUS_TEXTUS_OBLIGATORIUS,")
-            sb.append("    CAMPUS_TEXTUS_OPTIONALIS,")
-            sb.append("    APPELLATIO,")
-            sb.append("    ARTICULUS_INTERIOR_SINGULARIS,")
-            sb.append("    ARTICULUS_INTERIOR_ITERATUS,")
-            sb.append("    ARTICULUS_INTERIOR_SINGULARIS_OPTIONALIS,")
-            sb.append("    ARTICULUS_INTERIOR_OPTIONALIS_ITERATUS,")
-            sb.append("    APPELLATIO_OPTIONALIS_ITERATUS,")
-            sb.append("    CAMPUS_DIEI,")
-            sb.append("    CAMPUS_BIVALENS,")
-            sb.append("    CAMPUS_NUMERORUM,")
-            sb.append("    ITERATIO_SIMPLICIUM_TEXTUUM,")
-            sb.append("    RELATIO_AD_ENTITATEM_OPTIONALIS_ITERATUS,")
-            sb.append("    RELATIO_AD_ENTITATEM_OPTIONALIS")
-            sb.append(") VALUES (")
-            sb.append("    :indexUnicus,")
-            sb.append("    :campusTextusObligatorius,")
-            sb.append("    :campusTextusOptionalis,")
-            sb.append("    :appellatio,")
-            sb.append("    CAST(:articulusInteriorSingularis AS jsonb),")
-            sb.append("    CAST(:articulusInteriorIteratus AS jsonb),")
-            sb.append("    CAST(:articulusInteriorSingularisOptionalis AS jsonb),")
-            sb.append("    CAST(:articulusInteriorOptionalisIteratus AS jsonb),")
-            sb.append("    CAST(:appellatioOptionalisIteratus AS jsonb),")
-            sb.append("    :campusDiei,")
-            sb.append("    :campusBivalens,")
-            sb.append("    :campusNumerorum,")
-            sb.append("    CAST(:iteratioSimpliciumTextuum AS jsonb),")
-            sb.append("    CAST(:relatioAdEntitatemOptionalisIteratus AS jsonb),")
-            sb.append("    :relatioAdEntitatemOptionalis")
-            sb.append(")")
-            sb.append("ON CONFLICT ($PRIMARY_KEY_COLUMN_NAME) DO UPDATE SET")
-            sb.append("     CAMPUS_TEXTUS_OBLIGATORIUS = EXCLUDED.CAMPUS_TEXTUS_OBLIGATORIUS,")
-            sb.append("     CAMPUS_TEXTUS_OPTIONALIS = EXCLUDED.CAMPUS_TEXTUS_OPTIONALIS,")
-            sb.append("     APPELLATIO = EXCLUDED.APPELLATIO,")
-            sb.append("     ARTICULUS_INTERIOR_SINGULARIS = EXCLUDED.ARTICULUS_INTERIOR_SINGULARIS,")
-            sb.append("     ARTICULUS_INTERIOR_ITERATUS = EXCLUDED.ARTICULUS_INTERIOR_ITERATUS,")
-            sb.append("     ARTICULUS_INTERIOR_SINGULARIS_OPTIONALIS = EXCLUDED.ARTICULUS_INTERIOR_SINGULARIS_OPTIONALIS,")
-            sb.append("     ARTICULUS_INTERIOR_OPTIONALIS_ITERATUS = EXCLUDED.ARTICULUS_INTERIOR_OPTIONALIS_ITERATUS,")
-            sb.append("     APPELLATIO_OPTIONALIS_ITERATUS = EXCLUDED.APPELLATIO_OPTIONALIS_ITERATUS,")
-            sb.append("     CAMPUS_DIEI = EXCLUDED.CAMPUS_DIEI,")
-            sb.append("     CAMPUS_BIVALENS = EXCLUDED.CAMPUS_BIVALENS,")
-            sb.append("     CAMPUS_NUMERORUM = EXCLUDED.CAMPUS_NUMERORUM,")
-            sb.append("     ITERATIO_SIMPLICIUM_TEXTUUM = EXCLUDED.ITERATIO_SIMPLICIUM_TEXTUUM,")
-            sb.append("     RELATIO_AD_ENTITATEM_OPTIONALIS_ITERATUS = EXCLUDED.RELATIO_AD_ENTITATEM_OPTIONALIS_ITERATUS,")
-            sb.append("     RELATIO_AD_ENTITATEM_OPTIONALIS = EXCLUDED.RELATIO_AD_ENTITATEM_OPTIONALIS")
+            sb.appendLine("INSERT INTO $TABLE_NAME (")
+            /* @tt{{{
+                @foreach [ iteratorExpression="model.table.columnsWithoutPrimaryKey" loopVariable="column" ]
+                @replace-value-by-expression
+                    [ searchValue="CAMPUS_TEXTUS_OBLIGATORIUS" replaceByExpression="column.columnName" ]
+            }}}@ */
+            sb.appendLine("    CAMPUS_TEXTUS_OBLIGATORIUS,")
+            /* @tt{{{   @end-replace-value-by-expression @end-foreach @ignore-text  }}}@ */
+            sb.appendLine("    CAMPUS_TEXTUS_OPTIONALIS,")
+            sb.appendLine("    APPELLATIO,")
+            sb.appendLine("    ARTICULUS_INTERIOR_SINGULARIS,")
+            sb.appendLine("    ARTICULUS_INTERIOR_ITERATUS,")
+            sb.appendLine("    ARTICULUS_INTERIOR_SINGULARIS_OPTIONALIS,")
+            sb.appendLine("    ARTICULUS_INTERIOR_OPTIONALIS_ITERATUS,")
+            sb.appendLine("    APPELLATIO_OPTIONALIS_ITERATUS,")
+            sb.appendLine("    CAMPUS_DIEI,")
+            sb.appendLine("    CAMPUS_BIVALENS,")
+            sb.appendLine("    CAMPUS_NUMERORUM,")
+            sb.appendLine("    ITERATIO_SIMPLICIUM_TEXTUUM,")
+            sb.appendLine("    RELATIO_AD_ENTITATEM_OPTIONALIS_ITERATUS,")
+            sb.appendLine("    RELATIO_AD_ENTITATEM_OPTIONALIS,")
+            /* @tt{{{   @end-ignore-text  }}}@ */
+            sb.appendLine("    $PRIMARY_KEY_COLUMN_NAME")
+            sb.appendLine(") VALUES (")
+            /* @tt{{{
+                @foreach [ iteratorExpression="model.table.columnsWithoutPrimaryKey" loopVariable="column" ]
+                @if [ conditionExpression="column.isJsonb" ]
+                @replace-value-by-expression
+                    [ searchValue="articulusInteriorSingularis" replaceByExpression="column.attributeName.camelCase" ]
+            }}}@ */
+            sb.appendLine("    CAST(:articulusInteriorSingularis AS jsonb),")
+            /* @tt{{{
+                @end-replace-value-by-expression
+                @else
+                @replace-value-by-expression
+                    [ searchValue="campusTextusObligatorius" replaceByExpression="column.attributeName.camelCase" ]
+            }}}@ */
+            sb.appendLine("    :campusTextusObligatorius,")
+            /* @tt{{{   @end-replace-value-by-expression @end-if @end-foreach @ignore-text  }}}@ */
+            sb.appendLine("    :campusTextusOptionalis,")
+            sb.appendLine("    :appellatio,")
+            sb.appendLine("    CAST(:articulusInteriorIteratus AS jsonb),")
+            sb.appendLine("    CAST(:articulusInteriorSingularisOptionalis AS jsonb),")
+            sb.appendLine("    CAST(:articulusInteriorOptionalisIteratus AS jsonb),")
+            sb.appendLine("    CAST(:appellatioOptionalisIteratus AS jsonb),")
+            sb.appendLine("    :campusDiei,")
+            sb.appendLine("    :campusBivalens,")
+            sb.appendLine("    :campusNumerorum,")
+            sb.appendLine("    CAST(:iteratioSimpliciumTextuum AS jsonb),")
+            sb.appendLine("    CAST(:relatioAdEntitatemOptionalisIteratus AS jsonb),")
+            sb.appendLine("    :relatioAdEntitatemOptionalis,")
+            /* @tt{{{   @end-ignore-text  }}}@ */
+            sb.appendLine("    :indexUnicus")
+            sb.appendLine(")")
+            sb.appendLine("ON CONFLICT ($PRIMARY_KEY_COLUMN_NAME) DO UPDATE SET")
+            /* @tt{{{
+                @foreach [ iteratorExpression="model.table.columnsWithoutPrimaryKey" loopVariable="column" ]
+                @replace-value-by-expression
+                    [ searchValue="CAMPUS_TEXTUS_OBLIGATORIUS" replaceByExpression="column.columnName" ]
+            }}}@ */
+            sb.appendLine("     CAMPUS_TEXTUS_OBLIGATORIUS = EXCLUDED.CAMPUS_TEXTUS_OBLIGATORIUS,")
+            /* @tt{{{   @end-replace-value-by-expression @end-foreach @ignore-text  }}}@ */
+            sb.appendLine("     CAMPUS_TEXTUS_OPTIONALIS = EXCLUDED.CAMPUS_TEXTUS_OPTIONALIS,")
+            sb.appendLine("     APPELLATIO = EXCLUDED.APPELLATIO,")
+            sb.appendLine("     ARTICULUS_INTERIOR_SINGULARIS = EXCLUDED.ARTICULUS_INTERIOR_SINGULARIS,")
+            sb.appendLine("     ARTICULUS_INTERIOR_ITERATUS = EXCLUDED.ARTICULUS_INTERIOR_ITERATUS,")
+            sb.appendLine("     ARTICULUS_INTERIOR_SINGULARIS_OPTIONALIS = EXCLUDED.ARTICULUS_INTERIOR_SINGULARIS_OPTIONALIS,")
+            sb.appendLine("     ARTICULUS_INTERIOR_OPTIONALIS_ITERATUS = EXCLUDED.ARTICULUS_INTERIOR_OPTIONALIS_ITERATUS,")
+            sb.appendLine("     APPELLATIO_OPTIONALIS_ITERATUS = EXCLUDED.APPELLATIO_OPTIONALIS_ITERATUS,")
+            sb.appendLine("     CAMPUS_DIEI = EXCLUDED.CAMPUS_DIEI,")
+            sb.appendLine("     CAMPUS_BIVALENS = EXCLUDED.CAMPUS_BIVALENS,")
+            sb.appendLine("     CAMPUS_NUMERORUM = EXCLUDED.CAMPUS_NUMERORUM,")
+            sb.appendLine("     ITERATIO_SIMPLICIUM_TEXTUUM = EXCLUDED.ITERATIO_SIMPLICIUM_TEXTUUM,")
+            sb.appendLine("     RELATIO_AD_ENTITATEM_OPTIONALIS_ITERATUS = EXCLUDED.RELATIO_AD_ENTITATEM_OPTIONALIS_ITERATUS,")
+            sb.appendLine("     RELATIO_AD_ENTITATEM_OPTIONALIS = EXCLUDED.RELATIO_AD_ENTITATEM_OPTIONALIS,")
+            /* @tt{{{   @end-ignore-text  }}}@ */
+            // assigning the key to itself is a no-op and keeps the last line free of a comma
+            sb.appendLine("     $PRIMARY_KEY_COLUMN_NAME = EXCLUDED.$PRIMARY_KEY_COLUMN_NAME")
             return sb.toString()
     }
 }

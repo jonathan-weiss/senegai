@@ -66,9 +66,10 @@ class InMemorySilvaOptionumRepository : SilvaOptionumRepository {
     }
 
     /* @tt{{{
+        @if [ conditionExpression="model.hasGeneratedPrimaryKey" ]
         @replace-value-by-expression
             [ searchValue="UUID.randomUUID()" replaceByExpression="model.nextPrimaryKeyValueExpression" ]
     }}}@ */
     override fun nextId(): UUID = UUID.randomUUID()
-    /* @tt{{{   @end-replace-value-by-expression  }}}@ */
+    /* @tt{{{   @end-replace-value-by-expression @end-if  }}}@ */
 }

@@ -55,8 +55,8 @@ object ItemInMemoryRepositoryRenderer : BeItemRenderer {
           |        store.remove(${model.primaryKeyAttribute.attributeName.camelCase})
           |    }
           |
-          |    override fun nextId(): ${model.primaryKeyAttribute.kotlinAttributeType} = ${model.nextPrimaryKeyValueExpression}
-          |}
+          |${ if(model.hasGeneratedPrimaryKey) { """    override fun nextId(): ${model.primaryKeyAttribute.kotlinAttributeType} = ${model.nextPrimaryKeyValueExpression}
+              |""" } else { """""" } }}
           |
         """.trimMargin(marginPrefix = "|")
     }

@@ -48,9 +48,13 @@ object ItemServiceRenderer : BeItemRenderer {
           |        ${model.itemName.camelCase}Repository.search(searchCriteria)
           |
           |    fun create${model.itemName.pascalCase}(${model.itemName.camelCase}: ${model.itemName.pascalCase}BO): ${model.itemName.pascalCase}BO {
-          |        val toCreate = ${model.itemName.camelCase}.copy(${model.primaryKeyAttribute.attributeName.camelCase} = ${model.itemName.camelCase}Repository.nextId())
-          |        return ${model.itemName.camelCase}Repository.save(toCreate)
-          |    }
+          |${ if(model.hasGeneratedPrimaryKey) { """        val toCreate = ${model.itemName.camelCase}.copy(${model.primaryKeyAttribute.attributeName.camelCase} = ${model.itemName.camelCase}Repository.nextId())
+              |        return ${model.itemName.camelCase}Repository.save(toCreate)
+              |""" } else { """        require(${model.itemName.camelCase}.${model.primaryKeyAttribute.attributeName.camelCase} != ${model.unresolvablePrimaryKeyValueExpression}) {
+              |            "The primary key of ${model.itemName.pascalCase} is supplied by the caller and must not be empty."
+              |        }
+              |        return ${model.itemName.camelCase}Repository.save(${model.itemName.camelCase})
+              |""" } }    }
           |
           |    fun update${model.itemName.pascalCase}(${model.itemName.camelCase}: ${model.itemName.pascalCase}BO): ${model.itemName.pascalCase}BO =
           |        ${model.itemName.camelCase}Repository.save(${model.itemName.camelCase})

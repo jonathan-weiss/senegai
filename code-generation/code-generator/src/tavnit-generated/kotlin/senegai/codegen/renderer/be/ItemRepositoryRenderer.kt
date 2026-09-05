@@ -44,12 +44,15 @@ object ItemRepositoryRenderer : BeItemRenderer {
           |
           |    fun deleteById(${model.primaryKeyAttribute.attributeName.camelCase}: ${model.primaryKeyAttribute.kotlinAttributeType})
           |
-          |    /**
-          |     * A primary key that no stored ${model.itemName.pascalCase} is identified by, for a ${model.itemName.pascalCase} that is
-          |     * created. Handing out identity is the job of the persistence, like a sequence of a database.
-          |     */
-          |    fun nextId(): ${model.primaryKeyAttribute.kotlinAttributeType}
-          |}
+          |${ if(model.hasGeneratedPrimaryKey) { """    /**
+              |     * A primary key that no stored ${model.itemName.pascalCase} is identified by, for a ${model.itemName.pascalCase} that is
+              |     * created. Handing out identity is the job of the persistence, like a sequence of a database.
+              |     *
+              |     * Only exists for an item whose key is handed out; a key of a textual type is supplied by
+              |     * the caller instead.
+              |     */
+              |    fun nextId(): ${model.primaryKeyAttribute.kotlinAttributeType}
+              |""" } else { """""" } }}
           |
         """.trimMargin(marginPrefix = "|")
     }

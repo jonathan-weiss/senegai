@@ -17,6 +17,7 @@ import senegai.codegen.renderer.be.ItemExampleDataFetcherRenderer
 import senegai.codegen.renderer.be.ItemExampleDataPopulatorRenderer
 import senegai.codegen.renderer.be.ItemInMemoryRepositoryRenderer
 import senegai.codegen.renderer.be.ItemMapperRenderer
+import senegai.codegen.renderer.be.ItemPostgresSqlRepositoryRenderer
 import senegai.codegen.renderer.be.ItemRepositoryRenderer
 import senegai.codegen.renderer.be.ItemSearchCriteriaBORenderer
 import senegai.codegen.renderer.be.ItemSearchCriteriaMapperRenderer
@@ -91,6 +92,7 @@ object BackendRendering {
                 ItemRepositoryRenderer to pathToGeneratedBackendServiceFiles,
                 ItemServiceRenderer to pathToGeneratedBackendServiceFiles,
                 ItemInMemoryRepositoryRenderer to pathToGeneratedBackendPersistenceFiles,
+                ItemPostgresSqlRepositoryRenderer to pathToGeneratedBackendPersistenceFiles,
                 ItemControllerRenderer to pathToGeneratedBackendRestFiles,
                 ItemSearchCriteriaBORenderer to pathToGeneratedBackendServiceFiles,
                 ItemSearchCriteriaWTORenderer to pathToGeneratedBackendRestFiles,

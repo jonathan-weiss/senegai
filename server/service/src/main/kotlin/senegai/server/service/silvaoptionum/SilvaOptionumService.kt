@@ -58,8 +58,19 @@ class SilvaOptionumService(
         silvaOptionumRepository.search(searchCriteria)
 
     fun createSilvaOptionum(silvaOptionum: SilvaOptionumBO): SilvaOptionumBO {
+        /* @tt{{{   @if [ conditionExpression="model.hasGeneratedPrimaryKey" ]  }}}@ */
         val toCreate = silvaOptionum.copy(indexUnicus = silvaOptionumRepository.nextId())
         return silvaOptionumRepository.save(toCreate)
+        /* @tt{{{
+            @else
+            @replace-value-by-expression
+                [ searchValue="UUID(0L, 0L)" replaceByExpression="model.unresolvablePrimaryKeyValueExpression" ]
+        }}}@ */
+        require(silvaOptionum.indexUnicus != UUID(0L, 0L)) {
+            "The primary key of SilvaOptionum is supplied by the caller and must not be empty."
+        }
+        return silvaOptionumRepository.save(silvaOptionum)
+        /* @tt{{{   @end-replace-value-by-expression @end-if  }}}@ */
     }
 
     fun updateSilvaOptionum(silvaOptionum: SilvaOptionumBO): SilvaOptionumBO =

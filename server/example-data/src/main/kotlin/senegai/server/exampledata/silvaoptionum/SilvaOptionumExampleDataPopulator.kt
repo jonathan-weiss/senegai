@@ -47,12 +47,17 @@ class SilvaOptionumExampleDataPopulator(
      * Creates the example [SilvaOptionumBO] aggregates and writes each of them to the
      * persistence via the [SilvaOptionumRepository].
      *
-     * The primary key of the created aggregates is the one the persistence hands out, not the
-     * one the example data creator generated: only that way every example aggregate is stored
-     * under a key of its own, whatever type the primary key is of.
+     * Where the persistence hands out primary keys, an aggregate is stored under a key it hands
+     * out rather than the one the example data creator generated, so that every example
+     * aggregate gets a key of its own. An item whose key is supplied by the caller instead
+     * keeps the generated one.
      */
     override fun createExampleData(dataContext: DataContext) {
-        silvaOptionumExampleDataCreator.createList(dataContext, FakerHelper.itemListRandomSize(dataContext))
-            .forEach { silvaOptionumRepository.save(it.copy(indexUnicus = silvaOptionumRepository.nextId())) }
+        val created = silvaOptionumExampleDataCreator.createList(dataContext, FakerHelper.itemListRandomSize(dataContext))
+        /* @tt{{{   @if [ conditionExpression="model.hasGeneratedPrimaryKey" ]  }}}@ */
+        created.forEach { silvaOptionumRepository.save(it.copy(indexUnicus = silvaOptionumRepository.nextId())) }
+        /* @tt{{{   @else  }}}@ */
+        created.forEach { silvaOptionumRepository.save(it) }
+        /* @tt{{{   @end-if  }}}@ */
     }
 }

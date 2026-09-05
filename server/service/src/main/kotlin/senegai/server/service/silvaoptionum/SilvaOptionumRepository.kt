@@ -54,9 +54,14 @@ interface SilvaOptionumRepository {
 
     fun deleteById(indexUnicus: UUID)
 
+    /* @tt{{{   @if [ conditionExpression="model.hasGeneratedPrimaryKey" ]  }}}@ */
     /**
      * A primary key that no stored SilvaOptionum is identified by, for a SilvaOptionum that is
      * created. Handing out identity is the job of the persistence, like a sequence of a database.
+     *
+     * Only exists for an item whose key is handed out; a key of a textual type is supplied by
+     * the caller instead.
      */
     fun nextId(): UUID
+    /* @tt{{{   @end-if  }}}@ */
 }

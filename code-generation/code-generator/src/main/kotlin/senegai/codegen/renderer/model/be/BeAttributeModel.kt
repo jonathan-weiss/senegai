@@ -1,6 +1,7 @@
 package senegai.codegen.renderer.model.be
 
 import senegai.codegen.renderer.model.NameCase
+import senegai.codegen.renderer.model.db.DbColumnModel
 import senegai.model.schema.BuiltInType
 import senegai.model.schema.EnumId
 import senegai.model.schema.ExampleDataCategory
@@ -10,6 +11,7 @@ sealed class BeAttributeModel(
     val attributeName: NameCase,
     val isNullable: Boolean,
     val isList: Boolean,
+    val dbColumn: DbColumnModel?,
 ) {
     abstract val isItem: Boolean
     abstract val isBuiltIn: Boolean
@@ -22,6 +24,16 @@ sealed class BeAttributeModel(
      */
     open val isItemReference: Boolean
         get() = false
+
+    /**
+     * The column this attribute is stored in, for the templates that are only rendered for an
+     * item that has a table, i.e. one that declares a primary key.
+     */
+    val column: DbColumnModel
+        get() = requireNotNull(dbColumn) {
+            "The attribute '${attributeName.camelCase}' of the item " +
+                    "'${item.itemName.pascalCase}' is stored in no column."
+        }
 
     /**
      * The example-data creator call to obtain a value for this attribute, respecting its cardinality:
@@ -98,6 +110,7 @@ open class BuiltInTypeBeAttributeModel(
     attributeName: NameCase,
     isNullable: Boolean,
     isList: Boolean,
+    dbColumn: DbColumnModel?,
     val builtInType: BuiltInType,
     val exampleDataGeneratorConfig: BeExampleDataGeneratorConfig
 ) : BeAttributeModel(
@@ -105,6 +118,7 @@ open class BuiltInTypeBeAttributeModel(
     attributeName = attributeName,
     isNullable = isNullable,
     isList = isList,
+    dbColumn = dbColumn,
 ) {
     override val isItem: Boolean
         get() = false
@@ -154,12 +168,14 @@ class ItemReferenceBeAttributeModel(
     attributeName: NameCase,
     isNullable: Boolean,
     isList: Boolean,
+    dbColumn: DbColumnModel?,
     val referencedItem: BeReferencedItemModel,
 ) : BuiltInTypeBeAttributeModel(
     item = item,
     attributeName = attributeName,
     isNullable = isNullable,
     isList = isList,
+    dbColumn = dbColumn,
     builtInType = referencedItem.idBuiltInType,
     // A random value of the primary key's type for now; resolving it to a really existing
     // item is up to the templates that know how to fetch the referenced items.
@@ -190,12 +206,14 @@ class ItemBeIAttributeModel(
     attributeName: NameCase,
     isNullable: Boolean,
     isList: Boolean,
+    dbColumn: DbColumnModel?,
     val referencedItem: BeItemDescriptionModel,
 ) : BeAttributeModel(
     item = item,
     attributeName = attributeName,
     isNullable = isNullable,
     isList = isList,
+    dbColumn = dbColumn,
 ) {
     override val isItem: Boolean
         get() = true
@@ -220,12 +238,14 @@ class EnumBeAttributeModel(
     attributeName: NameCase,
     isNullable: Boolean,
     isList: Boolean,
+    dbColumn: DbColumnModel?,
     val enum: BeEnumModel,
 ) : BeAttributeModel(
     item = item,
     attributeName = attributeName,
     isNullable = isNullable,
     isList = isList,
+    dbColumn = dbColumn,
 ) {
     val enumId: EnumId = enum.enumId
 
