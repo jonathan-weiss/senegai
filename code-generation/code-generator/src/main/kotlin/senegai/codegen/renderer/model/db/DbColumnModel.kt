@@ -15,15 +15,28 @@ data class DbColumnModel(
     /** The SQL enum type this column is declared with, `null` for every other column. */
     val enumTypeName: String?,
     val isNullable: Boolean,
+    val isMultiple: Boolean,
     val isPrimaryKey: Boolean,
 ) {
     /**
-     * The type this column is declared with: the SQL enum type of the enum it stores, or else
-     * the name of its [sqlType].
+     * Whether this column holds a SQL array. A list of values that have a flat relational
+     * representation is stored as an array of them; only a list of nested items lands in a
+     * single [DbSqlType.JSONB] value.
      */
-    val sqlTypeName: String = enumTypeName ?: sqlType.sqlTypeName
+    val isArray: Boolean = isMultiple && sqlType != DbSqlType.JSONB
 
-    val isJsonb: Boolean = sqlType == DbSqlType.JSONB
+    /**
+     * The type this column is declared with: the SQL enum type of the enum it stores, or else
+     * the name of its [sqlType], with the array suffix if it holds a list.
+     */
+    val sqlTypeName: String = (enumTypeName ?: sqlType.sqlTypeName) + if (isArray) "[]" else ""
+
+    /**
+     * Whether the bind parameter of this column has to be cast to [sqlTypeName] in the INSERT.
+     * Both an array and a `jsonb` value are passed as their textual representation, which
+     * PostgreSQL only accepts with an explicit cast.
+     */
+    val requiresParameterCast: Boolean = isArray || sqlType == DbSqlType.JSONB
 
     /**
      * Whether the database hands out the value of this column, i.e. it is an integer primary key.

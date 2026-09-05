@@ -5,6 +5,7 @@ import org.junit.jupiter.api.assertThrows
 import org.springframework.jdbc.core.SqlParameterValue
 import senegai.server.service.bo.AppellatioComis
 import java.lang.reflect.Proxy
+import java.math.BigDecimal
 import java.sql.ResultSet
 import java.sql.Types
 import java.util.UUID
@@ -17,8 +18,10 @@ private enum class Salutation { MR, MS }
 private data class Address(val street: String, val town: String)
 
 /**
- * A [ResultSet] backed by a map, built through a proxy because only the two getters
+ * A [ResultSet] backed by a map, built through a proxy because only the few getters
  * [columnValue] uses have to answer and [ResultSet] declares far too many methods to implement.
+ *
+ * A column holding an array is written as the element array the driver would hand out.
  */
 private fun resultSetOf(vararg columns: Pair<String, Any?>): ResultSet {
     val values = columns.toMap()
@@ -31,10 +34,21 @@ private fun resultSetOf(vararg columns: Pair<String, Any?>): ResultSet {
         when (method.name) {
             "getString" -> values[columnLabel]
             "getObject" -> values[columnLabel]
+            "getArray" -> (values[columnLabel] as Array<*>?)?.let { sqlArrayOf(it) }
             else -> throw UnsupportedOperationException(method.name)
         }
     } as ResultSet
 }
+
+private fun sqlArrayOf(elements: Array<*>): java.sql.Array = Proxy.newProxyInstance(
+    java.sql.Array::class.java.classLoader,
+    arrayOf(java.sql.Array::class.java),
+) { _, method, _ ->
+    when (method.name) {
+        "getArray" -> elements
+        else -> throw UnsupportedOperationException(method.name)
+    }
+} as java.sql.Array
 
 class ColumnValueTest {
 
@@ -106,11 +120,54 @@ class ColumnValueTest {
     }
 
     @Test
-    fun `keeps the element type of a list of built-in values`() {
+    fun `reads a list of built-in values from an array column`() {
         val id = UUID.randomUUID()
-        val resultSet = resultSetOf("REFERENCES" to """["$id"]""")
+        val resultSet = resultSetOf(
+            "TAGS" to arrayOf("a", "b"),
+            "AGES" to arrayOf(36, 37),
+            "RATIOS" to arrayOf(1.5, 2.5),
+            "FLAGS" to arrayOf(true, false),
+            "REFERENCES" to arrayOf(id),
+        )
 
+        assertEquals(listOf("a", "b"), resultSet.columnValue<List<String>>("TAGS"))
+        assertEquals(listOf(36, 37), resultSet.columnValue<List<Int>>("AGES"))
+        assertEquals(listOf(1.5, 2.5), resultSet.columnValue<List<Double>>("RATIOS"))
+        assertEquals(listOf(true, false), resultSet.columnValue<List<Boolean>>("FLAGS"))
         assertEquals(listOf(id), resultSet.columnValue<List<UUID>>("REFERENCES"))
+    }
+
+    @Test
+    fun `reads an empty and a null array column`() {
+        val resultSet = resultSetOf("TAGS" to emptyArray<String>(), "OTHER_TAGS" to null)
+
+        assertEquals(emptyList<String>(), resultSet.columnValue<List<String>>("TAGS"))
+        assertNull(resultSet.columnValue<List<String>?>("OTHER_TAGS"))
+    }
+
+    @Test
+    fun `reads an array column into a nullable list`() {
+        // List<String> and List<String>? are different types but the same column
+        val resultSet = resultSetOf("TAGS" to arrayOf("a"))
+
+        assertEquals(listOf("a"), resultSet.columnValue<List<String>?>("TAGS"))
+    }
+
+    @Test
+    fun `reads an array of enum values through the database spelling declared for them`() {
+        val resultSet = resultSetOf("APPELLATIONES" to arrayOf("vir-honoratus", "femina-honesta"))
+
+        assertEquals(
+            listOf(AppellatioComis.VIR_HONORATUS, AppellatioComis.FEMINA_HONESTA),
+            resultSet.columnValue<List<AppellatioComis>>("APPELLATIONES"),
+        )
+    }
+
+    @Test
+    fun `reads a numeric array column that the driver hands out as BigDecimal`() {
+        val resultSet = resultSetOf("RATIOS" to arrayOf(BigDecimal("1.5")))
+
+        assertEquals(listOf(1.5), resultSet.columnValue<List<Double>>("RATIOS"))
     }
 }
 
@@ -124,7 +181,7 @@ class ParamValueTest {
         assertEquals("Ada", paramValue("Ada"))
         assertEquals(36, paramValue(36))
         assertEquals(true, paramValue(true))
-        assertNull(paramValue(null))
+        assertNull(paramValue<String?>(null))
     }
 
     @Test
@@ -146,6 +203,47 @@ class ParamValueTest {
     @Test
     fun `writes everything without a flat representation as json`() {
         assertEquals("""{"street":"Bahnhofstrasse 1","town":"Zurich"}""", paramValue(Address("Bahnhofstrasse 1", "Zurich")))
-        assertEquals("""["a","b"]""", paramValue(listOf("a", "b")))
+        // a list of nested items has no flat representation either, so it stays json
+        assertEquals(
+            """[{"street":"Bahnhofstrasse 1","town":"Zurich"}]""",
+            paramValue(listOf(Address("Bahnhofstrasse 1", "Zurich"))),
+        )
+        assertEquals("[]", paramValue(emptyList<Address>()))
+    }
+
+    @Test
+    fun `writes a list of built-in values as a sql array literal`() {
+        val id = UUID.randomUUID()
+
+        assertEquals("""{"a","b"}""", paramValue(listOf("a", "b")))
+        assertEquals("""{"36","37"}""", paramValue(listOf(36, 37)))
+        assertEquals("""{"1.5"}""", paramValue(listOf(1.5)))
+        assertEquals("""{"true","false"}""", paramValue(listOf(true, false)))
+        assertEquals("""{"$id"}""", paramValue(listOf(id)))
+    }
+
+    @Test
+    fun `writes an empty and a null list of built-in values`() {
+        // the element type is only known statically, which is why paramValue is reified
+        assertEquals("{}", paramValue(emptyList<String>()))
+        assertNull(paramValue<List<String>?>(null))
+    }
+
+    @Test
+    fun `writes a nullable list of built-in values as a sql array literal`() {
+        assertEquals("""{"a"}""", paramValue<List<String>?>(listOf("a")))
+    }
+
+    @Test
+    fun `escapes the elements of a sql array literal`() {
+        assertEquals("""{"a\"b","c\\d","NULL",NULL}""", paramValue(listOf("""a"b""", """c\d""", "NULL", null)))
+    }
+
+    @Test
+    fun `writes a list of enum values with the database spelling of its values`() {
+        assertEquals(
+            """{"vir-honoratus","femina-honesta"}""",
+            paramValue(listOf(AppellatioComis.VIR_HONORATUS, AppellatioComis.FEMINA_HONESTA)),
+        )
     }
 }

@@ -53,8 +53,9 @@ private const val PRIMARY_KEY_COLUMN_NAME = "INDEX_UNICUS"
  * PostgreSQL implementation of the [SilvaOptionumRepository] port, storing every
  * [SilvaOptionumBO] aggregate as one row of the SILVA_OPTIONUM table.
  *
- * Attributes without a flat relational representation — nested items, lists of nested items
- * and lists of built-in types — are stored as `jsonb`; all others get their own typed column.
+ * Attributes without a flat relational representation — nested items and lists of them — are
+ * stored as `jsonb`; every other list gets an array column of its element type, and every
+ * single value its own typed column.
  *
  * Only active when `senegai.persistence.type=postgres`; it then takes precedence over the
  * [senegai.server.persistence.silvaoptionum.InMemorySilvaOptionumRepository].
@@ -203,7 +204,7 @@ class PostgresSqlSilvaOptionumRepository(
             val sb = StringBuilder()
             sb.appendLine("INSERT INTO $TABLE_NAME (")
             /* @tt{{{
-                @foreach [ iteratorExpression="model.table.columnsWithoutPrimaryKey.filterNot { it.isJsonb }" loopVariable="column" ]
+                @foreach [ iteratorExpression="model.table.columnsWithoutPrimaryKey.filterNot { it.requiresParameterCast }" loopVariable="column" ]
                 @replace-value-by-expression
                     [ searchValue="CAMPUS_TEXTUS_OBLIGATORIUS" replaceByExpression="column.columnName" ]
             }}}@ */
@@ -217,7 +218,7 @@ class PostgresSqlSilvaOptionumRepository(
             sb.appendLine("    RELATIO_AD_ENTITATEM_OPTIONALIS,")
             /* @tt{{{   @end-ignore-text  }}}@ */
             /* @tt{{{
-                @foreach [ iteratorExpression="model.table.columnsWithoutPrimaryKey.filter { it.isJsonb }" loopVariable="column" ]
+                @foreach [ iteratorExpression="model.table.columnsWithoutPrimaryKey.filter { it.requiresParameterCast }" loopVariable="column" ]
                 @replace-value-by-expression
                     [ searchValue="ARTICULUS_INTERIOR_SINGULARIS" replaceByExpression="column.columnName" ]
             }}}@ */
@@ -233,7 +234,7 @@ class PostgresSqlSilvaOptionumRepository(
             sb.appendLine("    $PRIMARY_KEY_COLUMN_NAME")
             sb.appendLine(") VALUES (")
             /* @tt{{{
-                @foreach [ iteratorExpression="model.table.columnsWithoutPrimaryKey.filterNot { it.isJsonb }" loopVariable="column" ]
+                @foreach [ iteratorExpression="model.table.columnsWithoutPrimaryKey.filterNot { it.requiresParameterCast }" loopVariable="column" ]
                 @replace-value-by-expression
                     [ searchValue="campusTextusObligatorius" replaceByExpression="column.attributeName.camelCase" ]
             }}}@ */
@@ -247,18 +248,19 @@ class PostgresSqlSilvaOptionumRepository(
             sb.appendLine("    :relatioAdEntitatemOptionalis,")
             /* @tt{{{   @end-ignore-text  }}}@ */
             /* @tt{{{
-                @foreach [ iteratorExpression="model.table.columnsWithoutPrimaryKey.filter { it.isJsonb }" loopVariable="column" ]
+                @foreach [ iteratorExpression="model.table.columnsWithoutPrimaryKey.filter { it.requiresParameterCast }" loopVariable="column" ]
                 @replace-value-by-expression
                     [ searchValue="articulusInteriorSingularis" replaceByExpression="column.attributeName.camelCase" ]
+                    [ searchValue="jsonb" replaceByExpression="column.sqlTypeName" ]
             }}}@ */
             sb.appendLine("    CAST(:articulusInteriorSingularis AS jsonb),")
             /* @tt{{{   @end-replace-value-by-expression @end-foreach @ignore-text  }}}@ */
             sb.appendLine("    CAST(:articulusInteriorIteratus AS jsonb),")
             sb.appendLine("    CAST(:articulusInteriorSingularisOptionalis AS jsonb),")
             sb.appendLine("    CAST(:articulusInteriorOptionalisIteratus AS jsonb),")
-            sb.appendLine("    CAST(:appellatioOptionalisIteratus AS jsonb),")
-            sb.appendLine("    CAST(:iteratioSimpliciumTextuum AS jsonb),")
-            sb.appendLine("    CAST(:relatioAdEntitatemOptionalisIteratus AS jsonb),")
+            sb.appendLine("    CAST(:appellatioOptionalisIteratus AS appellatio_comis[]),")
+            sb.appendLine("    CAST(:iteratioSimpliciumTextuum AS text[]),")
+            sb.appendLine("    CAST(:relatioAdEntitatemOptionalisIteratus AS uuid[]),")
             /* @tt{{{   @end-ignore-text  }}}@ */
             sb.appendLine("    :indexUnicus")
             sb.appendLine(")")

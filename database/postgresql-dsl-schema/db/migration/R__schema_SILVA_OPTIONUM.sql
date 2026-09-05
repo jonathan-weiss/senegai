@@ -46,12 +46,12 @@ CREATE TABLE SILVA_OPTIONUM (
     ARTICULUS_INTERIOR_SINGULARIS            jsonb   NOT NULL,
     ARTICULUS_INTERIOR_ITERATUS              jsonb   NOT NULL,
     ARTICULUS_INTERIOR_OPTIONALIS_ITERATUS   jsonb,
-    APPELLATIO_OPTIONALIS_ITERATUS           jsonb,
+    APPELLATIO_OPTIONALIS_ITERATUS           appellatio_comis[],
     CAMPUS_DIEI                              date,
     CAMPUS_BIVALENS                          boolean NOT NULL,
     CAMPUS_NUMERORUM                         integer NOT NULL,
-    ITERATIO_SIMPLICIUM_TEXTUUM              jsonb   NOT NULL,
-    RELATIO_AD_ENTITATEM_OPTIONALIS_ITERATUS jsonb,
+    ITERATIO_SIMPLICIUM_TEXTUUM              text[]  NOT NULL,
+    RELATIO_AD_ENTITATEM_OPTIONALIS_ITERATUS uuid[],
     RELATIO_AD_ENTITATEM_OPTIONALIS          uuid,
     /* @tt{{{   @end-ignore-text  }}}@ */
     /* @tt{{{

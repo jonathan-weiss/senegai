@@ -32,7 +32,8 @@ dependencies {
     // auto configuration that builds the DataSource/JdbcClient from the spring.datasource.* properties.
     implementation("org.springframework.boot:spring-boot-starter-jdbc")
 
-    // Serializes the attributes that have no flat relational representation into jsonb columns.
+    // Serializes the attributes that have no flat relational representation — nested items and
+    // lists of them — into jsonb columns.
     implementation("tools.jackson.module:jackson-module-kotlin")
 
     runtimeOnly("org.postgresql:postgresql")

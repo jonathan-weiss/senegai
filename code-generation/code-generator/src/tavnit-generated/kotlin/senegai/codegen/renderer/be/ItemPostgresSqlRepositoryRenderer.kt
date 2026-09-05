@@ -38,8 +38,9 @@ object ItemPostgresSqlRepositoryRenderer : BeItemRenderer {
           | * PostgreSQL implementation of the [${model.itemName.pascalCase}Repository] port, storing every
           | * [${model.itemName.pascalCase}BO] aggregate as one row of the ${model.table.tableName} table.
           | *
-          | * Attributes without a flat relational representation — nested items, lists of nested items
-          | * and lists of built-in types — are stored as `jsonb`; all others get their own typed column.
+          | * Attributes without a flat relational representation — nested items and lists of them — are
+          | * stored as `jsonb`; every other list gets an array column of its element type, and every
+          | * single value its own typed column.
           | *
           | * Only active when `senegai.persistence.type=postgres`; it then takes precedence over the
           | * [senegai.server.persistence.${model.itemName.lowerCase}.InMemory${model.itemName.pascalCase}Repository].
@@ -117,12 +118,12 @@ object ItemPostgresSqlRepositoryRenderer : BeItemRenderer {
           |            // because we need kotlin comments between the lines, we can not use kotlin multiline-comments
           |            val sb = StringBuilder()
           |            sb.appendLine("INSERT INTO ${"$"}TABLE_NAME (")
-          |${ model.table.columnsWithoutPrimaryKey.filterNot { it.isJsonb }.joinToString("") { column ->  """            sb.appendLine("    ${column.columnName},")
-              |""" } }${ model.table.columnsWithoutPrimaryKey.filter { it.isJsonb }.joinToString("") { column ->  """            sb.appendLine("    ${column.columnName},")
+          |${ model.table.columnsWithoutPrimaryKey.filterNot { it.requiresParameterCast }.joinToString("") { column ->  """            sb.appendLine("    ${column.columnName},")
+              |""" } }${ model.table.columnsWithoutPrimaryKey.filter { it.requiresParameterCast }.joinToString("") { column ->  """            sb.appendLine("    ${column.columnName},")
               |""" } }            sb.appendLine("    ${"$"}PRIMARY_KEY_COLUMN_NAME")
           |            sb.appendLine(") VALUES (")
-          |${ model.table.columnsWithoutPrimaryKey.filterNot { it.isJsonb }.joinToString("") { column ->  """            sb.appendLine("    :${column.attributeName.camelCase},")
-              |""" } }${ model.table.columnsWithoutPrimaryKey.filter { it.isJsonb }.joinToString("") { column ->  """            sb.appendLine("    CAST(:${column.attributeName.camelCase} AS jsonb),")
+          |${ model.table.columnsWithoutPrimaryKey.filterNot { it.requiresParameterCast }.joinToString("") { column ->  """            sb.appendLine("    :${column.attributeName.camelCase},")
+              |""" } }${ model.table.columnsWithoutPrimaryKey.filter { it.requiresParameterCast }.joinToString("") { column ->  """            sb.appendLine("    CAST(:${column.attributeName.camelCase} AS ${column.sqlTypeName}),")
               |""" } }            sb.appendLine("    :${model.primaryKeyAttribute.attributeName.camelCase}")
           |            sb.appendLine(")")
           |            sb.appendLine("ON CONFLICT (${"$"}PRIMARY_KEY_COLUMN_NAME) DO UPDATE SET")

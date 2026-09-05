@@ -430,32 +430,26 @@ object RendererModelConverter {
         sqlType = dbSqlType(itemAttribute, items),
         enumTypeName = dbEnumTypeName(itemAttribute, enums),
         isNullable = itemAttribute.isNullable,
+        isMultiple = itemAttribute.isMultiple,
         isPrimaryKey = itemAttribute.isPrimaryKey,
     )
 
-    /**
-     * The SQL enum type a column is declared with, which only a column storing a single enum
-     * value has — a list of them is stored as `jsonb` and therefore untyped.
-     */
+    /** The SQL enum type a column storing enum values is declared with. */
     private fun dbEnumTypeName(itemAttribute: ItemAttribute, enums: List<DbEnumModel>): String? {
         val enumId = itemAttribute.type as? EnumId ?: return null
-        if (itemAttribute.isMultiple) {
-            return null
-        }
         return enums.single { it.enumId == enumId }.enumTypeName
     }
 
     /**
-     * Everything without a flat relational representation is stored as a single `jsonb`
-     * value: a list of any kind and a nested item instance. A reference is stored as the
-     * primary key of the item it refers to and is therefore of that key's type.
+     * The type one value of the attribute is stored as; a list of them becomes an array of that
+     * type, which [DbColumnModel] derives.
+     *
+     * Only a nested item instance has no flat relational representation and is therefore stored
+     * as `jsonb`. A reference is stored as the primary key of the item it refers to and is
+     * therefore of that key's type.
      */
-    private fun dbSqlType(itemAttribute: ItemAttribute, items: List<Item>): DbSqlType {
-        if (itemAttribute.isMultiple) {
-            return DbSqlType.JSONB
-        }
-
-        return when (val itemAttributeType = itemAttribute.type) {
+    private fun dbSqlType(itemAttribute: ItemAttribute, items: List<Item>): DbSqlType =
+        when (val itemAttributeType = itemAttribute.type) {
             is BuiltInType -> dbSqlType(itemAttributeType)
             is EnumId -> DbSqlType.TEXT
             is ItemId -> if (itemAttribute.isReference) {
@@ -464,7 +458,6 @@ object RendererModelConverter {
                 DbSqlType.JSONB
             }
         }
-    }
 
     private fun dbSqlType(builtInType: BuiltInType): DbSqlType = when (builtInType) {
         BuiltInType.STRING -> DbSqlType.TEXT
