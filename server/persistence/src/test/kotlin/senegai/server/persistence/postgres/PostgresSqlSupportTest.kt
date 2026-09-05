@@ -1,11 +1,16 @@
 package senegai.server.persistence.postgres
 
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
+import org.springframework.jdbc.core.SqlParameterValue
+import senegai.server.service.bo.AppellatioComis
 import java.lang.reflect.Proxy
 import java.sql.ResultSet
+import java.sql.Types
 import java.util.UUID
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
+import kotlin.test.assertTrue
 
 private enum class Salutation { MR, MS }
 
@@ -66,6 +71,25 @@ class ColumnValueTest {
     }
 
     @Test
+    fun `reads an enum from the database spelling declared for it`() {
+        val resultSet = resultSetOf("APPELLATIO" to "vir-honoratus")
+
+        assertEquals(AppellatioComis.VIR_HONORATUS, resultSet.columnValue<AppellatioComis>("APPELLATIO"))
+    }
+
+    @Test
+    fun `refuses a column value that is the spelling of no enum value`() {
+        val resultSet = resultSetOf("APPELLATIO" to "VIR_HONORATUS")
+
+        val exception = assertThrows<IllegalStateException> { resultSet.columnValue<AppellatioComis>("APPELLATIO") }
+
+        assertTrue(
+            exception.message.orEmpty().contains("is stored for no value of the enum 'AppellatioComis'"),
+            "Unexpected message '${exception.message}'",
+        )
+    }
+
+    @Test
     fun `reads a nested item from jsonb`() {
         val resultSet = resultSetOf("HOME_ADDRESS" to """{"street":"Bahnhofstrasse 1","town":"Zurich"}""")
 
@@ -104,8 +128,19 @@ class ParamValueTest {
     }
 
     @Test
-    fun `writes an enum as its name`() {
-        assertEquals("MS", paramValue(Salutation.MS))
+    fun `writes an enum as its name as long as no database spelling is declared for it`() {
+        val parameter = paramValue(Salutation.MS) as SqlParameterValue
+
+        assertEquals("MS", parameter.value)
+        // the column decides whether that is a text or a SQL enum value
+        assertEquals(Types.OTHER, parameter.sqlType)
+    }
+
+    @Test
+    fun `writes an enum as the database spelling declared for it`() {
+        val parameter = paramValue(AppellatioComis.VIR_HONORATUS) as SqlParameterValue
+
+        assertEquals("vir-honoratus", parameter.value)
     }
 
     @Test

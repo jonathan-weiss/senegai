@@ -1,7 +1,9 @@
 package senegai.codegen.renderer
 
 import senegai.codegen.renderer.be.BeEnumRenderer
+import senegai.codegen.renderer.be.BeEnumsRenderer
 import senegai.codegen.renderer.be.BeItemRenderer
+import senegai.codegen.renderer.be.DatabaseEnumsRenderer
 import senegai.codegen.renderer.be.EnumBORenderer
 import senegai.codegen.renderer.be.EnumExampleDataCreatorRenderer
 import senegai.codegen.renderer.be.EnumMapperRenderer
@@ -72,6 +74,25 @@ object BackendRendering {
 
             beModel.enums.forEach { beEnumModel ->
                 renderEnum(beEnumModel)
+            }
+
+            renderAllEnums(beModel.enums)
+        }
+
+        /**
+         * The files that describe all enum types at once instead of one of them, currently only
+         * the table telling the PostgreSQL repositories how an enum value is stored.
+         */
+        private fun renderAllEnums(beEnumModels: List<BeEnumModel>) {
+            val enumsRenderers: List<Pair<BeEnumsRenderer, Path>> = listOf(
+                DatabaseEnumsRenderer to pathToGeneratedBackendPersistenceFiles,
+            )
+
+            enumsRenderers.forEach { (renderer, basePath) ->
+                writeFile(
+                    filePath = basePath.resolve(renderer.filePath(beEnumModels)),
+                    content = renderer.renderTemplate(beEnumModels),
+                )
             }
         }
 

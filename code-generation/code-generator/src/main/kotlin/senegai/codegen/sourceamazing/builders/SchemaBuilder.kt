@@ -1,6 +1,7 @@
 package senegai.codegen.sourceamazing.builders
 
 import org.codeblessing.sourceamazing.builder.api.annotations.*
+import senegai.model.builders.DbEnumDsl
 import senegai.model.builders.DbItemDsl
 import senegai.model.builders.UiEntityDsl
 import senegai.model.builders.UiItemDsl
@@ -8,6 +9,7 @@ import senegai.model.builders.EnumDsl
 import senegai.model.builders.ItemDsl
 import senegai.model.builders.SchemaDsl
 import senegai.model.schema.EnumId
+import senegai.model.schema.DbEnum
 import senegai.model.schema.DbItem
 import senegai.model.schema.EnumType
 import senegai.model.schema.Item
@@ -92,6 +94,24 @@ interface SchemaBuilder: SchemaDsl {
 
     override fun dbItem(itemId: ItemId, builder: DbItemDsl.() -> Unit) {
         dbItemInternal(itemId, builder)
+    }
+
+
+    // **************
+    // DB Enum
+    // **************
+
+    @BuilderMethod
+    @NewClazzModel(clazz = DbEnum::class, alias = "dbEnum")
+    @SetClazzModelOfAlias(alias = "schema", clazzProperty = "dbEnums", referencedAlias = "dbEnum")
+    fun dbEnumInternal(
+        @SetAsValue(alias = "dbEnum", clazzProperty = "enumId")
+        enumId: EnumId,
+        @InjectBuilder builder: DbEnumBuilder.() -> Unit
+    )
+
+    override fun dbEnum(enumId: EnumId, builder: DbEnumDsl.() -> Unit) {
+        dbEnumInternal(enumId, builder)
     }
 
 

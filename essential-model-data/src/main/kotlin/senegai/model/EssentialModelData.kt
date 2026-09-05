@@ -45,6 +45,8 @@ object EssentialModelData {
                 enumValue(name = "G")
                 enumValue(name = "PG")
                 // 'PG-13' and 'NC-17' lose their hyphen: an enum value has to be in PascalCase.
+                // The hyphen is restored by the `dbEnum` in collectDatabaseData(), which is what
+                // the value is stored as.
                 enumValue(name = "PG13")
                 enumValue(name = "R")
                 enumValue(name = "NC17")
@@ -176,6 +178,15 @@ object EssentialModelData {
 
     private fun RootDsl.collectDatabaseData() {
         schema {
+            dbEnum(enumId = EnumTypes.MPAA_RATING) {
+                enumTypeName(name = "mpaa_rating")
+                enumValue(name = "G", databaseValue = "G")
+                enumValue(name = "PG", databaseValue = "PG")
+                enumValue(name = "PG13", databaseValue = "PG-13")
+                enumValue(name = "R", databaseValue = "R")
+                enumValue(name = "NC17", databaseValue = "NC-17")
+            }
+
             dbItem(itemId = Items.ACTOR) {
                 tableName(name = "actor")
                 column(attributeName = "ActorId", columnName = "actor_id")

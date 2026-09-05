@@ -12,9 +12,17 @@ data class DbColumnModel(
     val attributeName: NameCase,
     val columnName: String,
     val sqlType: DbSqlType,
+    /** The SQL enum type this column is declared with, `null` for every other column. */
+    val enumTypeName: String?,
     val isNullable: Boolean,
     val isPrimaryKey: Boolean,
 ) {
+    /**
+     * The type this column is declared with: the SQL enum type of the enum it stores, or else
+     * the name of its [sqlType].
+     */
+    val sqlTypeName: String = enumTypeName ?: sqlType.sqlTypeName
+
     val isJsonb: Boolean = sqlType == DbSqlType.JSONB
 
     /**

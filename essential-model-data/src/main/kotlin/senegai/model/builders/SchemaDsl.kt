@@ -46,6 +46,18 @@ interface SchemaDsl {
     )
 
     /**
+     * Declares how the values of the enum type [enumId] are spelled in the database, for
+     * example `dbEnum(enumId = EnumTypes.MPAA_RATING) { enumTypeName(name = "mpaa_rating") }`.
+     *
+     * Declaring nothing at all is valid: the values are then stored as `text`, spelled as the
+     * enum value in `SCREAMING_SNAKE_CASE`.
+     */
+    fun dbEnum(
+        enumId: EnumId,
+        builder: DbEnumDsl.() -> Unit,
+    )
+
+    /**
      * Declares the frontend shell that bundles all Angular components of one editor
      * around the root item [rootItemId], which has to declare a primary key.
      * The [uiEntityName] names the directory and the component classes.

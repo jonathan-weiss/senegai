@@ -17,3 +17,26 @@ interface DbItemDsl {
      */
     fun column(attributeName: String, columnName: String)
 }
+
+/**
+ * Declares how the values of one enum type are spelled in the database, for example
+ * `dbEnum(enumId = EnumTypes.MPAA_RATING) { enumTypeName(name = "mpaa_rating") }`.
+ *
+ * Both declarations are optional and only override a default: without them the values are
+ * stored as `text`, spelled as the enum value in `SCREAMING_SNAKE_CASE`.
+ */
+@MainDslMarker
+interface DbEnumDsl {
+    /**
+     * Declares the SQL enum type the values are stored in, which is created by the
+     * generated schema. Without it they are stored in a `text` column.
+     */
+    fun enumTypeName(name: String)
+
+    /**
+     * Declares how the enum value [name] is spelled in the database, e.g.
+     * `enumValue(name = "PG13", databaseValue = "PG-13")`.
+     * The values not declared here keep their default spelling.
+     */
+    fun enumValue(name: String, databaseValue: String)
+}

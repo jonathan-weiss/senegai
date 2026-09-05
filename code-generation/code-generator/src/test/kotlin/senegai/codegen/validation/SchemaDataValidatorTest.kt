@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import senegai.model.schema.BuiltInType
 import senegai.model.schema.DbColumn
+import senegai.model.schema.DbEnum
+import senegai.model.schema.DbEnumValue
 import senegai.model.schema.DbItem
 import senegai.model.schema.EnumId
 import senegai.model.schema.EnumType
@@ -59,6 +61,13 @@ class SchemaDataValidatorTest {
                         itemId = contactId,
                         tableName = "T_CONTACT",
                         columns = listOf(DbColumn(attributeName = "ContactId", columnName = "CONTACT_PK")),
+                    ),
+                ),
+                dbEnums = listOf(
+                    dbEnum(
+                        enumId = genderId,
+                        enumTypeName = "gender",
+                        values = listOf(DbEnumValue(enumValue = "Mr", databaseValue = "MR.")),
                     ),
                 ),
             )
@@ -539,6 +548,94 @@ class SchemaDataValidatorTest {
         assertProblemContains(exception, "The column 'CONTACT_ID' of the table 'CONTACT' stores 2 attributes")
     }
 
+    @Test
+    fun `a database configuration is declared only for an enum type of the schema`() {
+        val exception = validationFailureOf(
+            schemaData(enums = listOf(gender), dbEnums = listOf(dbEnum(enumId = TestEnumId("Unknown"))))
+        )
+
+        assertEquals("SchemaData > dbEnums[0] 'Unknown'", exception.path.toString())
+        assertProblemContains(exception, "no such enum type is declared in the schema")
+    }
+
+    @Test
+    fun `an enum type is configured for the database only once`() {
+        val exception = validationFailureOf(
+            schemaData(enums = listOf(gender), dbEnums = listOf(dbEnum(enumId = genderId), dbEnum(enumId = genderId)))
+        )
+
+        assertEquals("SchemaData > dbEnums", exception.path.toString())
+        assertProblemContains(exception, "configured for the database by 2 declarations")
+    }
+
+    @Test
+    fun `a database configuration names a database value only for a value of its own enum type`() {
+        val exception = validationFailureOf(
+            schemaData(
+                enums = listOf(gender),
+                dbEnums = listOf(
+                    dbEnum(enumId = genderId, values = listOf(DbEnumValue(enumValue = "Dr", databaseValue = "DR."))),
+                ),
+            )
+        )
+
+        assertEquals("SchemaData > dbEnums[0] 'Gender' > values[0] 'Dr'", exception.path.toString())
+        assertProblemContains(exception, "the enum type 'Gender' has no such value")
+    }
+
+    @Test
+    fun `a database configuration names a database value for every enum value only once`() {
+        val exception = validationFailureOf(
+            schemaData(
+                enums = listOf(gender),
+                dbEnums = listOf(
+                    dbEnum(
+                        enumId = genderId,
+                        values = listOf(
+                            DbEnumValue(enumValue = "Mr", databaseValue = "MR."),
+                            DbEnumValue(enumValue = "Mr", databaseValue = "MISTER"),
+                        ),
+                    ),
+                ),
+            )
+        )
+
+        assertEquals("SchemaData > dbEnums[0] 'Gender'", exception.path.toString())
+        assertProblemContains(exception, "names a database value for the enum value 'Mr' 2 times")
+    }
+
+    @Test
+    fun `every enum type is stored in a SQL enum type of its own`() {
+        val salutationId = TestEnumId("Salutation")
+        val exception = validationFailureOf(
+            schemaData(
+                enums = listOf(gender, EnumType(enumId = salutationId, enumValues = listOf("Mr"))),
+                dbEnums = listOf(
+                    dbEnum(enumId = genderId, enumTypeName = "salutation"),
+                    dbEnum(enumId = salutationId, enumTypeName = "salutation"),
+                ),
+            )
+        )
+
+        assertEquals("SchemaData > dbEnums", exception.path.toString())
+        assertProblemContains(exception, "The SQL enum type 'salutation' is used by 2 enum types")
+    }
+
+    @Test
+    fun `every enum value is stored as a database value of its own`() {
+        val exception = validationFailureOf(
+            schemaData(
+                enums = listOf(gender),
+                dbEnums = listOf(
+                    dbEnum(enumId = genderId, values = listOf(DbEnumValue(enumValue = "Ms", databaseValue = "MR"))),
+                ),
+            )
+        )
+
+        assertEquals("SchemaData > dbEnums", exception.path.toString())
+        assertProblemContains(exception, "The database value 'MR' of the enum type 'Gender' stores 2 enum values")
+    }
+
     // **************
     // Test fixtures
     // **************
@@ -597,12 +694,14 @@ class SchemaDataValidatorTest {
         uiItems: List<UiItem> = emptyList(),
         uiEntities: List<UiEntity> = emptyList(),
         dbItems: List<DbItem> = emptyList(),
+        dbEnums: List<DbEnum> = emptyList(),
     ): SchemaData = SchemaData(
         items = items,
         enums = enums,
         uiItems = uiItems,
         uiEntities = uiEntities,
         dbItems = dbItems,
+        dbEnums = dbEnums,
     )
 
     private fun dbItem(
@@ -610,6 +709,12 @@ class SchemaDataValidatorTest {
         tableName: String? = null,
         columns: List<DbColumn> = emptyList(),
     ): DbItem = DbItem(itemId = itemId, tableName = tableName, columns = columns)
+
+    private fun dbEnum(
+        enumId: EnumId,
+        enumTypeName: String? = null,
+        values: List<DbEnumValue> = emptyList(),
+    ): DbEnum = DbEnum(enumId = enumId, enumTypeName = enumTypeName, values = values)
 
     private fun uiItem(
         itemId: ItemId,

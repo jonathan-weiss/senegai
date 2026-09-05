@@ -1,7 +1,10 @@
 package senegai.codegen.renderer
 
+import senegai.codegen.renderer.db.DbEnumRenderer
 import senegai.codegen.renderer.db.DbItemRenderer
+import senegai.codegen.renderer.db.EnumTypeSchemaRenderer
 import senegai.codegen.renderer.db.ItemTableSchemaRenderer
+import senegai.codegen.renderer.model.db.DbEnumModel
 import senegai.codegen.renderer.model.db.DbModel
 import senegai.codegen.renderer.model.db.DbTableModel
 import java.nio.file.Path
@@ -25,8 +28,27 @@ object DatabaseRendering {
         ) {
 
         fun renderDatabaseFiles(dbModel: DbModel) {
+            // The SQL enum types are created before the tables using them: a repeatable Flyway
+            // migration runs in the alphabetical order of its description, and 'enum_' < 'schema_'.
+            dbModel.enumsWithEnumType.forEach { dbEnumModel ->
+                renderEnumType(dbEnumModel)
+            }
+
             dbModel.tables.forEach { dbTableModel ->
                 renderItemWithPrimaryKey(dbTableModel)
+            }
+        }
+
+        private fun renderEnumType(dbEnumModel: DbEnumModel) {
+            val enumRenderers: List<Pair<DbEnumRenderer, Path>> = listOf(
+                EnumTypeSchemaRenderer to pathToGeneratedDatabaseMigrationScripts,
+            )
+
+            enumRenderers.forEach { (renderer, basePath) ->
+                writeFile(
+                    filePath = basePath.resolve(renderer.filePath(dbEnumModel)),
+                    content = renderer.renderTemplate(dbEnumModel),
+                )
             }
         }
 

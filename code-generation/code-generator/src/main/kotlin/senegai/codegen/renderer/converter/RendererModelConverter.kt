@@ -10,6 +10,8 @@ import senegai.codegen.renderer.model.be.BeItemModel
 import senegai.codegen.renderer.model.be.BeModel
 import senegai.codegen.renderer.model.be.BeReferencedItemModel
 import senegai.codegen.renderer.model.db.DbColumnModel
+import senegai.codegen.renderer.model.db.DbEnumModel
+import senegai.codegen.renderer.model.db.DbEnumValueModel
 import senegai.codegen.renderer.model.db.DbModel
 import senegai.codegen.renderer.model.db.DbNameDefaults
 import senegai.codegen.renderer.model.db.DbSqlType
@@ -39,6 +41,7 @@ import senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormItemAttri
 import senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormNamedSectionSplitBlockModel
 import senegai.codegen.renderer.model.ui.entityform.blocks.UiEntityFormTextBlockModel
 import senegai.model.schema.BuiltInType
+import senegai.model.schema.DbEnum
 import senegai.model.schema.DbItem
 import senegai.model.schema.EnumId
 import senegai.model.schema.EnumType
@@ -63,7 +66,6 @@ object RendererModelConverter {
 
     fun convertSchemaDataToSchemaModel(schemaData: SchemaData): SchemaModel {
         val allUiEnumModels = schemaData.enums.map { UiEnumModel(it) }
-        val allBeEnumModels = schemaData.enums.map { BeEnumModel(it) }
 
         // An item is independent of any UiEntity: it can appear in the editor of several of
         // them, therefore it is mapped exactly once.
@@ -72,12 +74,14 @@ object RendererModelConverter {
             val displayAttributeNames = uiItemPerItem[it.itemId]?.displayAttributeNames.orEmpty()
             mapUiItemModel(it, displayAttributeNames, schemaData.enums, schemaData.items)
         }
-        // The tables are mapped first: an item that is stored in one carries it, so that a
-        // template reaching only the BeItemModel still knows the SQL names of its attributes.
+        // The tables and enum types are mapped first: an item that is stored in a table carries
+        // it, so that a template reaching only the BeItemModel still knows the SQL names of its
+        // attributes, and an enum carries how its values are spelled in the database.
         val dbModel = mapDbModel(schemaData)
+        val allBeEnumModels = schemaData.enums.map { BeEnumModel(it, dbModel.enumOf(it.enumId)) }
         val allBeItemModels = schemaData.items.map { item ->
             val dbTable = dbModel.tables.singleOrNull { it.itemId == item.itemId }
-            mapBeItemModel(item, dbTable, schemaData.enums, schemaData.items)
+            mapBeItemModel(item, dbTable, allBeEnumModels, schemaData.items)
         }
 
         return SchemaModel(
@@ -255,7 +259,7 @@ object RendererModelConverter {
     private fun mapBeItemModel(
         item: Item,
         dbTable: DbTableModel?,
-        enums: List<EnumType>,
+        enums: List<BeEnumModel>,
         items: List<Item>,
     ): BeItemModel {
         val itemDescription = toBeItemDescriptionModel(item.itemId)
@@ -288,7 +292,7 @@ object RendererModelConverter {
         item: BeItemDescriptionModel,
         itemAttribute: ItemAttribute,
         dbColumn: DbColumnModel?,
-        enums: List<EnumType>,
+        enums: List<BeEnumModel>,
         items: List<Item>,
     ): BeAttributeModel {
         val itemAttributeType = itemAttribute.type
@@ -305,7 +309,7 @@ object RendererModelConverter {
                 exampleDataGeneratorConfig = toExampleDataGeneratorConfig(item, itemAttribute)
             )
             is EnumId -> {
-                val enumType = enums.singleOrNull { it.enumId == itemAttributeType }
+                val enum = enums.singleOrNull { it.enumId == itemAttributeType }
                     ?: throw NoSuchElementException("EnumType ${itemAttributeType.enumName} not found in schema enums")
                 EnumBeAttributeModel(
                     item = item,
@@ -313,7 +317,7 @@ object RendererModelConverter {
                     isNullable = itemAttribute.isNullable,
                     isList = itemAttribute.isMultiple,
                     dbColumn = dbColumn,
-                    enum = BeEnumModel(enumType),
+                    enum = enum,
                 )
             }
             is ItemId -> if (itemAttribute.isReference) {
@@ -383,32 +387,63 @@ object RendererModelConverter {
         // Only an item with a primary key is stored on its own; one without is nested into
         // the row of the item holding it and has therefore no table.
         val dbItemPerItem = schemaData.dbItems.associateBy { it.itemId }
+        val dbEnumPerEnumType = schemaData.dbEnums.associateBy { it.enumId }
+        val enums = schemaData.enums.map { mapDbEnumModel(it, dbEnumPerEnumType[it.enumId]) }
 
         return DbModel(
             tables = schemaData.items
                 .filter { it.hasPrimaryKey }
-                .map { mapDbTableModel(it, dbItemPerItem[it.itemId], schemaData.items) },
+                .map { mapDbTableModel(it, dbItemPerItem[it.itemId], enums, schemaData.items) },
+            enums = enums,
         )
     }
 
-    private fun mapDbTableModel(item: Item, dbItem: DbItem?, items: List<Item>): DbTableModel = DbTableModel(
+    private fun mapDbEnumModel(enumType: EnumType, dbEnum: DbEnum?): DbEnumModel = DbEnumModel(
+        enumId = enumType.enumId,
+        enumName = NameCase(enumType.enumName),
+        enumTypeName = DbNameDefaults.enumTypeName(dbEnum),
+        values = enumType.enumValues.map {
+            DbEnumValueModel(enumValue = NameCase(it), databaseValue = DbNameDefaults.databaseValue(it, dbEnum))
+        },
+    )
+
+    private fun mapDbTableModel(
+        item: Item,
+        dbItem: DbItem?,
+        enums: List<DbEnumModel>,
+        items: List<Item>,
+    ): DbTableModel = DbTableModel(
         itemId = item.itemId,
         itemName = NameCase(item.itemName),
         tableName = DbNameDefaults.tableName(item, dbItem),
-        columns = item.attributes.map { mapDbColumnModel(it, dbItem, items) },
+        columns = item.attributes.map { mapDbColumnModel(it, dbItem, enums, items) },
     )
 
     private fun mapDbColumnModel(
         itemAttribute: ItemAttribute,
         dbItem: DbItem?,
+        enums: List<DbEnumModel>,
         items: List<Item>,
     ): DbColumnModel = DbColumnModel(
         attributeName = NameCase(itemAttribute.attributeName),
         columnName = DbNameDefaults.columnName(itemAttribute, dbItem),
         sqlType = dbSqlType(itemAttribute, items),
+        enumTypeName = dbEnumTypeName(itemAttribute, enums),
         isNullable = itemAttribute.isNullable,
         isPrimaryKey = itemAttribute.isPrimaryKey,
     )
+
+    /**
+     * The SQL enum type a column is declared with, which only a column storing a single enum
+     * value has — a list of them is stored as `jsonb` and therefore untyped.
+     */
+    private fun dbEnumTypeName(itemAttribute: ItemAttribute, enums: List<DbEnumModel>): String? {
+        val enumId = itemAttribute.type as? EnumId ?: return null
+        if (itemAttribute.isMultiple) {
+            return null
+        }
+        return enums.single { it.enumId == enumId }.enumTypeName
+    }
 
     /**
      * Everything without a flat relational representation is stored as a single `jsonb`

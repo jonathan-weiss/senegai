@@ -30,6 +30,10 @@ class SchemaDataValidator {
         DbItemUniquenessValidator(),
         DbColumnAttributeValidator(),
         DbNameUniquenessValidator(),
+        DbEnumEnumTypeExistenceValidator(),
+        DbEnumUniquenessValidator(),
+        DbEnumValueValidator(),
+        DbEnumNameUniquenessValidator(),
     )
 
     fun validate(schemaData: SchemaData) {
